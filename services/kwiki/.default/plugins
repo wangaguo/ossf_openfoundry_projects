@@ -16,12 +16,12 @@ Kwiki::Widgets
 
 # These are very common plugins. You'll need to install them (as
 # separate CPAN modules) first.
-# Kwiki::RecentChanges
-# Kwiki::Archive::Rcs
-# Kwiki::Revisions
+Kwiki::RecentChanges
+Kwiki::Archive::Rcs
+Kwiki::Revisions
 # Kwiki::UserPreferences
 # Kwiki::UserName
-# Kwiki::Search
+Kwiki::Search
 # Kwiki::Icons::Gnome
 # Kwiki::TimeZone
 # Kwiki::NewPage
@@ -52,12 +52,12 @@ Kwiki::Widgets
 # Site Administrator plugins:
 # Kwiki::DeletePage
 # Kwiki::PageInfo
-# Kwiki::PagePrivacy
+Kwiki::PagePrivacy
 
 # Anti WikiSpam plugins:
 # Kwiki::ExternalLinkWhitelist
 # Kwiki::AccessBlacklist
-# Kwiki::Scode
+Kwiki::Scode
 
 # WAFL Syntax Extension plugins:
 # Kwiki::Comments
@@ -79,7 +79,7 @@ Kwiki::Widgets
 # Kwiki::Atom
 # Kwiki::AuthorOnlyPageEditing
 # Kwiki::Autoformat
-# Kwiki::Diff
+Kwiki::Diff
 # Kwiki::Edit::RequireUserName
 # Kwiki::Edit::SubEtha
 # Kwiki::Email
@@ -107,3 +107,4 @@ Kwiki::Widgets
 # Kwiki::Users::Remote
 # Kwiki::Weather
 # Kwiki::Zipcode
+Kwiki::ListPages
