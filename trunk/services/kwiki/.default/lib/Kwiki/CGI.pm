@@ -33,7 +33,7 @@ sub page_name {
 
 sub set_default_page_name {
     my $page_name = shift;
-    $page_name = '' if $page_name and $page_name =~ /[^$ALPHANUM]/;
+    $page_name = '' if $page_name and $page_name =~ /[^$ALPHANUM\-_]/;
     $page_name ||= $self->hub->config->main_page;
 }
 
