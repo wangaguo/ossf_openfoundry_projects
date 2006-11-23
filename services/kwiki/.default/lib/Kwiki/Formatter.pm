@@ -327,7 +327,7 @@ package Kwiki::Formatter::ForcedLink;
 use base 'Spoon::Formatter::Unit';
 use Kwiki ':char_classes';
 const formatter_id => 'forced';
-const pattern_start => qr/\[([$WORD]+)\]/;
+const pattern_start => qr/\[([$WORD\-]+)\]/;
 
 sub html {
     $self->matched =~ $self->pattern_start;
