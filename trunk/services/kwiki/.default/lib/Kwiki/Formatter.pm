@@ -338,7 +338,9 @@ sub html {
     return $target unless $page;
     my $class = $page->exists
       ? '' : ' class="empty"';
-    return qq(<a href="$script?$target"$class>$target</a>);
+    
+    my $page_uri = $page->uri;
+    return qq(<a href="$script?$page_uri"$class>$target</a>);
 }
 
 ################################################################################
