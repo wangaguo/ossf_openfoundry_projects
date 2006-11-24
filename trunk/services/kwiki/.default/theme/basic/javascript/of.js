@@ -2,7 +2,8 @@
 <!--
 	function iframeAutoFit()
 	{
-		parent.document.getElementById("wiki").style.height = this.document.body.scrollHeight+50;
+		if(parent.document.getElementById("wiki"))
+			parent.document.getElementById("wiki").style.height = this.document.body.scrollHeight+50;
 	}
 	
 	if(window.attachEvent)
