@@ -1,0 +1,7 @@
+<!-- $Id: viewbounce.tt2,v 1.2 2005/01/06 09:32:25 sympa-authors Exp $ -->
+
+<pre>
+[% FILTER html_entity %]
+[% INSERT $lastbounce_path IF lastbounce_path %]
+[% END %]
+</pre>
