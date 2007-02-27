@@ -1,3 +1,0 @@
-<!-- $Id: loginrequest.tt2,v 1.5 2005/08/09 09:52:43 sympa-authors Exp $ -->
-
-  [% PROCESS 'loginbanner.tt2' %]
