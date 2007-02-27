@@ -1,0 +1,3 @@
+<!-- $Id: login.tt2,v 1.2 2005/01/06 09:32:25 sympa-authors Exp $ -->
+
+[%|loc(user.email)%]You have logged in with email address %1[%END%].<br />
