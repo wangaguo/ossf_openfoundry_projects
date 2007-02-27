@@ -1,3 +1,0 @@
-<!-- $Id: admin.tt2,v 1.1 2004/08/09 14:24:00 sympa-authors Exp $ -->
-
-[% PROCESS 'help_admin.tt2' %]
