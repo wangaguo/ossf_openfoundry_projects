@@ -1,0 +1,31 @@
+This is makeindex, version 2.14 [02-Oct-2002] (kpathsea + Thai support).
+Scanning input file sympa.idx....
+!! Input index error (file = sympa.idx, line = 248):
+   -- Extra `@' at position 42 of first argument.
+!! Input index error (file = sympa.idx, line = 249):
+   -- Extra `@' at position 46 of first argument.
+
+!! Input index error (file = sympa.idx, line = 264):
+   -- Extra `@' at position 45 of first argument.
+
+!! Input index error (file = sympa.idx, line = 310):
+   -- Illegal null field.
+!! Input index error (file = sympa.idx, line = 311):
+   -- Illegal null field.
+
+!! Input index error (file = sympa.idx, line = 862):
+   -- Extra `@' at position 137 of first argument.
+.
+!! Input index error (file = sympa.idx, line = 1813):
+   -- Illegal null field.
+
+!! Input index error (file = sympa.idx, line = 1816):
+   -- Illegal null field.
+
+!! Input index error (file = sympa.idx, line = 1819):
+   -- Illegal null field.
+.done (2004 entries accepted, 9 rejected).
+Sorting entries...................done (23561 comparisons).
+Generating output file sympa.ind.....done (1527 lines written, 0 warnings).
+Output written in sympa.ind.
+Transcript written in sympa.ilg.

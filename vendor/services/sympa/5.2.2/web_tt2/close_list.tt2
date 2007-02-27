@@ -1,0 +1,10 @@
+<!-- $Id: close_list.tt2,v 1.1 2004/08/09 14:24:00 sympa-authors Exp $ -->
+
+<strong>[% list %]</strong> [%|loc%]list has been closed. Its subscribers have been deleted from
+the subscriber database. The list is no more public on the site.[%END%]
+<br /><br />
+[% IF auto_aliases %]
+ [%|loc%]List aliases have been removed.[%END%]
+[% ELSE %]
+ [%|loc%]You should remove list aliases manually[%END%]
+[% END %]
