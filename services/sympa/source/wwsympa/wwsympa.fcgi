@@ -64,6 +64,21 @@ use wwslib;
 use cookielib;
 my %options;
 
+
+## OpenFoundry
+use CGI::Cookie ();
+use CGI::Util ();
+use Data::Dumper;
+{
+package OpenFoundry;
+require 'OpenFoundry.pm';
+}
+
+
+
+
+
+
 ## Configuration
 my $wwsconf = {};
 
@@ -267,6 +282,10 @@ my %comm = ('home' => 'do_home',
 	 'edit_template' => 'do_edit_template',
 	 'rss_request' => 'do_rss_request',
 	    'maintenance' => 'do_maintenance',
+# OpenFoundry
+'lists_by_project' => 'do_lists_by_project',
+'create_project_list_request' => 'do_create_project_list_request',
+'create_project_list' => 'do_create_project_list',
 	 );
 
 my %auth_action = ('logout' => 1,
@@ -375,6 +394,11 @@ my %action_args = ('default' => ['list'],
 		'rss_request' => ['list'],
 		'request_topic' => ['list','authkey'],
 		'tag_topic_by_sender' => ['list']   
+# OpenFoundry
+,
+'lists_by_project' => ['projectUnixName'],
+'create_project_list_request' => ['projectUnixName'],
+
 		);
 
 my %action_type = ('editfile' => 'admin',
@@ -525,6 +549,10 @@ my %in_regexp = (
                  'latest_lists' => '.*',
                  'latest_arc' => '.*',
                  'latest_d_read' => '.*',
+
+# OpenFoundry
+'projectUnixName' => '.*', # TODO: should be the real regex
+
 		 );
 
 ## Open log
@@ -707,6 +735,12 @@ if ($wwsconf->{'use_fast_cgi'}) {
 
      ## Get PATH_INFO parameters
      &get_parameters();
+
+
+# OpenFoundry
+($ENV{HTTP_COOKIE}, $in{'FOUNDRY_ROLE'}) = foundry_auth($ENV{HTTP_COOKIE}, $in{'projectUnixName'});
+
+
 
      ## CSS related
      $param->{'css_path'} = &Conf::get_robot_conf($robot, 'css_path');
@@ -1621,7 +1655,9 @@ sub prepare_report_user {
      $param->{'create_list_reason'} = $reason;
 
      if ($param->{'user'}{'email'} && 
-	 (($param->{'create_list'} = $r_action ) =~ /do_it|listmaster/)) {
+	 (($param->{'create_list'} = $r_action ) =~ /do_it|listmaster/)
+# OpenFoundry
+&& ($in{'FOUNDRY_ROLE'} eq 'Admin')   ) {
 	 $param->{'may_create_list'} = 1;
      }else{
 	 undef ($param->{'may_create_list'});
@@ -5633,6 +5669,10 @@ sub do_viewmod {
  ## Access to web archives
  sub do_arc {
      &wwslog('info', 'do_arc(%s, %s)', $in{'month'}, $in{'arc_file'});
+
+# OpenFoundry
+$in{'arc_file'} =~ s#/$##;
+
      my $latest;
      my $index = $wwsconf->{'archive_default_index'};
 
@@ -14382,3 +14422,301 @@ sub do_maintenance {
     
     return 1;
 }
+
+
+######################################################################
+# OpenFoundry
+######################################################################
+
+
+# modified from "do_lists"
+ sub do_lists_by_project {
+     my @lists;
+     &wwslog('info', 'do_lists(%s,%s)', $in{'topic'}, $in{'subtopic'});
+
+     my %topics = &List::load_topics($robot);
+
+     if ($in{'topic'}) {
+        $param->{'topic'} = $in{'topic'};
+        if ($in{'subtopic'}) {
+            $param->{'subtopic'} = $in{'subtopic'};
+            $param->{'subtitle'} = sprintf "%s / %s", $topics{$in{'topic'}}{'current_title'}, $topics{$in{'topic'}}{'sub'}{$in{'subtopic'}}{'current_title'};
+
+            $param->{'subtitle'} ||= "$in{'topic'} / $in{'subtopic'}";
+        }else {
+            $param->{'subtitle'} = $topics{$in{'topic'}}{'current_title'} || $in{'topic'};
+        }
+     }
+
+# OpenFoundry
+my $project = $in{'projectUnixName'} || '';
+$param->{'projectUnixName'} = $project;
+$param->{'FOUNDRY_ROLE'} = $in{'FOUNDRY_ROLE'};
+my $all_lists = &List::get_lists_by_prefix($robot, undef, [ $project ]);
+     foreach my $list ( @$all_lists ) {
+
+        my $sender = $param->{'user'}{'email'} || 'nobody';
+
+        my $result = $list->check_list_authz('visibility',$param->{'auth_method'},
+                                             {'sender' => $sender,
+                                              'remote_host' => $param->{'remote_host'},
+                                              'remote_addr' => $param->{'remote_addr'}});
+
+        my $r_action;
+        $r_action = $result->{'action'} if (ref($result) eq 'HASH');
+
+        next unless ($r_action eq 'do_it');
+
+        my $list_info = {};
+        $list_info->{'subject'} = $list->{'admin'}{'subject'};
+        $list_info->{'host'} = $list->{'admin'}{'host'};
+        $list_info->{'date_epoch'} = $list->{'admin'}{'creation'}{'date_epoch'};
+        $list_info->{'date'} = $list->{'admin'}{'creation'}{'date'};
+        if ($param->{'user'}{'email'} &&
+            ($list->am_i('owner',$param->{'user'}{'email'}) ||
+             $list->am_i('editor',$param->{'user'}{'email'})) ) {
+            $list_info->{'admin'} = 1;
+        }
+        if ($param->{'user'}{'email'} &&
+            $list->is_user($param->{'user'}{'email'})) {
+            $list_info->{'is_subscriber'} = 1;
+        }
+
+        ## no topic ; List all lists
+        if (! $in{'topic'}) {
+            $param->{'which'}{$list->{'name'}} = $list_info;
+        }elsif ($list->{'admin'}{'topics'}) {
+            foreach my $topic (@{$list->{'admin'}{'topics'}}) {
+                my @tree = split '/', $topic;
+
+                next if (($in{'topic'}) && ($tree[0] ne $in{'topic'}));
+                next if (($in{'subtopic'}) && ($tree[1] ne $in{'subtopic'}));
+
+                $param->{'which'}{$list->{'name'}} = $list_info;
+            }
+        }elsif ($in{'topic'} eq 'topicsless') {
+            $param->{'which'}{$list->{'name'}} = $list_info;
+        }
+     }
+     return 1;
+ }
+
+
+
+# modified from do_create_list_request
+ sub do_create_project_list_request {
+     &wwslog('info', 'do_create_project_list_request()');
+
+     unless ($param->{'user'}{'email'}) {
+        &report::reject_report_web('user','no_user',{},$param->{'action'});
+        &wwslog('info','do_create_project_list_request:  no user');
+        $param->{'previous_action'} = 'create_list_request';
+        return 'loginrequest';
+     }
+
+     my $result = &List::request_action('create_list',$param->{'auth_method'},$robot,
+                                                      {'sender' => $param->{'user'}{'email'},
+                                                       'remote_host' => $param->{'remote_host'},
+                                                       'remote_addr' => $param->{'remote_addr'}});
+
+     my $r_action;
+     my $reason;
+     if (ref($result) eq 'HASH') {
+        $r_action = $result->{'action'};
+        $reason = $result->{'reason'};
+     }
+
+     $param->{'create_action'} = $r_action;
+# OpenFoundry
+$param->{'prefix'} = $in{'projectUnixName'};
+     ## Initialize the form
+     ## When returning to the form
+     foreach my $p ('listname','template','subject','topics','info') {
+        $param->{'saved'}{$p} = $in{$p};
+     }
+
+     if ($param->{'create_action'} =~ /reject/) {
+        &report::reject_report_web('auth',$reason,{},$param->{'action'},$list);
+        &wwslog('info','do_create_list: not allowed');
+        return undef;
+     }
+
+     my %topics;
+     unless (%topics = &List::load_topics($robot)) {
+        &report::reject_report_web('intern','unable_to_load_list_of_topics',{},$param->{'action'},'',$param->{'user'}{'email'},$robot);
+     }
+     $param->{'list_of_topics'} = \%topics;
+
+     $param->{'list_of_topics'}{$in{'topics'}}{'selected'} = 1
+        if ($in{'topics'});
+
+     unless ($param->{'list_list_tpl'} = &tools::get_list_list_tpl($robot)) {
+        &report::reject_report_web('intern','unable_to_load_create_list_templates',{},$param->{'action'},'',$param->{'user'}{'email'},$robot);
+     }
+
+     &tt2::allow_absolute_path();
+
+     foreach my $template (keys %{$param->{'list_list_tpl'}}){
+        $param->{'tpl_count'} ++ ;
+     }
+
+     $param->{'list_list_tpl'}{$in{'template'}}{'selected'} = 1
+        if ($in{'template'});
+
+
+     return 1 ;
+
+ }
+
+
+
+# modified from "do_create_list"
+ sub do_create_project_list {
+
+     &wwslog('info', 'do_create_project_list(%s,%s,%s,%s)',$in{'listname'},$in{'subject'},$in{'template'},$in{'projectUnixName'});
+
+     foreach my $arg ('listname','subject','template','info','topics','projectUnixName') {
+        unless ($in{$arg}) {
+            &report::reject_report_web('user','missing_arg',{'argument' => $arg},$param->{'action'});
+            &wwslog('info','do_create_list: missing param %s', $arg);
+            return undef;
+        }
+     }
+
+
+# OpenFoundry
+# print STDERR "role is ...................................... ###$in{'FOUNDRY_ROLE'}###\n";
+unless ($in{'FOUNDRY_ROLE'} eq 'Admin') {
+    &report::reject_report_web('auth', "action_project_administrator",{},$param->{'action'},$list);
+    &wwslog('info','do_create_list: not allowed');
+    return undef;
+}
+
+
+     unless ($param->{'user'}{'email'}) {
+        &report::reject_report_web('user','no_user',{},$param->{'action'});
+        &wwslog('info','do_create_list :  no user');
+        return 'loginrequest';
+     }
+
+     $param->{'create_action'} = $param->{'create_list'};
+
+     &wwslog('info',"do_create_list, get action : $param->{'create_action'} ");
+
+     if ($param->{'create_action'} =~ /reject/) {
+        &report::reject_report_web('auth',$param->{'reason'},{},$param->{'action'},$list);
+        &wwslog('info','do_create_list: not allowed');
+        return undef;
+     }elsif ($param->{'create_action'} =~ /listmaster/i) {
+        $param->{'status'} = 'pending' ;
+     }elsif  ($param->{'create_action'} =~ /do_it/i) {
+        $param->{'status'} = 'open' ;
+     }else{
+        &report::reject_report_web('intern','internal_scenario_error_create_list',{},$param->{'action'},'',$param->{'user'}{'email'},$robot);
+        &wwslog('info','do_create_list: internal error in scenario create_list');
+        return undef;
+     }
+
+     ## 'other' topic means no topic
+     $in{'topics'} = undef if ($in{'topics'} eq 'other');
+
+     my %owner;
+     $owner{'email'} = $param->{'user'}{'email'};
+     $owner{'gecos'} = $param->{'user'}{'gecos'};
+
+     my $parameters;
+     push @{$parameters->{'owner'}},\%owner;
+
+# OpenFoundry
+$in{'listname'} = $in{'projectUnixName'} . "-" . $in{'listname'};
+
+     $parameters->{'listname'} = $in{'listname'};
+     $parameters->{'subject'} = $in{'subject'};
+     $parameters->{'creation_email'} = $param->{'user'}{'email'};
+     $parameters->{'lang'} = $param->{'lang'};
+     $parameters->{'status'} = $param->{'status'};
+     $parameters->{'topics'} = $in{'topics'};
+     $parameters->{'description'} = $in{'info'};
+
+     ## create liste
+     my $resul = &admin::create_list_old($parameters,$in{'template'},$robot);
+     unless(defined $resul) {
+        &report::reject_report_web('intern','create_list',{},$param->{'action'},'',$param->{'user'}{'email'},$robot);
+        &wwslog('info','do_create_list: unable to create list %s for %s',$in{'listname'},$param->{'user'}{'email'});
+        return undef
+     }
+     ## Create list object
+     $in{'list'} = $in{'listname'};
+     &check_param_in();
+
+     if  ($param->{'create_action'} =~ /do_it/i) {
+        if ($resul->{'aliases'} == 1) {
+            $param->{'auto_aliases'}  = 1;
+        }else {
+            $param->{'aliases'} = $resul->{'aliases'};
+            $param->{'auto_aliases'} = 0;
+        }
+     }
+
+     ## notify listmaster
+     if ($param->{'create_action'} =~ /notify/) {
+        &wwslog('info','notify listmaster');
+        unless (&List::send_notify_to_listmaster('request_list_creation',$robot,
+                                                 {'listname' => $in{'listname'},
+                                                  'email' => $param->{'user'}{'email'}})) {
+            &wwslog('notice',"Unable to send notify 'request_list_creation' to listmaster");
+        }
+     }
+
+     $in{'list'} = $resul->{'list'}{'name'};
+     &check_param_in();
+
+     $param->{'listname'} = $resul->{'list'}{'name'};
+     return 1;
+ }
+
+
+sub foundry_auth
+{
+       my ($httpCookie, $projectUnixName) = @_;
+
+
+       #OpenFoundry::_log("original HTTP_COOKIE: $ENV{HTTP_COOKIE}");
+       my %cookies = CGI::Cookie->parse($httpCookie);
+       OpenFoundry::_log("Dumper of cookies: ", Dumper(\%cookies));
+
+       my $FOUNDRY_COOKIE_KEY = 'RT_SID_OSSF.80_';
+
+       my $sid = $cookies{$FOUNDRY_COOKIE_KEY} ? $cookies{$FOUNDRY_COOKIE_KEY}->value() : undef;
+       my ($userName, $role, $email) = OpenFoundry::getSessionInfo($sid, $projectUnixName);
+       if ($userName and ($userName ne 'guest')) # valid foundry user
+       {
+               #my $email = $of->getUserByName($userName)->{'Email'};
+               #$email = 'root@lists.openfoundry.org';
+               OpenFoundry::_log("email: $email\n");
+
+
+               my $secret = $Conf{'cookie'};
+               my $mac = cookielib::get_mac($email, $secret);
+               OpenFoundry::_log("email: $email secret: $secret mac: $mac");
+               $cookies{'sympauser'} ||= new CGI::Cookie(-name=>'sympauser', -value=>'');
+               $cookies{'sympauser'}->value("$email:$mac");
+       }
+       else
+       {
+               delete $cookies{'sympauser'};
+       }
+
+
+       my @newHeaders = ();
+       foreach my $cookie (values %cookies)
+       {
+               OpenFoundry::_log("name: " . $cookie->name() . " value: " . $cookie->value());
+               push @newHeaders, CGI::Util::escape($cookie->name()) . '=' . CGI::Util::escape($cookie->value());
+       }
+       my $newHttpCookie = join("; ", @newHeaders);
+       OpenFoundry::_log("new HTTP_COOKIE: $newHttpCookie");
+
+       return ($newHttpCookie, $role);
+}
+
