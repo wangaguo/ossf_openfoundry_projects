@@ -21,9 +21,13 @@ readsecret()
 }
 
 readsecret SYMPA_DB_PASSWD
+# workaround ...
+readsecret FOUNDRY_DUMP_SECRET
 
 mysubst $sympa_co/source/wwsympa/wwsympa.fcgi /usr/local/sympa/cgi-bin/wwsympa.fcgi 0755
 mysubst $sympa_co/openfoundry/usr/local/etc/sympa/sympa.conf /usr/local/etc/sympa/sympa.conf 0644
-mysubst $sympa_co/source/src/Conf.pm /usr/local/lib/sympa/Conf.pm 0644
 mysubst $sympa_co/openfoundry/usr/local/share/sympa/data_sources/openfoundry.incl /usr/local/share/sympa/data_sources/openfoundry.incl 0644
+
+# workaround ...
+mysubst /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/OpenFoundry.pm 0644
 
