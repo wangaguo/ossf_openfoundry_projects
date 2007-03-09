@@ -645,3 +645,13 @@ sample_directory = /usr/local/etc/postfix
 # readme_directory: The location of the Postfix README files.
 #
 readme_directory = no
+
+##
+## disable outgoing mail for testing,
+##
+#default_transport = local:$myhostname
+##
+## and catch all mails into root's mailbox
+##
+#alias_maps = hash:/etc/mail/sympa_aliases, pcre:/usr/local/etc/postfix/openfoundry_catch_all
+#alias_database = hash:/etc/mail/sympa_aliases, pcre:/usr/local/etc/postfix/openfoundry_catch_all
