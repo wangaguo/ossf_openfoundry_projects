@@ -26,6 +26,8 @@ readsecret FOUNDRY_DUMP_SECRET
 
 mysubst $sympa_co/source/wwsympa/wwsympa.fcgi /usr/local/sympa/cgi-bin/wwsympa.fcgi 0755
 mysubst $sympa_co/openfoundry/usr/local/etc/sympa/sympa.conf /usr/local/etc/sympa/sympa.conf 0644
+mysubst $sympa_co/source/src/Conf.pm /usr/local/lib/sympa/Conf.pm 0644
+mysubst $sympa_co/source/src/Language.pm /usr/local/lib/sympa/Language.pm 0644
 mysubst $sympa_co/openfoundry/usr/local/share/sympa/data_sources/openfoundry.incl /usr/local/share/sympa/data_sources/openfoundry.incl 0644
 
 # workaround ...
