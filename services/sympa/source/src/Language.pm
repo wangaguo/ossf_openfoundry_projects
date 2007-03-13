@@ -99,7 +99,8 @@ my %locale2charset = ('cs_CZ' => 'utf-8',
 		      'sv_SE' => 'utf-8',
 		      'tr_TR' => 'utf-8',
 		      'zh_CN' => 'utf-8',
-		      'zh_TW' => 'big5',
+#		      'zh_TW' => 'big5',
+		      'zh_TW' => 'utf-8',
 		      );
 
 my $recode;
