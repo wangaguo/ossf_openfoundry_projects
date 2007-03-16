@@ -7,16 +7,17 @@
 <table style="width: auto;">
  <tr>
    <th style="text-align: left; white-space: nowrap;"><label for="listname"><strong>[%|loc%]List name:[%END%]</strong></label></th>
-   <td><input type="text" id="listname" name="listname" size="30" value="[% saved.listname %]" /></td>
+   <input type="hidden" id="projectUnixName" name="projectUnixName" size="25" value="[% prefix %]" />
+   <td>[% prefix %]-<input type="text" id="listname" name="listname" size="25" value="[% saved.listname %]" />@lists.openfoundry.org</td>
    <td><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]the list name ; be careful, not its address ![%END%]" /></td>
  </tr>
- 
+<!-- 
  <tr>
    <th style="text-align: left; white-space: nowrap;"><strong>[%|loc%]Owner:[%END%]</strong></th>
    <td><em>[% user.email %]</em></td>
    <td><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]You are the privileged owner of this list[%END%]" /></td>
  </tr>
-
+-->
  <tr>
    <th valign="top" style="text-align: left; white-space: nowrap;"><strong>[%|loc%]List type :[%END%]</strong></th>
    <td>
@@ -26,8 +27,8 @@
       <dl>
       <dt>
      <label><input type="radio" name="template" value="[% template.key %]"
-     [% IF template.value.selected %]
        checked="checked"
+     [% IF template.value.selected %]
      [% END %]
      /> [% template.key %]</label>
      </dt>
@@ -65,7 +66,7 @@
 	  [% END %]
 	  [% END %]
 	[% END %]
-	<option value="other" >[%|loc%]Other[%END%]</option>
+	<option value="other" selected="selected">[%|loc%]Other[%END%]</option>
      </select>
    </td>
    <td valign="top"><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]List classification in the directory[%END%]" /></td>
@@ -82,7 +83,7 @@
     <table>
      <tr>
       <td style="background: [% light_color %];">
-<input class="MainMenuLinks" type="submit" name="action_create_list" value="[%|loc%]Submit your creation request[%END%]" />
+<input class="MainMenuLinks" type="submit" name="action_create_project_list" value="[%|loc%]Submit your creation request[%END%]" />
       </td>
      </tr></table>
 </td></tr>

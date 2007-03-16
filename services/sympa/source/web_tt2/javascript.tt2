@@ -63,7 +63,7 @@ function hide(div){
   function request_confirm_link(my_url, my_message) {
     question = confirm(my_message);
     if (question !="0") {
-         top.location = my_url;
+         window.location = my_url;
     }
   }
 
@@ -213,4 +213,26 @@ function hide(div){
 // end browsers -->
 </script>
 
+<script type="text/javascript">
+        function OnLoad()
+        {
+                if(parent.document.getElementById("sympa"))
+                        parent.document.getElementById("sympa").style.height = this.document.body.scrollHeight+50;
+		if(window.name != "" && document.getElementById("create_list") != null)
+		{
+			btnCreateList = document.getElementById("create_list");
+			btnCreateList.style.visibility = "visible";
+			btnCreateList.childNodes[0].href = "/Sympa/create_project_list_request/" + window.name;
+		}
+        }
+
+        if(window.attachEvent)
+        {
+                window.attachEvent("onload",  OnLoad);
+        }
+        else if(window.addEventListener)
+        {
+                window.addEventListener('load',  OnLoad,  false);
+        }
+</script>
 <!-- end javascript.tt2 -->
