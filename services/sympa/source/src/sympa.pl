@@ -101,6 +101,7 @@ Options:
 
    -h, --help                            : print this help
    -v, --version                         : print version number
+   --sync_with_foundry                   : sync owners with foundry
 
 Sympa is a mailinglists manager and comes with a complete (user and admin)
 web interface. Sympa  can be linked to an LDAP directory or an RDBMS to 
@@ -113,6 +114,8 @@ my %options;
 unless (&GetOptions(\%main::options, 'dump=s', 'debug|d', ,'log_level=s','foreground', 'service=s','config|f=s', 
 		    'lang|l=s', 'mail|m', 'keepcopy|k=s', 'help', 'version', 'import=s','make_alias_file','lowercase',
 		    'close_list=s','create_list','instantiate_family=s','robot=s','add_list=s','modify_list=s','close_family=s',
+# OpenFoundry
+'sync_with_foundry',
 		    'input_file=s','sync_include=s','upgrade','from=s','to=s','reload_list_config','list=s')) {
     &fatal_err("Unknown options.");
 }
@@ -135,6 +138,8 @@ $main::options{'batch'} = 1 if ($main::options{'dump'} ||
 				 $main::options{'close_family'} ||
 				 $main::options{'sync_include'} ||
 				 $main::options{'upgrade'} ||
+# OpenFoundry
+$main::options{'sync_with_foundry'} ||
 				 $main::options{'reload_list_config'}
 				 );
 
@@ -563,6 +568,21 @@ if ($main::options{'dump'}) {
 
     printf "Members of list %s have been successfully update.\n", $list->get_list_address();
     exit 0;
+
+
+
+# OpenFoundry
+}elsif ($main::options{'sync_with_foundry'}) {
+	require OpenFoundry;
+	#unless (OpenFoundry::Sympa::syncWithFoundry()) {
+	#	print STDERR "Error : syncWithFoundry failed!!\n";
+	#	exit 1;
+	#}
+	OpenFoundry::Sympa::syncWithFoundry();
+	exit 0;
+
+
+
 ## Migration from one version to another
 }elsif ($main::options{'upgrade'}) {
 
