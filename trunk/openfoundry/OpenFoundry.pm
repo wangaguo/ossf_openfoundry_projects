@@ -250,21 +250,16 @@ sub deleteDuplicateEmailAddresses
 	#print join( ' ',@sql);
 	List::db_disconnect();
 }
-
+# only invoked by "sympa.pl --sync_with_foundry"
 sub syncWithFoundry
 {
 	my $table = "foundry_owner";
 	my $table_tmp = "foundry_owner_tmp";
 
-	my $config_file = '/usr/local/etc/sympa/sympa.conf';
- 
-	Conf::load($config_file);
-	#my $of = OpenFoundry->init('Mock');
 	my $of = OpenFoundry->init('Aguo');
 
 	# admin
 	my $relations = $of->getRelations();
-	List::db_connect();
 	my $dbh = List::db_get_handler();
 	print "dbh : $dbh \n";
 
@@ -287,11 +282,7 @@ sub syncWithFoundry
 		my $u=$of->getUserById($userId);
 		my $p=$of->getProjectById($projectId);
 		#die "why??" if (not $u or not $p);
-#		$insert_body = sprintf "('%s\@users.openfoundry.org','%s')", $u[0]{'name'}, $p[0]{'unixname'};
-#		my $sql = "insert into testsympa values ('$u->{'name'}\@users.openfoundry.org','$p->{'unixname'}')";
-#		$sth->execute("$u->{'Name'}\@users.openfoundry.org", $p->{'UnixName'});
 		$sth->execute($u->{'Email'}, $p->{'UnixName'});
-#		$dbh->do($sql);
 	}	
 
 
@@ -321,23 +312,10 @@ END_OF_SQL
 	$dbh->do($sql);
 
 
-	
-#	my $lists = List::get_lists_by_prefix(undef, undef, $projects);
+	#update owner, editor in List::new
+	List::get_lists_by_prefix(undef, undef, $projects);
 
-	#my $lists = List::get_lists_by_prefix(undef, undef, [ 'openfoundry', 'newname' ]);
-	my $lists = List::get_lists_by_prefix(undef, undef, [ 'openfoundry' ]);
-	foreach my $list (@$lists)
-	{
-		print "list name: ", $list->{'name'}, "\n";
-		my $rtn = $list->sync_include_admin();
-		#print "rtn: ", Dumper($rtn);
-		#print "error! sync_include returns: $rtn\n" if $rtn != 1;
-#`sympa.pl --sync_include=openfoundry-devel`;
-#`sympa.pl --sync_include=$list->{'name'}`;
-	}
-
-
-	List::db_disconnect();
+	return 1;
 }
 
 package List;
