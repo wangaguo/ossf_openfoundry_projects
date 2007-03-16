@@ -119,7 +119,7 @@ use LWP::Simple;
 sub new
 {
 	my ($class) = @_;
-	my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDump.html';
+	my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDump.html?secret=--FOUNDRY_DUMP_SECRET--';
 	my $self;
 	{
 		no strict "vars";
@@ -189,7 +189,7 @@ use List;
 use Conf;
 use Data::Dumper;
 
-sub generateSQL
+sub deleteDuplicateEmailAddresses
 {
 	my @sql;
 	my $of = OpenFoundry->init('Aguo');
@@ -268,12 +268,12 @@ sub syncWithFoundry
 	my $dbh = List::db_get_handler();
 	print "dbh : $dbh \n";
 
-
-$dbh->do("create table $table (email varchar(100), project_unix_name varchar(20))");
-$dbh->do("create table $table_tmp (email varchar(100), project_unix_name varchar(20))");
+	print "going to create table $table and $table_tmp\n";
+	$dbh->do("create table $table (email varchar(100), project_unix_name varchar(20))");
+	$dbh->do("create table $table_tmp (email varchar(100), project_unix_name varchar(20))");
 
 	
-	#clear the 'admin_include' table
+	#clear the 'owner_include' table
 	my $sql="truncate $table_tmp";
 	unless($dbh->do($sql)){
 		print "SQL error-> $sql, $dbh->errstr\n";
@@ -294,6 +294,10 @@ $dbh->do("create table $table_tmp (email varchar(100), project_unix_name varchar
 #		$dbh->do($sql);
 	}	
 
+
+	#
+	# compute the projects having diff
+	#
 	$sql = <<"END_OF_SQL";
 select aa.project_unix_name from $table aa
 left  join $table_tmp bb on aa.email = bb.email and aa.project_unix_name = bb.project_unix_name
@@ -303,25 +307,34 @@ select bb.project_unix_name from $table aa
 right join $table_tmp bb on aa.email = bb.email and aa.project_unix_name = bb.project_unix_name
 where aa.email is null
 END_OF_SQL
-	#my $ref = $dbh->selectrow_arrayref($sql);
+	#print "the SQL: $sql\n";
 	my $projects = $dbh->selectcol_arrayref($sql);
-	print Dumper($projects);
+	print "projects need to be updated: ", Dumper($projects);
 
-#RENAME $table_tmp to $table and REMOVE $table
-$sql="drop table $table";
-$dbh->do($sql);
-$sql="alter table $table_tmp rename to $table";
-$dbh->do($sql);
 
-my $lists = List::get_lists_by_prefix(undef, undef, $projects);
-#my $lists = List::get_lists_by_prefix(undef, undef, [ 'openfoundry', 'newname' ]);
-foreach my $list (@$lists)
-{
-	print "list name: ", $list->{'name'}, "\n";
-	my $rtn = $list->sync_include();
-	print "sync_include returns: $rtn\n";
-}
+	#
+	# RENAME $table_tmp to $table and REMOVE $table
+	#
+	$sql="drop table $table";
+	$dbh->do($sql);
+	$sql="alter table $table_tmp rename to $table";
+	$dbh->do($sql);
 
+
+	
+#	my $lists = List::get_lists_by_prefix(undef, undef, $projects);
+
+	#my $lists = List::get_lists_by_prefix(undef, undef, [ 'openfoundry', 'newname' ]);
+	my $lists = List::get_lists_by_prefix(undef, undef, [ 'openfoundry' ]);
+	foreach my $list (@$lists)
+	{
+		print "list name: ", $list->{'name'}, "\n";
+		my $rtn = $list->sync_include_admin();
+		#print "rtn: ", Dumper($rtn);
+		#print "error! sync_include returns: $rtn\n" if $rtn != 1;
+#`sympa.pl --sync_include=openfoundry-devel`;
+#`sympa.pl --sync_include=$list->{'name'}`;
+	}
 
 
 	List::db_disconnect();
@@ -412,7 +425,7 @@ use Data::Dumper;
 #print Dumper($of->getUserByName('LCamel'));
 #print Dumper($of);
 #OpenFoundry::Sympa::syncWithFoundry();
-#OpenFoundry::Sympa::generateSQL();
+#OpenFoundry::Sympa::deleteDuplicateEmailAddresses();
 __END__
 my $of = OpenFoundry->init('Mock');
 
