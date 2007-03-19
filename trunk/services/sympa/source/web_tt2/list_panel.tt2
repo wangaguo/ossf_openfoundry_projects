@@ -8,7 +8,9 @@
    [% IF is_priv %]([%|loc%]Error rate:[%END%][% bounce_rate %] %)<br />[% END %]
    <span style="font-weight: bold; font-size: 10px">[%|loc%]Owners[%END%]</span><br />
    [% FOREACH o = owner %]
+   [% IF o.key != list_conf.owner.0.email %]
 	[% IF o.value.gecos %][% o.value.gecos %][% ELSE %][% o.value.local %][% END %]<br />
+   [% END %]
    [% END %]
 
    [% IF editor %]<span style="font-weight: bold; font-size: 10px">[%|loc%]Moderators[%END%]</span><br />[% END %]
