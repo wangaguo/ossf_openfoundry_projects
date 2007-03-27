@@ -412,8 +412,24 @@
         [% END %]
 
     <input type="hidden" name="list" value="[% list %]" />
-    <input class="MainMenuLinks" type="submit" name="action_edit_list" value="[%|loc%]Update[%END%]" />
+    <input class="MainMenuLinks" type="submit" name="action_edit_list" value="[%|loc%]Update[%END%]" onclick="return checkCustomSubject();" />
   </form>
 [% END %]
 
-
+<!-- OpenFoundry -->
+<script type="text/javascript">
+function checkCustomSubject()
+{
+	var customSubject = document.getElementById('single_param.custom_subject.name');
+	if(customSubject != null)
+	{
+		var match = customSubject.value.match(/[^\x20-\x7E]/);
+		if(match != null)
+		{
+			alert('[%|loc%]Subject tagging[%END%]: Please input printable characters only.');
+			return false;
+		}
+		else return true;
+	}
+}
+</script>
