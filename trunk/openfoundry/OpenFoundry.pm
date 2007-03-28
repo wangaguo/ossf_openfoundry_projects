@@ -263,7 +263,7 @@ sub syncWithFoundry
 	my $dbh = List::db_get_handler();
 	print "dbh : $dbh \n";
 
-	print "going to create table $table and $table_tmp\n";
+	print "Creating tables: '$table' '$table_tmp'\n";
 	$dbh->do("create table $table (email varchar(100), project_unix_name varchar(20))");
 	$dbh->do("create table $table_tmp (email varchar(100), project_unix_name varchar(20))");
 
@@ -329,7 +329,7 @@ sub get_lists_by_regex {
     my $options = shift;
 
 my $regex = shift;
-print STDERR "!!!!!the regex = $regex\n";
+print STDERR "get_lists_by_prefix: regex = $regex\n";
 $regex = qr/$regex/;
 #my %prefixes = map { $_ => $_ } @$prefixes;
 
