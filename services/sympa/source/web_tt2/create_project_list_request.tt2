@@ -1,5 +1,10 @@
 <!-- $Id: create_list_request.tt2,v 1.10 2005/08/11 13:32:36 sympa-authors Exp $ -->
 
+<!-- OpenFoundry -->
+<script type="text/javascript">
+if(location.pathname.match("create_project_list_request")==null && window.name!="")
+        location.pathname = location.pathname + '/create_project_list_request/' + window.name + '/';
+</script>
 
 <form action="[% path_cgi %]" method="post">
 
@@ -26,8 +31,8 @@
       <li style="margin: 1em;">
       <dl>
       <dt>
-     <label><input type="radio" name="template" value="[% template.key %]"
-       checked="checked"
+     <label><input type="hidden" name="template" value="[% template.key %]"
+       
      [% IF template.value.selected %]
      [% END %]
      /> [% template.key %]</label>
@@ -50,28 +55,8 @@
    <td><input type="text" name="subject" id="subject" size="60" value="[% saved.subject %]" /></td>
    <td><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]The list's subject[%END%]" /></td>
  </tr>
- <tr>
-   <th style="text-align: left; white-space: nowrap;"><label for="topics"><strong>[%|loc%]Topics:[%END%]</strong></label></th>
-   <td><select id="topics" name="topics">
-	<option value="">[%|loc%]--Select a topic--[%END%]</option>
-	[% FOREACH topic = list_of_topics %]
-	  <option value="[% topic.key %]"
-	  [% IF topic.value.selected %]
-	    selected="selected"
-	  [% END %]
-	  >[% topic.value.current_title %]</option>
-	  [% IF topic.value.sub %]
-	  [% FOREACH subtopic = topic.value.sub %]
-	     <option value="[% topic.key %]/[% subtopic.key %]">[% topic.value.current_title %] / [% subtopic.value.current_title %]</option>
-	  [% END %]
-	  [% END %]
-	[% END %]
-	<option value="other" selected="selected">[%|loc%]Other[%END%]</option>
-     </select>
-   </td>
-   <td valign="top"><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]List classification in the directory[%END%]" /></td>
- </tr>
 
+   <input type="hidden" name="topics" value="other"> </input>
  <tr>
    <th valign="top" style="text-align: left; white-space: nowrap;"><label for="info"><strong>[%|loc%]Description:[%END%]</strong></label></th>
    <td><textarea wrap="hard" cols="80" rows="10" name="info">[% saved.info %]</textarea></td>
