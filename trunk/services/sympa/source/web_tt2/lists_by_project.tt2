@@ -1,5 +1,11 @@
 <!-- $Id: lists.tt2,v 1.9 2006/03/14 13:46:31 sympa-authors Exp $ -->
 
+<!-- OpenFoundry -->
+<script type="text/javascript">
+if(location.pathname.match("lists_by_project")==null && window.name!="")
+	location.pathname = location.pathname + '/lists_by_project/' + window.name + '/';
+</script>
+
 <!-- ssssssssssssss -->
 
 [% IF action == 'search_list' %]
