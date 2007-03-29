@@ -7,7 +7,7 @@ function checkProject(obj)
 	var nowProject = obj.pathname.match('.*/([a-z][0-9a-z]{2,14})-.*$')[1]; 
 	if(window.name != '' && window.name != nowProject) 
 	{
-		parent.location.search = 'path=' + obj.pathname + '&projectUnixName=' + nowProject; 
+		parent.location.search = 'path=' + (obj.pathname.indexOf('/') == 0 ? '' : '/') + obj.pathname + '&projectUnixName=' + nowProject; 
 		return false;
 	}
 	else
