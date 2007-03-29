@@ -13381,21 +13381,23 @@ sub notify_bouncers{
 
 ## Create the document repository
 sub create_shared {
-    my $self = shift;
-
-    my $dir = $self->{'dir'}.'/shared';
-
-    if (-e $dir) {
-	&do_log('err',"List::create_shared : %s already exists", $dir);
-	return undef;
-    }
-
-    unless (mkdir ($dir, 0777)) {
-	&do_log('err',"List::create_shared : unable to create %s : %s ", $dir, $!);
-	return undef;
-    }
-
-    return 1;
+#OpenFoundry
+	return 1;
+#    my $self = shift;
+#
+#    my $dir = $self->{'dir'}.'/shared';
+#
+#    if (-e $dir) {
+#	&do_log('err',"List::create_shared : %s already exists", $dir);
+#	return undef;
+#    }
+#
+#    unless (mkdir ($dir, 0777)) {
+#	&do_log('err',"List::create_shared : unable to create %s : %s ", $dir, $!);
+#	return undef;
+#    }
+#
+#    return 1;
 }
 
 ## check if a list  has include-type data sources
