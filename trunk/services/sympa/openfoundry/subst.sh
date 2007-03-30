@@ -30,7 +30,7 @@ mysubst $sympa_co/source/src/Conf.pm /usr/local/lib/sympa/Conf.pm 0644
 mysubst $sympa_co/source/src/Language.pm /usr/local/lib/sympa/Language.pm 0644
 mysubst $sympa_co/openfoundry/usr/local/share/sympa/data_sources/openfoundry.incl /usr/local/share/sympa/data_sources/openfoundry.incl 0644
 mysubst $sympa_co/source/src/sympa.pl /usr/local/sbin/sympa.pl 0755
-
+mysubst $sympa_co/openfoundry/root/.my.cnf /root/.my.cnf 0600
 
 # workaround ...
 mysubst /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/OpenFoundry.pm 0644

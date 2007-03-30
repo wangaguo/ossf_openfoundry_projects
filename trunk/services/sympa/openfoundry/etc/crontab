@@ -27,3 +27,5 @@ HOME=/var/log
 
 # sync utility for Sympa
 */6	*	*	*	*	root	/usr/local/checkout/trunk/services/sympa/openfoundry/sync_with_foundry.sh
+# backup Sympa database to /home/backup/sympa-(date)
+1	0	*	*	*	root	/usr/local/checkout/trunk/services/sympa/openfoundry/backup_sympa_db.sh
