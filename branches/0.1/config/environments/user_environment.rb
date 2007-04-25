@@ -1,16 +1,17 @@
 module UserSystem
   CONFIG = {
     # Source address for user emails
-    :email_from => '',
+    :email_from => 'contact@openfoundry.org',
 
     # Destination email for system errors
-    :admin_email => '',
+    :admin_email => 'root@localhost',
 
     # Sent in emails to users
+    # TODO: change to a better host name ??????!!!!
     :app_url => 'http://localhost:3000/',
 
     # Sent in emails to users
-    :app_name => '',
+    :app_name => 'OpenFoundry',
 
     # Email charset
     :mail_charset => 'utf-8',
