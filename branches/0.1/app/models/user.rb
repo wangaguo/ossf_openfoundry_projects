@@ -2,6 +2,16 @@ require 'digest/sha1'
 
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
+  has_many :project_users
+  has_many :projects, :through => :project_users
+  has_many :admin_of_projects,
+    :through => :project_users,
+    :source => :project,
+    :conditions => ["project_users.role = 'Admin'"]
+  has_many :member_of_projects,
+    :through => :project_users,
+    :source => :project,
+    :conditions => ["project_users.role = 'Member'"]
 
   attr_accessor :new_password
   
