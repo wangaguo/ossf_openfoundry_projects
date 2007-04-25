@@ -5,6 +5,6 @@
 <%= text_field 'project', 'unixname'  %></p>
 
 <p><label for="project_license">License</label><br/>
-<%= text_field 'project', 'license'  %></p>
+<%= select 'project', 'license', Project::LICENSES %></p>
 <!--[eoform:project]-->
 

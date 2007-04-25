@@ -4,5 +4,25 @@
 </p>
 <% end %>
 
+Admins:
+<% for admin in @admins %>
+<p>
+<%= admin.login %>
+</p>
+<% end %>
+
+
+
+Members:
+<% if @members.empty? %>
+  No member.<br/>
+<% else %>
+<% for member in @members %>
+<p>
+<%= member.login %>
+</p>
+<% end %>
+<% end %>
+
 <%= link_to 'Edit', :action => 'edit', :id => @project %> |
 <%= link_to 'Back', :action => 'list' %>

@@ -5,5 +5,42 @@
   <%= submit_tag 'Edit' %>
 <% end %>
 
+
+<% form_tag :action => 'set_role', :id => @project do %>
+  Set as an administrator: <br/>
+  <%= hidden_field_tag 'role', 'Admin' %>
+  <%= text_field_tag 'user', '' ,{:size => 20 } %> 
+  <%= submit_tag 'Add' %>
+  <br/>
+<% end %>
+
+<% form_tag :action => 'delete_role', :id => @project do %>
+  Admins: <br/>
+  <%= hidden_field_tag 'role', 'Admin' %>
+  <%= select_tag 'Admin[]', options_for_select(@project.admins.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
+  <%= submit_tag 'Delete' %>
+  <br/>
+<% end %>
+
+
+
+<% form_tag :action => 'set_role', :id => @project do %>
+  Set as a member: <br/>
+  <%= hidden_field_tag 'role', 'Member' %>
+  <%= text_field_tag 'user', '' ,{:size => 20 } %> 
+  <%= submit_tag 'Add' %>
+  <br/>
+<% end %>
+
+<% form_tag :action => 'delete_role', :id => @project do %>
+  Members: <br/>
+  <%= hidden_field_tag 'role', 'Member' %>
+  <%= select_tag 'Member[]', options_for_select(@project.members.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
+  <%= submit_tag 'Delete' %>
+  <br/>
+<% end %>
+
+
+
 <%= link_to 'Show', :action => 'show', :id => @project %> |
 <%= link_to 'Back', :action => 'list' %>

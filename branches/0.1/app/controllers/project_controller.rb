@@ -14,6 +14,9 @@ class ProjectController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @admins = @project.admins
+    @members = @project.members
+
   end
 
   def new
@@ -32,6 +35,8 @@ class ProjectController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
+    @admins = @project.admins
+    @members = @project.members
   end
 
   def update
@@ -48,4 +53,30 @@ class ProjectController < ApplicationController
     Project.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
+
+  def set_role
+    project_id = params[:id]
+    user_login = params[:user]
+    role = params[:role]
+    begin
+      user_id = User.find_by_login(user_login).id
+      ProjectUser.set_role(project_id, user_id, role)
+      flash[:notice] = "#{user_login} was successfully added."
+    rescue StandardError
+      flash[:notice] = "No such user: #{user_login} !!"
+    end
+    redirect_to :action => 'edit', :id => project_id
+  end
+
+  def delete_role
+    project_id = params[:id]
+    role = params[:role]
+    ProjectUser.delete_all_in_user_id project_id, params[role.to_sym]
+    redirect_to :action => 'edit', :id => project_id
+#    edit
+#    render :action => 'edit'
+  end
+
+
+
 end
