@@ -8,13 +8,12 @@
   </tr>
   
 <% for project in @projects %>
+  <% @project = project %>
   <tr>
   <% for column in Project.content_columns %>
     <td><%=h project.send(column.name) %></td>
   <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => project %></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => project %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => project }, :confirm => 'Are you sure?', :method => :post %></td>
+  <%= render(:partial => "/partials/sed") %>
   </tr>
 <% end %>
 </table>

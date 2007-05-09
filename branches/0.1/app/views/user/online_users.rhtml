@@ -1,0 +1,16 @@
+<h3>online_users</h3>
+<% @online_users.each { |user| %>
+  <h4>
+  <%= user.login %>
+  </h4>
+<%}%>
+<br/>
+<h3>online_guests</h3>
+<% @online_guests.each { |user| %>
+<h4>
+  guest from <%= user.host %>
+</h4>
+<%}%>
+
+
+

@@ -29,7 +29,7 @@ Rails::Initializer.run do |config|
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
   # config.action_controller.session_store = :active_record_store
-
+  config.action_controller.session_store = :paranoid_sql_session_store
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
   # like if you have constraints or database-specific column types
@@ -42,7 +42,11 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+  # DEFAULT_REDIRECTION_HASH
+  DEFAULT_REDIRECTION_HASH = { :controller => 'user', :action => 'login' }
+  STORE_LOCATION_METHOD = :store_location
 end
+
 
 # Add new inflection rules using the following format 
 # (all these examples are active by default):
@@ -62,3 +66,4 @@ require 'environments/localization_environment'
 require 'localization'
 Localization::load_localized_strings
 require 'environments/user_environment'
+

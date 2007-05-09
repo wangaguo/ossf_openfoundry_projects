@@ -1,7 +1,9 @@
 class ProjectController < ApplicationController
+
   def index
     list
     render :action => 'list'
+    logger.debug "@session['user']: " + @session[:user].inspect
   end
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -26,6 +28,8 @@ class ProjectController < ApplicationController
   def create
     @project = Project.new(params[:project])
     if @project.save
+      # TODO: transaction?!?!
+      @project.set_role("Admin", current_user())
       flash[:notice] = 'Project was successfully created.'
       redirect_to :action => 'list'
     else
@@ -37,6 +41,7 @@ class ProjectController < ApplicationController
     @project = Project.find(params[:id])
     @admins = @project.admins
     @members = @project.members
+    permit "admin of :project", :redirect_controller => :project, :redirect_action => :list
   end
 
   def update
@@ -55,24 +60,30 @@ class ProjectController < ApplicationController
   end
 
   def set_role
-    project_id = params[:id]
-    user_login = params[:user]
-    role = params[:role]
-    begin
-      user_id = User.find_by_login(user_login).id
-      ProjectUser.set_role(project_id, user_id, role)
-      flash[:notice] = "#{user_login} was successfully added."
-    rescue StandardError
-      flash[:notice] = "No such user: #{user_login} !!"
-    end
-    redirect_to :action => 'edit', :id => project_id
+    project = Project.find params[:id]
+    user = User.find_by_login params[:user]
+    project.set_role(params[:role], user)
+    redirect_to :action => 'edit', :id => params[:id]
   end
 
   def delete_role
-    project_id = params[:id]
-    role = params[:role]
-    ProjectUser.delete_all_in_user_id project_id, params[role.to_sym]
-    redirect_to :action => 'edit', :id => project_id
+    project = Project.find params[:id]
+    raise SandardErroe unless Role.valid_role? params[:role]
+
+    params[params[:role].to_sym].each do |user_id|
+      user = User.find user_id
+      if user and project 
+        user.has_no_role params[:role], project 
+      else
+        raise StandardError 
+      end
+    end
+    
+
+    #project_id = params[:id]
+    #role = params[:role]
+    #ProjectUser.delete_all_in_user_id project_id, params[role.to_sym]
+    redirect_to :action => 'edit', :id => params[:id]
 #    edit
 #    render :action => 'edit'
   end

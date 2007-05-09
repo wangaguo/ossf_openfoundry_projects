@@ -2,16 +2,14 @@ require 'digest/sha1'
 
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
-  has_many :project_users
-  has_many :projects, :through => :project_users
-  has_many :admin_of_projects,
-    :through => :project_users,
-    :source => :project,
-    :conditions => ["project_users.role = 'Admin'"]
-  has_many :member_of_projects,
-    :through => :project_users,
-    :source => :project,
-    :conditions => ["project_users.role = 'Member'"]
+  acts_as_authorized_user
+  def admin_of
+    is_admin_of_what
+  end
+  def member_of
+    is_member_of_what
+  end
+
 
   attr_accessor :new_password
   
@@ -120,5 +118,13 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :if => :validate_password?
   validates_length_of :password, { :minimum => 5, :if => :validate_password? }
   validates_length_of :password, { :maximum => 40, :if => :validate_password? }
+
+  #For "paranoid session store"
+  has_many   :sessions,   :conditions => ["#{Session.table_name}.updated_at > ?", Session.expires_at], :dependent => :delete_all
+
+  def self.online_users
+    find :all, :include => [:sessions], :conditions => "users.id = #{Session.table_name}.user_id"
+  end  
+  
 end
 

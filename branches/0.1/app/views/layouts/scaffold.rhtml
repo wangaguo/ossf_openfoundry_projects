@@ -6,12 +6,73 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'openfoundry' %>
 </head>
 <body>
+<link href="http://www.openfoundry.org/templates/rt_versatility_ii_sienna/css/header.css" rel="stylesheet" type="text/css" />
+<div id="header">
+	<a href="http://rt.openfoundry.org" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
+	<div id="access"></div>
+	<span id="rightbg">&nbsp;</span>
+	<span id="search">
+			SearchArea
+	</span>
+	<div id="top">
+		<a href="http://rt.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/open_foundry.gif" border="0" alt="OpenFoundry" /></a>      &nbsp;&nbsp;
+		<a href="http://whoswho.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/whoswho.gif" border="0" alt="who&#39;swho" /></a>
+    </div>
+</div>
 
+<div id="LeftWidget">
+<div id="LeftMenu">
+<h3>User</h3>
+<ul>
+	<li>
+		<%= link_to "Login", { :action => :login, :controller => :user} %>
+	</li>
+	<li>
+		<%= link_to "Logout", { :action => :logout, :controller => :user} %>
+	</li>
+	<li>
+		<%= link_to "Signup", { :action => :signup, :controller => :user} %>
+	</li>
+	<li>
+		<%= link_to "Change Password", { :action => :change_password, :controller => :user} %>
+	</li>
+	<li>
+		<%= link_to "Forgot Password", { :action => :forgot_password, :controller => :user} %>
+	</li>
+	<li>
+		<%= link_to "User Home", { :action => :home, :controller => :user} %>
+	</li>
+	<li>
+		<%= link_to "User Data", { :action => :edit, :controller => :user} %>
+	</li>
+        <li>
+                <%= link_to "Online Users", { :action => :online_users, :controller=> :user} %>
+        </li>
+</UL>
+<h3>Project</h3>
+<ul>
+	<li>
+		<%= link_to "Project List", { :action => :list, :controller => :project} %>
+	</li>
+	<li>
+		<%= link_to "Create Project", { :action => :new, :controller => :project} %>
+	</li>
+</UL>
+</div>
+</div>
+
+<div id="MainContent">
 <p style="color: green"><%= flash[:notice] %></p>
+	<%= yield :layout %>
+</div>
 
-<%= yield  %>
+<div id="Footer">
+<hr/>
+OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. Resolution 1024*768.Privacy Policy.Terms of Use
+</div>
 
 </body>
 </html>

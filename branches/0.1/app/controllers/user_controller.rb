@@ -1,13 +1,36 @@
 class UserController < ApplicationController
   model   :user
-  layout  'scaffold'
+
+  def online_users
+    @online_users=User.online_users
+    @online_guests=Session.anonymous_sessions
+  end
+  def home
+    # TODO: redirect to login .... ok
+    # TODO: user may be empty!!!!!!!!!!!!!!!! .... guest account?
+    logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
+    if user = @session['user']
+      @admin_of = user.admin_of
+      @member_of = user.member_of
+    else
+      flash['notice'] = "You are guest!!"
+      redirect_to :action => 'login'
+    end
+  end
+
 
   def login
+    begin redirect_to :action => :home ;return end if user?
     return if generate_blank
+    #For "paranoid session store"
+    rebuild_session
+
     @user = User.new(@params['user'])
     if @session['user'] = User.authenticate(@params['user']['login'], @params['user']['password'])
       flash['notice'] = l(:user_login_succeeded)
-      redirect_back_or_default :action => 'welcome'
+      redirect_back_or_default :action => :home
+      # For "paranoid session store"
+      self.app_user=session['user']
     else
       @login = @params['user']['login']
       flash.now['message'] = l(:user_login_failed)
@@ -37,6 +60,10 @@ class UserController < ApplicationController
   
   def logout
     @session['user'] = nil
+    #For "paranoid session store"
+    #kill_login_key
+    rebuild_session
+
     redirect_to :action => 'login'
   end
 
@@ -146,6 +173,7 @@ class UserController < ApplicationController
   end
 
   def welcome
+    user? # side-effect ... what the ..
   end
 
   protected

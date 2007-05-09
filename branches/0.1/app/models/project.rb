@@ -1,15 +1,19 @@
 class Project < ActiveRecord::Base
-  has_many :project_users
-  has_many :users, :through => :project_users
-  has_many :admins,
-    :through => :project_users,
-    :source => :user,
-    :conditions => ["project_users.role = 'Admin'"]
-  has_many :members,
-    :through => :project_users,
-    :source => :user,
-    :conditions => ["project_users.role = 'Member'"]
-
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   validates_inclusion_of :license, :in => LICENSES
+
+
+  acts_as_authorizable
+
+  def admins
+    has_admins
+  end
+  def members
+    has_members
+  end
+  def set_role(role, user) # user obj, role string
+    raise ArgumentError, "user is not defined" unless User === user
+    Role.validates_role(role)
+    user.has_role role, self 
+  end
 end
