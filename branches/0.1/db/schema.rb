@@ -4,15 +4,21 @@
 
 ActiveRecord::Schema.define(:version => 4) do
 
-  create_table "project_users", :force => true do |t|
-    t.column "project_id", :integer
-    t.column "user_id",    :integer
-    t.column "role",       :string
-  end
-
   create_table "projects", :force => true do |t|
-    t.column "unixname", :string
-    t.column "license",  :string
+    t.column "unixname",            :string
+    t.column "projectname",         :string
+    t.column "rationale",           :text
+    t.column "publicdescription",   :text
+    t.column "contactinfo",         :string
+    t.column "maturity",            :string
+    t.column "license",             :string
+    t.column "contentlicense",      :string
+    t.column "platform",            :string
+    t.column "programminglanguage", :string
+    t.column "intendedaudience",    :string
+    t.column "redirecturl",         :string
+    t.column "vcs",                 :string
+    t.column "remotevcs",           :string
   end
 
   create_table "roles", :force => true do |t|
@@ -58,6 +64,9 @@ ActiveRecord::Schema.define(:version => 4) do
     t.column "token_expiry",    :datetime
     t.column "deleted",         :integer,                :default => 0
     t.column "delete_after",    :datetime
+    t.column "created_at",      :datetime
+    t.column "updated_at",      :datetime
+    t.column "logged_in_at",    :datetime
   end
 
 end
