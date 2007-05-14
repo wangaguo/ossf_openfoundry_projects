@@ -10,16 +10,18 @@ class ApplicationController < ActionController::Base
   include Localization
   include UserSystem
 
-  layout "scaffold"
-
   helper :user
   model  :user
 
   #before_filter :login_required
   def current_user
-    @session['user']
+    session['user']
+  end
+  def login?
+    not current_user().nil? # !!
   end
   helper_method :current_user
+  helper_method :login?
 
   
   # Pick a unique cookie name to distinguish our session data from others'
