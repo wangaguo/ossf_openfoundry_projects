@@ -13,6 +13,17 @@ class ApplicationController < ActionController::Base
   helper :user
   model  :user
 
+  before_filter :configure_charsets
+
+  def configure_charsets
+    @response.headers["Content-Type"] = "text/html; charset=utf-8"
+    # Set connection charset. MySQL 4.0 doesn't support this so it
+    # will throw an error, MySQL 4.1 needs this
+        suppress(ActiveRecord::StatementInvalid) do
+          ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
+        end
+  end
+
   #before_filter :login_required
   def current_user
     session['user']
