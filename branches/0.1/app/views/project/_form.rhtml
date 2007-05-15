@@ -20,19 +20,19 @@
 <%= text_field 'project', 'maturity'  %></p>
 
 <p><label for="project_license">License</label><br/>
-<%= text_field 'project', 'license'  %></p>
+<%= select 'project', 'license', Project::LICENSES %></p>
 
 <p><label for="project_contentlicense">Contentlicense</label><br/>
-<%= text_field 'project', 'contentlicense'  %></p>
+<%= select 'project', 'contentlicense', Project::CONTENT_LICENSES %></p>
 
 <p><label for="project_platform">Platform</label><br/>
-<%= text_field 'project', 'platform'  %></p>
+<%= of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform) %>
 
 <p><label for="project_programminglanguage">Programminglanguage</label><br/>
-<%= text_field 'project', 'programminglanguage'  %></p>
+<%= of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage) %>
 
 <p><label for="project_intendedaudience">Intendedaudience</label><br/>
-<%= text_field 'project', 'intendedaudience'  %></p>
+<%= of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience) %>
 
 <p><label for="project_redirecturl">Redirecturl</label><br/>
 <%= text_field 'project', 'redirecturl'  %></p>

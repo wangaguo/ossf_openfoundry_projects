@@ -25,8 +25,17 @@ class ProjectController < ApplicationController
     @project = Project.new
   end
 
+  def join_with_separator(hash, *keys)
+    keys.each do |k|
+      k = k.to_s
+      hash[k] = hash[k].values.grep(/./).join(",")
+    end
+  end
+
+
   def create
     @project = Project.new(params[:project])
+    join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
     if @project.save
       # TODO: transaction?!?!
       @project.set_role("Admin", current_user())
@@ -46,6 +55,7 @@ class ProjectController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
+    join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Project was successfully updated.'
       redirect_to :action => 'show', :id => @project

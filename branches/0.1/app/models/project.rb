@@ -1,5 +1,9 @@
 class Project < ActiveRecord::Base
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
+  CONTENT_LICENSES = [ "CC", "KK" ].freeze
+  PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
+  PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
+  INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
   validates_inclusion_of :license, :in => LICENSES
 
 
