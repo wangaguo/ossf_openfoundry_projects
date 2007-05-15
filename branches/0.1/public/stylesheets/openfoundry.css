@@ -35,12 +35,14 @@ a {
 #LeftWidget {
 	padding:5px;
 	float:left;
-	width:15%
+	width:15%;
+	overflow:hidden;
 }
 
 #RightWidget {
-	padding:5px;
 	float:right;
+	width:25%;
+	overflow:hidden;	
 }
 
 #MainContent {
@@ -57,3 +59,10 @@ a {
 	clear:both;
 	padding:30px 0px 10px 0px;
 }
+
+#ProjectNew p label, #ProjectEdit p label, #ProjectEdit fieldset label
+  { font-weight:bold; margin-left:-20px; color:blue; }
+#ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset
+  { padding-left:20px; }
+#ProjectNew :focus, #ProjectEdit :focus
+  { color:red; }

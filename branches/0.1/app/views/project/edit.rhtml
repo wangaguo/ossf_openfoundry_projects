@@ -1,13 +1,18 @@
+<div id="ProjectEdit">
 <h1>Editing project</h1>
 
 <% form_tag :action => 'update', :id => @project do %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
+  <%= submit_tag 'Save' %>
 <% end %>
 
 
+
+
+<fieldset>
+<legend>Project Role</legend>
 <% form_tag :action => 'set_role', :id => @project do %>
-  Set as an administrator: <br/>
+  <label for="user">Set as an administrator:</label><br/>
   <%= hidden_field_tag 'role', 'Admin' %>
   <%= text_field_tag 'user', '' ,{:size => 20 } %> 
   <%= submit_tag 'Add' %>
@@ -15,7 +20,7 @@
 <% end %>
 
 <% form_tag :action => 'delete_role', :id => @project do %>
-  Admins: <br/>
+  <label for="Admin[]">Admins:</label><br/>
   <%= hidden_field_tag 'role', 'Admin' %>
   <%= select_tag 'Admin[]', options_for_select(@project.admins.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
   <%= submit_tag 'Delete' %>
@@ -25,7 +30,7 @@
 
 
 <% form_tag :action => 'set_role', :id => @project do %>
-  Set as a member: <br/>
+  <label for="user">Set as a member:</label><br/>
   <%= hidden_field_tag 'role', 'Member' %>
   <%= text_field_tag 'user', '' ,{:size => 20 } %> 
   <%= submit_tag 'Add' %>
@@ -33,14 +38,16 @@
 <% end %>
 
 <% form_tag :action => 'delete_role', :id => @project do %>
-  Members: <br/>
+  <label for="Member[]">Members:</label><br/>
   <%= hidden_field_tag 'role', 'Member' %>
   <%= select_tag 'Member[]', options_for_select(@project.members.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
   <%= submit_tag 'Delete' %>
   <br/>
 <% end %>
+</fieldset>
 
 
 
 <%= link_to 'Show', :action => 'show', :id => @project %> |
 <%= link_to 'Back', :action => 'list' %>
+</div>
