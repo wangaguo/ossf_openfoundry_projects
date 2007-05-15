@@ -34,8 +34,8 @@ class ProjectController < ApplicationController
 
 
   def create
-    @project = Project.new(params[:project])
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
+    @project = Project.new(params[:project])
     if @project.save
       # TODO: transaction?!?!
       @project.set_role("Admin", current_user())
