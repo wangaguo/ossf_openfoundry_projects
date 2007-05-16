@@ -1,12 +1,12 @@
 <% if(login?) -%>
-Welcome! <%=current_user.login%>.
+<%= _("Welcome") %>! <%=current_user.login%>.
 <br/>
-<%= link_to "Logout", { :action => :logout, :controller => :user} %>
+<%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
 <% else -%>
-  <%= link_to 'login', :controller => :user, :action => 'login' %>
+  <%= link_to _('Login'), :controller => :user, :action => 'login' %>
   &nbsp;
-  <%= link_to 'signup', :controller => 'user', :action => 'signup' %> 
+  <%= link_to _('Signup'), :controller => 'user', :action => 'signup' %> 
   <br/>
-  <%= link_to 'forgot_password', :controller => 'user', :action => 'forgot_password' %>
+  <%= link_to _('Forgot my password'), :controller => 'user', :action => 'forgot_password' %>
 <% end -%>
 <br/><br/>
