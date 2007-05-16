@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   include Localization
   include UserSystem
 
+  init_gettext "openfoundry"
+
   helper :user
   model  :user
 

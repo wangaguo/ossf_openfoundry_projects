@@ -67,3 +67,8 @@ require 'localization'
 Localization::load_localized_strings
 require 'environments/user_environment'
 
+
+$KCODE = 'u'
+require 'jcode'
+require 'gettext/rails'
+
