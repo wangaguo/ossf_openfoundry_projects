@@ -20,7 +20,7 @@ class UserController < ApplicationController
 
 
   def login
-    begin redirect_to :action => :home ;return end if user?
+    begin redirect_to :action => :home, :controller => :user ;return end if login?
     return if generate_blank
     #For "paranoid session store"
     rebuild_session
