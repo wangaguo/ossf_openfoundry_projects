@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
-  validates_inclusion_of :license, :in => LICENSES
+  #validates_inclusion_of :license, :in => LICENSES
 
 
   acts_as_authorizable
