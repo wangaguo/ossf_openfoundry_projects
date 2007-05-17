@@ -72,3 +72,5 @@ $KCODE = 'u'
 require 'jcode'
 require 'gettext/rails'
 
+
+ActionController::AbstractRequest.relative_url_root = "/of"
