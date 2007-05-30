@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   def self.authenticate(login, pass)
     u = find_first(["login = ? AND verified = 1 AND deleted = 0", login])
     return nil if u.nil?
-    find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
+    #find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
+    find_first(["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
   end
 
   def self.authenticate_by_token(id, token)
@@ -86,7 +87,8 @@ class User < ActiveRecord::Base
   def crypt_password
     if @new_password
       write_attribute("salt", self.class.hashed("salt-#{Time.now}"))
-      write_attribute("salted_password", self.class.salted_password(salt, self.class.hashed(@password)))
+      #write_attribute("salted_password", self.class.salted_password(salt, self.class.hashed(@password)))
+      write_attribute("salted_password", (@password).crypt('$1$' + rand(100000).to_s))
     end
   end
 
