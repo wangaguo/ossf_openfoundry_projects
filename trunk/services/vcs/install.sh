@@ -2,15 +2,23 @@
 
 date
 
-portsnap -s portsnap.tw.freebsd.org fetch
-portsnap extract
+#portsnap -s portsnap.tw.freebsd.org fetch
+#portsnap extract
 
 #
 # install
 #
 
+DISTDIR=/usr/ports_distfiles
+export DISTDIR
+WRKDIRPREFIX=/usr/ports_work
+export WRKDIRPREFIX
 MASTER_SITE_OVERRIDE='ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/'
 export MASTER_SITE_OVERRIDE
+
+
+
+
 
 ( cd /usr/ports/www/apache22 ; make BATCH=yes install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.dist
