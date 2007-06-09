@@ -1,5 +1,7 @@
 #!/bin/sh
 
+date
+
 portsnap -s portsnap.tw.freebsd.org fetch
 portsnap extract
 
@@ -7,12 +9,18 @@ portsnap extract
 # install
 #
 
+MASTER_SITE_OVERRIDE='ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/'
+export MASTER_SITE_OVERRIDE
+
 ( cd /usr/ports/www/apache22 ; make BATCH=yes install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.dist
 
 ( cd /usr/ports/devel/subversion ; make -DWITH_APACHE2_APR -DWITHOUT_BDB -DWITH_MOD_DAV_SVN install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.subversion
+
+date
 svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
+date
 
 ( cd /usr/ports/databases/mysql50-server ; make WITH_CHARSET=utf8 WITH_XCHARSET=complex WITH_COLLATION=utf8_general_ci install )
 
@@ -26,6 +34,11 @@ cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 ( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
 
+date
+
+( cd / ; tar --exclude './dev' --exclude './backup.tgz' zcf backup.tgz . )
+
+date
 
 
 #( cd /usr/ports/security/pam-mysql ; make install )
