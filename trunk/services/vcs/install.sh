@@ -31,12 +31,16 @@ date
 ( cd /usr/ports/www/mod_authnz_external ; make install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 
+date
+( cd / ; tar --exclude './dev' --exclude './backup_before_python.tgz' -zcf backup_before_python.tgz . )
+date
+
 ( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
 
 date
 
-( cd / ; tar --exclude './dev' --exclude './backup.tgz' zcf backup.tgz . )
+( cd / ; tar --exclude './dev' --exclude './backup.tgz' -zcf backup.tgz . )
 
 date
 
