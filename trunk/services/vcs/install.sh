@@ -31,10 +31,15 @@ svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
 
 ( cd /usr/ports/net/libnss-mysql ; make install )
 
-( cd /usr/ports/security/pwauth ; make patch ; patch work/pwauth-2.3.2/config.h < /usr/local/checkout/trunk/services/vcs/usr/ports/security/pwauth/config.h.diff ; make install )
+( cd /usr/ports/security/pwauth ; make patch ; patch $WRKDIRPREFIX/usr/ports/security/pwauth/work/pwauth-2.3.2/config.h < /usr/local/checkout/trunk/services/vcs/usr/ports/security/pwauth/config.h.diff ; make install )
 
 ( cd /usr/ports/www/mod_authnz_external ; make install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
+
+
+#
+# backup
+#
 
 date
 if [ ! -f /backup.tgz ]; then
