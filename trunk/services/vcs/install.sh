@@ -38,8 +38,8 @@ cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 
 date
 if [ ! -f /backup.tgz ]; then
-  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './backup.tgz' -zcf backup.tgz . )
-end
+  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './backup.tgz' --exclude './var/run/log*'-zcf backup.tgz . )
+fi
 date
 
 #( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
