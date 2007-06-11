@@ -65,13 +65,13 @@
 #
 # IMPORTANT: Change the next line to use one of the CVSup mirror sites
 # listed at http://www.freebsd.org/doc/handbook/mirrors.html.
-*default host=CHANGE_THIS.FreeBSD.org
+*default host=cvsup.tw.freebsd.org
 *default base=/var/db
 *default prefix=/usr
 # The following line is for 6-stable.  If you want 5-stable, 4-stable,
 # 3-stable, or 2.2-stable, change to "RELENG_5", "RELENG_4", "RELENG_3",
 # or "RELENG_2_2" respectively.
-*default release=cvs tag=RELENG_6
+*default release=cvs tag=RELENG_6_2
 *default delete use-rel-suffix
 
 # If you seem to be limited by CPU rather than network or disk bandwidth, try
@@ -84,16 +84,16 @@
 # The easiest way to get the main source tree is to use the "src-all"
 # mega-collection.  It includes all of the individual "src-*" collections.
 # Please note:  If you want to track -STABLE, leave this uncommented.
-src-all
+#src-all
 
 # These are the individual collections that make up "src-all".  If you
 # use these, be sure to comment out "src-all" above.
 #src-base
 #src-bin
-#src-contrib
+src-contrib
 #src-etc
 #src-games
-#src-gnu
+src-gnu
 #src-include
 #src-kerberos5
 #src-kerberosIV
