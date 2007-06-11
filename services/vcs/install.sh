@@ -22,7 +22,7 @@ export MASTER_SITE_OVERRIDE
 ( cd /usr/ports/www/apache22 ; make BATCH=yes install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.dist
 
-( cd /usr/ports/devel/subversion ; make -DWITH_APACHE2_APR -DWITHOUT_BDB -DWITH_MOD_DAV_SVN -DWITH_PYTHON install )
+( cd /usr/ports/devel/subversion ; make BATCH=yes -DWITH_APACHE2_APR -DWITHOUT_BDB -DWITH_MOD_DAV_SVN -DWITH_PYTHON install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.subversion
 
 svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
@@ -48,7 +48,7 @@ install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 
 date
 if [ ! -f /backup.tgz ]; then
-  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './backup.tgz' --exclude './var/run/log*'-zcf backup.tgz . )
+  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './var/run/log*' --exclude './backup.tgz' -zcf backup.tgz . )
 fi
 date
 
