@@ -22,7 +22,7 @@ export MASTER_SITE_OVERRIDE
 ( cd /usr/ports/www/apache22 ; make BATCH=yes install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.dist
 
-( cd /usr/ports/devel/subversion ; make -DWITH_APACHE2_APR -DWITHOUT_BDB -DWITH_MOD_DAV_SVN install )
+( cd /usr/ports/devel/subversion ; make -DWITH_APACHE2_APR -DWITHOUT_BDB -DWITH_MOD_DAV_SVN -DWITH_PYTHON install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.subversion
 
 svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
