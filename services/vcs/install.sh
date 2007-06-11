@@ -36,6 +36,11 @@ svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
 ( cd /usr/ports/www/mod_authnz_external ; make install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 
+csup -g -L 2 /usr/local/checkout/trunk/services/vcs/usr/src/for-cvs-supfile
+patch /usr/src/contrib/cvs/src/server.c < /usr/local/checkout/trunk/services/vcs/usr/src/contrib/cvs/src/server.c.diff
+( cd /usr/src/gnu/usr.bin/cvs ; make )
+install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
+
 
 #
 # backup
