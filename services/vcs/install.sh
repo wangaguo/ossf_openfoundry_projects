@@ -36,30 +36,27 @@ svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
 ( cd /usr/ports/www/mod_authnz_external ; make install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 
+( cd /usr/ports/devel/viewvc ; make BATCH=yes install )
+( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
+cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
+
 csup -g -L 2 /usr/local/checkout/trunk/services/vcs/usr/src/for-cvs-supfile
 patch /usr/src/contrib/cvs/src/server.c < /usr/local/checkout/trunk/services/vcs/usr/src/contrib/cvs/src/server.c.diff
 ( cd /usr/src/gnu/usr.bin/cvs ; make )
 install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 
 
+
+
 #
 # backup
 #
+#date
+#if [ ! -f /backup.tgz ]; then
+#  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './var/run/log*' --exclude './backup*.tgz' -zcf backup.tgz . )
+#fi
+#date
 
-date
-if [ ! -f /backup.tgz ]; then
-  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './var/run/log*' --exclude './backup.tgz' -zcf backup.tgz . )
-fi
-date
-
-#( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
-#cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
-
-
-
-#( cd /usr/ports/security/pam-mysql ; make install )
-#ln -sf /usr/local/lib/pam_mysql.so /usr/lib/pam_mysql.so
-#( cd /usr/ports/www/mod_auth_pam2 ; make install)
 
 
 #
@@ -86,9 +83,16 @@ date
 # TODO: disable remote cvs init
 
 # cvs
-#cvs -d /cvs init
-#chown -R www:www /cvs
+cvs -d /cvs init
+chown -R www:www /cvs
 # TODO: commit hook for projects
 
-# mod_auth_pam2 for basic authentication
-#ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/httpd.conf
+# svn
+mkdir /svn
+svnadmin create /svn/__test_repository
+chown -R www:www /svn
+
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/httpd.conf
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/vcs.conf
+
+/usr/local/etc/rc.d/apache22 start
