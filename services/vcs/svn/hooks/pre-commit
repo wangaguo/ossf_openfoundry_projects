@@ -54,17 +54,19 @@
 # http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/
 
 
+SVNLOOK=/usr/local/bin/svnlook
+PERL=/usr/bin/perl
+
 REPOS="$1"
 TXN="$2"
 
-# Make sure that the log message contains some text.
-SVNLOOK=/usr/local/bin/svnlook
-$SVNLOOK log -t "$TXN" "$REPOS" | \
-   grep "[a-zA-Z0-9]" > /dev/null || exit 1
+AUTHOR=`$SVNLOOK author -t "$TXN" "$REPOS"`
 
-# Check that the author of this commit has the rights to perform
-# the commit on the files and directories being modified.
-commit-access-control.pl "$REPOS" "$TXN" commit-access-control.cfg || exit 1
-
-# All checks passed, so allow the commit.
-exit 0
+export REPOS
+export AUTHOR
+if $PERL -MOpenFoundry -e '($proj) = $ENV{REPOS} =~ /.*\/(.*)/; exit not OpenFoundry::isAdmin($proj, $ENV{AUTHOR})' ; then
+	exit 0;	
+else
+	echo "'$AUTHOR' has no permission to commit into '$REPOS'" >&2
+	exit 1;
+fi
