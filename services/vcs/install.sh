@@ -94,5 +94,6 @@ chown -R www:www /svn
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/httpd.conf
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/vcs.conf
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/viewvc.conf
 
 /usr/local/etc/rc.d/apache22 start
