@@ -37,8 +37,8 @@ svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 
 ( cd /usr/ports/devel/viewvc ; make BATCH=yes install )
-( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
-cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
+#( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
+#cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
 
 csup -g -L 2 /usr/local/checkout/trunk/services/vcs/usr/src/for-cvs-supfile
 patch /usr/src/contrib/cvs/src/server.c < /usr/local/checkout/trunk/services/vcs/usr/src/contrib/cvs/src/server.c.diff
