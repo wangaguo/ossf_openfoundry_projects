@@ -1,0 +1,10 @@
+{
+	"DUMP_SECRET": "change me!!",
+
+	"JSON_DUMP_CACHE_PATH": "/usr/local/etc/openfoundry.dump.json",
+	"JSON_DUMP_REFRESH_INTERVAL": 600,
+
+	"NSS_DATABASE": "auth",
+	"NSS_DATABASE_USER": "root",
+	"NSS_DATABASE_PASSWORD": "you can't change me"
+}
