@@ -86,6 +86,7 @@ echo '<<<< libnss-mysql'
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/cvs_svn_only.sh
 ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/OpenFoundry.pm
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/openfoundry.conf.dist
 
 # cvs
 cvs -d /cvs init
