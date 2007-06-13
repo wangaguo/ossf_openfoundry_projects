@@ -40,6 +40,11 @@ cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 #( cd /usr/ports/www/mod_python3 ; make BATCH=yes install )
 #cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_python3
 
+( cd /usr/ports/www/p5-libwww ; make BATCH=yes install )
+( cd /usr/ports/converters/p5-JSON-XS ; make install )
+( cd /usr/ports/databases/p5-DBD-mysql50 ; make install )
+
+
 csup -g -L 2 /usr/local/checkout/trunk/services/vcs/usr/src/for-cvs-supfile
 patch /usr/src/contrib/cvs/src/server.c < /usr/local/checkout/trunk/services/vcs/usr/src/contrib/cvs/src/server.c.diff
 ( cd /usr/src/gnu/usr.bin/cvs ; make )
@@ -78,18 +83,20 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cf
 ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/nsswitch.conf
 echo '<<<< libnss-mysql'
 
-date
 
-# TODO: disable remote cvs init
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/cvs_svn_only.sh
+ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/OpenFoundry.pm
 
 # cvs
 cvs -d /cvs init
 chown -R www:www /cvs
-# TODO: commit hook for projects
+ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl /cvs/CVSROOT/commitcheck.pl
+ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo /cvs/CVSROOT/commitinfo
+
 
 # svn
 mkdir /svn
-svnadmin create /svn/__test_repository
+#svnadmin create /svn/__test_repository
 chown -R www:www /svn
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/httpd.conf
