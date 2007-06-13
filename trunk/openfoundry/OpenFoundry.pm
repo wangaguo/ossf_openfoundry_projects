@@ -1,29 +1,39 @@
 use strict 'vars';
 
-#use OpenFoundry::Projects;
-#use OpenFoundry::Users;
-
 
 package OpenFoundry;
 use Data::Dumper;
 use LWP::Simple ();
+use JSON::XS ();
+use FileHandle;
 
 sub init
 {
 	my ($class, $backend) = @_;
-#	return bless $self,'OpenFoundry';
+	my $conf = __loadConf('/usr/local/etc/openfoundry.conf');
 	if ($backend eq 'Mock')
 	{
 		return new OpenFoundry::Impl::Mock;
 	}
-	elsif ($backend eq 'Aguo')
+	elsif ($backend eq 'RT')
 	{
-		return new OpenFoundry::Impl::Aguo;
+		return new OpenFoundry::Impl::RT($conf);
 	}
 	else
 	{
-		die "wtf?";
+		die "We have no implementation named '$backend'";
 	}
+}
+
+sub __loadConf
+{
+	my ($confPath) = @_; 
+	my $conf = {};
+	my $io = FileHandle->new($confPath, "r");
+	local $/ = undef;
+	$conf = JSON::XS->new->utf8->decode(<$io>);
+        $io->close();
+	return $conf;
 }
 
 sub getProjects
@@ -52,6 +62,15 @@ sub getProjectById
 	return undef;
 #	return grep { $_->{'id'} eq $id } @{$self->getProjects()};
 }
+sub getProjectByUnixName
+{
+	my ($self, $unixName) = @_;
+	foreach my $p (@{$self->getProjects()})
+	{
+		return $p if $p->{'UnixName'} eq $unixName;
+	}
+	return undef;
+}
 sub getUserById
 {
 	my ($self, $id) = @_;
@@ -75,28 +94,28 @@ sub getUserByName
 sub isInRelation
 {
 	my ($self, $relation, $projectId, $userId) = @_;
-	return grep { $_->[0] eq $projectId and $_->[1] eq $userId } @{$self->getRelations()->{$relation}};
+	foreach (@{$self->getRelations()->{$relation}})
+	{
+		return 1 if $_->[0] eq $projectId and $_->[1] eq $userId;
+	}
+	return 0; 
+	#return grep { $_->[0] eq $projectId and $_->[1] eq $userId } @{$self->getRelations()->{$relation}};
+}
+
+sub isInRelationByName
+{
+	my ($self, $relation, $projectUnixName, $userName) = @_;
+	return $self->isInRelation($relation,
+				   $self->getProjectByUnixName($projectUnixName)->{Id}, 
+				   $self->getUserByName($userName)->{Id}); 
 }
 
 
-# static
+
 sub getSessionInfo
 {
-	my ($SID, $projectUnixName) = @_;
-	my $tmp = LWP::Simple::get("http://rt.openfoundry.org/NoAuth/Session.html?SID=$SID&projectUnixName=$projectUnixName");
-	my ($userName, $role, $email) = split / /, $tmp;
-	_log("userName: $userName role: $role email: $email");
-	return ($userName, $role, $email);
+	die "no default implementation";
 }
-
-#static
-sub isAdmin
-{
-        my ($projectUnixName, $userName) = @_;
-        my $tmp = LWP::Simple::get("http://rt.openfoundry.org/NoAuth/IsAdmin.html?projectUnixName=$projectUnixName&userName=$userName");
-        return $tmp =~ /^1/; # TODO: output format ...
-}
-
 
 # static
 sub _log
@@ -106,40 +125,60 @@ sub _log
 	print F scalar(localtime()), " ", $msg, "\n";
 	close F;
 }
-	
-	
 
-############################
-#package OpenFoundry::Project;
+##########################################
 
-#sub new
-#{
-#	my ($class) = @_;
-#	return bless {}, $class;
-#}
-
-############################
-package OpenFoundry::Impl::Aguo;
+package OpenFoundry::Impl::RT;
 use vars qw(@ISA);
 @ISA = ('OpenFoundry');
 
 use LWP::Simple;
+use Data::Dumper;
+use JSON::XS;
+use FileHandle;
 
 sub new
 {
-	my ($class) = @_;
-	my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDump.html?secret=--FOUNDRY_DUMP_SECRET--';
-	my $self;
-	{
-		no strict "vars";
-		$self = eval(get($url));
-		die "Can't get data from $url: $@" if $@ or ref($self) ne 'HASH'; 
+	my ($class, $conf) = @_;
+	my $dump;
+	if (-e $conf->{JSON_DUMP_CACHE_PATH} &&
+	    time() - (stat($conf->{JSON_DUMP_CACHE_PATH}))[9] < $conf->{JSON_DUMP_REFRESH_INTERVAL})
+	{ 
+		local $/ = undef;
+		my $io = FileHandle->new($conf->{JSON_DUMP_CACHE_PATH}, "r");
+		$dump = <$io>;
+		$io->close();
 	}
+	else
+	{
+		my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJson.html?secret=' . $conf->{DUMP_SECRET};
+		$dump = LWP::Simple::get($url);
+		my $umask = umask 0077;
+		my $io = FileHandle->new($conf->{JSON_DUMP_CACHE_PATH}, "w");
+		$io->print($dump);
+		$io->close();
+		umask $umask;
+	}
+	#return bless JSON::XS->new->utf8->decode($dump), $class;
+	my $self = JSON::XS->new->utf8->decode($dump);
+	$self->{conf} = $conf;
 	return bless $self, $class;
+	
 }
 
-############################
+sub getSessionInfo
+{
+	my ($self, $SID, $projectUnixName) = @_;
+	my $tmp = LWP::Simple::get("http://rt.openfoundry.org/NoAuth/Session.html?SID=$SID&projectUnixName=$projectUnixName");
+	my ($userName, $role, $email) = split / /, $tmp;
+	#_log("userName: $userName role: $role email: $email");
+	return ($userName, $role, $email);
+}
 
+
+
+##########################################
+__END__
 
 package OpenFoundry::Impl::Mock;
 use vars qw(@ISA);
