@@ -30,7 +30,8 @@ CREATE TABLE users (
   password varchar(34) NOT NULL default 'x',
   PRIMARY KEY  (username),
   KEY username (username)
-) TYPE=MyISAM;
+) TYPE=InnoDB;
+# or BDB, we need transaction here
 
 
 # The permissions ...
