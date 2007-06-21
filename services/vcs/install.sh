@@ -69,8 +69,11 @@ install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 #
 
 cp /etc/rc.conf /root/rc.conf.after_install
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/rc.conf /etc/rc.conf
+ln -sf /usr/local/checkout/trunk/services/vcs/etc/rc.conf /etc/
 
+# OpenFoundry
+ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/
 
 # libnss-mysql
 echo '>>>> libnss-mysql'
@@ -78,21 +81,20 @@ echo '>>>> libnss-mysql'
 until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
 mysql < /usr/local/checkout/trunk/services/vcs/usr/local/etc/nss_database.sql
 
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql.cfg /usr/local/etc/libnss-mysql.cfg
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/libnss-mysql-root.cfg
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/nsswitch.conf
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql.cfg /usr/local/etc/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/
+ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_nss.pl /usr/local/bin/
 echo '<<<< libnss-mysql'
 
 
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/cvs_svn_only.sh
-ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/OpenFoundry.pm
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/openfoundry.conf.dist
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/
 
 # cvs
 cvs -d /cvs init
 chown -R www:www /cvs
-ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl /cvs/CVSROOT/commitcheck.pl
-ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo /cvs/CVSROOT/commitinfo
+ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl /cvs/CVSROOT/
+ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo /cvs/CVSROOT/
 
 
 # svn
@@ -100,8 +102,8 @@ mkdir /svn
 #svnadmin create /svn/__test_repository
 chown -R www:www /svn
 
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/httpd.conf
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/vcs.conf
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/viewvc.conf
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
 
 /usr/local/etc/rc.d/apache22 start
