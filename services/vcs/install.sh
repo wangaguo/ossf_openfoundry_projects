@@ -89,6 +89,7 @@ echo '<<<< libnss-mysql'
 
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_repos.pl /usr/local/bin/
 
 # cvs
 cvs -d /cvs init
@@ -99,8 +100,9 @@ ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo /cvs/CVSROO
 
 # svn
 mkdir /svn
-#svnadmin create /svn/__test_repository
-chown -R www:www /svn
+mkdir -p /svn/.default/hooks
+ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-commit /svn/.default/hooks/
+ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-revprop-change /svn/.default/hooks/
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
