@@ -15,12 +15,14 @@ die "svn directory '$conf{SVN_PARENT_PATH}' dose not exist" if not -d $conf{SVN_
 
 
 
-foreach my $p (@{$of->{'projects'}})
+foreach my $p (@{$of->getProjects()})
 {
 	my $unixName = $p->{UnixName};
 	my $vcs = $p->{VCS};
 	if ($vcs eq 'cvs') {
 		my $dir = "$conf{CVSROOT}/$unixName"; 
+		next if -d $dir;
+
 		mkdir $dir;
 		chown $conf{CVS_OWNER}, $conf{CVS_GROUP}, $dir;
 	} elsif ($vcs eq 'svn') {

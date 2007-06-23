@@ -8,13 +8,14 @@ use DBI;
 
 my $of = OpenFoundry->init("RT");
 
-my $dbh = DBI->connect("DBI:mysql:database=$of->{conf}->{NSS_DATABASE}",
-                       $of->{conf}->{NSS_DATABASE_USER},
-                       $of->{conf}->{NSS_DATABASE_PASSWORD},
+my %conf = %{ $of->getConf() };
+my $dbh = DBI->connect("DBI:mysql:database=$conf{NSS_DATABASE}",
+                       $conf{NSS_DATABASE_USER},
+                       $conf{NSS_DATABASE_PASSWORD},
                        { RaiseError => 1, AutoCommit => 0 });
 $dbh->do("delete from users");
 my $sth = $dbh->prepare("INSERT INTO users values (?, ?)");
-foreach my $u (@{$of->{'users'}})
+foreach my $u (@{$of->getUsers()})
 {
 	$sth->execute($u->{Name}, $u->{Password});
 	print ".";
