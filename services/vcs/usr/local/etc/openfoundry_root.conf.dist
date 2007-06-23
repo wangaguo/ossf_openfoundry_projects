@@ -1,0 +1,19 @@
+{
+	"DUMP_SECRET": "####################################",
+
+	"JSON_DUMP_CACHE_PATH": "/usr/local/etc/openfoundry_dump.json",
+	"ROOT_JSON_DUMP_CACHE_PATH": "/usr/local/etc/openfoundry_dump_root.json",
+	"JSON_DUMP_REFRESH_INTERVAL": 600,
+
+	"NSS_DATABASE": "auth",
+	"NSS_DATABASE_USER": "root",
+	"NSS_DATABASE_PASSWORD": "",
+
+	"CVSROOT": "/cvs",
+	"CVS_OWNER": 80,
+	"CVS_GROUP": 80,
+
+	"SVN_PARENT_PATH": "/svn",
+	"SVN_OWNER": 80,
+	"SVN_GROUP": 80
+}
