@@ -4,13 +4,14 @@ use strict 'vars';
 package OpenFoundry;
 use Data::Dumper;
 use LWP::Simple ();
-use JSON::XS ();
+use JSON::XS;
 use FileHandle;
+use Fatal qw(open close);
 
 sub init
 {
 	my ($class, $backend) = @_;
-	my $conf = __loadConf('/usr/local/etc/openfoundry.conf');
+	my $conf = loadConf();
 	if ($backend eq 'Mock')
 	{
 		return new OpenFoundry::Impl::Mock;
@@ -24,16 +25,24 @@ sub init
 		die "We have no implementation named '$backend'";
 	}
 }
-
-sub __loadConf
+# static
+# TODO: cache loaded conf ?
+sub loadConf
 {
-	my ($confPath) = @_; 
-	my $conf = {};
-	my $io = FileHandle->new($confPath, "r");
-	local $/ = undef;
-	$conf = JSON::XS->new->utf8->decode(<$io>);
-        $io->close();
+	my $conf = __loadJsonFile('/usr/local/etc/openfoundry.conf');
+	return $conf if $> != 0;
+
+	my $root_conf = __loadJsonFile('/usr/local/etc/openfoundry_root.conf');
+	$conf->{$_} = $root_conf->{$_} foreach (keys %{$root_conf});
 	return $conf;
+}
+# static
+sub __loadJsonFile
+{
+	my ($path) = @_; 
+	open my $fh, '<', $path; # auto close
+	local $/;
+	return from_json(scalar(<$fh>));
 }
 
 sub getProjects
@@ -105,10 +114,17 @@ sub isInRelation
 sub isInRelationByName
 {
 	my ($self, $relation, $projectUnixName, $userName) = @_;
-	return $self->isInRelation($relation,
-				   $self->getProjectByUnixName($projectUnixName)->{Id}, 
-				   $self->getUserByName($userName)->{Id}); 
+	my $p = $self->getProjectByUnixName($projectUnixName) || return 0;
+	my $u = $self->getUserByName($userName) || return 0;
+	return $self->isInRelation($relation, $p->{Id}, $u->{Id});
 }
+
+sub getConf
+{
+	my ($self) = @_;
+	return $self->{conf};
+}
+
 
 
 
@@ -118,12 +134,13 @@ sub getSessionInfo
 }
 
 # static
+# TODO: fix me !
 sub _log
 {
 	my ($msg) = @_;
-	open F, ">>/tmp/openfoundry.org";
-	print F scalar(localtime()), " ", $msg, "\n";
-	close F;
+	open my $F, ">>/tmp/openfoundry.org";
+	print {$F} scalar(localtime()), " ", $msg, "\n";
+	close $F;
 }
 
 ##########################################
@@ -135,36 +152,48 @@ use vars qw(@ISA);
 use LWP::Simple;
 use Data::Dumper;
 use JSON::XS;
-use FileHandle;
+use Carp;
+use Fatal qw(open close);
+
+#vcs# perl -MOpenFoundry -MBenchmark -e 'timethis(100, sub {OpenFoundry->init("RT")})'
+#timethis 100:  3 wallclock secs ( 2.66 usr +  0.08 sys =  2.73 CPU) @ 36.57/s (n=100)
+#
+#vcs# perl -MOpenFoundry -MBenchmark -e 'timethis(100, sub {OpenFoundry->init("RT")->isInRelationByName("admin", "openfoundry", "LCamel") })'
+#timethis 100:  3 wallclock secs ( 2.75 usr +  0.08 sys =  2.83 CPU) @ 35.36/s (n=100)
 
 sub new
 {
 	my ($class, $conf) = @_;
-	my $dump;
-	if (-e $conf->{JSON_DUMP_CACHE_PATH} &&
-	    time() - (stat($conf->{JSON_DUMP_CACHE_PATH}))[9] < $conf->{JSON_DUMP_REFRESH_INTERVAL})
-	{ 
-		local $/ = undef;
-		my $io = FileHandle->new($conf->{JSON_DUMP_CACHE_PATH}, "r");
-		$dump = <$io>;
-		$io->close();
-	}
-	else
-	{
-		my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJson.html?secret=' . $conf->{DUMP_SECRET};
-		$dump = LWP::Simple::get($url);
-		my $umask = umask 0077;
-		my $io = FileHandle->new($conf->{JSON_DUMP_CACHE_PATH}, "w");
-		$io->print($dump);
-		$io->close();
-		umask $umask;
-	}
-	#return bless JSON::XS->new->utf8->decode($dump), $class;
-	my $self = JSON::XS->new->utf8->decode($dump);
+	my $self = OpenFoundry::__loadJsonFile($conf->{$> == 0 ? ROOT_JSON_DUMP_CACHE_PATH : JSON_DUMP_CACHE_PATH});
 	$self->{conf} = $conf;
 	return bless $self, $class;
-	
 }
+
+# static
+# perl -MOpenFoundry -e 'OpenFoundry::Impl::RT::refresh'
+sub refresh
+{
+	my $conf = OpenFoundry::loadConf();
+	my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJson.html?secret=' . $conf->{DUMP_SECRET};
+	my $json = LWP::Simple::get($url);
+	# TODO: integrity check ??
+	my $umask = umask 0077;
+	open my $fh, ">", $conf->{ROOT_JSON_DUMP_CACHE_PATH};
+	print {$fh} $json;
+	close $fh;
+	umask $umask;
+
+	# write a stripped-down version for non-root users
+	my $obj = from_json($json);
+	foreach my $user (@{$obj->{users}})
+	{
+		$user->{Password} = $user->{Email} = '';
+	}
+	open my $fh2, ">", $conf->{JSON_DUMP_CACHE_PATH};
+	print {$fh2} to_json($obj);
+	close $fh2;
+}
+
 
 sub getSessionInfo
 {
@@ -174,59 +203,3 @@ sub getSessionInfo
 	#_log("userName: $userName role: $role email: $email");
 	return ($userName, $role, $email);
 }
-
-
-
-##########################################
-__END__
-
-package OpenFoundry::Impl::Mock;
-use vars qw(@ISA);
-@ISA = ('OpenFoundry');
-
-sub new
-{
-	my ($class) = @_;
-	my $self = bless {}, $class;
-
-	$self->{'projects'} = 
-		[
-		{ 'id' => '1', 'unixname' => 'openfoundry', 'description' => 'ooppeennff...' },
-		{ 'id' => '2', 'unixname' => 'closefoundry', 'description' => 'cclloo...ooppeennff...' },
-		{ 'id' => '3', 'unixname' => 'nohaha', 'description' => 'cclloo...ooppeennff...' },
-		{ 'id' => '4', 'unixname' => 'cs_sig', 'description' => 'cclloo...ooppeennff...' },
-		{ 'id' => '5', 'unixname' => 'wow_sig', 'description' => 'cclloo...ooppeennff...' },
-		];
-	$self->{'users'} = 
-		[
-		{ 'id' => '100', 'name' => 'LCamel' },
-		{ 'id' => '200', 'name' => 'RCamel' },
-		{ 'id' => '300', 'name' => 'MiddleCamel' },
-		{ 'id' => '400', 'name' => 'TopCamel' },
-		];
-	$self->{'relations'} = 
-		{
-		'admin' =>
-			[
-				[ '1', '100' ],
-				[ '2', '100' ],
-				[ '2', '200' ],
-				[ '2', '300' ],
-				[ '2', '400' ],
-				[ '3', '400' ],
-				[ '3', '200' ],
-				[ '4', '300' ],
-				[ '4', '400' ],
-				[ '5', '300' ],
-				[ '5', '400' ],
-			],
-		'member' =>
-			[
-				[ '1', '200' ],
-			],
-		};
-
-			
-	return $self;
-}
-
