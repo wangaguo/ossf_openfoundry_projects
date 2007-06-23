@@ -3,6 +3,13 @@ require 'digest/sha1'
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
   acts_as_authorized_user
+
+  #add fulltext indexed SEARCH
+  acts_as_ferret
+
+  #add tags
+  #acts_as_taggable
+
   def admin_of
     is_admin_of_what
   end

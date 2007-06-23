@@ -73,4 +73,7 @@ require 'jcode'
 require 'gettext/rails'
 
 
+# add fulltext indexed SEARCH
+require 'acts_as_ferret'
+
 ActionController::AbstractRequest.relative_url_root = "/of"

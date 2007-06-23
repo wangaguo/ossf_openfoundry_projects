@@ -44,4 +44,14 @@ class OpenfoundryController < ApplicationController
     }
     render :text => data.to_json, :layout => false
   end
+  def search #for search!!! TODO: catalog and optimize?
+    query=params[:query]
+    #catalog=params[:catalog]
+    
+    @result=[]
+    #catalog.each |catalog| do 
+        @result << User.find_by_contents(query)
+	@result << Project.find_by_contents(query)
+    #end
+  end
 end
