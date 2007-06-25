@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   acts_as_ferret
 
   #add tags
-  #acts_as_taggable
+  acts_as_taggable
 
   def admin_of
     is_admin_of_what

@@ -13,7 +13,7 @@ class Project < ActiveRecord::Base
   acts_as_ferret 
 
   #add tags
-  #acts_as_taggable
+  acts_as_taggable
 
   def admins
     has_admins
