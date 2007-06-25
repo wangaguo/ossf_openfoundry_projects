@@ -51,6 +51,21 @@ ActiveRecord::Schema.define(:version => 4) do
   add_index "sessions", ["created_at"], :name => "index_sessions_on_created_at"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "taggings", :force => true do |t|
+    t.column "tag_id",        :integer
+    t.column "taggable_id",   :integer
+    t.column "taggable_type", :string
+    t.column "created_at",    :datetime
+  end
+
+  add_index "taggings", ["tag_id","taggable_id","taggable_type"], :name => "index_taggings_on_all", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.column "name", :string
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name"
+
   create_table "users", :force => true do |t|
     t.column "login",           :string,   :limit => 80, :default => "", :null => false
     t.column "salted_password", :string,   :limit => 40, :default => "", :null => false
