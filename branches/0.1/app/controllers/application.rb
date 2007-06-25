@@ -44,6 +44,23 @@ class ApplicationController < ActionController::Base
   before_filter :touch_session
   after_filter  :touch_session
 
+  def add_tag
+	  type=params['class']
+	  id=params['id']
+	  obj=Object.const_get(type).find(id)
+	  obj.tag_list.add(params['tag'])
+	  obj.save
+	  redirect_to :back 
+  end
+
+  def remove_tag
+	  type=params['class']
+	  id=params['id']
+	  obj=Object.const_get(type).find(id)
+	  obj.tag_list.remove(params['tag'])
+	  obj.save
+	  redirect_to :back
+  end
 
   protected
   def touch_session

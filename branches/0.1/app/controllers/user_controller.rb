@@ -206,6 +206,7 @@ class UserController < ApplicationController
   # Generate a template user for certain actions on get
   def generate_filled_in
     @user = @session['user']
+    @user.reload
     case @request.method
     when :get
       render
