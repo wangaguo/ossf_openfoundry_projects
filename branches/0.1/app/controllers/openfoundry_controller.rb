@@ -54,4 +54,8 @@ class OpenfoundryController < ApplicationController
 	@result << Project.find_by_contents(query)
     #end
   end
+  def tag #for displaying taggalbe objects~
+    tag_name=params[:id]	
+    @tagged_object=User.find_tagged_with(tag_name)
+  end
 end
