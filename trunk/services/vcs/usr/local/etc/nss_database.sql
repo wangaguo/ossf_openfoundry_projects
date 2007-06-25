@@ -20,8 +20,9 @@
 # datatypes, space/size, data normalization, etc.
 #
 
-create database auth;
-use auth;
+drop database --NSS_DATABASE--;
+create database --NSS_DATABASE--;
+use --NSS_DATABASE--;
 
 # The tables ...
 
@@ -35,12 +36,12 @@ CREATE TABLE users (
 
 
 # The permissions ...
-GRANT USAGE ON *.* TO `nss-root`@`localhost` IDENTIFIED BY 'rootpass';
-GRANT USAGE ON *.* TO `nss-user`@`localhost` IDENTIFIED BY 'userpass';
+GRANT USAGE ON *.* TO `--NSS_DATABASE_ROOT_USER--`@`localhost` IDENTIFIED BY '--NSS_DATABASE_ROOT_PASSWORD--';
+GRANT USAGE ON *.* TO `--NSS_DATABASE_USER_USER--`@`localhost` IDENTIFIED BY '--NSS_DATABASE_USER_PASSWORD--';
 
 GRANT Select (`username`)
-             ON `auth`.`users`
-             TO 'nss-user'@'localhost';
+             ON `--NSS_DATABASE--`.`users`
+             TO '--NSS_DATABASE_USER_USER--'@'localhost';
 GRANT Select (`username`, `password`)
-             ON `auth`.`users`
-             TO 'nss-root'@'localhost';
+             ON `--NSS_DATABASE--`.`users`
+             TO '--NSS_DATABASE_ROOT_USER--'@'localhost';
