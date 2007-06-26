@@ -20,7 +20,7 @@
 # datatypes, space/size, data normalization, etc.
 #
 
-drop database --NSS_DATABASE--;
+drop database if exists --NSS_DATABASE--;
 create database --NSS_DATABASE--;
 use --NSS_DATABASE--;
 
