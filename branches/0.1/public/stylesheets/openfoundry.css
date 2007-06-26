@@ -19,50 +19,117 @@ body {
 	list-style-type: none;
 }
 
-#LeftMenu lidd{
-	padding-left:5px;
-	list-style-image: url(http://www.openfoundry.org/templates/rt_versatility_ii_sienna/images/play.png);
-}
-
 a:link, a:visited {
-	text-decoration: none;
+  text-decoration: none;
+  border-bottom:dotted 1px #ddd;
 }
   
 a {
-	color: #26264a;
 }
 
 #LeftWidget {
-	padding:5px;
-	float:left;
-	width:15%;
-	overflow:hidden;
+  padding:5px;
+/*
+  position:absolute;
+  left:0px;	
+  float:left;
+*/
+  position:absolute;
+  left:0px;	
+  width:16%;
+  overflow:hidden;
 }
 
 #RightWidget {
-	float:right;
-	width:25%;
-	overflow:hidden;	
+  float:right;
+  width:34%;
+  overflow:hidden;	
 }
+#RightWidget h1 { font-size:14px; }
 
 #MainContent {
-	margin-top:8px;
-	margin-left:20%;
-	width:79%;
+  margin-top:8px;
+/*
+  margin-left:16%;
+  width:84%;
+
+  float:left;
+  margin-left:4%;
+  width:78%;
+*/
+  margin-left:16%;
+  width:84%;
+}
+#MainBody {
 }
 
 #Home {
-	width:75%;
+	width:65%;
 }
 
 #Footer {
-	clear:both;
-	padding:30px 0px 10px 0px;
+  padding:30px 0px 10px 0px;
+  text-align:center;
+  clear:both;
+  width:84%;
+  float:right;
 }
 
-#ProjectNew p label, #ProjectEdit p label, #ProjectEdit fieldset label
-  { font-weight:bold; margin-left:-20px; color:blue; }
-#ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset
+
+/* For Project */
+#ProjectNew p label, #ProjectEdit p label, #ProjectEdit fieldset label, .form-padding label
+  { margin-left:-20px; }
+.form-padding label
+  { margin-left:-20px; display:block; }
+#ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset, .form-padding
   { padding-left:20px; }
 #ProjectNew :focus, #ProjectEdit :focus
   { color:red; }
+#ProjectList img { width:32px; height:32px; display:none; }
+#ProjectList table { border-collapse:collapse; width:99%; margin:2px; }
+#ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
+#ProjectList th { background-color:#DEE7FF; }
+#ProjectBasic dt { font-weight:bold; }
+#TabNav { border-bottom:solid 2px #DEE7FF; }
+#TabNav {
+background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
+float:left;
+font-size:93%;
+line-height:normal;
+width:99%;
+}
+#TabNav ul {
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0pt;
+padding:10px 10px 0pt;
+}
+#TabNav li {
+background:transparent url(http://rt.openfoundry.org/img/tab/left.gif) no-repeat scroll left top;
+float:left;
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+margin:0pt;
+padding:0pt 0pt 0pt 9px;
+}
+#TabNav a {
+background:transparent url(http://rt.openfoundry.org/img/tab/right.gif) no-repeat scroll right top;
+color:#776655;
+display:block;
+font-weight:bold;
+padding:5px 15px 4px 6px;
+text-decoration:none;
+}
+
+/* For Content */
+h1 { font-size:20px; }
+h2 { font-size:18px; }
+h3 { font-size:16px; }
+h4 { font-size:14px; }
+h1, h2, h3, h4 { color:#31659C; }
+input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }
+label { font-weight:bold; }
+fieldset { border:solid 2px #DEE7FF; }
+fieldset legend { font-weight:bold; color:#4265DE; }

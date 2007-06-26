@@ -72,3 +72,7 @@ div.progressBar div.background {
   width: 0%;
 }
 
+textarea {
+  width: auto;
+  height: 100px;
+}
