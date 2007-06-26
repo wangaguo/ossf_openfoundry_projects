@@ -1,16 +1,21 @@
+<div id="ProjectList">
 <h1>Listing projects</h1>
 
 <table>
   <tr>
-  <% for column in Project.content_columns %>
+    <th></th>
+  <% my_content_columns = Project.content_columns.select { |x| x.name =~ /unixname|projectname/i } %>
+  <% for column in my_content_columns %>
     <th><%= column.human_name %></th>
   <% end %>
+    <th/><th/><th/>
   </tr>
   
 <% for project in @projects %>
   <% @project = project %>
   <tr>
-  <% for column in Project.content_columns %>
+    <td><img src="http://rt.openfoundry.org/img/project_logo/<%= @project.id %>.gif" /></td>
+  <% for column in my_content_columns %>
     <td><%=h project.send(column.name) %></td>
   <% end %>
   <%= render(:partial => "/partials/sed") %>
@@ -24,3 +29,4 @@
 <br />
 
 <%= link_to 'New project', :action => 'new' %>
+</div>

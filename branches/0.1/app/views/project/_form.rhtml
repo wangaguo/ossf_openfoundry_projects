@@ -1,10 +1,10 @@
 <%= error_messages_for 'project' %>
 
 <!--[form:project]-->
-<p><label for="project_unixname">Unixname</label><br/>
+<p><label for="project_unixname"><%= _("Project|Unixname") %></label><br/>
 <%= text_field 'project', 'unixname'  %></p>
 
-<p><label for="project_projectname">Projectname</label><br/>
+<p><label for="project_projectname"><%= _("Project|Projectname") %></label><br/>
 <%= text_field 'project', 'projectname'  %></p>
 
 <p><label for="project_rationale">Rationale</label><br/>

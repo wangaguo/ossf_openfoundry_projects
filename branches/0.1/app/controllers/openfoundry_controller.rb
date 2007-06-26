@@ -1,5 +1,8 @@
 require "rubygems"
 require "json"
+require "net/http"
+require "uri"
+require "json"
 
 class OpenfoundryController < ApplicationController
 
@@ -34,15 +37,65 @@ class OpenfoundryController < ApplicationController
     render :text => "#{@name} #{@role} #{@email}" , :layout => false
   end
   def foundry_dump # TODO: optimize !!!!
+    if !params[:secret] || params[:secret].crypt("$1$foobar") != "$1$foobar$jghwt7tiDrPE99XAhdtUe0"
+      render :text => "acce..", :layout => false
+      return
+    end
+
     data = {
       :projects => Project.find_all().map { |p| { :Id => p.id, :ProjectName => p.projectname , :UnixName => p.unixname } },
-      :users => User.find_all().map { |u| { :Id => u.id, :Name => u.login, :Email => u.email } },
+      :users => User.find_all().map { |u| { :Id => u.id, :Name => u.login, :Email => u.email, :Password => u.salted_password } },
       :relations => {
         :admin => Project.find_all().inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
         :member => Project.find_all().inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
       }
     }
     render :text => data.to_json, :layout => false
+  end
+
+  def load_data
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJson.html?secret=' + params[:secret]
+    r = Net::HTTP.get_response( URI.parse( url ) )
+    data = JSON.parse(r.body)
+
+#    data["projects"].each do |pd|
+#      p = Project.new({ :projectname => pd["ProjectName"], :unixname => pd["UnixName"] })
+#      p.id = pd["Id"]
+#      p.save!
+#    end
+
+    data["users"].each do |ud|
+      u = User.new({ :login => ud["Name"], :email => ud["Email"], 
+        :salted_password => ud["salted_password"], :salt => ud["salt"],
+        :verified => 1 })
+      u.id = ud["Id"]
+      u.save!
+    end
+
+#    ph = {}
+#    Project.find_all().each { |p| ph[p.id] = p }
+#    uh = {}
+#    User.find_all().each { |u| uh[u.id] = u }
+
+#    bad = ""
+#    data["relations"]["member"].each do |rd|
+#      uh[rd[1]].has_role("Member", ph[rd[0]])
+##      bad += rd[1].to_s if uh[rd[1]].nil?
+#    end
+#    data["relations"]["admin"].each do |rd|
+#      uh[rd[1]].has_role("Admin", ph[rd[0]])
+##      bad += rd[1].to_s if uh[rd[1]].nil?
+#    end
+
+
+
+    
+    render :text => data.inspect, :layout => false
+#    render :text => bad, :layout => false
+  end
+  def is_project_unixname
+    rtn = Project.find_by_unixname(params[:projectUnixName]) ? "1" : "0"
+    render :text => rtn, :layout => false
   end
   def search #for search!!! TODO: catalog and optimize?
     query=params[:query]

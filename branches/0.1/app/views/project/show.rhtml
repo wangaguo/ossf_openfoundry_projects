@@ -1,28 +1,34 @@
+<%= render( :partial => "tabnav" ) %>   
+<div id="ProjectBasic">
+<dl>
 <% for column in Project.content_columns %>
-<p>
-  <b><%= column.human_name %>:</b> <%=h @project.send(column.name) %>
-</p>
+  <dt><%= column.human_name %>:</dt><dd><%=h @project.send(column.name) %></dd>
 <% end %>
+</dl>
 
-Admins:
+<fieldset>
+<legend><%= _("Project Role") %></legend>
+<dl>
+<dt>Admins:</dt>
+<dd>
 <% for admin in @admins %>
-<p>
 <%= admin.login %>
-</p>
 <% end %>
+</dd>
 
 
-
-Members:
+<dt>Members:</dt>
+<dd>
 <% if @members.empty? %>
   No member.<br/>
 <% else %>
 <% for member in @members %>
-<p>
 <%= member.login %>
-</p>
 <% end %>
 <% end %>
+</dd>
+</fieldset>
 
 <%= link_to 'Edit', :action => 'edit', :id => @project %> |
 <%= link_to 'Back', :action => 'list' %>
+</div>

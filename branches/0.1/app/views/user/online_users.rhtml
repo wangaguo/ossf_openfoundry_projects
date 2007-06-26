@@ -1,16 +1,15 @@
-<h3>online_users</h3>
+<h1>Online User</h3>
+<h3>Login users</h3>
+<ul>
 <% @online_users.each { |user| %>
-  <h4>
-  <%= user.login %>
-  </h4>
+  <li><%= user.login %></li>
 <%}%>
-<br/>
-<h3>online_guests</h3>
+</ul>
+<h3>Guests</h3>
+<ul>
 <% @online_guests.each { |user| %>
-<h4>
-  guest from <%= user.host %>
-</h4>
+  <li>guest from <%= user.host %></li>
 <%}%>
-
+</ul>
 
 
