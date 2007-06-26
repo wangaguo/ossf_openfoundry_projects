@@ -52,6 +52,14 @@ install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 
 
 
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/
+cp /usr/local/etc/openfoundry.conf.dist /usr/local/etc/openfoundry.conf
+cp /usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/openfoundry_root.conf
+chmod 600 /usr/local/etc/openfoundry_root.conf
+
+echo "Don't forget to modify /usr/local/etc/openfoundry[_root].conf"
+
 
 #
 # backup
@@ -61,51 +69,3 @@ install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 #  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './var/run/log*' --exclude './backup*.tgz' -zcf backup.tgz . )
 #fi
 #date
-
-
-
-#
-# configure
-#
-
-cp /etc/rc.conf /root/rc.conf.after_install
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/rc.conf /etc/
-
-# OpenFoundry
-ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/
-
-# libnss-mysql
-echo '>>>> libnss-mysql'
-/usr/local/etc/rc.d/mysql-server start
-until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
-mysql < /usr/local/checkout/trunk/services/vcs/usr/local/etc/nss_database.sql
-
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql.cfg /usr/local/etc/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_nss.pl /usr/local/bin/
-echo '<<<< libnss-mysql'
-
-
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_repos.pl /usr/local/bin/
-
-# cvs
-cvs -d /cvs init
-chown -R www:www /cvs
-ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl /cvs/CVSROOT/
-ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo /cvs/CVSROOT/
-
-
-# svn
-mkdir /svn
-mkdir -p /svn/.default/hooks
-ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-commit /svn/.default/hooks/
-ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-revprop-change /svn/.default/hooks/
-
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
-
-/usr/local/etc/rc.d/apache22 start
