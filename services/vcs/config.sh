@@ -3,7 +3,7 @@
 #
 replace_out()
 {
-	perl -pe 's/--(\w+)--/$ENV{$1}/ge' $1
+	perl -pe 's/--(\w+)--/exists $ENV{$1} ? $ENV{$1} : die "no $1 in env"/ge' $1
 }
 
 replace()
