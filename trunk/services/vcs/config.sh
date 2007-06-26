@@ -54,9 +54,6 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_rep
 
 
 
-exit 1
-
-
 
 # cvs
 cvs -d "$CVSROOT" init
@@ -65,7 +62,6 @@ chown -R $CVSOWNER:$CVSGROUP "$CVSROOT"
 ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl "$CVSROOT/CVSROOT/"
 ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo "$CVSROOT/CVSROOT/"
 
-
 # svn
 mkdir $SVN_PARENT_PATH
 mkdir -p "$SVN_PARENT_PATH/.default/hooks"
@@ -73,7 +69,7 @@ ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-commit "$SVN_PARENT_
 ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-revprop-change "$SVN_PARENT_PATH/.default/hooks/"
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
+replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
+replace /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
 
-/usr/local/etc/rc.d/apache22 start
+/usr/local/etc/rc.d/apache22 restart
