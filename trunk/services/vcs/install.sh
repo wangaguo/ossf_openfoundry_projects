@@ -58,7 +58,11 @@ cp /usr/local/etc/openfoundry.conf.dist /usr/local/etc/openfoundry.conf
 cp /usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/openfoundry_root.conf
 chmod 600 /usr/local/etc/openfoundry_root.conf
 
-echo "Don't forget to modify /usr/local/etc/openfoundry[_root].conf"
+echo "*******************************************************************"
+echo "** Don't forget to modify /usr/local/etc/openfoundry[_root].conf **"
+echo "*******************************************************************"
+
+echo date
 
 
 #
