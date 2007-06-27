@@ -1,0 +1,27 @@
+OpenFoundry鑄造廠vcs文件
+
+--Term Aliases--
+版本控制系統version control system以下簡稱"vcs"
+
+OSSF OpenFoundry鑄造廠專案平台以下簡稱"鑄造廠"
+
+鑄造廠專案使用者以下簡稱"使用者"
+--
+
+鑄造廠提供SVN及CVS為現今較多人使用的vcs, 使用者可選擇其中一種
+
+--
+
+使用者有兩種方式連結SVN, 一種為 http, 此種方式僅供讀取(read only)
+
+另一種為https, 此種方式讀取寫入皆可(read and write)
+
+TODO: 連線方式 圖文並茂
+
+--
+
+使用者連結CVS僅提供ssh, 此種方式讀取寫入皆可(read and write)
+
+TODO: 連線方式 圖文並茂
+
+--
