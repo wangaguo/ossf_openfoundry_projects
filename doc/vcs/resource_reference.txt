@@ -5,12 +5,12 @@
 還是要有推薦幾個先看的.
 
 
-Essential CVS (有第二版)
+Essential CVS (有第二版) (不是免費的)
 http://www.oreilly.com/catalog/essentialcvs2/ 
 http://www.amazon.com/Essential-CVS-Jennifer-Vesperman/dp/0596004591
 
 
-Open Source Development with CVS, 3rd Edition
+Open Source Development with CVS, 3rd Edition (本書 GPL!)
 線上有完整電子版,
 第一章 "Why Open Source Development and CVS Go Together"
 就從 "What Is Free Software?" 開始講起
@@ -18,4 +18,7 @@ Open Source Development with CVS, 3rd Edition
 第二章有給基本指令的 sample
 http://cvsbook.red-bean.com/
 
-
+Wikipedia: Concurrent Versions System
+Reference 有給四本書
+也有非常非常多的 external link
+http://en.wikipedia.org/wiki/Concurrent_Versions_System
