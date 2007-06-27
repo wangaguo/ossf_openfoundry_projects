@@ -1,0 +1,17 @@
+情境 (thkuo)
+模擬幾個人共同工作
+Windows client / Unix client
+(基本指令 help co ci info add import status revert export diff ...)
+
+svn 指令參數介紹
+( 1) help
+( 2) co
+( 3) ci
+( 4) info
+( 5) add
+( 6) import
+( 7) status
+( 8) revert
+( 9) export
+(10) diff
+(11) ...
