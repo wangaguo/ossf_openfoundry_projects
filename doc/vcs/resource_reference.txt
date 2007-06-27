@@ -10,3 +10,12 @@ http://www.oreilly.com/catalog/essentialcvs2/
 http://www.amazon.com/Essential-CVS-Jennifer-Vesperman/dp/0596004591
 
 
+Open Source Development with CVS, 3rd Edition
+線上有完整電子版,
+第一章 "Why Open Source Development and CVS Go Together"
+就從 "What Is Free Software?" 開始講起
+再講到 "What Does CVS Have to Do with It?"
+第二章有給基本指令的 sample
+http://cvsbook.red-bean.com/
+
+
