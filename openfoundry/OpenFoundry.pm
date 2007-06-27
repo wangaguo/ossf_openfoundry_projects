@@ -169,8 +169,9 @@ sub new
 	return bless $self, $class;
 }
 
-# static
+# static (for not loading old data)
 # perl -MOpenFoundry -e 'OpenFoundry::Impl::RT::refresh'
+# see: /usr/local/bin/openfoundry_sync_cache.sh
 sub refresh
 {
 	my $conf = OpenFoundry::loadConf();
