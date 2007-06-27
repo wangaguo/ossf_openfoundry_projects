@@ -35,10 +35,9 @@ ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/
 # export conf to env
-eval `perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=$v; export $k\n"}'`
+eval `perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
 
 # libnss-mysql
-echo '>>>> libnss-mysql'
 /usr/local/etc/rc.d/mysql-server restart
 until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
 replace_out /usr/local/checkout/trunk/services/vcs/usr/local/etc/nss_database.sql | mysql
@@ -46,14 +45,10 @@ replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql.cfg /u
 replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/ 0600
 ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_nss.pl /usr/local/bin/
-echo '<<<< libnss-mysql'
 
-
+# cvs / svn
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_repos.pl /usr/local/bin/
-
-
-
 
 # cvs
 cvs -d "$CVSROOT" init
