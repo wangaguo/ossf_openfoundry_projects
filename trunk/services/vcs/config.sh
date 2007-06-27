@@ -37,6 +37,8 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.con
 # export conf to env
 eval `perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
 
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_cache.sh /usr/local/bin/
+
 # libnss-mysql
 /usr/local/etc/rc.d/mysql-server restart
 until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
