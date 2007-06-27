@@ -51,15 +51,16 @@ patch /usr/src/contrib/cvs/src/server.c < /usr/local/checkout/trunk/services/vcs
 install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 
 
-
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/
-cp /usr/local/etc/openfoundry.conf.dist /usr/local/etc/openfoundry.conf
-cp /usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/openfoundry_root.conf
-chmod 600 /usr/local/etc/openfoundry_root.conf
+openfoundry_etc=/usr/local/etc/openfoundry/
+mkdir -p "$openfoundry_etc"
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist "$openfoundry_etc"
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist "$openfoundry_etc"
+cp "$openfoundry_etc/openfoundry.conf.dist" "$openfoundry_etc/openfoundry.conf"
+cp "$openfoundry_etc/openfoundry_root.conf.dist" "$openfoundry_etc/openfoundry_root.conf"
+chmod 600 "$openfoundry_etc/openfoundry_root.conf"
 
 echo "*******************************************************************"
-echo "** Don't forget to modify /usr/local/etc/openfoundry[_root].conf **"
+echo " Don't forget to modify $openfoundry_etc/openfoundry[_root].conf "
 echo "*******************************************************************"
 
 echo date
