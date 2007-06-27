@@ -29,10 +29,11 @@ sub init
 # TODO: cache loaded conf ?
 sub loadConf
 {
-	my $conf = __loadJsonFile('/usr/local/etc/openfoundry.conf');
+	my $openfoundry_etc = "/usr/local/etc/openfoundry";
+	my $conf = __loadJsonFile("$openfoundry_etc/openfoundry.conf");
 	return $conf if $> != 0;
 
-	my $root_conf = __loadJsonFile('/usr/local/etc/openfoundry_root.conf');
+	my $root_conf = __loadJsonFile("$openfoundry_etc/openfoundry_root.conf");
 	$conf->{$_} = $root_conf->{$_} foreach (keys %{$root_conf});
 	return $conf;
 }
