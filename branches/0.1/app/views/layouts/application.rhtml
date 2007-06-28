@@ -7,6 +7,7 @@
   <title><%= _("OpenFoundry") %> -- <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= stylesheet_link_tag 'openfoundry' %>
+  <%= javascript_include_tag "prototype", "effects" %>
 </head>
 <body>
 <link href="http://www.openfoundry.org/templates/rt_versatility_ii_sienna/css/header.css" rel="stylesheet" type="text/css" />
@@ -58,6 +59,8 @@
 	</li>
 </UL>
 </div>
+	<h3>Tag Cloud</h3>
+	<%= render :partial => 'partials/tagcloud'%>
 </div>
 
 <div id="MainContent">

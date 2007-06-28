@@ -1,6 +1,4 @@
 <div id="RightWidget">
-        <h3>Tag Cloud</h3>
-	<%= render :partial => 'partials/tagcloud'%>
 <script type="text/javascript" src="http://rt.openfoundry.org/Foundry/function/JSAN.js"></script>
 <script type="text/javascript" src="http://rt.openfoundry.org/Foundry/function/RSS.js"></script>
 
@@ -54,6 +52,7 @@
 
 </div>
 <div id="Home">
+  <%= render :partial => "partials/category" %>
   <br/>
   <h1>OpenFoundry 0.1</h1>
   <pre>
