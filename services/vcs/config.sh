@@ -1,6 +1,9 @@
+#!/bin/sh
+
 #
 # configure
 #
+
 replace_out()
 {
 	perl -pe 's/--(\w+)--/exists $ENV{$1} ? $ENV{$1} : die "no $1 in env"/ge' $1
@@ -26,16 +29,23 @@ replace()
 	fi
 }
 
+openfoundry_etc=/usr/local/etc/openfoundry/
 
-cp /etc/rc.conf /root/rc.conf.after_install
 ln -sf /usr/local/checkout/trunk/services/vcs/etc/rc.conf /etc/
 
 # OpenFoundry
 ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist /usr/local/etc/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist /usr/local/etc/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist "$openfoundry_etc/"
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist "$openfoundry_etc/"
+
 # export conf to env
-eval `perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
+envs=`perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
+if [ "$?" = "0" ]; then
+	eval $envs
+else
+	echo "Please check your config file"
+	exit 1
+fi
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_cache.sh /usr/local/bin/
 
