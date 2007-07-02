@@ -10,8 +10,9 @@ use Fatal qw(open close);
 
 sub init
 {
-	my ($class, $backend) = @_;
+	#my ($class, $backend) = @_;
 	my $conf = loadConf();
+	my $backend = $conf->{DATA_BACKEND};
 	if ($backend eq 'Mock')
 	{
 		return new OpenFoundry::Impl::Mock;
