@@ -64,7 +64,7 @@ PERL=/usr/bin/perl
 
 export REPOS
 export USER
-if $PERL -MOpenFoundry -e '($proj) = $ENV{REPOS} =~ m#.*/([^/]+)#; $of = OpenFoundry->init("RT"); exit not ($of->isInRelationByName("admin", $proj, $ENV{AUTHOR}) || $of->isInRelationByName("member", $proj, $ENV{AUTHOR}))' ; then
+if $PERL -MOpenFoundry -e '($proj) = $ENV{REPOS} =~ m#.*/([^/]+)#; $of = OpenFoundry->init(); exit not ($of->isInRelationByName("admin", $proj, $ENV{AUTHOR}) || $of->isInRelationByName("member", $proj, $ENV{AUTHOR}))' ; then
         exit 0;
 else
         echo "'$USER' has no permission to commit into '$REPOS'" >&2

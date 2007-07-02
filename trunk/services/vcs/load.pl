@@ -3,7 +3,7 @@ use OpenFoundry;
 use strict;
 use Data::Dumper;
 
-my $of = OpenFoundry->init("RT");
+my $of = OpenFoundry->init();
 my %conf = %{$of->getConf()};
 my $from = "/tmp/svndump";
 

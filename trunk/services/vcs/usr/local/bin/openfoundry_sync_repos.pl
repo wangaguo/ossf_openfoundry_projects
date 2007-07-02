@@ -7,7 +7,7 @@ use Fatal qw(chown symlink);
 
 use Data::Dumper;
 
-my $of = OpenFoundry->init("RT");
+my $of = OpenFoundry->init();
 my %conf = %{ $of->getConf() };
 
 die "cvs directory '$conf{CVSROOT}' dose not exist" if not -d $conf{CVSROOT};

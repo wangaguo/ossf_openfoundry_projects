@@ -6,7 +6,7 @@ use DBI;
 # http://search.cpan.org/~timb/DBI-1.56/DBI.pm
 # http://search.cpan.org/dist/DBD-mysql/lib/DBD/mysql.pm
 
-my $of = OpenFoundry->init("RT");
+my $of = OpenFoundry->init();
 
 my %conf = %{ $of->getConf() };
 my $dbh = DBI->connect("DBI:mysql:database=$conf{NSS_DATABASE}",
