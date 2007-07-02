@@ -77,6 +77,15 @@ ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-revprop-change "$SVN
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
 replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
-replace /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
 
+# viewvc
+replace /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/include/header.ezt /usr/local/viewvc/templates/include/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/query.ezt /usr/local/viewvc/templates/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_log.html /usr/local/viewvc/templates/docroot/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_rootview.html /usr/local/viewvc/templates/docroot/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_dirview.html /usr/local/viewvc/templates/docroot/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_query.html /usr/local/viewvc/templates/docroot/
+
+# start
 /usr/local/etc/rc.d/apache22 restart
