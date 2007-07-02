@@ -5,6 +5,7 @@
 <head>
   <title>Checkin Database Query</title>
   <link rel="stylesheet" href="[docroot]/styles.css" type="text/css" />
+  <script type="text/javascript" src="[docroot]/of.js"></script>
 </head>
 
 <body>
