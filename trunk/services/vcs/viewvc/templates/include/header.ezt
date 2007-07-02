@@ -5,11 +5,12 @@
 <head>
   <title>[if-any rootname][[][rootname]][else]ViewVC[end] [page_title]</title>
   <meta name="generator" content="ViewVC [vsn]" />
+  <script type="text/javascript" src="[docroot]/of.js"></script>
   <link rel="stylesheet" href="[docroot]/styles.css" type="text/css" />
   [if-any rss_href]<link rel="alternate" type="application/rss+xml" title="RSS [[][rootname]][where]" href="[rss_href]" />[end]
 </head>
 <body>
-<div class="vc_navheader">
+<div class="vc_navheader" id="vc_navheader">
 [if-any roots]
   <form method="get" action="[change_root_action]">
 [end]
@@ -69,7 +70,7 @@
 [end]
 </div>
 
-<div style="float: right; padding: 5px;"><a href="http://www.viewvc.org/"><img src="[docroot]/images/logo.png" alt="ViewVC logotype" width="128" height="48" /></a></div>
+<div style="float: right; padding: 5px; display:none;"><a href="http://www.viewvc.org/"><img src="[docroot]/images/logo.png" alt="ViewVC logotype" width="128" height="48" /></a></div>
 <h1>[page_title]</h1>
 
 
