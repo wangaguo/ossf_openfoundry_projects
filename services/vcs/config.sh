@@ -26,6 +26,8 @@ replace()
 	replace_out $1 > $output_file
 	if [ -n "$3" ]; then
 		chmod $3 $output_file
+	else
+		chmod ugo-w $output_file
 	fi
 }
 
@@ -54,7 +56,7 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_cac
 until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
 replace_out /usr/local/checkout/trunk/services/vcs/usr/local/etc/nss_database.sql | mysql
 replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql.cfg /usr/local/etc/
-replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/ 0600
+replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/ 0400
 ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_nss.pl /usr/local/bin/
 
