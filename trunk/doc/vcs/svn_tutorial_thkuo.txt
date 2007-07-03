@@ -5,7 +5,10 @@ Windows client / Unix client
 
 svn 把计ざ残
 ( 1) help
-( 2) co
+讽а癘 svn 把计ノ svn help 莉眔把计睲虫秈˙眔矗ボ
+( 2) checkout (co)
+
+
 ( 3) ci
 ( 4) info
 ( 5) add
