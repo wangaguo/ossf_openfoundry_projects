@@ -35,9 +35,36 @@ OSSF OpenFoundry鑄造場專案平台以下稱"鑄造場"
 
 範例: 檢視鑄造場svn儲存槽
 
+透過svn指令 list ( 簡寫: ls ) 檢視鑄造場svn儲存槽
+
+指令( Unix環境 ): svn list http://svn.of.openfoundry.org/[專案名稱]/[路徑]
+指令( Windows環境 ): svn list http://svn.of.openfoundry.org/[專案名稱]/[路徑]
+
+--
+
 另一種為https, 此種方式讀取寫入皆可(read and write)
 
 連結網址: https://svn.of.openfoundry.org/[專案名稱]
+
+在此之前請先匯入中研院資訊所的憑證 TODO: 憑證link
+
+範例: 從鑄造場取出svn working copy
+
+我們可以透過 svn指令 commit (簡寫: ci ) 把working copy的更動寫進鑄造場svn儲存槽
+
+加上 --username [帳號] 指定帳號, --password [密碼] 指定密碼
+
+指令( Unix環境 ): svn ci /home/checkout
+指令( Windows環境 ): svn ci c:\\checkout
+
+範例: 傳送未納入版本控制的專案到鑄造場svn
+
+透過svn指令 import 檢視鑄造場svn儲存槽
+
+加上 --username [帳號] 指定帳號, --password [密碼] 指定密碼
+
+指令( Unix環境 ): svn list https://svn.of.openfoundry.org/[專案名稱]/[路徑]
+指令( Windows環境 ): svn list https://svn.of.openfoundry.org/[專案名稱]/[路徑]
 
 TODO: 連線方式 圖文並茂
 
