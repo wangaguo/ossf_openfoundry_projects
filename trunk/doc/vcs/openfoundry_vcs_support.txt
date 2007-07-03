@@ -1,4 +1,4 @@
-OpenFoundry鑄造廠vcs文件
+OpenFoundry鑄造場vcs文件
 
 --Term Aliases--
 版本控制系統version control system以下稱"vcs"
@@ -9,13 +9,13 @@ Concurrent Versions System, opensource版本控制軟體, 以下稱"cvs"
 
 Viewvc, 版本儲存槽瀏覽工具, 以下稱"viewvc"
 
-OSSF OpenFoundry鑄造廠專案平台以下稱"鑄造廠"
+OSSF OpenFoundry鑄造場專案平台以下稱"鑄造場"
 
 鑄造廠專案使用者以下稱"使用者"
 --
 
-鑄造廠提供svn及cvs為現今較多人使用的vcs, 使用者可選擇其中一種
-鑄造廠為了方便使用者在網頁檢閱原始碼, 另提供viewvc以線上瀏覽各版本
+鑄造場提供svn及cvs為現今較多人使用的vcs, 使用者可選擇其中一種
+鑄造場為了方便使用者在網頁檢閱原始碼, 另提供viewvc以線上瀏覽各版本
 
 --
 
