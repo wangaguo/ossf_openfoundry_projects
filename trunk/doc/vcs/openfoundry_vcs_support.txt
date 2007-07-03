@@ -15,15 +15,29 @@ OSSF OpenFoundry鑄造場專案平台以下稱"鑄造場"
 --
 
 鑄造場提供svn及cvs為現今較多人使用的vcs, 使用者可選擇其中一種
-鑄造場為了方便使用者在網頁檢閱原始碼, 另提供viewvc以線上瀏覽各版本
+鑄造場為了方便使用者在網頁檢閱原始碼, 提供viewvc線上瀏覽各版本
 
 --
+鑄造場svn文件
+
+鑄造場所使用的svn版本為1.4, 安裝方式已在先說明 TODO: link
 
 使用者有兩種方式連結svn, 一種為 http, 此種方式僅供讀取(read only)
 
-也可匿名讀取, 
+也可匿名讀取, 連結網址: http://svn.of.openfoundry.org/[專案名稱]
+
+範例: 從鑄造場取出svn working copy
+
+我們可以透過 svn指令 checkout (簡寫: co ) 取出專案的working copy
+
+指令( Unix環境 ): svn co http://svn.of.openfoundry.org/[專案名稱] /home/checkout
+指令( Windows環境 ): svn co http://svn.of.openfoundry.org/[專案名稱] c:\\checkout
+
+範例: 檢視鑄造場svn儲存槽
 
 另一種為https, 此種方式讀取寫入皆可(read and write)
+
+連結網址: https://svn.of.openfoundry.org/[專案名稱]
 
 TODO: 連線方式 圖文並茂
 
@@ -31,6 +45,12 @@ TODO: 連線方式 圖文並茂
 
 使用者連結cvs僅提供ssh, 此種方式讀取寫入皆可(read and write)
 
+連結位址: cvs.of.openfoundry.org/[專案名稱]
+
 TODO: 連線方式 圖文並茂
 
 --
+
+使用者欲使用viewvc瀏覽各個版本, 可透過網址 http://viewvc.of.openfoundry.org/[專案名稱]
+
+TODO: step by step 教學
