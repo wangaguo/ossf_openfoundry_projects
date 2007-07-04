@@ -7,9 +7,11 @@ svn 指令參數介紹
 ( 1) help
 當忘記 svn 參數時，可用 svn help 獲得參數清單，進一步得到提示。
 ( 2) checkout (co)
+svn checkout file:///tmp/repos/test mine
+第一次參與專案，可以直接使用 svn checkout 的方式，將整個 repository
+下載回來，也可以採用 --revision (-r) 指定版號。
+( 3) commit (ci)
 
-
-( 3) ci
 ( 4) info
 ( 5) add
 ( 6) import
