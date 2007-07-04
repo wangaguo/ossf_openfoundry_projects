@@ -11,12 +11,21 @@ svn checkout file:///tmp/repos/test mine
 第一次參與專案，可以直接使用 svn checkout 的方式，將整個 repository
 下載回來，也可以採用 --revision (-r) 指定版號。
 ( 3) commit (ci)
-
+程式碼告一段落後，即可利用 svn commit 寫入 repository。
 ( 4) info
+
 ( 5) add
+
 ( 6) import
+
 ( 7) status
+
 ( 8) revert
+有時候，總會遇上程式碼改得相當雜亂的狀況，這時候便可以利用 svn revert
+將本地端的檔案回復到原始狀態，再重新修改。
+
 ( 9) export
+
 (10) diff
+
 (11) ...
