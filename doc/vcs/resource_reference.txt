@@ -11,14 +11,30 @@ http://www.amazon.com/Essential-CVS-Jennifer-Vesperman/dp/0596004591
 
 
 Open Source Development with CVS, 3rd Edition (本書 GPL!)
+http://cvsbook.red-bean.com/
 線上有完整電子版,
 第一章 "Why Open Source Development and CVS Go Together"
 就從 "What Is Free Software?" 開始講起
 再講到 "What Does CVS Have to Do with It?"
 第二章有給基本指令的 sample
-http://cvsbook.red-bean.com/
+電子報有提過本書的影響 http://www.openfoundry.org/index.php?option=com_content&task=view&id=807&lang=tw
 
 Wikipedia: Concurrent Versions System
+http://en.wikipedia.org/wiki/Concurrent_Versions_System
 Reference 有給四本書
 也有非常非常多的 external link
-http://en.wikipedia.org/wiki/Concurrent_Versions_System
+
+
+CVS Best Practices
+http://www.sanchivi.com/cm/cvs-bestpractices/
+比較進階
+
+Free Software Project Management HOWTO
+http://tldp.org/HOWTO/Software-Proj-Mgmt-HOWTO/
+稍微遠了一些, 在其 bibliography 中提到
+Fogel's "guide to using CVS in the free software world" is much more than its subtitle. In the publisher's own words: "Open Source Development with CVS is one of the first books available that teaches you development and implementation of Open Source software." It also includes the best reference and tutorial to CVS I have ever seen. It is the book that was so good that it prompted me to write this HOWTO because I thought the role it tried to serve was so important and useful. Please check it or buy it if you can and are seriously interested in running a free software project.
+
+
+高嘉良 介紹 SVK 的投影片
+有一小段問題描述
+http://fsck.com/~clkao/svk-intro-zh/osdctw.2007.xul
