@@ -88,6 +88,7 @@ ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_log.
 ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_rootview.html /usr/local/viewvc/templates/docroot/
 ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_dirview.html /usr/local/viewvc/templates/docroot/
 ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_query.html /usr/local/viewvc/templates/docroot/
+ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/of.js /usr/local/viewvc/templates/docroot/
 
 # start
 /usr/local/etc/rc.d/apache22 restart
