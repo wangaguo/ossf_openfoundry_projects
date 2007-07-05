@@ -2,21 +2,23 @@
 
 date
 
-#portsnap -s portsnap.tw.freebsd.org fetch
-#portsnap extract
-
 #
-# install
+# ports tree
 #
-# we have the following assumptions about ports..
-#
-DISTDIR=/usr/ports_distfiles
-export DISTDIR
-WRKDIRPREFIX=/usr/ports_work
-export WRKDIRPREFIX
-MASTER_SITE_OVERRIDE='ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/'
+if [ ! -d /usr/ports ] || test -w /usr/ports ; then
+	echo "Using stand-alone ports tree"
+	portsnap -s portsnap.tw.freebsd.org fetch
+	portsnap extract
+else
+	echo "Using shared ports tree"
+	DISTDIR=/usr/ports_distfiles
+	export DISTDIR
+	WRKDIRPREFIX=/usr/ports_work
+	export WRKDIRPREFIX
+fi
+[ ${MASTER_SITE_OVERRIDE='ftp://ftp.tw.freebsd.org/pub/FreeBSD/distfiles/${DIST_SUBDIR}/'} ]
 export MASTER_SITE_OVERRIDE
-
+date
 
 
 ( cd /usr/ports/www/apache22 ; make BATCH=yes install )
@@ -31,7 +33,7 @@ svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
 
 ( cd /usr/ports/net/libnss-mysql ; make install )
 
-( cd /usr/ports/security/pwauth ; make patch ; patch $WRKDIRPREFIX/usr/ports/security/pwauth/work/pwauth-2.3.2/config.h < /usr/local/checkout/trunk/services/vcs/usr/ports/security/pwauth/config.h.diff ; make install )
+( cd /usr/ports/security/pwauth ; make patch ; patch $WRKDIRPREFIX/usr/ports/security/pwauth/work/pwauth-*/config.h < /usr/local/checkout/trunk/services/vcs/usr/ports/security/pwauth/config.h.diff ; make install )
 
 ( cd /usr/ports/www/mod_authnz_external ; make install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
@@ -63,7 +65,7 @@ echo "*******************************************************************"
 echo " Don't forget to modify $openfoundry_etc/openfoundry[_root].conf "
 echo "*******************************************************************"
 
-echo date
+date
 
 
 #
