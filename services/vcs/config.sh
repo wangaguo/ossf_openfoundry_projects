@@ -90,5 +90,8 @@ ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_dirv
 ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_query.html /usr/local/viewvc/templates/docroot/
 ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/of.js /usr/local/viewvc/templates/docroot/
 
+# crontab
+ln -sf /usr/local/checkout/trunk/services/vcs/etc/crontab /etc/
+
 # start
 /usr/local/etc/rc.d/apache22 restart
