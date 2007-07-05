@@ -79,6 +79,7 @@ ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-revprop-change "$SVN
 
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
 replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
+replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/ssl.conf /usr/local/etc/apache22/Includes/
 
 # viewvc
 replace /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
