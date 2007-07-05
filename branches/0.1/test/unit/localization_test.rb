@@ -16,7 +16,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_unknown_string
-    assert_equal 'test_symbol_that_has_no_traslation', l(:test_symbol_that_has_no_traslation)
+    assert_equal 'test_symbol_that_has_no_translation', l(:test_symbol_that_has_no_translation)
   end
   
   def test_with_arguments
@@ -24,7 +24,8 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_missing_an_expected_argument
-    assert_raise (ArgumentError) { l(:registration_email_sent) }
+	#	assert_raise (ArgumentError) { l(:registration_email_sent) }
+    assert_raise (ArgumentError) { l([:registration_email_sent, 'an arguement']) }
   end
 
   def test_arguments_as_array
@@ -36,7 +37,7 @@ class LocalizationTest < Test::Unit::TestCase
   end
 
   def test_array_and_arguments
-    assert_raise(ArgumentError) { l([:registration_email_sent, 'an argument'], 'some more arguments') }
+    assert_raise (ArgumentError) { l([:registration_email_sent, 'an argument'], 'some more arguments') }
   end
 
   def test_LString_to_s
