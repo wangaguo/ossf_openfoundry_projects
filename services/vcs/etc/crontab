@@ -25,4 +25,4 @@ HOME=/var/log
 # UTC time.  See adjkerntz(8) for details.
 1,31	0-5	*	*	*	root	adjkerntz -a
 
-38 * * * * root (/usr/local/bin/openfoundry_sync_cache.sh && /usr/local/bin/openfoundry_sync_nss.pl && /usr/local/bin/openfoundry_sync_repos.pl) >> /var/log/openfoundry_sync.log 2>&1
+*/5 * * * * root (/usr/local/bin/openfoundry_sync_cache.sh && /usr/local/bin/openfoundry_sync_nss.pl && /usr/local/bin/openfoundry_sync_repos.pl) >> /var/log/openfoundry_sync.log 2>&1
