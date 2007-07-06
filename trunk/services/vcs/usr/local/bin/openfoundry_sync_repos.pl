@@ -13,6 +13,7 @@ my %conf = %{ $of->getConf() };
 die "cvs directory '$conf{CVSROOT}' dose not exist" if not -d $conf{CVSROOT};
 die "svn directory '$conf{SVN_PARENT_PATH}' dose not exist" if not -d $conf{SVN_PARENT_PATH};
 
+my $SVNADMIN_CMD = '/usr/local/bin/svnadmin';
 
 
 foreach my $p (@{$of->getProjects()})
@@ -31,8 +32,8 @@ foreach my $p (@{$of->getProjects()})
 
 		print "Creating svn repository in $dir\n";
 
-		system 'svnadmin', 'create', $dir
-			and croak "Couldn't run: 'svnadmin', 'create', $dir : ($!)";
+		system $SVNADMIN_CMD, 'create', $dir
+			and croak "Couldn't run: $SVNADMIN_CMD, 'create', $dir : ($!)";
 		find(sub { chown $conf{SVN_OWNER}, $conf{SVN_GROUP}, $File::Find::name }, $dir);
 		# TODO: chown for db/ only ?
 
