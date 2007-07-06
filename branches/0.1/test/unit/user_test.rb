@@ -43,7 +43,7 @@ class UserTest < Test::Unit::TestCase
     assert u.errors.invalid?('password')
         
     u.change_password("bobs_secure_password")
-    assert !u.save     
+    assert u.save     
     assert u.errors.empty?
         
   end
@@ -84,8 +84,9 @@ class UserTest < Test::Unit::TestCase
     u = User.new
     u.login = "nonexistingbob"
     u.change_password("bobs_secure_password")
+    u.email = "bob@email.com"
       
-    assert !u.save  
+    assert u.save  
     
   end
   
