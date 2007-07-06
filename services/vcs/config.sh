@@ -65,11 +65,13 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_repos.pl /usr/local/bin/
 
 # cvs
+mkdir -p "$CVSROOT"
 cvs -d "$CVSROOT" init
 # TODO: file permission?
 chown -R $CVSOWNER:$CVSGROUP "$CVSROOT"
 ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl "$CVSROOT/CVSROOT/"
 ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo "$CVSROOT/CVSROOT/"
+ln -sf /usr/local/checkout/trunk/services/vcs/etc/ssh/sshd_config /etc/ssh/
 
 # svn
 mkdir $SVN_PARENT_PATH
@@ -99,3 +101,4 @@ ln -sf /usr/local/checkout/trunk/services/vcs/etc/crontab /etc/
 
 # start
 /usr/local/etc/rc.d/apache22 restart
+/etc/rc.d/sshd restart
