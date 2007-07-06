@@ -7,7 +7,6 @@ use DBI;
 # http://search.cpan.org/dist/DBD-mysql/lib/DBD/mysql.pm
 
 my $of = OpenFoundry->init();
-
 my %conf = %{ $of->getConf() };
 my $dbh = DBI->connect("DBI:mysql:database=$conf{NSS_DATABASE}",
                        $conf{NSS_DATABASE_USER},
@@ -20,6 +19,7 @@ foreach my $u (@{$of->getUsers()})
 	$sth->execute($u->{Name}, $u->{Password});
 	print ".";
 }
+$dbh->do("INSERT INTO users values ('$conf{ANONYMOUS_CVS_ACCOUNT}', '\$1\$abcd\$CwbBDotm4UoKv5fATTtzT.')");
 $dbh->commit();
 $dbh->disconnect();
 print "\ndone\n";

@@ -58,7 +58,7 @@
 #IgnoreRhosts yes
 
 # Change to yes to enable built-in password authentication.
-#PasswordAuthentication no
+PasswordAuthentication yes
 PermitEmptyPasswords yes
 
 # Change to no to disable PAM authentication

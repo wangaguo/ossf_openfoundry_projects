@@ -25,9 +25,4 @@ HOME=/var/log
 # UTC time.  See adjkerntz(8) for details.
 1,31	0-5	*	*	*	root	adjkerntz -a
 
-#
-# perl -e 'for ($i = 1; $i < 60; $i +=3) { print "$i," }'
-#
-1,4,7,10,13,16,19,22,25,28,31,34,37,40,43,46,49,52,55,58	*	*	*	*	root	/usr/local/bin/openfoundry_sync_cache.sh
-2,5,8,11,14,17,20,23,26,29,32,35,38,41,44,47,50,53,56,59	*	*	*	*	root	/usr/local/bin/openfoundry_sync_nss.pl
-3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57,0		*	*	*	*	root	/usr/local/bin/openfoundry_sync_repos.pl
+38 * * * * root (/usr/local/bin/openfoundry_sync_cache.sh && /usr/local/bin/openfoundry_sync_nss.pl && /usr/local/bin/openfoundry_sync_repos.pl) >> /var/log/openfoundry_sync.log 2>&1
