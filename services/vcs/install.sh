@@ -61,9 +61,12 @@ cp "$openfoundry_etc/openfoundry.conf.dist" "$openfoundry_etc/openfoundry.conf"
 cp "$openfoundry_etc/openfoundry_root.conf.dist" "$openfoundry_etc/openfoundry_root.conf"
 chmod 600 "$openfoundry_etc/openfoundry_root.conf"
 
-echo "*******************************************************************"
-echo " Don't forget to modify $openfoundry_etc/openfoundry[_root].conf "
-echo "*******************************************************************"
+fetch -o /root/config.sh http://svn.openfoundry.org/openfoundry/trunk/services/vcs/config.sh
+
+
+echo "*************************************************************************************************"
+echo " Don't forget to modify $openfoundry_etc/openfoundry[_root].conf and execute config.sh "
+echo "*************************************************************************************************"
 
 date
 
