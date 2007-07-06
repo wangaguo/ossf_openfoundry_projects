@@ -59,7 +59,7 @@
 
 # Change to yes to enable built-in password authentication.
 #PasswordAuthentication no
-#PermitEmptyPasswords no
+PermitEmptyPasswords yes
 
 # Change to no to disable PAM authentication
 #ChallengeResponseAuthentication yes
@@ -85,9 +85,9 @@
 # and ChallengeResponseAuthentication to 'no'.
 #UsePAM yes
 
-#AllowTcpForwarding yes
+AllowTcpForwarding no
 #GatewayPorts no
-#X11Forwarding yes
+X11Forwarding no
 #X11DisplayOffset 10
 #X11UseLocalhost yes
 #PrintMotd yes
