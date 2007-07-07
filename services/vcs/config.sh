@@ -83,7 +83,6 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf 
 replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
 replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/ssl.conf /usr/local/etc/apache22/Includes/
 mkdir -p /usr/local/etc/apache22/ssl
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/ssl/subversion.crt /usr/local/etc/apache22/ssl/
 
 
 # viewvc
