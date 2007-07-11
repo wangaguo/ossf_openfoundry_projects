@@ -63,6 +63,7 @@ ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_nss
 # cvs / svn
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/
 ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_repos.pl /usr/local/bin/
+ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_backup_repos.pl /usr/local/bin/
 
 # cvs
 mkdir -p "$CVSROOT"
