@@ -13,14 +13,14 @@ class UserTest < Test::Unit::TestCase
 
 
   def test_passwordchange
-        
-    @longbob.change_password("nonbobpasswd")
-    @longbob.save
-    assert_equal @longbob, User.authenticate("longbob", "nonbobpasswd")
+    @bob=User.find(1000003)    
+    @bob.change_password("nonbobpasswd")
+    @bob.save
+    assert_equal @bob, User.authenticate("longbob", "nonbobpasswd")
     assert_nil User.authenticate("longbob", "alongtest")
-    @longbob.change_password("alongtest")
-    @longbob.save
-    assert_equal @longbob, User.authenticate("longbob", "alongtest")
+    @bob.change_password("alongtest")
+    @bob.save
+    assert_equal @bob, User.authenticate("longbob", "alongtest")
     assert_nil User.authenticate("longbob", "nonbobpasswd")
         
   end
@@ -29,7 +29,7 @@ class UserTest < Test::Unit::TestCase
     
     u = User.new    
     u.login = "nonbob"
-
+    u.email="some@email.com"
     u.change_password("tiny")
     assert !u.save     
     assert u.errors.invalid?('password')

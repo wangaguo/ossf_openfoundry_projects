@@ -25,7 +25,7 @@ class LocalizationTest < Test::Unit::TestCase
 
   def test_missing_an_expected_argument
 	#	assert_raise (ArgumentError) { l(:registration_email_sent) }
-    assert_raise (ArgumentError) { l([:registration_email_sent, 'an arguement']) }
+    assert_raise (ArgumentError) { l([:registration_email_sent],"") }
   end
 
   def test_arguments_as_array
