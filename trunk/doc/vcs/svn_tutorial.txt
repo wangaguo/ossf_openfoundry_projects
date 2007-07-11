@@ -30,6 +30,12 @@ svn update file:///tmp/repos/test team_project
 程式碼修改告一段落後，也利用 svn commit 進行提交的動作。
 svn commit
 
+好不容易，已完成進度的一半了，不過此時遇到了一些小麻煩，小李程式改一
+段落後，程式無法正常編譯了，但是上一版是可以的，因此小李利用 svn diff
+終於找出程式錯誤的地方，原來是手滑多按了一個字母呀！改掉之後就回復正
+常了。
+svn diff
+
 經歷了長時間的修改，商品終於要完整開放出來了，於是利用 svn export，輸
 出一份不帶有版本控制相關檔案資訊的程式碼，進行釋出的動作。
 svn export file:///tmp/repos/test release_project
