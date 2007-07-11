@@ -26,10 +26,10 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(login, pass)
-    u = find_first(["login = ? AND verified = 1 AND deleted = 0", login])
+    u = find :first, :conditions =>["login = ? AND verified = 1 AND deleted = 0", login]
     return nil if u.nil?
     #find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
-    find_first(["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
+    find :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)]
   end
 
   def self.authenticate_by_token(id, token)
