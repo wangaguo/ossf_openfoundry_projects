@@ -14,11 +14,13 @@
 	"CVSROOT": "/cvs",
 	"CVS_OWNER": 80,
 	"CVS_GROUP": 80,
+	"ANONYMOUS_CVS_ACCOUNT": "cvs",
 
 	"SVN_PARENT_PATH": "/svn",
 	"SVN_OWNER": 80,
 	"SVN_GROUP": 80,
 	"SVN_HOST": "svn.openfoundry.org",
+	"SVN_BACKUP_PATH": "/svn/.backup",
 
 	"VIEWVC_HOST": "viewvc.of.openfoundry.org"
 }
