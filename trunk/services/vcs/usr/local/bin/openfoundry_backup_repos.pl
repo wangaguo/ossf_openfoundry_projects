@@ -18,7 +18,7 @@ my $SVNADMIN_CMD = '/usr/local/bin/svnadmin';
 print "Removing $conf{SVN_BACKUP_PATH}\n";
 rmtree $conf{SVN_BACKUP_PATH};
 mkdir $conf{SVN_BACKUP_PATH};
-print "Removed."
+print "Removed.";
 
 foreach my $p (@{$of->getProjects()})
 {
