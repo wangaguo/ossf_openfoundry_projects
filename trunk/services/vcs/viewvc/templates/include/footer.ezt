@@ -4,7 +4,20 @@
 
 <table>
 <tr>
-  <td><address>[cfg.general.address]</address></td>
+  <td>
+<a href="/Foundry/Project/VCS/checkout.html?projectUnixName=
+[is roottype "svn"]
+  [rootname]
+[else]
+  [is roottype "cvs"]
+    [if-any nav_path]
+      [for nav_path]
+        [if-index nav_path 1]
+          [nav_path.name]
+[end][end][end][end][end]
+" target="_top">Checkout the project's source.</a>
+<br/>
+<address>[cfg.general.address]</address></td>
   <td style="text-align: right;"><strong><a href="[help_href]">ViewVC Help</a></strong></td>
 </tr>
 <tr>
