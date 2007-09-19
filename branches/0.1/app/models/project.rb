@@ -3,12 +3,17 @@ class Project < ActiveRecord::Base
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
-  INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
+  INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ].freeze
   #validates_inclusion_of :license, :in => LICENSES
 
-
   acts_as_authorizable
-
+  has_many :roles, :finder_sql => <<-END
+		SELECT r.* 
+		FROM roles AS r
+		WHERE authorizable_type = "Project"
+                AND authorizable_id = "#{id}"
+          	ORDER BY r.name
+		END
   #add fulltext indexed SEARCH
   acts_as_ferret 
 

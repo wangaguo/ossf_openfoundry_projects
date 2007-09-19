@@ -1,5 +1,6 @@
 class UserController < ApplicationController
-  model   :user
+  #model   :user
+
 
   def online_users
     @online_users=User.online_users
@@ -25,8 +26,8 @@ class UserController < ApplicationController
     #For "paranoid session store"
     rebuild_session
 
-    @user = User.new(@params['user'])
-    if @session['user'] = User.authenticate(@params['user']['login'], @params['user']['password'])
+    @user = User.new(params['user'])
+    if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
       flash['notice'] = l(:user_login_succeeded)
       redirect_back_or_default :action => :home
       # For "paranoid session store"
@@ -194,7 +195,7 @@ class UserController < ApplicationController
 
   # Generate a template user for certain actions on get
   def generate_blank
-    case @request.method
+    case request.method
     when :get
       @user = User.new
       render
@@ -207,7 +208,7 @@ class UserController < ApplicationController
   def generate_filled_in
     @user = @session['user']
     @user.reload
-    case @request.method
+    case request.method
     when :get
       render
       return true

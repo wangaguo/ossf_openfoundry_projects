@@ -1,5 +1,6 @@
 class CategoryController < ApplicationController
-
+  layout "streamlined"
+    acts_as_streamlined
   def open
 	@category=Category.find params[:id]
   	@contents=Category.find(:all,:conditions => [ "parent=?",params[:id] ] )
@@ -9,17 +10,5 @@ class CategoryController < ApplicationController
   def close
 	@category=Category.find params[:id]
 	render :layout => false
-  end
-
-  def show
-  end
-
-  def edit
-  end
-
-  def create
-  end
-
-  def destory
   end
 end

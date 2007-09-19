@@ -14,9 +14,10 @@
 development:
   adapter: mysql
   database: of_development
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: test03
+  password: test03
+  host: 192.168.131.2
+  #socket: /tmp/mysql.sock
   encoding: UTF8
 
 # Warning: The database defined as 'test' will be erased and
@@ -25,9 +26,10 @@ development:
 test:
   adapter: mysql
   database: of_test
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: test03
+  password: test03
+  host: 192.168.131.2
+  #socket: /tmp/mysql.sock
   encoding: UTF8
 
 production:
