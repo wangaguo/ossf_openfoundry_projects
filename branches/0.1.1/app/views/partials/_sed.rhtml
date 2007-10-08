@@ -1,0 +1,9 @@
+<% if permit?("admin of :project") -%>
+    <td><%= link_to 'Show', :action => 'show', :id => @project %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => @project %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => @project }, :confirm => 'Are you sure?', :method => :post %></td>
+<% else %>
+  <td><%= link_to 'Show', :action => 'show', :id => @project %></td>
+  <td>Edit</td>
+  <td>Destroy</td>
+<% end %>

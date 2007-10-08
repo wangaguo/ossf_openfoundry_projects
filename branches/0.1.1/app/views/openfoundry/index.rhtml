@@ -1,0 +1,81 @@
+<div id="RightWidget">
+<script type="text/javascript" src="http://rt.openfoundry.org/Foundry/function/JSAN.js"></script>
+<script type="text/javascript" src="http://rt.openfoundry.org/Foundry/function/RSS.js"></script>
+
+<div class="NewsFeed" id="2FFoundry2FRSS2FNewsletter.html"></div>
+<script type="text/javascript">
+<!--
+(new RSS).createReader("2FFoundry2FRSS2FNewsletter.html","http://rt.openfoundry.org/Foundry/RSS/Newsletter.html", "OpenFoundry Newsletter");
+-->
+</script>
+<a class="More" href="http://www.openfoundry.org/index.php?option=com_letterman&amp;Itemid=144">More..</a>
+
+<div class="NewsFeed" id="2FFoundry2FProject2FFeed.html3FFunction3DNews3BFlavor3DRSS3BLimit3D5"></div>
+<script type="text/javascript">
+<!--
+(new RSS).createReader("2FFoundry2FProject2FFeed.html3FFunction3DNews3BFlavor3DRSS3BLimit3D5","http://rt.openfoundry.org/Foundry/Project/Feed.html?Function=News;Flavor=RSS;Limit=5", "Latest News");
+-->
+</script>
+<a href="http://rt.openfoundry.org/Foundry/More.html?keywords=LastestNews" class="More">More...</a>
+
+<div class="NewsFeed" id="2FFoundry2FProject2FFeed.html3FFunction3DJobs3BFlavor3DRSS3BLimit3D5"></div>
+<script type="text/javascript">
+<!--
+(new RSS).createReader("2FFoundry2FProject2FFeed.html3FFunction3DJobs3BFlavor3DRSS3BLimit3D5","http://rt.openfoundry.org/Foundry/Project/Feed.html?Function=Jobs;Flavor=RSS;Limit=5", "Latest Jobs");
+-->
+</script>
+<a href="http://rt.openfoundry.org/Foundry/More.html?keywords=LastestJobs" class="More">More...</a>
+
+<div class="NewsFeed" id="2FFoundry2FRSS2FNewProjects.html3FLimit3D5"></div>
+<script type="text/javascript">
+<!--
+(new RSS).createReader("2FFoundry2FRSS2FNewProjects.html3FLimit3D5","http://rt.openfoundry.org/Foundry/RSS/NewProjects.html?Limit=5", "New Projects");
+-->
+</script>
+<a href="http://rt.openfoundry.org/Foundry/More.html?keywords=NewProjects" class="More">More...</a>
+
+<div class="NewsFeed" id="2FFoundry2FRSS2FNewTickets.html3FLimit3D5"></div>
+<script type="text/javascript">
+<!--
+(new RSS).createReader("2FFoundry2FRSS2FNewTickets.html3FLimit3D5","http://rt.openfoundry.org/Foundry/RSS/NewTickets.html?Limit=5", "New Tickets");
+-->
+</script>
+<a href="http://rt.openfoundry.org/Foundry/More.html?keywords=NewTickets" class="More">More...</a>
+
+<div class="NewsFeed" id="2FFoundry2FRSS2FNewDownloads.html3FLimit3D5"></div>
+<script type="text/javascript">
+<!--
+(new RSS).createReader("2FFoundry2FRSS2FNewDownloads.html3FLimit3D5","http://rt.openfoundry.org/Foundry/RSS/NewDownloads.html?Limit=5", "New Downloads");
+-->
+</script>
+<a href="http://rt.openfoundry.org/Foundry/More.html?keywords=NewDownloads" class="More">More...</a>
+
+</div>
+<div id="Home">
+  <%= render :partial => "partials/category" %>
+  <br/>
+  <h1>OpenFoundry 0.1</h1>
+  <pre>
+  * OpenFoundry 0.1 (frontend / sympa / kwiki)
+  ** Ruby on Rails
+  ** MySQL
+  ** 0.1 features
+  *** 可 Project / User / Relationship 的 CRUD
+  *** 原 foundry data migration
+  *** 支援 sympa / kwiki
+  *** 不考慮美工
+  *** 採 utf-8, 支援繁體中文與英文 
+  </pre>
+  <pre>
+  * OpenFoundry 0.2 (2007/06/18)
+  ** 0.2 features
+  *** CVS / Subversion
+  *** Search (不含子系統)
+  **** 全文檢索
+  **** 分類搜尋
+  *** Tagging
+  **** Tag Cloud
+  **** Tags 搜尋
+  </pre>
+  Subversion: http://svn.openfoundry.org/openfoundry/
+</div>
