@@ -1,9 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 10001
-  unixname: bob_one
-  publicdescription: test_one
-second:
-  id: 10002
-  unixname: bob_two
-  publicdescription: test_one
+one:
+  id: 1
+two:
+  id: 2

@@ -1,7 +1,4 @@
 class ProjectController < ApplicationController
-  #add streamlined support!
-  layout 'streamlined'
-  acts_as_streamlined
 
   def kwiki 
     if (params[:id] =~ /^d+$/)
@@ -30,16 +27,16 @@ class ProjectController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
-  #def list
-  #  @project_pages, @projects = paginate :projects, :per_page => 10
-  #end
+  def list
+    @project_pages, @projects = paginate :projects, :per_page => 10
+  end
 
-  #def show
-  #  @project = Project.find(params[:id])
-  #  @admins = @project.admins
-  #  @members = @project.members
+  def show
+    @project = Project.find(params[:id])
+    @admins = @project.admins
+    @members = @project.members
 
-  #end
+  end
 
   def new
     @project = Project.new
@@ -66,12 +63,12 @@ class ProjectController < ApplicationController
     end
   end
 
- # def edit
- #   @project = Project.find(params[:id])
- #   @admins = @project.admins
- #   @members = @project.members
- #   permit "admin of :project", :redirect_controller => :project, :redirect_action => :list
- # end
+  def edit
+    @project = Project.find(params[:id])
+    @admins = @project.admins
+    @members = @project.members
+    permit "admin of :project", :redirect_controller => :project, :redirect_action => :list
+  end
 
   def update
     @project = Project.find(params[:id])

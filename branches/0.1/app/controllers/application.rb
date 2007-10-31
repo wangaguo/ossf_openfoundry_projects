@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   init_gettext "openfoundry"
 
   helper :user
-  #model  :user
+  model  :user
 
 #  before_filter :configure_charsets
 #

@@ -13,9 +13,6 @@ class ProjectControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @first_id = projects(:first).id
-    @request.host='localhost'
-    @request.session.host='127.0.0.1'
-    @request.session.user='XD'
   end
 
   def test_index
@@ -53,7 +50,6 @@ class ProjectControllerTest < Test::Unit::TestCase
   end
 
   def test_create
-
     num_projects = Project.count
 
     post :create, :project => {}

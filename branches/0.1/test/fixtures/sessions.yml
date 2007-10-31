@@ -1,7 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-session_one:
-  id: 100001
-  session_id: 11111111
-session_two:
-  id: 100002
-  session_id: 22222222
+one:
+  id: 1
+two:
+  id: 2

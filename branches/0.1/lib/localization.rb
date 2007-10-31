@@ -79,10 +79,10 @@ module Localization
 
   # redefinition of ActionMail::Base#render_message, that adds locale suffix to
   # the template name
-#  ActionMailer::Base.module_eval <<-EOL
-#  private
-#  def render_message(method_name, body)
-#    initialize_template_class(body).render_file(method_name + "_#{CONFIG[:default_language]}")
-#  end
-#  EOL
+  ActionMailer::Base.module_eval <<-EOL
+  private
+  def render_message(method_name, body)
+    initialize_template_class(body).render_file(method_name + "_#{CONFIG[:default_language]}")
+  end
+  EOL
 end
