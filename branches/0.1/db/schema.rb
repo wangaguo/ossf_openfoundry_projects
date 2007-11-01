@@ -2,7 +2,35 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 6) do
+
+  create_table "attachments", :force => true do |t|
+    t.column "filename",    :string,  :default => "", :null => false
+    t.column "size",        :integer,                 :null => false
+    t.column "path",        :string,  :default => "", :null => false
+    t.column "description", :string
+    t.column "created_at",  :date,                    :null => false
+    t.column "created_by",  :integer
+  end
+
+  create_table "categories", :force => true do |t|
+    t.column "name",        :string
+    t.column "parent",      :integer
+    t.column "creator",     :integer
+    t.column "description", :string
+    t.column "created_at",  :datetime, :null => false
+    t.column "updated_at",  :datetime, :null => false
+  end
+
+  create_table "fileentities", :force => true do |t|
+    t.column "filename", :string
+    t.column "size",     :integer
+    t.column "path",     :string
+    t.column "meta",     :string
+    t.column "createat", :date
+    t.column "createby", :integer
+    t.column "modifyat", :date
+  end
 
   create_table "projects", :force => true do |t|
     t.column "unixname",            :string
@@ -58,7 +86,7 @@ ActiveRecord::Schema.define(:version => 4) do
     t.column "created_at",    :datetime
   end
 
-  add_index "taggings", ["tag_id","taggable_id","taggable_type"], :name => "index_taggings_on_all", :unique => true
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_all", :unique => true
 
   create_table "tags", :force => true do |t|
     t.column "name", :string
