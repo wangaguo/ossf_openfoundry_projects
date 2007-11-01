@@ -27,13 +27,13 @@ class UserController < ApplicationController
 
     @user = User.new(@params['user'])
     if @session['user'] = User.authenticate(@params['user']['login'], @params['user']['password'])
-      flash['notice'] = l(:user_login_succeeded)
+      flash[:notice] = l(:user_login_succeeded)
       redirect_back_or_default :action => :home
       # For "paranoid session store"
       self.app_user=session['user']
     else
       @login = @params['user']['login']
-      flash.now['message'] = l(:user_login_failed)
+      flash.now[:message] = l(:user_login_failed)
     end
   end
 
