@@ -1,11 +1,12 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<%t1=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
 valid_session:
   id: 1
   session_id: 00151ae96241690c7f85be51c1496e5a
   user_id: 1
   host: 127.0.0.1
-  created_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
-  updated_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
+  created_at: <%= t1%>
+  updated_at: <%= t1%>
   data: 0
 
 valid_guest: 
@@ -13,8 +14,8 @@ valid_guest:
   session_id: 00151ae96241690c7f85be51c1496e5b
   user_id: null
   host: 127.0.0.1
-  created_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
-  updated_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
+  created_at: <%= t1%>
+  updated_at: <%= t1%>
   data: 0
  
 invalid_session:
@@ -22,8 +23,8 @@ invalid_session:
   session_id: 00151ae96241690c7f85be51c1496e5c
   user_id: 3
   host: 127.0.0.1
-  created_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
-  updated_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
+  created_at: <%= t1%>
+  updated_at: <%= t1%>
   data: 0
 
 invaild_guest:
@@ -31,6 +32,6 @@ invaild_guest:
   session_id: 00151ae96241690c7f85be51c1496e5d
   user_id: null
   host: 127.0.0.1
-  created_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
-  updated_at: <%= Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
+  created_at: <%= t1%>
+  updated_at: <%= t1%>
   data: 0

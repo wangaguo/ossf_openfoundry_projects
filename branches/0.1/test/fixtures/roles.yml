@@ -1,5 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-first:
-  id: 1
-another:
-  id: 2
+<% index=1 %>
+<% 1.upto 10 do |i| %>
+<% %w( Admin Member ).each do |role| %>
+<%= role+'_of_'+'p'+i.to_s %>: # ex: Admin_of_p1, Member_of_p2
+  id: <%=index+=1%>
+  name: <%=role%>
+  authorizable_type: Project
+  authorizable_id: <%=i%>  
+<%end%>
+<%end%>
