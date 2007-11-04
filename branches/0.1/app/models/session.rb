@@ -25,7 +25,7 @@ class Session < ActiveRecord::Base
     end
 
     def anonymous_sessions
-      find_all ["user_id IS NULL AND updated_at > ?", expires_at]
+      find( :all, :conditions => ["user_id IS NULL AND updated_at > ?", expires_at] )
     end
 
     def count_anonymous_sessions
@@ -33,11 +33,11 @@ class Session < ActiveRecord::Base
     end
 
     def active_sessions
-      find_all ["updated_at > ?", expires_at]
+      find( :all, :conditions => ["updated_at > ?", expires_at] )
     end
 
     def expired_sessions
-      find_all ["updated_at < ?", expires_at]
+      find( :all, :conditions =>  ["updated_at < ?", expires_at] )
     end
 
     def destroy_expired_sessions!
