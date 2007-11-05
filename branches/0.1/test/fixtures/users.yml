@@ -2,21 +2,21 @@
 tim:
     id: 1
     login: tim
-    salted_password: $1$123456$wOSEtcyiP2N/IfIl15W6Z0 #123456
+    salted_password: <%="123456".crypt("$1$123456") %>
     email: tim@iis
     verified: 1
 
 aguo:
     id: 2
     login: aguo
-    salted_password: $1$123456$wOSEtcyiP2N/IfIl15W6Z0 #123456
+    salted_password: <%="123456".crypt("$1$123456") %>
     email: aguo@iis
     verified: 1
 
 luors:
     id: 3
     login: luors
-    salted_password: $1$123456$wOSEtcyiP2N/IfIl15W6Z0 #123456
+    salted_password: <%="123456".crypt("$1$123456") %>
     email: luors@iis
     verified: 1
 

@@ -1,5 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-<% index=1 %>
+<% index=0 %>
 <% 1.upto 10 do |i| %>
 <% %w( Admin Member ).each do |role| %>
 <%= role+'_of_'+'p'+i.to_s %>: # ex: Admin_of_p1, Member_of_p2
