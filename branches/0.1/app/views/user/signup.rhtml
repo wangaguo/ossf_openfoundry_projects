@@ -3,8 +3,8 @@
 
   <div class="form-padding">
     <%= start_form_tag_helper %>
-      <%= render_partial 'edit', :user => @user, :submit => false %></br>
-      <%= render_partial 'password', :submit => false %>
+      <%= render :partial => 'edit', :locals => { :user => @user, :submit => false} %></br>
+      <%= render :partial => 'password', :locals => { :submit => false} %>
       
       <div class="button-bar">
         <%= button_helper 'signup' %>

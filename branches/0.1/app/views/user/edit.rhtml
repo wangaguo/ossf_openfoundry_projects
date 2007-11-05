@@ -2,11 +2,11 @@
   <%= head_helper :error => true %>
 
     <%= start_form_tag_helper %>
-      <%= render_partial 'edit', :user => @user, :submit => true %>
+      <%= render :partial => 'edit', :locals => {:user => @user, :submit => true} %>
     <%= end_form_tag %>
     </br>
     <%= start_form_tag_helper %>
-      <%= render_partial 'password', :submit => true %>
+      <%= render :partial => 'password', :locals => {:submit => true} %>
     <%= end_form_tag %>
 
     <%= start_form_tag_helper %>
