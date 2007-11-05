@@ -5,12 +5,13 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= _("OpenFoundry") %> -- <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'scaffold1' %>
   <%= stylesheet_link_tag 'openfoundry' %>
-  <%= javascript_include_tag "prototype", "effects" %>
+	<%= stylesheet_link_tag "openfoundry", "header", "transmenu" %>
+  <%= javascript_include_tag "prototype", "effects", "transmenu"%>
+
 </head>
-<body>
-<link href="http://www.openfoundry.org/templates/rt_versatility_ii_sienna/css/header.css" rel="stylesheet" type="text/css" />
+<body >
 <div id="header">
 	<a href="http://rt.openfoundry.org/of" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
 	<div id="access"></div>
@@ -21,7 +22,14 @@
 	<div id="top">
 		<a href="http://rt.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/open_foundry.gif" border="0" alt="OpenFoundry" /></a>      &nbsp;&nbsp;
 		<a href="http://whoswho.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/whoswho.gif" border="0" alt="who&#39;swho" /></a>
-    </div>
+  </div>
+</div>
+<div id="toolbar">
+	<div id="nav">
+		<div id="mtm_menu">
+			
+		</div>
+	</div>
 </div>
 
 <div id="MiddlePane">
