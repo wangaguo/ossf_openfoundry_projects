@@ -15,14 +15,14 @@ class UserControllerTest < Test::Unit::TestCase
   end
   
   def test_auth_bob
-    @request.session['return-to'] = "/bogus/location"
+    @request.session['return-to'] = "/user/home"
 
-    post :login, "user" => { "login" => "bob", "password" => "atest" }
+    post :login, "user" => { "login" => "tim", "password" => "123456" }
     assert_session_has "user"
 
-    assert_equal @bob, @response.session["user"]
+    assert_equal @tim, @response.session["user"]
     
-    assert_redirect_url "http://#{@request.host}/bogus/location"
+    assert_redirect_url "http://#{@request.host}/user/home"
   end
   
   def do_test_signup(bad_password, bad_email)
@@ -85,12 +85,15 @@ class UserControllerTest < Test::Unit::TestCase
   end
   
   def test_edit
-    post :login, "user" => { "login" => "bob", "password" => "atest" }
+    post :login, "user" => { "login" => "tim", "password" => "123456" }
     assert_session_has "user"
 
-    post :edit, "user" => { "firstname" => "Bob", "form" => "edit" }
-    assert_equal @response.session['user'].firstname, "Bob"
+    post :edit, "user" => { "firstname" => "kaworu", "form" => "edit" }
+    assert_equal @response.session['user'].firstname, "kaworu"
 
+    post :edit, "user" => { "firstname" => "kerokero", "form" => "edit" }
+    assert_equal @response.session['user'].firstname, "kerokero"
+    
     post :edit, "user" => { "firstname" => "", "form" => "edit" }
     assert_equal @response.session['user'].firstname, ""
 
@@ -291,7 +294,7 @@ class UserControllerTest < Test::Unit::TestCase
   
   def test_login_logoff
 
-    post :login, "user" => { "login" => "bob", "password" => "atest" }
+    post :login, "user" => { "login" => "tim", "password" => "123456" }
     assert_session_has "user"
 
     get :logout

@@ -6,8 +6,8 @@ class UserTest < Test::Unit::TestCase
     
   def test_auth
     
-    assert_equal  @bob, User.authenticate("bob", "atest")    
-    assert_nil User.authenticate("nonbob", "atest")
+    assert_equal  @bob, User.authenticate("bob", "atest")
+    assert_nil User.authenticate("bob","notmypass")
     
   end
 

@@ -21,7 +21,7 @@
   updated_at: <%=t1%>
 <%end%>
 
-<% %w( computing work-flow CMS ).each do |name|%>
+<% %w( computing work_flow CMS ).each do |name|%>
 <%=name%>:
   id: <%=index+=1%>
   name: <%=name%>
