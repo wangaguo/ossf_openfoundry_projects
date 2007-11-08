@@ -2,13 +2,13 @@
   <%= head_helper :error => true %>
 
   <div class="form-padding">
-    <%= start_form_tag_helper %>
+    <% start_form_tag_helper do -%>
       <%= render :partial => 'edit', :locals => { :user => @user, :submit => false} %></br>
       <%= render :partial => 'password', :locals => { :submit => false} %>
       
       <div class="button-bar">
         <%= button_helper 'signup' %>
       </div>
-    <%= end_form_tag %>
+    <% end -%>
   </div>
 </div>

@@ -97,9 +97,9 @@ EOL
     l(:"#{@controller.controller_name}_#{name}_message")
   end
 
-  def start_form_tag_helper(options = {})
+  def start_form_tag_helper(&blk)
     url = url_for(:action => "#{@controller.action_name}")
-    "#{self.send(:start_form_tag, url, options)}"
+    "#{self.send(:form_tag, url, &blk)}"
   end
 
   def attributes(hash)

@@ -20,7 +20,7 @@ class ProjectController < ApplicationController
   def index
     list
     render :action => 'list'
-    logger.debug "@session['user']: " + @session[:user].inspect
+    logger.debug "session['user']: " + session[:user].inspect
   end
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -43,9 +43,11 @@ class ProjectController < ApplicationController
   end
 
   def join_with_separator(hash, *keys)
-    keys.each do |k|
-      k = k.to_s
-      hash[k] = hash[k].values.grep(/./).join(",")
+    unless hash.nil?
+      keys.each do |k|
+        k = k.to_s
+        hash[k] = hash[k].values.grep(/./).join(",") unless hash[k].nil?  
+      end
     end
   end
 

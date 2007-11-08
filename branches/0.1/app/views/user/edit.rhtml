@@ -1,21 +1,21 @@
 <div title="<%= title_helper %>" class="form">
   <%= head_helper :error => true %>
 
-    <%= start_form_tag_helper %>
+    <% start_form_tag_helper do -%>
       <%= render :partial => 'edit', :locals => {:user => @user, :submit => true} %>
-    <%= end_form_tag %>
+    <% end -%>
     </br>
-    <%= start_form_tag_helper %>
+    <% start_form_tag_helper do -%>
       <%= render :partial => 'password', :locals => {:submit => true} %>
-    <%= end_form_tag %>
+    <% end -%>
 
-    <%= start_form_tag_helper %>
+    <% start_form_tag_helper do -%>
       <div class="user_delete">
         <%= form_input :hidden_field, 'form', :value => 'delete' %>
     
         <%= form_input :submit_button, 'delete_account' %>
       </div>
-    <%= end_form_tag %>
+    <% end -%>
 <fieldset>
         <% form_tag :action => 'add_tag', :id => @user do %>
         <label for="tag">Add a tag:</label><br/>

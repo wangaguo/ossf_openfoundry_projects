@@ -4,7 +4,7 @@
     <h1><%= flash[:message] %> </h1>
   <%end%>
   <div class="form-padding">
-    <%= start_form_tag_helper  %>
+    <% start_form_tag_helper do -%>
       <label for="user_login"><%= _("Login ID") %>:</label><%= text_field("user", "login", :size => 30) %> 
       <label for="user_password"><%= _("Password") %>:</label><%= password_field("user", "password", :size => 30) %> 
       <div class="button-bar">
@@ -12,7 +12,7 @@
         <%= link_to _('Register for an account'), :action => 'signup' %> |
         <%= link_to _('Forgot my password'), :action => 'forgot_password' %>
       </div>
-    <%= end_form_tag %>
+    <% end -%>
   </div>
 </div>
                                                                                 

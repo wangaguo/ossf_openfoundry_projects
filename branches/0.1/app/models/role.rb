@@ -13,6 +13,6 @@ class Role < ActiveRecord::Base
     ROLES.include? role
   end 
   def self.validates_role(role) # role string
-    raise StandardError "not a valid role: #{role}" unless valid_role?(role)
+    raise( StandardError, "not a valid role: #{role}" ) unless valid_role?(role)
   end 
 end

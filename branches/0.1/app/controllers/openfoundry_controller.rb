@@ -43,11 +43,11 @@ class OpenfoundryController < ApplicationController
     end
 
     data = {
-      :projects => Project.find_all().map { |p| { :Id => p.id, :ProjectName => p.projectname , :UnixName => p.unixname } },
-      :users => User.find_all().map { |u| { :Id => u.id, :Name => u.login, :Email => u.email, :Password => u.salted_password } },
+      :projects => Project.find(:all).map { |p| { :Id => p.id, :ProjectName => p.projectname , :UnixName => p.unixname } },
+      :users => User.find(:all).map { |u| { :Id => u.id, :Name => u.login, :Email => u.email, :Password => u.salted_password } },
       :relations => {
-        :admin => Project.find_all().inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
-        :member => Project.find_all().inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
+        :admin => Project.find(:all).inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
+        :member => Project.find(:all).inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
       }
     }
     render :text => data.to_json, :layout => false
