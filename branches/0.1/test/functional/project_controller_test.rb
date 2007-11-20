@@ -5,14 +5,16 @@ require 'project_controller'
 class ProjectController; def rescue_action(e) raise e end; end
 
 class ProjectControllerTest < Test::Unit::TestCase
-  fixtures :projects
-
+  fixtures :projects, :users
+  
   def setup
     @controller = ProjectController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
-    @first_id = projects(:first).id
+    
+    @test_session = {'user' => User.find(1)}
+    @request.host = "localhost"
+    @first_id = @openfoundry.id
   end
 
   def test_index
@@ -49,10 +51,10 @@ class ProjectControllerTest < Test::Unit::TestCase
     assert_not_nil assigns(:project)
   end
 
-  def test_create
+  def test_create   
     num_projects = Project.count
-
-    post :create, :project => {}
+  
+    post :create,{ :project => {:unixname => "newproject"+rand(100).to_s} }, @test_session
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
@@ -61,7 +63,7 @@ class ProjectControllerTest < Test::Unit::TestCase
   end
 
   def test_edit
-    get :edit, :id => @first_id
+    get :edit, :id => @first_id 
 
     assert_response :success
     assert_template 'edit'
@@ -71,7 +73,7 @@ class ProjectControllerTest < Test::Unit::TestCase
   end
 
   def test_update
-    post :update, :id => @first_id
+    post :update, :id => @first_id, :project => {:unixname => "meow"}
     assert_response :redirect
     assert_redirected_to :action => 'show', :id => @first_id
   end

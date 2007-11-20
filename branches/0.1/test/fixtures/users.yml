@@ -20,6 +20,13 @@ luors:
     email: luors@iis
     verified: 1
 
+dummy:
+    id: 99999
+    login: dummy
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: dummy@iis
+    verified: 1
+
 bob:
   id: 1000001
   login: bob

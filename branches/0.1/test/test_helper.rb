@@ -28,3 +28,14 @@ class Test::Unit::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+module ActionController
+  class TestSession
+    def host
+      '0.0.0.0'
+    end
+    def user
+      'guest'
+    end
+  end
+end
