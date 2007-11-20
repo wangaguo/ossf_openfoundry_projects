@@ -44,7 +44,7 @@ module UserSystem
       return true  
     end
 
-    if user? and authorize?(@session['user'])
+    if user? and authorize?(session['user'])
       return true
     end
 
@@ -53,7 +53,7 @@ module UserSystem
     store_location
   
     # call overwriteable reaction to unauthorized access
-    access_denied
+    access_denied reason
     return false 
   end
 
@@ -69,30 +69,30 @@ module UserSystem
   # store current uri in  the session.
   # we can return to this location by calling return_location
   def store_location
-    @session['return-to'] = @request.request_uri
+    session['return-to'] = request.request_uri
   end
 
   # move to the last store_location call or to the passed default one
   def redirect_back_or_default(default)
-    if @session['return-to'].nil?
+    if session['return-to'].nil?
       redirect_to default
     else
-      redirect_to_url @session['return-to']
-      @session['return-to'] = nil
+      redirect_to session['return-to']
+      session['return-to'] = nil
     end
   end
 
   def user?
     # First, is the user already authenticated?
-    return true if not @session['user'].nil?
+    return true if not session['user'].nil?
 
     # If not, is the user being authenticated by a token?
-    return false if not @params['user']
-    id = @params['user']['id']
-    key = @params['key']
+    return false if not params['user']
+    id = params['user']['id']
+    key = params['key']
     if id and key
-      @session['user'] = User.authenticate_by_token(id, key)
-      return true if not @session['user'].nil?
+      session['user'] = User.authenticate_by_token(id, key)
+      return true if not session['user'].nil?
     end
 
     # Everything failed
