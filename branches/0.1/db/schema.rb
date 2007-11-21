@@ -23,15 +23,28 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "fileentities", :force => true do |t|
-    t.column "filename", :string
+    t.column "release_id", :integer
+    t.column "name", :string
+    t.column "description", :string
     t.column "size",     :integer
-    t.column "path",     :string
+    t.column "path",     :string, :null => false
     t.column "meta",     :string
     t.column "createat", :date
     t.column "createby", :integer
     t.column "modifyat", :date
   end
 
+  create_table "releases", :force => true do |t|
+    t.column "project_id", :integer, :null => false
+    t.column "name", :string
+    t.column "description", :string
+    t.column "version",     :string, :null => false
+    t.column "due",     :date
+    t.column "createat", :date
+    t.column "createby", :integer
+    t.column "modifyat", :date
+  end
+  
   create_table "projects", :force => true do |t|
     t.column "unixname",            :string
     t.column "projectname",         :string
