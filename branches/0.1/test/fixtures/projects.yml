@@ -14,5 +14,7 @@
   platform: FreeBSD,linux
   programminglanguage: ruby
   intendedaudience: no haha
+  creator: 1
+  status: <%= Project::STATUS[:READY] %>
 <%end%>
   

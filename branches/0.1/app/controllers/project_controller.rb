@@ -51,6 +51,9 @@ class ProjectController < ApplicationController
     end
   end
 
+  def apply
+    Project.apply(params[:project], current_user())
+  end
 
   def create
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)

@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
+  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }
   #validates_inclusion_of :license, :in => LICENSES
 
   #support Project-User relationship
@@ -31,4 +32,29 @@ class Project < ActiveRecord::Base
     Role.validates_role(role)
     user.has_role role, self 
   end
+
+  # apply for a new project
+  #
+  # data:    a hash
+  # creator: an User object
+  # return: the newly created project object
+  def self.apply(data, creator)
+    data[:creator] = creator.id
+    data[:status] = Project::STATUS[:APPLYING]
+    Project.create(data)
+  end
+
+  def approve
+    raise "wrong status! #{self.status}" if self.status != Project::STATUS[:APPLYING]
+    self.status = Project::STATUS[:READY]
+    save
+  end
+  # reason: string
+  def reject(reason)
+    raise "wrong status! #{self.status}" if self.status != Project::STATUS[:APPLYING]
+    self.status = Project::STATUS[:REJECTED]
+    self.statusreason = reason
+    save
+  end
+
 end
