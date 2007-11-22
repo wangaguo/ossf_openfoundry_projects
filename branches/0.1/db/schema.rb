@@ -60,6 +60,9 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "redirecturl",         :string
     t.column "vcs",                 :string
     t.column "remotevcs",           :string
+    t.column "creator",             :integer
+    t.column "status",              :integer
+    t.column "statusreason",        :text
   end
 
   create_table "roles", :force => true do |t|
