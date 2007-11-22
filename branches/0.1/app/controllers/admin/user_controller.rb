@@ -1,3 +1,3 @@
-class Admin::UserController < AdminController 
+class Admin::UserController < Admin
   active_scaffold :User
 end

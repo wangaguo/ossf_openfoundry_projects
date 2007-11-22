@@ -1,3 +1,3 @@
-class Admin::ProjectController < AdminController 
+class Admin::ProjectController < Admin
   active_scaffold :Project
 end
