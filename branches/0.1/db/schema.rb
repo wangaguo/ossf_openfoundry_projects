@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "createby",    :integer
     t.column "modifyat",    :date
   end
+  
+  add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique =>true
+
 
   create_table "projects", :force => true do |t|
     t.column "unixname",            :string
