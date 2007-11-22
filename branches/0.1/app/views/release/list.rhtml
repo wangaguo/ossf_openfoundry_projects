@@ -1,0 +1,14 @@
+<h1>Release#list</h1>
+<div id="ReleaseBasic">
+<% release_columns = Release.content_columns -%>  
+<% @releases.each do |release|%>
+  <fieldset>
+  <dl>
+  <% for column in release_columns %>
+    <dt><%= column.human_name %>:</dt><dd><%=h release.send(column.name) %></dd>
+  <% end %>
+  </dl>
+  
+  </fieldset>
+<% end %>
+</div>

@@ -16,6 +16,9 @@ class Project < ActiveRecord::Base
   #add tags
   acts_as_taggable
   
+  #model relationships
+  has_many :release
+  
   #field validations...
   #validates_format_of :unixname, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/
   #validates_inclusion_of :license, :in => LICENSES

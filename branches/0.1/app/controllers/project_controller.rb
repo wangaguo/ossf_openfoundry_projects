@@ -39,6 +39,7 @@ class ProjectController < ApplicationController
   end
 
   def new
+    login_required _("create project require login")
     @project = Project.new
   end
 
@@ -56,6 +57,7 @@ class ProjectController < ApplicationController
   end
 
   def create
+    login_required _("create project require login")
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
     @project = Project.new(params[:project])
     if @project.save
@@ -100,7 +102,7 @@ class ProjectController < ApplicationController
 
   def delete_role
     project = Project.find params[:id]
-    raise SandardErroe unless Role.valid_role? params[:role]
+    raise SandardError unless Role.valid_role? params[:role]
 
     params[params[:role].to_sym].each do |user_id|
       user = User.find user_id

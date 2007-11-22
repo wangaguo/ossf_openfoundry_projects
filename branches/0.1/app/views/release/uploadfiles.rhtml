@@ -1,0 +1,53 @@
+<div id=uploadfiles_view>
+
+<br/>
+
+<% form_remote_for :controller => 'release',:action => 'addfiles' do -%>
+  <h2>Project Upload Reposity</h2>
+  <h3>Current Dir: <%= @current_dir %> </h3>
+  <p>
+  <%= link_to_remote "[upper dir]", :url => {
+      :contrller => 'release', :action => 'uploadfiles',
+      :move => @upper_dir,
+      :layout => 'false'
+  }, :update => "uploadfiles_view" -%>
+  
+  <%=submit_tag 'Add File'%>
+  </p>
+  
+  <div id=uploaddirs>
+  
+  <% @uploaddirs.sort.each do |dir| -%>
+  <li>
+      <%= link_to_remote dir, :url => {
+          :contrller => 'release', :action => 'uploadfiles',
+          :move => "#{dir}",
+          :layout => 'false'
+      }, :update => "uploadfiles_view" -%>
+  </li>
+  <% end -%>
+  
+  </div>
+
+  <br/>
+  
+  <div id=uploadfile_selection>
+  <% unless @uploadfiles.empty? -%>
+    <select id=release_file_selection multiple size=15>
+
+    <% @uploadfiles.sort.each do |file| -%>
+    <option id=release_file>  
+      <%= file %>
+    </option>
+    <% end -%>  
+
+    </select>
+  <% else -%>
+    <h5> Not file found </h5>
+  <%end -%>
+  </div>
+  
+  <br/>
+
+<% end -%>
+</div>

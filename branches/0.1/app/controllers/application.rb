@@ -9,7 +9,9 @@ require 'action_controller_cgi_request_hack'
 class ApplicationController < ActionController::Base
   include Localization
   include UserSystem
-
+# for exception growler 
+  include ExceptionGrowler
+  
   init_gettext "openfoundry"
 
   helper :user
