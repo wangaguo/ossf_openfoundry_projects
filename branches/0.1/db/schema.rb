@@ -23,28 +23,17 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "fileentities", :force => true do |t|
-    t.column "release_id", :integer
-    t.column "name", :string
+    t.column "release_id",  :integer
+    t.column "name",        :string
     t.column "description", :string
-    t.column "size",     :integer
-    t.column "path",     :string, :null => false
-    t.column "meta",     :string
-    t.column "createat", :date
-    t.column "createby", :integer
-    t.column "modifyat", :date
+    t.column "size",        :integer
+    t.column "path",        :string,  :default => "", :null => false
+    t.column "meta",        :string
+    t.column "createat",    :date
+    t.column "createby",    :integer
+    t.column "modifyat",    :date
   end
 
-  create_table "releases", :force => true do |t|
-    t.column "project_id", :integer, :null => false
-    t.column "name", :string
-    t.column "description", :string
-    t.column "version",     :string, :null => false
-    t.column "due",     :date
-    t.column "createat", :date
-    t.column "createby", :integer
-    t.column "modifyat", :date
-  end
-  
   create_table "projects", :force => true do |t|
     t.column "unixname",            :string
     t.column "projectname",         :string
@@ -63,6 +52,17 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "creator",             :integer
     t.column "status",              :integer
     t.column "statusreason",        :text
+  end
+
+  create_table "releases", :force => true do |t|
+    t.column "project_id",  :integer,                 :null => false
+    t.column "name",        :string
+    t.column "description", :string
+    t.column "version",     :string,  :default => "", :null => false
+    t.column "due",         :date
+    t.column "createat",    :date
+    t.column "createby",    :integer
+    t.column "modifyat",    :date
   end
 
   create_table "roles", :force => true do |t|
