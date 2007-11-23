@@ -1,34 +1,50 @@
 * {
 	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
+	font-size:13px;
+  
 }
 
 body {
+  background-color:#EEE;
 	margin: 0px;
+  font-size:114%;
 }
 
-#LeftMenu ul {
+/* For Content */
+h1 { font-size:20px; }
+h2 { font-size:18px; }
+h3 { font-size:16px; }
+h4 { font-size:14px; }
+h1, h2, h3, h4 { color:#31659C; }
+input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }
+label { font-weight:bold; }
+fieldset { border:solid 2px #DEE7FF; }
+fieldset legend { font-weight:bold; color:#4265DE; }
+a:hover {
+  color: #577FE3;
+  border-bottom: dotted 1px #333;
+}
+a {
+  text-decoration: none;
+  color: #0D356F;
+}
+textarea {
+  height:100px;
+  width:500px
+}
+
+/* Left menu */
+#LeftMenu>ul {
 	padding: 0px;
 	margin: 0px;
 }
 
-#LeftMenu li {
+#LeftMenu>ul>li {
 	display: block;
-	height: 16px;
-	line-height: 15px;
-	padding: 0;
 	padding-left: 20px;
 	background: url(http://www.openfoundry.org/templates/rt_versatility_ii_sienna/images/play.png) no-repeat;
 	margin-bottom: 3px;
 	list-style-type: none;
-}
-
-a:link, a:visited {
-  text-decoration: none;
-  border-bottom:dotted 1px #ddd;
-}
-  
-a {
 }
 
 #LeftWidget {
@@ -128,13 +144,12 @@ padding:5px 15px 4px 6px;
 text-decoration:none;
 }
 
-/* For Content */
-h1 { font-size:20px; }
-h2 { font-size:18px; }
-h3 { font-size:16px; }
-h4 { font-size:14px; }
-h1, h2, h3, h4 { color:#31659C; }
-input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }
-label { font-weight:bold; }
-fieldset { border:solid 2px #DEE7FF; }
-fieldset legend { font-weight:bold; color:#4265DE; }
+
+/* For News */
+#home_news li a{
+  font-size: 114%;
+}
+#home_news li:first-child a{
+  font-weight: bold;
+  font-size: 160%;
+}
