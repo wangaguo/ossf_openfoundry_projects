@@ -145,6 +145,20 @@ text-decoration:none;
 }
 
 
+/* For Content */
+h1 { font-size:20px; }
+h2 { font-size:18px; }
+h3 { font-size:16px; }
+h4 { font-size:14px; }
+h1, h2, h3, h4 { color:#31659C; }
+input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }
+label { font-weight:bold; }
+fieldset { border:solid 2px #DEE7FF; }
+
+/* For project-release */
+#Uploaddirs { overflow:auto;height:250px;width:50%;float:left; }
+#Uploadfile_selection { width:50%;float:right; }
+
 /* For News */
 #home_news li a{
   font-size: 114%;
