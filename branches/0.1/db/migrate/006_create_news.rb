@@ -1,4 +1,4 @@
-class News < ActiveRecord::Migration
+class CreateNews < ActiveRecord::Migration
   def self.up
      create_table :news do |t|
        t.column :subject, :string, :limit => 100, :null => false

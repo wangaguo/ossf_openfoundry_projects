@@ -3,7 +3,18 @@
 # then regenerate this schema definition.
 
 ActiveRecord::Schema.define(:version => 6) do
-
+  
+   create_table :news do |t|
+     t.column :subject, :string, :limit => 100, :null => false
+     t.column :description, :string, :limit => 4000, :null => false
+     t.column :tags, :string, :limit => 100, :default => "", :null => false
+     t.column :catid, :integer, :default => 0, :null => false
+     t.column :creator, :integer, :default => 0, :null => false
+     t.column :created_at, :date, :null => false
+     t.column :updated_at, :date, :null => false
+   end
+  
+  
   create_table "attachments", :force => true do |t|
     t.column "filename",    :string,  :default => "", :null => false
     t.column "size",        :integer,                 :null => false
@@ -33,9 +44,8 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "createby",    :integer
     t.column "modifyat",    :date
   end
-  
-  add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique =>true
 
+  add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique => true
 
   create_table "projects", :force => true do |t|
     t.column "unixname",            :string
