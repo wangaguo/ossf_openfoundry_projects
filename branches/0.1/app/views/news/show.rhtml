@@ -1,0 +1,9 @@
+<h1><%=@news.subject%></h1>
+<p class="date"><%=@news.update_at.strftime("更新日期:%Y/%m/%d %H:%M")%></p>
+<div class="content">
+<%= @news.description%>
+</div>
+<p class="tags">標籤:<%=@news.tags%></p>
+
+<%= link_to 'OpenFoundry新聞', :action => 'list' %> | 
+<%= link_to '首頁', :controller => 'openfoundry' %>

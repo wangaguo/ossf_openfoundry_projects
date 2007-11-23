@@ -1,0 +1,16 @@
+<div id="home_news">
+  <h1>OpenFoundry 新聞<%#=link_to_remote( "<img src='http://publib.boulder.ibm.com/infocenter/tivihelp/v10r1/topic/com.ibm.ccmdb.doc/cmdb_user/images/icon_reload.gif' style='border:none;' border='0'></img>", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %></h1>
+  <ul>
+    <%i=1 %>
+    <%for news in newsList %>
+    <li>
+		  <%= link_to news.subject, :controller => "news", :action => "show", :id => news.id %>
+      <%if i==1 %>
+        <p><%=news.description[0..270] %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
+      <%i=i+1%>
+      <%end %>
+    </li>
+    <%end %>
+  </ul>
+  <%=link_to "更多新聞", :controller => "news", :action => "list" %>
+</div>

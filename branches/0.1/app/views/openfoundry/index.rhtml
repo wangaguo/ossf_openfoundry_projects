@@ -3,6 +3,10 @@ Right widget here.
 </div>
 <div id="Home">
   <%= render :partial => "partials/category" %>
+	<%= render :partial => "news/home_news", :locals =>{:newsList => News.home_news} %>
+<script>
+	//new Ajax.Updater('home_news', '/news/_home_news', {method: 'get'});
+</script>
   <br/>
   <h1>OpenFoundry 0.1</h1>
   <pre>

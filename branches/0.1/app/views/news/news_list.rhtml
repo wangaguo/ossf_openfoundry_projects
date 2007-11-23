@@ -1,0 +1,10 @@
+<h1>OpenFoundry news list</h1>
+
+<table>
+<% for news in @news %>
+  <tr><td><%=news.subject%><%=news.update_at%></td></tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @news_pages.current.previous } if @news_pages.current.previous %>
+<%= link_to 'Next page', { :page => @news_pages.current.next } if @news_pages.current.next %> 

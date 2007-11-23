@@ -1,0 +1,16 @@
+<%= error_messages_for 'news' %>
+
+<!--[form:news]-->
+<p><label for="news_subject">標題</label><br/>
+<%= text_field 'news', 'subject' %></p>
+
+<p><label for="news_descr">內容</label><br/>
+<%= text_area("news", "description", "cols" => 40, "rows" => 10) %></p>
+
+<p><label for="news_tags">Tags</label><br/>
+<%= text_field 'news', 'tags'  %></p>
+
+<p><label for="news_catid">Category Id</label><br/>
+<%= text_field 'news', 'catid', "size" => 1 %></p>
+<!--[eoform:news]-->
+
