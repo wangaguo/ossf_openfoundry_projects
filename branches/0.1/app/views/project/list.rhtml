@@ -12,13 +12,12 @@
   </tr>
   
 <% for project in @projects %>
-  <% @project = project %>
   <tr>
-    <td><img src="http://rt.openfoundry.org/img/project_logo/<%= @project.id %>.gif" /></td>
+    <td><img src="http://rt.openfoundry.org/img/project_logo/<%= project.id %>.gif" /></td>
   <% for column in my_content_columns %>
     <td><%=h project.send(column.name) %></td>
   <% end %>
-  <%= render(:partial => "/partials/sed") %>
+  <%= render(:partial => "/partials/sed", :locals => { :project => project }) %>
   </tr>
 <% end %>
 </table>
