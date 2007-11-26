@@ -1,5 +1,5 @@
 <div id="RightWidget">
-Right widget here.
+<%= render :partial => "news/listn", :locals => {:newsList => News.ProjectNews}%>
 </div>
 <div id="Home">
   <%= render :partial => "partials/category" %>

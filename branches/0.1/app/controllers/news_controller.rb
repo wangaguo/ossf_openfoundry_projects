@@ -15,7 +15,7 @@ class NewsController < ApplicationController
   end
   
   def news_list
-    @news_pages, @news = paginate :news, :conditions => "catid=0", :order => "'update_at'", :per_page => 10
+    @news_pages, @news = paginate :news, :conditions => "catid=0", :order => "updated_at desc", :per_page => 10
   end
   
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -41,8 +41,6 @@ class NewsController < ApplicationController
     @news.description = params[:news][:description]
     @news.tags = params[:news][:tags]
     @news.catid = params[:news][:catid]
-    @news.create_at = DateTime.now
-    @news.update_at = DateTime.now
     if @news.save
       flash[:notice] = 'News was successfully created.'
       redirect_to :action => 'list'
@@ -57,7 +55,6 @@ class NewsController < ApplicationController
   
   def update
     @news = News.find(params[:id])
-    params[:news][:update_at] = DateTime.now
     if @news.update_attributes(params[:news])
       flash[:notice] = 'News was successfully updated.'
       redirect_to :action => 'show', :id => @news

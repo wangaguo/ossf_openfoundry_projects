@@ -1,5 +1,10 @@
 class News < ActiveRecord::Base
   def self.home_news
-    news = News.find(:all, :conditions=>['catid="0"'])
+    News.find(:all, :conditions => ['catid="0"'], :order => "updated_at desc", :limit => 5)
   end
+  
+  def self.ProjectNews
+    News.find(:all, :conditions => ['catid<>"0"'], :order => "updated_at desc", :limit => 5)
+  end
+  
 end
