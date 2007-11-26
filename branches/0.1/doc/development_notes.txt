@@ -2,9 +2,10 @@
 	Tab使用兩個空白
 
 統一欄位名稱:
-	create_at
+	created_at
 	updated_at
 	creator
 	
-	create_on
+	created_on
+	updated_on
 	
