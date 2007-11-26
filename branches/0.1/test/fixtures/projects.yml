@@ -15,6 +15,6 @@
   programminglanguage: ruby
   intendedaudience: no haha
   creator: 1
-  status: <%= Project::STATUS[:READY] %>
+  status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
 <%end%>
   
