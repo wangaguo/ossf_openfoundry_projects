@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "path",        :string,  :default => "", :null => false
     t.column "description", :string
     t.column "created_at",  :datetime,                :null => false
-    t.column "updated_at",  :datetime,
+    t.column "updated_at",  :datetime
     t.column "creator",     :integer
   end
 
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "creator",     :integer
     t.column "description", :string
     t.column "created_at",  :datetime, :null => false
-    t.column "updated_at",  :datetime,
+    t.column "updated_at",  :datetime
     t.column "creator",     :integer
   end
 
