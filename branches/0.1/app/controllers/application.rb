@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   include Localization
   include UserSystem
 # for exception growler 
-  include ExceptionGrowler
+#  include ExceptionGrowler
   
   init_gettext "openfoundry"
 
