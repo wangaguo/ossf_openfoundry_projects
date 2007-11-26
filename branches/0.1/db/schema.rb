@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "size",        :integer,                 :null => false
     t.column "path",        :string,  :default => "", :null => false
     t.column "description", :string
-    t.column "created_at",  :date,                    :null => false
-    t.column "created_by",  :integer
+    t.column "created_at",  :datetime,                :null => false
+    t.column "updated_at",  :datetime,
+    t.column "creator",     :integer
   end
 
   create_table "categories", :force => true do |t|
@@ -30,7 +31,8 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "creator",     :integer
     t.column "description", :string
     t.column "created_at",  :datetime, :null => false
-    t.column "updated_at",  :datetime, :null => false
+    t.column "updated_at",  :datetime,
+    t.column "creator",     :integer
   end
 
   create_table "fileentities", :force => true do |t|
@@ -40,9 +42,9 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "size",        :integer
     t.column "path",        :string,  :default => "", :null => false
     t.column "meta",        :string
-    t.column "createat",    :date
-    t.column "createby",    :integer
-    t.column "modifyat",    :date
+    t.column "created_at",  :datetime
+    t.column "updated_at",  :datetime
+    t.column "creator",     :integer
   end
 
   add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique => true
@@ -73,9 +75,9 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "description", :string
     t.column "version",     :string,  :default => "", :null => false
     t.column "due",         :date
-    t.column "createat",    :date
-    t.column "createby",    :integer
-    t.column "modifyat",    :date
+    t.column "created_at",  :datetime
+    t.column "updated_at",  :datetime
+    t.column "creator",     :integer
   end
 
   create_table "roles", :force => true do |t|
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "authorizable_id",   :integer
     t.column "created_at",        :datetime
     t.column "updated_at",        :datetime
+    t.column "creator",           :integer
   end
 
   create_table "roles_users", :id => false, :force => true do |t|
@@ -113,6 +116,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "taggable_id",   :integer
     t.column "taggable_type", :string
     t.column "created_at",    :datetime
+    t.column "updated_at",    :datetime
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_all", :unique => true
