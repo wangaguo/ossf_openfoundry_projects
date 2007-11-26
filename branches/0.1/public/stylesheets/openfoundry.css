@@ -1,7 +1,6 @@
 * {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:13px;
-  
 }
 
 body {
@@ -49,12 +48,7 @@ textarea {
 
 #LeftWidget {
   padding:5px;
-/*
-  position:absolute;
-  left:0px;	
   float:left;
-*/
-  position:absolute;
   left:0px;	
   width:16%;
   overflow:hidden;
@@ -69,16 +63,8 @@ textarea {
 
 #MainContent {
   margin-top:8px;
-/*
-  margin-left:16%;
-  width:84%;
-
   float:left;
-  margin-left:4%;
-  width:78%;
-*/
-  margin-left:16%;
-  width:84%;
+  width:81%;
 }
 
 #MainBody {
@@ -92,7 +78,7 @@ textarea {
   padding:30px 0px 10px 0px;
   text-align:center;
   clear:both;
-  width:84%;
+  width:100%;
   float:right;
 }
 
@@ -143,17 +129,6 @@ font-weight:bold;
 padding:5px 15px 4px 6px;
 text-decoration:none;
 }
-
-
-/* For Content */
-h1 { font-size:20px; }
-h2 { font-size:18px; }
-h3 { font-size:16px; }
-h4 { font-size:14px; }
-h1, h2, h3, h4 { color:#31659C; }
-input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }
-label { font-weight:bold; }
-fieldset { border:solid 2px #DEE7FF; }
 
 /* For project-release */
 #Uploaddirs { overflow:auto;height:250px;width:50%;float:left; }
