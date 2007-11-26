@@ -4,7 +4,7 @@
 
 ActiveRecord::Schema.define(:version => 6) do
   
-   create_table :news do |t|
+   create_table :news, :force => true do |t|
      t.column :subject, :string, :limit => 100, :null => false
      t.column :description, :string, :limit => 4000, :null => false
      t.column :tags, :string, :limit => 100, :default => "", :null => false
