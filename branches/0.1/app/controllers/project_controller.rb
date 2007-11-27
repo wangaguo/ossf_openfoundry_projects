@@ -41,7 +41,7 @@ class ProjectController < ApplicationController
   end
 
   def new
-    login_required _("create project require login")
+    login_required #_("create project require login")
     @project = Project.new
   end
 
