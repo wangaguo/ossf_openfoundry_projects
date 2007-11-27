@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 <%index=0%>
-<% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro).each do |projectname| %>
+<% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |projectname| %>
 <%=projectname%>:
   id: <%=index+=1%>
   unixname: <%=projectname%>
