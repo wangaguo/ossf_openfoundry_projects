@@ -68,7 +68,7 @@ class UserController < ApplicationController
   end
 
   def change_password
-    login_required _("you have to login before changing password")
+    login_required #_("you have to login before changing password")
     return if generate_filled_in
     params['user'].delete('form')
     begin

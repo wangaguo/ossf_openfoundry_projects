@@ -59,7 +59,7 @@ class ProjectController < ApplicationController
   end
 
   def create
-    login_required _("create project require login")
+    login_required #_("create project require login")
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
     @project = Project.new(params[:project])
     if @project.save
