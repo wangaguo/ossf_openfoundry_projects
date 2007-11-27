@@ -11,7 +11,7 @@
 </head>
 <body >
 <div id="header">
-	<a href="http://rt.openfoundry.org/of" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
+	<a href="/" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
 	<div id="access"></div>
 	<span id="rightbg">&nbsp;</span>
 	<span id="search">
@@ -34,85 +34,16 @@
 <div id="LeftWidget">
 	<br/>
 	<%= render :partial => 'partials/login' %>
-		<h3>Tag Cloud</h3>
-		<%= render :partial => 'partials/tagcloud'%>
-	
-	<div id="LeftMenu">
-		<h3>專案功能</h3>
-    <ul>
-        <li>專案資訊</a>
-            <ul>
-                <li>專案摘要</li>
-                <li>專案網站</li>
-                <li>專案成員</li>
-                <li>畫面擷取</li>
-                <li>引用資訊</li>
-                <li>參考文獻</li>
-                <li>專案新聞</li>
-                <li>徵人公告</li>
-                <li>統計資訊</li>
-            </ul>
-        </li>
-        <li>待辦事項
-            <ul>
-                <li>綜覽</li>
-                <li>瑕疵</li>
-                <li>修正檔</li>
-                <li>工作事項 </li>
-                <li>新功能</li>
-                <li>改進</li>
-                <li>統計資訊</li>
-                <li>搜尋</li>
-            </ul>
-        </li>
-        <li>共同筆記</li>
-        <li>版本控制
-            <ul>
-                <li>Subversion or CVS Browse </li>
-                <li>Download Subversion or CVS</li>
-            </ul>
-        </li>
-        <li>通訊論壇</li>
-        <li>下載區</li>
-        <li>工作任務</li>
-        <li>服務</li>
-    </ul>
-		
-		<h3>專案管理</h3>
-    <ul>
-        <li>專案資訊
-            <ul>
-                <li>專案摘要</li>
-                <li>專案網站</li>
-                <li>專案成員</li>
-                <li>畫面擷取</li>
-                <li>引用資訊</li>
-                <li>參考文獻</li>
-                <li>專案新聞</li>
-                <li>徵人公告</li>
-                <li>統計資訊</li>
-            </ul>
-        </li>
-        <li>待辦事項 </li>
-        <li>共同筆記 </li>
-        <li>版本控制
-            <ul>
-                <li>export / import / destroy </li>
-            </ul>
-        </li>
-        <li>通訊論壇 </li>
-        <li>規劃釋出
-            <ul>
-                <li>版本管理</li>
-                <li>上載區</li>
-            </ul>
-        </li>
-        <li>工作任務<br>
-        </li>
-        <li>服務</li>
-        <li>權限控管</li>
-    </ul>
-	</div>
+	<%if params["prjid"] != nil%>
+    <div id="LeftMenu">
+      <%=render :partial => "partials/project_menu"%>
+    </div>
+  <%else%>
+    <div id="TagCloud">
+  		<h3>Tag Cloud</h3>
+  		<%= render :partial => 'partials/tagcloud'%>
+    </div>
+  <%end%>
 </div>
 
 <div id="MainContent">
@@ -126,7 +57,7 @@
 <div id="Footer">
 <hr/>
 OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. Resolution 1024*768.<br/>
-Privacy Policy | Terms of Use
+<a href="http://www.openfoundry.org/index.php?option=com_content&task=view&id=879&Itemid=1">Privacy Policy</a> | <a href="http://www.openfoundry.org/index.php?option=com_content&task=view&id=880&Itemid=1">Terms of Use</a>
 </div>
 
 </body>
