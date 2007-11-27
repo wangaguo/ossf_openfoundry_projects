@@ -793,10 +793,10 @@ var menudata = [
 	{id:'OpenFoundry', url:'/',
 		submenu:[
 			{id:'首頁', url:'/'},
-			{id:'OpenFoundry新聞 (x)', url:'m1s1ur2'},
+			{id:'OpenFoundry新聞 ', url:'/news/list'},
 			{id:'社群(x)', url:'m1s1ur2'},
-			{id:'關於OSSF(x)', url:'m1s1ur2'},
-			{id:'自由軟體鑄造場電子報(x) ', url:'m1s1ur2',
+			{id:'關於OSSF', url:'http://www.openfoundry.org/index.php?option=com_content&task=blogcategory&id=69&Itemid=114&lang=tw'},
+			{id:'自由軟體鑄造場電子報', url:'http://www.openfoundry.org/index.php?option=com_letterman&Itemid=92&lang=tw',
 		submenu:[
 			{id:'專案一覽', url:'/project/list'},
 			{id:'最新釋出(x)', url:'m1s1ur2'},
@@ -805,11 +805,11 @@ var menudata = [
 			{id:'專案新聞(x)', url:'m1s1ur2'},
 			{id:'下載排行(x)', url:'m1s1ur2'},
 			{id:'徵人啟事(x)', url:'m1s1ur2'},
-			{id:'專案網頁空間(x)', url:'m1s1ur2'}
+			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'}
 		]}
 		]
 	},
-	{id:'專案', url:'/',
+	{id:'專案', url:'/project/list',
 		submenu:[
 			{id:'專案一覽', url:'/project/list'},
 			{id:'最新釋出(x)', url:'m1s1ur2'},
@@ -818,19 +818,20 @@ var menudata = [
 			{id:'專案新聞(x)', url:'m1s1ur2'},
 			{id:'下載排行(x)', url:'m1s1ur2'},
 			{id:'徵人啟事(x)', url:'m1s1ur2'},
-			{id:'專案網頁空間(x)', url:'m1s1ur2'}
+			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'}
 		]
 	},
-	{id:'個人(x)', url:'m3url',
+	{id:'個人', url:'/user/home',
 		submenu:[
-			{id:'偏好設定(x)', url:'m1s1ur2'},
-			{id:'我的首頁(x)', url:'m1s1ur2'},
+			{id:'偏好設定', url:'/user/edit'},
+      {id:'修改密碼', url:'/user/change_password'},
+			{id:'我的首頁', url:'/user/home'},
 			{id:'我的專案(x)', url:'m1s1ur2'},
-			{id:'註冊專案(x)', url:'m1s1ur2'}
+			{id:'註冊專案', url:'/project/new'}
 		]
 	},
-	{id:'授權 指引/精靈(x)', url:'m3url'},
-	{id:'說明(x)', url:'m3url'},
+	{id:'授權 指引/精靈(T)', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
+	{id:'說明(T)', url:'http://rt.openfoundry.org/Foundry/Help/'},
 	{id:'聯絡我們(x)', url:'m3url',
 		submenu:[
 			{id:'常見問題(x)', url:'m1s1url'},
@@ -839,13 +840,9 @@ var menudata = [
 			
 		]
 	},
-	{id:'暫存區', url:'m3url',
+	{id:'暫存區', url:'',
 		submenu:[
-			{id:'建立專案', url:'/project/new'},
-			{id:'online users', url:'/user/online_users'},
-			{id:'修改密碼', url:'/user/change_password'},
-			{id:'User Home', url:'/user/home'},
-			{id:'User Data', url:'/user/edit'}
+			{id:'xxx', url:''}
 		]
 	}
 	];
