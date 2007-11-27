@@ -10,8 +10,8 @@ ActiveRecord::Schema.define(:version => 6) do
      t.column :tags, :string, :limit => 100, :default => "", :null => false
      t.column :catid, :integer, :default => 0, :null => false
      t.column :creator, :integer, :default => 0, :null => false
-     t.column :created_at, :date, :null => false
-     t.column :updated_at, :date, :null => false
+     t.column :created_at, :datetime, :null => false
+     t.column :updated_at, :datetime, :null => false
    end
   
   
