@@ -17,6 +17,7 @@
   <% for column in my_content_columns %>
     <td><%=h project.send(column.name) %></td>
   <% end %>
+  <%@project = project%>
   <%= render(:partial => "/partials/sed", :locals => { :project => project }) %>
   </tr>
 <% end %>
