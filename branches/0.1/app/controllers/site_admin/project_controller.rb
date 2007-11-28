@@ -1,4 +1,4 @@
-class Admin::ProjectController < ApplicationController
+class SiteAdmin::ProjectController < SiteAdmin
   def index
     list
     render :action => 'list'

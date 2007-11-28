@@ -1,4 +1,4 @@
-class Admin::NewsController < Admin
+class SiteAdmin::NewsController < SiteAdmin
   active_scaffold :News do |config|
     config.show.link.label = '檢視'
     config.update.link.label = '編輯'
