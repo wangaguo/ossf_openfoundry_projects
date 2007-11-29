@@ -1,5 +1,11 @@
 class ProjectController < ApplicationController
+  
+  before_filter :set_project_id
 
+  def set_project_id
+    params[:project_id] = params[:id]
+  end
+  
   def kwiki 
     if (params[:id] =~ /^d+$/)
       @project = Project.find(params[:id])
@@ -37,7 +43,6 @@ class ProjectController < ApplicationController
     @project = Project.find(params[:id])
     @admins = @project.admins
     @members = @project.members
-
   end
 
   def new
