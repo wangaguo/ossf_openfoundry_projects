@@ -2,7 +2,7 @@
   <ul>
     <%for news in newsList %>
     <li>
-		  <%= link_to news.subject, :controller => "news", :action => "show", :id => news.id %>
+      <%= link_to news.subject, news1_url(:id => news.id, :project_id => news.catid) %>
     </li>
     <%end %>
   </ul>
