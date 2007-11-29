@@ -9,3 +9,7 @@
   authorizable_id: <%=i%>  
 <%end%>
 <%end%>
+
+site_admin:
+  id: 32767
+  name: site_admin
