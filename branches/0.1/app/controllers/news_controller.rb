@@ -4,18 +4,9 @@ class NewsController < ApplicationController
     list
     render :action => 'list'
   end
-  
-  def item
-  end
-   
+
   def _home_news
-    #@news = News.home_news
     render :partial => "home_news", :locals => {:newsList => News.home_news}
-    #render :layout => false
-  end
-  
-  def news_list
-    @news_pages, @news = paginate :news, :conditions => "catid=0", :order => "updated_at desc", :per_page => 10
   end
   
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -34,6 +25,13 @@ class NewsController < ApplicationController
   end
   
   def show
+    if params[:project_id].nil? 
+      @project_id = 0
+      @head1 = "OpenFoundry 新聞"
+    else
+      @project_id = params[:project_id]
+      @head1 = "專案新聞"
+    end
     @news = News.find(params[:id])
   end
   
@@ -74,8 +72,5 @@ class NewsController < ApplicationController
     News.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-  
-  def admin
-    @abc = "ABC" + params[:project_id]
-  end
+
 end

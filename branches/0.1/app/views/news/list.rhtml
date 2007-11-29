@@ -8,15 +8,15 @@
     <% if permit?("site_admin") || permit?("admin of :project") -%>
     <p>
       <%= link_to '編輯', :action => 'edit', :id => news %>
-      <%= link_to '刪除', { :action => 'destroy', :id => news }, :confirm => 'Are you sure?', :method => :post %>
+      <%= link_to '刪除', { :action => 'destroy', :id => news }, :confirm => '確定要刪除嗎?', :method => :post %>
     </p>
     <% end %>
   </li>
   <% end %>
 </ul>
   
-<%= link_to 'Previous page', { :page => @news_pages.current.previous } if @news_pages.current.previous %>
-<%= link_to 'Next page', { :page => @news_pages.current.next } if @news_pages.current.next %> 
+<%= link_to '上一頁', { :page => @news_pages.current.previous } if @news_pages.current.previous %>
+<%= link_to '下一頁', { :page => @news_pages.current.next } if @news_pages.current.next %> 
 
 <br />
 <% if permit?("site_admin") || permit?("admin of :project") -%>

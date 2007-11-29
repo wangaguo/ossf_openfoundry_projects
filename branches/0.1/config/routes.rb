@@ -17,6 +17,7 @@ ActionController::Routing::Routes.draw do |map|
                 :controller => :project
   map.resources :users, 
                 :controller => :user
+  map.connect '/projects/:project_id/news', :controller => 'news', :action => 'list'                  
   map.resources :news,
                 :path_prefix => '/projects/:project_id',
                 :collection => { :admin => :get, :news_list => :get},
@@ -29,4 +30,8 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
+  
+  require "pp"
+  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
+  
 end
