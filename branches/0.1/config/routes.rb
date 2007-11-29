@@ -20,7 +20,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/projects/:project_id/news', :controller => 'news', :action => 'list'                  
   map.resources :news,
                 :path_prefix => '/projects/:project_id',
-                :collection => { :admin => :get, :news_list => :get},
+                :collection => { :create => :post },
+                :member => { :update => :post, :destroy => :post },
                 :singular => 'news1'
   
   # Allow downloading Web Service WSDL as a file with an extension

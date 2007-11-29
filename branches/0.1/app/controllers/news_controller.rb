@@ -25,13 +25,6 @@ class NewsController < ApplicationController
   end
   
   def show
-    if params[:project_id].nil? 
-      @project_id = 0
-      @head1 = "OpenFoundry 新聞"
-    else
-      @project_id = params[:project_id]
-      @head1 = "專案新聞"
-    end
     @news = News.find(params[:id])
   end
   
@@ -45,9 +38,14 @@ class NewsController < ApplicationController
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
     @news.tags = params[:news][:tags]
-    @news.catid = params[:news][:catid]
+    if params[:project_id].nil? 
+      project_id = 0
+    else
+      project_id = params[:project_id]
+    end
+    @news.catid = project_id
     if @news.save
-      flash[:notice] = 'News was successfully created.'
+      flash[:notice] = '新增成功.'
       redirect_to :action => 'list'
     else
       render :action => 'new'
@@ -61,7 +59,7 @@ class NewsController < ApplicationController
   def update
     @news = News.find(params[:id])
     if @news.update_attributes(params[:news])
-      flash[:notice] = 'News was successfully updated.'
+      flash[:notice] = '修改成功.'
       redirect_to :action => 'show', :id => @news
     else
       render :action => 'edit'
