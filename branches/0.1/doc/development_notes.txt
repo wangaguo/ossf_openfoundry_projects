@@ -9,3 +9,7 @@
 	created_on
 	updated_on
 	
+看resource生的helper:
+	require "pp"
+  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
+	
