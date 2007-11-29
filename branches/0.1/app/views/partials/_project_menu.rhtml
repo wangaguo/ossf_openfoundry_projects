@@ -9,7 +9,7 @@
                 <li>畫面擷取</li>
                 <li>引用資訊</li>
                 <li>參考文獻</li>
-                <li>專案新聞</li>
+                <li><%= link_to "專案新聞", news_path %></li>
                 <li>徵人公告</li>
                 <li>統計資訊</li>
             </ul>
@@ -50,7 +50,7 @@
                 <li>畫面擷取</li>
                 <li>引用資訊</li>
                 <li>參考文獻</li>
-                <li><%=link_to "專案新聞", admin_news_url(:project_id => params[:project_id])%></li>
+                <li><%= link_to "專案新聞", news_path %></li>
                 <li>徵人公告</li>
                 <li>統計資訊</li>
             </ul>
