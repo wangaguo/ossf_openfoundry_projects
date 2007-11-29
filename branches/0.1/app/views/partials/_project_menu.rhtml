@@ -39,6 +39,7 @@
         <li>服務</li>
     </ul>
 		
+    <%# if permit?("admin of :project") -%>
 		<h3>專案管理</h3>
     <ul>
         <li>專案資訊
@@ -49,7 +50,7 @@
                 <li>畫面擷取</li>
                 <li>引用資訊</li>
                 <li>參考文獻</li>
-                <li>專案新聞</li>
+                <li><%=link_to "專案新聞", admin_news_url(:project_id => params[:project_id])%></li>
                 <li>徵人公告</li>
                 <li>統計資訊</li>
             </ul>
@@ -73,3 +74,4 @@
         <li>服務</li>
         <li>權限控管</li>
     </ul>
+    <%# end %>

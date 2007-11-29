@@ -1,33 +1,24 @@
-<h1>Listing news</h1>
+<h1><%=@head1%></h1>
 
-<table>
-  <tr>
-  <% for column in News.content_columns %>
-    <th><%= column.human_name %></th>
+<ul>
+  <%for news in @news %>
+  <li>
+	  <%= link_to h(news.subject), :controller => "news", :action => "show", :id => news.id %>
+    <p><%=h news.description[0..270] %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
+    <% if permit?("site_admin") || permit?("admin of :project") -%>
+    <p>
+      <%= link_to '編輯', :action => 'edit', :id => news %>
+      <%= link_to '刪除', { :action => 'destroy', :id => news }, :confirm => 'Are you sure?', :method => :post %>
+    </p>
+    <% end %>
+  </li>
   <% end %>
-  </tr>
+</ul>
   
-<% for news in @news %>
-  <tr>
-  <% for column in News.content_columns %>
-    <td>
-    	<%if column.name != 'descr'%>
-    	<%=h news.send(column.name) %>
-		<%else%>
-		<%=h news.send(column.name).chars[0..99] %>
-		<%end%>
-	</td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => news %></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => news %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => news }, :confirm => 'Are you sure?', :method => :post %></td>
-  </tr>
-<% end %>
-</table>
-
 <%= link_to 'Previous page', { :page => @news_pages.current.previous } if @news_pages.current.previous %>
 <%= link_to 'Next page', { :page => @news_pages.current.next } if @news_pages.current.next %> 
 
 <br />
-
-<%= link_to 'New news', :action => 'new' %>
+<% if permit?("site_admin") || permit?("admin of :project") -%>
+<%= link_to '新增新聞', :action => 'new' %>
+<% end %>

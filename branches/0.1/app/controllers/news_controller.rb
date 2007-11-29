@@ -1,8 +1,8 @@
 class NewsController < ApplicationController 
+
   def index
     list
     render :action => 'list'
-#    rend
   end
   
   def item
@@ -23,7 +23,14 @@ class NewsController < ApplicationController
   :redirect_to => { :action => :list }
   
   def list
-    @news_pages, @news = paginate :news, :per_page => 10
+    if params[:project_id].nil? 
+      project_id = 0
+      @head1 = "OpenFoundry 新聞"
+    else
+      project_id = params[:project_id]
+      @head1 = "專案新聞"
+    end
+    @news_pages, @news = paginate :news, :conditions => ["catid=?", project_id], :order => "updated_at desc", :per_page => 10
   end
   
   def show
@@ -66,5 +73,9 @@ class NewsController < ApplicationController
   def destroy
     News.find(params[:id]).destroy
     redirect_to :action => 'list'
+  end
+  
+  def admin
+    @abc = "ABC" + params[:project_id]
   end
 end
