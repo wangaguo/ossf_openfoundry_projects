@@ -29,6 +29,6 @@
 </dd>
 </fieldset>
 
-<%= link_to 'Edit', :action => 'edit', :id => @project %> |
+<%= (link_to 'Edit', :action => 'edit', :id => @project )+'|' if permit?("admin of :project")%> 
 <%= link_to 'Back', :action => 'list' %>
 </div>
