@@ -24,7 +24,7 @@ thkuo:
     id: 4
     login: thkuo
     salted_password: <%="123456".crypt("$1$123456") %>
-    email: thkuo@iis
+    email: thkuo1@iis
     verified: 1
 
 dummy:
