@@ -1,6 +1,7 @@
 class ReleaseController < ApplicationController
     
   def index
+    list
     render :action => :list
   end
   
@@ -12,24 +13,35 @@ class ReleaseController < ApplicationController
   
   #list all release for a given :project_id
   def list
+    @project_id = params[:project_id]
     @releases = Release.find :all,
       :conditions => "project_id = #{params[:project_id]}"
   end
   
+  def create
+    if request.post?
+      r=Release.new(:attributes => params[:release] )
+      if r.save!
+        flash.now[:message] = 'Create New Release Successfully!'
+        redirect_to :action => :list
+      else
+        flash.now[:message] = 'Faild to Create New Release!'
+      end
+    end
+  end
+  
   def new
     if request.get?
-      @relesae = Release.new
-      render
-    else
-      #new a release
+      @release = Release.new
     end
   end
 
-  def delete
-    if request.delete?
+  def destory
+    if request.post?
       r=Release.find(params[:id])
-      r.delete unless r.nil?  
+      r.destroy unless r.nil?
     end
+    redirect_to :action => :list, :project_id => params[:project_id]
   end
 
   def edit

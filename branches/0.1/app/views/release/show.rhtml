@@ -1,16 +1,8 @@
 <h1>Release#show</h1>
 <div id="ReleaseBasic">
-<fieldset>
-<dl>
-<% for column in Release.content_columns %>
-  <dt><%= column.human_name %>:</dt><dd><%=h @release.send(column.name) %></dd>
-<% end %>
-</dl>
-<% @files.each do |f|%>
-  <% for column in Fileentity.content_columns %>
-    <dt><%= column.human_name %>:</dt><dd><%=h f.send(column.name) %></dd>
-  <% end %>
-  </dl>
-<% end %>
-</fieldset>
+  <%= arranged('RaleaseItem', @release, {:fields_per_column => 3})%>
+  <h1>Files: </h1>
+  <% @files.each do |f|%>
+    <%= arranged('FileItem', f, {})%>
+  <%end%>
 </div>

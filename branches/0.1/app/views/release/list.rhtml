@@ -1,14 +1,25 @@
 <h1>Release#list</h1>
 <div id="ReleaseBasic">
-<% release_columns = Release.content_columns -%>  
-<% @releases.each do |release|%>
-  <fieldset>
-  <dl>
-  <% for column in release_columns %>
-    <dt><%= column.human_name %>:</dt><dd><%=h release.send(column.name) %></dd>
+  <%= link_to '[new]', 
+      :project_id => @project_id,
+      :action => :new
+  %>
+  <br/>
+  <% @releases.each do |release|%>
+    <%= arranged('ReleaseItem',release, {})%>
+    <%= link_to '[edit]', 
+      :project_id => @project_id,
+      :action => :edit ,
+      :id => release
+     %>
+    <%= link_to '[delete]', 
+      {
+        :project_id => @project_id,
+        :action => :destory,
+        :id => release
+      }, 
+      :confirm => 'Delete?', 
+      :method => :post
+     %>
   <% end %>
-  </dl>
-  
-  </fieldset>
-<% end %>
 </div>
