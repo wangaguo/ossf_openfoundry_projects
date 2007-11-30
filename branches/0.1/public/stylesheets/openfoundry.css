@@ -133,6 +133,8 @@ text-decoration:none;
 /* For project-release */
 #Uploaddirs { overflow:auto;height:250px;width:50%;float:left; }
 #Uploadfile_selection { width:50%;float:right; }
+#release_file_selection { width:100%;height:250px;}
+#ReleaseBasic table {border:solid 2px #DEE7FF;width:100%}
 
 /* For News */
 #home_news li a{
