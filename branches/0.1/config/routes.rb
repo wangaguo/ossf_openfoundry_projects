@@ -24,10 +24,28 @@ ActionController::Routing::Routes.draw do |map|
                 :member => { :update => :post, :destroy => :post },
                 :singular => 'news1'
   
+  #map.connect 'admin/:controller/:action/:id', :controller => 'admin/*'
+  
+  #for project releases
+  map.resources :release,
+    :path_prefix => '/projects/:project_id',
+    :collection => { :create => :post },
+    :member => { :update => :post, :destory => :post },
+    :singular => :release1
+  
+#  map.release 'project/:project_id/release', 
+#    :controller => 'release', :action => 'list'
+#  map.release 'project/:project_id/release/:release_id',
+#    :controller => 'release', :action => 'show'
+#  map.release 'project/:project_id/release/:action', 
+#    :controller => 'release'
+#  map.release 'project/:project_id/release/:action/:release_id', 
+#    :controller => 'release'
+
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'
   map.connect ':controller/service.wsdl', :action => 'wsdl'
-
+  
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
