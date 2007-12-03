@@ -45,7 +45,7 @@ module ApplicationHelper
       cols.times do |j|
         if j+i*cols >= fields.length 
           #空的cell
-          html << '<td></td>\n<td></td>\n'
+          html << "<td></td>\n<td></td>\n"
         else
           obj = fields[j+i*cols]
           if options[:editable]
@@ -56,13 +56,13 @@ module ApplicationHelper
             #有預設值放預設值
             value = record.send(obj.name)
             value ||= obj.default
-            #id用hash產生一組亂數
-            id = obj.name
-            id = id+id.hash.to_s
             #其他有的沒的
-            extra = obj.type == :date ? calendar_for(id) : ''
+            extra = obj.type == :date ? 
+              calendar_for(f.object_name.to_s+'_'+obj.name) : ''
             html << "<td>"
-            html << "<input id=#{id} name=#{obj.name} value=\"#{value}\"/>#{extra}"
+            #html << "<input id=#{id} name=#{obj.name} value=\"#{value}\"/>#{extra}"
+            html << f.text_field(obj.name)
+            html << extra
             html << "</td>\n"
           else
             html << "<td> #{obj.human_name} : </td>\n"

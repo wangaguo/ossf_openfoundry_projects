@@ -1,4 +1,4 @@
-class ReleaseController < ApplicationController
+class ReleasesController < ApplicationController
     
   def index
     list
@@ -7,6 +7,7 @@ class ReleaseController < ApplicationController
   
   #show all releases with given project id
   def show
+     @project_id = params[:project_id]
      @release = Release.find(params[:id])
      @files = @release.fileentity
   end
@@ -21,9 +22,10 @@ class ReleaseController < ApplicationController
   def create
     if request.post?
       r=Release.new(:attributes => params[:release] )
+      r.project_id = params[:project_id]
       if r.save!
         flash.now[:message] = 'Create New Release Successfully!'
-        redirect_to :action => :list
+        redirect_to(url_for :project_id => params[:project_id], :action => :index) 
       else
         flash.now[:message] = 'Faild to Create New Release!'
       end
@@ -41,14 +43,27 @@ class ReleaseController < ApplicationController
       r=Release.find(params[:id])
       r.destroy unless r.nil?
     end
-    redirect_to :action => :list, :project_id => params[:project_id]
+    redirect_to(url_for :project_id => params[:project_id], :action => :index)
   end
-
+  
+  def update
+    if request.post?
+      r=Release.find params[:id]
+      r.attributes= params[:release]
+      if r.save!
+        flash.now[:message] = 'Edir Release Successfully!'
+        redirect_to(url_for :project_id => params[:project_id],
+          :action => :show, :id => params[:id]
+        ) 
+      else
+        flash.now[:message] = 'Faild to Edit Release!'
+      end
+    end
+  end
+  
   def edit
     if request.get?
       @release = Release.find(params[:id])
-    else 
-      #update!
     end
   end
   
@@ -60,7 +75,7 @@ class ReleaseController < ApplicationController
     #加上File match mark "**", see File:fnmatch, Dir.glob
     pattern = File.join pattern,'**'
     
-    @release = Release.find params[:release_id]
+    @release = Release.find params[:id]
     @project = Project.find params[:project_id]
     
     @uploadfiles = []
@@ -86,15 +101,14 @@ class ReleaseController < ApplicationController
   
   def addfiles
     #if request.post?
-      r = Release.find params[:release_id]
+      r = Release.find params[:id]
       return if r.nil?
       files = params[:uploadfiles].collect { |path| make_file_entity path }
       r.fileentity << files
       r.save
       flash.now[:message] = 'Your files have been added to Release!'
       
-      uploadfiles
-      render :layout =>false, :action => :uploadfiles
+      redirect_to url_for(:project_id => params[:project_id], :action => :uploadfiles, :id => r.id, :layout =>'false')
     #else
       #TODO wrong argument!
     #end
@@ -102,7 +116,7 @@ class ReleaseController < ApplicationController
   
   private
   def make_file_entity(path)
-    unless ret=Fileentity.find_by_path(path).nil?
+    unless ( ret=Fileentity.find_by_path(path) ).nil?
       ret
     else
       #TODO collect meta info for FILE
