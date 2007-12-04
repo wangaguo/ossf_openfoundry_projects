@@ -5,16 +5,17 @@
     <h1>Release#Select Files</h1>
     <%= arranged('ReleaseShow',@release,{}) %>
     <h1>Files: </h1>
-    <%= link_to '[add files]', 
-    :project_id => @project_id,
-    :action => :uploadfiles ,
-    :id => @release
-    %>
     <% if @release.fileentity.empty? -%>
       <h3>No File in Release</h3>
     <%end%>
     <% @release.fileentity.each do |f|%>
-      <%= arranged('FileItem', f, {:fields_per_column => 6})%>
+        <%= arranged('FileItem', f, {:fields_per_column => 6})%>
+        <%= link_to '[remove]',removefile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :removefile_id => f.id
+          }), :method => :post
+        %>
     <%end%>
     <br/>
   

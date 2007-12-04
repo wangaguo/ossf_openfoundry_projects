@@ -109,10 +109,23 @@ class ReleasesController < ApplicationController
       r.save
       flash.now[:message] = 'Your files have been added to Release!'
       
-      redirect_to url_for(:project_id => params[:project_id], :action => :uploadfiles, :id => r.id, :layout =>'false')
+      redirect_to url_for(:project_id => params[:project_id], 
+        :action => :uploadfiles, :id => r.id, :layout =>'false')
     #else
       #TODO wrong argument!
     #end
+  end
+  
+  def removefile
+    r = Release.find params[:id]
+    return if r.nil?
+    file = Fileentity.find params[:removefile_id]
+    r.fileentity.delete file
+    r.save
+    flash.now[:message] = 'Your files have been remove from Release!'
+    
+    redirect_to url_for(:project_id => params[:project_id], 
+      :action => :show, :id => r.id)
   end
   
   private
