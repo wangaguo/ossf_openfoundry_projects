@@ -27,11 +27,10 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect 'admin/:controller/:action/:id', :controller => 'admin/*'
   
   #for project releases
-  map.resources :release,
+  map.resources :releases,
     :path_prefix => '/projects/:project_id',
-    :collection => { :create => :post },
-    :member => { :update => :post, :destory => :post },
-    :singular => :release1
+    :member => { :uploadfiles => :any, :delete => :post, :addfiles => :post },
+    :singular => :release
   
 #  map.release 'project/:project_id/release', 
 #    :controller => 'release', :action => 'list'
