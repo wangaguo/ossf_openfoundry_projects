@@ -47,18 +47,22 @@ class ReleasesController < ApplicationController
   end
   
   def update
-    if request.post?
+    #if request.post?
       r=Release.find params[:id]
       r.attributes= params[:release]
       if r.save!
-        flash.now[:message] = 'Edir Release Successfully!'
+        flash[:notice] = 'Edit Release Successfully!'
         redirect_to(url_for :project_id => params[:project_id],
           :action => :show, :id => params[:id]
         ) 
       else
-        flash.now[:message] = 'Faild to Edit Release!'
+        flash.now[:message] = 'Faild to Update Release!'
       end
-    end
+    #end
+#    flash.now[:message] = 'Faild to Update Release!'
+#    redirect_to(url_for :project_id => params[:project_id],
+#      :action => :edit, :id => params[:id]
+#    ) 
   end
   
   def edit
@@ -107,7 +111,7 @@ class ReleasesController < ApplicationController
       files = params[:uploadfiles].collect { |path| make_file_entity path }
       r.fileentity << files
       r.save
-      flash.now[:message] = 'Your files have been added to Release!'
+      flash[:notice] = 'Your files have been added to Release!'
       
       redirect_to url_for(:project_id => params[:project_id], 
         :action => :uploadfiles, :id => r.id, :layout =>'false')
@@ -122,10 +126,10 @@ class ReleasesController < ApplicationController
     file = Fileentity.find params[:removefile_id]
     r.fileentity.delete file
     r.save
-    flash.now[:message] = 'Your files have been remove from Release!'
+    flash[:notice] = 'Your files have been remove from Release!'
     
     redirect_to url_for(:project_id => params[:project_id], 
-      :action => :show, :id => r.id)
+      :action => :uploadfiles, :id => r.id, :layout =>'false')
   end
   
   private

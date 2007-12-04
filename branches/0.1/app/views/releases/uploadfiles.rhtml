@@ -10,11 +10,11 @@
     <%end%>
     <% @release.fileentity.each do |f|%>
         <%= arranged('FileItem', f, {:fields_per_column => 6})%>
-        <%= link_to '[remove]',removefile_release_url({
+        <%= link_to_remote '[remove]',:url => removefile_release_url({
             :project_id => @project.id,
             :id => @release.id,
             :removefile_id => f.id
-          }), :method => :post
+          }), :update => "uploadfiles_view"
         %>
     <%end%>
     <br/>
@@ -31,7 +31,7 @@
         :contrller => 'release', :action => 'uploadfiles',
         :move => @upper_dir,
         :layout => 'false'},
-      :update => "uploadfiles_view" -%>
+      :update => "uploadfiles_view" %>
   
       <%=submit_tag 'Add File'%>
       </p>
