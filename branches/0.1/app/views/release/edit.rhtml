@@ -1,2 +1,11 @@
-<h1>Release#edit</h1>
-<p>Find me in app/views/release/edit.rhtml</p>
+<h1>Release#Eedit</h1>
+<p class=ReleaseBasic>
+  <% form_for :release, @release, :url => {:id => @release,:action => :update} do |f|%>
+    <%= arranged('ReleaseNew', @release, {
+        :editable => f,
+        :fields_per_column => 1
+      }) %>
+    <%= submit_tag "Update" %>
+  <% end %>
+</p>
+

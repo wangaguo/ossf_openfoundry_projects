@@ -2,37 +2,50 @@
   <% unless flash.now[:message].nil? -%>
     <h1> <%= flash.now[:message]%> </h1>
     <% end -%>
-    <div id=release_show>
-      <%= show_release @release %>
-    </div>
+    <h1>Release#Select Files</h1>
+    <%= arranged('ReleaseShow',@release,{}) %>
+    <h1>Files: </h1>
+    <%= link_to '[add files]', 
+    :project_id => @project_id,
+    :action => :uploadfiles ,
+    :id => @release
+    %>
+    <% if @release.fileentity.empty? -%>
+      <h3>No File in Release</h3>
+    <%end%>
+    <% @release.fileentity.each do |f|%>
+      <%= arranged('FileItem', f, {:fields_per_column => 6})%>
+    <%end%>
     <br/>
   
-    <% form_remote_tag :update => "uploadfiles_view", :url => { 
-        :project_id => @project.id, :action => :addfiles,
-        :release_id => @release.id  } do -%>
+    <% form_remote_tag :update => "uploadfiles_view", :url => addfiles_release_url( { 
+        :project_id => @project.id, 
+        :id => @release.id  }) do -%>
   
       <h2>Project Upload Reposity</h2>
       <h3>Current Dir: <%= @current_dir %> </h3>
       <input name=current_dir type="hidden" value=<%= @current_dir %> />
-      <p>
-        <%= link_to_remote "[upper dir]", :url => {
-          :contrller => 'release', :action => 'uploadfiles',
-          :move => @upper_dir,
-          :layout => 'false'
-        }, :update => "uploadfiles_view" -%>
-    
-        <%=submit_tag 'Add File'%>
+             <p>
+      <%= link_to_remote "[upper dir]", :url => {
+        :contrller => 'release', :action => 'uploadfiles',
+        :move => @upper_dir,
+        :layout => 'false'},
+      :update => "uploadfiles_view" -%>
+  
+      <%=submit_tag 'Add File'%>
       </p>
   
       <div id=Uploaddirs>
     
         <% @uploaddirs.sort.each do |dir| -%>
           <li>
-            <%= link_to_remote dir, :url => {
-              :contrller => 'release', :action => 'uploadfiles',
+            <%= link_to_remote dir, 
+            :url => {
+              :project_id => @project.id,
+              :id => @release.id,
               :move => "#{dir}",
-              :layout => 'false'
-            }, :update => "uploadfiles_view" -%>
+              :layout => 'false'},
+            :update => "uploadfiles_view" -%>
           </li>
         <% end -%>
     

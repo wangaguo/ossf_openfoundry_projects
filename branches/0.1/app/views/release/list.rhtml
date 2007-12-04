@@ -7,17 +7,21 @@
   <br/>
   <% @releases.each do |release|%>
     <%= arranged('ReleaseItem',release, {})%>
-    <%= link_to '[edit]', 
+    <%= link_to '[show]', release_url(
       :project_id => @project_id,
-      :action => :edit ,
       :id => release
+      )
      %>
-    <%= link_to '[delete]', 
+    <%= link_to '[edit]', edit_release_url(
+      :project_id => @project_id,
+      :id => release
+      )
+     %>
+    <%= link_to '[delete]', delete_release_url(
       {
-        :project_id => @project_id,
-        :action => :destory,
+        :project_id => @project_id, 
         :id => release
-      }, 
+      }), 
       :confirm => 'Delete?', 
       :method => :post
      %>
