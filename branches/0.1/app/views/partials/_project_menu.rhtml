@@ -63,10 +63,10 @@
             </ul>
         </li>
         <li>通訊論壇 </li>
-        <li>規劃釋出
+        <li><%= link_to "規劃釋出", releases_path(:project_id => project_id) %>
             <ul>
-                <li>版本管理</li>
-                <li>上載區</li>
+                <li><%= link_to "版本管理", releases_path(:project_id => project_id) %></li>
+                <li><%= link_to "上載區", "" %></li>
             </ul>
         </li>
         <li>工作任務<br>
