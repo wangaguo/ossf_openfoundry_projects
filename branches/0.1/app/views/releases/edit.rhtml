@@ -5,7 +5,13 @@
         :editable => f,
         :fields_per_column => 1
       }) %>
-    <%= submit_tag "Update" %>
+    <%= submit_tag "Update" %> 
+    <br/>
+    <%= link_to '[Add Files]', 
+      :project_id => @project_id,
+      :action => :uploadfiles ,
+      :id => @release
+    %>
   <% end %>
 </p>
 
