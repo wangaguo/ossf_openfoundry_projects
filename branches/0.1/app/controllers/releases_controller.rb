@@ -38,7 +38,7 @@ class ReleasesController < ApplicationController
     end
   end
 
-  def destory
+  def delete
     if request.post?
       r=Release.find(params[:id])
       r.destroy unless r.nil?
@@ -64,6 +64,7 @@ class ReleasesController < ApplicationController
   def edit
     if request.get?
       @release = Release.find(params[:id])
+      @project_id = params[:project_id]
     end
   end
   
