@@ -98,12 +98,13 @@ class ReleasesController < ApplicationController
       @upper_dir = Dir.pwd
     end
     
-    #不套用layout
+    #不套用layout 發生在addfiles removefiles return時
     if params[:layout] == 'false'
       render :layout => false   
     end
   end
   
+  #用link_to_remote呼叫 將檔案加入專案發佈中
   def addfiles
     #if request.post?
       r = Release.find params[:id]
@@ -120,6 +121,7 @@ class ReleasesController < ApplicationController
     #end
   end
   
+  #用link_to_remote呼叫 將檔案從專案發佈中移除(非刪除)
   def removefile
     r = Release.find params[:id]
     return if r.nil?
@@ -133,11 +135,13 @@ class ReleasesController < ApplicationController
   end
   
   private
+  
+  #建立檔案的database entry, 會連結到外部ftp hook
   def make_file_entity(path)
     unless ( ret=Fileentity.find_by_path(path) ).nil?
       ret
     else
-      #TODO collect meta info for FILE
+      #TODO collect meta info for FILE, move FILE
       Fileentity.create ( :attributes => {:path => path} )
     end
   end
