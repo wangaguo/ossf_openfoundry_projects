@@ -1,5 +1,5 @@
 namespace :db do
-  desc "foo"
+  desc "mysqladmin -u root drop \#{the_db}; mysql -u root -e 'create database \#{the_db} default character set utf8 collate utf8_general_ci'"
   require "pp"
   task :recreate_db => :environment do
     abcs = ActiveRecord::Base.configurations
