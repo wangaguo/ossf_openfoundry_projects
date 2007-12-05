@@ -16,16 +16,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :projects, 
                 :controller => :project
   map.resources :users, 
-                :controller => :user
-  map.connect '/projects/:project_id/news', :controller => 'news', :action => 'list'                  
+                :controller => :user                
   map.resources :news,
-                :path_prefix => '/projects/:project_id',
-                :collection => { :create => :post },
-                :member => { :update => :post, :destroy => :post },
-                :singular => 'news1'
-  
-  #map.connect 'admin/:controller/:action/:id', :controller => 'admin/*'
-  
+                :singular => 'news1',
+                :path_prefix => '/projects/:project_id'
+  map.resources :news,
+                :singular => 'news1',
+                :name_prefix => 'site_'  
   #for project releases
   map.resources :releases,
     :path_prefix => '/projects/:project_id',

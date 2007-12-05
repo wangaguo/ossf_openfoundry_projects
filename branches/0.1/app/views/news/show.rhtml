@@ -10,9 +10,9 @@
 <% if permit?("site_admin") || permit?("admin of :project") -%>
 <p>
   <%= link_to '編輯', :action => 'edit', :id => @news %>
-  <%= link_to '刪除', { :action => 'destroy', :id => @news }, :confirm => '確定要刪除嗎?', :method => :post %>
+  <%= link_to '刪除', { :action => 'destroy', :id => @news }, :confirm => '確定要刪除嗎?', :method => :delete %>
 </p>
 <% end %>
 
-<%= link_to '回列表', :action => 'list' %> | 
+<%= link_to '回列表', :action => 'index' %> | 
 <%= link_to '首頁', :controller => 'openfoundry' %>

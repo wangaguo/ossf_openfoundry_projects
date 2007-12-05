@@ -1,8 +1,8 @@
 <h1>新增新聞</h1>
 
-<% form_tag :action => 'create do %>
+<% form_tag url_for(:action => "create") do %>
   <%= render :partial => 'form' %>
   <%= submit_tag "建立" %>
 <% end %>
 
-<%= link_to '列表', :action => 'list' %>
+<%= link_to '列表', :action => 'index' %>

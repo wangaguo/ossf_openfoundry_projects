@@ -10,8 +10,7 @@ class NewsController < ApplicationController
   end
   
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
-  :redirect_to => { :action => :list }
+#  verify :method => :post, :only => [ :destroy, :create, :update ], :redirect_to => { :action => :list }
   
   def list
     if params[:project_id].nil? 
@@ -46,7 +45,7 @@ class NewsController < ApplicationController
     @news.catid = project_id
     if @news.save
       flash[:notice] = '新增成功.'
-      redirect_to :action => 'list'
+      redirect_to :action => 'index'
     else
       render :action => 'new'
     end
@@ -68,7 +67,7 @@ class NewsController < ApplicationController
   
   def destroy
     News.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
 
 end

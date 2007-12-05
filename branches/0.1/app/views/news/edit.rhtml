@@ -1,10 +1,10 @@
 <h1><%=@news.subject%></h1>
 
-<% form_tag :action => 'update', :id => @news do %>
+<% form_for(:news, :url => {:action => "update"}, :html => { :method => :put }) do |f| %>
   <%= render :partial => 'form' %>
   <%= submit_tag '修改' %>
 <% end %>
 
 <%= link_to '詳全文', :action => 'show', :id => @news %> |
-<%= link_to '回列表', :action => 'list' %> | 
+<%= link_to '回列表', :action => 'index' %> | 
 <%= link_to '首頁', :controller => 'openfoundry' %>
