@@ -10,25 +10,40 @@ module ApplicationHelper
     url = request.path.split('?')  #remove extra query string parameters
     levels = url[0].split('/') #break up url into different levels
     #if not 'home' page, give a 'home' link
-    html << addcrumb('home', '/') unless levels.empty? 
-    
+    html << addcrumb('首頁', '/') unless levels.empty? 
+    level_class=nil
+    level_title='name'
     levels.each_with_index do |level, index|
       unless level.blank?
+        if level =~ /[a-z]+/
+          case level
+          when 'projects'
+            level_name, level_class, level_title = 
+              '專案一覽', Project, 'unixname'
+          when 'releases'
+            level_name, level_class, level_title = 
+              '專案釋出', Release, 'name'
+          when 'news'
+            level_name, level_class, level_title = 
+              '專案新聞', News, 'subject'
+          end
+        elsif level =~ /\d/
+          level_name = level_class.find(level).send(level_title)
+        end
         if index == levels.size-1 #|| 
             #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
           #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
-          html << addcrumb(level)
+          html << addcrumb(level_name) unless level.to_i > 0
         else
           link='/'+levels[1..index].join('/')
-          html << addcrumb(level,link)
+          html << addcrumb(level_name,link)
         end
       end
     end
-    html << '</table>'
+    html << "</tr>\n</table>\n"
   end
   
   def addcrumb(name,path = nil)
-    name.gsub(/_/,' ')
     name = "<a href=\"#{path}\">#{name}</a>" unless path.nil?
     "<td>&raquo;#{name}</td>\n"
   end
