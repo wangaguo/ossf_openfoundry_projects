@@ -1,5 +1,14 @@
 class NewsController < ApplicationController 
+  before_filter :permit_redirect
 
+  def permit_redirect
+    if ["new", "create", "edit", "update", "destroy"].include? action_name
+      unless permit?("site_admin") && permit?("admin of :project")
+        redirect_to :action => 'index'
+      end
+    end
+  end
+  
   def index
     list
     render :action => 'list'
