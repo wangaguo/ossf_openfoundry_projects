@@ -3,30 +3,34 @@ module ApplicationHelper
   include Localization 
   
   #TODO to be optimized! about this breadcrumb, see http://joshhuckabee.com/node/58
-  def breadcrumbs
-    html = ''
-    html << "<ul>\n"
-    #add 'home'
-    html << '<li><a href="/">home</a></li>'
+  def breadcrumbs(options={})
+    #TODO table or list?
+    html = "<table class=\"#{options[:class]}\"> \n<tr>\n"
+    
     url = request.path.split('?')  #remove extra query string parameters
     levels = url[0].split('/') #break up url into different levels
+    #if not 'home' page, give a 'home' link
+    html << addcrumb('home', '/') unless levels.empty? 
+    
     levels.each_with_index do |level, index|
       unless level.blank?
-        if index == levels.size-1 || 
-            (level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
-          html << "<li>#{level.gsub(/_/, ' ')}</li>\n" unless level.to_i > 0
+        if index == levels.size-1 #|| 
+            #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
+          #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
+          html << addcrumb(level)
         else
-          link = "/"
-          i = 1
-          while i <= index
-            link += "#{levels[i]}/"
-            i+=1
-          end
-          html << "<li><a href=\"#{link}\">#{level.gsub(/_/, ' ')}</a></li>\n"
+          link='/'+levels[1..index].join('/')
+          html << addcrumb(level,link)
         end
       end
     end
-    html << '</ul>'
+    html << '</table>'
+  end
+  
+  def addcrumb(name,path = nil)
+    name.gsub(/_/,' ')
+    name = "<a href=\"#{path}\">#{name}</a>" unless path.nil?
+    "<td>&raquo;#{name}</td>\n"
   end
   
   #TODO want to build a object view layout 
