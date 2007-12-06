@@ -2,6 +2,17 @@ class NewsController < ApplicationController
   before_filter :permit_redirect
 
   def permit_redirect
+    if params[:id] != nil
+      @news = News.find(params[:id])
+      if params[:project_id] != @news.catid.to_s
+        redirect_to :project_id => @news.catid, :id => @news.id
+      else
+        @project = Project.find(@news.catid)
+      end
+    else
+      @project = Project.find(params[:project_id])
+    end
+    
     if ["new", "create", "edit", "update", "destroy"].include? action_name
       unless permit?("site_admin") || permit?("admin of :project")
         redirect_to :action => 'index'
@@ -33,7 +44,6 @@ class NewsController < ApplicationController
   end
   
   def show
-    @news = News.find(params[:id])
   end
   
   def new
@@ -41,7 +51,6 @@ class NewsController < ApplicationController
   end
   
   def create
-    #@news = News.new(params[:news])
     @news = News.new
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
@@ -61,11 +70,9 @@ class NewsController < ApplicationController
   end
   
   def edit
-    @news = News.find(params[:id])
   end
   
   def update
-    @news = News.find(params[:id])
     if @news.update_attributes(params[:news])
       flash[:notice] = '修改成功.'
       redirect_to :action => 'show', :id => @news
@@ -75,7 +82,7 @@ class NewsController < ApplicationController
   end
   
   def destroy
-    News.find(params[:id]).destroy
+    @news.destroy
     redirect_to :action => 'index'
   end
 

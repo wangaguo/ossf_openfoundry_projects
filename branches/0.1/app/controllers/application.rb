@@ -27,13 +27,7 @@ class ApplicationController < ActionController::Base
 #          ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
 #        end
 #  end
-  before_filter :set_locale_for_gettext, :get_project
-  
-  def get_project
-    if params[:project_id] != nil && params[:controller] != :project
-      @project = Project.find(params[:project_id])
-    end
-  end
+  before_filter :set_locale_for_gettext
   
   def set_locale_for_gettext
     #set_locale("zh_TW")
