@@ -1,7 +1,7 @@
 <div id="ProjectEdit">
 <h1>Editing project</h1>
 
-<% form_tag :action => 'update', :id => @project do %>
+<% form_tag url_for(:action => 'update', :id => @project), :method => 'put' do %>
   <%= render :partial => 'form' %>
   <%= submit_tag 'Save' %>
 <% end %>

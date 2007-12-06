@@ -12,9 +12,8 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
   map.connect '', :controller => 'openfoundry'
-  map.connect 'projects', :controller => 'project', :action => 'list'
-  map.resources :projects, 
-                :controller => :project
+  #map.connect 'projects', :controller => 'project', :action => 'list'
+  map.resources :projects
   map.resources :users, 
                 :controller => :user                
   map.resources :news,
@@ -46,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   
-  require "pp"
-  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
+#  require "pp"
+#  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
   
 end

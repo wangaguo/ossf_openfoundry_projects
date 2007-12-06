@@ -1,4 +1,4 @@
-module ProjectHelper
+module ProjectsHelper
   def of_check_box_group(name, predefined, value)
     value ||= ""
     rtn = ""

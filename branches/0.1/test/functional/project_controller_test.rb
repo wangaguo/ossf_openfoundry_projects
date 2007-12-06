@@ -2,13 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 require 'project_controller'
 
 # Re-raise errors caught by the controller.
-class ProjectController; def rescue_action(e) raise e end; end
+class ProjectsController; def rescue_action(e) raise e end; end
 
 class ProjectControllerTest < Test::Unit::TestCase
   fixtures :projects, :users
   
   def setup
-    @controller = ProjectController.new
+    @controller = ProjectsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     
