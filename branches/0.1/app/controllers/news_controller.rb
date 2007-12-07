@@ -4,12 +4,18 @@ class NewsController < ApplicationController
   def permit_redirect
     if params[:id] != nil
       @news = News.find(params[:id])
-      if params[:project_id] != @news.catid.to_s
-        redirect_to :project_id => @news.catid, :id => @news.id
+      if @news.catid == 0
+        if (params[:project_id] != nil)
+          redirect_to "/news/" + @news.id.to_s
+        end
       else
-        @project = Project.find(@news.catid)
+        if params[:project_id] != @news.catid.to_s
+          redirect_to :project_id => @news.catid, :id => @news.id
+        else
+          @project = Project.find(@news.catid)
+        end
       end
-    else
+    elsif params[:project_id] != nil
       @project = Project.find(params[:project_id])
     end
     
