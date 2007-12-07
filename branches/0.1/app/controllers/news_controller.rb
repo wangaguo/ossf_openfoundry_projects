@@ -20,6 +20,7 @@ class NewsController < ApplicationController
   end
   
   def project
+    @head1 = "專案新聞"
     @news_pages, @news = paginate :news, :conditions => ["catid<>0 and status='1'"], :order => "updated_at desc", :per_page => 10
     render :action => 'list'
   end
@@ -33,7 +34,7 @@ class NewsController < ApplicationController
       @head1 = "OpenFoundry 新聞"
     else
       project_id = params[:project_id]
-      @head1 = "專案新聞"
+      @head1 = @project.projectname + " 專案新聞"
     end
     if permit?("site_admin") || (@project != nil && permit?("admin of :project"))
       sqlStatus = ''

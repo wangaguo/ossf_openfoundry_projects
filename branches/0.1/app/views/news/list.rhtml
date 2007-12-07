@@ -3,7 +3,7 @@
 <ul>
   <%for news in @news %>
   <li>
-	  <%= link_to h(news.subject), :controller => "news", :action => "show", :id => news.id %>
+	  <%= link_to h(news.subject), :controller => "news", :action => "show", :id => news.id %> <%=news.updated_at.strftime("(%Y/%m/%d)")%>
     <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
     <%
     puts :action_name
