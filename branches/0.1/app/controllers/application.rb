@@ -97,4 +97,39 @@ class ApplicationController < ActionController::Base
     obj.destroy and obj = nil if obj.host == request.remote_ip unless obj.nil?
   end
 
+  def self.find_resources(options = {:parent => '', :child => '', :parent_id_method => ''})
+    child = options[:child].to_s.downcase
+    parent = options[:parent].to_s.downcase
+    parent_class_name = options[:parent].to_s.camelize
+    child_class_name = options[:child].to_s.camelize
+    parent_id_method = options[:parent_id_method].to_s
+    code = <<"THECODE"
+    def find_resources_before_filter
+      if params[:id] != nil
+        @#{child} = #{child_class_name}.find(params[:id])
+        if @#{child}.#{parent_id_method}.nil? || @#{child}.#{parent_id_method} < 1
+          if (params[:#{parent}_id] != nil)
+            redirect_to :#{parent}_id => nil
+          end
+        else
+          if params[:#{parent}_id] != @#{child}.#{parent_id_method}.to_s
+            redirect_to :#{parent}_id => @#{child}.#{parent_id_method}, :id => @#{child}.id
+          else
+            @#{parent} = #{parent_class_name}.find(@#{child}.#{parent_id_method})
+          end
+        end
+      elsif params[:#{parent}_id] != nil
+        @#{parent} = #{parent_class_name}.find(params[:#{parent}_id])
+      end
+    end
+    before_filter :find_resources_before_filter
+THECODE
+
+    puts "##############"
+    puts code
+    puts "##############"
+    module_eval code
+  end
+
+
 end

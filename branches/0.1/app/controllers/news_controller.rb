@@ -1,24 +1,8 @@
 class NewsController < ApplicationController 
   before_filter :permit_redirect
+  find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid'
 
   def permit_redirect
-    if params[:id] != nil
-      @news = News.find(params[:id])
-      if @news.catid == 0
-        if (params[:project_id] != nil)
-          redirect_to "/news/" + @news.id.to_s
-        end
-      else
-        if params[:project_id] != @news.catid.to_s
-          redirect_to :project_id => @news.catid, :id => @news.id
-        else
-          @project = Project.find(@news.catid)
-        end
-      end
-    elsif params[:project_id] != nil
-      @project = Project.find(params[:project_id])
-    end
-    
     if ["new", "create", "edit", "update", "destroy"].include? action_name
       unless permit?("site_admin") || permit?("admin of :project")
         redirect_to :action => 'index'
