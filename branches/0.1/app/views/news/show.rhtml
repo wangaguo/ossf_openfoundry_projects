@@ -2,11 +2,14 @@
 
 <p class="date"><%=@news.updated_at.strftime("更新日期:%Y/%m/%d %H:%M")%></p>
 <div class="content">
+  <%if @news.catid == 0%>
   <%= @news.description%>
+  <%else%>
+  <%=h @news.description%>
+  <%end%>
 </div>
 
 <p class="tags">標籤:<%=@news.tags%></p>
-
 <% if permit?("site_admin") || permit?("admin of :project") -%>
 <p>
   <%= link_to '編輯', :action => 'edit', :id => @news %>
@@ -14,5 +17,5 @@
 </p>
 <% end %>
 
-<%= link_to '回列表', :action => 'index' %> | 
+<%= link_to '回列表', :action => 'index', :project_id => params[:project_id] %> | 
 <%= link_to '首頁', :controller => 'openfoundry' %>
