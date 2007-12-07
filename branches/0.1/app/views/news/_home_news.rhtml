@@ -6,7 +6,7 @@
     <li>
 		  <%= link_to news.subject, :controller => "news", :action => "show", :id => news.id %>
       <%if i==1 %>
-        <p><%=news.description[0..270] %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
+        <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
       <%i=i+1%>
       <%end %>
     </li>
