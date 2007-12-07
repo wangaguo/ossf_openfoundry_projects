@@ -793,29 +793,23 @@ var menudata = [
 	{id:'OpenFoundry', url:'/',
 		submenu:[
 			{id:'首頁', url:'/'},
-			{id:'OpenFoundry新聞 ', url:'/news/list'},
+			{id:'OpenFoundry新聞 ', url:'/news'},
 			{id:'社群(x)', url:'m1s1ur2'},
 			{id:'關於OSSF', url:'http://www.openfoundry.org/index.php?option=com_content&task=blogcategory&id=69&Itemid=114&lang=tw'},
 			{id:'自由軟體鑄造場電子報', url:'http://www.openfoundry.org/index.php?option=com_letterman&Itemid=92&lang=tw',
 		submenu:[
-			{id:'專案一覽', url:'/project/list'},
-			{id:'最新釋出(x)', url:'m1s1ur2'},
-			{id:'活躍專案(x)', url:'m1s1ur2'},
-			{id:'新進專案(x)', url:'m1s1ur2'},
-			{id:'專案新聞(x)', url:'m1s1ur2'},
-			{id:'下載排行(x)', url:'m1s1ur2'},
-			{id:'徵人啟事(x)', url:'m1s1ur2'},
+			{id:'專案一覽', url:'/projects'},
 			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'}
 		]}
 		]
 	},
-	{id:'專案', url:'/project/list',
+	{id:'專案', url:'/projects',
 		submenu:[
-			{id:'專案一覽', url:'/project/list'},
+			{id:'專案一覽', url:'/projects'},
 			{id:'最新釋出(x)', url:'m1s1ur2'},
 			{id:'活躍專案(x)', url:'m1s1ur2'},
 			{id:'新進專案(x)', url:'m1s1ur2'},
-			{id:'專案新聞(x)', url:'m1s1ur2'},
+			{id:'專案新聞', url:'/news/project'},
 			{id:'下載排行(x)', url:'m1s1ur2'},
 			{id:'徵人啟事(x)', url:'m1s1ur2'},
 			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'}
@@ -827,7 +821,7 @@ var menudata = [
       {id:'修改密碼', url:'/user/change_password'},
 			{id:'我的首頁', url:'/user/home'},
 			{id:'我的專案(x)', url:'m1s1ur2'},
-			{id:'註冊專案', url:'/project/new'}
+			{id:'註冊專案', url:'/projects/new'}
 		]
 	},
 	{id:'授權 指引/精靈(T)', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},

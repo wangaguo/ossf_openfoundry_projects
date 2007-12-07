@@ -3,7 +3,7 @@
     <ul>
         <li>專案資訊</a>
             <ul>
-                <li>專案摘要</li>
+                <li><%= link_to "專案摘要", project_path(:id => project_id) %></li>
                 <li>專案網站</li>
                 <li>專案成員</li>
                 <li>畫面擷取</li>
@@ -44,7 +44,7 @@
     <ul>
         <li>專案資訊
             <ul>
-                <li>專案摘要</li>
+                <li><%= link_to "專案摘要", edit_project_path(:id => project_id) %></li>
                 <li>專案網站</li>
                 <li>專案成員</li>
                 <li>畫面擷取</li>
