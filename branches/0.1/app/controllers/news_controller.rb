@@ -1,10 +1,10 @@
 class NewsController < ApplicationController 
-  before_filter :permit_redirect
   find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid'
-
+  before_filter :permit_redirect
+  
   def permit_redirect
     if ["new", "create", "edit", "update", "destroy"].include? action_name
-      unless permit?("site_admin") || permit?("admin of :project")
+      unless permit?("site_admin") || (@project != nil && permit?("admin of :project"))
         redirect_to :action => 'index'
       end
     end
@@ -19,6 +19,11 @@ class NewsController < ApplicationController
     render :partial => "home_news", :locals => {:newsList => News.home_news}
   end
   
+  def project
+    @news_pages, @news = paginate :news, :conditions => ["catid<>0 and status='1'"], :order => "updated_at desc", :per_page => 10
+    render :action => 'list'
+  end
+  
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
 #  verify :method => :post, :only => [ :destroy, :create, :update ], :redirect_to => { :action => :list }
   
@@ -30,7 +35,12 @@ class NewsController < ApplicationController
       project_id = params[:project_id]
       @head1 = "專案新聞"
     end
-    @news_pages, @news = paginate :news, :conditions => ["catid=?", project_id], :order => "updated_at desc", :per_page => 10
+    if permit?("site_admin") || (@project != nil && permit?("admin of :project"))
+      sqlStatus = ''
+    else
+      sqlStatus = ' and status = "1"'
+    end
+    @news_pages, @news = paginate :news, :conditions => ["catid=?"+sqlStatus, project_id], :order => "updated_at desc", :per_page => 10
   end
   
   def show

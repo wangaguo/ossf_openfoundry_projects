@@ -9,6 +9,7 @@ ActiveRecord::Schema.define(:version => 6) do
      t.column :description, :string, :limit => 4000, :null => false
      t.column :tags, :string, :limit => 100, :default => "", :null => false
      t.column :catid, :integer, :default => 0, :null => false
+     t.column :status, :integer, :default => 1, :null => false
      t.column :creator, :integer, :default => 0, :null => false
      t.column :created_at, :datetime, :null => false
      t.column :updated_at, :datetime, :null => false

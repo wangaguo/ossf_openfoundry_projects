@@ -5,8 +5,17 @@
   <li>
 	  <%= link_to h(news.subject), :controller => "news", :action => "show", :id => news.id %>
     <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
-    <% if permit?("site_admin") || permit?("admin of :project") -%>
+    <%
+    puts :action_name
+		%>
+    <% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
     <p>
+      <label>狀態:</label>
+      <% if news.status == 1 %>
+                    開啟
+      <% else %>
+	               關閉
+      <% end %>
       <%= link_to '編輯', :action => 'edit', :id => news %>
       <%= link_to '刪除', { :action => 'destroy', :id => news }, :confirm => '確定要刪除嗎?', :method => :delete %>
     </p>
@@ -19,6 +28,6 @@
 <%= link_to '下一頁', { :page => @news_pages.current.next } if @news_pages.current.next %> 
 
 <br />
-<% if permit?("site_admin") || permit?("admin of :project") -%>
+<% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
 <%= link_to '新增新聞', :action => 'new' %>
 <% end %>

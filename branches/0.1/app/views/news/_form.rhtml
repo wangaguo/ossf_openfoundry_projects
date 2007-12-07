@@ -14,7 +14,12 @@
 <%= text_area("news", "description", "cols" => 40, "rows" => 10) %></p>
 <% end %>
 
-<p><label for="news_tags">Tags</label><br/>
-<%= text_field 'news', 'tags'  %></p>
+<p><label for="news_tags">標籤</label><br/>
+<%= text_field 'news', 'tags' %></p>
+
+<p><label for="news_status_1">狀態</label><br/>
+<%= radio_button("news", "status", "1") %>開啟
+<%= radio_button("news", "status", "0") %>關閉
+</p>
 <!--[eoform:news]-->
 
