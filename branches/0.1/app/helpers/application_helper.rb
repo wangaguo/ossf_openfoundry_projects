@@ -2,6 +2,10 @@
 module ApplicationHelper
   include Localization 
   
+  def pretty_list()
+    
+  end
+  
   #TODO to be optimized! about this breadcrumb, see http://joshhuckabee.com/node/58
   def breadcrumbs(options={})
     #TODO table or list?
@@ -33,7 +37,7 @@ module ApplicationHelper
         if index == levels.size-1 #|| 
             #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
           #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
-          html << addcrumb(level_name) unless level.to_i > 0
+          html << addcrumb(level_name) unless (level.to_i > 0 or level_name.nil?) 
         else
           link='/'+levels[1..index].join('/')
           html << addcrumb(level_name,link)
