@@ -106,28 +106,41 @@ class ApplicationController < ActionController::Base
     code = <<"THECODE"
     def find_resources_before_filter
       if params[:id] != nil
-        @#{child} = #{child_class_name}.find(params[:id])
-        if @#{child}.#{parent_id_method}.nil? || @#{child}.#{parent_id_method} < 1
-          if (params[:#{parent}_id] != nil)
-            redirect_to :#{parent}_id => nil
-          end
-        else
-          if params[:#{parent}_id] != @#{child}.#{parent_id_method}.to_s
-            redirect_to :#{parent}_id => @#{child}.#{parent_id_method}, :id => @#{child}.id
+        begin
+          @#{child} = #{child_class_name}.find(params[:id])
+          if @#{child}.#{parent_id_method}.nil? || @#{child}.#{parent_id_method} < 1
+            if (params[:#{parent}_id] != nil)
+              redirect_to :#{parent}_id => nil
+            end
           else
-            @#{parent} = #{parent_class_name}.find(@#{child}.#{parent_id_method})
+            if params[:#{parent}_id] != @#{child}.#{parent_id_method}.to_s
+              redirect_to :#{parent}_id => @#{child}.#{parent_id_method}, :id => @#{child}.id
+            else
+              @#{parent} = #{parent_class_name}.find(@#{child}.#{parent_id_method})
+            end
+          end
+        rescue
+          begin
+            @#{parent} = #{parent_class_name}.find(params[:#{parent}_id])
+            redirect_to :#{parent}_id => @#{parent}.id, :id => nil, :action => 'index'
+          rescue
+            redirect_to '/' # TODO: root ?
           end
         end
       elsif params[:#{parent}_id] != nil
-        @#{parent} = #{parent_class_name}.find(params[:#{parent}_id])
+        begin
+          @#{parent} = #{parent_class_name}.find(params[:#{parent}_id])
+        rescue
+          redirect_to '/' # TODO: root ?
+        end
       end
     end
     before_filter :find_resources_before_filter
 THECODE
 
-    puts "##############"
-    puts code
-    puts "##############"
+    #puts "##############"
+    #puts code
+    #puts "##############"
     module_eval code
   end
 
