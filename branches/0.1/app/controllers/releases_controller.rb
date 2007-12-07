@@ -1,5 +1,7 @@
 class ReleasesController < ApplicationController
-    
+  find_resources :parent => 'project', 
+    :child => 'release', 
+    :parent_id_method => 'project_id'
   def index
     list
     render :action => :list
