@@ -4,7 +4,7 @@
   <%for news in @news %>
   <li>
 	  <%= link_to h(news.subject), :controller => "news", :action => "show", :id => news.id %>
-    <p><%=h news.description[0..270] %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
+    <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
     <% if permit?("site_admin") || permit?("admin of :project") -%>
     <p>
       <%= link_to '編輯', :action => 'edit', :id => news %>
