@@ -4,8 +4,15 @@
 <p><label for="news_subject">標題</label><br/>
 <%= text_field 'news', 'subject' %></p>
 
+<% if permit?("site_admin") -%>
+<%= javascript_include_tag 'fckeditor/fckeditor.js' %>
+<div id="<%= fckeditor_div_id('news', 'description') %>">
+    <%= fckeditor_textarea( "news", "description", :height => 400 ) %> 
+</div>
+<% else %>
 <p><label for="news_descr">內容</label><br/>
 <%= text_area("news", "description", "cols" => 40, "rows" => 10) %></p>
+<% end %>
 
 <p><label for="news_tags">Tags</label><br/>
 <%= text_field 'news', 'tags'  %></p>
