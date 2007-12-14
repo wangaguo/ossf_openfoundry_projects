@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "description", :string
     t.column "version",     :string,  :default => "", :null => false
     t.column "due",         :date
+    t.column "status",      :integer, :default => 1,  :null => false
     t.column "created_at",  :datetime
     t.column "updated_at",  :datetime
     t.column "creator",     :integer
