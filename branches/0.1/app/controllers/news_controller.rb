@@ -41,7 +41,7 @@ class NewsController < ApplicationController
     else
       sqlStatus = ' and status = "1"'
     end
-    @news_pages, @news = paginate :news, :conditions => ["catid=?"+sqlStatus, project_id], :order => "updated_at desc", :per_page => 10
+    @news = News.paginate(:page => params[:page], :per_page => 2, :conditions => ["catid=?"+sqlStatus, project_id], :order => "updated_at desc")
   end
   
   def show

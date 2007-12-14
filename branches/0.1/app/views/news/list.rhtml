@@ -24,8 +24,7 @@
   <% end %>
 </ul>
   
-<%= link_to '上一頁', { :page => @news_pages.current.previous } if @news_pages.current.previous %>
-<%= link_to '下一頁', { :page => @news_pages.current.next } if @news_pages.current.next %> 
+<%= will_paginate @news %>
 
 <br />
 <% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
