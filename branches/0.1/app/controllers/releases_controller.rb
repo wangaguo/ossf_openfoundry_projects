@@ -19,6 +19,9 @@ class ReleasesController < ApplicationController
     @project_id = params[:project_id]
     @releases = Release.find :all,
       :conditions => "project_id = #{params[:project_id]}"
+    if params[:layout] == 'false'
+      render :layout => false   
+    end
   end
   
   def create
