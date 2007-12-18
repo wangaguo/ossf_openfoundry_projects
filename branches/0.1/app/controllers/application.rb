@@ -1,13 +1,13 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
-require 'localization'
+#require 'localization'
 require 'user_system'
 # For "paranoid session store"
 require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
-  include Localization
+  #include Localization
   include UserSystem
 # for exception growler 
 #  include ExceptionGrowler

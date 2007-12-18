@@ -1,9 +1,20 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  include Localization 
+  #include Localization 
   
-  def pretty_list()
-    
+  def viewports_manager(options={})
+    #TODO add extension here
+    default_options={
+      :viewports => {:list => '完整列表', :icon => '圖示'}
+    }
+    options = default_options.merge(options)
+    html ="<select onchange=\"#{remote_function(:update => options[:update],
+         :url => options[:url]                     
+        )}\">\n"
+    options[:viewports].each do |option,name|
+      html << "<option value=\"#{option}\">#{name}</option>\n"
+    end
+    html << "</select>\n"
   end
   
   #TODO to be optimized! about this breadcrumb, see http://joshhuckabee.com/node/58

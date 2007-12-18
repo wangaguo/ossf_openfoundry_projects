@@ -13,7 +13,7 @@ module UserHelper
     when 'hidden_field'
       self.hidden_field(form_name, field_name, options)
     when /^.*button$/
-      prompt = l(:"#{@controller.controller_name}_#{field_name}_button")
+      prompt = _("#{@controller.controller_name}_#{field_name}_button")
       <<-EOL
       <tr><td class="button" colspan="2">
         #{self.send(helper_method, form_name, prompt, options)}
@@ -31,7 +31,7 @@ module UserHelper
           self.send(helper_method, form_name, field_name, options)
         end)
       lname = "#{form_name}_#{field_name}_form"
-      prompt = l(:"#{lname}")
+      prompt = _("#{lname}")
       if UserSystem::CONFIG[:two_column_input]
 <<-EOL
         <tr class="two_columns">
@@ -49,13 +49,13 @@ module UserHelper
   end
 
   def button_helper(name, options = {})
-    label = l(:"#{@controller.controller_name}_#{name}_button")
+    label = _("#{@controller.controller_name}_#{name}_button")
     "#{self.send(:submit_tag, label, options)}"
   end
 
   def link_helper(name, options = {})
     raise ArgumentError if name.nil?
-    label = l(:"#{@controller.controller_name}_#{name}_link")
+    label = _("#{@controller.controller_name}_#{name}_link")
     "#{self.send(:link_to, label, options)}"
   end
 
@@ -64,17 +64,17 @@ module UserHelper
   end
 
   def head_helper(options = {})
-    label = l(:"#{@controller.controller_name}_#{@controller.action_name}_head")
+    label = _("#{@controller.controller_name}_#{@controller.action_name}_head")
     notice = message = error = nil
     opts = DEFAULT_HEAD_OPTIONS.dup
     opts.update(options.symbolize_keys)
     s = "<h3>#{label}</h3>"
-    if @flash['notice'] and not opts[:notice].nil? and opts[:notice]
-      notice = "<div><p>#{@flash['notice']}</p></div>"
+    if flash['notice'] and not opts[:notice].nil? and opts[:notice]
+      notice = "<div><p>#{flash['notice']}</p></div>"
       s = s + notice
     end
-    if @flash['message'] and not opts[:message].nil? and opts[:message]
-      message = "<div id=\"ErrorExplanation\"><p>#{@flash['message']}</p></div>"
+    if flash['message'] and not opts[:message].nil? and opts[:message]
+      message = "<div id=\"ErrorExplanation\"><p>#{flash['message']}</p></div>"
       s = s + message
     end
     if not opts[:error].nil? and opts[:error]
@@ -94,7 +94,7 @@ EOL
   end
 
   def message_helper(name)
-    l(:"#{@controller.controller_name}_#{name}_message")
+    _("#{@controller.controller_name}_#{name}_message")
   end
 
   def start_form_tag_helper(&blk)

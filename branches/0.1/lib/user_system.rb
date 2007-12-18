@@ -53,7 +53,7 @@ module UserSystem
     store_location
   
     # call overwriteable reaction to unauthorized access
-    access_denied reason
+    access_denied #reason
     return false 
   end
 
@@ -63,7 +63,7 @@ module UserSystem
   # example use :
   # a popup window might just close itself for instance
   def access_denied
-    redirect_to :controller => "/user", :action => "login"
+    redirect_to :controller => "user", :action => "login"
   end  
   
   # store current uri in  the session.
