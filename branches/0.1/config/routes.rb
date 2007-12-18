@@ -47,6 +47,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   
+  #for download area~
+  map.connect 'download_path/:project_name/:file_name', :controller => 'openfoundry',
+       :action => 'download'
 #  require "pp"
 #  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
   

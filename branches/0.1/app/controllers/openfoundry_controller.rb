@@ -111,4 +111,8 @@ class OpenfoundryController < ApplicationController
     tag_name=params[:id]	
     @tagged_object=User.find_tagged_with(tag_name)
   end
+  
+  def download
+    render :text =>'this is the download area~'
+  end
 end
