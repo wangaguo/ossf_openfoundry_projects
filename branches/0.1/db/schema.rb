@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "created_at",  :datetime
     t.column "updated_at",  :datetime
     t.column "creator",     :integer
+    t.column "file_counter",     :integer, :default => 0, :null => false
   end
 
   add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique => true
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "creator",             :integer
     t.column "status",              :integer
     t.column "statusreason",        :text
+    t.column "project_counter",     :integer, :default => 0, :null => false
   end
 
   create_table "releases", :force => true do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "created_at",  :datetime
     t.column "updated_at",  :datetime
     t.column "creator",     :integer
+    t.column "release_counter",     :integer, :default => 0, :null => false
   end
   
   create_table "counters", :force => true do |t|
