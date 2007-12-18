@@ -25,7 +25,7 @@ module UserSystem
     # Add all changeable user fields to this array.
     # They will then be able to be edited from the edit action. You
     # should NOT include the email field in this array.
-    :changeable_fields => [ 'firstname', 'lastname' ],
+    :changeable_fields => [ 'firstname', 'lastname', 'language' ],
 
     # Set to true to allow delayed deletes (i.e., delete of record
     # doesn't happen immediately after user selects delete account,
