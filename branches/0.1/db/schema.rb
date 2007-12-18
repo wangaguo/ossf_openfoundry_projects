@@ -3,25 +3,13 @@
 # then regenerate this schema definition.
 
 ActiveRecord::Schema.define(:version => 6) do
-  
-   create_table :news, :force => true do |t|
-     t.column :subject, :string, :limit => 100, :null => false
-     t.column :description, :string, :limit => 4000, :null => false
-     t.column :tags, :string, :limit => 100, :default => "", :null => false
-     t.column :catid, :integer, :default => 0, :null => false
-     t.column :status, :integer, :default => 1, :null => false
-     t.column :creator, :integer, :default => 0, :null => false
-     t.column :created_at, :datetime, :null => false
-     t.column :updated_at, :datetime, :null => false
-   end
-  
-  
+
   create_table "attachments", :force => true do |t|
-    t.column "filename",    :string,  :default => "", :null => false
-    t.column "size",        :integer,                 :null => false
-    t.column "path",        :string,  :default => "", :null => false
+    t.column "filename",    :string,   :default => "", :null => false
+    t.column "size",        :integer,                  :null => false
+    t.column "path",        :string,   :default => "", :null => false
     t.column "description", :string
-    t.column "created_at",  :datetime,                :null => false
+    t.column "created_at",  :datetime,                 :null => false
     t.column "updated_at",  :datetime
     t.column "creator",     :integer
   end
@@ -33,7 +21,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "description", :string
     t.column "created_at",  :datetime, :null => false
     t.column "updated_at",  :datetime
-    t.column "creator",     :integer
   end
 
   create_table "fileentities", :force => true do |t|
@@ -41,7 +28,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "name",        :string
     t.column "description", :string
     t.column "size",        :integer
-    t.column "path",        :string,  :default => "", :null => false
+    t.column "path",        :string,   :default => "", :null => false
     t.column "meta",        :string
     t.column "created_at",  :datetime
     t.column "updated_at",  :datetime
@@ -49,6 +36,17 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique => true
+
+  create_table "news", :force => true do |t|
+    t.column "subject",     :string,   :limit => 100,  :default => "", :null => false
+    t.column "description", :string,   :limit => 4000, :default => "", :null => false
+    t.column "tags",        :string,   :limit => 100,  :default => "", :null => false
+    t.column "catid",       :integer,                  :default => 0,  :null => false
+    t.column "status",      :integer,                  :default => 1,  :null => false
+    t.column "creator",     :integer,                  :default => 0,  :null => false
+    t.column "created_at",  :datetime,                                 :null => false
+    t.column "updated_at",  :datetime,                                 :null => false
+  end
 
   create_table "projects", :force => true do |t|
     t.column "unixname",            :string
@@ -71,17 +69,25 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "releases", :force => true do |t|
-    t.column "project_id",  :integer,                 :null => false
+    t.column "project_id",  :integer,                  :null => false
     t.column "name",        :string
     t.column "description", :string
-    t.column "version",     :string,  :default => "", :null => false
+    t.column "version",     :string,   :default => "", :null => false
     t.column "due",         :date
-    t.column "status",      :integer, :default => 1,  :null => false
+    t.column "status",      :integer,  :default => 1,  :null => false
     t.column "created_at",  :datetime
     t.column "updated_at",  :datetime
     t.column "creator",     :integer
   end
+  
+  create_table "counters", :force => true do |t|
+    t.column "type",  :string, :null => false
+    t.column "object_id", :integer, :null => false
+    t.column "count", :integer, :default => 0, :null => false
+  end
 
+  add_index "counters", ["type","object_id"], :name => "index_counter_type_object_id", :unique => true
+  
   create_table "roles", :force => true do |t|
     t.column "name",              :string,   :limit => 40
     t.column "authorizable_type", :string,   :limit => 30
