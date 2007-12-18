@@ -128,8 +128,8 @@ class UserController < ApplicationController
         case form
         when "edit"
           changeable_fields = ['firstname', 'lastname']
-          params = params['user'].delete_if { |k,v| not changeable_fields.include?(k) }
-          @user.attributes = params
+          dummy = params['user'].delete_if { |k,v| not changeable_fields.include?(k) }
+          @user.attributes = dummy
           @user.save
         when "change_password"
           change_password
