@@ -113,6 +113,13 @@ class OpenfoundryController < ApplicationController
   end
   
   def download
-    render :text =>'this is the download area~'
+    #render :text => params[:file_name]
+    download_project = Project.find_by_unixname(params[:project_name])
+    if download_project
+      render :text => download_project.unixname
+    else
+      render :text => 'no project!'
+    end
+    #redirect_to params[:project_name]
   end
 end
