@@ -1,0 +1,6 @@
+<select name='lang' id='LanguageSelect' onchange=
+'<%= remote_function(:update =>'', :url => '') %>'>
+  <%= options_for_select(lang_options, current_lang) %>
+</select>
+	
+
