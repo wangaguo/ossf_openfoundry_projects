@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
 
   def set_locale_for_gettext
     if params["lang"]
+      cookies["lang"] = params["lang"]
     else
       if cookies["lang"]
       else
