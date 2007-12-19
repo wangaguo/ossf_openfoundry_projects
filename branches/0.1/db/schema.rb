@@ -4,6 +4,13 @@
 
 ActiveRecord::Schema.define(:version => 6) do
 
+  create_table "images", :force => true do |t|
+    t.column "name",    :string, :default => "upload_img", :null =>false
+    t.column "meta",    :string
+    t.column "comment", :string
+    t.column "data",    :binary, :limit => 10.megabytes
+  end
+  
   create_table "attachments", :force => true do |t|
     t.column "filename",    :string,   :default => "", :null => false
     t.column "size",        :integer,                  :null => false
@@ -24,6 +31,7 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "fileentities", :force => true do |t|
+    t.column "icon",        :integer, :default => 0, :null => false
     t.column "release_id",  :integer
     t.column "name",        :string
     t.column "description", :string
@@ -50,6 +58,7 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "projects", :force => true do |t|
+    t.column "icon",                :integer, :default => 0, :null => false
     t.column "unixname",            :string
     t.column "projectname",         :string
     t.column "rationale",           :text
@@ -71,6 +80,7 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "releases", :force => true do |t|
+    t.column "icon",                :integer, :default => 0, :null => false
     t.column "project_id",  :integer,                  :null => false
     t.column "name",        :string
     t.column "description", :string
@@ -139,6 +149,7 @@ ActiveRecord::Schema.define(:version => 6) do
   add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
+    t.column "icon",            :integer,                :default => 0, :null =>false
     t.column "login",           :string,   :limit => 80, :default => "", :null => false
     t.column "salted_password", :string,   :limit => 40, :default => "", :null => false
     t.column "email",           :string,   :limit => 60, :default => "", :null => false

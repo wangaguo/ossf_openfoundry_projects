@@ -1,6 +1,7 @@
 <div title="<%= title_helper %>" class="form">
   <%= head_helper :error => true %>
-
+    <%= render :partial => 'images/edit', :locals => 
+      {:image_id => @user.icon, :user_id => @user.id }%>
     <% start_form_tag_helper do -%>
       <%= render :partial => 'edit', :locals => {:user => @user, :submit => true} %>
     <% end -%>
