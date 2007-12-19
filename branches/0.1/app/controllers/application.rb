@@ -27,11 +27,26 @@ class ApplicationController < ActionController::Base
 #          ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
 #        end
 #  end
-  before_filter :set_locale_for_gettext
+  before_init_gettext :set_locale_for_gettext
   
+  def set_locale_for_gettext!(lang)
+    # changing cookies[] only will not have effect in this request
+    # cookies["lang"] = params["lang"] = lang
+    set_locale(lang)
+  end
+
   def set_locale_for_gettext
+    if params["lang"]
+    else
+      if cookies["lang"]
+      else
+        # TODO: guest / empty language setting
+        if current_user
+          set_locale_for_gettext!(current_user.language)
+        end
+      end
+    end
     #set_locale("zh_TW")
-    #set_locale(current_user().locale())
   end
 
   #before_filter :login_required

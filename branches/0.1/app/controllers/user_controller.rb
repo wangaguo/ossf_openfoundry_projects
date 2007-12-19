@@ -131,6 +131,8 @@ class UserController < ApplicationController
           dummy = params['user'].delete_if { |k,v| not changeable_fields.include?(k) }
           @user.attributes = dummy
           @user.save
+          # TODO: refactor
+          set_locale_for_gettext!(@user.language)
         when "change_password"
           change_password
         when "delete"
