@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<%
+def binary_fixture_data(name)
+  filename = "#{RAILS_ROOT}/test/fixtures/binaries/#{name}"
+  data = File.open(filename,'rb').read
+  "!binary | #{[data].pack('m').gsub(/\n/,"\n    ")}\n"
+end
+%>
+<%index=0%>
+<% %w(tim aguo luors thkuo).each do |filename| %>
+<%=filename%>:
+  id: <%=index+=1%>
+  name: <%=filename%>_img
+  meta: image/jpeg
+  data: <%= binary_fixture_data("#{filename}.jpg") %>
+<%end%>

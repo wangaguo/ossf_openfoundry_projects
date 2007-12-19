@@ -5,6 +5,7 @@ tim:
     salted_password: <%="123456".crypt("$1$123456") %>
     email: tim@iis
     verified: 1
+    icon: 1
 
 aguo:
     id: 2
@@ -12,6 +13,7 @@ aguo:
     salted_password: <%="123456".crypt("$1$123456") %>
     email: aguo@iis
     verified: 1
+    icons: 2
 
 luors:
     id: 3
@@ -19,6 +21,7 @@ luors:
     salted_password: <%="123456".crypt("$1$123456") %>
     email: luors@iis
     verified: 1
+    icons: 3
 
 thkuo:
     id: 4
@@ -26,6 +29,7 @@ thkuo:
     salted_password: <%="123456".crypt("$1$123456") %>
     email: thkuo1@iis
     verified: 1
+    icons: 4
 
 dummy:
     id: 99999
