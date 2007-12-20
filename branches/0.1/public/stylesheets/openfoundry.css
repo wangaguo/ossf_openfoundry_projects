@@ -92,7 +92,7 @@ textarea {
   { padding-left:20px; }
 #ProjectNew :focus, #ProjectEdit :focus
   { color:red; }
-#ProjectList img { width:32px; height:32px; display:none; }
+/*#ProjectList img { width:32px; height:32px; display:none; }*/
 #ProjectList table { border-collapse:collapse; width:99%; margin:2px; }
 #ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
 #ProjectList th { background-color:#DEE7FF; }

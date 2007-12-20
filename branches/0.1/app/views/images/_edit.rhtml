@@ -1,6 +1,6 @@
 <div id='UserImage'>
   <%= error_messages_for("image") %>
-  <img height=64 width=64 src="<%= url_for(:controller => 'images',:action => "image", :id => image_id) %>"/>
+  <img src="<%= url_for(:controller => 'images',:action => "image", :id => image_id, :size => '64') %>"/>
   <%#= form_remote_tag(:update => 'UserImage', :url => 
       {:controller => :images, :action => 'upload'},
     :multipart => true) %>

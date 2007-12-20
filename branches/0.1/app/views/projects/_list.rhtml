@@ -13,7 +13,7 @@
   
 <% for project in projects %>
   <tr>
-    <td><img src="http://rt.openfoundry.org/img/project_logo/<%= project.id %>.gif" /></td>
+    <td><img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon,:size => 16) %>"/></td>
   <% for column in my_content_columns %>
     <td><%=h project.send(column.name) %></td>
   <% end %>
