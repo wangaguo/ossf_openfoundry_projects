@@ -1,3 +1,5 @@
+require 'RMagick'
+
 class Image < ActiveRecord::Base
   validates_format_of :meta, :with => /^image/,
     :message => "picture only"
@@ -6,6 +8,10 @@ class Image < ActiveRecord::Base
     self.name = base_part_of(picture_field.original_filename)
     self.meta = picture_field.content_type.chomp
     self.data = picture_field.read
+    
+    #縮圖!
+    img = Magick::Image.from_blob(self.data).first
+    self.data = img.resize!(128,128).to_blob
   end
   
   def base_part_of(file_name)
