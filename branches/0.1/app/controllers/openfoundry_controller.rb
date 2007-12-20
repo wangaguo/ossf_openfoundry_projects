@@ -118,11 +118,20 @@ class OpenfoundryController < ApplicationController
     if download_project
       download_release = Release.find(:first , :conditions => "project_id = '#{download_project.id}' AND version = '#{params[:release_name]}'")
       if download_release
-        download_project.project_counter = download_project.project_counter + 1
-        download_release.release_counter = download_release.release_counter + 1
-        download_project.save
-        download_release.save
-        render :text => "#{download_project.unixname} #{download_project.project_counter}\n#{download_release.version} #{download_release.release_counter}"
+        download_file = Fileentity.find(:first , :conditions => "release_id = '#{download_release.id}' AND name = '#{params[:file_name]}'")
+        if download_file
+          download_project.project_counter = download_project.project_counter + 1
+          download_release.release_counter = download_release.release_counter + 1
+          download_file.file_counter = download_file.file_counter + 1
+          download_project.save
+          download_release.save
+          download_file.save
+          render :text => "#{download_project.unixname} #{download_project.project_counter}\n
+                          #{download_release.version} #{download_release.release_counter}\n
+                          #{download_file.name} #{download_file.path} #{download_file.file_counter}"
+        else
+          render :text => 'no this file!'
+        end
       else
         render :text => 'no this release!'
       end
