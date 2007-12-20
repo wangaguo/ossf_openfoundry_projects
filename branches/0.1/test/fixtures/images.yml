@@ -7,7 +7,7 @@ def binary_fixture_data(name)
 end
 %>
 <%index=0%>
-<% %w(tim aguo luors thkuo).each do |filename| %>
+<% %w(tim aguo luors thkuo ossf).each do |filename| %>
 <%=filename%>:
   id: <%=index+=1%>
   name: <%=filename%>_img

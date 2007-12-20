@@ -2,6 +2,7 @@
 <%index=0%>
 <% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |projectname| %>
 <%=projectname%>:
+  icon: 5
   id: <%=index+=1%>
   unixname: <%=projectname%>
   projectname: <%=projectname%> ver 0.0.0 super song
