@@ -44,7 +44,8 @@ class Project < ActiveRecord::Base
   #
   # data:    a hash
   # creator: an User object
-  # return: the newly created project object
+  # return: the newly created project object, the same with 'create'
+  #         if anything goes worng, check rtn.errors / rtn.errors.empty?
   def self.apply(data, creator)
     data[:creator] = creator.id
     data[:status] = Project::STATUS[:APPLYING]
@@ -57,6 +58,8 @@ class Project < ActiveRecord::Base
     self.status = Project::STATUS[:READY]
     self.statusreason = reason
     save
+    # TODO: transaction / efficiency / constant
+    set_role("Admin", User.find(self.creator))
   end
   # reason: string
   def reject(reason)

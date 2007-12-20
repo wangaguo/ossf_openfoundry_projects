@@ -13,7 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   # -- just remember to delete public/index.html.
   map.connect '', :controller => 'openfoundry'
   #map.connect 'projects', :controller => 'project', :action => 'list'
-  map.resources :projects
+  map.resources :projects,
+                :collection => { :applied => :get }
   map.resources :users, 
                 :controller => :user                
   map.resources :news,

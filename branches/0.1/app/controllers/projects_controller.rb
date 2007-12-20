@@ -59,19 +59,13 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def apply
-    Project.apply(params[:project], current_user())
-  end
-
   def create
     login_required #_("create project require login")
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
-    @project = Project.new(params[:project])
-    if @project.save
-      # TODO: transaction?!?!
-      @project.set_role("Admin", current_user())
-      flash[:notice] = 'Project was successfully created.'
-      redirect_to :action => 'index'
+
+    @project = Project.apply(params[:project], current_user())
+    if @project.errors.empty?
+      redirect_to :controller => 'projects', :action => 'applied'
     else
       render :action => 'new'
     end
