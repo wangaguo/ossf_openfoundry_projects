@@ -63,6 +63,8 @@ class Project < ActiveRecord::Base
     save
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
+    # TODO: hook / listener / callback / ...
+    Release::build_path()
   end
   # reason: string
   def reject(reason)
