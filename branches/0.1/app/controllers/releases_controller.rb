@@ -79,29 +79,46 @@ class ReleasesController < ApplicationController
   
   def uploadfiles
     pattern = params[:move]
-    pattern ||= '/tmp'
+    project_name = Project.find(params[:project_id]).unixname
+    
+    build_project_releases_path project_name
+    
+    if pattern.nil?
+      pattern = "#{project_name}"
+    end
+    
+    #upload root, can't go upper
+    root = "#{Project::PROJECT_UPLOAD_PATH}"
+
+    path = File.join(root, pattern)
+    
+    #protect system...from hacking
+    if !File.exist?(path) or #illegal?
+      !(File.expand_path(path) =~ /^#{root}\/#{project_name}/) #go upper?
+      #sorry, back to upload home
+      pattern = "#{project_name}"
+      path = File.join(root, pattern) 
+    end
+    
+    #expand_path and extract current releative dir
+    pattern = File.expand_path(path).match(/^#{root}\/(.*)/)[1]
+
     @current_dir = pattern
-    
-    #加上File match mark "**", see File:fnmatch, Dir.glob
-    pattern = File.join pattern,'**'
-    
     @release = Release.find params[:id]
     @project = Project.find params[:project_id]
     
     @uploadfiles = []
     @uploaddirs = []
-    Dir.glob(pattern){ |file|
+    #加上File match mark "**", see File:fnmatch, Dir.glob
+    Dir.glob(File.join(path,"**")){ |file|
       if File.directory?(file)
-        @uploaddirs.push file
+        @uploaddirs.push File.basename(file)
       else
-        @uploadfiles.push file
+        @uploadfiles.push File.basename(file)
       end
     }
     
-    #為viewer準備上層dir
-    Dir.chdir @current_dir+'/..' do
-      @upper_dir = Dir.pwd
-    end
+
     
     #不套用layout 發生在addfiles removefiles return時
     if params[:layout] == 'false'
@@ -148,6 +165,8 @@ class ReleasesController < ApplicationController
     else
       #TODO collect meta info for FILE, move FILE
       Fileentity.create ( :attributes => {:path => path} )
+      
+      
     end
   end
   

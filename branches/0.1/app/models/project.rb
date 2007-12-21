@@ -5,7 +5,10 @@ class Project < ActiveRecord::Base
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }
-
+  #for releases ftp upload and web download...
+  PROJECT_UPLOAD_PATH = "/tmp/uploads".freeze
+  PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
+  
   def self.status_to_s(int_status)
     STATUS.invert()[int_status]
   end

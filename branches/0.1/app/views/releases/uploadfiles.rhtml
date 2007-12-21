@@ -29,7 +29,7 @@
              <p>
       <%= link_to_remote "[upper dir]", :url => {
         :contrller => 'release', :action => 'uploadfiles',
-        :move => @upper_dir,
+        :move => "#{@current_dir}/..",
         :layout => 'false'},
       :update => "uploadfiles_view" %>
   
@@ -44,7 +44,7 @@
             :url => {
               :project_id => @project.id,
               :id => @release.id,
-              :move => "#{dir}",
+              :move => "#{@current_dir}/#{dir}",
               :layout => 'false'},
             :update => "uploadfiles_view" -%>
           </li>
