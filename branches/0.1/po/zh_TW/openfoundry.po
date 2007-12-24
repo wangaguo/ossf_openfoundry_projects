@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2007-05-17 09:13-0000\n"
+"POT-Creation-Date: 2007-12-24 14:39+0800\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,65 +16,188 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/models/project.rb:-
-msgid "project"
-msgstr "專案"
+#: app/controllers/user_controller.rb:30
+msgid "user_login_succeeded"
+msgstr "登入成功"
 
-#: app/models/project.rb:- app/views/project/_form.rhtml:4
-msgid "Project|Unixname"
-msgstr "專案代號"
+#: app/controllers/user_controller.rb:36
+msgid "user_login_failed"
+msgstr "登入失敗"
 
-#: app/models/project.rb:- app/views/project/_form.rhtml:7
-msgid "Project|Projectname"
-msgstr "專案名稱"
+#: app/controllers/user_controller.rb:57
+msgid "user_confirmation_email_error"
+msgstr "您的驗證信傳送失敗"
 
-#: app/models/project.rb:-
-msgid "Project|Rationale"
+#: app/controllers/user_controller.rb:79
+msgid "user_updated_password"
+msgstr "密碼更新成功"
+
+#: app/controllers/user_controller.rb:83
+msgid "user_change_password_email_error"
+msgstr "密碼更新失敗"
+
+#: app/controllers/user_controller.rb:90
+msgid "user_forgot_password_logged_in"
+msgstr "您已經登入, 請直接更改密碼"
+
+#: app/controllers/user_controller.rb:100
+msgid "user_enter_valid_email_address"
+msgstr "Email Address不正確"
+
+#: app/controllers/user_controller.rb:102
+msgid "user_email_address_not_found"
+msgstr "查無此Email Address"
+
+#: app/controllers/user_controller.rb:110
+msgid "user_forgotten_password_emailed"
+msgstr "您的確認信已寄出"
+
+#: app/controllers/user_controller.rb:118
+msgid "user_forgotten_password_email_error"
+msgstr "確認信傳送失敗"
+
+#: app/controllers/user_controller.rb:162
+msgid "user_delete_email_error"
+msgstr "刪除使用者確認信傳送失敗"
+
+#: app/controllers/user_controller.rb:171
+msgid "user_restore_deleted_error"
+msgstr "復原刪除使用者"
+
+#: app/controllers/user_controller.rb:186
+msgid "user_delete_finished"
+msgstr "使用者已刪除"
+
+#: app/helpers/application_helper.rb:28
+msgid "Home"
+msgstr "首頁"
+
+#: app/helpers/application_helper.rb:37 app/models/user.rb:-
+msgid "user"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Publicdescription"
+#: app/helpers/application_helper.rb:40
+msgid "Projects List"
+msgstr "專案一覽"
+
+#: app/helpers/application_helper.rb:43
+msgid "Project Releases"
+msgstr "專案釋出"
+
+#: app/helpers/application_helper.rb:46
+msgid "Project News"
+msgstr "專案新聞"
+
+#: app/helpers/user_helper.rb:16
+msgid ""
+"      <tr><td class=\"button\" colspan=\"2\">\n"
+"        #{self.send(helper_method, form_name, prompt, options)}\n"
+"      </td></tr>\n"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Contactinfo"
+#: app/models/session.rb:-
+msgid "session"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Maturity"
+#: app/models/session.rb:-
+msgid "Session|Session"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|License"
+#: app/models/session.rb:-
+msgid "Session|User"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Contentlicense"
+#: app/models/session.rb:-
+msgid "Session|Host"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Platform"
+#: app/models/session.rb:-
+msgid "Session|Created at"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Programminglanguage"
+#: app/models/session.rb:-
+msgid "Session|Updated at"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Intendedaudience"
+#: app/models/session.rb:-
+msgid "Session|Data"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Redirecturl"
+#: app/models/category.rb:-
+msgid "category"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Vcs"
+#: app/models/category.rb:-
+msgid "Category|Name"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Remotevcs"
+#: app/models/category.rb:-
+msgid "Category|Parent"
 msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Creator"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Description"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Created at"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Updated at"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "release"
+msgstr "規畫釋出"
+
+#: app/models/release.rb:-
+msgid "Release|Icon"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Project"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Name"
+msgstr "名稱"
+
+#: app/models/release.rb:-
+msgid "Release|Description"
+msgstr "描述"
+
+#: app/models/release.rb:-
+msgid "Release|Version"
+msgstr "版本號"
+
+#: app/models/release.rb:-
+msgid "Release|Due"
+msgstr "釋出時間"
+
+#: app/models/release.rb:-
+msgid "Release|Status"
+msgstr "狀態"
+
+#: app/models/release.rb:-
+msgid "Release|Created at"
+msgstr "建立時間"
+
+#: app/models/release.rb:-
+msgid "Release|Updated at"
+msgstr "更新時間"
+
+#: app/models/release.rb:-
+msgid "Release|Creator"
+msgstr "建立者"
+
+#: app/models/release.rb:-
+msgid "Release|Release counter"
+msgstr "下載次數"
 
 #: app/models/role.rb:-
 msgid "role"
@@ -100,56 +223,345 @@ msgstr ""
 msgid "Role|Updated at"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:32
-msgid "Home"
-msgstr "首頁"
+#: app/models/role.rb:-
+msgid "Role|Creator"
+msgstr ""
 
-#: app/views/layouts/application.rhtml:38 app/views/user/login.rhtml:8
-#: app/views/partials/_login.rhtml:6
-msgid "Login"
+#: app/models/news.rb:-
+msgid "news"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Subject"
+msgstr "標題"
+
+#: app/models/news.rb:-
+msgid "News|Description"
+msgstr "描述"
+
+#: app/models/news.rb:-
+msgid "News|Tags"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Catid"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Status"
+msgstr "狀態"
+
+#: app/models/news.rb:-
+msgid "News|Creator"
+msgstr "建立者"
+
+#: app/models/news.rb:-
+msgid "News|Created at"
+msgstr "建立時間"
+
+#: app/models/news.rb:-
+msgid "News|Updated at"
+msgstr "更新時間"
+
+#: app/models/image.rb:-
+msgid "image"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Name"
+msgstr "圖片名稱"
+
+#: app/models/image.rb:-
+msgid "Image|Meta"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Comment"
+msgstr "註解"
+
+#: app/models/image.rb:-
+msgid "Image|Data"
+msgstr ""
+
+#: app/models/project.rb:-
+msgid "project"
+msgstr "專案"
+
+#: app/models/project.rb:-
+#, fuzzy
+msgid "Project|Icon"
+msgstr "專案名稱"
+
+#: app/models/project.rb:- app/views/projects/_form.rhtml:4
+msgid "Project|Unixname"
+msgstr "專案代號"
+
+#: app/models/project.rb:- app/views/projects/_form.rhtml:7
+msgid "Project|Projectname"
+msgstr "專案名稱"
+
+#: app/models/project.rb:-
+msgid "Project|Rationale"
+msgstr "註冊原因"
+
+#: app/models/project.rb:-
+msgid "Project|Publicdescription"
+msgstr "公開描述"
+
+#: app/models/project.rb:-
+msgid "Project|Contactinfo"
+msgstr "連絡方式"
+
+#: app/models/project.rb:-
+msgid "Project|Maturity"
+msgstr "專案成熟度"
+
+#: app/models/project.rb:-
+msgid "Project|License"
+msgstr "程式碼授權"
+
+#: app/models/project.rb:-
+msgid "Project|Contentlicense"
+msgstr "圖文授權"
+
+#: app/models/project.rb:-
+msgid "Project|Platform"
+msgstr "作業環境"
+
+#: app/models/project.rb:-
+msgid "Project|Programminglanguage"
+msgstr "程式語言"
+
+#: app/models/project.rb:-
+msgid "Project|Intendedaudience"
+msgstr "適用對象"
+
+#: app/models/project.rb:-
+msgid "Project|Redirecturl"
+msgstr "首頁轉址"
+
+#: app/models/project.rb:-
+msgid "Project|Vcs"
+msgstr "版本控制系統"
+
+#: app/models/project.rb:-
+msgid "Project|Remotevcs"
+msgstr "站外版本庫"
+
+#: app/models/project.rb:-
+#, fuzzy
+msgid "Project|Creator"
+msgstr "專案名稱"
+
+#: app/models/project.rb:-
+#, fuzzy
+msgid "Project|Status"
+msgstr "專案"
+
+#: app/models/project.rb:-
+msgid "Project|Statusreason"
+msgstr ""
+
+#: app/models/project.rb:-
+#, fuzzy
+msgid "Project|Project counter"
+msgstr "專案下載次數"
+
+#: app/models/fileentity.rb:-
+msgid "fileentity"
+msgstr "檔案"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Icon"
+msgstr "圖像"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Release"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Name"
+msgstr "名稱"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Description"
+msgstr "描述"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Size"
+msgstr "檔案大小"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Path"
+msgstr "檔案路徑"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Meta"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Created at"
+msgstr "建立時間"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Updated at"
+msgstr "上次修改時間"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Creator"
+msgstr "建立者"
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|File counter"
+msgstr "下載次數"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Icon"
+msgstr "圖像"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Login"
 msgstr "登入"
 
-#: app/views/layouts/application.rhtml:41 app/views/partials/_login.rhtml:4
+#: app/models/user.rb:-
+msgid "User|Salted password"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Email"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Firstname"
+msgstr "名"
+
+#: app/models/user.rb:-
+msgid "User|Lastname"
+msgstr "姓"
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Verified"
+msgstr "已驗證"
+
+#: app/models/user.rb:-
+msgid "User|Role"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Security token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Token expiry"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Deleted"
+msgstr "已刪除"
+
+#: app/models/user.rb:-
+msgid "User|Delete after"
+msgstr "將要刪除"
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr "建立時間"
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr "上次修改時間"
+
+#: app/models/user.rb:-
+msgid "User|Logged in at"
+msgstr "上次登入時間"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Language"
+msgstr "登入"
+
+#: app/views/images/_edit.rhtml:9
+msgid "Upload your picture"
+msgstr "選擇上傳的圖片"
+
+#: app/views/images/_edit.rhtml:11
+msgid "Upload"
+msgstr "上傳"
+
+#: app/views/partials/_login.rhtml:4
+msgid "Welcome"
+msgstr "歡迎"
+
+#: app/views/partials/_login.rhtml:6
 msgid "Logout"
 msgstr "登出"
 
-#: app/views/layouts/application.rhtml:44 app/views/partials/_login.rhtml:8
+#: app/views/partials/_login.rhtml:8 app/views/user/login.rhtml:11
+msgid "Login"
+msgstr "登入"
+
+#: app/views/partials/_login.rhtml:10
 msgid "Signup"
 msgstr "註冊"
 
-#: app/views/project/show.rhtml:1
+#: app/views/partials/_login.rhtml:12 app/views/user/login.rhtml:13
+msgid "Forgot my password"
+msgstr "忘記密碼"
+
+#: app/views/layouts/application.rhtml:7 app/views/layouts/admin.rhtml:6
+msgid "OpenFoundry"
+msgstr "自由軟體鑄造場"
+
+#: app/views/user/login.rhtml:2
+msgid "Login to OpenFoundry"
+msgstr "登入自由軟體鑄造場"
+
+#: app/views/user/login.rhtml:8
+msgid "Login ID"
+msgstr "帳號"
+
+#: app/views/user/login.rhtml:9
+msgid "Password"
+msgstr "密碼"
+
+#: app/views/user/login.rhtml:12
+msgid "Register for an account"
+msgstr "註冊帳號"
+
+#: app/views/projects/_tabnav.rhtml:1
+msgid "Project navigation bar"
+msgstr ""
+
+#: app/views/projects/_tabnav.rhtml:3
 #, fuzzy
 msgid "Project Basic"
 msgstr "專案"
 
-#: app/views/project/show.rhtml:2
+#: app/views/projects/_tabnav.rhtml:4
+msgid "Kwiki"
+msgstr "WIKI"
+
+#: app/views/projects/_tabnav.rhtml:5
 msgid "Sympa"
-msgstr ""
+msgstr "通訊論壇"
 
-#: app/views/project/show.rhtml:3
+#: app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
+msgstr "版本控制系統"
+
+#: app/views/projects/show.rhtml:10
+#, fuzzy
+msgid "Project Role"
+msgstr "專案成員"
+
+#: app/views/projects/applied.rhtml:1
+msgid ""
+"Your project creating request has been submitted. Please wait 72 hours for "
+"approving."
 msgstr ""
-
-#: app/views/user/login.rhtml:2
-msgid "Login to OpenFoundry"
-msgstr ""
-
-#: app/views/user/login.rhtml:5
-msgid "Login ID"
-msgstr "帳號"
-
-#: app/views/user/login.rhtml:6
-msgid "Password"
-msgstr "密碼"
-
-#: app/views/user/login.rhtml:9
-msgid "Register for an account"
-msgstr "註冊帳號"
-
-#: app/views/user/login.rhtml:10 app/views/partials/_login.rhtml:10
-msgid "Forgot my password"
-msgstr "忘記密碼"
-
-#: app/views/partials/_login.rhtml:2
-msgid "Welcome"
-msgstr "歡迎"
