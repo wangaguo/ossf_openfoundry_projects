@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @admins = @project.admins
     @members = @project.members
-    permit "admin of :project", :redirect_controller => :project, :redirect_action => :list
+    permit "admin of :project", :redirect_controller => :project, :redirect_action => 'index'
   end
 
   def update
@@ -91,7 +91,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     Project.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => 'index'
   end
 
   def set_role
