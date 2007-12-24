@@ -77,3 +77,8 @@ require 'gettext/rails'
 require 'acts_as_ferret'
 
 ActionController::AbstractRequest.relative_url_root = "/of"
+
+#ActionMailer::Base.delivery_method = :sendmail
+
+# TODO: better naming
+OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'

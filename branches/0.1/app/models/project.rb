@@ -52,7 +52,11 @@ class Project < ActiveRecord::Base
   def self.apply(data, creator)
     data[:creator] = creator.id
     data[:status] = Project::STATUS[:APPLYING]
-    Project.create(data)
+    returning Project.create(data) do |project|
+      if project.errors.empty?
+        ProjectNotify.deliver_applied_site_admin(project)
+      end
+    end
   end
 
   # reason: string
