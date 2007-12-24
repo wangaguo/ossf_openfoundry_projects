@@ -42,9 +42,7 @@ class ApplicationController < ActionController::Base
       if cookies["lang"]
       else
         # TODO: guest / empty language setting
-        if current_user
-          set_locale_for_gettext!(current_user.language)
-        end
+        set_locale_for_gettext!(current_user.language)
       end
     end
     #set_locale("zh_TW")
@@ -52,10 +50,10 @@ class ApplicationController < ActionController::Base
 
   #before_filter :login_required
   def current_user
-    session['user']
+    session['user'] || User.find_by_login('guest') # TODO: fix it !!!!!
   end
   def login?
-    not current_user().nil? # !!
+    current_user().login != 'guest' 
   end
   helper_method :current_user
   helper_method :login?
