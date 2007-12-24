@@ -1,4 +1,4 @@
-<% if permit?("admin of :project") -%>
+<% if project.accepts_role?("Admin", current_user()) -%>
     <td><%= link_to 'Show', :action => 'show', :id => project.id %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => project.id %></td>
     <td><%= link_to 'Destroy', { :action => 'destroy', :id => project.id }, :confirm => 'Are you sure?', :method => :post %></td>
