@@ -47,8 +47,7 @@
     </div>
   <%else%>
     <div id="TagCloud">
-  		<h3>Tag Cloud</h3>
-  		<%= render :partial => 'partials/tagcloud'%>
+      <%= render :partial => 'partials/tagcloud'%>
     </div>
   <%end%>
 </div>
@@ -56,7 +55,7 @@
 <div id="MainContent">
 <div id="MainBody">
 <p> <%= breadcrumbs %> </p>
-<p style="color: green"><%= flash[:notice] %></p>
+<%#*<p style="color: green"><%= flash[:notice] </p>%>
 	<%= yield :layout %>
 </div>
 </div>

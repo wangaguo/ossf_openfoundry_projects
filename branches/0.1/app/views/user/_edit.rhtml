@@ -1,14 +1,17 @@
 <div class="user_edit">
-  <%= form_input :hidden_field, 'form', :value => 'edit' %>
-
+  <%= f.hidden_field 'form', :value => 'edit' %>
   <table>
-    <%= form_input changeable(user, "firstname"), "firstname" %>
-    <%= form_input changeable(user, "lastname"), "lastname" %>
-    <%= form_input changeable(user, "login"), "login", :size => 30 %><br/>
-    <%= form_input changeable(user, "email"), "email" %>
-    <%= form_input changeable(user, "language"), "language" %>
-    <% if submit %>
-      <%= form_input :submit_button, user.new_record? ? 'signup' : 'change_settings', :class => 'two_columns' %>
-    <% end %>
+    <label><%= _('User|Firstname')%>: </label>
+    <%= f.text_field "firstname" %><br/>
+    <label><%= _('User|Lastname')%>: </label>
+    <%= f.text_field "lastname" %><br/>
+    <label><%= _('User|Login')%>: </label>
+    <%= f.text_field "login", :size => 30 %><br/>
+    <label><%= _('User|Email')%>: </label>
+    <%= f.text_field "email" %><br/>
+    <label><%= _('User|Language')%>: </label>
+    <%= f.text_field "language" %><br/>
+    <%= submit_tag( user.new_record? ? _('User|Signup') : _('User|Change Settings') ) if submit %>
+    
   </table>
 </div>

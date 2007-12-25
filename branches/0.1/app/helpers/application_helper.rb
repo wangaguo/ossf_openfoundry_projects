@@ -25,22 +25,25 @@ module ApplicationHelper
     url = request.path.split('?')  #remove extra query string parameters
     levels = url[0].split('/') #break up url into different levels
     #if not 'home' page, give a 'home' link
-    html << addcrumb('首頁', '/') unless levels.empty? 
+    html << addcrumb( _('Home') , '/') unless levels.empty? 
     level_class=nil
     level_title='name'
     levels.each_with_index do |level, index|
       unless level.blank?
         if level =~ /[a-z]+/
           case level
+          when 'user'
+            level_name, level_class, level_title = 
+              _('user'), User, 'login'
           when 'projects'
             level_name, level_class, level_title = 
-              '專案一覽', Project, 'unixname'
+              _('Projects List'), Project, 'unixname'
           when 'releases'
             level_name, level_class, level_title = 
-              '專案釋出', Release, 'name'
+              _('Project Releases'), Release, 'name'
           when 'news'
             level_name, level_class, level_title = 
-              '專案新聞', News, 'subject'
+              _('Project News'), News, 'subject'
           end
         elsif level =~ /\d/
           level_name = level_class.find(level).send(level_title)
@@ -71,7 +74,8 @@ module ApplicationHelper
     default_options={
       :label_alignment => true,#not implemented
       :fields_per_column => 2,
-      :masked_fields => [/^[a-z_]*id$/,/^updated_at$/,/^created_at$/,/^creator$/],
+      :masked_fields => [/^[a-z_]*id$/,/^updated_at$/,/^created_at$/,/^creator$/,
+                          /_counter$/,/^icon$/],
       :extra => false,#not implemented
       :left2right => true,#not implemented
       :editable => false,
@@ -143,6 +147,14 @@ module ApplicationHelper
     image_tag("calendar.png", {:id => "#{field_id}_trigger",:class => "calendar-trigger"}) +
       javascript_tag("Calendar.setup({inputField : '#{field_id}', ifFormat : '%Y-%m-%d', button : '#{field_id}_trigger' });")
   end
+  
+  def show_flash(model = nil)
+    keys  = [:error, :warning, :notice, :message]
+    keys.collect { |key| content_tag(:div, flash[key],
+                                     :class => "flash#{key}") if flash[key] 
+                 }.join << ((model.nil?)? "" : error_messages_for(model))
+  end
+
 end
 
    

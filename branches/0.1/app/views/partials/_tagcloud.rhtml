@@ -1,14 +1,15 @@
 <div class="tag_cloud">
-<% tag_counts=User.tag_counts() %>
-<% tag_counts.sort! { |a,b| a.count <=> b.count}%>
-<% sum=0 %>
-<% tag_counts.each { |tag| -%>
-<% sum=sum+tag.count %>
-<% } -%>
-
-<% tag_counts.each { |tag| -%>
-<font size=<%= (10.0*tag.count/sum).to_i %> >
-<%= link_to tag.name, {:action => "tag", :id=> tag.name} %>
-</font>&nbsp;
-<% } -%>
-</div>
+  <h3><%= _('Tag Cloud') %></h3>
+  <% tag_counts=User.tag_counts() %>
+  <% tag_counts.sort! { |a,b| a.count <=> b.count}%>
+    <% sum=0 %>
+    <% tag_counts.each { |tag| -%>
+      <% sum=sum+tag.count %>
+    <% } -%>
+  
+    <% tag_counts.each { |tag| -%>
+      <font size=<%= (10.0*tag.count/sum).to_i %> >
+            <%= link_to tag.name, {:action => "tag", :id=> tag.name} %>
+            </font> &nbsp;
+    <% } -%>
+  </div>

@@ -8,8 +8,8 @@
   <br/>
   <%= hidden_field_tag 'user_id', user_id %>
   <%= hidden_field_tag 'back_to', '/user/edit' %>
-  Upload your picture: <%= file_field("images","image") %>
+  <%= _('Upload your picture')%> : <%= file_field("images","image") %>
   <br/>
-  <%= submit_tag("Upload file") %>
+  <%= submit_tag( _("Upload") ) %>
   </form>
 </div>

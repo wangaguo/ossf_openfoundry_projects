@@ -121,6 +121,7 @@ class UserController < ApplicationController
   end
 
   def edit
+    return unless login_required #_("you have to login before editing user")
     return if generate_filled_in
     if params['user']['form']
       form = params['user'].delete('form')
