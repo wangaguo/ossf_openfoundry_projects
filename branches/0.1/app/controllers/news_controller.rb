@@ -21,7 +21,7 @@ class NewsController < ApplicationController
   
   def project
     @head1 = "專案新聞"
-    @news_pages, @news = paginate :news, :conditions => ["catid<>0 and status='1'"], :order => "updated_at desc", :per_page => 10
+    @news = News.paginate(:page => params[:page], :per_page => 2, :conditions => ["catid<>0 and status='1'"], :order => "updated_at desc")
     render :action => 'list'
   end
   
