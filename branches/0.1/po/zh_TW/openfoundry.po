@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2007-12-24 14:39+0800\n"
+"POT-Creation-Date: 2007-12-25 10:33+0800\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,13 +87,6 @@ msgstr "專案釋出"
 #: app/helpers/application_helper.rb:46
 msgid "Project News"
 msgstr "專案新聞"
-
-#: app/helpers/user_helper.rb:16
-msgid ""
-"      <tr><td class=\"button\" colspan=\"2\">\n"
-"        #{self.send(helper_method, form_name, prompt, options)}\n"
-"      </td></tr>\n"
-msgstr ""
 
 #: app/models/session.rb:-
 msgid "session"
@@ -288,9 +281,8 @@ msgid "project"
 msgstr "專案"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Icon"
-msgstr "專案名稱"
+msgstr ""
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:4
 msgid "Project|Unixname"
@@ -349,21 +341,18 @@ msgid "Project|Remotevcs"
 msgstr "站外版本庫"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Creator"
-msgstr "專案名稱"
+msgstr "專案建立者"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Status"
-msgstr "專案"
+msgstr "專案狀態"
 
 #: app/models/project.rb:-
 msgid "Project|Statusreason"
-msgstr ""
+msgstr "原因"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Project counter"
 msgstr "專案下載次數"
 
@@ -416,12 +405,10 @@ msgid "Fileentity|File counter"
 msgstr "下載次數"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "User|Icon"
 msgstr "圖像"
 
-#: app/models/user.rb:-
-#, fuzzy
+#: app/models/user.rb:- app/views/user/_edit.rhtml:8
 msgid "User|Login"
 msgstr "登入"
 
@@ -429,15 +416,16 @@ msgstr "登入"
 msgid "User|Salted password"
 msgstr ""
 
-#: app/models/user.rb:-
+#: app/models/user.rb:- app/views/user/_edit.rhtml:10
+#: app/views/user/forgot_password.rhtml:8
 msgid "User|Email"
-msgstr ""
+msgstr "Email"
 
-#: app/models/user.rb:-
+#: app/models/user.rb:- app/views/user/_edit.rhtml:4
 msgid "User|Firstname"
 msgstr "名"
 
-#: app/models/user.rb:-
+#: app/models/user.rb:- app/views/user/_edit.rhtml:6
 msgid "User|Lastname"
 msgstr "姓"
 
@@ -481,10 +469,9 @@ msgstr "上次修改時間"
 msgid "User|Logged in at"
 msgstr "上次登入時間"
 
-#: app/models/user.rb:-
-#, fuzzy
+#: app/models/user.rb:- app/views/user/_edit.rhtml:12
 msgid "User|Language"
-msgstr "登入"
+msgstr "語言"
 
 #: app/views/images/_edit.rhtml:9
 msgid "Upload your picture"
@@ -494,6 +481,19 @@ msgstr "選擇上傳的圖片"
 msgid "Upload"
 msgstr "上傳"
 
+#: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
+msgid "Show"
+msgstr ""
+
+#: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
+#: app/views/projects/show.rhtml:32
+msgid "Edit"
+msgstr "修改"
+
+#: app/views/partials/_sed.rhtml:4 app/views/partials/_sed.rhtml:8
+msgid "Destroy"
+msgstr "刪除"
+
 #: app/views/partials/_login.rhtml:4
 msgid "Welcome"
 msgstr "歡迎"
@@ -502,7 +502,7 @@ msgstr "歡迎"
 msgid "Logout"
 msgstr "登出"
 
-#: app/views/partials/_login.rhtml:8 app/views/user/login.rhtml:11
+#: app/views/partials/_login.rhtml:8 app/views/user/login.rhtml:9
 msgid "Login"
 msgstr "登入"
 
@@ -510,36 +510,102 @@ msgstr "登入"
 msgid "Signup"
 msgstr "註冊"
 
-#: app/views/partials/_login.rhtml:12 app/views/user/login.rhtml:13
+#: app/views/partials/_login.rhtml:12 app/views/user/login.rhtml:11
 msgid "Forgot my password"
 msgstr "忘記密碼"
+
+#: app/views/partials/_tagcloud.rhtml:2
+msgid "Tag Cloud"
+msgstr "標籤雲"
 
 #: app/views/layouts/application.rhtml:7 app/views/layouts/admin.rhtml:6
 msgid "OpenFoundry"
 msgstr "自由軟體鑄造場"
 
+#: app/views/user/_password.rhtml:5
+msgid "User|Password"
+msgstr "密碼"
+
+#: app/views/user/_password.rhtml:8
+msgid "User|Password Confirmation"
+msgstr "密碼確認"
+
+#: app/views/user/_password.rhtml:11 app/views/user/change_password.rhtml:10
+msgid "User|Change Password"
+msgstr "密碼更新"
+
+#: app/views/user/_edit.rhtml:14
+#, fuzzy
+msgid "User|Signup"
+msgstr "註冊"
+
+#: app/views/user/_edit.rhtml:14
+#, fuzzy
+msgid "User|Change Settings"
+msgstr "密碼更新"
+
+#: app/views/user/change_password.rhtml:11
+#: app/views/user/forgot_password.rhtml:13
+msgid "Cancel"
+msgstr "取消"
+
+#: app/views/user/edit.rhtml:17
+msgid "Delete Account"
+msgstr "刪除帳號"
+
+#: app/views/user/home.rhtml:1
+msgid "My projects"
+msgstr "我參與的專案"
+
+#: app/views/user/home.rhtml:4
+msgid "Admin of"
+msgstr ""
+
+#: app/views/user/home.rhtml:11
+msgid "Member of"
+msgstr ""
+
+#: app/views/user/forgot_password.rhtml:12
+msgid "User|Reset Password"
+msgstr "重設密碼"
+
 #: app/views/user/login.rhtml:2
 msgid "Login to OpenFoundry"
 msgstr "登入自由軟體鑄造場"
 
-#: app/views/user/login.rhtml:8
+#: app/views/user/login.rhtml:6
 msgid "Login ID"
 msgstr "帳號"
 
-#: app/views/user/login.rhtml:9
+#: app/views/user/login.rhtml:7
 msgid "Password"
 msgstr "密碼"
 
-#: app/views/user/login.rhtml:12
+#: app/views/user/login.rhtml:10
 msgid "Register for an account"
 msgstr "註冊帳號"
+
+#: app/views/projects/_list.rhtml:2
+msgid "Listing projects"
+msgstr "專案一覽"
+
+#: app/views/projects/_list.rhtml:26
+msgid "Previous page"
+msgstr "上一頁"
+
+#: app/views/projects/_list.rhtml:27
+msgid "Next page"
+msgstr "下一頁"
+
+#: app/views/projects/_list.rhtml:31
+msgid "New project"
+msgstr "註冊專案"
 
 #: app/views/projects/_tabnav.rhtml:1
 msgid "Project navigation bar"
 msgstr ""
 
 #: app/views/projects/_tabnav.rhtml:3
-#, fuzzy
 msgid "Project Basic"
 msgstr "專案"
 
@@ -556,9 +622,20 @@ msgid "Subversion"
 msgstr "版本控制系統"
 
 #: app/views/projects/show.rhtml:10
-#, fuzzy
 msgid "Project Role"
 msgstr "專案成員"
+
+#: app/views/projects/show.rhtml:12
+msgid "Project Admins"
+msgstr "專案成員"
+
+#: app/views/projects/show.rhtml:20
+msgid "Project Members"
+msgstr "專案成員"
+
+#: app/views/projects/show.rhtml:33
+msgid "Back"
+msgstr "回上一頁"
 
 #: app/views/projects/applied.rhtml:1
 msgid ""
