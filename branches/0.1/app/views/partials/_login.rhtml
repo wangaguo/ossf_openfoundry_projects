@@ -1,9 +1,17 @@
 <% if(login?) -%>
-<img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon) %>"/>
-<br/>
-<%= _("Welcome") %>! <%=current_user.login%>.
-<br/>
-<%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
+  <% if params[:project_id] -%>
+    <img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 16) %>"/>
+    &nbsp;&nbsp;&nbsp;  
+    <%= _("Welcome") %>! <%=current_user.login%> 
+    &nbsp;&nbsp;&nbsp;
+    <%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
+  <% else -%>
+    <img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon) %>"/>
+    <br/>
+    <%= _("Welcome") %>! <%=current_user.login%>.
+    <br/>
+    <%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
+  <% end -%>
 <% else -%>
   <%= link_to _('Login'), :controller => :user, :action => 'login' %>
   &nbsp;
