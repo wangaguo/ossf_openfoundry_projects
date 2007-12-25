@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
   map.connect '', :controller => 'openfoundry'
-  #map.connect 'projects', :controller => 'project', :action => 'list'
+  map.connect 'site_admin', :controller => 'site_admin/site_admin'
   map.resources :projects,
                 :collection => { :applied => :get }
   map.resources :users, 
