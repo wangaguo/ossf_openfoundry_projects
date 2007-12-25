@@ -14,7 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '', :controller => 'openfoundry'
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
   map.resources :projects,
-                :collection => { :applied => :get }
+                :collection => { :applied => :get },
+                :member => { :sympa => :get }
   map.resources :users, 
                 :controller => :user                
   map.resources :news,
@@ -30,6 +31,9 @@ ActionController::Routing::Routes.draw do |map|
     :member => { :uploadfiles => :any, :delete => :post, 
                  :addfiles => :post, :removefile => :post },
     :singular => :release
+  map.connect '/projects/:project_id/:controller', 
+       :controller => 'kwiki',
+       :action => 'index'
   
   #  map.release 'project/:project_id/release', 
   #    :controller => 'release', :action => 'list'

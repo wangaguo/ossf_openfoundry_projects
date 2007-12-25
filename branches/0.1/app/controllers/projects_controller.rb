@@ -6,20 +6,12 @@ class ProjectsController < ApplicationController
     params[:project_id] = params[:id]
   end
   
-  def kwiki 
-    if (params[:id] =~ /^d+$/)
-      @project = Project.find(params[:id])
-    else
-      @project = Project.find_by_unixname(params[:id])
-    end
-  end
-
   def sympa
-    kwiki()
-    if (params[:path] != '')
-      @Path = params[:path] 
+    @project = Project.find(params[:id])
+    if (params[:path] != nil)
+      @Path = "http://rt.openfoundry.org/Sympa/" +params[:path] 
     else
-      @Path = "/Sympa/lists_by_project/" + @project.unixname
+      @Path = "http://rt.openfoundry.org/Sympa/lists_by_project/" + @project.unixname
     end
   end
 
