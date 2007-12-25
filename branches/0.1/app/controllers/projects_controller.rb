@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
-      redirect_to :controller => 'projects', :action => 'applied'
+      redirect_to :action => 'applied'
     else
       render :action => 'new'
     end
@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @admins = @project.admins
     @members = @project.members
-    permit "admin of :project", :redirect_controller => :project, :redirect_action => 'index'
+    redirect_to :action => 'index' if not current_user().has_role?("Admin", @project)
   end
 
   def update
