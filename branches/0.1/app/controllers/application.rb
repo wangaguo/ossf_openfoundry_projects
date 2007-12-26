@@ -84,6 +84,11 @@ class ApplicationController < ActionController::Base
 	  redirect_to :back
   end
 
+  before_filter :set_host_for_action_mailer
+  def set_host_for_action_mailer
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end
+
   protected
   def touch_session
     # NOTE: I rewrote reset_session in action_controller_cgi_request_hack
