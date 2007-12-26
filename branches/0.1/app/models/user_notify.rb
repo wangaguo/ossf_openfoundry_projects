@@ -26,6 +26,17 @@ class UserNotify < ActionMailer::Base
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
   end
 
+  def change_email(dummyuser, url)
+    setup_email(dummyuser)
+
+    # Email header info
+    @subject += "Changed email notification"
+
+    # Email body substitutions
+    @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
+    @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
+  end  
+  
   def change_password(user, password, url=nil)
     setup_email(user)
 

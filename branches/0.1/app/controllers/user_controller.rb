@@ -1,3 +1,5 @@
+require 'base64'
+
 class UserController < ApplicationController
   model   :user
 
@@ -13,7 +15,7 @@ class UserController < ApplicationController
       @admin_of = user.admin_of
       @member_of = user.member_of
     else
-      flash['notice'] = "You are guest!!"
+      flash[:notice] = "You are guest!!"
       redirect_to :action => 'login'
     end
   end
@@ -49,7 +51,7 @@ class UserController < ApplicationController
           url = url_for(:action => 'welcome')
           url += "?user[id]=#{@user.id}&key=#{key}"
           UserNotify.deliver_signup(@user, params['user']['password'], url)
-          flash['notice'] = _(:user_signup_succeeded)
+          flash[:notice] = _('user_signup_succeeded')
           redirect_to :action => 'login'
         end
       end
@@ -67,6 +69,28 @@ class UserController < ApplicationController
     redirect_to :action => 'login'
   end
 
+  def change_email
+    return unless login_required #_("you have to login before changing email")
+    return if generate_filled_in
+    params['user'].delete('form')
+    dummy = User.find_by_login('dummy')
+    begin
+      User.transaction(@user) do
+        dummy.change_email(params[:user][:email], params[:user][:email_confirmation])
+        if @user.save and dummy.save
+          k = @user.generate_security_token()
+          s = Base64.encode64(Marshal.dump(dummy.email))
+          url = url_for(:action => :welcome)
+          url+= "?user[id]=#{@user.id}&k=#{k}&s=#{s}"
+          UserNotify.deliver_change_email(dummy, url)
+          flash[:notice] = _('user_updated_email') % "#{dummy.email}"
+        end
+      end
+    rescue
+      flash[:warning] = _('user_change_email_error')
+    end
+  end
+  
   def change_password
     return unless login_required #_("you have to login before changing password")
     return if generate_filled_in
@@ -80,14 +104,14 @@ class UserController < ApplicationController
         end
       end
     rescue
-      flash.now['message'] = _('user_change_password_email_error')
+      flash.now['warning'] = _('user_change_password_email_error')
     end
   end
 
   def forgot_password
     # Always redirect if logged in
     if user?
-      flash['message'] = _('user_forgot_password_logged_in')
+      flash[:message] = _('user_forgot_password_logged_in')
       redirect_to :action => 'change_password'
       return
     end
@@ -107,7 +131,7 @@ class UserController < ApplicationController
           url = url_for(:action => 'change_password')
           url += "?user[id]=#{user.id}&key=#{key}"
           UserNotify.deliver_forgot_password(user, url)
-          flash['notice'] = _('user_forgotten_password_emailed') % "#{params['user']['email']}"
+          flash[:notice] = _('user_forgotten_password_emailed') % "#{params['user']['email']}"
           unless user?
             redirect_to :action => 'login'
             return
@@ -136,6 +160,8 @@ class UserController < ApplicationController
           set_locale_for_gettext!(@user.language)
         when "change_password"
           change_password
+        when "change_email"
+          change_email
         when "delete"
           delete
         else
@@ -184,7 +210,7 @@ class UserController < ApplicationController
 
   def destroy(user)
     UserNotify.deliver_delete(user)
-    flash['notice'] = _('user_delete_finished') % "#{user['login']}"
+    flash[:notice] = _('user_delete_finished') % "#{user['login']}"
     user.destroy()
   end
 

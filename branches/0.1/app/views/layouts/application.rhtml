@@ -43,7 +43,7 @@
 	<%= render :partial => 'partials/login' %>
 	<%if params["project_id"] != nil%>
     <div id="LeftMenu">
-      <%=render :partial => "partials/project_menu", :locals => {:project_id => params["project_id"]}%>
+      <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
     </div>
   <%else%>
     <div id="TagCloud">

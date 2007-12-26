@@ -1,15 +1,15 @@
-<img src="<%= url_for(:controller => :images, :action => "image", :id => Project.find(project_id).icon) %>"/>
+<img src="<%= url_for(:controller => :images, :action => "image", :id => project.icon) %>"/>
 		<h3>專案功能</h3>
     <ul>
         <li>專案資訊</a>
             <ul>
-                <li><%= link_to "專案摘要", project_path(:id => project_id) %></li>
+                <li><%= link_to "專案摘要", project_path(:id => project.id) %></li>
                 <li>專案網站</li>
                 <li>專案成員</li>
                 <li>畫面擷取</li>
                 <li>引用資訊</li>
                 <li>參考文獻</li>
-                <li><%= link_to "專案新聞", news_path(:project_id => project_id) %></li>
+                <li><%= link_to "專案新聞", news_path(:project_id => project.id) %></li>
                 <li>徵人公告</li>
                 <li>統計資訊</li>
             </ul>
@@ -44,13 +44,13 @@
     <ul>
         <li>專案資訊
             <ul>
-                <li><%= link_to "專案摘要", edit_project_path(:id => project_id) %></li>
+                <li><%= link_to "專案摘要", edit_project_path(:id => project.id) %></li>
                 <li>專案網站</li>
                 <li>專案成員</li>
                 <li>畫面擷取</li>
                 <li>引用資訊</li>
                 <li>參考文獻</li>
-                <li><%= link_to "專案新聞", news_path(:project_id => project_id)%></li>
+                <li><%= link_to "專案新聞", news_path(:project_id => project.id)%></li>
                 <li>徵人公告</li>
                 <li>統計資訊</li>
             </ul>
@@ -63,9 +63,9 @@
             </ul>
         </li>
         <li>通訊論壇 </li>
-        <li><%= link_to "規劃釋出", releases_path(:project_id => project_id) %>
+        <li><%= link_to "規劃釋出", releases_path(:project_id => project.id) %>
             <ul>
-                <li><%= link_to "版本管理", releases_path(:project_id => project_id) %></li>
+                <li><%= link_to "版本管理", releases_path(:project_id => project.id) %></li>
                 <li><%= link_to "上載區", "" %></li>
             </ul>
         </li>

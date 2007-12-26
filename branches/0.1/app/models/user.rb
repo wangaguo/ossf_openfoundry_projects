@@ -18,11 +18,12 @@ class User < ActiveRecord::Base
   end
 
 
-  attr_accessor :new_password
+  attr_accessor :new_password, :change_password
   
   def initialize(attributes = nil)
     super
     @new_password = false
+    @change_email = false
   end
 
   def self.authenticate(login, pass)
@@ -32,12 +33,15 @@ class User < ActiveRecord::Base
     find( :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
   end
 
-  def self.authenticate_by_token(id, token)
+  def self.authenticate_by_token(id, token, atts = {})
+    # 加上了用atts修改個人資料的功能 by tim
     # Allow logins for deleted accounts, but only via this method (and
     # not the regular authenticate call)
     u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
     return nil if u.nil? or u.token_expired?
     return nil if false == u.update_expiry
+    u.attributes = atts
+    u.save
     u
   end
 
@@ -76,13 +80,23 @@ class User < ActiveRecord::Base
     self.password_confirmation = confirm.nil? ? pass : confirm
     @new_password = true
   end
+  
+  def change_email(email, confirm = nil)
+    self.email = email
+    self.email_confirmation = confirm.nil? ? email : confirm
+    @change_email  = true
+  end
     
   protected
 
-  attr_accessor :password, :password_confirmation
+  attr_accessor :password, :password_confirmation, :email_confirmation
 
   def validate_password?
     @new_password
+  end
+  
+  def validate_email?
+    @change_email
   end
 
   def self.hashed(str)
@@ -121,7 +135,10 @@ class User < ActiveRecord::Base
   validates_presence_of :login, :on => :create
   validates_length_of :login, :within => 3..40, :on => :create
   validates_uniqueness_of :login, :on => :create
+  
   validates_uniqueness_of :email, :on => :create
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_confirmation_of :email, :if => :validate_email?
 
   validates_presence_of :password, :if => :validate_password?
   validates_confirmation_of :password, :if => :validate_password?

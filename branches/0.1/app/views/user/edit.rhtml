@@ -1,12 +1,17 @@
 <div title="user edit" class="form">
-     <%#= head_helper :error => true %>
-     <%= show_flash :user%>
-     <%= render :partial => 'images/edit', :locals => 
-       {:image_id => @user.icon, :user_id => @user.id }%>
-     <% form_for :user, @user, :url => {:action => :edit} do |f|-%>
-       <%= render :partial => 'edit', :locals => {:f => f, :user => @user, :submit => true} %>
-     <% end -%>
-     </br>
+  <%#= head_helper :error => true %>
+  <%= show_flash :user%>
+  <%= render :partial => 'images/edit', :locals => 
+    {:image_id => @user.icon, :user_id => @user.id }%>
+  
+  <% form_for :user, @user, :url => {:action => :edit} do |f|-%>
+    <%= render :partial => 'edit', :locals => {:f => f, :new_record => @user.new_record?, :submit => true} %>
+  <% end -%>
+  
+  <% form_for :user, @user, :url => { :action => :edit } do |f|-%>
+    <%= render :partial => 'email', :locals => {:f => f, :submit => true} %>
+  <% end -%>
+  
   <% form_for :user, :url => { :action => :edit } do |f|-%>
     <%= render :partial => 'password', :locals => {:f => f, :submit => true} %>
   <% end -%>
