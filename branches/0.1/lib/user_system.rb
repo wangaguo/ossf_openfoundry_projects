@@ -1,3 +1,5 @@
+require 'base64'
+
 module UserSystem
 
   protected
@@ -89,11 +91,22 @@ module UserSystem
     # If not, is the user being authenticated by a token?
     return false if not params['user']
     id = params['user']['id']
-    key = params['key']
-    if id and key
-      session['user'] = User.authenticate_by_token(id, key)
-      return true if not session['user'].nil?
+    if params[:k] and params[:s]
+      k,s = params[:k], params[:s]
+      atts = Marshal.load(Base64.decode64(s))
+      atts = {} unless atts.kind_of? Hash
+      #目前只能讓user改 email而已
+      atts.delete_if{|k,v| k!=:email} 
+      session[:user] = User.authenticate_by_token(id, k, atts)
+      eturn true if not session['user'].nil?
+    else
+      key = params['key']
+      if id and key
+        session['user'] = User.authenticate_by_token(id, key)
+        return true if not session['user'].nil?
+      end
     end
+    
 
     # Everything failed
     return false
