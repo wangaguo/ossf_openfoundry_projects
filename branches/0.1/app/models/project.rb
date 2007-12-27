@@ -69,6 +69,7 @@ class Project < ActiveRecord::Base
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
     Release::build_path(self.unixname)
+    ProjectNotify.deliver_approved(self)
   end
   # reason: string
   def reject(reason)
@@ -76,6 +77,7 @@ class Project < ActiveRecord::Base
     self.status = Project::STATUS[:REJECTED]
     self.statusreason = reason
     save
+    ProjectNotify.deliver_rejected(self)
   end
   # reason: string
   def suspend(reason)
@@ -83,6 +85,7 @@ class Project < ActiveRecord::Base
     self.status = Project::STATUS[:SUSPENDED]
     self.statusreason = reason
     save
+    # TODO: notify by email
   end
   # reason: string
   def resume(reason)
@@ -90,6 +93,7 @@ class Project < ActiveRecord::Base
     self.status = Project::STATUS[:READY]
     self.statusreason = reason
     save
+    # TODO: notify by email
   end
 
 end
