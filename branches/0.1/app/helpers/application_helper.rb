@@ -1,6 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  #include Localization 
   
   def viewports_manager(options={})
     #TODO add extension here
@@ -15,6 +14,25 @@ module ApplicationHelper
       html << "<option value=\"#{option}\">#{name}</option>\n"
     end
     html << "</select>\n"
+  end
+  
+  def table_viewport(items,options={})
+    raise ArgumentError unless (items.is_a? Array and options.is_a? Hash)
+    
+    #TODO add extension here
+    default_options={
+      :tag => {'id' => 'viewport', 'class' => 'viewport_table'},
+      :sort => {:index => :id, :order => :dec}
+    }
+    options = default_options.merge(options)
+    tag=options[:tag].collect{|i| "#{i[0]}=\'#{i[1]}\'"}
+    html = "<div class><table class= id>"
+    html = "</table></div>"
+    html = "<table #{tag}>\n"
+    
+    
+    
+    html << "</table>\n"
   end
   
   #TODO to be optimized! about this breadcrumb, see http://joshhuckabee.com/node/58

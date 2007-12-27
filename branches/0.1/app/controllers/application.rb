@@ -1,13 +1,11 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 
-#require 'localization'
 require 'user_system'
 # For "paranoid session store"
 require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
-  #include Localization
   include UserSystem
 # for exception growler 
 #  include ExceptionGrowler
@@ -32,7 +30,7 @@ class ApplicationController < ActionController::Base
   def set_locale_for_gettext!(lang)
     # changing cookies[] only will not have effect in this request
     # cookies["lang"] = params["lang"] = lang
-    set_locale(lang)
+    set_locale(lang, true)
   end
 
   def set_locale_for_gettext

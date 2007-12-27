@@ -62,9 +62,6 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
-require 'environments/localization_environment'
-require 'localization'
-Localization::load_localized_strings
 require 'environments/user_environment'
 
 
@@ -76,7 +73,7 @@ require 'gettext/rails'
 # add fulltext indexed SEARCH
 require 'acts_as_ferret'
 
-ActionController::AbstractRequest.relative_url_root = "/of"
+#ActionController::AbstractRequest.relative_url_root = "/of"
 
 #ActionMailer::Base.delivery_method = :sendmail
 
