@@ -3,21 +3,28 @@ require 'RMagick'
 class ImagesController < ApplicationController
   
   def image
-    image = Image.find(params[:id])
-    unless image.nil?
-      size = params[:size]
-      if !size.nil? and size.to_i > 0
-        size = size.to_i
-      else
-        size = 128
-      end
-      tmp = Magick::Image.from_blob(image.data)[0]
-      tmp.resize!(size,size)
-      send_data(tmp.to_blob,
-        :filename => image.name,
-        :type => image.meta,
-        :disposition => "inline") 
+    
+    begin
+      image = Image.find(params[:id])
+    rescue 
+      image = Image.find(Image::IMAGE_UNKNOWN_ID)
+    ensure
+     unless image.nil?
+        size = params[:size]
+        if !size.nil? and size.to_i > 0
+          size = size.to_i
+        else
+          size = 128
+        end
+        tmp = Magick::Image.from_blob(image.data)[0]
+        tmp.resize!(size,size)
+        send_data(tmp.to_blob,
+          :filename => image.name,
+          :type => image.meta,
+          :disposition => "inline") 
+      end      
     end
+    
   end
 
   def show

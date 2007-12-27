@@ -1,6 +1,8 @@
 require 'RMagick'
 
 class Image < ActiveRecord::Base
+  IMAGE_UNKNOWN_ID = 65535
+  
   validates_format_of :meta, :with => /^image/,
     :message => "picture only"
 

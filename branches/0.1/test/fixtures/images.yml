@@ -14,3 +14,9 @@ end
   meta: image/jpeg
   data: <%= binary_fixture_data("#{filename}.jpg") %>
 <%end%>
+
+unknown:
+  id: 65535
+  name: unknown_img
+  meta: image/jpeg
+  data: <%= binary_fixture_data("unknown.jpg") %>
