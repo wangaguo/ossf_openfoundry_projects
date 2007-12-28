@@ -1,6 +1,6 @@
 <div title="Login Form" class="form">
   <h1><%= _("Login to OpenFoundry") %></h1>
-  <%= show_flash %>
+  <%#= show_flash %>
   <div class="form-padding">
     <% form_tag '/user/login' do -%>
       <label for="user_login"><%= _("Login ID") %>:</label><%= text_field("user", "login", :size => 30) %> 

@@ -166,7 +166,7 @@ module ApplicationHelper
       javascript_tag("Calendar.setup({inputField : '#{field_id}', ifFormat : '%Y-%m-%d', button : '#{field_id}_trigger' });")
   end
   
-  def show_flash()
+  def show_flash
     keys  = [:error, :warning, :notice, :message]
     keys.collect { |key| content_tag(:p, flash[key],
                                      :class => "flash#{key}") if flash[key] 

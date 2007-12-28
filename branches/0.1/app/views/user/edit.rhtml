@@ -1,6 +1,6 @@
 <div title="user edit" class="form">
   <%#= head_helper :error => true %>
-  <%= show_flash :user%>
+  <%= error_messages_for :user %>
   <%= render :partial => 'images/edit', :locals => 
     {:image_id => @user.icon, :user_id => @user.id }%>
   
