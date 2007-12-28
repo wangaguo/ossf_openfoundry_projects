@@ -6,7 +6,7 @@
   id: <%=index+=1%>
   name: <%=role%>
   authorizable_type: Project
-  authorizable_id: <%=i%>  
+  authorizable_id: <%=i+1000%>  
 <%end%>
 <%end%>
 
