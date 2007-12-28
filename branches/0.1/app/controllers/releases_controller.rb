@@ -81,7 +81,7 @@ class ReleasesController < ApplicationController
     pattern = params[:move]
     project_name = Project.find(params[:project_id]).unixname
     
-    build_project_releases_path project_name
+    Release::build_path project_name
     
     if pattern.nil?
       pattern = "#{project_name}"

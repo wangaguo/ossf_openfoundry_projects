@@ -166,11 +166,11 @@ module ApplicationHelper
       javascript_tag("Calendar.setup({inputField : '#{field_id}', ifFormat : '%Y-%m-%d', button : '#{field_id}_trigger' });")
   end
   
-  def show_flash(model = nil)
+  def show_flash()
     keys  = [:error, :warning, :notice, :message]
-    keys.collect { |key| content_tag(:div, flash[key],
+    keys.collect { |key| content_tag(:p, flash[key],
                                      :class => "flash#{key}") if flash[key] 
-                 }.join << ((model.nil?)? "" : error_messages_for(model))
+                 }.join
   end
 
 end

@@ -1,35 +1,39 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 tim:
-    id: 1
+    id: 1001
     login: tim
     salted_password: <%="123456".crypt("$1$123456") %>
     email: tim@iis.xxx.tw
     verified: 1
     icon: 1
+    language: zh-TW
 
 aguo:
-    id: 2
+    id: 1002
     login: aguo
     salted_password: <%="123456".crypt("$1$123456") %>
     email: aguo@iis.xxx.tw
     verified: 1
     icon: 2
+    language: zh-TW
 
 luors:
-    id: 3
+    id: 1003
     login: luors
     salted_password: <%="123456".crypt("$1$123456") %>
     email: luors@iis.xxx.tw
     verified: 1
     icon: 3
+    language: zh-TW
 
 thkuo:
-    id: 4
+    id: 1004
     login: thkuo
     salted_password: <%="123456".crypt("$1$123456") %>
     email: thkuo1@iis.xxx.tw
     verified: 1
     icon: 4
+    language: zh-TW
 
 guest:
     id: 123456
@@ -38,6 +42,7 @@ guest:
     email: guest@test.com
     verified: 0
     icon: 1
+    language: zh-TW
 
 dummy:
     id: 99999
@@ -45,6 +50,7 @@ dummy:
     salted_password: <%="123456".crypt("$1$123456") %>
     email: dummy@test.com
     verified: 1
+    language: zh-TW
 
 bob:
   id: 1000001

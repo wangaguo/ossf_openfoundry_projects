@@ -1,5 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-<%index=0%>
+<%index=1000%>
 <% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |projectname| %>
 <%=projectname%>:
   icon: 5
