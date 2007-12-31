@@ -5,6 +5,7 @@
     <% form_for :user, :url => {:action => :signup} do |f|-%>
       <%= render :partial => 'edit', :locals => { :f => f, :user => @user, :submit => false} %></br>
       <%= render :partial => 'password', :locals => { :f => f, :submit => false} %>
+      <%= render :partial => 'email', :locals => { :f => f, :submit => false} %>
       <div class="button-bar">
         <%= submit_tag _('User|Signup') %>
       </div>
