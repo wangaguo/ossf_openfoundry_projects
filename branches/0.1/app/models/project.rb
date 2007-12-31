@@ -96,4 +96,27 @@ class Project < ActiveRecord::Base
     # TODO: notify by email
   end
 
+  # Project.find(:first, :conditions => Project.in_used_projects(['unixname = ?', 'openfoundry']))
+  # Project.find(:first, :conditions => Project.in_used_projects("unixname = 'openfoundry'"))
+  # Project.find(:first, :conditions => Project.in_used_projects())
+  # Project.exists?(Project.in_used_projects(['unixname = ?', unixname]))
+  def self.in_used_projects(condition = 'true')
+    if condition.is_a?(String)
+      "(#{condition}) and (status = #{Project::STATUS[:READY]} or status = #{Project::STATUS[:SUSPENDED]})"
+    elsif condition.is_a?(Array)
+      [ in_used_projects(condition[0]), condition[1 .. -1] ]
+    else
+      raise "wrong usage!"
+    end
+  end
+
+  # Project.new(:unixname => 'openfoundry').valid?
+  def validate
+    # read http://dev.rubyonrails.org/changeset/5192 
+    # and active_record/calculations.rb
+    #if Project.count(:conditions => Project.in_used_projects(['unixname = ?', unixname])) > 0
+    if Project.exists?(Project.in_used_projects(['unixname = ?', unixname]))
+      errors.add(:unixname, "'#{unixname}' has already been used")
+    end
+  end
 end
