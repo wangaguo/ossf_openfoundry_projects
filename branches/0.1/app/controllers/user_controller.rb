@@ -56,7 +56,7 @@ class UserController < ApplicationController
         end
       end
     rescue
-      flash.now['message'] = _('user_confirmation_email_error')
+      flash.now[:message] = _('user_confirmation_email_error')
     end
   end  
   
@@ -100,11 +100,11 @@ class UserController < ApplicationController
         @user.change_password(params['user']['password'], params['user']['password_confirmation'])
         if @user.save
           UserNotify.deliver_change_password(@user, params['user']['password'])
-          flash.now['notice'] = _('user_updated_password') % "#{@user.email}"
+          flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
         end
       end
     rescue
-      flash.now['warning'] = _('user_change_password_email_error')
+      flash.now[:warning] = _('user_change_password_email_error')
     end
   end
 
@@ -121,9 +121,9 @@ class UserController < ApplicationController
 
     # Handle the :post
     if params['user']['email'].empty?
-      flash.now['message'] = _('user_enter_valid_email_address')
+      flash.now[:message] = _('user_enter_valid_email_address')
     elsif (user = User.find_by_email(params['user']['email'])).nil?
-      flash.now['message'] = _('user_email_address_not_found') % "#{params['user']['email']}"
+      flash.now[:message] = _('user_email_address_not_found') % "#{params['user']['email']}"
     else
       begin
         User.transaction(user) do
@@ -139,7 +139,7 @@ class UserController < ApplicationController
           redirect_back_or_default :action => 'welcome'
         end
       rescue
-        flash.now['message'] = _('user_forgotten_password_email_error') % "#{params['user']['email']}"
+        flash.now[:message] = _('user_forgotten_password_email_error') % "#{params['user']['email']}"
       end
     end
   end
@@ -186,7 +186,7 @@ class UserController < ApplicationController
       end
       logout
     rescue
-      flash.now['message'] = _('user_delete_email_error') % "#{@user['email']}"
+      flash.now[:message] = _('user_delete_email_error') % "#{@user['email']}"
       redirect_back_or_default :action => 'welcome'
     end
   end
@@ -195,7 +195,7 @@ class UserController < ApplicationController
     @user = session['user']
     @user.deleted = 0
     if not @user.save
-      flash.now['notice'] = _('user_restore_deleted_error') % "#{@user['login']}"
+      flash.now[:notice] = _('user_restore_deleted_error') % "#{@user['login']}"
       redirect_to :action => 'login'
     else
       redirect_to :action => 'welcome'
