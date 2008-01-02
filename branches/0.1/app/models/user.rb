@@ -134,9 +134,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :login, :on => :create
   validates_length_of :login, :within => 3..40, :on => :create
-  validates_uniqueness_of :login, :on => :create
+  #validates_uniqueness_of :login, :on => :create
   
-  validates_uniqueness_of :email, :on => :create
+  #validates_uniqueness_of :email, :on => :create
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates_confirmation_of :email, :if => :validate_email?
 
@@ -151,6 +151,27 @@ class User < ActiveRecord::Base
   def self.online_users
     find :all, :include => [:sessions], :conditions => "users.id = #{Session.table_name}.user_id"
   end  
+
+  # User.find(:all, :conditions => User.verified_users).size
+  def self.verified_users(condition = 'true')
+    if condition.is_a?(String)
+      "(#{condition}) and (verified = 1)"
+    elsif condition.is_a?(Array)
+      [ verified_users(condition[0]), condition[1 .. -1] ]
+    else
+      raise "wrong usage!"
+    end
+  end
+
+  def validate
+    if User.exists?(User.verified_users(['login = ?', self.login]))
+      errors.add(:login, "'#{login}' has already been used")
+    end
+    if User.exists?(User.verified_users(['email = ?', self.email]))
+      errors.add(:email, "'#{email}' has already been used")
+    end
+  end
+
   
 end
 
