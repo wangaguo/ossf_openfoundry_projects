@@ -1,5 +1,9 @@
 <h1><%=@head1%></h1>
-
+<div class="sort">
+<%= _("Sort by")%>
+<%= link_to _('Subject'),  sort_param('listing', News, 'subject', 'subject') %> |
+<%= link_to _('Last Updated'),  sort_param('listing', News, 'updated_at', 'updated_at') %>
+</div>
 <ul>
   <%for news in @news %>
   <li>
