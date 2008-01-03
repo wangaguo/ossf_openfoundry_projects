@@ -26,9 +26,8 @@ class ProjectsController < ApplicationController
   #       :redirect_to => { :action => :list }
 
   def list
-    #@project_pages, @projects = paginate :projects, :per_page => 10
-    project_pages, projects = paginate :projects, :per_page => 10
-    render(:partial => 'list', :layout => true, :locals => { :project_pages => project_pages, :projects => projects })
+    projects = Project.paginate(:page => params[:page], :per_page => 10)
+    render(:partial => 'list', :layout => true, :locals => { :projects => projects })
   end
 
   def show
