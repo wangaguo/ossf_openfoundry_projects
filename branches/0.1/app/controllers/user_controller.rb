@@ -1,7 +1,7 @@
 require 'base64'
 
 class UserController < ApplicationController
-  model   :user
+  require_dependency  'user'
 
   def online_users
     @online_users=User.online_users
