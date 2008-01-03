@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
 #        end
 #  end
   before_init_gettext :set_locale_for_gettext
-  
   def set_locale_for_gettext!(lang)
     # changing cookies[] only will not have effect in this request
     # cookies["lang"] = params["lang"] = lang
@@ -46,6 +45,12 @@ class ApplicationController < ActionController::Base
     #set_locale("zh_TW")
   end
 
+  after_init_gettext :set_will_paginate_lang
+  def set_will_paginate_lang
+    WillPaginate::ViewHelpers.pagination_options[:prev_label] = _("&laquo; Previous")
+    WillPaginate::ViewHelpers.pagination_options[:next_label] = _("Next &raquo;")
+  end
+  
   #before_filter :login_required
   def current_user
     session['user'] || User.find_by_login('guest') # TODO: fix it !!!!!
