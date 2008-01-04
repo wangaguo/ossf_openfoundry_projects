@@ -157,17 +157,17 @@ class User < ActiveRecord::Base
     if condition.is_a?(String)
       "(#{condition}) and (verified = 1)"
     elsif condition.is_a?(Array)
-      [ verified_users(condition[0]), condition[1 .. -1] ]
+      [ verified_users(condition[0]), *condition[1 .. -1] ]
     else
       raise "wrong usage!"
     end
   end
 
   def validate
-    if User.exists?(User.verified_users(['login = ?', self.login]))
+    if User.exists?(User.verified_users(['login = ? and id != ?', self.login, self.id]))
       errors.add(:login, "'#{login}' has already been used")
     end
-    if User.exists?(User.verified_users(['email = ?', self.email]))
+    if User.exists?(User.verified_users(['email = ? and id != ?', self.email, self.id]))
       errors.add(:email, "'#{email}' has already been used")
     end
   end

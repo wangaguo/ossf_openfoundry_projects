@@ -73,22 +73,34 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing email")
     return if generate_filled_in
     params['user'].delete('form')
-    dummy = User.find_by_login('dummy')
-    begin
-      User.transaction(@user) do
-        dummy.change_email(params[:user][:email], params[:user][:email_confirmation])
-        if @user.save and dummy.save
-          k = @user.generate_security_token()
-          s = Base64.encode64(Marshal.dump(dummy.email))
-          url = url_for(:action => :welcome)
-          url+= "?user[id]=#{@user.id}&k=#{k}&s=#{s}"
-          UserNotify.deliver_change_email(dummy, url)
-          flash[:notice] = _('user_updated_email') % "#{dummy.email}"
-        end
-      end
-    rescue
-      flash[:warning] = _('user_change_email_error')
+    @user.change_email(params[:user][:email], params[:user][:email_confirmation])
+    if @user.valid?
+      k = @user.generate_security_token()
+      s = Base64.encode64(Marshal.dump(@user.email))
+      url = url_for(:action => :welcome)
+      url+= "?user[id]=#{@user.id}&k=#{k}&s=#{s}"
+      UserNotify.deliver_change_email(@user, url)
+      flash.now[:notice] = _('user_updated_email') % "#{@user.email}"
+    else
+      flash.now[:warning] = _('user_change_email_error')
     end
+    #dummy = User.find_by_login('dummy')
+#    begin
+#      #User.transaction(@user) do
+#        #dummy.change_email(params[:user][:email], params[:user][:email_confirmation])
+#        if @user.save and dummy.save
+#          k = @user.generate_security_token()
+#          s = Base64.encode64(Marshal.dump(dummy.email))
+#          url = url_for(:action => :welcome)
+#          url+= "?user[id]=#{@user.id}&k=#{k}&s=#{s}"
+#          UserNotify.deliver_change_email(dummy, url)
+#          flash[:notice] = _('user_updated_email') % "#{dummy.email}"
+#        end
+#      end
+#    rescue
+#      @user.errors = dummy.errors
+#      flash[:warning] = _('user_change_email_error')
+#    end
   end
   
   def change_password
