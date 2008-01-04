@@ -144,3 +144,33 @@ text-decoration:none;
   font-weight: bold;
   font-size: 160%;
 }
+
+/* For Flash */
+.flasherror, .flashwarning, .flashnotice, .flashmessage
+{
+  background:#FFEE9F url(/images/icon/error.gif) no-repeat scroll 3px 1px;
+  border:1px solid #FFD71F;
+  margin:5px 20px;
+  padding:7px 45px;
+  font-weight: bold;
+}
+.flasherror
+{
+  background: #FFCFD8 url(/images/icon/error.gif);
+  border-color: #EEBEC7;
+}
+.flashwarning
+{
+  background: #FFEE9F url(/images/icon/warning.gif);
+  border-color: #EEDD8E;
+}
+.flashnotice
+{
+  background: #D1EAEF url(/images/icon/notice.gif);
+  border-color: #C0D9DE;
+}
+.flashmessage
+{
+  background: #E3EFB3 url(/images/icon/message.gif);
+  border-color: #D2DEA2;
+}
