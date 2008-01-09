@@ -26,22 +26,39 @@ class ApplicationController < ActionController::Base
 #        end
 #  end
   before_init_gettext :set_locale_for_gettext
+  # also being invoked when a user changes his/her language preference
   def set_locale_for_gettext!(lang)
     # changing cookies[] only will not have effect in this request
     # cookies["lang"] = params["lang"] = lang
+    #
+    # lang == 'fr'    is ok
+    # lang == 'aaaaa' is ok
+    # lang == nil     is still ok !
+    # lang == '' will die !!
+    #
+    # TODO: fall back ?
+    # puts "#################### set_locale_for_gettext!: lang: ###{lang}##"
+    return if lang = ""
     set_locale(lang, true)
+    cookies["lang"] = lang # or set it in the 'after' filter ?
   end
 
   def set_locale_for_gettext
+    lang = ""
     if params["lang"]
-      cookies["lang"] = params["lang"]
+      # side-effect: the next page will also render in this language
+      #lang = cookies["lang"] = params["lang"]
+      lang = params["lang"]
     else
       if cookies["lang"]
+        lang = cookies["lang"]
       else
         # TODO: guest / empty language setting
-        set_locale_for_gettext!(current_user.language)
+        #set_locale_for_gettext!(current_user.language)
+        lang = current_user.language
       end
     end
+    set_locale_for_gettext!(lang)
     #set_locale("zh_TW")
   end
 
