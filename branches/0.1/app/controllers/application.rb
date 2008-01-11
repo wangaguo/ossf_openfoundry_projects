@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     #
     # TODO: fall back ?
     # puts "#################### set_locale_for_gettext!: lang: ###{lang}##"
-    return if lang = ""
+    return if lang == ""
     set_locale(lang, true)
     cookies["lang"] = lang # or set it in the 'after' filter ?
   end

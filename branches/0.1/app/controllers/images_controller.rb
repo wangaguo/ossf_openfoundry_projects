@@ -1,6 +1,7 @@
 require 'RMagick'
 
 class ImagesController < ApplicationController
+  #upload_status_for :upload
   
   def image
     begin
@@ -26,7 +27,8 @@ class ImagesController < ApplicationController
   end
   
   def reload_code_image
-    render :partial => "partials/captcha", :layout => false
+    render :partial => "partials/captcha", :layout => false, 
+      :locals => {:reload => params[:reload].to_i+1}
   end
   
   def code_image
@@ -58,10 +60,10 @@ class ImagesController < ApplicationController
       command << " -font #{font} -pointsize #{text_pen} -fill #{text_fg} -draw \"text #{text_pos_x},#{text_pos_y} '#{code[i-1].chr}'\""
     end
     #draw lines (10 lines, random fg, random positions)
-    1.upto(10) do |i|
-      line_fg = "\"rgb(#{rand(64)+64},#{rand(64)+64},#{rand(64)+64})\""
-      command << " -fill #{line_fg} -draw \"path 'M #{rand(width)},#{rand(height)} L #{rand(width)},#{rand(height)}'\""      
-    end
+#    1.upto(10) do |i|
+#      line_fg = "\"rgb(#{rand(64)+64},#{rand(64)+64},#{rand(64)+64})\""
+#      command << " -fill #{line_fg} -draw \"path 'M #{rand(width)},#{rand(height)} L #{rand(width)},#{rand(height)}'\""      
+#    end
     #apply waves (3 waves, random directions) 
     1.upto(3) do
       rotate_degree = 180*rand
