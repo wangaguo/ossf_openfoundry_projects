@@ -1,4 +1,4 @@
-module ReleaseHelper
+module ReleasesHelper
   def show_release(release)
     html=''
     html << '<fieldset><dl>'
