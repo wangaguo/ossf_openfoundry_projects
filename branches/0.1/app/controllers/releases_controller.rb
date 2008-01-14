@@ -81,7 +81,7 @@ class ReleasesController < ApplicationController
     pattern = params[:move]
     project_name = Project.find(params[:project_id]).unixname
     
-    Release::build_path project_name
+    Release::build_path(project_name, params[:project_id])
     
     if pattern.nil?
       pattern = "#{project_name}"
@@ -135,7 +135,11 @@ class ReleasesController < ApplicationController
       r.fileentity << files
       r.save
       flash[:notice] = 'Your files have been added to Release!'
-      
+     
+      #move file from upload to downlad area
+      project_name = Project.find(params[:project_id]).unixname
+      `cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}`
+
       redirect_to url_for(:project_id => params[:project_id], 
         :action => :uploadfiles, :id => r.id, :layout =>'false')
     #else
