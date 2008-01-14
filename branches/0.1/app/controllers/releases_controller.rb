@@ -138,7 +138,9 @@ class ReleasesController < ApplicationController
      
       #move file from upload to downlad area
       project_name = Project.find(params[:project_id]).unixname
-      `cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}`
+      release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.name}"
+      Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
+      `cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
 
       redirect_to url_for(:project_id => params[:project_id], 
         :action => :uploadfiles, :id => r.id, :layout =>'false')

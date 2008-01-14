@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   
   #for download area~
-  map.connect 'download_path/:project_name/:release_name/:file_name',
+  map.download 'download_path/:project_name/:release_name/:file_name',
     :controller => 'openfoundry',
     :action => 'download',
     :requirements => {:file_name => /.+/, :release_name => /.+/}

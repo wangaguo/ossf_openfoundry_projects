@@ -16,6 +16,10 @@
             :removefile_id => f.id
           }), :update => "uploadfiles_view"
         %>
+	<%= link_to '[download]', download_url(:project_name => @project.unixname, 
+					       :release_name => @release.name,
+					       :file_name => f.path )
+        %>
     <%end%>
     <br/>
   

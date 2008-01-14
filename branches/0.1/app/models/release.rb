@@ -10,8 +10,8 @@ class Release < ActiveRecord::Base
     unless File.exist?(prefix)
         Dir.mkdir(prefix)
 	#TODO add ACL control here
-	`setfacl -d -m u::rwx,g::rwx,o::---,u:www:r-x #{prefix}`
-	`setfacl -m u::rwx,g::rwx,o::---,u:www:r-x #{prefix}`
+	`setfacl -d -m u::rwx,g::rwx,o::r-x,u:www:r-x #{prefix}`
+	`setfacl -m u::rwx,g::rwx,o::r-x,u:www:r-x #{prefix}`
     end
     prefix = File.join(prefix, project_name)
     
