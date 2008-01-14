@@ -46,10 +46,18 @@ describe User, 'who registed' do
   it "could login with name and password" do
     User.authenticate(@tim.login, '123456').should eql(@tim) 
   end
+ 
+  it "should fail with wrong name and password" do
+    User.authenticate('blah','blahblah').should be_nil
+  end
   
   it "could login with security token" do
     token = @u.generate_security_token
     User.authenticate_by_token(@tim.id, token).should eql(@tim)
+  end
+
+  it "should fail with wrong security token" do
+    User.authenticate_by_token('blah','blahblahXDXD').should be_nil
   end
 
   it "could chagne valid password" do
@@ -57,6 +65,7 @@ describe User, 'who registed' do
     @u.change_password(pass, pass)
     @u.save
     @u.should have(:no).error_on(:password)
+    User.authenticate(@tim.login,pass).should eql(@tim)
   end
 
   it "could change another email" do
