@@ -79,3 +79,4 @@ require 'acts_as_ferret'
 
 # TODO: better naming
 OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
+OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds

@@ -183,5 +183,6 @@ THECODE
     module_eval code
   end
 
-  
+  # see: vendor/plugins/sliding_sessions/ 
+  session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
 end
