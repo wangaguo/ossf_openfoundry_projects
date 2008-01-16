@@ -126,9 +126,10 @@ class OpenfoundryController < ApplicationController
           download_project.save
           download_release.save
           download_file.save
-          render :text => "#{download_project.unixname} #{download_project.project_counter}\n
-                          #{download_release.version} #{download_release.release_counter}\n
-                          #{download_file.name} #{download_file.path} #{download_file.file_counter}"
+          #render :text => "#{download_project.unixname} #{download_project.project_counter}\n
+          #                #{download_release.version} #{download_release.release_counter}\n
+          #                #{download_file.name} #{download_file.path} #{download_file.file_counter}"
+          redirect_to "http://dev.openfoundry.org/download/#{params[:project_name]}/#{params[:release_name]}/#{params[:file_name]}"
         else
           render :text => 'no this file!'
         end
