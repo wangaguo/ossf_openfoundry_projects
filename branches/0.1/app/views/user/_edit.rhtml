@@ -8,7 +8,8 @@
     <label><%= _('User|Login')%>: </label>
     <%= f.text_field "login", :size => 30 %><br/>
     <label><%= _('User|Language')%>: </label>
-    <%= f.text_field "language" %><br/>
+    <%= language_select "user_language", @user.language, :name => "user[language]"%>
+    <br/>
     <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings') ) if submit %>
     
   </table>

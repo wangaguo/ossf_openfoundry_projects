@@ -1,4 +1,2 @@
-<select name='lang' id='LanguageSelect' onchange="SetLang(this.value)">
-  <%= options_for_select({'中文' => 'zh_TW', 'English' => 'en'}, locale.to_s) %>
-</select>
+<%= language_select "lang", GetText.locale.to_s, :onchange => "SetLang(this.value)"%>
 

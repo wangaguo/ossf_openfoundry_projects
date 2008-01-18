@@ -173,6 +173,11 @@ module ApplicationHelper
                  }.join
   end
 
+  def language_select(name, selected, options = {})
+    language_options = options_for_select([["English", "en"],["繁體中文", "zh_TW"]], selected)
+    select_tag name, language_options, options
+  end
+  
 end
 
    
