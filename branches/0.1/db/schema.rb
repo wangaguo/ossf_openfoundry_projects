@@ -165,7 +165,8 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "created_at",      :datetime
     t.column "updated_at",      :datetime
     t.column "logged_in_at",    :datetime
-    t.column "language",        :string
+    t.column "language",        :string,   :limit => 5
+    t.column "timezone",        :string,   :limit => 40
   end
 
 end

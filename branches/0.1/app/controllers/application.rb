@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
 
   helper :user
   require_dependency 'user'
+  require 'tzinfo'
 
 #  before_filter :configure_charsets
 #
@@ -66,6 +67,7 @@ class ApplicationController < ActionController::Base
   def set_will_paginate_lang
     WillPaginate::ViewHelpers.pagination_options[:prev_label] = _("&laquo; Previous")
     WillPaginate::ViewHelpers.pagination_options[:next_label] = _("Next &raquo;")
+    TranslationModel.set_language(GetText.locale.to_s)
   end
   
   #before_filter :login_required
