@@ -132,11 +132,6 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
-  
-functions
-id, 
-
-roles_functions
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string,   :limit => 32, :default => "", :null => false
