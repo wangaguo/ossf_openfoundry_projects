@@ -116,6 +116,27 @@ ActiveRecord::Schema.define(:version => 6) do
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
+  
+  create_table "functions", :force => true do |t|
+    t.column "name",        :string,  :limit => 50
+    t.column "module",      :string,  :limit => 20
+    t.column "description", :string,  :limit => 100
+    t.column "created_at",  :datetime
+    t.column "updated_at",  :datetime
+  end
+  
+  create_table "roles_functions", :id => false, :force => true do |t|
+    t.column "role_id",    :integer
+    t.column "function_id",:integer
+    t.column "project_id", :integer
+    t.column "created_at", :datetime
+    t.column "updated_at", :datetime
+  end
+  
+functions
+id, 
+
+roles_functions
 
   create_table "sessions", :force => true do |t|
     t.column "session_id", :string,   :limit => 32, :default => "", :null => false
