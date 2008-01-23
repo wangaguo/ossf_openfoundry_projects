@@ -1,0 +1,39 @@
+<h1>Listing projects</h1>
+
+<table>
+  <tr>
+  <% for column in Project.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+
+  <th></th>
+  <th></th>
+  <th></th>
+
+  </tr>
+  
+<% for project in @projects %>
+  <tr>
+  <% for column in Project.content_columns %>
+    <td><%=h project.send(column.name) %><%= "(#{Project.status_to_s(project.status)})" if column.name == 'status'%></td>
+  <% end %>
+
+    <td><%= link_to 'Show', :action => 'show', :id => project %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => project %></td>
+    <td>
+    <% if project.status != Project::STATUS[:REJECTED] %>
+      <%= link_to 'Change status', :action => 'change_status_form', :id => project.id %>
+    <% end %>
+    </td>
+
+  </tr>
+
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @project_pages.current.previous } if @project_pages.current.previous %>
+<%= link_to 'Next page', { :page => @project_pages.current.next } if @project_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New project', :action => 'new' %>

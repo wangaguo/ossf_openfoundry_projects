@@ -1,0 +1,3 @@
+<div id=<%=@category.id%>>
+	<%= link_to_remote @category.name, :url => { :controller => 'category', :action => 'open', :id => @category.id}, :update => "category_#{@category.id}" -%>
+</div>

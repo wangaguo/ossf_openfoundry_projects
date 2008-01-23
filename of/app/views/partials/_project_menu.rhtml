@@ -1,0 +1,77 @@
+<img src="<%= url_for(:controller => :images, :action => "image", :id => project.icon) %>"/>
+		<h3>專案功能</h3>
+    <ul>
+        <li>專案資訊</a>
+            <ul>
+                <li><%= link_to "專案摘要", project_path(:id => project.id) %></li>
+                <li>專案網站</li>
+                <li>專案成員</li>
+                <li>畫面擷取</li>
+                <li>引用資訊</li>
+                <li>參考文獻</li>
+                <li><%= link_to "專案新聞", news_path(:project_id => project.id) %></li>
+                <li>徵人公告</li>
+                <li>統計資訊</li>
+            </ul>
+        </li>
+        <li>待辦事項
+            <ul>
+                <li>綜覽</li>
+                <li>瑕疵</li>
+                <li>修正檔</li>
+                <li>工作事項 </li>
+                <li>新功能</li>
+                <li>改進</li>
+                <li>統計資訊</li>
+                <li>搜尋</li>
+            </ul>
+        </li>
+        <li>共同筆記</li>
+        <li>版本控制
+            <ul>
+                <li>Subversion or CVS Browse </li>
+                <li>Download Subversion or CVS</li>
+            </ul>
+        </li>
+        <li>通訊論壇</li>
+        <li>下載區</li>
+        <li>工作任務</li>
+        <li>服務</li>
+    </ul>
+		
+    <%# if permit?("admin of :project") -%>
+		<h3>專案管理</h3>
+    <ul>
+        <li>專案資訊
+            <ul>
+                <li><%= link_to "專案摘要", edit_project_path(:id => project.id) %></li>
+                <li>專案網站</li>
+                <li>專案成員</li>
+                <li>畫面擷取</li>
+                <li>引用資訊</li>
+                <li>參考文獻</li>
+                <li><%= link_to "專案新聞", news_path(:project_id => project.id)%></li>
+                <li>徵人公告</li>
+                <li>統計資訊</li>
+            </ul>
+        </li>
+        <li>待辦事項 </li>
+        <li>共同筆記 </li>
+        <li>版本控制
+            <ul>
+                <li>export / import / destroy </li>
+            </ul>
+        </li>
+        <li>通訊論壇 </li>
+        <li><%= link_to "規劃釋出", releases_path(:project_id => project.id) %>
+            <ul>
+                <li><%= link_to "版本管理", releases_path(:project_id => project.id) %></li>
+                <li><%= link_to "上載區", "" %></li>
+            </ul>
+        </li>
+        <li>工作任務<br>
+        </li>
+        <li>服務</li>
+        <li>權限控管</li>
+    </ul>
+    <%# end %>

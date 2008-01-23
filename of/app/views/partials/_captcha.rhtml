@@ -1,0 +1,12 @@
+<% reload ||= 0 -%>
+<div id=generated_captcha_image>
+<p><%= _("In case you were not an alian. Please keyin according the image")%>:</p>
+<input id=captcha_code/>
+<%= link_to_remote "[reload#{("("+reload+")") if reload > 0}]", 
+  :url => {:controller => :images, :action => :reload_code_image,
+    :reload => reload }, :update => "generated_captcha_image" %>
+<br/>
+<img src="<%= url_for(:controller => :images,:action => "code_image", :reload => reload) %>"/>
+</div>
+
+

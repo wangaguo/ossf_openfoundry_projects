@@ -1,0 +1,17 @@
+<div title="Login Form" class="form">
+  <h1><%= _("Login to OpenFoundry") %></h1>
+  <%#= show_flash %>
+  <div class="form-padding">
+    <% form_tag '/user/login' do -%>
+      <label for="user_login"><%= _("Login ID") %>:</label><%= text_field("user", "login", :size => 30) %> 
+      <label for="user_password"><%= _("Password") %>:</label><%= password_field("user", "password", :size => 30) %> 
+      <label for="rememberme"><%= _("Remember me on this computer") %>:</label><%= check_box_tag("remember_me") %> 
+      <div class="button-bar">
+        <%= submit_tag _("Login") %>
+        <%= link_to _('Register for an account'), :action => 'signup' %> |
+        <%= link_to _('Forgot my password'), :action => 'forgot_password' %>
+      </div>
+    <% end -%>
+  </div>
+</div>
+                                                                                

@@ -1,0 +1,41 @@
+<div title="user edit" class="form">
+  <%#= head_helper :error => true %>
+  <%= error_messages_for :user %>
+  <%= render :partial => 'images/edit', :locals => 
+    {:image_id => @user.icon, :user_id => @user.id }%>
+  
+  <% form_for :user, @user, :url => {:action => :edit} do |f|-%>
+    <%= render :partial => 'edit', :locals => {:f => f, :new_record => @user.new_record?, :submit => true} %>
+  <% end -%>
+  
+  <% form_for :user, @user, :url => { :action => :edit } do |f|-%>
+    <%= render :partial => 'email', :locals => {:f => f, :submit => true} %>
+  <% end -%>
+  
+  <% form_for :user, :url => { :action => :edit } do |f|-%>
+    <%= render :partial => 'password', :locals => {:f => f, :submit => true} %>
+  <% end -%>
+  
+  <% form_for :user, :url => { :action => :delete } do |f| -%>
+    <div class="user_delete">
+      <%= hidden_field_tag 'form', :value => 'delete' %>
+      <%= submit_tag _('Delete Account') %>
+    </div>
+  <% end -%>
+  <fieldset>
+    <% form_tag :action => 'add_tag', :id => @user do %>
+      <label for="tag">Add a tag:</label><br/>
+      <%= hidden_field_tag 'class', 'User' %>
+      <%= text_field_tag 'tag', '',{:size => 10} %>
+      <%= submit_tag 'Add Tag' %>
+    <% end %>
+    
+    <% form_tag :action => 'remove_tag', :id => @user do %>
+      <label for="tag">Remove a tag:</label><br/>
+      <%= hidden_field_tag 'class', 'User' %>
+      <%= select_tag 'tag[]', options_for_select(@user.tag_list.names.collect {|s| [s,s] }), { :multiple => true, :size => 10} %>
+      <%= submit_tag 'Remove Tag' %>
+    <% end %>
+  </fieldset>
+</div>
+</div>

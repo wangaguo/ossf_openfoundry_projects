@@ -1,0 +1,35 @@
+<div id="RightWidget">
+<%= render :partial => "news/listn", :locals => {:newsList => News.ProjectNews}%>
+</div>
+<div id="Home">
+  <%= render :partial => "partials/category" %>
+	<%= render :partial => "news/home_news", :locals =>{:newsList => News.home_news} %>
+<script>
+	//new Ajax.Updater('home_news', '/news/_home_news', {method: 'get'});
+</script>
+  <br/>
+  <h1>OpenFoundry 0.1</h1>
+  <pre>
+  * OpenFoundry 0.1 (frontend / sympa / kwiki)
+  ** Ruby on Rails
+  ** MySQL
+  ** 0.1 features
+  *** 可 Project / User / Relationship 的 CRUD
+  *** 原 foundry data migration
+  *** 支援 sympa / kwiki
+  *** 不考慮美工
+  *** 採 utf-8, 支援繁體中文與英文 
+  </pre>
+  <pre>
+  * OpenFoundry 0.2 (2007/06/18)
+  ** 0.2 features
+  *** CVS / Subversion
+  *** Search (不含子系統)
+  **** 全文檢索
+  **** 分類搜尋
+  *** Tagging
+  **** Tag Cloud
+  **** Tags 搜尋
+  </pre>
+  Subversion: http://svn.openfoundry.org/openfoundry/
+</div>

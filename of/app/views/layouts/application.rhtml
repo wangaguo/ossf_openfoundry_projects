@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= _("OpenFoundry") %> -- <%= controller.action_name %></title>
+	<%= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
+  <%= javascript_include_tag "application", "prototype", "effects", "transmenu" %>
+  <%= javascript_include_tag 'calendar/calendar' %>
+  <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
+  <%= javascript_include_tag 'calendar/calendar-setup' %>
+  <%= stylesheet_link_tag 'calendar' %>
+
+</head>
+<body >
+<div id="header">
+	<a href="/" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
+	<div id="access"></div>
+	<span id="rightbg">&nbsp;</span>
+	<span id="search">
+		<%= render :partial => 'partials/search'%>	
+	</span>
+	<div id="top">
+		<a href="http://rt.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/open_foundry.gif" border="0" alt="OpenFoundry" /></a>      &nbsp;&nbsp;
+		<a href="http://whoswho.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/whoswho.gif" border="0" alt="who&#39;swho" /></a>
+  </div>
+</div>
+<div id="toolbar">
+	<div id="nav">
+		<div id="mtm_menu">
+			
+		</div>
+	</div>
+        <div>
+                <%= render :partial => 'partials/lang'%>
+        </div>
+</div>
+
+<div id="MiddlePane">
+<div id="LeftWidget">
+	<br/>
+	<%= render :partial => 'partials/login' %>
+	<%if params["project_id"] != nil%>
+    <div id="LeftMenu">
+      <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+    </div>
+  <%else%>
+    <div id="TagCloud">
+      <%= render :partial => 'partials/tagcloud'%>
+    </div>
+  <%end%>
+</div>
+
+<div id="MainContent">
+<div id="MainBody">
+<p> <%= breadcrumbs %> </p>
+<%= show_flash %>
+	<%= yield :layout %>
+</div>
+</div>
+</div>
+
+<div id="Footer">
+<hr/>
+OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. Resolution 1024*768.<br/>
+<a href="http://www.openfoundry.org/index.php?option=com_content&task=view&id=879&Itemid=1">Privacy Policy</a> | <a href="http://www.openfoundry.org/index.php?option=com_content&task=view&id=880&Itemid=1">Terms of Use</a>
+</div>
+
+</body>
+</html>
