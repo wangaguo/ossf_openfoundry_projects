@@ -1,4 +1,4 @@
 {
-	"JSON_DUMP_CACHE_PATH": "/usr/local/etc/openfoundry/openfoundry_dump.json",
+	"JSON_DUMP_CACHE_PATH": "/usr/local/openfoundry/etc/openfoundry_dump.json",
 	"DATA_BACKEND": "RT"
 }
