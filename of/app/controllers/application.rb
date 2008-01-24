@@ -184,6 +184,10 @@ THECODE
     #puts "##############"
     module_eval code
   end
+  
+  def fpermit?(project_name, function_name)
+    Function.function_permit(project_name, function_name)
+  end
 
   # see: vendor/plugins/sliding_sessions/ 
   session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
