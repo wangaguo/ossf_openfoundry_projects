@@ -1,4 +1,7 @@
 #!/bin/sh
+OPENFOUNDRY_HOME=/usr/local/openfoundry
+OPENFOUNDRY_CHECKOUT="${OPENFOUNDRY_HOME}/checkout"
+OPENFOUNDRY_ETC="${OPENFOUNDRY_HOME}/etc"
 
 date
 
@@ -27,13 +30,13 @@ cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.dist
 ( cd /usr/ports/devel/subversion ; make BATCH=yes -DWITH_APACHE2_APR -DWITHOUT_BDB -DWITH_MOD_DAV_SVN -DWITH_PYTHON install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.subversion
 
-svn co http://svn.openfoundry.org/openfoundry /usr/local/checkout
+svn co http://svn.openfoundry.org/openfoundry "${OPENFOUNDRY_CHECKOUT}"
 
 ( cd /usr/ports/databases/mysql50-server ; make WITH_CHARSET=utf8 WITH_XCHARSET=complex WITH_COLLATION=utf8_general_ci install )
 
 ( cd /usr/ports/net/libnss-mysql ; make install )
 
-( cd /usr/ports/security/pwauth ; make patch ; patch $WRKDIRPREFIX/usr/ports/security/pwauth/work/pwauth-*/config.h < /usr/local/checkout/trunk/services/vcs/usr/ports/security/pwauth/config.h.diff ; make install )
+( cd /usr/ports/security/pwauth ; make patch ; patch $WRKDIRPREFIX/usr/ports/security/pwauth/work/pwauth-*/config.h < "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/ports/security/pwauth/config.h.diff" ; make install )
 
 ( cd /usr/ports/www/mod_authnz_external ; make install )
 cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
@@ -47,35 +50,24 @@ cp /usr/local/etc/apache22/httpd.conf /root/httpd.conf.mod_authnz_external
 ( cd /usr/ports/databases/p5-DBD-mysql50 ; make install )
 
 
-csup -g -L 2 /usr/local/checkout/trunk/services/vcs/usr/src/for-cvs-supfile
-patch /usr/src/contrib/cvs/src/server.c < /usr/local/checkout/trunk/services/vcs/usr/src/contrib/cvs/src/server.c.diff
+csup -g -L 2 "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/src/for-cvs-supfile"
+patch /usr/src/contrib/cvs/src/server.c < "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/src/contrib/cvs/src/server.c.diff"
 ( cd /usr/src/gnu/usr.bin/cvs ; make )
 install -s -o root -g wheel -m 555 -b /usr/src/gnu/usr.bin/cvs/cvs/cvs /usr/bin
 
 
-openfoundry_etc=/usr/local/etc/openfoundry/
-mkdir -p "$openfoundry_etc"
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist "$openfoundry_etc"
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist "$openfoundry_etc"
-cp "$openfoundry_etc/openfoundry.conf.dist" "$openfoundry_etc/openfoundry.conf"
-cp "$openfoundry_etc/openfoundry_root.conf.dist" "$openfoundry_etc/openfoundry_root.conf"
-chmod 600 "$openfoundry_etc/openfoundry_root.conf"
+mkdir -p "${OPENFOUNDRY_ETC}"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/etc/openfoundry.conf.dist" "${OPENFOUNDRY_ETC}"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/etc/openfoundry_root.conf.dist" "${OPENFOUNDRY_ETC}"
+cp "${OPENFOUNDRY_ETC}/openfoundry.conf.dist" "${OPENFOUNDRY_ETC}/openfoundry.conf"
+cp "${OPENFOUNDRY_ETC}/openfoundry_root.conf.dist" "${OPENFOUNDRY_ETC}/openfoundry_root.conf"
+chmod 600 "${OPENFOUNDRY_ETC}/openfoundry_root.conf"
 
 fetch -o /root/config.sh http://svn.openfoundry.org/openfoundry/trunk/services/vcs/config.sh
 
 
 echo "*************************************************************************************************"
-echo " Don't forget to modify $openfoundry_etc/openfoundry[_root].conf and execute config.sh "
+echo " Don't forget to modify ${OPENFOUNDRY_ETC}/openfoundry[_root].conf and execute config.sh "
 echo "*************************************************************************************************"
 
 date
-
-
-#
-# backup
-#
-#date
-#if [ ! -f /backup.tgz ]; then
-#  ( cd / ; tar --exclude './dev/*' --exclude './usr/ports*/*' --exclude './var/run/log*' --exclude './backup*.tgz' -zcf backup.tgz . )
-#fi
-#date
