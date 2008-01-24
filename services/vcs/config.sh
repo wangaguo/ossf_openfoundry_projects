@@ -4,7 +4,11 @@ OPENFOUNDRY_HOME=/usr/local/openfoundry
 OPENFOUNDRY_ETC="${OPENFOUNDRY_HOME}/etc"
 OPENFOUNDRY_CHECKOUT="${OPENFOUNDRY_HOME}/checkout"
 OPENFOUNDRY_BIN="${OPENFOUNDRY_HOME}/bin"
-CVS_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs"
+VCS_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs"
+
+mkdir -p "${OPENFOUNDRY_HOME}"
+mkdir -p "${OPENFOUNDRY_ETC}"
+mkdir -p "${OPENFOUNDRY_BIN}"
 
 #
 # configure
@@ -41,7 +45,9 @@ replace()
 ln -sf "${VCS_CHECKOUT}/etc/rc.conf" /etc/
 
 # OpenFoundry
-ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/openfoundry/OpenFoundry.pm" /usr/local/lib/perl5/site_perl/5.8.8/
+export OPENFOUNDRY_ETC
+export OPENFOUNDRY_BIN
+replace "${OPENFOUNDRY_CHECKOUT}/trunk/openfoundry/OpenFoundry.pm" /usr/local/lib/perl5/site_perl/5.8.8/
 
 # export conf to env
 envs=`perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
@@ -57,16 +63,16 @@ ln -sf "${VCS_CHECKOUT}/usr/local/openfoundry/bin/openfoundry_sync_cache.sh" "${
 # libnss-mysql
 /usr/local/etc/rc.d/mysql-server restart
 until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
-replace_out "${VCS_CHECKOUT}/usr/local/openfoundry/etc/nss_database.sql" | mysql
-replace "${VCS_CHECKOUT}/usr/local/openfoundry/etc/libnss-mysql.cfg" "${OPENFOUNDRY_BIN}/"
-replace "${VCS_CHECKOUT}/usr/local/openfoundry/etc/libnss-mysql-root.cfg "${OPENFOUNDRY_BIN}/" 0400
+replace_out "${VCS_CHECKOUT}/usr/local/etc/nss_database.sql" | mysql
+replace "${VCS_CHECKOUT}/usr/local/etc/libnss-mysql.cfg" /usr/local/etc/
+replace "${VCS_CHECKOUT}/usr/local/etc/libnss-mysql-root.cfg" /usr/local/etc/ 0400
 ln -sf "${VCS_CHECKOUT}/etc/nsswitch.conf" /etc/
 ln -sf "${VCS_CHECKOUT}/usr/local/openfoundry/bin/openfoundry_sync_nss.pl" "${OPENFOUNDRY_BIN}/"
 
 # cvs / svn
 ln -sf "${VCS_CHECKOUT}/usr/local/openfoundry/bin/cvs_svn_only.sh" "${OPENFOUNDRY_BIN}/"
 ln -sf "${VCS_CHECKOUT}/usr/local/openfoundry/bin/openfoundry_sync_repos.pl" "${OPENFOUNDRY_BIN}/"
-ln -sf "${VCS_CHECKOUT}/usr/local/bin/openfoundry_backup_repos.pl" "${OPENFOUNDRY_BIN}/"
+ln -sf "${VCS_CHECKOUT}/usr/local/openfoundry/bin/openfoundry_backup_repos.pl" "${OPENFOUNDRY_BIN}/"
 
 # cvs
 mkdir -p "$CVSROOT"
@@ -100,7 +106,7 @@ ln -sf "${VCS_CHECKOUT}/viewvc/templates/docroot/help_query.html" /usr/local/vie
 ln -sf "${VCS_CHECKOUT}/viewvc/templates/docroot/of.js" /usr/local/viewvc/templates/docroot/
 
 # crontab
-ln -sf "${VCS_CHECKOUT}/etc/crontab" /etc/
+replace "${VCS_CHECKOUT}/etc/crontab" /etc/
 
 # start
 /usr/local/etc/rc.d/apache22 restart
