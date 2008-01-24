@@ -128,7 +128,6 @@ ActiveRecord::Schema.define(:version => 6) do
   create_table "roles_functions", :id => false, :force => true do |t|
     t.column "role_id",    :integer
     t.column "function_id",:integer
-    t.column "project_id", :integer
     t.column "created_at", :datetime
     t.column "updated_at", :datetime
   end
