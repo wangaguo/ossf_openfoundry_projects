@@ -178,6 +178,9 @@ module ApplicationHelper
     select_tag name, language_options, options
   end
   
+  def fpermit?(project_name, function_name)
+    Function.function_permit(project_name, function_name)
+  end
 end
 
    
