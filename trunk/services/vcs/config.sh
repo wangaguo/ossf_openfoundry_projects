@@ -1,5 +1,10 @@
 #!/bin/sh
 
+OPENFOUNDRY_HOME=/usr/local/openfoundry
+OPENFOUNDRY_ETC="${OPENFOUNDRY_HOME}/etc"
+OPENFOUNDRY_CHECKOUT="${OPENFOUNDRY_HOME}/checkout"
+OPENFOUNDRY_BIN="${OPENFOUNDRY_HOME}/bin"
+
 #
 # configure
 #
@@ -31,14 +36,11 @@ replace()
 	fi
 }
 
-openfoundry_etc=/usr/local/etc/openfoundry/
 
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/rc.conf /etc/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/etc/rc.conf" /etc/
 
 # OpenFoundry
-ln -sf /usr/local/checkout/trunk/openfoundry/OpenFoundry.pm /usr/local/lib/perl5/site_perl/5.8.8/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry.conf.dist "$openfoundry_etc/"
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/openfoundry_root.conf.dist "$openfoundry_etc/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/openfoundry/OpenFoundry.pm" /usr/local/lib/perl5/site_perl/5.8.8/
 
 # export conf to env
 envs=`perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
@@ -49,55 +51,55 @@ else
 	exit 1
 fi
 
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_cache.sh /usr/local/bin/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/bin/openfoundry_sync_cache.sh" "${OPENFOUNDRY_BIN}/"
 
 # libnss-mysql
 /usr/local/etc/rc.d/mysql-server restart
 until /usr/local/etc/rc.d/mysql-server status | grep 'is running'; do echo 'waitiing for mysql..'; sleep 1; done
-replace_out /usr/local/checkout/trunk/services/vcs/usr/local/etc/nss_database.sql | mysql
-replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql.cfg /usr/local/etc/
-replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/libnss-mysql-root.cfg /usr/local/etc/ 0400
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/nsswitch.conf /etc/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_nss.pl /usr/local/bin/
+replace_out "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/etc/nss_database.sql" | mysql
+replace "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/etc/libnss-mysql.cfg" "${OPENFOUNDRY_BIN}/"
+replace "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/etc/libnss-mysql-root.cfg "${OPENFOUNDRY_BIN}/" 0400
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/etc/nsswitch.conf" /etc/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/bin/openfoundry_sync_nss.pl" "${OPENFOUNDRY_BIN}/"
 
 # cvs / svn
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/cvs_svn_only.sh /usr/local/bin/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_sync_repos.pl /usr/local/bin/
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/bin/openfoundry_backup_repos.pl /usr/local/bin/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/bin/cvs_svn_only.sh" "${OPENFOUNDRY_BIN}/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/openfoundry/bin/openfoundry_sync_repos.pl" "${OPENFOUNDRY_BIN}/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/bin/openfoundry_backup_repos.pl" "${OPENFOUNDRY_BIN}/"
 
 # cvs
 mkdir -p "$CVSROOT"
 cvs -d "$CVSROOT" init
 # TODO: file permission?
 chown -R $CVSOWNER:$CVSGROUP "$CVSROOT"
-ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl "$CVSROOT/CVSROOT/"
-ln -sf /usr/local/checkout/trunk/services/vcs/cvs/CVSROOT/commitinfo "$CVSROOT/CVSROOT/"
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/ssh/sshd_config /etc/ssh/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/cvs/CVSROOT/commitcheck.pl" "$CVSROOT/CVSROOT/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/cvs/CVSROOT/commitinfo" "$CVSROOT/CVSROOT/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/etc/ssh/sshd_config" /etc/ssh/
 
 # svn
 mkdir $SVN_PARENT_PATH
 mkdir -p "$SVN_PARENT_PATH/.default/hooks"
-ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-commit "$SVN_PARENT_PATH/.default/hooks/"
-ln -sf /usr/local/checkout/trunk/services/vcs/svn/hooks/pre-revprop-change "$SVN_PARENT_PATH/.default/hooks/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/svn/hooks/pre-commit" "$SVN_PARENT_PATH/.default/hooks/"
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/svn/hooks/pre-revprop-change" "$SVN_PARENT_PATH/.default/hooks/"
 
-ln -sf /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/
-replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf /usr/local/etc/apache22/Includes/
-replace /usr/local/checkout/trunk/services/vcs/usr/local/etc/apache22/Includes/ssl.conf /usr/local/etc/apache22/Includes/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/etc/apache22/httpd.conf" /usr/local/etc/apache22/
+replace "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/etc/apache22/Includes/vcs.conf" /usr/local/etc/apache22/Includes/
+replace "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/etc/apache22/Includes/ssl.conf" /usr/local/etc/apache22/Includes/
 mkdir -p /usr/local/etc/apache22/ssl
 
 
 # viewvc
-replace /usr/local/checkout/trunk/services/vcs/usr/local/viewvc/viewvc.conf /usr/local/viewvc/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/include/header.ezt /usr/local/viewvc/templates/include/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/query.ezt /usr/local/viewvc/templates/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_log.html /usr/local/viewvc/templates/docroot/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_rootview.html /usr/local/viewvc/templates/docroot/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_dirview.html /usr/local/viewvc/templates/docroot/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/help_query.html /usr/local/viewvc/templates/docroot/
-ln -sf /usr/local/checkout/trunk/services/vcs/viewvc/templates/docroot/of.js /usr/local/viewvc/templates/docroot/
+replace "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/usr/local/viewvc/viewvc.conf" /usr/local/viewvc/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/include/header.ezt" /usr/local/viewvc/templates/include/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/query.ezt" /usr/local/viewvc/templates/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/docroot/help_log.html" /usr/local/viewvc/templates/docroot/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/docroot/help_rootview.html" /usr/local/viewvc/templates/docroot/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/docroot/help_dirview.html" /usr/local/viewvc/templates/docroot/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/docroot/help_query.html" /usr/local/viewvc/templates/docroot/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/viewvc/templates/docroot/of.js" /usr/local/viewvc/templates/docroot/
 
 # crontab
-ln -sf /usr/local/checkout/trunk/services/vcs/etc/crontab /etc/
+ln -sf "${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs/etc/crontab" /etc/
 
 # start
 /usr/local/etc/rc.d/apache22 restart
