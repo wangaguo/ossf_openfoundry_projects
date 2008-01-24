@@ -1,7 +1,7 @@
 #!/bin/sh
-db=$1   #openfoundry_development
-user=$2 #openfoundry
-pass=$3
+db=$1      #openfoundry_development
+db_user=$2 #openfoundry
+db_pass=$3
 
 pkg_add -r mysql50-server
 echo 'mysql_enable="YES"' >> /etc/rc.conf
