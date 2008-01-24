@@ -30,7 +30,7 @@ sub init
 # TODO: cache loaded conf ?
 sub loadConf
 {
-	my $openfoundry_etc = "/usr/local/etc/openfoundry";
+	my $openfoundry_etc = "--OPENFOUNDRY_ETC--";
 	my $conf = __loadJsonFile("$openfoundry_etc/openfoundry.conf");
 	return $conf if $> != 0;
 
@@ -44,7 +44,7 @@ sub __loadJsonFile
 	my ($path) = @_; 
 	open my $fh, '<', $path; # auto close
 	local $/;
-	return from_json(scalar(<$fh>));
+	return decode_json(scalar(<$fh>));
 }
 
 sub getProjects
@@ -187,7 +187,7 @@ sub refresh
 	umask $umask;
 
 	# write a stripped-down version for non-root users
-	my $obj = from_json($json);
+	my $obj = decode_json($json);
 	foreach my $user (@{$obj->{users}})
 	{
 		$user->{Password} = $user->{Email} = '';
