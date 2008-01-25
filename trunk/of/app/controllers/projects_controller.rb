@@ -64,8 +64,6 @@ class ProjectsController < ApplicationController
 
   def edit
     @project = Project.find(params[:id])
-    @admins = @project.admins
-    @members = @project.members
     redirect_to :action => 'index' if not current_user().has_role?("Admin", @project)
   end
 
@@ -89,12 +87,12 @@ class ProjectsController < ApplicationController
     project = Project.find params[:id]
     user = User.find_by_login params[:user]
     project.set_role(params[:role], user)
-    redirect_to :action => 'edit', :id => params[:id]
+    redirect_to :action => 'roles_edit', :id => params[:id]
   end
 
   def delete_role
     project = Project.find params[:id]
-    raise SandardError unless Role.valid_role? params[:role]
+#    raise SandardError unless Role.valid_role? params[:role]
 
     params[params[:role].to_sym].each do |user_id|
       user = User.find user_id
@@ -114,6 +112,59 @@ class ProjectsController < ApplicationController
 #    render :action => 'edit'
   end
 
+  def roles_edit
+    @project = Project.find(params[:id])
+    @roles = @project.roles
+  end
+  
+  def role_users
+    @project = Project.find(params[:id])
+    @role = Role.find(params[:role])
+    if(@role.authorizable_id == @project.id)
+      @users = @role.users
+    end
+    render :layout => false 
+  end
+  
+  def role_edit
+    @project = Project.find(params[:id])
+    @role = Role.find(params[:role])
+    @role_functions = @role.functions
+    @functions = Function.find(:all)
+    render :layout => false 
+  end
+  
+  def role_update
+    @project = Project.find(params[:id])
+    @role = Role.find(params[:role])
+    if(@role.authorizable_id == @project.id)
+      @role.name = params[:name]
+      if @role.save
+        @role.functions.delete_all
+        for function_id in params[:functions].keys
+          @role.functions << Function.find(function_id)
+        end
+        flash[:notice] = 'Role was successfully updated.'
+      end
+    end
+    redirect_to :action => 'roles_edit', :id => params[:id]
+  end
+  
+  def role_create
+    @project = Project.find(params[:id])
+    @role = @project.roles.new
+    if(@role.authorizable_id == @project.id)
+      @role.name = params[:name]
+      @role.authorizable_type = "Project"
+      if @role.save
+        flash[:notice] = 'Role was successfully created.'
+      end
+    end
+    redirect_to :action => 'roles_edit', :id => params[:id]
+  end
 
-
+  def role_destroy
+    Role.find(params[:role]).destroy
+    redirect_to :action => 'roles_edit', :id => params[:id]
+  end
 end

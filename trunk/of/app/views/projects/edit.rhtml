@@ -6,46 +6,6 @@
   <%= submit_tag 'Save' %>
 <% end %>
 
-
-
-
-<fieldset>
-<legend>Project Role</legend>
-<% form_tag :action => 'set_role', :id => @project do %>
-  <label for="user">Set as an administrator:</label><br/>
-  <%= hidden_field_tag 'role', 'Admin' %>
-  <%= text_field_tag 'user', '' ,{:size => 20 } %> 
-  <%= submit_tag 'Add' %>
-  <br/>
-<% end %>
-
-<% form_tag :action => 'delete_role', :id => @project do %>
-  <label for="Admin[]">Admins:</label><br/>
-  <%= hidden_field_tag 'role', 'Admin' %>
-  <%= select_tag 'Admin[]', options_for_select(@project.admins.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
-  <%= submit_tag 'Delete' %>
-  <br/>
-<% end %>
-
-
-
-<% form_tag :action => 'set_role', :id => @project do %>
-  <label for="user">Set as a member:</label><br/>
-  <%= hidden_field_tag 'role', 'Member' %>
-  <%= text_field_tag 'user', '' ,{:size => 20 } %> 
-  <%= submit_tag 'Add' %>
-  <br/>
-<% end %>
-
-<% form_tag :action => 'delete_role', :id => @project do %>
-  <label for="Member[]">Members:</label><br/>
-  <%= hidden_field_tag 'role', 'Member' %>
-  <%= select_tag 'Member[]', options_for_select(@project.members.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
-  <%= submit_tag 'Delete' %>
-  <br/>
-<% end %>
-</fieldset>
-
 <fieldset>
 	<% form_tag :action => 'add_tag', :id => @project do %>
 	<label for="tag">Add a tag:</label><br/>
