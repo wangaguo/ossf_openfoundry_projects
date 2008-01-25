@@ -6,27 +6,21 @@
 <% end %>
 </dl>
 
+
 <fieldset>
 <legend><%= _("Project Role") %></legend>
+<% for role in @roles %>
+
 <dl>
-<dt><%= _('Project Admins')%>:</dt>
+<dt><%= role.name%>:</dt>
 <dd>
-<% for admin in @admins %>
-<%= admin.login %>
+<% users = role.users %>
+<% for user in users %>
+<%= user.login %>
 <% end %>
 </dd>
-
-
-<dt><%= _('Project Members') %>:</dt>
-<dd>
-<% if @members.empty? %>
-  No member.<br/>
-<% else %>
-<% for member in @members %>
-<%= member.login %>
 <% end %>
-<% end %>
-</dd>
+
 </fieldset>
 
 <%= (link_to _('Edit'), :action => 'edit', :id => @project )+'|' if permit?("admin of :project")%> 
