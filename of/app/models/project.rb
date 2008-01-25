@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
@@ -39,7 +40,7 @@ class Project < ActiveRecord::Base
   end
   def set_role(role, user) # user obj, role string
     raise ArgumentError, "User: #{user.inspect} is not defined" unless User === user
-    Role.validates_role(role)
+#    Role.validates_role(role)
     user.has_role role, self 
   end
 

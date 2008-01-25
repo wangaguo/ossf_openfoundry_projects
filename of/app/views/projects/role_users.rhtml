@@ -1,0 +1,22 @@
+<h3><%= @role.name %></h3>
+<% form_tag :action => 'set_role', :id => @project do %>
+  <label for="user">Set as an <%= @role.name %>:</label><br/>
+  <%= hidden_field_tag 'role', @role.name %>
+  <%= text_field_tag 'user', '' ,{:size => 20 } %> 
+  <%= submit_tag 'Add' %>
+  <br/>
+<% end %>
+
+<% form_tag :action => 'delete_role', :id => @project do %>
+  <label for="<%=@role.name%>[]"><%= @role.name %>:</label><br/>
+  <%= hidden_field_tag 'role', @role.name %>
+  <%= select_tag @role.name + "[]", options_for_select(@users.collect {|p| [p.login, p.id]}), { :multiple => true, :size => 5 } %> 
+  <%= submit_tag 'Delete' %>
+  <br/>
+<% end %>
+
+
+
+
+
+

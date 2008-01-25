@@ -1,0 +1,23 @@
+<h3><%= @role.name %></h3>
+ 
+<% form_tag :action => 'role_update', :id => @project do %>
+  <%= hidden_field_tag 'role', @role.id %>
+  <%= text_field_tag 'name', @role.name ,{:size => 20 } %> 
+  <ul>
+  <% for function in @functions %>
+  <li>
+    <%=check_box_tag "functions[#{function.id}]", function.id, @role_functions.member?(function)%>
+    <%=function.description%></li>
+  <% end %>
+  </ul>
+  
+  <%= submit_tag 'Update' %>
+    <%= link_to '刪除', { :action => 'role_destroy',:id => @project, :role => @role }, :confirm => '確定要刪除嗎?', :method => :delete %>
+  <br/>
+<% end %>
+
+
+
+
+
+
