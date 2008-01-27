@@ -146,7 +146,13 @@ class ProjectsController < ApplicationController
         flash[:notice] = 'Role was successfully updated.'
       end
     end
-    redirect_to :action => 'roles_edit', :id => params[:id]
+    redirect_to :action => 'role_new', :id => params[:id]
+  end
+  
+  def role_new
+    @project = Project.find(params[:id])
+    @roles = @project.roles
+    render :layout => false
   end
   
   def role_create
@@ -159,11 +165,20 @@ class ProjectsController < ApplicationController
         flash[:notice] = 'Role was successfully created.'
       end
     end
-    redirect_to :action => 'roles_edit', :id => params[:id]
+    redirect_to :action => 'role_new', :id => params[:id]
   end
 
   def role_destroy
-    Role.find(params[:role]).destroy
-    redirect_to :action => 'roles_edit', :id => params[:id]
+    role = Role.find(params[:role])
+    if(role.name == "Admin" || role.name == "Member")
+      render :update do |page|
+        page.replace_html  'role_message'
+        page.alert "Admin and Member cant's be delete."
+        page.visual_effect :highlight, 'roles_edit'
+      end
+    else
+      role.destroy
+      redirect_to :action => 'role_new', :id => params[:id]
+    end
   end
 end

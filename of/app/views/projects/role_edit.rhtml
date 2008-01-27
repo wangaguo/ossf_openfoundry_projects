@@ -1,6 +1,6 @@
 <h3><%= @role.name %></h3>
  
-<% form_tag :action => 'role_update', :id => @project do %>
+<% form_remote_tag :update => "roles_edit", :url => { :action => 'role_update', :id => @project } do %>
   <%= hidden_field_tag 'role', @role.id %>
   <%= text_field_tag 'name', @role.name ,{:size => 20 } %> 
   <ul>
@@ -12,7 +12,9 @@
   </ul>
   
   <%= submit_tag 'Update' %>
-    <%= link_to '刪除', { :action => 'role_destroy',:id => @project, :role => @role }, :confirm => '確定要刪除嗎?', :method => :delete %>
+  <%= submit_tag 'Cancel' %>
+  <%= link_to_remote "Delete", :update => "roles_message", :url => { :action => 'role_destroy', :id => @project, :role => @role }, :condition => "confirm('確定要刪除嗎?')" %>
+  <div id="role_message"/>
   <br/>
 <% end %>
 
