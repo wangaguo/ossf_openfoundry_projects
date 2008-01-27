@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
   map.resources :projects,
                 :collection => { :applied => :get, :tableizer => :get },
-                :member => { :sympa => :get, :role_users => :any, :roles_edit => :any, :role_update => :any, :role_create => :any  }
+                :member => { :sympa => :get, :role_users => :any, :roles_edit => :any, :role_update => :any, :role_new => :any, :role_create => :any  }
   map.resources :users, 
                 :controller => :user                
   map.resources :news,
