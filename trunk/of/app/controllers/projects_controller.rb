@@ -152,7 +152,7 @@ class ProjectsController < ApplicationController
   def role_new
     @project = Project.find(params[:id])
     @roles = @project.roles
-    render :layout => false
+    render :partial => 'role_new', :layout => false
   end
   
   def role_create
@@ -169,16 +169,21 @@ class ProjectsController < ApplicationController
   end
 
   def role_destroy
+    @project = Project.find(params[:id])
+    @roles = @project.roles
     role = Role.find(params[:role])
     if(role.name == "Admin" || role.name == "Member")
       render :update do |page|
-        page.replace_html  'role_message'
         page.alert "Admin and Member cant's be delete."
-        page.visual_effect :highlight, 'roles_edit'
+        page.visual_effect :highlight, 'role_new'
       end
-    else
+  else
       role.destroy
-      redirect_to :action => 'role_new', :id => params[:id]
+      render :update do |page|
+#       page[:role_new].replace_html "sdlfkj" :partial => "role_new"
+        page[:role_new].reload
+      end  
+#      redirect_to :action => 'role_new', :id => params[:id]
     end
   end
 end

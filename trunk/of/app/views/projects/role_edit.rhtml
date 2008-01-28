@@ -13,7 +13,7 @@
   
   <%= submit_tag 'Update' %>
   <%= submit_tag 'Cancel' %>
-  <%= link_to_remote "Delete", :update => "roles_message", :url => { :action => 'role_destroy', :id => @project, :role => @role }, :condition => "confirm('確定要刪除嗎?')" %>
+  <%= link_to_remote "Delete", :url => { :action => 'role_destroy', :id => @project, :role => @role }, :condition => "confirm('確定要刪除嗎?')" %>
   <div id="role_message"/>
   <br/>
 <% end %>
