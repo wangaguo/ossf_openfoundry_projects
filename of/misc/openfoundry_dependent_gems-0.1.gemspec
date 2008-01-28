@@ -15,12 +15,12 @@ Gem::Specification.new do |s|
 
 #luors@test01:~$ gem list | ruby -ne 'puts "  s.add_dependency(%q<#{$1}>, [\"= #{$2}\"])" if /^(\S+).*\((.*?)\)/'
 
-  s.add_dependency(%q<actionmailer>, ["= 2.0.2"])
-  s.add_dependency(%q<actionpack>, ["= 2.0.2"])
-  s.add_dependency(%q<actionwebservice>, ["= 1.2.6"])
-  s.add_dependency(%q<activerecord>, ["= 2.0.2"])
-  s.add_dependency(%q<activeresource>, ["= 2.0.2"])
-  s.add_dependency(%q<activesupport>, ["= 2.0.2"])
+#  s.add_dependency(%q<actionmailer>, ["= 2.0.2"])
+#  s.add_dependency(%q<actionpack>, ["= 2.0.2"])
+#  s.add_dependency(%q<actionwebservice>, ["= 1.2.6"])
+#  s.add_dependency(%q<activerecord>, ["= 2.0.2"])
+#  s.add_dependency(%q<activeresource>, ["= 2.0.2"])
+#  s.add_dependency(%q<activesupport>, ["= 2.0.2"])
   s.add_dependency(%q<acts_as_ferret>, ["= 0.4.3"])
   s.add_dependency(%q<acts_as_taggable>, ["= 2.0.2"])
 #  s.add_dependency(%q<ar_fixtures>, ["= 0.0.4"])
