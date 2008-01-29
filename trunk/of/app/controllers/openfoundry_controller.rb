@@ -37,8 +37,11 @@ class OpenfoundryController < ApplicationController
     render :text => "#{@name} #{@role} #{@email}" , :layout => false
   end
   def foundry_dump # TODO: optimize !!!!
-    if !params[:secret] || params[:secret].crypt("$1$foobar") != "$1$foobar$jghwt7tiDrPE99XAhdtUe0"
-      render :text => "acce..", :layout => false
+    #if !params[:secret] || params[:secret].crypt("$1$foobar") != "$1$foobar$jghwt7tiDrPE99XAhdtUe0"
+    # default empty password is not allowed
+    if params[:secret] != OPENFOUNDRY_JSON_DUMP_PASSWORD || OPENFOUNDRY_JSON_DUMP_PASSWORD == ''
+      sleep 10
+      render :text => "access denied", :layout => false
       return
     end
 
