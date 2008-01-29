@@ -11,7 +11,6 @@ date
 
 pw group add openfoundry
 pw user add -n openfoundry -u 5566 -g openfoundry -s /bin/csh
-
 env PACKAGEROOT=ftp://ftp.tw.freebsd.org pkg_add -r subversion mysql50-client ImageMagick
 
 
@@ -34,4 +33,6 @@ su openfoundry -c sh -x <<'ROR'
   rake db:fixtures:load
 ROR
 
+#install /usr/local/rc.d/script
+cp /home/openfoundry/of/misc/openfoundry /usr/local/etc/rc.d/
 date
