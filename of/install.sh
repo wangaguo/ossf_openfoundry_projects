@@ -27,9 +27,9 @@ su openfoundry -c sh -x <<'ROR'
   cd of
   ruby -pe 'gsub(/--(\w+)--/) { ENV.has_key?($1) ? ENV[$1] : raise("no #{$1} in ENV") }' config/database.yml.template > config/database.yml
   #rake db:create
-  echo $DB_PASS | mysqladmin -u "$DB_USER" -h "$DB_HOST" -p create "${DB_PREFIX}_development"
-  echo $DB_PASS | mysqladmin -u "$DB_USER" -h "$DB_HOST" -p create "${DB_PREFIX}_test"
-  echo $DB_PASS | mysqladmin -u "$DB_USER" -h "$DB_HOST" -p create "${DB_PREFIX}_production"
+  #echo $DB_PASS | mysqladmin -u "$DB_USER" -h "$DB_HOST" -p create "${DB_PREFIX}_development"
+  #echo $DB_PASS | mysqladmin -u "$DB_USER" -h "$DB_HOST" -p create "${DB_PREFIX}_test"
+  #echo $DB_PASS | mysqladmin -u "$DB_USER" -h "$DB_HOST" -p create "${DB_PREFIX}_production"
   rake db:schema:load
   rake db:fixtures:load
 ROR
