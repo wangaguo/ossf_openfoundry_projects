@@ -102,13 +102,7 @@ class ProjectsController < ApplicationController
       end
     end
     
-
-    #project_id = params[:id]
-    #role = params[:role]
-    #ProjectUser.delete_all_in_user_id project_id, params[role.to_sym]
-    redirect_to :action => 'edit', :id => params[:id]
-#    edit
-#    render :action => 'edit'
+    redirect_to :action => 'roles_edit', :id => params[:id]
   end
 
   def roles_edit
