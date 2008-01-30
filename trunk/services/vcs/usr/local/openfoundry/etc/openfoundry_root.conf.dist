@@ -1,5 +1,7 @@
 {
+	"DUMP_SOURCE_URL": "http://of.openfoundry.org/openfoundry/foundry_dump?secret='
 	"DUMP_SECRET": "###########",
+
 
 	"JSON_DUMP_CACHE_PATH": "/usr/local/openfoundry/etc/openfoundry_dump.json",
 	"ROOT_JSON_DUMP_CACHE_PATH": "/usr/local/openfoundry/etc/openfoundry_dump_root.json",
