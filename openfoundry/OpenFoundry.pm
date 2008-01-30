@@ -177,7 +177,7 @@ sub new
 sub refresh
 {
 	my $conf = OpenFoundry::loadConf();
-	my $url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJson.html?secret=' . $conf->{DUMP_SECRET};
+	my $url = $conf->{DUMP_SOURCE_URL} . $conf->{DUMP_SECRET};
 	my $json = LWP::Simple::get($url);
 	# TODO: integrity check ??
 	my $umask = umask 0077;
@@ -193,7 +193,7 @@ sub refresh
 		$user->{Password} = $user->{Email} = '';
 	}
 	open my $fh2, ">", $conf->{JSON_DUMP_CACHE_PATH};
-	print {$fh2} to_json($obj);
+	print {$fh2} encode_json($obj);
 	close $fh2;
 }
 
