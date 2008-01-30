@@ -91,8 +91,9 @@ ln -sf "${VCS_CHECKOUT}/svn/hooks/pre-revprop-change" "$SVN_PARENT_PATH/.default
 
 ln -sf "${VCS_CHECKOUT}/usr/local/etc/apache22/httpd.conf" /usr/local/etc/apache22/
 replace "${VCS_CHECKOUT}/usr/local/etc/apache22/Includes/vcs.conf" /usr/local/etc/apache22/Includes/
-replace "${VCS_CHECKOUT}/usr/local/etc/apache22/Includes/ssl.conf" /usr/local/etc/apache22/Includes/
-mkdir -p /usr/local/etc/apache22/ssl
+# uncomment to enable SSL
+#replace "${VCS_CHECKOUT}/usr/local/etc/apache22/Includes/ssl.conf" /usr/local/etc/apache22/Includes/
+#mkdir -p /usr/local/etc/apache22/ssl
 
 
 # viewvc
