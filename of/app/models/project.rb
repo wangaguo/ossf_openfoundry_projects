@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
+  VCS = [ "Subversion", "CVS" ].freeze
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
