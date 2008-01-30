@@ -38,7 +38,7 @@
 <%= text_field 'project', 'redirecturl'  %></p>
 
 <p><label for="project_vcs">Vcs</label><br/>
-<%= text_field 'project', 'vcs'  %></p>
+<%= select 'project', 'vcs', Project::VCS %></p>
 
 <p><label for="project_remotevcs">Remotevcs</label><br/>
 <%= text_field 'project', 'remotevcs'  %></p>
