@@ -1,5 +1,5 @@
 {
-	"DUMP_SOURCE_URL": "http://of.openfoundry.org/openfoundry/foundry_dump?secret=',
+	"DUMP_SOURCE_URL": "http://of.openfoundry.org/openfoundry/foundry_dump?secret=",
 	"DUMP_SECRET": "###########",
 
 
