@@ -17,5 +17,6 @@
   intendedaudience: no haha
   creator: 1
   status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
+  vcs: Subversion
 <%end%>
   
