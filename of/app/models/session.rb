@@ -1,5 +1,5 @@
 class Session < ActiveRecord::Base
-  @@expires_at = lambda {7.days.ago.utc}
+  @@expires_at = lambda {7.days.ago.strftime '%Y-%m-%d %H:%M:%S'}
 
   belongs_to :user
 
@@ -29,17 +29,25 @@ class Session < ActiveRecord::Base
     end
 
     def count_anonymous_sessions
-      count ["user_id IS NULL AND updated_at > ?", expires_at]
+      count( :conditions => ["user_id IS NULL AND updated_at > ?", expires_at])
     end
 
     def active_sessions
       find( :all, :conditions => ["updated_at > ?", expires_at] )
+    end
+    
+    def count_active_sessions
+      count( :conditions => ["updated_at > ?", expires_at])
     end
 
     def expired_sessions
       find( :all, :conditions =>  ["updated_at < ?", expires_at] )
     end
 
+    def count_expired_sessions
+      count( :conditions => ["updated_at < ?", expires_at])
+    end
+    
     def destroy_expired_sessions!
       delete_all ["updated_at < ?", expires_at]
     end
