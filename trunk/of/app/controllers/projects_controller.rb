@@ -14,6 +14,11 @@ class ProjectsController < ApplicationController
       @Path = "http://rt.openfoundry.org/Sympa/lists_by_project/" + @project.unixname
     end
   end
+  
+  def viewvc
+    @project = Project.find(params[:id])
+    @Path = "http://viewvc.of.openfoundry.org/viewvc/?root=" + @project.unixname
+  end
 
   def index
     list
