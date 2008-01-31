@@ -1,0 +1,46 @@
+<%= error_messages_for 'project' %>
+
+<!--[form:project]-->
+<p><label for="project_unixname"><%= _("Project|Unixname") %></label><br/>
+<%= text_field 'project', 'unixname'  %></p>
+
+<p><label for="project_projectname"><%= _("Project|Projectname") %></label><br/>
+<%= text_field 'project', 'projectname'  %></p>
+
+<p><label for="project_rationale">Rationale</label><br/>
+<%= text_area 'project', 'rationale'  %></p>
+
+<p><label for="project_publicdescription">Publicdescription</label><br/>
+<%= text_area 'project', 'publicdescription'  %></p>
+
+<p><label for="project_contactinfo">Contactinfo</label><br/>
+<%= text_field 'project', 'contactinfo'  %></p>
+
+<p><label for="project_maturity">Maturity</label><br/>
+<%= text_field 'project', 'maturity'  %></p>
+
+<p><label for="project_license">License</label><br/>
+<%= select 'project', 'license', Project::LICENSES %></p>
+
+<p><label for="project_contentlicense">Contentlicense</label><br/>
+<%= select 'project', 'contentlicense', Project::CONTENT_LICENSES %></p>
+
+<p><label for="project_platform">Platform</label><br/>
+<%= of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform) %>
+
+<p><label for="project_programminglanguage">Programminglanguage</label><br/>
+<%= of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage) %>
+
+<p><label for="project_intendedaudience">Intendedaudience</label><br/>
+<%= of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience) %>
+
+<p><label for="project_redirecturl">Redirecturl</label><br/>
+<%= text_field 'project', 'redirecturl'  %></p>
+
+<p><label for="project_vcs">Vcs</label><br/>
+<%= select 'project', 'vcs', Project::VCS %></p>
+
+<p><label for="project_remotevcs">Remotevcs</label><br/>
+<%= text_field 'project', 'remotevcs'  %></p>
+<!--[eoform:project]-->
+

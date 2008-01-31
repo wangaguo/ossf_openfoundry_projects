@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<%index=1000%>
+<% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |projectname| %>
+<%=projectname%>:
+  icon: 5
+  id: <%=index+=1%>
+  unixname: <%=projectname%>
+  projectname: <%=projectname%> ver 0.0.0 super song
+  rationale: <%=projectname%>, it is a good day to die!!
+  publicdescription: to <%=projectname%> or not to <%=projectname%>, that is a question~
+  contactinfo: contact@<%=projectname%>.openfoundry.org
+  maturity: mission impossible for <%=projectname%>
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1
+  status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
+  vcs: svn
+<%end%>
+  

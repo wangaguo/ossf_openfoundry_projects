@@ -1,0 +1,13 @@
+<div class="user_email">
+  <%= f.hidden_field 'form', :value => 'change_email' %>
+
+  <table>
+    <label><%= _('User|Email')%>: </label>
+    <%= f.text_field "email", :size => 30 %>
+    <br/>
+    <label><%= _('User|Email Confirmation')%>: </label>
+    <%= f.text_field "email_confirmation", :size => 30 %>
+    <br/>
+    <%= submit_tag _('User|Change Email') if submit%>
+  </table>
+</div>      

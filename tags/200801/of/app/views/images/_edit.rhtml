@@ -1,0 +1,15 @@
+<div id='UserImage'>
+  <%= error_messages_for("image") %>
+  <img src="<%= url_for(:controller => 'images',:action => "image", :id => image_id, :size => '64') %>"/>
+  <%#= form_remote_tag(:update => 'UserImage', :url => 
+      {:controller => :images, :action => 'upload'},
+    :multipart => true) %>
+  <%= form_tag({:controller => :images, :action => 'upload'}, :multipart => true)%>
+  <br/>
+  <%= hidden_field_tag 'user_id', user_id %>
+  <%= hidden_field_tag 'back_to', '/user/edit' %>
+  <%= _('Upload your picture')%> : <%= file_field("images","image") %>
+  <br/>
+  <%= submit_tag( _("Upload") ) %>
+  </form>
+</div>

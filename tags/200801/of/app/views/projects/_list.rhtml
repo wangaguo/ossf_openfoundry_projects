@@ -1,0 +1,25 @@
+<div id="ProjectList">
+<h1><%= _('Listing projects') %></h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th><%= _('Project UNIX Name') %></th>
+    <th><%= _('Project Name') %></th>
+  </tr>
+  
+<% for project in projects %>
+  <tr>
+    <td><img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon,:size => 16) %>"/></td>
+    <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h project.unixname %></a></td>
+    <td><%= h project.projectname %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate projects %>
+
+<br />
+
+<%= link_to _('New project'), :action => 'new' %>
+</div>

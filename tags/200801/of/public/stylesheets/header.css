@@ -1,0 +1,61 @@
+#header {
+	position: relative; 
+	height: 96px;
+	overflow: hidden;
+	background: #232833 url(../images/header-bg.png) repeat-x; 
+}
+
+#header #logo {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: block;
+	width:397px;
+	height: 96px;
+	z-index:1;
+	background: url(../images/logo.png) no-repeat; 
+}
+
+#header #rightbg {
+	position: absolute;
+	right:0px;
+	width:541px;
+        height:96px;
+	top:0px;
+        background: url(../images/rightbg.png) no-repeat;
+	z-index:0;
+}
+
+#header #search {
+	float: right;
+}
+
+#header #search {
+	position: absolute;
+	right:0px;
+	width:150px;
+	height:25px;
+	top:5px;
+	z-index:10000;
+	overflow: hidden;
+}
+
+#header #top {
+	z-index: 2;
+	height: 60px;
+	padding-top: 40px;
+	overflow: hidden;
+/*	margin-left: 800px; */ 
+	margin-bottom: 10px;
+	margin-right: 10px;  
+	color: #999;
+	right: 0px;
+	position: absolute;
+}
+
+#header a {
+	background-color:transparent;
+  text-decoration: none;
+  border-bottom:none;
+}
+

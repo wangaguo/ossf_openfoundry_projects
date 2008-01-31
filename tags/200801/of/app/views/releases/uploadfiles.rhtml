@@ -1,0 +1,79 @@
+<div id=uploadfiles_view>
+  <% unless flash.now[:message].nil? -%>
+    <h1> <%= flash.now[:message]%> </h1>
+    <% end -%>
+    <h1>Release#Select Files</h1>
+    <%= arranged('ReleaseShow',@release,{}) %>
+    <h1>Files: </h1>
+    <% if @release.fileentity.empty? -%>
+      <h3>No File in Release</h3>
+    <%end%>
+    <% @release.fileentity.each do |f|%>
+        <%= arranged('FileItem', f, {:fields_per_column => 6})%>
+        <%= link_to_remote '[remove]',:url => removefile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :removefile_id => f.id
+          }), :update => "uploadfiles_view"
+        %>
+	<%= link_to '[download]', download_url(:project_name => @project.unixname, 
+					       :release_name => @release.name,
+					       :file_name => f.path )
+        %>
+    <%end%>
+    <br/>
+  
+    <% form_remote_tag :update => "uploadfiles_view", :url => addfiles_release_url( { 
+        :project_id => @project.id, 
+        :id => @release.id  }) do -%>
+  
+      <h2>Project Upload Reposity</h2>
+      <h3>Current Dir: <%= @current_dir %> </h3>
+      <input name=current_dir type="hidden" value=<%= @current_dir %> />
+             <p>
+      <%= link_to_remote "[upper dir]", :url => {
+        :contrller => 'release', :action => 'uploadfiles',
+        :move => "#{@current_dir}/..",
+        :layout => 'false'},
+      :update => "uploadfiles_view" %>
+  
+      <%=submit_tag 'Add File'%>
+      </p>
+  
+      <div id=Uploaddirs>
+    
+        <% @uploaddirs.sort.each do |dir| -%>
+          <li>
+            <%= link_to_remote dir, 
+            :url => {
+              :project_id => @project.id,
+              :id => @release.id,
+              :move => "#{@current_dir}/#{dir}",
+              :layout => 'false'},
+            :update => "uploadfiles_view" -%>
+          </li>
+        <% end -%>
+    
+      </div>
+  
+      <div id=Uploadfile_selection>
+        <% unless @uploadfiles.empty? -%>
+          <select name=uploadfiles[] id=release_file_selection multiple size=10>
+      
+            <% @uploadfiles.sort.each do |file| -%>
+              <option id=release_file>  
+                <%= file %>
+              </option>
+      
+            <% end -%>  
+      
+          </select>
+        <% else -%>
+          <h5> Not file found </h5>
+        <%end -%>
+      </div>
+  
+      <br/>
+  
+    <% end -%>
+  </div>

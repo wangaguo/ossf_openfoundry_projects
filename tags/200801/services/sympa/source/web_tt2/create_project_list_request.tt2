@@ -1,0 +1,83 @@
+<!-- $Id: create_list_request.tt2,v 1.10 2005/08/11 13:32:36 sympa-authors Exp $ -->
+
+<!-- OpenFoundry -->
+<script type="text/javascript">
+if(location.pathname.match("create_project_list_request")==null && window.name!="")
+        location.pathname = location.pathname + '/create_project_list_request/' + window.name + '/';
+</script>
+
+<form action="[% path_cgi %]" method="post">
+
+
+<table style="width: auto;">
+ <tr>
+   <th style="text-align: left; white-space: nowrap;"><label for="listname"><strong>[%|loc%]List name:[%END%]</strong></label></th>
+   <input type="hidden" id="projectUnixName" name="projectUnixName" size="25" value="[% prefix %]" />
+   <td>[% prefix %]-<input type="text" id="listname" name="listname" size="25" value="[% saved.listname %]" />@lists.openfoundry.org</td>
+   <td><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]the list name ; be careful, not its address ![%END%]" /></td>
+ </tr>
+<!-- 
+ <tr>
+   <th style="text-align: left; white-space: nowrap;"><strong>[%|loc%]Owner:[%END%]</strong></th>
+   <td><em>[% user.email %]</em></td>
+   <td><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]You are the privileged owner of this list[%END%]" /></td>
+ </tr>
+-->
+ <tr>
+   <th valign="top" style="text-align: left; white-space: nowrap;"><strong>[%|loc%]List type :[%END%]</strong></th>
+   <td>
+     <ul>
+  [% FOREACH template = list_list_tpl %]
+      <li style="margin: 1em;">
+      <dl>
+      <dt>
+     <label><input type="hidden" name="template" value="[% template.key %]"
+       
+     [% IF template.value.selected %]
+     [% END %]
+     /> [% template.key %]</label>
+     </dt>
+     [% IF template.value.comment %]
+     <dd>
+     [% PROCESS $template.value.comment %]
+     </dd>
+     [% END %]
+     </dl>
+
+     </li>
+  [% END %]
+     </ul>
+    </td>
+    <td valign="top"><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]The list type is a set of parameters' profile. Parameters will be editable, once the list created[%END%]" /></td>
+ </tr>
+ <tr>
+   <th style="text-align: left; white-space: nowrap;"><label for="subject"><strong>[%|loc%]Subject:[%END%]</strong></label></th>
+   <td><input type="text" name="subject" id="subject" size="60" value="[% saved.subject %]" /></td>
+   <td><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]The list's subject[%END%]" /></td>
+ </tr>
+
+   <input type="hidden" name="topics" value="other"> </input>
+ <tr>
+   <th valign="top" style="text-align: left; white-space: nowrap;"><label for="info"><strong>[%|loc%]Description:[%END%]</strong></label></th>
+   <td><textarea wrap="hard" cols="80" rows="10" name="info">[% saved.info %]</textarea></td>
+   <td valign="top"><img src="[% icons_url %]/unknown.png" alt="?" title="[%|loc%]A few lines describing the list[%END%]" /></td>
+ </tr>
+
+ <tr>
+   <td colspan="2" style="text-align: left; text-align: center;">
+    <table>
+     <tr>
+      <td style="background: [% light_color %];">
+<input class="MainMenuLinks" type="submit" name="action_create_project_list" value="[%|loc%]Submit your creation request[%END%]" />
+      </td>
+     </tr></table>
+</td></tr>
+</table>
+
+
+
+</form>
+
+
+
+

@@ -1,0 +1,22 @@
+<div id="ProjectEdit">
+<h1>Editing project roles</h1>
+
+<fieldset>
+<legend>Role list</legend>
+<label>Select a role to edit.</label><br/>
+  
+<div id="roles_edit">
+<%= render :partial => "role_new" %>
+</div>
+
+</fieldset>
+
+<fieldset>
+<legend>Role with users</legend>
+<label>Select a role to edit users.</label><br/>
+<% for role in @roles %>
+<%= link_to_remote( role.name, :update => "role_users", :url => { :action => :role_users, :id => @project.id, :role => role.id } ) %>
+<% end %>
+<div id="role_users"></div>
+</fieldset>
+</div>

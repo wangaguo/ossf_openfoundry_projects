@@ -1,0 +1,28 @@
+--- config.h.orig	Sun Jun 10 11:47:31 2007
++++ config.h	Sun Jun 10 12:29:44 2007
+@@ -105,14 +105,14 @@
+  */
+ 
+ /* #define SHADOW_NONE		/**/
+-/* #define SHADOW_BSD		/* FreeBSD, NetBSD, OpenBSD, BSDI */
++#define SHADOW_BSD		/* FreeBSD, NetBSD, OpenBSD, BSDI */
+ /* #define SHADOW_SUN		/* Linux, Solaris, IRIX */
+ /* #define SHADOW_JFH		/**/
+ /* #define SHADOW_MDW		/**/
+ /* #define SHADOW_AIX		/* AIX */
+ /* #define SHADOW_HPUX		/* HPUX ? */
+ 
+-   #define PAM			/* Linux PAM or OpenPAM*/
++/* #define PAM			/* Linux PAM or OpenPAM*/
+ /* #define PAM_SOLARIS		/* PAM on Solaris other than 2.6 */
+ /* #define PAM_SOLARIS_26	/* PAM on Solaris 2.6 */
+ /* #define LOGIN_CONF_OPENBSD	/**/
+@@ -250,7 +250,7 @@
+  * given value will be accepted).
+  */
+ 
+-#define MIN_UNIX_UID 1000	/**/
++#define MIN_UNIX_UID 80	/**/
+ 
+ 
+ /* If IGNORE_CASE is defined, the login given is checked in two different

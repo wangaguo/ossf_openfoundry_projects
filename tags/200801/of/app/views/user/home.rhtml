@@ -1,0 +1,17 @@
+<h1><%= _('My projects') %></h1>
+
+<dl>
+<dt><%= _('Admin of')%>:</dt>
+<dd>
+<% @admin_of.each do |p| %>
+  <%= link_to p.unixname, project_path(p.id) %>
+<% end %>
+</dd>
+
+<dt><%= _('Member of')%>:</dt>
+<dd>
+<% @member_of.each do |p| %>
+  <%= link_to p.unixname, project_path(p.id) %>
+<% end %>
+</dd>
+</dl>

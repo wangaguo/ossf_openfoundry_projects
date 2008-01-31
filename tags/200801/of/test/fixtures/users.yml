@@ -1,0 +1,93 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+tim:
+    id: 1001
+    login: tim
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: tim@iis.xxx.tw
+    verified: 1
+    icon: 1
+    language: zh-TW
+
+aguo:
+    id: 1002
+    login: aguo
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: aguo@iis.xxx.tw
+    verified: 1
+    icon: 2
+    language: zh-TW
+
+luors:
+    id: 1003
+    login: luors
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: luors@iis.xxx.tw
+    verified: 1
+    icon: 3
+    language: zh-TW
+
+thkuo:
+    id: 1004
+    login: thkuo
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: thkuo1@iis.xxx.tw
+    verified: 1
+    icon: 4
+    language: zh-TW
+
+guest:
+    id: 123456
+    login: guest
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: guest@test.com
+    verified: 0
+    icon: 1
+    language: zh-TW
+
+dummy:
+    id: 99999
+    login: dummy
+    salted_password: <%="123456".crypt("$1$123456") %>
+    email: dummy@test.com
+    verified: 1
+    language: zh-TW
+
+bob:
+  id: 1000001
+  login: bob
+  salted_password: <%="atest".crypt("$1$atest") %>
+  salt: 7f8b036f9b647d46d22abdbfc8113f44a88f9889
+  email: bob@test.com
+  verified: 1
+  
+existingbob:
+  id: 1000002
+  login: existingbob
+  salted_password: <%="atest".crypt("$1$atest") %>
+  salt: fc76daa7bc4e4b7833375cf9deca38beee4c5581
+  email: existingbob@test.com
+  verified: 1  
+
+longbob:
+  id: 1000003
+  login: longbob
+  salted_password: <%="longatest".crypt("$1$longatest") %>
+  salt: c068e3671780f16898c0a8295ae8d82cc59713e2
+  email: longbob@test.com
+  verified: 1
+
+deletebob1:
+  id: 1000004
+  login: deletebob1
+  salted_password: <%="longatest".crypt("$1$longatest") %>
+  salt: c068e3671780f16898c0a8295ae8d82cc59713e2
+  email: deletebob1@test.com
+  verified: 1
+
+deletebob2:
+  id: 1000005
+  login: deletebob2
+  salted_password: c841391e1d29100a4920de7a8fbb4b0fd180c6c0 # alongtest
+  salt: c068e3671780f16898c0a8295ae8d82cc59713e2
+  email: deletebob2@test.com
+  verified: 1
