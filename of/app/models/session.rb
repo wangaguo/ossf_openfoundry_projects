@@ -1,5 +1,5 @@
 class Session < ActiveRecord::Base
-  @@expires_at = lambda {7.days.ago.strftime '%Y-%m-%d %H:%M:%S'}
+  @@expires_at = lambda {7.days.ago}
 
   belongs_to :user
 
