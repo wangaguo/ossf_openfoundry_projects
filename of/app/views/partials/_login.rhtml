@@ -1,22 +1,14 @@
+
 <% if(login?) -%>
-  <% if params[:project_id] -%>
-    <img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24) %>"/>
-    &nbsp;
-    <%= _("Welcome") %>! <%=current_user.login%> 
-    &nbsp;
-    <%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
-  <% else -%>
-    <img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon) %>"/>
-    <br/>
-    <%= _("Welcome") %>! <%=current_user.login%>.
-    <br/>
-    <%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
-  <% end -%>
+  <%# = lightbox_link_to "Link Name", url_for(:controller => :images, :action => "image", :id => current_user.icon) %> 
+  <%# = lightbox_image_tag(url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24), url_for(:controller => :images, :action => "image", :id => current_user.icon), {:class=>"images"}, :title => "This is a test!") %>
+  <img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24) %>"/>
+  <%= _("Welcome") %>! <%=current_user.login%><%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
 <% else -%>
+  <!--
+  <h3>Login</h3>
+  -->
   <%= link_to _('Login'), :controller => :user, :action => 'login' %>
-  &nbsp;
   <%= link_to _('Signup'), :controller => 'user', :action => 'signup' %> 
-  <br/>
   <%= link_to _('Forgot my password'), :controller => 'user', :action => 'forgot_password' %>
 <% end -%>
-<br/><br/>
