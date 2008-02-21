@@ -15,26 +15,29 @@
   <%= javascript_include_tag 'lightbox' %>
   <%= stylesheet_link_tag 'lightbox' %>
 </head>
+
 <body >
+  
 <div id="header">
 	<a href="/" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
-	<div id="access"></div>
-	<span id="rightbg">&nbsp;</span>
-	<span id="search">
-		<%= render :partial => 'partials/search'%>	
-	</span>
-	<div id="top">
-		<a href="http://rt.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/open_foundry.gif" border="0" alt="OpenFoundry" /></a>      &nbsp;&nbsp;
-		<a href="http://whoswho.openfoundry.org" target="_black"><img src="http://www.openfoundry.org/images/stories/whoswho.gif" border="0" alt="who&#39;swho" /></a>
+	<div id="rightbg">&nbsp;</div>
+	<div id="header-toolbar">
+		<a href="http://www.openfoundry.org" target="_black">OSSF</a> | 
+		<a href="http://whoswho.openfoundry.org" target="_black">Who's Who</a> | 
+    <%= render :partial => 'partials/lang'%>
+	</div>
+	<div id="search">
+      <%= render :partial => 'partials/search'%>	
   </div>
 </div>
+
 <div id="toolbar">
   <div id="nav">
     <div id="mtm_menu">
     </div>
   </div>
   <div>
-    <%= render :partial => 'partials/lang'%>
+    
   </div>
 </div>
 
