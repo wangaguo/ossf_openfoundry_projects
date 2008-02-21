@@ -79,7 +79,7 @@
 padding-left:20px;
 }
 #toolbar {
-background:transparent url(../images/toolbar-bg.png) repeat-x scroll 0%;
+background:transparent url(../images/of/menu_bg.gif);
 height:31px;
 margin:0px;
 position:relative;
@@ -95,7 +95,7 @@ width:642px;
 #mtm_menu {
 }
 #mtm_menu a {
-border-right:1px solid #FFFFFF;
+border-right:1px solid #6786CF;
 color:#FFFFFF;
 display:block;
 float:left;
@@ -146,7 +146,7 @@ margin:0pt;
 padding:0pt;
 }
 #nav {
-background:transparent url(../images/toolbar-div.png) no-repeat scroll 0pt;
+border-left:solid 1px #6786CF;
 height:31px;
 margin:0pt;
 padding:0pt;

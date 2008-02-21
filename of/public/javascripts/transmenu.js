@@ -43,7 +43,7 @@ TransMenu.shadowColor = "#888";                        // color of shadow (trans
 TransMenu.shadowPng = "/images/grey-40.png";               // a PNG graphic to serve as the shadow for mac IE5
 TransMenu.backgroundColor = "#666";                   // color of the background (transparency set in CSS)
 TransMenu.backgroundPng = "/images/grey-80.png";          // a PNG graphic to server as the background for mac IE5
-TransMenu.hideDelay = 1000;                            // number of milliseconds to wait before hiding a menu
+TransMenu.hideDelay = 200;                            // number of milliseconds to wait before hiding a menu
 TransMenu.slideTime = 400;                             // number of milliseconds it takes to open and close a menu
 
 
@@ -794,13 +794,8 @@ var menudata = [
 		submenu:[
 			{id:'首頁', url:'/'},
 			{id:'OpenFoundry新聞 ', url:'/news'},
-			{id:'社群(x)', url:'m1s1ur2'},
 			{id:'關於OSSF', url:'http://www.openfoundry.org/index.php?option=com_content&task=blogcategory&id=69&Itemid=114&lang=tw'},
-			{id:'自由軟體鑄造場電子報', url:'http://www.openfoundry.org/index.php?option=com_letterman&Itemid=92&lang=tw',
-		submenu:[
-			{id:'專案一覽', url:'/projects'},
-			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'}
-		]}
+			{id:'自由軟體鑄造場電子報', url:'http://www.openfoundry.org/index.php?option=com_letterman&Itemid=92&lang=tw'}
 		]
 	},
 	{id:'專案', url:'/projects',
@@ -820,23 +815,32 @@ var menudata = [
 			{id:'偏好設定', url:'/user/edit'},
       {id:'修改密碼', url:'/user/change_password'},
 			{id:'我的首頁', url:'/user/home'},
-			{id:'我的專案(x)', url:'m1s1ur2'},
+			{id:'我的專案', url:'m1s1ur2'},
 			{id:'註冊專案', url:'/projects/new'}
 		]
 	},
-	{id:'授權 指引/精靈(T)', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
-	{id:'說明(T)', url:'http://rt.openfoundry.org/Foundry/Help/'},
-	{id:'聯絡我們(x)', url:'m3url',
+	{id:'授權 指引/精靈', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
 		submenu:[
-			{id:'常見問題(x)', url:'m1s1url'},
-			{id:'聯絡方式(x)', url:'m1s1ur2'},
-			{id:'錯誤回報(x)', url:'m1s1ur2'}
+			{id:'授權指引 v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
+      {id:'授權精靈 v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
+      {id:'說明', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
+		]  
+  },
+	{id:'說明', url:'http://rt.openfoundry.org/Foundry/Help/',
+		submenu:[
+      {id:'關於本手冊', url:'http://rt.openfoundry.org/Foundry/Help/'},
+			{id:'專案管理平台介紹', url:'http://rt.openfoundry.org/Foundry/Help/1-02.html'},
+      {id:'一般使用者功能', url:'http://rt.openfoundry.org/Foundry/Help/2-01.html'},
+      {id:'專案管理者功能', url:'http://rt.openfoundry.org/Foundry/Help/3-01.html'},
+      {id:'專案管理服務平台功能', url:'http://rt.openfoundry.org/Foundry/Help/vcs/OpenFoundry%20_.html'},
+      {id:'Download PDF', url:'http://rt.openfoundry.org/Foundry/Help/ossf.pdf'}
+		]  
+  },
+	{id:'聯絡我們', url:'m3url',
+		submenu:[
+			{id:'聯絡方式', url:'m1s1ur2'},
+			{id:'錯誤回報', url:'m1s1ur2'}
 			
-		]
-	},
-	{id:'暫存區', url:'',
-		submenu:[
-			{id:'xxx', url:''}
 		]
 	}
 	];
