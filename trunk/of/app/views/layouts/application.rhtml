@@ -11,7 +11,9 @@
   <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
   <%= javascript_include_tag 'calendar/calendar-setup' %>
   <%= stylesheet_link_tag 'calendar' %>
-
+  <%= javascript_include_tag 'widgets/tooltip' %>
+  <%= javascript_include_tag 'lightbox' %>
+  <%= stylesheet_link_tag 'lightbox' %>
 </head>
 <body >
 <div id="header">
@@ -27,39 +29,64 @@
   </div>
 </div>
 <div id="toolbar">
-	<div id="nav">
-		<div id="mtm_menu">
-			
-		</div>
-	</div>
-        <div>
-                <%= render :partial => 'partials/lang'%>
-        </div>
+  <div id="nav">
+    <div id="mtm_menu">
+    </div>
+  </div>
+  <div>
+    <%= render :partial => 'partials/lang'%>
+  </div>
+</div>
+
+<div id="SiteMap">
+  <div id="Login"><%= render :partial => 'partials/login' %></div>
+  <div id="BreadCrumbs"><%= breadcrumbs %></div>
 </div>
 
 <div id="MiddlePane">
-<div id="LeftWidget">
-	<br/>
-	<%= render :partial => 'partials/login' %>
-	<%if params["project_id"] != nil%>
-    <div id="LeftMenu">
-      <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
-    </div>
-  <%else%>
-    <div id="TagCloud">
-      <%= render :partial => 'partials/tagcloud'%>
-    </div>
-  <%end%>
-</div>
+  <div id="LeftWidget">   
+    <%if params["project_id"] != nil%>
+     <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
+    <%end%>
 
-<div id="MainContent">
-<div id="MainBody">
-<p> <%= breadcrumbs %> </p>
-<%= show_flash %>
-	<%= yield :layout %>
+  	<%if params["project_id"] != nil%>
+
+      <div id="LeftMenu">
+        <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+      </div>
+    <%else%>
+      <div id="HomeLeft">
+        <h3><img src="/images/of/icon06.gif" align="left" />活躍專案</h3>
+        <ul>
+          <li>Create Animation Make a</li>
+          <li>TinyTux with Pho ... Make a</li>
+          <li>Buddy Make a porthole !</li>
+        </ul>
+        <h3><img src="/images/of/icon02.gif" align="left" />下載排行</h3>
+        <ul>
+          <li>Create Animation Make a</li>
+          <li>TinyTux with Pho ... Make a</li>
+          <li>Buddy Make a porthole !</li>
+        </ul>
+        <h3><img src="/images/of/icon01.gif" align="left" />統計資訊</h3>
+        <ul>
+          <li>Create Animation Make a</li>
+          <li>TinyTux with Pho ... Make a</li>
+          <li>Buddy Make a porthole !</li>
+        </ul>
+        <h3></h3>
+        <h3><img src="/images/of/icon01.gif" align="left" /><%= _('Tag Cloud') %></h3>
+        <%= render :partial => 'partials/tagcloud'%>
+      </div>
+    <%end%>
+  </div>
+  
+  <div id="MainContent">
+    <div id="Flash"><%= show_flash %></div>
+    <%= yield :layout %>
+  </div>
 </div>
-</div>
-</div>
+<br clear="all" />
 
 <div id="Footer">
 <hr/>

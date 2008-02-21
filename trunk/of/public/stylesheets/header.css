@@ -2,7 +2,7 @@
 	position: relative; 
 	height: 96px;
 	overflow: hidden;
-	background: #232833 url(../images/header-bg.png) repeat-x; 
+	background: #232833 url(../images/of/top_bg01.gif) repeat-x; 
 }
 
 #header #logo {
@@ -13,7 +13,7 @@
 	width:397px;
 	height: 96px;
 	z-index:1;
-	background: url(../images/logo.png) no-repeat; 
+	background: url(../images/of/logo01.gif) no-repeat; 
 }
 
 #header #rightbg {
@@ -22,7 +22,7 @@
 	width:541px;
         height:96px;
 	top:0px;
-        background: url(../images/rightbg.png) no-repeat;
+        background: url(../images/of/top_bg02.gif) no-repeat;
 	z-index:0;
 }
 

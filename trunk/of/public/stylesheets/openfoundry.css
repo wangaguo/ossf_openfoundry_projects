@@ -1,78 +1,40 @@
+/* For All */
 * {
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:13px;
+  color:#666;
 }
-
-body {
-  background-color:#EEE;
-	margin: 0px;
-  font-size:114%;
-}
-
-/* For Content */
 h1 { font-size:20px; }
 h2 { font-size:18px; }
 h3 { font-size:16px; }
 h4 { font-size:14px; }
-h1, h2, h3, h4 { color:#31659C; }
+h1, h2, h3, h4 { color:#31659C; margin:3px; }
 input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }
 label { font-weight:bold; }
 fieldset { border:solid 2px #DEE7FF; }
 fieldset legend { font-weight:bold; color:#4265DE; }
-a:hover {
-  color: #577FE3;
-  border-bottom: dotted 1px #333;
-}
-a {
-  text-decoration: none;
-  color: #0D356F;
-}
-textarea {
-  height:100px;
-  width:500px
-}
+a { text-decoration: none; color:#0D356F; }
+a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
+textarea { height:100px; width:500px; }
+ul { margin:0; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
 
-/* Left menu */
-#LeftMenu>ul {
-	padding: 0px;
-	margin: 0px;
-}
 
-#LeftMenu>ul>li {
-	display: block;
-	padding-left: 20px;
-	background: url(http://www.openfoundry.org/templates/rt_versatility_ii_sienna/images/play.png) no-repeat;
-	margin-bottom: 3px;
-	list-style-type: none;
+/* For Layout */
+body { 
+	behavior: url(http://l:3000/stylesheets/csshover2.htc); /* call hover behaviour file */
+  margin: 0px;
 }
+#MiddlePane { margin:3px; }
+#LeftWidget { float:left; width:227px; }
+#MainContent { padding-left:227px; }
 
-#LeftWidget {
-  padding:5px;
-  float:left;
-  left:0px;	
-  width:16%;
-  overflow:hidden;
-}
+#SiteMap {font-weight:bold; border-bottom:solid 2px #F3F3F9; margin-bottom:3px; height:25px; }
+#Login { float:left; text-indent:5px; line-height:25px }
+#BreadCrumbs { padding-left:227px; }
+#BreadCrumbs a { color:#aaa; }
 
-#RightWidget {
-  float:right;
-  width:34%;
-  overflow:hidden;	
-}
-#RightWidget h1 { font-size:14px; }
-
-#MainContent {
-  margin-top:8px;
-  float:left;
-  width:81%;
-}
-
-#MainBody {
-}
-
-#Home {
-	width:65%;
-}
+#RightWidget { float:right; width:34%; overflow:hidden;	}
+#Home { width:65%; }
 
 #Footer {
   padding:30px 0px 10px 0px;
@@ -83,6 +45,73 @@ textarea {
 }
 
 
+/* For HomePage */
+
+/*
+#Login { background:url(/images/of/login_bg.gif) repeat-x; padding:5px; width:215px; }
+#Login h3 { background-image:url(/images/of/login_01.gif); height:25px; padding:12px 0px 0px 35px; margin:-5px; color:white;  }
+#Login img { border:solid 2px #999999; }
+*/
+
+#HomeLeft h3, #HomeRight h3 { background-image:url(/images/of/icon_bg01.gif); color:#39379C; line-height:33px; width:214px; font-weight:normal; }
+#HomeLeft ul, #HomeRight ul, #Home ul { margin:5px 0 15px 0px; }
+#Home { border-right:solid 1px #F3F3F9; border-left:solid 1px #F3F3F9; }
+#Home h3 { background-image:url(/images/of/main_title_bg01.gif); color:#686868; line-height:38px; font-weight:normal; }
+
+#OFIntro { height:200px; margin:0px 15px; border-bottom:solid 1px #F3F3F9; }
+#OFIntro #Module { float:right; }
+#OFIntro #Module img { opacity:0.6; padding:8px; }
+#OFIntro #Module img:hover { opacity:1; }
+#OFIntro #Module a { font-size:15px; }
+
+
+/* Left menu */
+#LeftMenu { width:180px; }
+#LeftMenu ul{
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+	padding:0px;
+  margin:0px;
+  width:100%;
+  background:#ffffff;
+}
+#LeftMenu ul{
+  padding-left:0px;
+}
+#LeftMenu li {
+  position:relative;
+	display:block;
+	padding-left:20px;/*ul margin 20px*/
+	background:url(http://www.openfoundry.org/templates/rt_versatility_ii_sienna/images/play.png) no-repeat;
+	margin-bottom:3px;
+  border-bottom:dotted 1px #ccc;
+}
+#LeftMenu li ul {
+  display:none;
+  left:100.1%;
+  position:absolute;
+  top:0pt;
+  margin-left:0px !important;/*FF*/
+  margin-left:-20px;/*IE*/
+  background-color:#DAE3F9;
+}
+#LeftMenu li:hover { background-color:#DAE3F9; }
+#LeftMenu ul ul,
+#LeftMenu ul li:hover ul ul,
+#LeftMenu ul ul li:hover ul ul
+{display: none;}
+
+#LeftMenu ul li:hover ul,
+#LeftMenu ul ul li:hover ul,
+#LeftMenu ul ul ul li:hover ul
+{display: block;}
+
+#LeftMenu a { display:block; }
+#LeftMenu .subimg { background:url(/images/subimg.png) no-repeat right; }
+
+
+
 /* For Project */
 #ProjectNew p label, #ProjectEdit p label, #ProjectEdit fieldset label, .form-padding label
   { margin-left:-20px; }
@@ -90,8 +119,8 @@ textarea {
   { margin-left:-20px; display:block; }
 #ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset, .form-padding
   { padding-left:20px; }
-#ProjectNew :focus, #ProjectEdit :focus
-  { color:red; }
+#ProjectNew :focus, #ProjectEdit :focus, * :focus
+  { color:#2332AE; font-weight:bold; }
 /*#ProjectList img { width:32px; height:32px; display:none; }*/
 #ProjectList table { border-collapse:collapse; width:99%; margin:2px; }
 #ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
@@ -136,15 +165,6 @@ text-decoration:none;
 #release_file_selection { width:100%;height:250px;}
 #ReleaseBasic table {border:solid 2px #DEE7FF;width:100%}
 
-/* For News */
-#home_news li a{
-  font-size: 114%;
-}
-#home_news li:first-child a{
-  font-weight: bold;
-  font-size: 160%;
-}
-
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {
@@ -178,3 +198,5 @@ text-decoration:none;
   background-image: url(/images/icon/message.png);
   border-color: #D2DEA2;
 }
+
+
