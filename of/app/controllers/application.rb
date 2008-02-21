@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   end
   
   #before_filter :login_required
-  def current_user
+  def current_user(session = session())
     session['user'] || User.find_by_login('guest') # TODO: fix it !!!!!
   end
   def login?
@@ -114,6 +114,7 @@ class ApplicationController < ActionController::Base
   protected
   def touch_session
     # NOTE: I rewrote reset_session in action_controller_cgi_request_hack
+    return if not ParanoidSqlSessionStore === session
     reset_session unless session.host.nil? || session.host == request.remote_ip
     session.host ||= request.remote_ip
     session.user ||= session[:user_id]

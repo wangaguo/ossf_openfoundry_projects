@@ -9,12 +9,27 @@ class OpenfoundryController < ApplicationController
   def index
   end
 
+  # private
+  def get_session_by_id(session_id)
+    # ref: actionpack-2.0.2/lib/action_controller/cgi_process.rb   def session
+    options = ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS.stringify_keys
+    options.merge!('session_id' => session_id)
+    puts options.inspect
+    s = CGI::Session.new(request.cgi, options)
+  end
+  session :off, :only => :get_user_by_session_id
+  def get_user_by_session_id
+    s = get_session_by_id(params['session_id'])
+    u = current_user(s) 
+    render :text => "#{u.id} #{u.login}",
+      :content_type => 'text/plain'
+  end
+
   # TODO: optimize!!!!!!!!!!
   def authentication_authorization
     #self.class.layout(nil)
     session_id, project_unixname = params[:SID], params[:projectUnixName]
-    if the_session = Session.find_by_session_id(session_id)
-      the_session_data = Marshal.load(Base64.decode64(the_session.data))
+    if the_session_data = get_session_by_id(session_id)
       user = the_session_data['user']
       @name = user.login
       project = Project.find_by_unixname(project_unixname)

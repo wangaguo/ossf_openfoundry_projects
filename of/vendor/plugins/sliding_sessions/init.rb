@@ -17,8 +17,10 @@ module SlidingSessions
 
   def session_options_for_with_sliding(request, action) #:nodoc:
     opts = session_options_for_without_sliding(request, action)
-    if opts[:session_expires_after] then
-      opts[:session_expires] = Time.now + opts[:session_expires_after]
+    if opts != false then
+      if opts[:session_expires_after] then
+        opts[:session_expires] = Time.now + opts[:session_expires_after]
+      end
     end
     opts
   end
