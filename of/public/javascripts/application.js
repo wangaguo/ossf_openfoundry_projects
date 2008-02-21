@@ -8,3 +8,11 @@ function SetLang(lang)
   else langHref = "?" + langHref + "&";
   location.href =  location.href.replace(/\?.*/,'') + langHref + "lang=" + lang;
 }
+
+function submenuSwitch(item)
+{ 
+	var submenu = item.nextSibling;
+  while (submenu.nodeType!=1) submenu=submenu.nextSibling;
+	if(submenu.style.display == 'none') submenu.style.display = 'block';
+	else submenu.style.display = 'none';
+}
