@@ -18,14 +18,14 @@ a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
 textarea { height:100px; width:500px; }
 ul { margin:0; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
 .button { background:url(/images/of/button_bg01.gif) repeat-x; color:white; padding:0px; margin:0px; cursor:pointer; border:solid 1px white;}
-.button:hover { background-position:bottom; border:solid 1px white;}
+.button:hover { background-position:bottom; }
 
 /* For Layout */
 body { 
 	behavior: url(http://l:3000/stylesheets/csshover2.htc); /* call hover behaviour file */
   margin: 0px;
 }
-#MiddlePane { margin:3px; }
+#MiddlePane { float:left; margin:3px; }
 #LeftWidget { float:left; width:227px; }
 #MainContent { padding-left:227px; }
 
