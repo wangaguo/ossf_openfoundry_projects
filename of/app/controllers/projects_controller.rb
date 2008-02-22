@@ -129,22 +129,38 @@ class ProjectsController < ApplicationController
     @role = Role.find(params[:role])
     @role_functions = @role.functions
     @functions = Function.find(:all)
-    render :layout => false 
+    #page[:role_new].hide
+    #render :layout => false
+    if(@role.name.upcase == "ADMIN" || @role.name.upcase == "MEMBER")
+      #render :text => "This role can't be changed!", :layout => false
+      render :layout => false
+    else
+      render :layout => false
+    end
   end
   
   def role_update
     @project = Project.find(params[:id])
     @role = Role.find(params[:role])
     if(@role.authorizable_id == @project.id)
-      @role.name = params[:name]
+      if !(@role.name.upcase == "ADMIN" || @role.name.upcase == "MEMBER")
+        @role.name = params[:name]
+      end
       if @role.save
         @role.functions.delete_all
-        for function_id in params[:functions].keys
-          @role.functions << Function.find(function_id)
+        if !params[:functions].nil?
+          for function_id in params[:functions].keys
+            @role.functions << Function.find(function_id)
+          end
         end
         flash[:notice] = 'Role was successfully updated.'
       end
+      #@role.name = params[:name]
     end
+    #page.reload
+#    page[:greeting].update "Greetings, " + params[:name]
+#    page[:greeting].visual_effect :grow
+#    page.select("form").first.reset
     redirect_to :action => 'role_new', :id => params[:id]
   end
   
@@ -171,7 +187,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @roles = @project.roles
     role = Role.find(params[:role])
-    if(role.name == "Admin" || role.name == "Member")
+    if(role.name.upcase == "ADMIN" || role.name.upcase == "MEMBER")
       render :update do |page|
         page.alert "Admin and Member cant's be delete."
         page.visual_effect :highlight, 'role_new'
