@@ -47,6 +47,10 @@
 </div>
 
 <div id="MiddlePane">
+  <div id="MainContent">
+    <div id="Flash"><%= show_flash %></div>
+    <%= yield :layout %>
+  </div>
   <div id="LeftWidget">   
     <%if params["project_id"] != nil%>
      <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
@@ -82,11 +86,6 @@
         <%= render :partial => 'partials/tagcloud'%>
       </div>
     <%end%>
-  </div>
-  
-  <div id="MainContent">
-    <div id="Flash"><%= show_flash %></div>
-    <%= yield :layout %>
   </div>
 </div>
 <br clear="all" />
