@@ -16,7 +16,7 @@ fieldset legend { font-weight:bold; color:#4265DE; }
 a { text-decoration: none; color:#0D356F; }
 a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
 textarea { height:100px; width:500px; }
-ul { margin:0; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
+ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
 .button { background:url(/images/of/button_bg01.gif) repeat-x; color:white; padding:0px; margin:0px; cursor:pointer; border:solid 1px white;}
 .button:hover { background-position:bottom; }
 
@@ -25,9 +25,20 @@ body {
 	behavior: url(http://l:3000/stylesheets/csshover2.htc); /* call hover behaviour file */
   margin: 0px;
 }
-#MiddlePane { float:left; margin:3px; }
-#LeftWidget { float:left; width:227px; }
-#MainContent { padding-left:227px; }
+/*width:227px; */
+#MiddlePane { 
+  padding-left:227px;
+  margin:0;    
+  min-width: 450px; /* LC fullwidth + CC padding */  
+ }
+#LeftWidget, #MainContent { float:left; position:relative; }
+#LeftWidget {
+  width: 227px; /* LC width */  
+  right: 227px; /* LC fullwidth */  
+  margin-left: -99%;
+}
+#MainContent { width: 99%; }
+* html #LeftWidget { left:0; /* RC fullwidth */ }/*IE fix*/
 
 #SiteMap {font-weight:bold; border-bottom:solid 2px #F3F3F9; margin-bottom:3px; height:25px; }
 #Login { float:left; text-indent:5px; line-height:25px }
@@ -35,7 +46,7 @@ body {
 #BreadCrumbs a { color:#aaa; }
 
 #RightWidget { float:right; width:34%; overflow:hidden;	}
-#Home { width:65%; }
+#Home { width:63%; }
 
 #Footer {
   padding:30px 0px 10px 0px;
@@ -55,7 +66,7 @@ body {
 */
 
 #HomeLeft h3, #HomeRight h3 { background-image:url(/images/of/icon_bg01.gif); color:#39379C; line-height:33px; width:214px; font-weight:normal; }
-#HomeLeft ul, #HomeRight ul, #Home ul { margin:5px 0 15px 0px; }
+#HomeLeft ul, #HomeRight ul, #Home ul { margin:5px 0 15px 0px; width:80%}
 #Home { border-right:solid 1px #F3F3F9; border-left:solid 1px #F3F3F9; }
 #Home h3 { background-image:url(/images/of/main_title_bg01.gif); color:#686868; line-height:38px; font-weight:normal; }
 
@@ -126,7 +137,12 @@ body {
 #ProjectList table { border-collapse:collapse; width:99%; margin:2px; }
 #ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
 #ProjectList th { background-color:#DEE7FF; }
-#ProjectBasic dt { font-weight:bold; }
+
+#ProjectBasic dl { width:95%; }
+#ProjectBasic dl dt { font-weight:bold; float:left; clear:left; width:30%; height:20px; background:#EFF4FF; margin:1px; }
+#ProjectBasic dl dd { float:left; width:65%; border-bottom:solid 1px #EFF4FF; height:20px; margin:1px;}
+ 
+ 
 #TabNav { border-bottom:solid 2px #DEE7FF; }
 #TabNav {
 background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
