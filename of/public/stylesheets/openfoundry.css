@@ -182,6 +182,11 @@ text-decoration:none;
 #release_file_selection { width:100%;height:250px;}
 #ReleaseBasic table {border:solid 2px #DEE7FF;width:100%}
 
+/* For Form Data */
+.form-table { width:95%; }
+.form-table th { font-weight:bold; height:20px; background:#EFF4FF; }
+.form-table td { border-bottom:solid 1px #DFE9FF; height:20px; }
+
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {
