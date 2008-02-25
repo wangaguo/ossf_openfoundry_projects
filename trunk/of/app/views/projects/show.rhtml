@@ -1,9 +1,12 @@
 <%#= render( :partial => "tabnav" ) %>   
 <div id="ProjectBasic">
 
-<dl>
+<dl class="form-data-dl">
+<%oddeven = ["odd", "even"]; i = 0; ioddeven = "";%>
 <% for column in Project.content_columns -%>
-  <dt><%= column.human_name %>:</dt><dd><%=h @project.send(column.name) %></dd>
+  <%ioddeven = oddeven[i]; i = 1-i; %>
+  <dt class="<%=ioddeven%>"><%= column.human_name %>:</dt>
+  <dd class="<%=ioddeven%>"><%=h @project.send(column.name) %></dd>
 <% end -%>
 </dl>
 

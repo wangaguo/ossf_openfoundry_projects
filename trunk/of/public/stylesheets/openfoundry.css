@@ -19,6 +19,8 @@ textarea { height:100px; width:500px; }
 ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
 .button { background:url(/images/of/button_bg01.gif) repeat-x; color:white; padding:0px; margin:0px; cursor:pointer; border:solid 1px white;}
 .button:hover { background-position:bottom; }
+.odd { }
+.even { background-color:#EFF4FF; }
 
 /* For Layout */
 body { 
@@ -138,11 +140,7 @@ body {
 #ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
 #ProjectList th { background-color:#DEE7FF; }
 
-#ProjectBasic dl { width:95%; }
-#ProjectBasic dl dt { font-weight:bold; float:left; clear:left; width:30%; height:20px; background:#EFF4FF; margin:1px; }
-#ProjectBasic dl dd { float:left; width:65%; border-bottom:solid 1px #EFF4FF; height:20px; margin:1px;}
- 
- 
+
 #TabNav { border-bottom:solid 2px #DEE7FF; }
 #TabNav {
 background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
@@ -187,6 +185,10 @@ text-decoration:none;
 .form-table th { font-weight:bold; height:20px; background:#EFF4FF; }
 .form-table td { border-bottom:solid 1px #DFE9FF; height:20px; }
 
+.form-data-dl { width:95%; }
+.form-data-dl dt { font-weight:bold; float:left; clear:left; width:30%; height:20px; margin:1px; }
+.form-data-dl dd { float:left; width:65%; height:20px; margin:1px;}
+
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {
@@ -220,5 +222,3 @@ text-decoration:none;
   background-image: url(/images/icon/message.png);
   border-color: #D2DEA2;
 }
-
-
