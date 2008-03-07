@@ -10,7 +10,7 @@ export DB_PREFIX; export DB_USER; export DB_PASS; export DB_HOST
 date
 
 pw group add openfoundry
-pw user add -n openfoundry -u 5566 -g openfoundry -s /bin/csh
+pw user add -n openfoundry -u 5566 -g openfoundry -s /bin/csh -m
 env PACKAGEROOT=ftp://ftp.tw.freebsd.org pkg_add -r subversion mysql50-client ImageMagick
 
 
