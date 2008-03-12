@@ -24,10 +24,16 @@ export MASTER_SITE_OVERRIDE
 
 ( cd /usr/ports/www/rt36 ; make -DWITH_FASTCGI -DWITH_APACHE2 -DBATCH DB_HOST=${DB_HOST} DB_PASSWORD=${DB_PASSWORD} DB_DBA_USER=${TEMP_DBA_USER} DB_DBA_PASSWORD=${TEMP_DBA_PASSWORD} -DINITIAL_INSTALL install)
 
+echo "patching for LONGTEXT..."
+mysql -h ${DB_HOST} -u rt_user "-p${DB_PASSWORD}" -e "ALTER TABLE sessions MODIFY a_session longblob"
+mysql -h ${DB_HOST} -u rt_user "-p${DB_PASSWORD}" -e "ALTER TABLE Attachments MODIFY content longblob"
+
 echo "You can now disable DBA user on the 'data' site"
 echo "  mysql -u root -e \"REVOKE ALL PRIVILEGES, GRANT OPTION FROM ${TEMP_DBA_USER}\""
 
 
 
+
+
 # for debugging only
-mysqldump -h ${DB_HOST} -u rt_user -p${DB_PASSWORD} --skip-extended-insert rt3 > /root/rt_initial.sql
+mysqldump -h ${DB_HOST} -u rt_user "-p${DB_PASSWORD}" --skip-extended-insert rt3 > /root/rt_initial.sql
