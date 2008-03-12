@@ -2,10 +2,14 @@
 # Likewise, all the methods added will be available for all controllers.
 
 require 'user_system'
+require 'of'
 # For "paranoid session store"
 require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
+  # for ActiveMQ module
+  include OpenFoundry::Message
+  
   include UserSystem
 # for exception growler 
 #  include ExceptionGrowler
@@ -14,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   helper :user
   require_dependency 'user'
-  require 'tzinfo'
+#  require 'tzinfo'
 
 #  before_filter :configure_charsets
 #
