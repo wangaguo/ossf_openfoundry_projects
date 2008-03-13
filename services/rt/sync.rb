@@ -31,12 +31,12 @@ end
 
 # msg is a YAML string
 def process(msg)
-  puts "============================="
-  puts msg
+  #puts "============================="
+  #puts msg
   m = YAML::load(msg)
-  puts "============================="
-  puts m.inspect
-  puts "============================="
+  #puts "============================="
+  #puts m.inspect
+  #puts "============================="
 
   type = m['type']
   action = m['action']
@@ -59,30 +59,32 @@ def process(msg)
 
 end
 
+
+require "config.rb" # TODO: path
+
 ActiveRecord::Base.establish_connection(
-  :adapter => 'mysql',
-  :database => 'rt3',
-  :username => 'rt_user',
-  :password => 'rt_pass', # TODO
-  :host => '192.168.0.10',
+  :adapter => DB_TYPE,
+  :database => DB_NAME,
+  :username => DB_USER,
+  :password => DB_PASSWORD,
+  :host => DB_HOST,
   :encoding => 'UTF8'
 )
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 
-THE_TOPIC = "/topic/OSSF.MSG"
 
 begin
-  Stomp::Connection.client_id = "myclientid0207"
-  conn = Stomp::Connection.open "", "", "192.168.0.10", 61613, true
-  conn.subscribe THE_TOPIC, { :ack =>"client", "activemq.subscriptionName" => "mysubscribername0207"}
+  Stomp::Connection.client_id = MQ_CLIENT_ID
+  conn = Stomp::Connection.open MQ_LOGIN, MQ_PASSCODE, MQ_HOST, MQ_PORT, true
+  conn.subscribe MQ_THE_TOPIC, { :ack =>"client", "activemq.subscriptionName" => MQ_SUBSCRIPTION_NAME}
   while true
-    msg = conn.receive
+    msg = conn.receive # blocking
     process(msg.body)
     conn.ack msg.headers["message-id"]
   end
 eusure
-  conn.disconnect # useless
+  conn.disconnect # useless!
   puts "bye"
 end
 
