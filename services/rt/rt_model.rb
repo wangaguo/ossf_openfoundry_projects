@@ -6,29 +6,29 @@ class RTModel < ActiveRecord::Base
   self.abstract_class = true  # This isn't a model itself
   #self.establish_connection :rt  #
 
-  def self.sync_with_of(projects, users, relations)
-    puts "1111111111111 #{Time.now}"
-    RTModel.transaction do
-      projects.each do |p|
-        RTQueue.create_queue(p[:id],p[:name],p[:desc])
-      end
-      users.each do |u|
-        RTUser.create_user(u[:id],u[:name])
-      end
-      relations.each do |r|
-        RTUser.create_relation(r[:uid],r[:pid],r[:type])
-      end
-    end
-    puts "2222222 #{Time.now}"
-  end
+#  def self.sync_with_of(projects, users, relations)
+#    puts "1111111111111 #{Time.now}"
+#    RTModel.transaction do
+#      projects.each do |p|
+#        RTQueue.create_queue(p[:id],p[:name],p[:desc])
+#      end
+#      users.each do |u|
+#        RTUser.create_user(u[:id],u[:name])
+#      end
+#      relations.each do |r|
+#        RTUser.create_relation(r[:uid],r[:pid],r[:type])
+#      end
+#    end
+#    puts "2222222 #{Time.now}"
+#  end
 end
 
 class RTQueue < RTModel
   set_table_name 'Queues'
   def initialize(options)
-    t = self.class.default_timezone == :utc ? Time.now.utc : Time.now
+    t = Time.now # TODO: Time.now.utc ?
     super({
-      #:Name =>             | varchar(200) | NO   | UNI | NULL    |                | 
+      #:Name =>           | varchar(200) | NO   | UNI | NULL    |                | 
       #:Description       | varchar(255) | YES  |     | NULL    |                | 
       #:CorrespondAddress | varchar(120) | YES  |     | NULL    |                | 
       #:CommentAddress    | varchar(120) | YES  |     | NULL    |                | 
@@ -60,8 +60,7 @@ class RTQueue < RTModel
   end
 
   def self.update_queue(id, desc)
-    t = self.class.default_timezone == :utc ? Time.now.utc : Time.now
-    RTQueue.update(id, :Description => desc, :LastUpdated => t)
+    RTQueue.update(id, :Description => desc, :LastUpdated => Time.now)
   end
 end
 
@@ -148,6 +147,7 @@ class RTUser < RTModel
 
 #  def self.create_user(id, name)
   def initialize(options)
+    t = Time.now
     options = {
 #      :id` int(11) NOT NULL auto_increment,
       :Name => options[:Name], #` varchar(200) NOT NULL,
@@ -180,9 +180,9 @@ class RTUser < RTModel
 #      :Timezone` varchar(50) default NULL,
 #      :PGPKey` text,
       :Creator => 12, #` int(11) NOT NULL default '0',
-      :Created => Time.now.strftime('%Y-%m-%d %H:%M:%S'), #` datetime default NULL,
+      :Created => t, #` datetime default NULL,
       :LastUpdatedBy => 12, #` int(11) NOT NULL default '0',
-      :LastUpdated => Time.now.strftime('%Y-%m-%d %H:%M:%S') #` datetime default NULL,
+      :LastUpdated => t #` datetime default NULL,
     }.merge(options)
     super(options)
     self.id = options[:id]
