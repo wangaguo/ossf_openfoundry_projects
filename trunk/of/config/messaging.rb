@@ -7,7 +7,7 @@ ActiveMessaging::Gateway.define do |s|
   #s.filter :some_filter, :only=>:orders
   #s.processor_group :group1, :order_processor
   
-  s.destination :message_client, '/queue/MessageClient'
+  #s.destination :message_client, '/queue/MessageClient'
   
   s.destination :ossf_msg, '/topic/OSSF.MSG'
 end

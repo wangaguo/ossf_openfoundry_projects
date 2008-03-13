@@ -10,8 +10,8 @@ development:
     ############################
     adapter: stomp
     # properties below are all defaults for this adapter
-    #login: ""
-    #passcode: ""
+    login: "ossf"
+    passcode: "ossf"
     host: 140.109.17.80
     #port: 61613
     #reliable: true
