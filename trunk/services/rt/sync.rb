@@ -49,6 +49,8 @@ def process(msg)
     RTQueue.update_queue(data['id'], data['summary'])
   when ['user', 'create']
     RTUser.create_user(data['id'], data['name'])
+  when ['user', 'update']
+    RTUser.update_user(data['id'], data['name'], data['email'])
   when ['roles_users', 'create']
     RTUser.create_relation(data['user']['id'], data['project']['id'], data['role']['name'])
   when ['roles_users', 'delete']
@@ -58,6 +60,8 @@ def process(msg)
   end
 
 end
+
+###############################################
 
 
 require "config.rb" # TODO: path
