@@ -40,8 +40,13 @@ class User < ActiveRecord::Base
     u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
     return nil if u.nil? or u.token_expired?
     return nil if false == u.update_expiry
-    u.attributes = atts
-    u.save
+    unless atts.empty?
+      u.attributes = atts
+      u.save
+      atts['id'] = u.id
+      atts['name'] = u.login
+      send_msg(TYPES[:user], ACTIONS[:update], atts)
+    end
     u
   end
 
