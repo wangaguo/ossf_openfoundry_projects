@@ -59,6 +59,7 @@ class RTQueue < RTModel
     end
   end
 
+  # TODO: generate sql update statement directly
   def self.update_queue(id, desc)
     RTQueue.update(id, :Description => desc, :LastUpdated => Time.now)
   end
@@ -241,6 +242,10 @@ class RTUser < RTModel
     RTCachedGroupMember.new(:GroupId => 4, :MemberId => id, :Via => 4, :ImmediateParentId => 4).save
   end
 
+  # TODO: generate sql update statement directly
+  def self.update_user(id, name, email)
+    RTUser.update(id, :EmailAddress => email, :LastUpdated => Time.now)
+  end
 end
 
 
