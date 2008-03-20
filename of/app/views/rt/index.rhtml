@@ -1,0 +1,80 @@
+<ul class="module_tab">
+<li><a href="<%=@queue_url%>" target="of_module">綜覽</a></li>
+<li><a href="<%=@queue_type_url.gsub(/@type/, 'defect')%>" target="of_module">瑕疵(Bug)</a></li>
+<li><a href="<%=@queue_type_url.gsub(/@type/, 'patch')%>" target="of_module">修正檔</a></li>
+<li><a href="<%=@queue_type_url.gsub(/@type/, 'task')%>" target="of_module">工作事項</a></li>
+<li><a href="<%=@queue_type_url.gsub(/@type/, 'feature')%>" target="of_module">新功能</a></li>
+<li><a href="<%=@queue_type_url.gsub(/@type/, 'enhancement')%>" target="of_module">改進</a></li>
+</ul>
+<a href="<%=@rt_url%>/Ticket/Create.html?Queue=<%=@project.id%>" target="of_module">問題回報</a>
+<a href="#" onclick="hideDiv('TicketSearchForm');">查詢</a>
+<a href="<%=@rt_url%>/Search/Build.html" target="of_module">進階查詢</a>
+<input type="hidden" id="TicketSearchString" value="<%=@queue_url%>" />
+<style type="text/css">
+  #TicketSearchForm { background:white; border:2px outset; position:absolute; display:none; z-index: 9999;}
+</style>
+<script type="text/javascript">
+  function $get(Id) { return document.getElementById(Id); }
+  
+  function hideDiv(target)
+  {
+    target = $get(target);
+    if (target.style.display == 'none' || target.style.display == '') {
+      target.style.display = 'block';
+    }
+    else {
+      target.style.display = 'none';
+    }
+  }
+  
+  function TicketSearch(){
+    var SearchString = $get('TicketSearchString').value;
+    var TicketSearchOwner = $get('TicketSearchOwner');
+    var TicketSearchTarget = $get('TicketSearchTarget');
+    var TicketSearchFor = $get('TicketSearchFor');
+    var TicketSearchStatus = $get('TicketSearchStatus');
+    var TicketSearchOp = "";
+   
+    if( TicketSearchOwner.value != '' ) 
+      SearchString += " AND Owner = '" + TicketSearchOwner.value + "'";
+    if( TicketSearchFor.value != '' ) {
+      if( TicketSearchTarget.selectedIndex <= 1 ) TicketSearchOp = " like "; else TicketSearchOp = " = ";
+      SearchString += " AND " + TicketSearchTarget[TicketSearchTarget.selectedIndex].value + TicketSearchOp +" '" + TicketSearchFor.value + "'";
+    }
+    if( TicketSearchStatus.selectedIndex > 0 )
+      SearchString += " AND " + TicketSearchStatus[TicketSearchStatus.selectedIndex].value;
+    //alert(SearchString);
+    $get('of_module').src = SearchString;
+    hideDiv('TicketSearchForm');
+  }
+</script>
+<div style="" id="TicketSearchForm">
+  <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
+  <ul>
+    <li>
+      負責人<input type="text" value="" id="TicketSearchOwner"/>
+    </li>
+    <li>
+      <select id="TicketSearchTarget">
+        <option selected="" value="Subject">主題</option>
+        <option value="Content">內容</option>
+        <option value="Id">編號</option>
+        <option value="Creator">建立者</option>
+        <option value="Requestor.Name">申請人</option>
+        <option value="LastUpdatedBy">最後修改者</option>
+      </select>
+      <input type="text" value="" id="TicketSearchFor"/>
+    </li>
+    <li>
+      處理情況
+      <select style="width: 150px;" id="TicketSearchStatus">
+        <option value="" selected="">全部顯示</option>
+        <option value="(Status = 'open' OR Status = 'new' OR Status = 'stalled')">未處理</option>
+        <option value="Status = 'resolved'">已處理</option>
+      </select>
+    </li>
+  </ul>
+  <input type="image" src="/img/Go.png" name="Action-Search" onclick="TicketSearch()"/><input type="hidden" value="" name="Type"/>
+</div>
+
+<iframe src="<%=@queue_url%>" id="of_module" name="of_module" style="width:750px; height:3000px; border:0px;"></iframe>

@@ -141,22 +141,22 @@ body {
 #ProjectList th { background-color:#DEE7FF; }
 
 
-#TabNav { border-bottom:solid 2px #DEE7FF; }
-#TabNav {
+.module_tab, #TabNav { border-bottom:solid 2px #DEE7FF; }
+.module_tab, #TabNav {
 background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
 float:left;
 font-size:93%;
 line-height:normal;
 width:99%;
 }
-#TabNav ul {
+.module_tab ul, #TabNav ul {
 list-style-image:none;
 list-style-position:outside;
 list-style-type:none;
 margin:0pt;
 padding:10px 10px 0pt;
 }
-#TabNav li {
+.module_tab li, #TabNav li {
 background:transparent url(http://rt.openfoundry.org/img/tab/left.gif) no-repeat scroll left top;
 float:left;
 list-style-image:none;
@@ -165,7 +165,7 @@ list-style-type:none;
 margin:0pt;
 padding:0pt 0pt 0pt 9px;
 }
-#TabNav a {
+.module_tab a, #TabNav a {
 background:transparent url(http://rt.openfoundry.org/img/tab/right.gif) no-repeat scroll right top;
 color:#776655;
 display:block;
