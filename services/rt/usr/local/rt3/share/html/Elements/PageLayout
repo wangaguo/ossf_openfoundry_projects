@@ -191,6 +191,12 @@ if ($RT::WebDefaultStylesheet ne '3.4-compat') {
         delete $almost_last->{current_subtab};
     }
 }
+
+if (not $session{'CurrentUser'}->HasRight( Object=> $RT::System, Right => 'SuperUser'))
+{
+  $toptabs = undef;
+  $topactions = undef;
+}
 </%INIT>
 
 %# There's probably a better way to do this that involves three times as
