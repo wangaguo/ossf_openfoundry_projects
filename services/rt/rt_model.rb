@@ -67,6 +67,14 @@ end
 
 class RTGroupMember < RTModel
   set_table_name 'GroupMembers'
+
+  def add_user_into_group(uid, gid)
+    cache_id = RTCachedGroupMember.find(:first, :conditions => "MemberId = #{gid}").id
+
+    RTGroupMember.new(:GroupId => gid, :MemberId => uid).save
+    RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :ImmediateParentId => gid).via
+    RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :Via => cache_id, :ImmediateParentId => gid).save
+  end
 end
 
 class RTCachedGroupMember < RTModel
@@ -200,11 +208,7 @@ class RTUser < RTModel
       return
     end
     gid = RTGroup.find(:first, :conditions => "Type = '#{type}' and Instance = #{pid}").id
-    cache_id = RTCachedGroupMember.find(:first, :conditions => "MemberId = #{gid}").id
-
-    RTGroupMember.new(:GroupId => gid, :MemberId => uid).save
-    RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :ImmediateParentId => gid).via
-    RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :Via => cache_id, :ImmediateParentId => gid).save
+    RTGroupMember.add_user_into_group(uid, gid)
   end
   def self.delete_relation(uid, pid, type)
     #p uid,pid,type
@@ -234,12 +238,18 @@ class RTUser < RTModel
     RTGroupMember.new(:GroupId => 4, :MemberId => id).save
     
     RTCachedGroupMember.new(:GroupId => equiv_gid, :MemberId => equiv_gid,  :ImmediateParentId => equiv_gid).via
-
     RTCachedGroupMember.new(:GroupId => equiv_gid, :MemberId => id,  :ImmediateParentId => equiv_gid).via
     RTCachedGroupMember.new(:GroupId => 3, :MemberId => id,  :ImmediateParentId => 3).via
     RTCachedGroupMember.new(:GroupId => 3, :MemberId => id, :Via => 3, :ImmediateParentId => 3).save
     RTCachedGroupMember.new(:GroupId => 4, :MemberId => id,  :ImmediateParentId => 4).via
     RTCachedGroupMember.new(:GroupId => 4, :MemberId => id, :Via => 4, :ImmediateParentId => 4).save
+  end
+
+  def self.create_user_and_add_into_openfoundry_group(id, name)
+    create_user(id, name)
+    # add into the 'openfoundry' group (except 'guest')
+    openfoundry_gid = RTGroup.find(:first, :conditions => "Name = 'OpenFoundry' and Domain = 'UserDefined'").id
+    RTGroupMember.add_user_into_group(id, openfoundry_gid)
   end
 
   # TODO: generate sql update statement directly

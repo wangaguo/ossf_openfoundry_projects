@@ -48,7 +48,7 @@ def process(msg)
   when ['project', 'update']
     RTQueue.update_queue(data['id'], data['summary'])
   when ['user', 'create']
-    RTUser.create_user(data['id'], data['name'])
+    RTUser.create_user_and_add_into_openfoundry_group(data['id'], data['name'])
   when ['user', 'update']
     RTUser.update_user(data['id'], data['name'], data['email'])
   when ['roles_users', 'create']
