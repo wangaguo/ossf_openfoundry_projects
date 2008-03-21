@@ -13,6 +13,11 @@
        Password     => 'password',
        EmailAddress => "root\@localhost",
        Comments     => 'SuperUser',
+       Privileged   => '1', } ,
+
+    {  Name         => 'guest',
+       RealName     => 'guest',
+       Comments     => 'Do not delete or modify this user. It is integral to OpenFoundry\'s internal data structures',
        Privileged   => '1', } );
 
 @Groups = (
@@ -57,6 +62,12 @@
       Domain      => 'RT::System-Role',
       Instance    => '',
       Description => 'Pseudogroup for internal use',        # loc
+    },
+    { Name        => 'OpenFoundry',
+      Type        => '',
+      Domain      => 'UserDefined',
+      Instance    => '',
+      Description => 'RegisterUserGroup for OpenFoundry.',  # loc
     }, );
 
 @Queues = ({ Name              => 'General',
@@ -583,7 +594,56 @@ return 0; # ignore $passed;
 
     { UserId => 'root',        # - principalid
       Right  => 'SuperUser', },
-
+  
+    { GroupDomain => 'UserDefined',
+      GroupId => 'OpenFoundry',
+      Right  => 'ModifyCustomField', },
+      
+    { GroupDomain => 'SystemInternal',
+      GroupType => 'Privileged',
+      Right  => 'CommentOnTicket', },
+    { GroupDomain => 'SystemInternal',
+      GroupType => 'Privileged',
+      Right  => 'CreateTicket', },
+    { GroupDomain => 'SystemInternal',
+      GroupType => 'Privileged',
+      Right  => 'SeeCustomField', },
+    { GroupDomain => 'SystemInternal',
+      GroupType => 'Privileged',
+      Right  => 'SeeQueue', },
+    { GroupDomain => 'SystemInternal',
+      GroupType => 'Privileged',
+      Right  => 'ShowTicket', },
+    { GroupDomain => 'SystemInternal',
+      GroupType => 'Privileged',
+      Right  => 'ShowTicketComments', },
+      
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'AdminCc',
+      Right  => 'DeleteTicket', },
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'AdminCc',
+      Right  => 'ModifyTicket', },
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'AdminCc',
+      Right  => 'OwnTicket', },
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'AdminCc',
+      Right  => 'ReplyToTicket', },
+      
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'Owner',
+      Right  => 'ModifyTicket', },
+      
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'Cc',
+      Right  => 'OwnTicket'},
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'Cc',
+      Right  => 'ReplyToTicket'},
+    { GroupDomain => 'RT::System-Role',
+      GroupType => 'Cc',
+      Right  => 'TakeTicket'},
 );
 
 # Predefined searches
@@ -623,3 +683,207 @@ return 0; # ignore $passed;
     },
 }
 );
+
+'CustomFields' => 
+@CustomFields = (
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'defect',
+                    'Name' => 'defect'
+                  },
+                  {
+                    'SortOrder' => '2',
+                    'Description' => 'patch',
+                    'Name' => 'patch'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'task',
+                    'Name' => 'task'
+                  },
+                  {
+                    'SortOrder' => '4',
+                    'Description' => 'feature',
+                    'Name' => 'feature'
+                  },
+                  {
+                    'SortOrder' => '5',
+                    'Description' => 'enhancement',
+                    'Name' => 'enhancement'
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Type',
+    'Name' => 'Type'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'Backend',
+                    'Name' => 'Backend'
+                  },
+                  {
+                    'SortOrder' => '2',
+                    'Description' => 'Interface',
+                    'Name' => 'Interface'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'Other',
+                    'Name' => 'Other'
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Subcomponent',
+    'Name' => 'Subcomponent'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'All Architectures',
+                    'Name' => 'All'
+                  },
+                  {
+                    'SortOrder' => '2',
+                    'Description' => 'i386 PC',
+                    'Name' => 'PC'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'Mac',
+                    'Name' => 'Mac'
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Architecture',
+    'Name' => 'Architecture'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'All Platforms',
+                    'Name' => 'All'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'Linux',
+                    'Name' => 'Linux'
+                  },
+                  {
+                    'SortOrder' => '4',
+                    'Description' => 'MS Windows',
+                    'Name' => 'Win32'
+                  },
+                  {
+                    'SortOrder' => '5',
+                    'Description' => 'FreeBSD ',
+                    'Name' => 'FreeBSD '
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Platform',
+    'Name' => 'Platform'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'Most Important',
+                    'Name' => 'P1'
+                  },
+                  {
+                    'SortOrder' => '2',
+                    'Description' => 'Important',
+                    'Name' => 'P2'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'Normal',
+                    'Name' => 'P3'
+                  },
+                  {
+                    'SortOrder' => '4',
+                    'Description' => 'Less Important',
+                    'Name' => 'P4'
+                  },
+                  {
+                    'SortOrder' => '5',
+                    'Description' => 'Least Important',
+                    'Name' => 'P5'
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Severity',
+    'Name' => 'Severity'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Freeform',
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Version',
+    'Name' => 'Version'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Freeform',
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'TargetVersion',
+    'Name' => 'TargetVersion'
+  },
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'FIXED',
+                    'Name' => 'FIXED'
+                  },
+                  {
+                    'SortOrder' => '2',
+                    'Description' => 'LATER',
+                    'Name' => 'LATER'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'INVALID',
+                    'Name' => 'INVALID'
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '0',
+    'Description' => 'Resolution',
+    'Name' => 'Resolution'
+  }
+);
+
