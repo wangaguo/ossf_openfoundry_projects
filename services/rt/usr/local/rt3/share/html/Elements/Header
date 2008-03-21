@@ -108,7 +108,7 @@
 % }
 
 <%INIT>
-f ($session{'CurrentUser'} && not $session{'CurrentUser'}->HasRight( Object=> $RT::System, Right => 'SuperUser'))
+if ($session{'CurrentUser'} && not $session{'CurrentUser'}->HasRight( Object=> $RT::System, Right => 'SuperUser'))
 {
   $ShowBar = 0;
 }
