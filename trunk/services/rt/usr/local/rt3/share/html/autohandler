@@ -119,6 +119,53 @@ $m->{'rt_base_time'} = [ Time::HiRes::gettimeofday() ];
 
 $m->comp( '/Elements/SetupSessionCookie', %ARGS );
 
+
+# openfoundry
+# TODO: just SSO once per request
+if ($RT::OpenFoundry_SSO)
+{
+    print STDERR "pathinfo: ", $r->path_info, "\n";
+    my $rt_user = ( $session{'CurrentUser'} && $session{'CurrentUser'}->Id ) ?
+        $session{'CurrentUser'}->Name() : '** rt has no current user **';
+    print STDERR "rt_user: $rt_user\n";
+
+    my $of_user;
+    {
+        use LWP::Simple;
+
+        my $cookie = (CGI::Cookie->fetch || {})->{$RT::OpenFoundry_SSO_Cookie};
+        my $session_id = $cookie ? $cookie->value : undef;
+        print STDERR "session_id: ##$session_id##\n";
+        my $tmp = get($RT::OpenFoundry_SSO_URL . $session_id);
+        my $of_user_id;
+        ($of_user_id, $of_user) = split(/\s+/, $tmp);
+        print STDERR "id: $of_user_id user: $of_user\n";
+    }
+
+
+    if ($rt_user ne $of_user)
+    {
+        print STDERR "SSO for openfoundry: $rt_user => $of_user\n";
+        # TODO: invoke callbacks ?
+        # logout if necessary
+        if (defined %session)
+        {
+            tied(%session)->delete;
+            $m->comp( '/Elements/SetupSessionCookie', %ARGS );
+        }
+      
+        # login
+        $session{'CurrentUser'} = RT::CurrentUser->new();
+        $session{'CurrentUser'}->Load($of_user);
+        # TODO: what if load failed ?
+    }
+}
+# openfoundry
+
+
+
+
+
 unless ( $session{'CurrentUser'} && $session{'CurrentUser'}->Id ) {
     $session{'CurrentUser'} = RT::CurrentUser->new();
 }
