@@ -15,4 +15,10 @@
 #   perl -c /path/to/your/etc/RT_SiteConfig.pm
 
 Set( $rtname, 'example.com');
+#Set($LogToFile      , 'debug');
+#Set($LogDir, '/tmp');
+Set($OpenFoundry_SSO, 1);
+Set($OpenFoundry_SSO_Cookie, '_of_session_id');
+Set($OpenFoundry_SSO_URL, 'http://of.openfoundry.org/openfoundry/get_user_by_session_id?session_id='); 
+
 1;
