@@ -684,8 +684,43 @@ return 0; # ignore $passed;
 }
 );
 
-'CustomFields' => 
 @CustomFields = (
+  {
+    'LookupType' => 'RT::Queue-RT::Ticket',
+    'Type' => 'Select',
+    'Values' => [
+                  {
+                    'SortOrder' => '1',
+                    'Description' => 'FIXED',
+                    'Name' => 'FIXED'
+                  },
+                  {
+                    'SortOrder' => '2',
+                    'Description' => 'LATER',
+                    'Name' => 'LATER'
+                  },
+                  {
+                    'SortOrder' => '3',
+                    'Description' => 'INVALID',
+                    'Name' => 'INVALID'
+                  },
+                  {
+                    'SortOrder' => '4',
+                    'Description' => 'WONTFIX',
+                    'Name' => 'WONTFIX'
+                  },
+                  {
+                    'SortOrder' => '5',
+                    'Description' => 'WORKSFORME',
+                    'Name' => 'WORKSFORME'
+                  }
+                ],
+    'MaxValues' => '1',
+    'Repeated' => '0',
+    'SortOrder' => '1',
+    'Description' => 'Resolution',
+    'Name' => 'Resolution'
+  },
   {
     'LookupType' => 'RT::Queue-RT::Ticket',
     'Type' => 'Select',
@@ -718,7 +753,7 @@ return 0; # ignore $passed;
                 ],
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '2',
     'Description' => 'Type',
     'Name' => 'Type'
   },
@@ -744,7 +779,7 @@ return 0; # ignore $passed;
                 ],
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '3',
     'Description' => 'Subcomponent',
     'Name' => 'Subcomponent'
   },
@@ -766,11 +801,16 @@ return 0; # ignore $passed;
                     'SortOrder' => '3',
                     'Description' => 'Mac',
                     'Name' => 'Mac'
+                  },
+                  {
+                    'SortOrder' => '4',
+                    'Description' => 'Other',
+                    'Name' => 'Other'
                   }
                 ],
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '4',
     'Description' => 'Architecture',
     'Name' => 'Architecture'
   },
@@ -784,24 +824,34 @@ return 0; # ignore $passed;
                     'Name' => 'All'
                   },
                   {
-                    'SortOrder' => '3',
+                    'SortOrder' => '2',
                     'Description' => 'Linux',
                     'Name' => 'Linux'
                   },
                   {
-                    'SortOrder' => '4',
+                    'SortOrder' => '3',
                     'Description' => 'MS Windows',
                     'Name' => 'Win32'
                   },
                   {
+                    'SortOrder' => '4',
+                    'Description' => 'FreeBSD',
+                    'Name' => 'FreeBSD'
+                  },
+                  {
                     'SortOrder' => '5',
-                    'Description' => 'FreeBSD ',
-                    'Name' => 'FreeBSD '
+                    'Description' => 'Mac',
+                    'Name' => 'Mac'
+                  },
+                  {
+                    'SortOrder' => '6',
+                    'Description' => 'Other',
+                    'Name' => 'Other'
                   }
                 ],
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '5',
     'Description' => 'Platform',
     'Name' => 'Platform'
   },
@@ -837,7 +887,7 @@ return 0; # ignore $passed;
                 ],
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '6',
     'Description' => 'Severity',
     'Name' => 'Severity'
   },
@@ -846,7 +896,7 @@ return 0; # ignore $passed;
     'Type' => 'Freeform',
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '7',
     'Description' => 'Version',
     'Name' => 'Version'
   },
@@ -855,35 +905,9 @@ return 0; # ignore $passed;
     'Type' => 'Freeform',
     'MaxValues' => '1',
     'Repeated' => '0',
-    'SortOrder' => '0',
+    'SortOrder' => '8',
     'Description' => 'TargetVersion',
     'Name' => 'TargetVersion'
-  },
-  {
-    'LookupType' => 'RT::Queue-RT::Ticket',
-    'Type' => 'Select',
-    'Values' => [
-                  {
-                    'SortOrder' => '1',
-                    'Description' => 'FIXED',
-                    'Name' => 'FIXED'
-                  },
-                  {
-                    'SortOrder' => '2',
-                    'Description' => 'LATER',
-                    'Name' => 'LATER'
-                  },
-                  {
-                    'SortOrder' => '3',
-                    'Description' => 'INVALID',
-                    'Name' => 'INVALID'
-                  }
-                ],
-    'MaxValues' => '1',
-    'Repeated' => '0',
-    'SortOrder' => '0',
-    'Description' => 'Resolution',
-    'Name' => 'Resolution'
   }
 );
 
