@@ -11,7 +11,7 @@
 <a href="<%=@rt_url%>/Search/Build.html" target="of_module">進階查詢</a>
 <input type="hidden" id="TicketSearchString" value="<%=@queue_url%>" />
 <style type="text/css">
-  #TicketSearchForm { background:white; border:2px outset; position:absolute; display:none; z-index: 9999;}
+  #TicketSearchForm { background:white; border:2px outset; position:absolute; left:0px; display:none; z-index: 9999;}
 </style>
 <script type="text/javascript">
   function $get(Id) { return document.getElementById(Id); }
@@ -74,7 +74,7 @@
       </select>
     </li>
   </ul>
-  <input type="image" src="/img/Go.png" name="Action-Search" onclick="TicketSearch()"/><input type="hidden" value="" name="Type"/>
+  <input type="button" value="送出查詢" onclick="TicketSearch()" class="button"/>
 </div>
 
-<iframe src="<%=@queue_url%>" id="of_module" name="of_module" style="width:750px; height:3000px; border:0px;"></iframe>
+<iframe src="<%=@queue_url%>" id="of_module" name="of_module" frameborder="0" style="width:750px; height:3000px; "></iframe>
