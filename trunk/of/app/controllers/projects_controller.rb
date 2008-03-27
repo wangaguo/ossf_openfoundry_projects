@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   
   def viewvc
     @project = Project.find(params[:id])
-    @Path = "http://viewvc.of.openfoundry.org/viewvc/?root=" + @project.unixname
+    @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.unixname
   end
 
   def index

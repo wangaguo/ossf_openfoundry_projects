@@ -35,6 +35,7 @@ ActionController::Routing::Routes.draw do |map|
        :controller => 'kwiki',
        :action => 'index'
   map.resources :rt,
+                :singular => 'rt1',
                 :path_prefix => '/projects/:project_id'
   
   #  map.release 'project/:project_id/release', 
