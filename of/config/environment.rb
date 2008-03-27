@@ -80,6 +80,8 @@ require 'acts_as_ferret'
 # TODO: better naming
 OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
 OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
+OPENFOUNDRY_VIEWVC_URL =  'http://viewvc.of.openfoundry.org/viewvc/'
+OPENFOUNDRY_RT_URL = 'http://rt.of.openfoundry.org'
 #
 # important password! leak it may leak all your user data!!
 #

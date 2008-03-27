@@ -62,9 +62,14 @@ module ApplicationHelper
           when 'news'
             level_name, level_class, level_title = 
               _('Project News'), News, 'subject'
+          when 'rt'
+            level_name, level_class, level_title = 
+              _('Issue Tracker'), "rt", 'subject'
           end
         elsif level =~ /\d/
-          level_name = level_class.find(level).send(level_title)
+          if(["rt"].include?(level_class)==false)
+            level_name = level_class.find(level).send(level_title)
+          end
         end
         if index == levels.size-1 #|| 
             #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
