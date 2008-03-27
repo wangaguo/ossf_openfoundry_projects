@@ -34,6 +34,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/projects/:project_id/:controller', 
        :controller => 'kwiki',
        :action => 'index'
+  map.resources :rt,
+                :path_prefix => '/projects/:project_id'
   
   #  map.release 'project/:project_id/release', 
   #    :controller => 'release', :action => 'list'
