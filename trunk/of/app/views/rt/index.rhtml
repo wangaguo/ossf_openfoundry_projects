@@ -1,24 +1,21 @@
-<ul class="module_tab">
-<li><a href="<%=@queue_url%>" target="of_module">綜覽</a></li>
-<li><a href="<%=@queue_type_url.gsub(/@type/, 'defect')%>" target="of_module">瑕疵(Bug)</a></li>
-<li><a href="<%=@queue_type_url.gsub(/@type/, 'patch')%>" target="of_module">修正檔</a></li>
-<li><a href="<%=@queue_type_url.gsub(/@type/, 'task')%>" target="of_module">工作事項</a></li>
-<li><a href="<%=@queue_type_url.gsub(/@type/, 'feature')%>" target="of_module">新功能</a></li>
-<li><a href="<%=@queue_type_url.gsub(/@type/, 'enhancement')%>" target="of_module">改進</a></li>
+<ul id="rt_nav" class="module_tab">
+<li id="type_all" onclick="rt_nav(this)" class="off"><a href="<%=@base_url%>" target="of_module">綜覽</a></li>
+<li id="type_defect" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'defect')%>" target="of_module">瑕疵(Bug)</a></li>
+<li id="type_patch" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'patch')%>" target="of_module">修正檔</a></li>
+<li id="type_task" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'task')%>" target="of_module">工作事項</a></li>
+<li id="type_feature" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'feature')%>" target="of_module">新功能</a></li>
+<li id="type_enhancement" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'enhancement')%>" target="of_module">改進</a></li>
 </ul>
+<%if(@project != nil)%>
 <a href="<%=@rt_url%>/Ticket/Create.html?Queue=<%=@project.id%>" target="of_module">問題回報</a>
+<%end%>
 <a href="#" onclick="hideDiv('TicketSearchForm');">查詢</a>
 <a href="<%=@rt_url%>/Search/Build.html" target="of_module">進階查詢</a>
-<input type="hidden" id="TicketSearchString" value="<%=@queue_url%>" />
-<style type="text/css">
-  #TicketSearchForm { background:white; border:2px outset; position:absolute; left:0px; display:none; z-index: 9999;}
-</style>
+<input type="hidden" id="TicketSearchString" value="<%=@base_url%>" />
 <script type="text/javascript">
-  function $get(Id) { return document.getElementById(Id); }
-  
   function hideDiv(target)
   {
-    target = $get(target);
+    target = $(target);
     if (target.style.display == 'none' || target.style.display == '') {
       target.style.display = 'block';
     }
@@ -28,11 +25,11 @@
   }
   
   function TicketSearch(){
-    var SearchString = $get('TicketSearchString').value;
-    var TicketSearchOwner = $get('TicketSearchOwner');
-    var TicketSearchTarget = $get('TicketSearchTarget');
-    var TicketSearchFor = $get('TicketSearchFor');
-    var TicketSearchStatus = $get('TicketSearchStatus');
+    var SearchString = $('TicketSearchString').value;
+    var TicketSearchOwner = $('TicketSearchOwner');
+    var TicketSearchTarget = $('TicketSearchTarget');
+    var TicketSearchFor = $('TicketSearchFor');
+    var TicketSearchStatus = $('TicketSearchStatus');
     var TicketSearchOp = "";
    
     if( TicketSearchOwner.value != '' ) 
@@ -43,10 +40,35 @@
     }
     if( TicketSearchStatus.selectedIndex > 0 )
       SearchString += " AND " + TicketSearchStatus[TicketSearchStatus.selectedIndex].value;
-    //alert(SearchString);
-    $get('of_module').src = SearchString;
+ 
+    $('of_module').src = SearchString;
     hideDiv('TicketSearchForm');
   }
+  
+  function rt_nav(tab)
+  {
+    var ul = tab.parentNode.getElementsByTagName("li");
+    for(i=0; i<ul.length; i++ )
+    {
+      ul[i].className = "off";
+    }
+    tab.className = "on";
+  }
+  
+  function page_load()
+  {
+    var type = ['defect', 'patch', 'task', 'feature', 'enhancement'];
+    for(i=0; i<type.length; i++)
+    {
+      if (location.pathname.indexOf(type[i]) > 0) {
+        rt_nav($("type_" + type[i]));
+        return;
+      }
+    }
+    rt_nav($("type_all"));
+  }
+
+  Event.observe(window, 'load', page_load);
 </script>
 <div style="" id="TicketSearchForm">
   <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
@@ -77,4 +99,4 @@
   <input type="button" value="送出查詢" onclick="TicketSearch()" class="button"/>
 </div>
 
-<iframe src="<%=@queue_url%>" id="of_module" name="of_module" frameborder="0" style="width:750px; height:3000px; "></iframe>
+<iframe src="<%=@show_url%>" id="of_module" name="of_module" frameborder="0" style="width:750px; height:3000px; "></iframe>
