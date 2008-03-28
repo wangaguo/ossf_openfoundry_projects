@@ -144,34 +144,41 @@ body {
 .module_tab, #TabNav { border-bottom:solid 2px #DEE7FF; }
 .module_tab, #TabNav {
 background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
-float:left;
-font-size:93%;
-line-height:normal;
-width:99%;
+  float:left;
+  font-size:93%;
+  line-height:normal;
+  width:99%;
 }
 .module_tab ul, #TabNav ul {
-list-style-image:none;
-list-style-position:outside;
-list-style-type:none;
-margin:0pt;
-padding:10px 10px 0pt;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0pt;
+  padding:10px 10px 0pt;
 }
 .module_tab li, #TabNav li {
-background:transparent url(http://rt.openfoundry.org/img/tab/left.gif) no-repeat scroll left top;
-float:left;
-list-style-image:none;
-list-style-position:outside;
-list-style-type:none;
-margin:0pt;
-padding:0pt 0pt 0pt 9px;
+  background:transparent url(http://rt.openfoundry.org/img/tab/left.gif) no-repeat scroll left top;
+  float:left;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0pt;
+  padding:0pt 0pt 0pt 9px;
 }
 .module_tab a, #TabNav a {
-background:transparent url(http://rt.openfoundry.org/img/tab/right.gif) no-repeat scroll right top;
-color:#776655;
-display:block;
-font-weight:bold;
-padding:5px 15px 4px 6px;
-text-decoration:none;
+  background:transparent url(http://rt.openfoundry.org/img/tab/right.gif) no-repeat scroll right top;
+  color:#776655;
+  display:block;
+  font-weight:bold;
+  padding:5px 15px 4px 6px;
+  text-decoration:none;
+}
+
+.off{
+  opacity:0.6; filter:alpha(opacity=60);
+}
+.on{
+  opacity:1.0; filter:alpha(opacity=100);
 }
 
 /* For project-release */
@@ -222,3 +229,6 @@ text-decoration:none;
   background-image: url(/images/icon/message.png);
   border-color: #D2DEA2;
 }
+
+/* For RT */
+#TicketSearchForm { background:white; border:2px outset; position:absolute; left:0px; display:none; z-index: 9999;}

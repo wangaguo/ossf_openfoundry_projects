@@ -37,6 +37,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :rt,
                 :singular => 'rt1',
                 :path_prefix => '/projects/:project_id'
+  map.resources :rt,
+                :singular => 'rt1',
+                :name_prefix => 'site_'
   
   #  map.release 'project/:project_id/release', 
   #    :controller => 'release', :action => 'list'
