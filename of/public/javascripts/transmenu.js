@@ -816,6 +816,14 @@ var menudata = [
       {id:'修改密碼', url:'/user/change_password'},
 			{id:'我的首頁', url:'/user/home'},
 			{id:'我的專案', url:'m1s1ur2'},
+			{id:'我的待辦事項', url:'',
+    		submenu:[
+    			{id:'Owner', url:'/rt/owner'},
+          {id:'Creator', url:'/rt/creator'},
+    			{id:'Requestor', url:'/rt/requestor'},
+    			{id:'LastUpdatedBy', url:'/rt/lastupdatedby'}
+    		]
+      },
 			{id:'註冊專案', url:'/projects/new'}
 		]
 	},

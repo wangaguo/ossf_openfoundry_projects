@@ -36,8 +36,9 @@ class RtController < ApplicationController
         elsif(params[:id] == 'LastUpdatedBy'.downcase)
           @base_url += " AND LastUpdatedBy='" + current_user.login + "'"
         else
-          @show_url = @base_url + " AND 'CF.{Type}' LIKE '" + params[:id] + "'"
+          @base_url += " AND 'CF.{Type}' LIKE '" + params[:id] + "'"
         end
+        @show_url = @base_url
       end
     else
       @show_url = @base_url;
