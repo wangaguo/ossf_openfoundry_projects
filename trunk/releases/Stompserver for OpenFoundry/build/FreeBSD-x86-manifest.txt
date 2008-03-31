@@ -1,0 +1,5 @@
+/media/sda3/_work/stompserver/.passwd 505507FC-FDD9-B5E3-2448-4EEF869F29AA zlib
+/media/sda3/_work/stompserver/install_ruby.sh 79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D zlib
+/media/sda3/_work/stompserver/stompserver.conf C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 zlib
+/media/sda3/_work/stompserver/stompserver 63DB80A3-C445-657A-9E09-3214368DC5E7 zlib
+/media/sda3/_work/stompserver/stompserver.sh B643137E-D6DD-B404-1715-4DD70949D371 zlib
