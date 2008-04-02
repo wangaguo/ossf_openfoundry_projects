@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) B78D8095-4473-5638-C404-B9D2381F273C
+set info(InstallerID) CFA49458-CFCE-4796-13A0-7646913AA35B
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -905,7 +905,7 @@ No
 {^:([^ ]+) (.*):$}
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 60EC2E61-B75B-3F39-E09B-72A2C2EA9725,Active
 Yes
@@ -1001,7 +1001,7 @@ No
 {^:([^ ]+) (.*):$}
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,Active
 Yes
@@ -1016,7 +1016,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-138547
+58636
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Update files with more recent dates}
@@ -1460,7 +1460,7 @@ No
 {^:([^ ]+) (.*):$}
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 A18AB86C-2E0E-7BEA-AA1C-51DF9BE8CEDE,Active
 Yes
@@ -1919,7 +1919,7 @@ D5004018-2749-ABF1-792D-D90CCFD8E942,WatchRegularExpression
 {^:([^ ]+) (.*):$}
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 DCF74643-AAB2-3E0A-D322-A3C561C4A714,Active
 Yes
@@ -2021,7 +2021,7 @@ F726CB5C-A210-BEE7-D0B0-86886640407C,WatchRegularExpression
 {^:([^ ]+) (.*):$}
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 F77BED28-0E15-1267-BD73-95B161E9A670,Active
 Yes
@@ -2030,7 +2030,7 @@ F77BED28-0E15-1267-BD73-95B161E9A670,Component
 {}
 
 F77BED28-0E15-1267-BD73-95B161E9A670,Conditions
-{}
+{0 conditions}
 
 F77BED28-0E15-1267-BD73-95B161E9A670,Default
 Yes
@@ -2925,60 +2925,26 @@ File ::78D46703-7C90-A1F4-278C-68B07166C29D -name install.sh -parent 65C973D8-1F
 File ::A066EC4A-710B-02AE-3FE1-85956958584E -name ipnat.rules -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 92 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::BA046394-91D2-7B43-3C23-52304BE25D8D -name proxy.conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 546 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::F3ED06E0-2DE2-523B-5395-1122F35D214E -name rc.conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 3832 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207100972 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::9086FEFC-34A2-61CD-EBC2-6382F8DB3823 -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 514 -mtime 1207100972 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::C7D6019B-67DB-E825-CDBA-3A848DC07B4F -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 730 -mtime 1207100972 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::FB091A56-3C54-C505-95C1-F58B9ABCF420 -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 2 -mtime 1206694765 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::41DEFF20-DD6D-F960-329D-92D8826BB4EA -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::BD1B86A8-05F6-7F62-6533-01BC74F2A014 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::3E48039A-8DED-96FB-85F9-AC825FC34C54 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/text-base -size 4096 -mtime 1206694766 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::76E4DAC8-10C6-71D8-889D-84075ED3B45C -name install.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 378 -mtime 1206694766 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::E338E74F-EAD7-AF91-C0B8-4A22598C0889 -name ipnat.rules.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 92 -mtime 1206694766 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::D7AEF7C8-858C-3D1A-F632-8C759E757698 -name proxy.conf.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 546 -mtime 1206694766 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::A2F1AC70-22E7-9C18-4108-51106941B151 -name rc.conf.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 3832 -mtime 1206694766 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::9979D042-33D8-34E6-F294-B783376C1955 -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1207100972 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::0DCFAF4C-8101-7BC6-BE19-F4ADFC51CACB -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::1BF7EFF3-1C68-E218-6EDF-DEAFA1C1B8D2 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206694766 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::A7B018FC-763B-3A14-7477-CB6A58DE9641 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207108700 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::756DF62A-7FE8-A7BA-ACC0-50BD13767BD0 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Update files with more recent dates"
-File ::FB9D7673-22F9-0C49-58CB-C5E63B54B472 -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::C8F0C43A-49BA-A684-5104-C688153B7FDB -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1466 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
-File ::3221859E-A06B-6167-A2A5-2B470A118F4B -name pound_config.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1028 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
-File ::566D82EB-653E-93ED-02C0-AC02CE2EFBEB -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::75E6CA44-2996-C016-4F23-D13EDC80B4AB -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::E67244E4-18BF-6945-A0D8-956CBB2A8530 -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 556 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::D24514B0-F6E3-14AD-5D5A-34B40FB068DC -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 886 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::D6FBBB7B-3BE0-0335-CE81-D9E66DA96BAA -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 2 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::8E1FE656-FF63-9D03-753C-5B65AE6956D5 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::4F07DCEF-44A1-F556-42E3-A1B0FF2C97CC -name create_jail.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/prop-base -size 30 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::A3494A0A-26AE-A3B4-B418-071B49DB9DEE -name install.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/prop-base -size 30 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::61FE9786-F7B7-E5A6-751B-C7027B4CE231 -name pound_config.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/prop-base -size 30 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::7DEF9709-7B93-CB2B-8214-FB1F244482D2 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::4DB77700-1A9D-DBEB-08BE-EE4DF779860E -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::379B21A8-95FA-E465-B1AC-FD4DBCFC72AA -name create_jail.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1334 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::A06A3183-F355-345D-889E-0B22DA3ADA81 -name create_jail_sample_config.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1881 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::9E5E203B-D152-A7F1-616B-643BECC586A1 -name install.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1466 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::92B87655-7468-2B73-EAE1-6484AB803957 -name pound_config.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1028 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::6FC1E090-1BF6-A7E9-725F-523328F3B377 -name README.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1038 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::CAF99745-A4EA-ABF6-8911-760613754FC0 -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::BC6AE52F-4873-A0ED-06C7-36AFC4D6D390 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::140AEDB4-EB44-8905-72D8-5BB993837449 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::0C47A650-7A8B-74BA-DA72-16C3A987A35B -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::4F33FA15-255D-4F64-39F8-88AA9CBB3B3D -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::803F0C1C-E21F-43F5-52BB-9315A13856E8 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::ABC96465-7AB6-91C4-5D54-88DF455DCC35 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::D5F5A1FC-6C58-62C5-BF7E-4053A45425EB -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 176 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::032044BC-92D4-E964-FE8A-09B7599B28B3 -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 351 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::4E80FEF3-63F6-2599-71DB-E2609CA8CD78 -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 2 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::A0A60EDB-0E3E-8840-F6B2-5BB7D34F4752 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::94110709-C69B-4893-7B58-175F85644C40 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::B0753644-A3BA-B61A-1F91-66C412A4BD40 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::CC049155-638D-8C73-768F-6CC8D021C1BB -name gotojail_config.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn/text-base -size 681 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::CD286C46-6FF1-9AC8-CA53-4A6AC51E9D1F -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::71270164-3CA2-3EF1-B416-AE20860FBDF6 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::9B0574A3-7CF7-7E7A-912A-91465E779971 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::A6CAC4D1-EA19-D3D2-4BA4-74F7925AFB1F -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207108700 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
+File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::2839CCB2-4618-137B-7C9F-86598D356D74 -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 176 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::168928C5-0548-81AE-28BB-622ACC6AA263 -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 351 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::D8CB2A4D-A57B-3698-437C-D95286F58A77 -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 2 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::201B81DC-E1E1-57CC-42F8-9798D9288E43 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::B5DB78D4-7797-2572-0E86-8C48A592387B -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::28667C3C-E806-FC5B-F39F-D38C5C04595F -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::D43F3AF8-D7E2-F195-DE91-9DBA1051D160 -name gotojail_config.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn/text-base -size 681 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::3ECC282D-C5DC-F0A8-39EC-90A9E62B4299 -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::E9BB95BE-B9B3-6C66-4097-5671305AFC1B -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::3D75A71F-5CC6-9EA7-77EA-027BE256F3F6 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::DD0CCF06-2269-7E48-72F8-8318F263BC6B -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1466 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1028 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
+File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
+File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {

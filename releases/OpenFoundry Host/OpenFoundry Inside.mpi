@@ -185,7 +185,7 @@ File ::78D46703-7C90-A1F4-278C-68B07166C29D -name install.sh -parent E96634E7-26
 File ::A066EC4A-710B-02AE-3FE1-85956958584E -name ipnat.rules -parent E96634E7-262B-0A5C-A572-36790F86EA25
 File ::BA046394-91D2-7B43-3C23-52304BE25D8D -name proxy.conf -parent E96634E7-262B-0A5C-A572-36790F86EA25
 File ::F3ED06E0-2DE2-523B-5395-1122F35D214E -name rc.conf -parent E96634E7-262B-0A5C-A572-36790F86EA25
-File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -type dir -name .svn -parent E96634E7-262B-0A5C-A572-36790F86EA25
+File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -type dir -name .svn -active 0 -parent E96634E7-262B-0A5C-A572-36790F86EA25
 File ::9086FEFC-34A2-61CD-EBC2-6382F8DB3823 -name all-wcprops -parent E1487014-CA4C-1BEC-F5C8-274AB620467D
 File ::C7D6019B-67DB-E825-CDBA-3A848DC07B4F -name entries -parent E1487014-CA4C-1BEC-F5C8-274AB620467D
 File ::FB091A56-3C54-C505-95C1-F58B9ABCF420 -name format -parent E1487014-CA4C-1BEC-F5C8-274AB620467D
@@ -200,6 +200,14 @@ File ::9979D042-33D8-34E6-F294-B783376C1955 -type dir -name tmp -parent E1487014
 File ::0DCFAF4C-8101-7BC6-BE19-F4ADFC51CACB -type dir -name prop-base -parent 9979D042-33D8-34E6-F294-B783376C1955
 File ::1BF7EFF3-1C68-E218-6EDF-DEAFA1C1B8D2 -type dir -name props -parent 9979D042-33D8-34E6-F294-B783376C1955
 File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -type dir -name text-base -parent 9979D042-33D8-34E6-F294-B783376C1955
+File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -type dir -name gotojail -parent E96634E7-262B-0A5C-A572-36790F86EA25
+File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -type dir -name conf -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::2D15D10E-5866-07F4-CE48-9CD8485F7178 -type dir -name .svn -active 0 -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 Component ::23A4DC27-44AD-45FB-B390-B0D386548EF2 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::5CB8A105-9859-A9C6-CFCA-98F708E6E10D -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::46BB6C77-504D-93EB-258D-5B2020905421 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -573,7 +581,7 @@ Yes
 {sh create_jail.sh <%Jail_FTP%>}
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 60EC2E61-B75B-3F39-E09B-72A2C2EA9725,Alias
 {Startup Actions}
@@ -609,7 +617,7 @@ Yes
 Yes
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,Destination
 <%InstallDir%>
@@ -810,7 +818,7 @@ Yes
 Yes
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 9C47753E-9D29-B2C6-79A9-EA3008AB1FBC,Comment
 {Ask the user if they want to proceed with the uninstall.}
@@ -1053,7 +1061,7 @@ D5004018-2749-ABF1-792D-D90CCFD8E942,ShowProgressiveOutput
 Yes
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 E7094588-0B4F-3475-0E05-7BEA8E0DF41C,ExitType
 Finish
@@ -1098,7 +1106,10 @@ F726CB5C-A210-BEE7-D0B0-86886640407C,ShowProgressiveOutput
 Yes
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
+
+F77BED28-0E15-1267-BD73-95B161E9A670,Conditions
+{0 conditions}
 
 F77BED28-0E15-1267-BD73-95B161E9A670,Default
 Yes
