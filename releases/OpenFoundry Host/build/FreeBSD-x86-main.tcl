@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) CFA49458-CFCE-4796-13A0-7646913AA35B
+set info(InstallerID) 38D95B01-9F10-A703-A0A4-69F3FDFB9229
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -329,7 +329,10 @@ None
 Yes
 
 192C479F-223A-64AB-F7F1-5459FBD7BFC7,Value
-{rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
+{rt 
+<%InstallDir%>/jails/rt
+rt.of.openfoundry.org
+192.168.0.30}
 
 192C479F-223A-64AB-F7F1-5459FBD7BFC7,VirtualText
 Jail_RT
@@ -890,7 +893,7 @@ Yes
 ExternalProgramResult
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ShowProgressiveOutput
-No
+Yes
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,StatusVirtualText
 ExternalProgramStatus
@@ -1895,7 +1898,7 @@ D5004018-2749-ABF1-792D-D90CCFD8E942,IncludeStderr
 Yes
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgramCommandLine
-{sh create_jail.sh <%Jail_OF%>}
+{sh create_jail.sh <%Jail_OF%>of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgressiveOutputWidget
 {}
