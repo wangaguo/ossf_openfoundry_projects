@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 38D95B01-9F10-A703-A0A4-69F3FDFB9229
+set info(InstallerID) F9E1D1B5-51C8-0FE8-BBF6-96E8786225F3
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -329,10 +329,7 @@ None
 Yes
 
 192C479F-223A-64AB-F7F1-5459FBD7BFC7,Value
-{rt 
-<%InstallDir%>/jails/rt
-rt.of.openfoundry.org
-192.168.0.30}
+{rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
 
 192C479F-223A-64AB-F7F1-5459FBD7BFC7,VirtualText
 Jail_RT
@@ -884,7 +881,7 @@ No
 Yes
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ProgramCommandLine
-{sh create_jail.sh <%Jail_FTP%>}
+{sh create_jail.sh ftp <%InstallDir%>/jails/ftp ftp.of.openfoundry.org 192.168.0.100}
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ProgressiveOutputWidget
 {}
@@ -980,7 +977,7 @@ No
 Yes
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,ProgramCommandLine
-{sh create_jail.sh <%Jail_OF%>}
+{sh create_jail.sh vcs <%InstallDir%>/jails/vcs vcs.of.openfoundry.org 192.168.0.40}
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,ProgressiveOutputWidget
 {}
@@ -1439,7 +1436,7 @@ No
 Yes
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,ProgramCommandLine
-{sh create_jail.sh <%Jail_RT%>}
+{sh create_jail.sh rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,ProgressiveOutputWidget
 {}
@@ -1898,7 +1895,7 @@ D5004018-2749-ABF1-792D-D90CCFD8E942,IncludeStderr
 Yes
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgramCommandLine
-{sh create_jail.sh <%Jail_OF%>of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
+{sh create_jail.sh of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgressiveOutputWidget
 {}
@@ -2000,7 +1997,7 @@ F726CB5C-A210-BEE7-D0B0-86886640407C,IncludeStderr
 Yes
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,ProgramCommandLine
-{sh create_jail.sh <%Jail_DATA%>}
+{sh create_jail.sh data <%InstallDir%>/jails/data data.openfoundry.org 192.168.0.10}
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,ProgressiveOutputWidget
 {}
