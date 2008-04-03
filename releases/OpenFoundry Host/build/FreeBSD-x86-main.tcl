@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 1D28A77B-F8E4-45A8-F076-0954187E7291
+set info(InstallerID) BF176459-DC84-03C1-D9B8-3537835B3DD6
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -515,7 +515,7 @@ Yes
 {After Pane is Displayed}
 
 29E28522-9663-C7FD-C0B8-3E5DF452E6DD,File
-/var/run/jail_rt.id
+/var/run/jail_20_rt.id
 
 29E28522-9663-C7FD-C0B8-3E5DF452E6DD,ID
 {}
