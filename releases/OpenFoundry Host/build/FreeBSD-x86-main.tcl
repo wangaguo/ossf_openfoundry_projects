@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 4039B9A8-C075-1771-7770-B7EDEA458A87
+set info(InstallerID) 1D28A77B-F8E4-45A8-F076-0954187E7291
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -785,33 +785,6 @@ Yes
 {}
 
 4A0C6806-D78B-ABD6-6310-D1D453E2390F,IgnoreErrors
-No
-
-51E50585-2498-8567-7719-3EE553B80447,Action
-{Setup Jail Options}
-
-51E50585-2498-8567-7719-3EE553B80447,Active
-Yes
-
-51E50585-2498-8567-7719-3EE553B80447,Alias
-{Setup Defaults}
-
-51E50585-2498-8567-7719-3EE553B80447,Component
-{}
-
-51E50585-2498-8567-7719-3EE553B80447,Conditions
-{0 conditions}
-
-51E50585-2498-8567-7719-3EE553B80447,EvaluateConditions
-Yes
-
-51E50585-2498-8567-7719-3EE553B80447,ExecuteAction
-{After Pane is Displayed}
-
-51E50585-2498-8567-7719-3EE553B80447,ID
-{}
-
-51E50585-2498-8567-7719-3EE553B80447,IgnoreErrors
 No
 
 5232A489-B82F-78A8-F766-772B5E79ED31,Active
@@ -23507,7 +23480,6 @@ InstallType ::Console
 InstallComponent F77BED28-0E15-1267-BD73-95B161E9A670 -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent Console
 InstallComponent 200C24BE-4475-060E-AA9D-15C3874583D9 -setup Install -type action -conditions 5E76074F-49A8-3097-FA7F-69C79041B25E -title Exit -component Exit -command insert -active Yes -parent Console
 Condition 5E76074F-49A8-3097-FA7F-69C79041B25E -active Yes -parent 200C24BE-4475-060E-AA9D-15C3874583D9 -title {String Is Condition} -component StringIsCondition
-InstallComponent 51E50585-2498-8567-7719-3EE553B80447 -setup Install -type action -title {Setup Defaults} -component ExecuteAction -alias {Setup Defaults} -active Yes -parent Console
 InstallComponent C5CA3EE0-A412-7C3C-EED4-D83C4090B830 -setup Install -type action -conditions 636E8500-66D4-D659-4B5D-2A7867731CF7 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent Console
 Condition 636E8500-66D4-D659-4B5D-2A7867731CF7 -active Yes -parent C5CA3EE0-A412-7C3C-EED4-D83C4090B830 -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent F4AD4B1D-5CCA-FE41-0905-6062B4AE0A0F -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Console

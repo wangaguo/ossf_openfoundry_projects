@@ -271,7 +271,6 @@ InstallComponent 7931EDD2-753F-1511-1337-1F799ACB81D7 -setup Install -type pane 
 InstallComponent F77BED28-0E15-1267-BD73-95B161E9A670 -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
 InstallComponent 200C24BE-4475-060E-AA9D-15C3874583D9 -setup Install -type action -conditions 5E76074F-49A8-3097-FA7F-69C79041B25E -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 5E76074F-49A8-3097-FA7F-69C79041B25E -active Yes -parent 200C24BE-4475-060E-AA9D-15C3874583D9 -title {String Is Condition} -component StringIsCondition
-InstallComponent 51E50585-2498-8567-7719-3EE553B80447 -setup Install -type action -title {Setup Defaults} -component ExecuteAction -alias {Setup Defaults} -active Yes -parent ConsoleInstall
 InstallComponent C5CA3EE0-A412-7C3C-EED4-D83C4090B830 -setup Install -type action -conditions 636E8500-66D4-D659-4B5D-2A7867731CF7 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 636E8500-66D4-D659-4B5D-2A7867731CF7 -active Yes -parent C5CA3EE0-A412-7C3C-EED4-D83C4090B830 -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent F4AD4B1D-5CCA-FE41-0905-6062B4AE0A0F -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent ConsoleInstall
@@ -554,15 +553,6 @@ Yes
 
 50975D36-5B71-6A34-24B2-9C96F8BF1506,Alias
 {Setup Actions}
-
-51E50585-2498-8567-7719-3EE553B80447,Action
-{Setup Jail Options}
-
-51E50585-2498-8567-7719-3EE553B80447,Alias
-{Setup Defaults}
-
-51E50585-2498-8567-7719-3EE553B80447,Conditions
-{0 conditions}
 
 5232A489-B82F-78A8-F766-772B5E79ED31,Alias
 {Install Actions}
