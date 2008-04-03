@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) F9E1D1B5-51C8-0FE8-BBF6-96E8786225F3
+set info(InstallerID) BB09BDAB-ED55-A614-100A-A17E151F8D76
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -1016,7 +1016,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-58636
+71076
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Update files with more recent dates}
@@ -1588,66 +1588,6 @@ No
 AIX-ppc,RootInstallDir
 /usr/local/<%ShortAppName%>
 
-BB74E5AC-047D-6273-4D65-1049317471F3,Active
-Yes
-
-BB74E5AC-047D-6273-4D65-1049317471F3,Alias
-{Generate Pound conf}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,Component
-{}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,Conditions
-{0 conditions}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ConsoleTitle
-{<%AppName%> Setup}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ExecuteAction
-{After Pane is Displayed}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ExecuteAsRoot
-Yes
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ExecuteInConsole
-No
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ID
-{}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,IgnoreErrors
-No
-
-BB74E5AC-047D-6273-4D65-1049317471F3,IncludeStderr
-Yes
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ProgramCommandLine
-{sh pound_config.sh <%InstallDir%>/jails}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ProgressiveOutputWidget
-{}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ResultVirtualText
-ExternalProgramResult
-
-BB74E5AC-047D-6273-4D65-1049317471F3,ShowProgressiveOutput
-Yes
-
-BB74E5AC-047D-6273-4D65-1049317471F3,StatusVirtualText
-ExternalProgramStatus
-
-BB74E5AC-047D-6273-4D65-1049317471F3,WaitForProgram
-Yes
-
-BB74E5AC-047D-6273-4D65-1049317471F3,WatchProgressiveOutput
-No
-
-BB74E5AC-047D-6273-4D65-1049317471F3,WatchRegularExpression
-{^:([^ ]+) (.*):$}
-
-BB74E5AC-047D-6273-4D65-1049317471F3,WorkingDirectory
-<%InstallDir%>
-
 BD633F98-0C01-F801-9598-CFEE68DE846A,Active
 Yes
 
@@ -2129,7 +2069,7 @@ FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WatchRegularExpression
 {^:([^ ]+) (.*):$}
 
 FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WorkingDirectory
-<%InstallDir%>
+<%InstallDir%>/gotojail
 
 FEB1BF8F-4C93-0C1A-A3ED-FCCD67F0C53E,Active
 Yes
@@ -2920,12 +2860,12 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::E96634E7-262B-0A5C-A572-36790F86EA25 -name host -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207102845 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::E96634E7-262B-0A5C-A572-36790F86EA25 -name host -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207188416 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::78D46703-7C90-A1F4-278C-68B07166C29D -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 378 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::A066EC4A-710B-02AE-3FE1-85956958584E -name ipnat.rules -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 92 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::BA046394-91D2-7B43-3C23-52304BE25D8D -name proxy.conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 546 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::F3ED06E0-2DE2-523B-5395-1122F35D214E -name rc.conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 3832 -mtime 1206694766 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207108700 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207188415 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
@@ -2940,11 +2880,12 @@ File ::3ECC282D-C5DC-F0A8-39EC-90A9E62B4299 -name tmp -parent 65C973D8-1F96-A6D9
 File ::E9BB95BE-B9B3-6C66-4097-5671305AFC1B -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::3D75A71F-5CC6-9EA7-77EA-027BE256F3F6 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::DD0CCF06-2269-7E48-72F8-8318F263BC6B -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1466 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1618 -mtime 1207188415 -permissions 00700 -filemethod "Update files with more recent dates"
 File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1028 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::5BFAD953-D66C-D535-3C9E-B4D5BF958D79 -name .install.sh.swp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 12288 -mtime 1207188422 -permissions 00644 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -23583,7 +23524,6 @@ InstallComponent 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1 -setup Install -type actio
 InstallComponent 9B5D19E5-18E4-1FAE-5132-073998BA7D72 -setup Install -type action -title {Run Install Jails RT} -component ExecuteExternalProgram -alias {Run Install Jails RT} -active Yes -parent Console
 InstallComponent 5EB6748B-D366-A83F-28DE-5655C2A0A8E3 -setup Install -type action -title {Run Install Jails FTP} -component ExecuteExternalProgram -alias {Run Install Jails FTP} -active Yes -parent Console
 InstallComponent FC6AEC71-8E5F-2A74-4AF1-150900DA6238 -setup Install -type action -title {Run Install.sh} -component ExecuteExternalProgram -alias {Run Install.sh} -active Yes -parent Console
-InstallComponent BB74E5AC-047D-6273-4D65-1049317471F3 -setup Install -type action -title {Generate Pound conf} -component ExecuteExternalProgram -alias {Generate Pound conf} -active Yes -parent Console
 InstallComponent 3008DD71-184E-8F98-3845-CD3D0CFC1CA7 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
 InstallComponent 6E7AF4A6-7B68-89D5-4B3A-BA428DAA13D7 -setup Install -type action -title Exit -component Exit -active Yes -parent Console
 InstallType ::Silent
