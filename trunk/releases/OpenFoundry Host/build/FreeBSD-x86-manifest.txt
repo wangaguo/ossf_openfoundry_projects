@@ -12,3 +12,4 @@
 /media/sda3/_work/host/gotojail/create_jail_sample_config 577B9C73-7384-F32C-D978-89644314745D zlib
 /media/sda3/_work/host/gotojail/README FE05DB8A-529F-5779-6FF6-CE2250556F81 zlib
 /media/sda3/_work/host/gotojail/create_jail.sh AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 zlib
+/media/sda3/_work/host/gotojail/.install.sh.swp 5BFAD953-D66C-D535-3C9E-B4D5BF958D79 zlib
