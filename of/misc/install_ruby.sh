@@ -1,96 +1,91 @@
 #!/bin/sh
-myprefix="$HOME/ruby"
-download="$myprefix/download"
-build="$myprefix/build"
-ruby="$myprefix/ruby"
+: ${myprefix=$HOME/ruby}
+: ${download_dir=$myprefix/download}
+: ${build_dir=$myprefix/build}
+: ${ruby_dir=$myprefix/ruby}
 
-# download build
+: ${libiconv_url=http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.12.tar.gz}
+: ${ruby_url=ftp://ftp.ruby-lang.org/pub/ruby/1.8/ruby-1.8.6-p114.tar.gz}
+: ${rubygems_url=http://rubyforge.org/frs/download.php/29548/rubygems-1.0.1.tgz}
+: ${ruby_make_target=install-all}
+
+
 install_iconv_freebsd()
 {
-	olddir=`pwd`
-	download $1 libiconv-1.12.tar.gz http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.12.tar.gz
-	mkdir -p $2
-	cd $2
-	tar zxpf $1/libiconv-1.12.tar.gz
-	cd libiconv-1.12
-	./configure --prefix=$myprefix/libiconv-1.12
+	download "$libiconv_url"
+	mkdir -p "$build_dir" 
+	cd "$build_dir"
+	base_name=${libiconv_url##*/}
+	tar zxpf "$download_dir/$base_name"
+	base_name=${base_name%.tar.gz}
+	cd "$base_name"
+	./configure "--prefix=$myprefix/$base_name"
 	make install
-        cd $olddir
 }
 
-# download download_dir target_dir filename url
-# no base name..
+# $1: url
 download()
 {
-        olddir=`pwd`
-        mkdir -p $1
-        cd $1
-        if [ ! -f $2 ]; then
-		echo "going to download $3"
+	url=$1
+
+	mkdir -p "$download_dir"
+	base_name=${url##*/}
+	output_file="$download_dir/$base_name"
+        if [ ! -f $output_file ]; then
+		echo "downloading $url to $download_dir ..."
 		if [ 'FreeBSD' = `uname` ]; then
-			fetch $3
+			fetch -o "${output_file}" "$url"
 		else
-			wget $3
+			wget -O "${output_file}" "$url"
 		fi
         fi
-        cd $olddir
 }
 
-
-# download build
 install_prerequisites()
 {
 	if [ 'FreeBSD' = `uname` ]; then
 		echo 'installing prerequisites for FreeBSD ...'
-		install_iconv_freebsd $1 $2
+		install_iconv_freebsd
 	else
 		echo 'installing prerequisites for Ubuntu ...'
 		sudo apt-get install build-essential zlib1g-dev libreadline-dev libssl-dev
 	fi
 }
 
-# use absolute paths as parameters
-# download build prefix
 extract_and_make_ruby()
 {
-	olddir=`pwd`
-	mkdir -p $2
-	cd $2
-	tar zxpf $1/ruby-1.8.6-p111.tar.gz
-	cd ruby-1.8.6-p111
-	./configure --prefix $3
+	cd "$build_dir"
+	base_name=${ruby_url##*/}
+	tar zxpf "$download_dir/$base_name"
+	base_name=${base_name%.tar.gz}
+	cd "$base_name"
+	./configure --prefix "$ruby_dir"
 	make
-	make install-all
-	cd $olddir
+	make "$ruby_make_target"
 }
 
 
-# use absolute paths as parameters
-# download build prefix
 extract_and_make_rubygems()
 {
-	olddir=`pwd`
-	mkdir -p $2
-	cd $2
-	tar zxpf $1/rubygems-1.0.1.tgz
-	cd rubygems-1.0.1
-	touch $2/before_install_rubygems; sleep 1
+	cd "$build_dir"
+	base_name=${rubygems_url##*/}
+	tar zxpf "$download_dir/$base_name"
+	base_name=${base_name%.tgz}
+	cd "$base_name"
+	touch "$build_dir/before_install_rubygems"; sleep 1
 	ruby setup.rb
-	find $ruby -newer $2/before_install_rubygems > $2/after_install_rubygems
-	cd $olddir
+	find "$ruby_dir" -newer "$build_dir/before_install_rubygems" > "$build_dir"/after_install_rubygems
 }
 
-install_prerequisites $download $build
-download $download ruby-1.8.6-p111.tar.gz http://ftp.cs.pu.edu.tw/Unix/lang/Ruby/ruby-1.8.6-p111.tar.gz
+install_prerequisites
+download "$ruby_url"
 extract_and_make_ruby $download $build $ruby
-PATH="$ruby/bin:$PATH"; export PATH
-download $download rubygems-1.0.1.tgz http://rubyforge.org/frs/download.php/29548/rubygems-1.0.1.tgz 
-extract_and_make_rubygems $download $build $ruby
+
+PATH="$ruby_dir/bin:$PATH"; export PATH
+download "$rubygems_url"
+extract_and_make_rubygems
 
 echo "Please add the following settings:"
-echo "PATH=\"$ruby/bin:\$PATH\"; export PATH"
-echo "PATH=\"$ruby/bin:\$PATH\"; export PATH" > "$myprefix/ruby_settings.sh"
+echo "PATH=\"$ruby_dir/bin:\$PATH\"; export PATH" | tee "$myprefix/ruby_settings.sh"
 echo "or"
-echo "setenv PATH \"$ruby/bin:\$PATH\""
-echo "setenv PATH \"$ruby/bin:\$PATH\"" > "$myprefix/ruby_settings.csh"
-
+echo "setenv PATH \"$ruby_dir/bin:\$PATH\"" | tee "$myprefix/ruby_settings.csh"
