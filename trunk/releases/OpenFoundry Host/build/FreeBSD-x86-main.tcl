@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) DEDA5BEE-342A-9651-6BB3-31CECF12C85A
+set info(InstallerID) DDA519F7-12DA-795C-9000-55AC4EA6717E
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -289,6 +289,66 @@ Yes
 0414B4DE-C6B5-ADF8-55C2-94E4A5E0C69D,IgnoreErrors
 No
 
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,Active
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,Alias
+{Jexec DATA}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,Component
+{}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,Conditions
+{0 conditions}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ConsoleTitle
+{<%AppName%> Setup}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ExecuteAction
+{After Pane is Displayed}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ExecuteAsRoot
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ExecuteInConsole
+No
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ID
+{}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,IgnoreErrors
+No
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,IncludeStderr
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
+{jexec <%Jail_DATA%> "/root/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install"}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgressiveOutputWidget
+{}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ResultVirtualText
+ExternalProgramResult
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ShowProgressiveOutput
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,StatusVirtualText
+ExternalProgramStatus
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,WaitForProgram
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,WatchProgressiveOutput
+No
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,WorkingDirectory
+<%InstallDir%>
+
 14BAA3A9-305F-FF78-82DD-F499425BC056,Active
 Yes
 
@@ -339,6 +399,9 @@ Next/Cancel
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,Active
 Yes
+
+19A6775D-B618-CA48-8BF8-E41BFAAA9677,Alias
+{Jexec RT}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,Component
 {}
@@ -1037,7 +1100,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-4905441
+4912345
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Update files with more recent dates}
@@ -1441,6 +1504,63 @@ false
 A18AB86C-2E0E-7BEA-AA1C-51DF9BE8CEDE,String
 <%UpgradeInstall%>
 
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,Active
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,Component
+{}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,Conditions
+{0 conditions}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ConsoleTitle
+{<%AppName%> Setup}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ExecuteAction
+{After Pane is Displayed}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ExecuteAsRoot
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ExecuteInConsole
+No
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ID
+{}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,IgnoreErrors
+No
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,IncludeStderr
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ProgramCommandLine
+{cp "<%InstallDir%>/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/data/root}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ProgressiveOutputWidget
+{}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ResultVirtualText
+ExternalProgramResult
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ShowProgressiveOutput
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,StatusVirtualText
+ExternalProgramStatus
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,WaitForProgram
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,WatchProgressiveOutput
+No
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,WorkingDirectory
+<%InstallDir%>
+
 A9086369-EEF0-7905-8549-05A0284B1952,Active
 Yes
 
@@ -1599,6 +1719,36 @@ C2BD5EAA-1B6E-A4E2-68E2-BD34900B78F5,UninstallDirectory
 
 C2BD5EAA-1B6E-A4E2-68E2-BD34900B78F5,UninstallFilename
 uninstall<%Ext%>
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,Active
+Yes
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,Component
+{}
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,Conditions
+{0 conditions}
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,Encoding
+{}
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,ExecuteAction
+{After Pane is Displayed}
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,File
+/var/run/jail_00_data.id
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,ID
+{}
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,IgnoreErrors
+No
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,TrimString
+Yes
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,VirtualText
+Jail_DATA
 
 C5CA3EE0-A412-7C3C-EED4-D83C4090B830,Active
 Yes
@@ -2839,7 +2989,7 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::E96634E7-262B-0A5C-A572-36790F86EA25 -name host -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207188416 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::E96634E7-262B-0A5C-A572-36790F86EA25 -name host -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207210659 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207192769 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
@@ -2880,7 +3030,7 @@ File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -par
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Update files with more recent dates"
 File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1639939 -mtime 1207127652 -permissions 00755 -filemethod "Update files with more recent dates"
-File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1580424 -mtime 1207127727 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1587328 -mtime 1207210863 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1590067 -mtime 1207127728 -permissions 00755 -filemethod "Update files with more recent dates"
 
 }
@@ -23533,9 +23683,12 @@ InstallComponent 2A514D5B-0209-5B44-374D-47FE02D5D7C0 -setup Install -type actio
 InstallComponent 6CFAEAA4-86C9-C367-B09B-D5F77E9532EC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
 InstallComponent 14BAA3A9-305F-FF78-82DD-F499425BC056 -setup Install -type actiongroup -title {Change Jail Options} -alias {Change Jail Options} -active Yes -parent ActionGroups
 InstallComponent 45B7FCAE-BE64-870D-2F8C-EA3635194611 -setup Install -type actiongroup -title {Setup Jail Options} -alias {Setup Jail Options} -active Yes -parent ActionGroups
+InstallComponent C539ED61-B6DF-E11A-2A1B-4038F198B420 -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 29E28522-9663-C7FD-C0B8-3E5DF452E6DD -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
-InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent A8FD02D7-C5F1-054C-B227-EE2794E43DDB -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F -setup Install -type action -title {Jexec DATA} -component ExecuteExternalProgram -alias {Jexec DATA} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Jexec RT} -component ExecuteExternalProgram -alias {Jexec RT} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 
 
 proc ::ThemeMain {} {

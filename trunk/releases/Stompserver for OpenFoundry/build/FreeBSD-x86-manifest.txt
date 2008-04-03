@@ -3,3 +3,15 @@
 /media/sda3/_work/stompserver/stompserver.conf C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 zlib
 /media/sda3/_work/stompserver/stompserver 63DB80A3-C445-657A-9E09-3214368DC5E7 zlib
 /media/sda3/_work/stompserver/stompserver.sh B643137E-D6DD-B404-1715-4DD70949D371 zlib
+/media/sda3/_work/stompserver/.svn/all-wcprops 2F0C4BFD-3622-8568-0F3B-5F53A9FE1A22 zlib
+/media/sda3/_work/stompserver/.svn/entries 18B8BB3F-E1E0-B857-AC16-C16C2FCAA625 zlib
+/media/sda3/_work/stompserver/.svn/format A5645542-4025-B086-1634-32337FE46D44 zlib
+/media/sda3/_work/stompserver/.svn/prop-base/install_ruby.sh.svn-base 74DA04E2-81B7-94DF-967F-E9A1EA2C2C91 zlib
+/media/sda3/_work/stompserver/.svn/prop-base/stompserver.sh.svn-base 66E847E3-6B7F-29A8-C71E-50CD95966E80 zlib
+/media/sda3/_work/stompserver/.svn/prop-base/stompserver.svn-base DA807343-2E92-A251-A996-69158BEFA844 zlib
+/media/sda3/_work/stompserver/.svn/text-base/.passwd.svn-base AB577E03-2DA6-6C25-3562-D82019B87E83 zlib
+/media/sda3/_work/stompserver/.svn/text-base/install_ruby.sh.svn-base 24B3E07D-4A75-B070-2164-2E55FF1C6053 zlib
+/media/sda3/_work/stompserver/.svn/text-base/stompserver.conf.svn-base 5C1E605C-9778-2C11-9888-B7D0D95AB14E zlib
+/media/sda3/_work/stompserver/.svn/text-base/stompserver.sh.svn-base 30A18B9A-4BAC-3AE6-E11E-A604BB3BC50A zlib
+/media/sda3/_work/stompserver/.svn/text-base/stompserver.svn-base 4F8F5EF6-0C36-AD66-5058-DB13A1D00C59 zlib
+/media/sda3/_work/stompserver/install_db.sh FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A zlib

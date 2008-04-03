@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 6C030C74-76B5-691F-929F-335226345A01
+set info(InstallerID) B83B67FC-52F6-0962-15BD-3A2F3119F657
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -545,7 +545,7 @@ Yes
 <%InstallDir%>
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,FileSize
-7731
+46919
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,FileUpdateMethod
 {Update files with more recent dates}
@@ -1635,6 +1635,66 @@ C2FB75F5-99E9-25E4-7EED-0624AF02CBC7,ID
 C2FB75F5-99E9-25E4-7EED-0624AF02CBC7,IgnoreErrors
 No
 
+CA695D57-52D7-446D-3A80-8FF9CD866459,Active
+Yes
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,Alias
+{Install DB}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,Component
+{}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,Conditions
+{0 conditions}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ConsoleTitle
+{<%AppName%> Setup}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ExecuteAction
+{After Pane is Displayed}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ExecuteAsRoot
+Yes
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ExecuteInConsole
+No
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ID
+{}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,IgnoreErrors
+No
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,IncludeStderr
+Yes
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ProgramCommandLine
+{sh install_db.sh}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ProgressiveOutputWidget
+{}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ResultVirtualText
+ExternalProgramResult
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,ShowProgressiveOutput
+Yes
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,StatusVirtualText
+ExternalProgramStatus
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,WaitForProgram
+Yes
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,WatchProgressiveOutput
+No
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+CA695D57-52D7-446D-3A80-8FF9CD866459,WorkingDirectory
+<%InstallDir%>
+
 CB5B0DD7-51CA-DDD9-A90C-00D03C6C0804,Active
 Yes
 
@@ -2623,12 +2683,32 @@ proc CreateWindow.CustomBlankPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1206953688 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 193 -mtime 1206932201 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2451 -mtime 1206952015 -permissions 00700 -filemethod "Update files with more recent dates"
-File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 148 -mtime 1206932153 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::63DB80A3-C445-657A-9E09-3214368DC5E7 -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 662 -mtime 1206934023 -permissions 00755 -filemethod "Update files with more recent dates"
-File ::B643137E-D6DD-B404-1715-4DD70949D371 -name stompserver.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 181 -mtime 1206953684 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207210738 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 193 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
+File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2451 -mtime 1206954174 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 148 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
+File ::63DB80A3-C445-657A-9E09-3214368DC5E7 -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 662 -mtime 1206954174 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::B643137E-D6DD-B404-1715-4DD70949D371 -name stompserver.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 181 -mtime 1206954174 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::A9571BF7-0A49-533D-9352-39E3570BC2FD -name .svn -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::2F0C4BFD-3622-8568-0F3B-5F53A9FE1A22 -name all-wcprops -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 694 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::18B8BB3F-E1E0-B857-AC16-C16C2FCAA625 -name entries -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 904 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::A5645542-4025-B086-1634-32337FE46D44 -name format -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 2 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::9D166F18-CC64-C07E-FC34-E314AF1BFF28 -name prop-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/prop-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::74DA04E2-81B7-94DF-967F-E9A1EA2C2C91 -name install_ruby.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/prop-base -size 29 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::66E847E3-6B7F-29A8-C71E-50CD95966E80 -name stompserver.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/prop-base -size 29 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::DA807343-2E92-A251-A996-69158BEFA844 -name stompserver.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/prop-base -size 29 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::3582E12D-AFF2-19DC-05F0-CA67E8826BE8 -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/props -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::DADCF6A3-214F-AE80-24E7-8A914C7A0440 -name text-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/text-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::AB577E03-2DA6-6C25-3562-D82019B87E83 -name .passwd.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 193 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::24B3E07D-4A75-B070-2164-2E55FF1C6053 -name install_ruby.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 2451 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::5C1E605C-9778-2C11-9888-B7D0D95AB14E -name stompserver.conf.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 148 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::30A18B9A-4BAC-3AE6-E11E-A604BB3BC50A -name stompserver.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 181 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::4F8F5EF6-0C36-AD66-5058-DB13A1D00C59 -name stompserver.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 662 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::5910AF71-3593-C6E9-BE27-FDDCCCF86FB1 -name tmp -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::F1F7556B-FEBE-F13A-66A9-1D6EB8A71902 -name prop-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::B33FFEFA-22D6-6024-0A30-146A538D602E -name text-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 1098 -mtime 1207210702 -permissions 00700 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -23228,6 +23308,7 @@ Condition 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -active Yes -parent 59B7B4B2-B4EC
 InstallComponent 36B81582-1192-2679-3E40-3F58690C9405 -setup Install -type action -title {Replace files} -component ReplaceTextInFile -alias {Replace files} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 6D4F9B01-2B35-EFC4-DB85-413CFA354806 -setup Install -type action -title {Add UGO} -component ExecuteAction -alias {Add UGO} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -title {Install Ruby} -component ExecuteExternalProgram -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 729C387C-88AE-74A0-879D-47CFEA1FDF4C -setup Install -type action -title {Run stompserver} -component ExecuteExternalProgram -alias {Run stompserver} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 136EEE11-8D97-3638-C03B-77E94EF7FBCD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups

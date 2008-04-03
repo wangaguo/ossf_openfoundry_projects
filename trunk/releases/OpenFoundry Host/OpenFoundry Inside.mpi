@@ -299,9 +299,12 @@ InstallComponent 2A514D5B-0209-5B44-374D-47FE02D5D7C0 -setup Install -type actio
 InstallComponent 6CFAEAA4-86C9-C367-B09B-D5F77E9532EC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent 14BAA3A9-305F-FF78-82DD-F499425BC056 -setup Install -type actiongroup -title {Change Jail Options} -alias {Change Jail Options} -active Yes -parent ActionGroupsInstall
 InstallComponent 45B7FCAE-BE64-870D-2F8C-EA3635194611 -setup Install -type actiongroup -title {Setup Jail Options} -alias {Setup Jail Options} -active Yes -parent ActionGroupsInstall
+InstallComponent C539ED61-B6DF-E11A-2A1B-4038F198B420 -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 29E28522-9663-C7FD-C0B8-3E5DF452E6DD -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
-InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent A8FD02D7-C5F1-054C-B227-EE2794E43DDB -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F -setup Install -type action -title {Jexec DATA} -component ExecuteExternalProgram -alias {Jexec DATA} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Jexec RT} -component ExecuteExternalProgram -alias {Jexec RT} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent CB4A9F4A-08FF-2288-40E8-6898E5ECE562 -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent F3F7F202-985F-F147-4855-C5D9E8E2C5E2 -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent CB4A9F4A-08FF-2288-40E8-6898E5ECE562
 InstallComponent 7C6BBC6C-6FBE-D201-A800-964980A23542 -setup Uninstall -type action -title {Execute Action} -component ExecuteAction -active Yes -parent CB4A9F4A-08FF-2288-40E8-6898E5ECE562
@@ -338,6 +341,27 @@ array set Properties {
 0414B4DE-C6B5-ADF8-55C2-94E4A5E0C69D,Action
 {Install Actions}
 
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,Alias
+{Jexec DATA}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,Conditions
+{0 conditions}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ExecuteAsRoot
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,IncludeStderr
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
+{jexec <%Jail_DATA%> "/root/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install"}
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ShowProgressiveOutput
+Yes
+
+091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,WorkingDirectory
+<%InstallDir%>
+
 138C9F83-4B7A-5BA6-2133-2D6CB55056D0,Alias
 {Startup Actions}
 
@@ -373,6 +397,9 @@ No
 
 1962B326-782B-DF49-8467-B52241556E4A,NextButton,subst
 1
+
+19A6775D-B618-CA48-8BF8-E41BFAAA9677,Alias
+{Jexec RT}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,Conditions
 {0 conditions}
@@ -848,6 +875,24 @@ false
 A18AB86C-2E0E-7BEA-AA1C-51DF9BE8CEDE,String
 <%UpgradeInstall%>
 
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,Conditions
+{0 conditions}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ExecuteAsRoot
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,IncludeStderr
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ProgramCommandLine
+{cp "<%InstallDir%>/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/data/root}
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ShowProgressiveOutput
+Yes
+
+A8FD02D7-C5F1-054C-B227-EE2794E43DDB,WorkingDirectory
+<%InstallDir%>
+
 A9086369-EEF0-7905-8549-05A0284B1952,BackButton,subst
 1
 
@@ -952,6 +997,15 @@ BD633F98-0C01-F801-9598-CFEE68DE846A,String1
 
 BD633F98-0C01-F801-9598-CFEE68DE846A,String2
 Custom
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,Conditions
+{0 conditions}
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,File
+/var/run/jail_00_data.id
+
+C539ED61-B6DF-E11A-2A1B-4038F198B420,VirtualText
+Jail_DATA
 
 C5CA3EE0-A412-7C3C-EED4-D83C4090B830,Conditions
 {1 condition}
