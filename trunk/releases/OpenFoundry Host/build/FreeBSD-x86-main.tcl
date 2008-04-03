@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) BF176459-DC84-03C1-D9B8-3537835B3DD6
+set info(InstallerID) DEDA5BEE-342A-9651-6BB3-31CECF12C85A
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -1630,6 +1630,63 @@ Yes
 C5CA3EE0-A412-7C3C-EED4-D83C4090B830,VirtualText
 InstallDir
 
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,Active
+Yes
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,Component
+{}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,Conditions
+{0 conditions}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ConsoleTitle
+{<%AppName%> Setup}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ExecuteAction
+{After Pane is Displayed}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ExecuteAsRoot
+Yes
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ExecuteInConsole
+No
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ID
+{}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,IgnoreErrors
+No
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,IncludeStderr
+Yes
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ProgramCommandLine
+{cp "<%InstallDir%>/Request Tracker-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/rt/root}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ProgressiveOutputWidget
+{}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ResultVirtualText
+ExternalProgramResult
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ShowProgressiveOutput
+Yes
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,StatusVirtualText
+ExternalProgramStatus
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,WaitForProgram
+Yes
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,WatchProgressiveOutput
+No
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,WorkingDirectory
+{}
+
 CB0C14BE-D8BC-3E6C-B4C4-D812D2CC9069,Active
 Yes
 
@@ -1992,30 +2049,6 @@ FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WatchRegularExpression
 
 FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WorkingDirectory
 <%InstallDir%>/gotojail
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,Active
-Yes
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,Component
-{}
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,Conditions
-{0 conditions}
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,Destination
-{"<%InstallDir%>/jails/rt/root/Request Tracker-1.0-FreeBSD-x86-Install"}
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,ExecuteAction
-{After Pane is Displayed}
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,ID
-{}
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,IgnoreErrors
-No
-
-FE44FABE-E561-C112-08C5-DB0EDD4DA8E8,Source
-{"<%InstallDir%>/Request Tracker-1.0-FreeBSD-x86-Install"}
 
 FEB1BF8F-4C93-0C1A-A3ED-FCCD67F0C53E,Active
 Yes
@@ -21368,16 +21401,6 @@ set message [::InstallJammer::WrapText $message]
 eval $command [list $message]
 }
 
-proc ::InstallJammer::actions::CopyFile {obj} {
-$obj properties props -subst 1
-
-set dst [::InstallJammer::RelativeFile $props(Destination)]
-
-foreach src [::InstallJammer::GetFilesForPattern $props(Source)] {
-file copy -force $src $dst
-}
-}
-
 proc ::InstallJammer::actions::CreateInstallPanes {obj} {
 global conf
 global info
@@ -23511,7 +23534,7 @@ InstallComponent 6CFAEAA4-86C9-C367-B09B-D5F77E9532EC -setup Install -type actio
 InstallComponent 14BAA3A9-305F-FF78-82DD-F499425BC056 -setup Install -type actiongroup -title {Change Jail Options} -alias {Change Jail Options} -active Yes -parent ActionGroups
 InstallComponent 45B7FCAE-BE64-870D-2F8C-EA3635194611 -setup Install -type actiongroup -title {Setup Jail Options} -alias {Setup Jail Options} -active Yes -parent ActionGroups
 InstallComponent 29E28522-9663-C7FD-C0B8-3E5DF452E6DD -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
-InstallComponent FE44FABE-E561-C112-08C5-DB0EDD4DA8E8 -setup Install -type action -title {Copy File} -component CopyFile -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 
 
