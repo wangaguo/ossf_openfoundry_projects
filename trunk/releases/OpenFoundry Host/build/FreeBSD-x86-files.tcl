@@ -42,5 +42,7 @@ proc ::InstallJammer::InitFiles {} {
     File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1639939 -mtime 1207127652 -permissions 00755 -filemethod "Update files with more recent dates"
     File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1587328 -mtime 1207210863 -permissions 00755 -filemethod "Update files with more recent dates"
     File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1590067 -mtime 1207127728 -permissions 00755 -filemethod "Update files with more recent dates"
+    File ::3EC0DE19-9E0E-24E0-7A8B-80362AB2647E -name {VCS for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1578188 -mtime 1207555570 -permissions 00755 -filemethod "Update files with more recent dates"
+    File ::B2328451-DE50-1706-7747-5308FF4DEDAE -name {OpenFoundry Website-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1575835 -mtime 1207556152 -permissions 00755 -filemethod "Update files with more recent dates"
 
 }
