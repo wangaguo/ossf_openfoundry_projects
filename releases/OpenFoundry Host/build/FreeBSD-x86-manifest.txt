@@ -22,3 +22,5 @@
 {/media/sda3/kaworu/InstallJammerProjects/RT for OpenFoundry/output/Request Tracker-1.0-FreeBSD-x86-Install} 5001DEF7-B792-E28F-B8D5-C43A297D7B92 zlib
 {/media/sda3/kaworu/InstallJammerProjects/Stompserver for OpenFoundry/output/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} B53FC762-F67E-FE35-6CD6-A923D91C322C zlib
 {/media/sda3/kaworu/InstallJammerProjects/ProFTPD for Openfoundry/output/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} B37014DC-2555-A01C-BE3E-80071D13188C zlib
+{/media/sda3/kaworu/InstallJammerProjects/VCS for OpenFoundry/output/VCS for OpenFoundry-1.0-FreeBSD-x86-Install} 3EC0DE19-9E0E-24E0-7A8B-80362AB2647E zlib
+{/media/sda3/kaworu/InstallJammerProjects/OpenFoundry Website/output/OpenFoundry Website-1.0-FreeBSD-x86-Install} B2328451-DE50-1706-7747-5308FF4DEDAE zlib

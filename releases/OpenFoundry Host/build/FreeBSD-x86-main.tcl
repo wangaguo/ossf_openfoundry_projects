@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) DDA519F7-12DA-795C-9000-55AC4EA6717E
+set info(InstallerID) A0582721-7235-3F9D-425D-D19D4E61731D
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -349,6 +349,63 @@ No
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,WorkingDirectory
 <%InstallDir%>
 
+0ADF2576-DC75-C8D0-B19E-14C43E219253,Active
+Yes
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,Component
+{}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,Conditions
+{0 conditions}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ConsoleTitle
+{<%AppName%> Setup}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ExecuteAction
+{After Pane is Displayed}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ExecuteAsRoot
+Yes
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ExecuteInConsole
+No
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ID
+{}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,IgnoreErrors
+No
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,IncludeStderr
+Yes
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ProgramCommandLine
+{cp "<%InstallDir%>/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/ftp/root}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ProgressiveOutputWidget
+{}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ResultVirtualText
+ExternalProgramResult
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,ShowProgressiveOutput
+Yes
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,StatusVirtualText
+ExternalProgramStatus
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,WaitForProgram
+Yes
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,WatchProgressiveOutput
+No
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+0ADF2576-DC75-C8D0-B19E-14C43E219253,WorkingDirectory
+<%InstallDir%>
+
 14BAA3A9-305F-FF78-82DD-F499425BC056,Active
 Yes
 
@@ -457,6 +514,36 @@ No
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,WorkingDirectory
 <%InstallDir%>
 
+1C5107A8-2C1C-65CD-5881-F088B9EED968,Active
+Yes
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,Component
+{}
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,Conditions
+{0 conditions}
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,Encoding
+{}
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,ExecuteAction
+{After Pane is Displayed}
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,File
+/var/run/jail_50_ftpid
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,ID
+{}
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,IgnoreErrors
+No
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,TrimString
+Yes
+
+1C5107A8-2C1C-65CD-5881-F088B9EED968,VirtualText
+Jail_FTP
+
 1F4452A0-399E-6064-308E-D3F58FEBE451,Action
 {Setup Jail Options}
 
@@ -504,6 +591,63 @@ Cancel
 
 200C24BE-4475-060E-AA9D-15C3874583D9,IgnoreErrors
 No
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,Active
+Yes
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,Component
+{}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,Conditions
+{0 conditions}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ConsoleTitle
+{<%AppName%> Setup}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ExecuteAction
+{After Pane is Displayed}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ExecuteAsRoot
+Yes
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ExecuteInConsole
+No
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ID
+{}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,IgnoreErrors
+No
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,IncludeStderr
+Yes
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ProgramCommandLine
+{cp "<%InstallDir%>/VCS for OpenFoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/vcs/root}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ProgressiveOutputWidget
+{}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ResultVirtualText
+ExternalProgramResult
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,ShowProgressiveOutput
+Yes
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,StatusVirtualText
+ExternalProgramStatus
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,WaitForProgram
+Yes
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,WatchProgressiveOutput
+No
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+23805F1D-4C10-B99F-5679-71557F2CDBA6,WorkingDirectory
+<%InstallDir%>
 
 23A4DC27-44AD-45FB-B390-B0D386548EF2,Active
 Yes
@@ -1100,7 +1244,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-4912345
+8066368
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Update files with more recent dates}
@@ -1152,6 +1296,36 @@ Finish
 
 6E7AF4A6-7B68-89D5-4B3A-BA428DAA13D7,IgnoreErrors
 No
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,Active
+Yes
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,Component
+{}
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,Conditions
+{0 conditions}
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,Encoding
+{}
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,ExecuteAction
+{After Pane is Displayed}
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,File
+/var/run/jail_99_of.id
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,ID
+{}
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,IgnoreErrors
+No
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,TrimString
+Yes
+
+7334938A-0353-BC97-2DFB-A8ED53A48ACD,VirtualText
+Jail_OF
 
 741E977D-54D8-CA9E-A52C-5C66E045751E,Active
 Yes
@@ -1252,6 +1426,36 @@ Yes
 79358A1E-235D-6830-5012-A7658854DE91,IgnoreErrors
 No
 
+794CF929-9819-1D2A-88B2-DE6C87462F96,Active
+Yes
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,Component
+{}
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,Conditions
+{0 conditions}
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,Encoding
+{}
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,ExecuteAction
+{After Pane is Displayed}
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,File
+/var/run/jail_05_vcs.id
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,ID
+{}
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,IgnoreErrors
+No
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,TrimString
+Yes
+
+794CF929-9819-1D2A-88B2-DE6C87462F96,VirtualText
+Jail_VCS
+
 7A3C08AD-1E59-5441-2F40-BA5617F59A73,Active
 Yes
 
@@ -1326,6 +1530,66 @@ Next/Cancel
 
 7EE917EC-861C-8CAB-7167-CF66B1406F58,WizardOptions
 {-bg white -separator 0}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,Active
+Yes
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,Alias
+{Jexec FTP}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,Component
+{}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,Conditions
+{0 conditions}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ConsoleTitle
+{<%AppName%> Setup}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ExecuteAction
+{After Pane is Displayed}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ExecuteAsRoot
+Yes
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ExecuteInConsole
+No
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ID
+{}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,IgnoreErrors
+No
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,IncludeStderr
+Yes
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
+{jexec <%Jail_FTP%> "/root/ProFTPD for OpenFoundry-1.0-FreeBSD-x86-Install"}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgressiveOutputWidget
+{}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ResultVirtualText
+ExternalProgramResult
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,ShowProgressiveOutput
+Yes
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,StatusVirtualText
+ExternalProgramStatus
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,WaitForProgram
+Yes
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,WatchProgressiveOutput
+No
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+80F68020-C58D-8EE3-E471-971C80BCAFB5,WorkingDirectory
+<%InstallDir%>
 
 8327C7D0-5338-591C-2554-3DEA8D025788,Active
 Yes
@@ -1479,6 +1743,63 @@ No
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,WorkingDirectory
 <%InstallDir%>/gotojail
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,Active
+Yes
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,Component
+{}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,Conditions
+{0 conditions}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ConsoleTitle
+{<%AppName%> Setup}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ExecuteAction
+{After Pane is Displayed}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ExecuteAsRoot
+Yes
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ExecuteInConsole
+No
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ID
+{}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,IgnoreErrors
+No
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,IncludeStderr
+Yes
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ProgramCommandLine
+{cp "<%InstallDir%>/OpenFoundry Website-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/of/root}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ProgressiveOutputWidget
+{}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ResultVirtualText
+ExternalProgramResult
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ShowProgressiveOutput
+Yes
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,StatusVirtualText
+ExternalProgramStatus
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,WaitForProgram
+Yes
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,WatchProgressiveOutput
+No
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+A046BFCD-DCF2-6DB3-19BE-B5865260E58B,WorkingDirectory
+<%InstallDir%>
 
 A18AB86C-2E0E-7BEA-AA1C-51DF9BE8CEDE,Active
 Yes
@@ -1930,6 +2251,66 @@ CDC6B5D0-02A7-EB1B-F30C-F56B94EA9341,Text,subst
 CDC6B5D0-02A7-EB1B-F30C-F56B94EA9341,Title,subst
 1
 
+CEE222D2-8D08-A4C2-23D2-111374787634,Active
+Yes
+
+CEE222D2-8D08-A4C2-23D2-111374787634,Alias
+{Jexec OF}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,Component
+{}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,Conditions
+{0 conditions}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ConsoleTitle
+{<%AppName%> Setup}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ExecuteAction
+{After Pane is Displayed}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ExecuteAsRoot
+Yes
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ExecuteInConsole
+No
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ID
+{}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,IgnoreErrors
+No
+
+CEE222D2-8D08-A4C2-23D2-111374787634,IncludeStderr
+Yes
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ProgramCommandLine
+{jexec <%Jail_OF%> "/root/OpenFoundry Website-1.0-FreeBSD-x86-Install"}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ProgressiveOutputWidget
+{}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ResultVirtualText
+ExternalProgramResult
+
+CEE222D2-8D08-A4C2-23D2-111374787634,ShowProgressiveOutput
+Yes
+
+CEE222D2-8D08-A4C2-23D2-111374787634,StatusVirtualText
+ExternalProgramStatus
+
+CEE222D2-8D08-A4C2-23D2-111374787634,WaitForProgram
+Yes
+
+CEE222D2-8D08-A4C2-23D2-111374787634,WatchProgressiveOutput
+No
+
+CEE222D2-8D08-A4C2-23D2-111374787634,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+CEE222D2-8D08-A4C2-23D2-111374787634,WorkingDirectory
+<%InstallDir%>
+
 D5004018-2749-ABF1-792D-D90CCFD8E942,Active
 Yes
 
@@ -2007,6 +2388,66 @@ DCF74643-AAB2-3E0A-D322-A3C561C4A714,ID
 
 DCF74643-AAB2-3E0A-D322-A3C561C4A714,IgnoreErrors
 No
+
+E56FB3CD-F352-D95F-EC30-164109044398,Active
+Yes
+
+E56FB3CD-F352-D95F-EC30-164109044398,Alias
+{Jexec VCS}
+
+E56FB3CD-F352-D95F-EC30-164109044398,Component
+{}
+
+E56FB3CD-F352-D95F-EC30-164109044398,Conditions
+{0 conditions}
+
+E56FB3CD-F352-D95F-EC30-164109044398,ConsoleTitle
+{<%AppName%> Setup}
+
+E56FB3CD-F352-D95F-EC30-164109044398,ExecuteAction
+{After Pane is Displayed}
+
+E56FB3CD-F352-D95F-EC30-164109044398,ExecuteAsRoot
+Yes
+
+E56FB3CD-F352-D95F-EC30-164109044398,ExecuteInConsole
+No
+
+E56FB3CD-F352-D95F-EC30-164109044398,ID
+{}
+
+E56FB3CD-F352-D95F-EC30-164109044398,IgnoreErrors
+No
+
+E56FB3CD-F352-D95F-EC30-164109044398,IncludeStderr
+Yes
+
+E56FB3CD-F352-D95F-EC30-164109044398,ProgramCommandLine
+{jexec <%Jail_VCS%> "/root/VCS for OpenFoundry-1.0-FreeBSD-x86-Install"}
+
+E56FB3CD-F352-D95F-EC30-164109044398,ProgressiveOutputWidget
+{}
+
+E56FB3CD-F352-D95F-EC30-164109044398,ResultVirtualText
+ExternalProgramResult
+
+E56FB3CD-F352-D95F-EC30-164109044398,ShowProgressiveOutput
+Yes
+
+E56FB3CD-F352-D95F-EC30-164109044398,StatusVirtualText
+ExternalProgramStatus
+
+E56FB3CD-F352-D95F-EC30-164109044398,WaitForProgram
+Yes
+
+E56FB3CD-F352-D95F-EC30-164109044398,WatchProgressiveOutput
+No
+
+E56FB3CD-F352-D95F-EC30-164109044398,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+E56FB3CD-F352-D95F-EC30-164109044398,WorkingDirectory
+<%InstallDir%>
 
 F4AD4B1D-5CCA-FE41-0905-6062B4AE0A0F,Action
 {Install Actions}
@@ -2743,8 +3184,35 @@ grid configure $wizard.buttons -pady 5
 }
 }
 
-proc CreateWindow.Welcome {wizard id} {
+proc CreateWindow.SetupComplete {wizard id} {
     CreateWindow.CustomBlankPane1 $wizard $id
+}
+
+proc CreateWindow.ChooseComponents {wizard id} {
+    CreateWindow.CustomBlankPane2 $wizard $id
+
+    set base [$id widget get ClientArea]
+
+    grid rowconfigure    $base 0 -weight 1
+    grid columnconfigure $base 0 -weight 1
+
+    ScrolledWindow $base.sw
+    grid $base.sw -row 0 -column 0 -sticky news -pady [list 4 0]
+
+    set tree [OptionTree $base.tree -bd 2 -relief sunken  -background white -highlightthickness 0 -toggleselect 0]
+    $base.sw setwidget $tree
+    $id widget set ComponentTree -widget $tree -type tree
+
+    labelframe $base.frame -relief groove -bd 2
+    grid $base.frame -row 0 -column 1 -sticky news  -padx [list 10 0]
+    $id widget set DescriptionLabel -widget $base.frame
+
+    grid rowconfigure    $base.frame 0 -weight 1
+    grid columnconfigure $base.frame 0 -weight 1
+
+    Label $base.frame.desc -width 25 -autowrap 1 -anchor nw -justify left
+    grid $base.frame.desc -row 0 -column 0 -sticky news -padx 10 -pady 5
+    $id widget set DescriptionText -widget $base.frame.desc
 }
 
 proc CreateWindow.CopyFiles {wizard id} {
@@ -2797,6 +3265,10 @@ proc CreateWindow.SelectDestination {wizard id} {
     $id widget set BrowseButton -widget $base.frame.browse
 }
 
+proc CreateWindow.SetupComplete {wizard id} {
+    CreateWindow.CustomBlankPane1 $wizard $id
+}
+
 proc CreateWindow.CopyFiles {wizard id} {
     CreateWindow.CustomBlankPane2 $wizard $id
 
@@ -2820,8 +3292,11 @@ proc CreateWindow.CopyFiles {wizard id} {
     $id widget set ProgressValue -widget $frame.progress -type progress
 }
 
-proc CreateWindow.SetupComplete {wizard id} {
-    CreateWindow.CustomBlankPane1 $wizard $id
+proc CreateWindow.StartCopyingFiles {wizard id} {
+    CreateWindow.CustomTextPane1 $wizard $id
+
+    set text [$id widget get Text]
+    $text configure -bg [style configure . -background]
 }
 
 proc CreateWindow.SetupType {wizard id} {
@@ -2859,42 +3334,8 @@ proc CreateWindow.SetupType {wizard id} {
     }
 }
 
-proc CreateWindow.SetupComplete {wizard id} {
+proc CreateWindow.Welcome {wizard id} {
     CreateWindow.CustomBlankPane1 $wizard $id
-}
-
-proc CreateWindow.StartCopyingFiles {wizard id} {
-    CreateWindow.CustomTextPane1 $wizard $id
-
-    set text [$id widget get Text]
-    $text configure -bg [style configure . -background]
-}
-
-proc CreateWindow.ChooseComponents {wizard id} {
-    CreateWindow.CustomBlankPane2 $wizard $id
-
-    set base [$id widget get ClientArea]
-
-    grid rowconfigure    $base 0 -weight 1
-    grid columnconfigure $base 0 -weight 1
-
-    ScrolledWindow $base.sw
-    grid $base.sw -row 0 -column 0 -sticky news -pady [list 4 0]
-
-    set tree [OptionTree $base.tree -bd 2 -relief sunken  -background white -highlightthickness 0 -toggleselect 0]
-    $base.sw setwidget $tree
-    $id widget set ComponentTree -widget $tree -type tree
-
-    labelframe $base.frame -relief groove -bd 2
-    grid $base.frame -row 0 -column 1 -sticky news  -padx [list 10 0]
-    $id widget set DescriptionLabel -widget $base.frame
-
-    grid rowconfigure    $base.frame 0 -weight 1
-    grid columnconfigure $base.frame 0 -weight 1
-
-    Label $base.frame.desc -width 25 -autowrap 1 -anchor nw -justify left
-    grid $base.frame.desc -row 0 -column 0 -sticky news -padx 10 -pady 5
-    $id widget set DescriptionText -widget $base.frame.desc
 }
 
 proc CreateWindow.CustomBlankPane1 {wizard id} {
@@ -3032,6 +3473,8 @@ File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D
 File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1639939 -mtime 1207127652 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1587328 -mtime 1207210863 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1590067 -mtime 1207127728 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::3EC0DE19-9E0E-24E0-7A8B-80362AB2647E -name {VCS for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1578188 -mtime 1207555570 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::B2328451-DE50-1706-7747-5308FF4DEDAE -name {OpenFoundry Website-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1575835 -mtime 1207556152 -permissions 00755 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -3218,7 +3661,7 @@ package require tkpng
 if {$::conf(x11)} {
 tile::setTheme jammer
 }
-array set ::images {48791225-8D2D-A58B-2C1A-5A5F21DAEA48,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif CB4A9F4A-08FF-2288-40E8-6898E5ECE562,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 1962B326-782B-DF49-8467-B52241556E4A,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif 955CCB7D-076D-07F9-DE2A-16BCA960051C,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 7EE917EC-861C-8CAB-7167-CF66B1406F58,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif A9086369-EEF0-7905-8549-05A0284B1952,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 741E977D-54D8-CA9E-A52C-5C66E045751E,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 7931EDD2-753F-1511-1337-1F799ACB81D7,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif CDC6B5D0-02A7-EB1B-F30C-F56B94EA9341,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif AB61D5EA-038F-3DC0-4CFC-73B091A63112,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif 2AAE29B6-AF85-F04A-C776-5A7B13DEAFD5,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 81B93763-23F0-A2AA-1075-0512E11224A2,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif}
+array set ::images {48791225-8D2D-A58B-2C1A-5A5F21DAEA48,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif CB4A9F4A-08FF-2288-40E8-6898E5ECE562,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 955CCB7D-076D-07F9-DE2A-16BCA960051C,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 7EE917EC-861C-8CAB-7167-CF66B1406F58,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif 1962B326-782B-DF49-8467-B52241556E4A,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif A9086369-EEF0-7905-8549-05A0284B1952,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 7931EDD2-753F-1511-1337-1F799ACB81D7,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif 741E977D-54D8-CA9E-A52C-5C66E045751E,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif CDC6B5D0-02A7-EB1B-F30C-F56B94EA9341,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif AB61D5EA-038F-3DC0-4CFC-73B091A63112,Image /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif 2AAE29B6-AF85-F04A-C776-5A7B13DEAFD5,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif 81B93763-23F0-A2AA-1075-0512E11224A2,Icon /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif}
 image create photo /media/sda3/kaworu/installjammer/Images/Modern/SetupModern01.gif -data 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
 image create photo /media/sda3/kaworu/installjammer/Images/Modern/Small/SetupModernSmall01.gif -data R0lGODlhNwA3APcAAP/////78Pf39+/39+/v9+/v7+fv7+fn797n597e59be3tbW3s7W3s7W1s7O1sbO1sbOzr3Gzr3GxrW9xq29xq21xqW1xrW9va21vaW1vaW1taWtvaWttZytvZyttZyltZSltZylrZSlrYyltYylrZScrZScpYycrYycpYyUpYScrYScpYSUrYSUpYyUnISUnISMnISMlHuUpXuMpXOMpXuUnHuMnHuMlHuElHOMnHuEjHOEjHN7jGt7hGtzhGNzhGtze2NzewAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAA3ADcAAAj+AHMIFEgjR8GCM2jMkLFQhsMWLWSwYNFi4goWKk6IEJGRxYmPIEmAHDnSYMGBMwzOsKHQYUOHKipavKhChYgNIEhkHClS5IkRP4P6xHFyIA2FKh0qfSijxYoWMVmsqAkiQwefH7EG/QhUJNARB43SYDmjLMOXDifKnIqRRAerPneCBCrUp8+BeI/aSIh2qQyaF52yAPEWp9aQdLV6LXr0aI6EDF0upRiRolSnIDZksEoyK92sI4GqcGxSId+yNZZGlDhR6lMSHjRbzXnC52fEXD8yAJHQMeSyDVc3rXzxKQsSITxszrDhA1a7dEc8/2lAAQcZBg3upSE5+GrLKlb+aPTwocMG5VdJdu2c2ECBAxdYcAe+sK9Sta41fvjgwfyGDjnZVduAJNgGUgEIHhDBCDIUFJlfDzlVXAsoaCQCCB70958HBc6FFQi3fYQgAQjudpZ9TEHUwgsvpFBhCBhy0AEH/YnQWW0jgKAjCZ+NSKIBDVxnll/CwVCDDSy+gIIJJHwgAn8dZGhjT89VlVNXI7hHgAA/KlABCxAuZcOYY8LwAoUWYpgheTZuxdUHGXiwHglaCiDAewgoMAGYYcpwZA433DAmiym0QMKFGe5n4208dlBBBgH+dEABdnJJwAEKLFDBCX2OCSgONgg0KIvibXThgCFVZQGkPH6EQAH+W9o5QAEINPDABCIwxZANONyAAw6ACiQomTW0kFurqIKAAQUVAMhVAghWeucBCTQQAa4uhZoDsMB+mgOZYxZ740gZMGsBTiAl4J4AAFR6QJ4PXIABCRGR+S24+IZrbEZfjeRBBQBjYAGHHykwqbR3GlBtBFZ9AOYKw6XoZ0QvHAlVViWMpCwFzD7q7AkKvFppu7MisAAEE3Cwn2UXWUbZRFFVJFeqG3QM8Ga0NaAupe1WqrC1GDjJ0VMqYBReTTVNdcJOXnGVmc0VYIBBBk6S8IDBlLLbMwF5Xkv1CRViRDTSZH+kgoEnZBb1zWtbJYLVC0xKQM92ElCdAxJg4AH+2CiUUJPRSC9ttlYg3LScBRUwS8FmhkXQgALrslvpeyenDMIJKaQwFdkZdQ7aRyB8kJlsiK+awdRwSfBAAgcDQLfdC2PAgQgotFhh4Lcv/VyTGco29aOPbgYgBhAsgMABdgbguqUmQ3ABB5dnruTSgQteE0glhMBfbLI9OvWqOGngOOuxLs8lpg/kDX0JJaRgZu4qoLDCUyqaUFsIInjAwQaybRb8eRiYwNUOJrmeFSABDLhV6C5Egtq16ATze0qSXuCCFVRIBMnpXf+W858IEK8Bxyvf8gxQHQ6cwCMhQYGxPjI/iLAISS4wlv10FBvuaYZ/50lABiSgMwLSTQD+CTBBr14gl56AJDwQSY2RXgCDFbXARScowaGchKEZeQAAF7hA8RCwrgDYCQAJSIEOfGWmFIzrKTKoGLFscKQX2AAGTWERREqlIwAwQHw6i5zyEFCCHfBgjDcwU0ZEYkb65StciDwSuORYGxIAYAAciMAADRCrAoiABz3YwQ7GGIMmVoiFJ3AhxdIYLjMhCQYzMFINYIAkY4nEdRDAQAQYgLUtZaAHQOgBD3igyUARClVmg6BrnKIiFSWpBTVY5QodCQAERNIBxjPAACCwg1zikpc7wEEnXZCCF9iPBCVo02EERz2oEFNFWXEdACYgy8chAAEmCII8e9ADH/CyVzH+oKCLTCDFRgLTn8DEShHVuQANCFBnEdiBPOXpAx9kUgdDbNEKoPiRt80lRP40YlaY6ToOXECSCzABEBYahFzu8o++rKAJ+BlOEYSzQDANDUkUo04ANGADE5DkC0gaBB+YVJM62OZEV9rSjejoQpf73E+6YsQR1LQAHriABCaAA5729KdjrIHtmIQ/7SWKPKLbkUWnlJuP1BQAEfAAO3lgVZ/qUpPa9KT9MKi9/XSgMDjsjwd0xNek/uSsCvCA7Hxg1SDQ06G9hIELvGmCJ3lVQ/xbTgYswDHEMe48/zkrADCwAQ70oLAlpScvx0hBFKBgI/uh0YzMsxkLuBZgiUv+nOI4plkGcIADbLUqEH5Az4f6ckmo/QCN9kc6/8H2uLClgGYFcB4YgLanusRmUJXU2O3FhgP+W07iMgCw2XKsApoFwANAgILnGhaTm/xVDFzQNwzq74aSZdt2Y8sx5WrWkijIrW4duksdjNFM3nwS9yTL3fk+qr4UWJZ9NSsBGOjgB4UFgk93uclAbbNvmdmMwLh7ugogTnH0pW14EdCCGxAWtA3FZq9g0MkzoUB//lsWd7/bsQTLdsGaxcAOPltYH/ygoXC9wTZX5CIUhEDDzMLAcUGcYBGH1wA24MFII8zf9MYgnxRaAXuBe2QO1ze5CA6vOieASZJOeaH1BKpIoFz8EfuZFgXIUU7UEOxdMbtuAB/AAY9LamaHZjKbLV6SRhoLtgiGsz+tVTDA7Ow6A+T3ufakMCDZHIJwJlV+EDHtoaoom4AAADs=
 
@@ -20936,8 +21379,8 @@ return 1
 }
 
 
-proc CreateWindow.UninstallDetails {wizard id} {
-CreateWindow.CustomTextPane1 $wizard $id
+proc CreateWindow.UninstallComplete {wizard id} {
+CreateWindow.CustomBlankPane1 $wizard $id
 }
 
 proc CreateWindow.Uninstall {wizard id} {
@@ -20963,35 +21406,30 @@ grid $frame.progress -row 1 -column 0 -sticky ew
 $id widget set ProgressValue -widget $frame.progress -type progress
 }
 
-proc CreateWindow.UninstallComplete {wizard id} {
-CreateWindow.CustomBlankPane1 $wizard $id
+proc CreateWindow.UninstallDetails {wizard id} {
+CreateWindow.CustomTextPane1 $wizard $id
 }
 
-proc CreateWindow.CustomTextPane1 {wizard id} {
-CreateWindow.CustomBlankPane2 $wizard $id
+proc CreateWindow.CustomBlankPane1 {wizard id} {
+set base [$wizard widget get $id]
 
-set base [$id widget get ClientArea]
+grid rowconfigure    $base 1 -weight 1
+grid columnconfigure $base 1 -weight 1
 
-grid rowconfigure    $base 0 -weight 1
-grid columnconfigure $base 0 -weight 1
+label $base.image -borderwidth 0
+grid  $base.image -row 0 -column 0 -rowspan 2 -sticky nw
+$id widget set Image -type image -widget $base.image
 
-frame $base.frame
-grid  $base.frame -row 0 -column 0 -sticky news
+Label $base.title -height 3 -bg white -font TkCaptionFont  -autowrap 1 -anchor nw -justify left
+grid $base.title -row 0 -column 1 -sticky ew -padx 20 -pady [list 20 10]
+$id widget set Caption -type text -widget $base.title
 
-grid rowconfigure    $base.frame 0 -weight 1
-grid columnconfigure $base.frame 0 -weight 1
+Label $base.message -bg white -autowrap 1 -anchor nw -justify left
+grid  $base.message -row 1 -column 1 -sticky news -padx 20
+$id widget set Message -type text -widget $base.message
 
-if {![$id get TextFont font]} { set font TkTextFont }
-
-text $base.frame.text  -bg white -font $font -wrap word -highlightthickness 0  -yscrollcommand "$base.frame.vs set"  -xscrollcommand "$base.frame.hs set"
-grid $base.frame.text -row 0 -column 0 -sticky news
-$id widget set Text -widget $base.frame.text
-
-ttk::scrollbar $base.frame.vs -command "$base.frame.text yview"
-grid $base.frame.vs -row 0 -column 1 -sticky ns
-
-ttk::scrollbar $base.frame.hs -command "$base.frame.text xview"  -orient horizontal
-grid $base.frame.hs -row 1 -column 0 -sticky ew
+Separator $base.sep -orient horizontal
+grid $base.sep -row 2 -column 0 -columnspan 2 -sticky ew
 }
 
 proc CreateWindow.CustomBlankPane2 {wizard id} {
@@ -21035,26 +21473,31 @@ grid $base.message -row 4 -sticky nsew -padx 8 -pady [list 4 8]
 $id widget set Message -widget $base.message
 }
 
-proc CreateWindow.CustomBlankPane1 {wizard id} {
-set base [$wizard widget get $id]
+proc CreateWindow.CustomTextPane1 {wizard id} {
+CreateWindow.CustomBlankPane2 $wizard $id
 
-grid rowconfigure    $base 1 -weight 1
-grid columnconfigure $base 1 -weight 1
+set base [$id widget get ClientArea]
 
-label $base.image -borderwidth 0
-grid  $base.image -row 0 -column 0 -rowspan 2 -sticky nw
-$id widget set Image -type image -widget $base.image
+grid rowconfigure    $base 0 -weight 1
+grid columnconfigure $base 0 -weight 1
 
-Label $base.title -height 3 -bg white -font TkCaptionFont  -autowrap 1 -anchor nw -justify left
-grid $base.title -row 0 -column 1 -sticky ew -padx 20 -pady [list 20 10]
-$id widget set Caption -type text -widget $base.title
+frame $base.frame
+grid  $base.frame -row 0 -column 0 -sticky news
 
-Label $base.message -bg white -autowrap 1 -anchor nw -justify left
-grid  $base.message -row 1 -column 1 -sticky news -padx 20
-$id widget set Message -type text -widget $base.message
+grid rowconfigure    $base.frame 0 -weight 1
+grid columnconfigure $base.frame 0 -weight 1
 
-Separator $base.sep -orient horizontal
-grid $base.sep -row 2 -column 0 -columnspan 2 -sticky ew
+if {![$id get TextFont font]} { set font TkTextFont }
+
+text $base.frame.text  -bg white -font $font -wrap word -highlightthickness 0  -yscrollcommand "$base.frame.vs set"  -xscrollcommand "$base.frame.hs set"
+grid $base.frame.text -row 0 -column 0 -sticky news
+$id widget set Text -widget $base.frame.text
+
+ttk::scrollbar $base.frame.vs -command "$base.frame.text yview"
+grid $base.frame.vs -row 0 -column 1 -sticky ns
+
+ttk::scrollbar $base.frame.hs -command "$base.frame.text xview"  -orient horizontal
+grid $base.frame.hs -row 1 -column 0 -sticky ew
 }
 
 
@@ -23684,10 +24127,19 @@ InstallComponent 6CFAEAA4-86C9-C367-B09B-D5F77E9532EC -setup Install -type actio
 InstallComponent 14BAA3A9-305F-FF78-82DD-F499425BC056 -setup Install -type actiongroup -title {Change Jail Options} -alias {Change Jail Options} -active Yes -parent ActionGroups
 InstallComponent 45B7FCAE-BE64-870D-2F8C-EA3635194611 -setup Install -type actiongroup -title {Setup Jail Options} -alias {Setup Jail Options} -active Yes -parent ActionGroups
 InstallComponent C539ED61-B6DF-E11A-2A1B-4038F198B420 -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 7334938A-0353-BC97-2DFB-A8ED53A48ACD -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 794CF929-9819-1D2A-88B2-DE6C87462F96 -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 1C5107A8-2C1C-65CD-5881-F088B9EED968 -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 29E28522-9663-C7FD-C0B8-3E5DF452E6DD -setup Install -type action -title {Read File Into Virtual Text} -component ReadFileIntoVirtualText -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 0ADF2576-DC75-C8D0-B19E-14C43E219253 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 23805F1D-4C10-B99F-5679-71557F2CDBA6 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent A046BFCD-DCF2-6DB3-19BE-B5865260E58B -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent A8FD02D7-C5F1-054C-B227-EE2794E43DDB -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F -setup Install -type action -title {Jexec DATA} -component ExecuteExternalProgram -alias {Jexec DATA} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent CEE222D2-8D08-A4C2-23D2-111374787634 -setup Install -type action -title {Jexec OF} -component ExecuteExternalProgram -alias {Jexec OF} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent E56FB3CD-F352-D95F-EC30-164109044398 -setup Install -type action -title {Jexec VCS} -component ExecuteExternalProgram -alias {Jexec VCS} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 80F68020-C58D-8EE3-E471-971C80BCAFB5 -setup Install -type action -title {Jexec FTP} -component ExecuteExternalProgram -alias {Jexec FTP} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Jexec RT} -component ExecuteExternalProgram -alias {Jexec RT} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 
 
