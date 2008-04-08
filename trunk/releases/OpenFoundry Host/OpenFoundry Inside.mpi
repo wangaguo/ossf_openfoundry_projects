@@ -280,6 +280,7 @@ InstallComponent 9CBEE669-3148-50A7-C523-A6867E7FAE2A -setup Install -type actio
 InstallComponent FAF01A55-833D-5FB7-4C62-32D3D0648C41 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
 InstallComponent 22D6324D-5106-5143-7CA5-4F1197CAD03E -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
 InstallComponent 3976C977-DAD1-577C-E87F-1ECED288E621 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
+InstallComponent E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
 InstallComponent F4AD4B1D-5CCA-FE41-0905-6062B4AE0A0F -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent ConsoleInstall
 InstallComponent D5004018-2749-ABF1-792D-D90CCFD8E942 -setup Install -type action -title {Run Install Jails OF} -component ExecuteExternalProgram -alias {Run Install Jails OF} -active Yes -parent ConsoleInstall
 InstallComponent F726CB5C-A210-BEE7-D0B0-86886640407C -setup Install -type action -title {Run Install Jails DATA} -component ExecuteExternalProgram -alias {Run Install Jails DATA} -active Yes -parent ConsoleInstall
@@ -326,6 +327,7 @@ InstallComponent 29C0BD3E-90EE-6572-8629-6CAC2AB815BF -setup Install -type actio
 InstallComponent 3744140E-A9A5-AA7D-19C4-5DBF8D039B78 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 InstallComponent E64E893E-3BCC-2B03-B7BE-E66C4E7BF0E1 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 InstallComponent 660D5947-8820-70C2-E5E5-523A54619DEB -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
+InstallComponent A24D27AF-B404-747E-A48E-BC1D1DE507C4 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 InstallComponent CB4A9F4A-08FF-2288-40E8-6898E5ECE562 -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent F3F7F202-985F-F147-4855-C5D9E8E2C5E2 -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent CB4A9F4A-08FF-2288-40E8-6898E5ECE562
 InstallComponent 7C6BBC6C-6FBE-D201-A800-964980A23542 -setup Uninstall -type action -title {Execute Action} -component ExecuteAction -active Yes -parent CB4A9F4A-08FF-2288-40E8-6898E5ECE562
@@ -741,7 +743,7 @@ Yes
 Yes
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ProgramCommandLine
-{sh create_jail.sh 50_ftp <%InstallDir%>/jails/ftp ftp.of.openfoundry.org 192.168.0.100}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 50_ftp <%InstallDir%>/jails/ftp ftp.of.openfoundry.org 192.168.0.100}
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ShowProgressiveOutput
 Yes
@@ -777,7 +779,7 @@ Yes
 Yes
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,ProgramCommandLine
-{sh create_jail.sh 05_vcs <%InstallDir%>/jails/vcs vcs.of.openfoundry.org 192.168.0.40}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 05_vcs <%InstallDir%>/jails/vcs vcs.of.openfoundry.org 192.168.0.40}
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,ShowProgressiveOutput
 Yes
@@ -1005,7 +1007,7 @@ Yes
 Yes
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,ProgramCommandLine
-{sh create_jail.sh 20_rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 20_rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,ShowProgressiveOutput
 Yes
@@ -1051,6 +1053,15 @@ false
 
 A18AB86C-2E0E-7BEA-AA1C-51DF9BE8CEDE,String
 <%UpgradeInstall%>
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Conditions
+{0 conditions}
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Value
+ftp://ftp.tw.freebsd.org/pub/
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,VirtualText
+FtpPath
 
 A8FD02D7-C5F1-054C-B227-EE2794E43DDB,Conditions
 {0 conditions}
@@ -1305,13 +1316,22 @@ D5004018-2749-ABF1-792D-D90CCFD8E942,IncludeStderr
 Yes
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgramCommandLine
-{sh create_jail.sh 99_of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 99_of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ShowProgressiveOutput
 Yes
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,WorkingDirectory
 <%InstallDir%>/gotojail
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,Conditions
+{0 conditions}
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,Prompt
+{Please set a 'better' mirror site: }
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,VirtualText
+FtpPath
 
 E50A9191-9517-4C10-C7D4-5C2A3FDAB075,Alias
 {Set Default}
@@ -1392,7 +1412,7 @@ F726CB5C-A210-BEE7-D0B0-86886640407C,IncludeStderr
 Yes
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,ProgramCommandLine
-{sh create_jail.sh 00_data <%InstallDir%>/jails/data data.openfoundry.org 192.168.0.10}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 00_data <%InstallDir%>/jails/data data.openfoundry.org 192.168.0.10}
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,ShowProgressiveOutput
 Yes

@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) FE3AFB87-322A-DA03-04EC-5037C3CF9FC8
+set info(InstallerID) 524C9673-5FEF-22AC-62DD-E4D12994E520
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -1235,7 +1235,7 @@ No
 Yes
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ProgramCommandLine
-{sh create_jail.sh 50_ftp <%InstallDir%>/jails/ftp ftp.of.openfoundry.org 192.168.0.100}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 50_ftp <%InstallDir%>/jails/ftp ftp.of.openfoundry.org 192.168.0.100}
 
 5EB6748B-D366-A83F-28DE-5655C2A0A8E3,ProgressiveOutputWidget
 {}
@@ -1331,7 +1331,7 @@ No
 Yes
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,ProgramCommandLine
-{sh create_jail.sh 05_vcs <%InstallDir%>/jails/vcs vcs.of.openfoundry.org 192.168.0.40}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 05_vcs <%InstallDir%>/jails/vcs vcs.of.openfoundry.org 192.168.0.40}
 
 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1,ProgressiveOutputWidget
 {}
@@ -1877,7 +1877,7 @@ No
 Yes
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,ProgramCommandLine
-{sh create_jail.sh 20_rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 20_rt <%InstallDir%>/jails/rt rt.of.openfoundry.org 192.168.0.30}
 
 9B5D19E5-18E4-1FAE-5132-073998BA7D72,ProgressiveOutputWidget
 {}
@@ -2013,6 +2013,39 @@ false
 
 A18AB86C-2E0E-7BEA-AA1C-51DF9BE8CEDE,String
 <%UpgradeInstall%>
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Active
+Yes
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,AutoUpdate
+{}
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Component
+{}
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Conditions
+{0 conditions}
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,ExecuteAction
+{After Pane is Displayed}
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,ID
+{}
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,IgnoreErrors
+No
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Language
+None
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,SubstituteValue
+No
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,Value
+ftp://ftp.tw.freebsd.org/pub/
+
+A24D27AF-B404-747E-A48E-BC1D1DE507C4,VirtualText
+FtpPath
 
 A8FD02D7-C5F1-054C-B227-EE2794E43DDB,Active
 Yes
@@ -2534,7 +2567,7 @@ D5004018-2749-ABF1-792D-D90CCFD8E942,IncludeStderr
 Yes
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgramCommandLine
-{sh create_jail.sh 99_of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 99_of <%InstallDir%>/jails/of of.openfoundry.org 192.168.0.20}
 
 D5004018-2749-ABF1-792D-D90CCFD8E942,ProgressiveOutputWidget
 {}
@@ -2577,6 +2610,36 @@ DCF74643-AAB2-3E0A-D322-A3C561C4A714,ID
 
 DCF74643-AAB2-3E0A-D322-A3C561C4A714,IgnoreErrors
 No
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,Active
+Yes
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,Component
+{}
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,Conditions
+{0 conditions}
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,EchoInput
+Yes
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,ExecuteAction
+{After Pane is Displayed}
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,ID
+{}
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,IgnoreErrors
+No
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,Prompt
+{Please set a 'better' mirror site: }
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,TrimResult
+Yes
+
+E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338,VirtualText
+FtpPath
 
 E50A9191-9517-4C10-C7D4-5C2A3FDAB075,Active
 Yes
@@ -2765,7 +2828,7 @@ F726CB5C-A210-BEE7-D0B0-86886640407C,IncludeStderr
 Yes
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,ProgramCommandLine
-{sh create_jail.sh 00_data <%InstallDir%>/jails/data data.openfoundry.org 192.168.0.10}
+{env _ftpPath=<%FtpPath%> sh create_jail.sh 00_data <%InstallDir%>/jails/data data.openfoundry.org 192.168.0.10}
 
 F726CB5C-A210-BEE7-D0B0-86886640407C,ProgressiveOutputWidget
 {}
@@ -3737,7 +3800,7 @@ File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -name text-base -parent 65C973D8-1F9
 File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207640442 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::2839CCB2-4618-137B-7C9F-86598D356D74 -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 176 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::168928C5-0548-81AE-28BB-622ACC6AA263 -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 351 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::D8CB2A4D-A57B-3698-437C-D95286F58A77 -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf/.svn -size 2 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
@@ -3749,9 +3812,9 @@ File ::3ECC282D-C5DC-F0A8-39EC-90A9E62B4299 -name tmp -parent 65C973D8-1F96-A6D9
 File ::E9BB95BE-B9B3-6C66-4097-5671305AFC1B -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::3D75A71F-5CC6-9EA7-77EA-027BE256F3F6 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::DD0CCF06-2269-7E48-72F8-8318F263BC6B -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::2D15D10E-5866-07F4-CE48-9CD8485F7178 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::AE876B07-1C21-8F78-00A1-9B0C0DE8245C -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 556 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::D754123F-EDC4-40F8-61F6-4C438F911036 -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 886 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::2D15D10E-5866-07F4-CE48-9CD8485F7178 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::AE876B07-1C21-8F78-00A1-9B0C0DE8245C -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 556 -mtime 1207643247 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::D754123F-EDC4-40F8-61F6-4C438F911036 -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 886 -mtime 1207643247 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::E9DEAA5F-FADD-30E4-E223-B0A2C1028A04 -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn -size 2 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::53158B90-3F24-9002-F074-3A7B46FB2058 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::891CA10B-63D6-3854-071C-E8EB726CB3CF -name create_jail.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/prop-base -size 30 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
@@ -3764,7 +3827,7 @@ File ::3D6807C2-0645-52A9-41DF-2082900038F8 -name create_jail_sample_config.svn-
 File ::91C8F7BB-FF30-B637-61F5-47AA5E482CE4 -name install.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1466 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::67DC57E0-3624-971F-FFD3-3FC9DAC688BA -name pound_config.sh.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1028 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::E44D3EDE-1E30-9395-35AA-1C44DBF86CC4 -name README.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/.svn/text-base -size 1038 -mtime 1207102854 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::FE0F19F3-08A3-385B-E25D-83E506E1AF6B -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::FE0F19F3-08A3-385B-E25D-83E506E1AF6B -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::F11DCFB4-E490-5461-B83D-A5D89373BE80 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::517405A6-77E8-3B15-02EC-2A8A89A21DDA -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::7D0ACF6E-7154-0A10-60FF-987CED40B2F9 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
@@ -24426,6 +24489,7 @@ InstallComponent 9CBEE669-3148-50A7-C523-A6867E7FAE2A -setup Install -type actio
 InstallComponent FAF01A55-833D-5FB7-4C62-32D3D0648C41 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
 InstallComponent 22D6324D-5106-5143-7CA5-4F1197CAD03E -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
 InstallComponent 3976C977-DAD1-577C-E87F-1ECED288E621 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
+InstallComponent E0ABEF99-B7EF-3A53-DABC-5BE1CADF2338 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
 InstallComponent F4AD4B1D-5CCA-FE41-0905-6062B4AE0A0F -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Console
 InstallComponent D5004018-2749-ABF1-792D-D90CCFD8E942 -setup Install -type action -title {Run Install Jails OF} -component ExecuteExternalProgram -alias {Run Install Jails OF} -active Yes -parent Console
 InstallComponent F726CB5C-A210-BEE7-D0B0-86886640407C -setup Install -type action -title {Run Install Jails DATA} -component ExecuteExternalProgram -alias {Run Install Jails DATA} -active Yes -parent Console
@@ -24474,6 +24538,7 @@ InstallComponent 29C0BD3E-90EE-6572-8629-6CAC2AB815BF -setup Install -type actio
 InstallComponent 3744140E-A9A5-AA7D-19C4-5DBF8D039B78 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 InstallComponent E64E893E-3BCC-2B03-B7BE-E66C4E7BF0E1 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 InstallComponent 660D5947-8820-70C2-E5E5-523A54619DEB -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
+InstallComponent A24D27AF-B404-747E-A48E-BC1D1DE507C4 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 
 
 proc ::ThemeMain {} {
