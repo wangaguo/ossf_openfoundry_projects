@@ -221,7 +221,6 @@ File ::F1F7556B-FEBE-F13A-66A9-1D6EB8A71902 -type dir -name prop-base -parent 59
 File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -type dir -name props -parent 5910AF71-3593-C6E9-BE27-FDDCCCF86FB1
 File ::B33FFEFA-22D6-6024-0A30-146A538D602E -type dir -name text-base -parent 5910AF71-3593-C6E9-BE27-FDDCCCF86FB1
 File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
-File ::238D99DC-CD7A-D345-0F0C-3BE37AF18111 -name .install_db.sh.swp -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
 Component ::32A84B0B-1176-6A6F-5282-ED4E3AC3CAFA -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::7850A46B-32D0-6FF7-C51D-E5007DB0C99A -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::25BC91C5-ADB0-780C-1539-3B4882A4ED69 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -462,7 +461,7 @@ Yes
 <%InstallDir%>
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,FileSize
-59207
+47032
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,Name
 {Program Files}
