@@ -240,11 +240,6 @@ File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -par
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::6618D23C-6D9F-A226-026F-4612498E02DB -name .install.sh.swp -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
-File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {/media/sda3/kaworu/InstallJammerProjects/RT for OpenFoundry/output/Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
-File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {/media/sda3/kaworu/InstallJammerProjects/Stompserver for OpenFoundry/output/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
-File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {/media/sda3/kaworu/InstallJammerProjects/ProFTPD for Openfoundry/output/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
-File ::3EC0DE19-9E0E-24E0-7A8B-80362AB2647E -name {/media/sda3/kaworu/InstallJammerProjects/VCS for OpenFoundry/output/VCS for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
-File ::B2328451-DE50-1706-7747-5308FF4DEDAE -name {/media/sda3/kaworu/InstallJammerProjects/OpenFoundry Website/output/OpenFoundry Website-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
 Component ::23A4DC27-44AD-45FB-B390-B0D386548EF2 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::5CB8A105-9859-A9C6-CFCA-98F708E6E10D -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::46BB6C77-504D-93EB-258D-5B2020905421 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -396,7 +391,7 @@ Yes
 Yes
 
 0ADF2576-DC75-C8D0-B19E-14C43E219253,ProgramCommandLine
-{cp "<%InstallDir%>/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/ftp/root}
+{fetch -o <%InstallDir%>/jails/ftp/root "http://svn.openfoundry.org/openfoundry/trunk/releases/ProFTPD for Openfoundry/output/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install"}
 
 0ADF2576-DC75-C8D0-B19E-14C43E219253,ShowProgressiveOutput
 Yes
@@ -501,7 +496,7 @@ Yes
 Yes
 
 23805F1D-4C10-B99F-5679-71557F2CDBA6,ProgramCommandLine
-{cp "<%InstallDir%>/VCS for OpenFoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/vcs/root}
+{fetch -o <%InstallDir%>/jails/vcs/root "http://svn.openfoundry.org/openfoundry/trunk/releases/VCS for OpenFoundry/output/VCS for OpenFoundry-1.0-FreeBSD-x86-Install"}
 
 23805F1D-4C10-B99F-5679-71557F2CDBA6,ShowProgressiveOutput
 Yes
@@ -792,7 +787,10 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-8072964
+8111826
+
+65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
+{Always overwrite files}
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,Name
 {Program Files}
@@ -1038,7 +1036,7 @@ A046BFCD-DCF2-6DB3-19BE-B5865260E58B,IncludeStderr
 Yes
 
 A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ProgramCommandLine
-{cp "<%InstallDir%>/OpenFoundry Website-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/of/root}
+{fetch -o <%InstallDir%>/jails/of/root "http://svn.openfoundry.org/openfoundry/trunk/releases/OpenFoundry Website/output/OpenFoundry Website-1.0-FreeBSD-x86-Install"}
 
 A046BFCD-DCF2-6DB3-19BE-B5865260E58B,ShowProgressiveOutput
 Yes
@@ -1074,7 +1072,7 @@ A8FD02D7-C5F1-054C-B227-EE2794E43DDB,IncludeStderr
 Yes
 
 A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ProgramCommandLine
-{cp "<%InstallDir%>/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/data/root}
+{fetch -o <%InstallDir%>/jails/data/root "http://svn.openfoundry.org/openfoundry/trunk/releases/Stompserver for OpenFoundry/output/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install"}
 
 A8FD02D7-C5F1-054C-B227-EE2794E43DDB,ShowProgressiveOutput
 Yes
@@ -1215,7 +1213,7 @@ C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,IncludeStderr
 Yes
 
 C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ProgramCommandLine
-{cp "<%InstallDir%>/Request Tracker-1.0-FreeBSD-x86-Install" <%InstallDir%>/jails/rt/root}
+{fetch -o <%InstallDir%>/jails/rt/root "http://svn.openfoundry.org/openfoundry/trunk/releases/RT for OpenFoundry/output/Request Tracker-1.0-FreeBSD-x86-Install"}
 
 C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA,ShowProgressiveOutput
 Yes
