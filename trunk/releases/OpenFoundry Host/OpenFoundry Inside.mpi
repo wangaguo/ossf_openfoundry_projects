@@ -378,7 +378,7 @@ Yes
 Yes
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
-{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%>}
+{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%> --mode silent}
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ShowProgressiveOutput
 Yes
@@ -453,7 +453,7 @@ Yes
 Yes
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ProgramCommandLine
-{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%>}
+{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%> --mode silent}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ShowProgressiveOutput
 Yes
@@ -792,7 +792,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-8112876
+8111827
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,Name
 {Program Files}
@@ -924,7 +924,7 @@ Yes
 Yes
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
-{jexec <%Jail_FTP%> /root/ProFTPD\for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
+{jexec <%Jail_FTP%> /root/ProFTPD\for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --mode silent}
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ShowProgressiveOutput
 Yes
@@ -1293,7 +1293,7 @@ CEE222D2-8D08-A4C2-23D2-111374787634,IncludeStderr
 Yes
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ProgramCommandLine
-{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> }
+{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> --mode silent }
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ShowProgressiveOutput
 Yes
@@ -1353,7 +1353,7 @@ E56FB3CD-F352-D95F-EC30-164109044398,IncludeStderr
 Yes
 
 E56FB3CD-F352-D95F-EC30-164109044398,ProgramCommandLine
-{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%>}
+{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> --mode silent}
 
 E56FB3CD-F352-D95F-EC30-164109044398,ShowProgressiveOutput
 Yes
