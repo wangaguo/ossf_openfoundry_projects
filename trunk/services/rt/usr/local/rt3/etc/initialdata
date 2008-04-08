@@ -272,7 +272,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}Ticket/Display.html?id={$Ticket->id} >
+ Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 
 {$Transaction->Content()}
@@ -287,7 +287,14 @@ Transaction: {$Transaction->Description}
       Content     => 'RT-Attach-Message: yes
 
 
-<URL: {$RT::WebURL}Ticket/Display.html?id={$Ticket->id} >
+{$Transaction->CreatedAsString}: Request {$Ticket->id} was acted upon.
+Transaction: {$Transaction->Description}
+       Queue: {$Ticket->QueueObj->Name}
+     Subject: {$Transaction->Subject || $Ticket->Subject || "(No subject given)"}
+       Owner: {$Ticket->OwnerObj->Name}
+  Requestors: {$Ticket->RequestorAddresses}
+      Status: {$Ticket->Status}
+ Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 {$Transaction->Content()}
 '
@@ -297,6 +304,15 @@ Transaction: {$Transaction->Description}
        Name        => 'Correspondence',                          # loc
        Description => 'Default correspondence template',         # loc
        Content     => 'RT-Attach-Message: yes
+
+{$Transaction->CreatedAsString}: Request {$Ticket->id} was acted upon.
+Transaction: {$Transaction->Description}
+       Queue: {$Ticket->QueueObj->Name}
+     Subject: {$Transaction->Subject || $Ticket->Subject || "(No subject given)"}
+       Owner: {$Ticket->OwnerObj->Name}
+  Requestors: {$Ticket->RequestorAddresses}
+      Status: {$Ticket->Status}
+ Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 {$Transaction->Content()}
 '
@@ -309,7 +325,14 @@ Transaction: {$Transaction->Description}
 'Subject: [Comment] {my $s=($Transaction->Subject||$Ticket->Subject); $s =~ s/\\[Comment\\]//g; $comment =~ s/^Re//i; $s;}
 
 
-{$RT::WebURL}Ticket/Display.html?id={$Ticket->id}
+{$Transaction->CreatedAsString}: Request {$Ticket->id} was acted upon.
+Transaction: {$Transaction->Description}
+       Queue: {$Ticket->QueueObj->Name}
+     Subject: {$Transaction->Subject || $Ticket->Subject || "(No subject given)"}
+       Owner: {$Ticket->OwnerObj->Name}
+  Requestors: {$Ticket->RequestorAddresses}
+      Status: {$Ticket->Status}
+ Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 This is a comment.  It is not sent to the Requestor(s):
 
 {$Transaction->Content()}
@@ -322,7 +345,14 @@ This is a comment.  It is not sent to the Requestor(s):
        Content     => 'Subject: Status Changed to: {$Transaction->NewValue}
 
 
-{$RT::WebURL}Ticket/Display.html?id={$Ticket->id}
+{$Transaction->CreatedAsString}: Request {$Ticket->id} was acted upon.
+Transaction: {$Transaction->Description}
+       Queue: {$Ticket->QueueObj->Name}
+     Subject: {$Transaction->Subject || $Ticket->Subject || "(No subject given)"}
+       Owner: {$Ticket->OwnerObj->Name}
+  Requestors: {$Ticket->RequestorAddresses}
+      Status: {$Ticket->Status}
+ Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 {$Transaction->Content()}
 '
@@ -335,6 +365,14 @@ This is a comment.  It is not sent to the Requestor(s):
       Description => 'Ticket Resolved',          # loc
       Content     => 'Subject: Resolved: {$Ticket->Subject}
 
+{$Transaction->CreatedAsString}: Request {$Ticket->id} was acted upon.
+Transaction: {$Transaction->Description}
+       Queue: {$Ticket->QueueObj->Name}
+     Subject: {$Transaction->Subject || $Ticket->Subject || "(No subject given)"}
+       Owner: {$Ticket->OwnerObj->Name}
+  Requestors: {$Ticket->RequestorAddresses}
+      Status: {$Ticket->Status}
+ Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 According to our records, your request has been resolved. If you have any
 further questions or concerns, please respond to this message.
 '
@@ -350,7 +388,7 @@ Greetings,
 There is a new item pending your approval: "{$Ticket->Subject()}", 
 a summary of which appears below.
 
-Please visit {$RT::WebURL}Approvals/Display.html?id={$Ticket->id}
+Please visit {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id}
 to approve or reject this ticket, or {$RT::WebURL}Approvals/ to
 batch-process all your pending approvals.
 
@@ -406,25 +444,22 @@ Your ticket has been rejected by { eval { $Approval->OwnerObj->Name } }.
        ScripAction    => 'AutoReply To Requestors',
        Template       => 'AutoReply' },
     {  ScripCondition => 'On Create',
-       ScripAction    => 'Notify AdminCcs',
+       ScripAction    => 'Notify Requestors, Ccs and AdminCcs',
        Template       => 'Transaction' },
     {  ScripCondition => 'On Correspond',
-       ScripAction    => 'Notify AdminCcs',
+       ScripAction    => 'Notify Requestors, Ccs and AdminCcs',
        Template       => 'Admin Correspondence' },
-    {  ScripCondition => 'On Correspond',
-       ScripAction    => 'Notify Requestors And Ccs',
-       Template       => 'Correspondence' },
     {  ScripCondition => 'On Correspond',
        ScripAction    => 'Notify Other Recipients',
        Template       => 'Correspondence' },
     {  ScripCondition => 'On Comment',
-       ScripAction    => 'Notify AdminCcs As Comment',
+       ScripAction    => 'Notify Requestors, Ccs and AdminCcs As Comment',
        Template       => 'Admin Comment' },
     {  ScripCondition => 'On Comment',
        ScripAction    => 'Notify Other Recipients As Comment',
-       Template       => 'Correspondence' },
+       Template       => 'Admin Correspondence' },
     {  ScripCondition => 'On Resolve',
-       ScripAction    => 'Notify Requestors',
+       ScripAction    => 'Notify Requestors, Ccs and AdminCcs',
        Template       => 'Resolved' },
     {  Description => "When an approval ticket is created, notify the Owner and AdminCc of the item awaiting their approval",    # loc
        Queue          => '___Approvals',
