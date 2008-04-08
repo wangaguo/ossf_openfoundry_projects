@@ -54,10 +54,5 @@ proc ::InstallJammer::InitFiles {} {
     File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
     File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
     File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Always overwrite files"
-    File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1642202 -mtime 1207636691 -permissions 00755 -filemethod "Always overwrite files"
-    File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1588580 -mtime 1207646661 -permissions 00755 -filemethod "Always overwrite files"
-    File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1591745 -mtime 1207634153 -permissions 00755 -filemethod "Always overwrite files"
-    File ::3EC0DE19-9E0E-24E0-7A8B-80362AB2647E -name {VCS for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1578488 -mtime 1207640639 -permissions 00755 -filemethod "Always overwrite files"
-    File ::B2328451-DE50-1706-7747-5308FF4DEDAE -name {OpenFoundry Website-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1576937 -mtime 1207640620 -permissions 00755 -filemethod "Always overwrite files"
 
 }
