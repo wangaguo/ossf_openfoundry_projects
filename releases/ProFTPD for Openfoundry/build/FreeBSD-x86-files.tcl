@@ -1,8 +1,8 @@
 proc ::InstallJammer::InitFiles {} {
-    File ::DEB80E36-1CD1-274D-F640-186CB9BEACAE -name ftp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207631087 -permissions 040755 -filemethod "Update files with more recent dates"
+    File ::DEB80E36-1CD1-274D-F640-186CB9BEACAE -name ftp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207639690 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::003128C5-767F-F35E-447D-D2968D6AE335 -name proftpd_with_mysql.conf -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 3194 -mtime 1207040593 -permissions 00644 -filemethod "Update files with more recent dates"
     File ::45D88B29-21EF-76DD-7B05-1AA8DDE9F897 -name sync_ftp_users.sh -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 177 -mtime 1207040780 -permissions 00700 -filemethod "Update files with more recent dates"
-    File ::CFCB9E5E-00A3-F6D0-BCB0-43684CC0A0B5 -name sync_ftp_users.sql -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 1771 -mtime 1207030686 -permissions 00644 -filemethod "Update files with more recent dates"
+    File ::CFCB9E5E-00A3-F6D0-BCB0-43684CC0A0B5 -name sync_ftp_users.sql -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 1476 -mtime 1207639690 -permissions 00644 -filemethod "Update files with more recent dates"
     File ::7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9 -name .svn -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::C93FB581-801E-1EBF-D5C4-99CC1F414F19 -name all-wcprops -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 597 -mtime 1207041630 -permissions 00444 -filemethod "Update files with more recent dates"
     File ::93BEE932-CA01-15A6-05F3-7B83AA5B1569 -name entries -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 796 -mtime 1207041630 -permissions 00444 -filemethod "Update files with more recent dates"
@@ -21,6 +21,5 @@ proc ::InstallJammer::InitFiles {} {
     File ::6AB41268-6582-080A-7B9A-AD33F2730EAF -name props -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::291EA41E-B76A-E19F-E85E-ECD9152B2391 -name text-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::733EA2DA-1176-96A0-35B2-BDD564AE8674 -name install_rep.sh -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 813 -mtime 1207040631 -permissions 00700 -filemethod "Update files with more recent dates"
-    File ::8B4857D2-A48E-0D80-C7D4-8A202F705049 -name .sync_ftp_users.sql.swp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 12288 -mtime 1207631091 -permissions 00644 -filemethod "Update files with more recent dates"
 
 }

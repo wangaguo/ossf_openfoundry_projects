@@ -41,6 +41,9 @@ Copyright
 DefaultLanguage
 English
 
+Ext
+{}
+
 ExtractSolidArchivesOnStartup
 No
 
@@ -146,6 +149,15 @@ Version
 }
 
 array set ::InstallJammer::InstallCommandLineOptions {
+db_pass
+{DB_PASS String No No {} {set database passwd}}
+
+db_prefix
+{DB_PREFIX String No No {} {set database preifx}}
+
+db_user
+{DB_USER String No No {} {set database username}}
+
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}
 
@@ -197,7 +209,7 @@ InstallComponent 48B1B87C-32F9-2780-9357-9D67402ACBDA -setup Install -type pane 
 InstallComponent F8AA80CA-3330-810A-6668-D5C99205215D -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
 InstallComponent 0A6D0A32-C378-6102-37E2-7A4CAB099755 -setup Install -type action -conditions 75AE8204-7529-1B74-69E4-70EE123C7B03 -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 75AE8204-7529-1B74-69E4-70EE123C7B03 -active Yes -parent 0A6D0A32-C378-6102-37E2-7A4CAB099755 -title {String Is Condition} -component StringIsCondition
-InstallComponent 058A9500-02C2-013D-1A89-6FB856D04995 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent ConsoleInstall
+InstallComponent E0024813-CF12-C941-C42F-A984F35FDFAC -setup Install -type action -title {Set Default Values} -component ExecuteAction -alias {Set Default Values} -active Yes -parent ConsoleInstall
 InstallComponent FC750F74-1003-D534-4E7F-E3A72B20475E -setup Install -type action -conditions 598B2754-4977-C956-691A-1071AF044D72 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 598B2754-4977-C956-691A-1071AF044D72 -active Yes -parent FC750F74-1003-D534-4E7F-E3A72B20475E -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent 6FE5C5C3-FFA0-84C7-099C-BF4F58DF096F -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
@@ -222,6 +234,13 @@ InstallComponent A02E1464-5940-E0F1-F039-8D79049E072E -setup Install -type actio
 InstallComponent D33ACED4-4689-70ED-F3DB-EFDC03BD174A -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent 75725F53-5399-15BD-0CA3-FC558F0F42C2 -setup Install -type actiongroup -title {Run Script} -alias {Run Script} -active Yes -parent ActionGroupsInstall
 InstallComponent 02B26988-521E-1B90-9CE5-74F4D4FD354D -setup Install -type action -title install.sh -component ExecuteExternalProgram -alias install.sh -active Yes -parent 75725F53-5399-15BD-0CA3-FC558F0F42C2
+InstallComponent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6 -setup Install -type actiongroup -title {Set Default} -alias {Set Default} -active Yes -parent ActionGroupsInstall
+InstallComponent 75375120-6DDE-2F12-EE29-249273FC8A4F -setup Install -type action -conditions 0F94BECD-9428-1C1F-23F1-861D0CABAA29 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
+Condition 0F94BECD-9428-1C1F-23F1-861D0CABAA29 -active Yes -parent 75375120-6DDE-2F12-EE29-249273FC8A4F -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB -setup Install -type action -conditions 17C7DA2B-AB25-578A-3639-FC788E6420A8 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
+Condition 17C7DA2B-AB25-578A-3639-FC788E6420A8 -active Yes -parent D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 8A4A3114-EB3F-A757-1F8E-1EA922B4480B -setup Install -type action -conditions 9F9EF267-73F1-FA7C-91F9-E6E4FC326869 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
+Condition 9F9EF267-73F1-FA7C-91F9-E6E4FC326869 -active Yes -parent 8A4A3114-EB3F-A757-1F8E-1EA922B4480B -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 78A4F894-5DBD-1A1D-C185-45FFBEF56B8C -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent 9AB2BF79-23A5-C432-9263-65194342D182 -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent 78A4F894-5DBD-1A1D-C185-45FFBEF56B8C
 InstallComponent 0DD53865-2794-C6A3-2267-FDACED4AEA63 -setup Uninstall -type action -title {Execute Action} -component ExecuteAction -active Yes -parent 78A4F894-5DBD-1A1D-C185-45FFBEF56B8C
@@ -265,7 +284,7 @@ Yes
 Yes
 
 02B26988-521E-1B90-9CE5-74F4D4FD354D,ProgramCommandLine
-{sh install.sh of openfoundry <%DB_PASS%> 192.168.0.10
+{sh install.sh <%DB_PREFIX%> <%DB_USER%> <%DB_PASS%> 192.168.0.10
 }
 
 02B26988-521E-1B90-9CE5-74F4D4FD354D,ShowProgressiveOutput
@@ -274,26 +293,41 @@ Yes
 02B26988-521E-1B90-9CE5-74F4D4FD354D,WorkingDirectory
 <%InstallDir%>
 
-058A9500-02C2-013D-1A89-6FB856D04995,Conditions
-{0 conditions}
-
-058A9500-02C2-013D-1A89-6FB856D04995,Value
-ossfdev
-
-058A9500-02C2-013D-1A89-6FB856D04995,VirtualText
-DB_PASS
-
 067E12AE-14EE-C5A3-BC08-0BCB563B8C02,Destination
 <%InstallDir%>
 
+067E12AE-14EE-C5A3-BC08-0BCB563B8C02,FileSize
+1286
+
 067E12AE-14EE-C5A3-BC08-0BCB563B8C02,Name
 {Program Files}
+
+0A6D0A32-C378-6102-37E2-7A4CAB099755,Conditions
+{1 condition}
 
 0DD53865-2794-C6A3-2267-FDACED4AEA63,Action
 {Uninstall Actions}
 
 0ED8C93C-AECA-F1C3-27EC-3299E367D61C,Message,subst
 1
+
+0F94BECD-9428-1C1F-23F1-861D0CABAA29,CheckCondition
+{Before Action is Executed}
+
+0F94BECD-9428-1C1F-23F1-861D0CABAA29,Operator
+{was not passed on the command line}
+
+0F94BECD-9428-1C1F-23F1-861D0CABAA29,Option
+DB_PREFIX
+
+17C7DA2B-AB25-578A-3639-FC788E6420A8,CheckCondition
+{Before Action is Executed}
+
+17C7DA2B-AB25-578A-3639-FC788E6420A8,Operator
+{was not passed on the command line}
+
+17C7DA2B-AB25-578A-3639-FC788E6420A8,Option
+DB_USER
 
 19F65CB4-9133-986E-EB16-A9B280F3F8D5,Alias
 {Setup Actions}
@@ -354,6 +388,12 @@ Yes
 
 2F786115-677F-2B76-D38D-3483E5C5ACA1,Action
 {Install Actions}
+
+37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6,Alias
+{Set Default}
+
+37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6,Conditions
+{0 conditions}
 
 3E768A55-6901-AAD7-1D66-53F3BBFCB4EE,Comment
 {Ask the user if they want to proceed with the uninstall.}
@@ -453,6 +493,15 @@ DB_PASS
 
 706C69D1-A9C2-E7CE-73D3-C05AF846A158,NextButton,subst
 1
+
+75375120-6DDE-2F12-EE29-249273FC8A4F,Conditions
+{1 condition}
+
+75375120-6DDE-2F12-EE29-249273FC8A4F,Value
+of
+
+75375120-6DDE-2F12-EE29-249273FC8A4F,VirtualText
+DB_PREFIX
 
 75725F53-5399-15BD-0CA3-FC558F0F42C2,Alias
 {Run Script}
@@ -559,6 +608,15 @@ No
 879F6D5E-4600-90F3-18C6-4E9D17123118,Title,subst
 1
 
+8A4A3114-EB3F-A757-1F8E-1EA922B4480B,Conditions
+{1 condition}
+
+8A4A3114-EB3F-A757-1F8E-1EA922B4480B,Value
+ossfossfossf
+
+8A4A3114-EB3F-A757-1F8E-1EA922B4480B,VirtualText
+DB_PASS
+
 8C241231-213C-9F3F-F258-B1E6220C68BF,State
 disabled
 
@@ -588,6 +646,15 @@ disabled
 
 9AB2BF79-23A5-C432-9263-65194342D182,Widget
 {NextButton; CancelButton}
+
+9F9EF267-73F1-FA7C-91F9-E6E4FC326869,CheckCondition
+{Before Action is Executed}
+
+9F9EF267-73F1-FA7C-91F9-E6E4FC326869,Operator
+{was not passed on the command line}
+
+9F9EF267-73F1-FA7C-91F9-E6E4FC326869,Option
+DB_PASS
 
 A02E1464-5940-E0F1-F039-8D79049E072E,Alias
 {Finish Actions}
@@ -709,6 +776,15 @@ false
 D0DE417D-4BA2-A3BE-4B40-5D8EBEE2B9A8,String
 <%UpgradeInstall%>
 
+D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB,Conditions
+{1 condition}
+
+D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB,Value
+openfoundry
+
+D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB,VirtualText
+DB_USER
+
 D128DB22-8232-DFE1-7CCA-CE738A6B30F4,BackButton,subst
 1
 
@@ -786,6 +862,15 @@ Yes
 
 DEF00EE9-73C7-4564-016B-73CAF8B0066F,Prompt
 <%UninstallStartupText%>
+
+E0024813-CF12-C941-C42F-A984F35FDFAC,Action
+{Set Default}
+
+E0024813-CF12-C941-C42F-A984F35FDFAC,Alias
+{Set Default Values}
+
+E0024813-CF12-C941-C42F-A984F35FDFAC,Conditions
+{0 conditions}
 
 F460AA32-5A23-C650-FEEE-5669841DBE16,BackButton,subst
 1

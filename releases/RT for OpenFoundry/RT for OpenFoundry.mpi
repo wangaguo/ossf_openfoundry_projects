@@ -149,6 +149,9 @@ Version
 }
 
 array set ::InstallJammer::InstallCommandLineOptions {
+db_pass
+{DB_PASS String No No {} {set database passwd}}
+
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}
 
@@ -163,6 +166,12 @@ prefix
 
 test
 {Testing Switch Yes No {} {run installer without installing any files}}
+
+tmp_dba_pass
+{TMP_DBA_PASS String No No {} {set temporary database passed}}
+
+tmp_dba_user
+{TMP_DBA_USER String No No {} {set temporary database user}}
 
 }
 array set ::InstallJammer::UninstallCommandLineOptions {
@@ -376,6 +385,7 @@ File ::666B3CDE-7BE8-917C-3861-A75AABE84CD5 -type dir -name props -parent 2C53AA
 File ::4BD62B0F-BF06-F588-9E7A-6DB91FF27801 -type dir -name text-base -parent 2C53AA02-08C7-30C1-AA91-BCE7DAA6DC96
 File ::B41007D8-37C3-6B2C-3EB4-5742744F598E -name install_ruby.sh -parent 519C2B01-56D6-F8DF-6755-5F96C84B49C3
 File ::B0F555B9-B616-DE4B-6FE4-0A84454F9758 -name sync_cron.sh -parent 519C2B01-56D6-F8DF-6755-5F96C84B49C3
+File ::C9576BB3-D23E-8CC7-BB4E-FAEBCCCE72A6 -name .install.sh.swp -parent 519C2B01-56D6-F8DF-6755-5F96C84B49C3
 Component ::9F4203E9-0832-9E2E-BC5C-D3DEAA668684 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::5A237703-9E99-41DF-439F-9ADB952A2BE3 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::3154B501-8161-69A4-CE8E-D494E7137818 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -422,7 +432,7 @@ Condition 809F0189-08B4-5FC2-372A-D334B5CD9E12 -active Yes -parent 846DACE0-B3E9
 InstallComponent 9CF74405-7715-F868-BF0D-C3874A7F1FFF -setup Install -type action -title {Create Install Panes} -component CreateInstallPanes -active Yes -parent 808B0A1C-9BF0-67B6-2533-2C0F580F9E79
 InstallComponent 38F392B3-2D20-6026-B60D-63F7A7FC7022 -setup Install -type actiongroup -title {Install Actions} -alias {Install Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent D8C94A0E-14F8-0DF7-1790-7C234F538283 -setup Install -type action -title {Install Selected Files} -component InstallSelectedFiles -active Yes -parent 38F392B3-2D20-6026-B60D-63F7A7FC7022
-InstallComponent 0C2E33D5-80D1-0D2E-8BF5-BCC40AD29366 -setup Install -type action -conditions 3944B8FA-BF18-3948-4C49-66D8D00AF9AB -title {Install Uninstaller} -component InstallUninstaller -command reorder -active Yes -parent 38F392B3-2D20-6026-B60D-63F7A7FC7022
+InstallComponent 0C2E33D5-80D1-0D2E-8BF5-BCC40AD29366 -setup Install -type action -conditions 3944B8FA-BF18-3948-4C49-66D8D00AF9AB -title {Install Uninstaller} -component InstallUninstaller -command insert -active Yes -parent 38F392B3-2D20-6026-B60D-63F7A7FC7022
 Condition 3944B8FA-BF18-3948-4C49-66D8D00AF9AB -active Yes -parent 0C2E33D5-80D1-0D2E-8BF5-BCC40AD29366 -title {String Is Condition} -component StringIsCondition
 InstallComponent 447C2F6F-0F56-E0F6-33D8-C18D299AD3CF -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent 38F392B3-2D20-6026-B60D-63F7A7FC7022
 InstallComponent DE80E35A-2C21-F0E1-31A8-5F02A0361430 -setup Install -type action -title {Install Ruby in userhome} -component ExecuteExternalProgram -alias {Install Ruby in userhome} -active Yes -parent 38F392B3-2D20-6026-B60D-63F7A7FC7022
@@ -431,9 +441,12 @@ InstallComponent 3F63A3F0-F8A2-BD9E-7B80-C665420E6FCB -setup Install -type actio
 InstallComponent A5EC0BCD-7DAE-36AB-66C0-8C68A4D789A9 -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent 5D302237-6BA5-215B-C6CF-C54729AB7078 -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent AEB891D3-7D0E-9C20-D4FA-3789596A77F8 -setup Install -type actiongroup -title {Give Default} -alias {Give Default} -active Yes -parent ActionGroupsInstall
-InstallComponent 9267FEA9-F0CF-1A43-313F-935337B0423F -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
-InstallComponent 50B3AC7F-7E02-32F9-6DAA-03055B186D11 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
-InstallComponent 255883ED-72FF-0EDC-63E2-48C72F2A2F85 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
+InstallComponent 9267FEA9-F0CF-1A43-313F-935337B0423F -setup Install -type action -conditions B4A6C6D8-B91C-CBCE-B0D6-538C88BD9140 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
+Condition B4A6C6D8-B91C-CBCE-B0D6-538C88BD9140 -active Yes -parent 9267FEA9-F0CF-1A43-313F-935337B0423F -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 50B3AC7F-7E02-32F9-6DAA-03055B186D11 -setup Install -type action -conditions 35A47FE4-AB8C-CD53-DC38-78AD8E99911C -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
+Condition 35A47FE4-AB8C-CD53-DC38-78AD8E99911C -active Yes -parent 50B3AC7F-7E02-32F9-6DAA-03055B186D11 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 255883ED-72FF-0EDC-63E2-48C72F2A2F85 -setup Install -type action -conditions 2C0F73C8-FE82-305A-2078-247F8B0A4826 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
+Condition 2C0F73C8-FE82-305A-2078-247F8B0A4826 -active Yes -parent 255883ED-72FF-0EDC-63E2-48C72F2A2F85 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 944CC723-7977-7AB7-9E55-E17D00A7365F -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent AEB891D3-7D0E-9C20-D4FA-3789596A77F8
 InstallComponent 4F3B968F-9F45-C08C-BE70-99D8105C2E49 -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent 3AB987A0-DE96-88ED-6225-A16EA6E2346E -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent 4F3B968F-9F45-C08C-BE70-99D8105C2E49
@@ -505,7 +518,7 @@ Finish
 <%InstallDir%>
 
 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51,FileSize
-680488
+680621
 
 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51,FileUpdateMethod
 {Always overwrite files}
@@ -538,7 +551,7 @@ Exit
 InstallDir
 
 255883ED-72FF-0EDC-63E2-48C72F2A2F85,Conditions
-{0 conditions}
+{1 condition}
 
 255883ED-72FF-0EDC-63E2-48C72F2A2F85,Value
 rt_pass
@@ -551,6 +564,15 @@ DB_PASS
 
 28F57C74-F17F-89AD-D1FB-08F31A145677,Action
 {Uninstall Actions}
+
+2C0F73C8-FE82-305A-2078-247F8B0A4826,CheckCondition
+{Before Action is Executed}
+
+2C0F73C8-FE82-305A-2078-247F8B0A4826,Operator
+{was not passed on the command line}
+
+2C0F73C8-FE82-305A-2078-247F8B0A4826,Option
+DB_PASS
 
 2CE507C7-8FCE-63C9-6A66-819FB5FEC03C,Message,subst
 1
@@ -620,6 +642,15 @@ Custom
 
 31DFB470-2759-9782-B158-C1BF6475381D,Title,subst
 1
+
+35A47FE4-AB8C-CD53-DC38-78AD8E99911C,CheckCondition
+{Before Action is Executed}
+
+35A47FE4-AB8C-CD53-DC38-78AD8E99911C,Operator
+{was not passed on the command line}
+
+35A47FE4-AB8C-CD53-DC38-78AD8E99911C,Option
+TMP_DBA_PASS
 
 38F392B3-2D20-6026-B60D-63F7A7FC7022,Alias
 {Install Actions}
@@ -763,13 +794,13 @@ Yes
 {can create}
 
 50B3AC7F-7E02-32F9-6DAA-03055B186D11,Conditions
-{0 conditions}
+{1 condition}
 
 50B3AC7F-7E02-32F9-6DAA-03055B186D11,Value
 temp_dba_pass
 
 50B3AC7F-7E02-32F9-6DAA-03055B186D11,VirtualText
-UserInfoPass
+TMP_DBA_PASS
 
 50E958EE-AC6E-0927-4AB5-B60B7CDFF1B5,BackButton,subst
 1
@@ -886,7 +917,7 @@ Yes
 Yes
 
 7A885DC4-7489-FE8C-4996-47904E0AC5E7,ProgramCommandLine
-{sh install_rep.sh <%DB_HOST%> <%DB_PASS%> <%UserInfoName%> <%UserInfoPass%>}
+{sh install_rep.sh <%DB_HOST%> <%DB_PASS%> <%TMP_DBA_USER%> <%TMP_DBA_PASS%>}
 
 7A885DC4-7489-FE8C-4996-47904E0AC5E7,ShowProgressiveOutput
 Yes
@@ -961,13 +992,13 @@ false
 Answer
 
 9267FEA9-F0CF-1A43-313F-935337B0423F,Conditions
-{0 conditions}
+{1 condition}
 
 9267FEA9-F0CF-1A43-313F-935337B0423F,Value
 temp_dba_user
 
 9267FEA9-F0CF-1A43-313F-935337B0423F,VirtualText
-UserInfoName
+TMP_DBA_USER
 
 944CC723-7977-7AB7-9E55-E17D00A7365F,Conditions
 {0 conditions}
@@ -1112,6 +1143,15 @@ B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0,Prompt
 
 B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0,VirtualText
 DB_HOST
+
+B4A6C6D8-B91C-CBCE-B0D6-538C88BD9140,CheckCondition
+{Before Action is Executed}
+
+B4A6C6D8-B91C-CBCE-B0D6-538C88BD9140,Operator
+{was not passed on the command line}
+
+B4A6C6D8-B91C-CBCE-B0D6-538C88BD9140,Option
+TMP_DBA_USER
 
 BF47B479-8894-54DD-BFAD-215FE08AD69C,Conditions
 {0 conditions}

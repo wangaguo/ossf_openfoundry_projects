@@ -152,6 +152,15 @@ Version
 }
 
 array set ::InstallJammer::InstallCommandLineOptions {
+db_pass
+{DB_PASS String No No {} {set database passwd}}
+
+db_prefix
+{DB_PREFIX Switch No No {} {set database prefix}}
+
+db_user
+{DB_USER Switch No No {} {set database user}}
+
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}
 
@@ -163,6 +172,12 @@ mode
 
 prefix
 {InstallDir String No No {} {set the installation directory}}
+
+stomp_pass
+{StompPass String No No {} {set Stompserver passwd}}
+
+stomp_user
+{StompUser String No No {} {set Stompserver user}}
 
 test
 {Testing Switch Yes No {} {run installer without installing any files}}
@@ -206,6 +221,7 @@ File ::F1F7556B-FEBE-F13A-66A9-1D6EB8A71902 -type dir -name prop-base -parent 59
 File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -type dir -name props -parent 5910AF71-3593-C6E9-BE27-FDDCCCF86FB1
 File ::B33FFEFA-22D6-6024-0A30-146A538D602E -type dir -name text-base -parent 5910AF71-3593-C6E9-BE27-FDDCCCF86FB1
 File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
+File ::238D99DC-CD7A-D345-0F0C-3BE37AF18111 -name .install_db.sh.swp -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
 Component ::32A84B0B-1176-6A6F-5282-ED4E3AC3CAFA -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::7850A46B-32D0-6FF7-C51D-E5007DB0C99A -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::25BC91C5-ADB0-780C-1539-3B4882A4ED69 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -228,8 +244,16 @@ InstallComponent CB5B0DD7-51CA-DDD9-A90C-00D03C6C0804 -setup Install -type pane 
 InstallComponent CCFF824E-E289-DA60-B7C3-A0E640AE81CA -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
 InstallComponent 002BFD35-BD2C-9A4C-77A2-20962C78BC20 -setup Install -type action -conditions DCEA67E5-318B-0447-0FCB-5F8DB07C32F9 -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition DCEA67E5-318B-0447-0FCB-5F8DB07C32F9 -active Yes -parent 002BFD35-BD2C-9A4C-77A2-20962C78BC20 -title {String Is Condition} -component StringIsCondition
-InstallComponent D8C6ACFC-F4A1-4E88-59B1-994686D68831 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent ConsoleInstall
-InstallComponent B4FE9A1C-B153-42C0-F1EF-CD9E6831C110 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent ConsoleInstall
+InstallComponent 0A4F07D7-6DE3-2123-D55A-20FA2FA94946 -setup Install -type action -conditions 293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
+Condition 293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE -active Yes -parent 0A4F07D7-6DE3-2123-D55A-20FA2FA94946 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent D86845EA-8A5A-CA2E-15B2-DA6C75C152A3 -setup Install -type action -conditions EF88E638-1FED-F134-6ECB-644659BBCFEE -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
+Condition EF88E638-1FED-F134-6ECB-644659BBCFEE -active Yes -parent D86845EA-8A5A-CA2E-15B2-DA6C75C152A3 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent AF3F0CF8-E3FF-2E34-E97A-F96247A51FDE -setup Install -type action -conditions 02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
+Condition 02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE -active Yes -parent AF3F0CF8-E3FF-2E34-E97A-F96247A51FDE -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent D8C6ACFC-F4A1-4E88-59B1-994686D68831 -setup Install -type action -conditions 4AF7B25E-52DB-8296-3C2A-346FD2CC0E71 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
+Condition 4AF7B25E-52DB-8296-3C2A-346FD2CC0E71 -active Yes -parent D8C6ACFC-F4A1-4E88-59B1-994686D68831 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent B4FE9A1C-B153-42C0-F1EF-CD9E6831C110 -setup Install -type action -conditions 3928B730-247F-759D-AB67-65DD9372B7A4 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
+Condition 3928B730-247F-759D-AB67-65DD9372B7A4 -active Yes -parent B4FE9A1C-B153-42C0-F1EF-CD9E6831C110 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent A51ABA7B-6CDC-9BF4-E684-E46A3745548E -setup Install -type action -conditions F5050338-5351-8CD0-46CD-5DA0DF94B559 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition F5050338-5351-8CD0-46CD-5DA0DF94B559 -active Yes -parent A51ABA7B-6CDC-9BF4-E684-E46A3745548E -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent C00B29CF-1D5B-721C-D2A0-F62F2E614128 -setup Install -type action -title {set StompUser} -component ConsoleGetUserInput -alias {set StompUser} -active Yes -parent ConsoleInstall
@@ -293,6 +317,15 @@ array set Properties {
 002BFD35-BD2C-9A4C-77A2-20962C78BC20,Conditions
 {1 condition}
 
+02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE,CheckCondition
+{Before Action is Executed}
+
+02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE,Operator
+{was not passed on the command line}
+
+02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE,Option
+DB_PASS
+
 06E24AE5-F266-3F5F-08EF-ED0CA0172F8E,State
 disabled
 
@@ -313,6 +346,15 @@ disabled
 
 0A38F72B-96CC-233C-B592-2E2AA040D39E,NextButton,subst
 1
+
+0A4F07D7-6DE3-2123-D55A-20FA2FA94946,Conditions
+{1 condition}
+
+0A4F07D7-6DE3-2123-D55A-20FA2FA94946,Value
+of
+
+0A4F07D7-6DE3-2123-D55A-20FA2FA94946,VirtualText
+DB_PREFIX
 
 0D0E0039-04E9-138D-B37A-B9C2192425D7,State
 disabled
@@ -420,7 +462,7 @@ Yes
 <%InstallDir%>
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,FileSize
-46919
+59207
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,Name
 {Program Files}
@@ -436,6 +478,15 @@ Yes
 
 25BC91C5-ADB0-780C-1539-3B4882A4ED69,Name
 Custom
+
+293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE,CheckCondition
+{Before Action is Executed}
+
+293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE,Operator
+{was not passed on the command line}
+
+293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE,Option
+DB_PREFIX
 
 322CFE04-E55C-A370-62E0-0E5024500F52,Conditions
 {0 conditions}
@@ -490,6 +541,15 @@ Yes
 38891A3A-4112-F396-A21D-3225526302C3,Alias
 {Setup Actions}
 
+3928B730-247F-759D-AB67-65DD9372B7A4,CheckCondition
+{Before Action is Executed}
+
+3928B730-247F-759D-AB67-65DD9372B7A4,Operator
+{was not passed on the command line}
+
+3928B730-247F-759D-AB67-65DD9372B7A4,Option
+StompUser
+
 3B13D960-4C4C-852A-450E-8833E1BCFFBA,Action
 {Install Actions}
 
@@ -538,6 +598,9 @@ Yes
 45219FC3-1713-56A9-B03C-A92D2FD5E9C4,Alias
 {Startup Actions}
 
+45219FC3-1713-56A9-B03C-A92D2FD5E9C4,Conditions
+{0 conditions}
+
 49A4F6B1-A39A-C682-E53A-2B25F201CDEF,BackButton,subst
 1
 
@@ -567,6 +630,15 @@ Yes
 
 4A055070-39F6-D2E5-6781-3B7175F2E574,Message,subst
 1
+
+4AF7B25E-52DB-8296-3C2A-346FD2CC0E71,CheckCondition
+{Before Action is Executed}
+
+4AF7B25E-52DB-8296-3C2A-346FD2CC0E71,Operator
+{was not passed on the command line}
+
+4AF7B25E-52DB-8296-3C2A-346FD2CC0E71,Option
+StompPass
 
 4B171170-374F-4C68-B158-43C9A6AED87F,String
 <%ErrorsOccurred%>
@@ -745,6 +817,15 @@ A6EF33D1-57BC-C370-60AC-3C29F5DCB89B,Conditions
 A6EF33D1-57BC-C370-60AC-3C29F5DCB89B,Message,subst
 1
 
+AF3F0CF8-E3FF-2E34-E97A-F96247A51FDE,Conditions
+{1 condition}
+
+AF3F0CF8-E3FF-2E34-E97A-F96247A51FDE,Value
+ossfossfossf
+
+AF3F0CF8-E3FF-2E34-E97A-F96247A51FDE,VirtualText
+DB_PASS
+
 AIX-ppc,Active
 No
 
@@ -836,7 +917,7 @@ B41F7313-9980-2DBE-EE5F-C1D69321D6EF,Title,subst
 1
 
 B4FE9A1C-B153-42C0-F1EF-CD9E6831C110,Conditions
-{0 conditions}
+{1 condition}
 
 B4FE9A1C-B153-42C0-F1EF-CD9E6831C110,Value
 ossf
@@ -911,7 +992,7 @@ CA695D57-52D7-446D-3A80-8FF9CD866459,IncludeStderr
 Yes
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,ProgramCommandLine
-{sh install_db.sh}
+{sh install_db.sh <%DB_PREFIX%> <%DB_USER%> <%DB_PASS%>}
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,ShowProgressiveOutput
 Yes
@@ -955,8 +1036,17 @@ Finish
 D2B895D2-539D-2776-39FE-4E0BD23B667B,Alias
 {Cancel Actions}
 
+D86845EA-8A5A-CA2E-15B2-DA6C75C152A3,Conditions
+{1 condition}
+
+D86845EA-8A5A-CA2E-15B2-DA6C75C152A3,Value
+openfoundry
+
+D86845EA-8A5A-CA2E-15B2-DA6C75C152A3,VirtualText
+DB_USER
+
 D8C6ACFC-F4A1-4E88-59B1-994686D68831,Conditions
-{0 conditions}
+{1 condition}
 
 D8C6ACFC-F4A1-4E88-59B1-994686D68831,Value
 ossf
@@ -1026,6 +1116,15 @@ EF6606C5-CFCD-60A0-6ABB-9B2A6CEB19F3,Comment
 
 EF6606C5-CFCD-60A0-6ABB-9B2A6CEB19F3,Script
 {!<%UpgradeInstall%> || <%PreviousInstallCount%> != 1}
+
+EF88E638-1FED-F134-6ECB-644659BBCFEE,CheckCondition
+{Before Action is Executed}
+
+EF88E638-1FED-F134-6ECB-644659BBCFEE,Operator
+{was not passed on the command line}
+
+EF88E638-1FED-F134-6ECB-644659BBCFEE,Option
+DB_USER
 
 F5050338-5351-8CD0-46CD-5DA0DF94B559,CheckCondition
 {Before Next Action is Executed}

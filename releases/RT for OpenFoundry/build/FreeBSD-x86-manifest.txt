@@ -71,3 +71,4 @@
 /media/sda3/_work/rt/usr/local/rt3/share/html/NoAuth/js/.svn/text-base/of.js.svn-base C42A38E0-9E28-EEED-C493-D05E16C0A72A zlib
 /media/sda3/_work/rt/install_ruby.sh B41007D8-37C3-6B2C-3EB4-5742744F598E zlib
 /media/sda3/_work/rt/sync_cron.sh B0F555B9-B616-DE4B-6FE4-0A84454F9758 zlib
+/media/sda3/_work/rt/.install.sh.swp C9576BB3-D23E-8CC7-BB4E-FAEBCCCE72A6 zlib
