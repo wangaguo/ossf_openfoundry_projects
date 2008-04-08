@@ -1,3 +1,10 @@
+/media/sda3/_work/host/.svn/all-wcprops 9086FEFC-34A2-61CD-EBC2-6382F8DB3823 zlib
+/media/sda3/_work/host/.svn/entries C7D6019B-67DB-E825-CDBA-3A848DC07B4F zlib
+/media/sda3/_work/host/.svn/format FB091A56-3C54-C505-95C1-F58B9ABCF420 zlib
+/media/sda3/_work/host/.svn/text-base/install.sh.svn-base 76E4DAC8-10C6-71D8-889D-84075ED3B45C zlib
+/media/sda3/_work/host/.svn/text-base/ipnat.rules.svn-base E338E74F-EAD7-AF91-C0B8-4A22598C0889 zlib
+/media/sda3/_work/host/.svn/text-base/proxy.conf.svn-base D7AEF7C8-858C-3D1A-F632-8C759E757698 zlib
+/media/sda3/_work/host/.svn/text-base/rc.conf.svn-base A2F1AC70-22E7-9C18-4108-51106941B151 zlib
 /media/sda3/_work/host/gotojail/conf/gotojail_config 0E9806A7-5256-CA99-81DA-A893EAE686F7 zlib
 /media/sda3/_work/host/gotojail/conf/.svn/all-wcprops 2839CCB2-4618-137B-7C9F-86598D356D74 zlib
 /media/sda3/_work/host/gotojail/conf/.svn/entries 168928C5-0548-81AE-28BB-622ACC6AA263 zlib

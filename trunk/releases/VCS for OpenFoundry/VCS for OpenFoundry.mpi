@@ -164,6 +164,9 @@ mode
 prefix
 {InstallDir String No No {} {set the installation directory}}
 
+sync_pass
+{SYNC_PASS String No No {} {set synchronization passwd}}
+
 test
 {Testing Switch Yes No {} {run installer without installing any files}}
 
@@ -202,10 +205,11 @@ InstallComponent 71A43EB5-DA90-57D2-886D-A1E0FB289584 -setup Install -type actio
 InstallComponent ED74A87D-AA28-5F77-EA0C-04FD16A53108 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 01C0A149-9434-3330-2B27-247570AAC2D2
 InstallComponent 3D941B27-FED4-D23D-C81C-ADDC2D9682E4 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent DefaultInstall
 InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
-InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent ConsoleInstall
+InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent ConsoleInstall
+Condition A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -active Yes -parent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent F847003C-9571-28A6-DB30-614106901EFD -setup Install -type action -conditions 28B7BF91-420F-9A3E-AF94-F37B47BC262F -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 28B7BF91-420F-9A3E-AF94-F37B47BC262F -active Yes -parent F847003C-9571-28A6-DB30-614106901EFD -title {String Is Condition} -component StringIsCondition
-InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -active Yes -parent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent C6A79C93-57D3-D574-B379-4B210BA06E37 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
 InstallComponent CE6F8400-50B1-1A9D-DAF8-21BEFC27924A -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent ConsoleInstall
@@ -300,6 +304,9 @@ Yes
 0D9D1D87-0F0A-8455-792C-77128D17FC3E,Alias
 {Setup Actions}
 
+0D9D1D87-0F0A-8455-792C-77128D17FC3E,Conditions
+{0 conditions}
+
 0FB6D231-1D15-6806-4B2C-AFF64BBBE7DB,Alias
 {Setup Actions}
 
@@ -372,6 +379,9 @@ false
 3AB107B1-D6BC-0016-7C8C-F63BBF58A7FD,Alias
 {Finish Actions}
 
+3AB107B1-D6BC-0016-7C8C-F63BBF58A7FD,Conditions
+{0 conditions}
+
 3AC03BEE-289C-F8D0-8F9B-11EEF103E423,Components
 79F5D745-5E1C-69EA-755D-C52B7416E102
 
@@ -385,13 +395,13 @@ false
 Custom
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,Conditions
-{0 conditions}
+{1 condition}
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,Value
 it_is_a_good_day_to_die
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,VirtualText
-DumpSecret
+SYNC_PASS
 
 3D941B27-FED4-D23D-C81C-ADDC2D9682E4,BackButton,subst
 1
@@ -565,7 +575,7 @@ disabled
 {etc/openfoundry_root.conf;etc/openfoundry.conf}
 
 94E3E430-CA29-0F0F-437D-F2E079D30F7D,StringMap
-{"###########" <%DumpSecret%>}
+{"###########" <%SYNC_PASS%>}
 
 97AD4B5A-9910-E996-38D8-215978196E50,Action
 {Uninstall Actions}
@@ -605,6 +615,15 @@ A48312B4-B9D0-2C7C-D061-50F19C1F3F68,Title,subst
 
 A48312B4-B9D0-2C7C-D061-50F19C1F3F68,TrueValue
 No
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,CheckCondition
+{Before Action is Executed}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,Operator
+{was not passed on the command line}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,Option
+sync_pass
 
 A8101B66-0D86-ACCC-33DF-3D77F06C2996,Action
 {Uninstall Actions}
@@ -771,11 +790,17 @@ B6D8B8C7-EBD0-2A5F-E391-F46B392DA3D7,Title,subst
 B86D6EAB-D035-15EA-3B36-A4C2D9095451,Alias
 {Cancel Actions}
 
+B86D6EAB-D035-15EA-3B36-A4C2D9095451,Conditions
+{0 conditions}
+
 B8C8C054-0711-70CC-9743-DAA87D4706AA,Conditions
 {1 condition}
 
 C3EDFBDB-4379-0B93-B0D3-3796C13D4512,Alias
 {Startup Actions}
+
+C3EDFBDB-4379-0B93-B0D3-3796C13D4512,Conditions
+{0 conditions}
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,Conditions
 {0 conditions}

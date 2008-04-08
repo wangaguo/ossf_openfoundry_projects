@@ -185,7 +185,7 @@ File ::78D46703-7C90-A1F4-278C-68B07166C29D -name install.sh -active 0 -parent E
 File ::A066EC4A-710B-02AE-3FE1-85956958584E -name ipnat.rules -active 0 -parent E96634E7-262B-0A5C-A572-36790F86EA25
 File ::BA046394-91D2-7B43-3C23-52304BE25D8D -name proxy.conf -active 0 -parent E96634E7-262B-0A5C-A572-36790F86EA25
 File ::F3ED06E0-2DE2-523B-5395-1122F35D214E -name rc.conf -active 0 -parent E96634E7-262B-0A5C-A572-36790F86EA25
-File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -type dir -name .svn -active 0 -parent E96634E7-262B-0A5C-A572-36790F86EA25
+File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -type dir -name .svn -parent E96634E7-262B-0A5C-A572-36790F86EA25
 File ::9086FEFC-34A2-61CD-EBC2-6382F8DB3823 -name all-wcprops -parent E1487014-CA4C-1BEC-F5C8-274AB620467D
 File ::C7D6019B-67DB-E825-CDBA-3A848DC07B4F -name entries -parent E1487014-CA4C-1BEC-F5C8-274AB620467D
 File ::FB091A56-3C54-C505-95C1-F58B9ABCF420 -name format -parent E1487014-CA4C-1BEC-F5C8-274AB620467D
@@ -273,8 +273,13 @@ InstallComponent 7931EDD2-753F-1511-1337-1F799ACB81D7 -setup Install -type pane 
 InstallComponent F77BED28-0E15-1267-BD73-95B161E9A670 -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
 InstallComponent 200C24BE-4475-060E-AA9D-15C3874583D9 -setup Install -type action -conditions 5E76074F-49A8-3097-FA7F-69C79041B25E -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 5E76074F-49A8-3097-FA7F-69C79041B25E -active Yes -parent 200C24BE-4475-060E-AA9D-15C3874583D9 -title {String Is Condition} -component StringIsCondition
+InstallComponent E7FDA7F6-3F37-E75A-9632-A942DB29B798 -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent ConsoleInstall
 InstallComponent C5CA3EE0-A412-7C3C-EED4-D83C4090B830 -setup Install -type action -conditions 636E8500-66D4-D659-4B5D-2A7867731CF7 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 636E8500-66D4-D659-4B5D-2A7867731CF7 -active Yes -parent C5CA3EE0-A412-7C3C-EED4-D83C4090B830 -title {File Permission Condition} -component FilePermissionCondition
+InstallComponent 9CBEE669-3148-50A7-C523-A6867E7FAE2A -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
+InstallComponent FAF01A55-833D-5FB7-4C62-32D3D0648C41 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
+InstallComponent 22D6324D-5106-5143-7CA5-4F1197CAD03E -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
+InstallComponent 3976C977-DAD1-577C-E87F-1ECED288E621 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
 InstallComponent F4AD4B1D-5CCA-FE41-0905-6062B4AE0A0F -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent ConsoleInstall
 InstallComponent D5004018-2749-ABF1-792D-D90CCFD8E942 -setup Install -type action -title {Run Install Jails OF} -component ExecuteExternalProgram -alias {Run Install Jails OF} -active Yes -parent ConsoleInstall
 InstallComponent F726CB5C-A210-BEE7-D0B0-86886640407C -setup Install -type action -title {Run Install Jails DATA} -component ExecuteExternalProgram -alias {Run Install Jails DATA} -active Yes -parent ConsoleInstall
@@ -316,6 +321,11 @@ InstallComponent CEE222D2-8D08-A4C2-23D2-111374787634 -setup Install -type actio
 InstallComponent E56FB3CD-F352-D95F-EC30-164109044398 -setup Install -type action -title {Jexec VCS} -component ExecuteExternalProgram -alias {Jexec VCS} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 80F68020-C58D-8EE3-E471-971C80BCAFB5 -setup Install -type action -title {Jexec FTP} -component ExecuteExternalProgram -alias {Jexec FTP} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 19A6775D-B618-CA48-8BF8-E41BFAAA9677 -setup Install -type action -title {Jexec RT} -component ExecuteExternalProgram -alias {Jexec RT} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent E50A9191-9517-4C10-C7D4-5C2A3FDAB075 -setup Install -type actiongroup -title {Set Default} -alias {Set Default} -active Yes -parent ActionGroupsInstall
+InstallComponent 29C0BD3E-90EE-6572-8629-6CAC2AB815BF -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
+InstallComponent 3744140E-A9A5-AA7D-19C4-5DBF8D039B78 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
+InstallComponent E64E893E-3BCC-2B03-B7BE-E66C4E7BF0E1 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
+InstallComponent 660D5947-8820-70C2-E5E5-523A54619DEB -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent E50A9191-9517-4C10-C7D4-5C2A3FDAB075
 InstallComponent CB4A9F4A-08FF-2288-40E8-6898E5ECE562 -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent F3F7F202-985F-F147-4855-C5D9E8E2C5E2 -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent CB4A9F4A-08FF-2288-40E8-6898E5ECE562
 InstallComponent 7C6BBC6C-6FBE-D201-A800-964980A23542 -setup Uninstall -type action -title {Execute Action} -component ExecuteAction -active Yes -parent CB4A9F4A-08FF-2288-40E8-6898E5ECE562
@@ -365,7 +375,7 @@ Yes
 Yes
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
-{jexec <%Jail_DATA%> "/root/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install"}
+{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%>}
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ShowProgressiveOutput
 Yes
@@ -440,7 +450,7 @@ Yes
 Yes
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ProgramCommandLine
-{jexec <%Jail_RT%> "/root/Request Tracker-1.0-FreeBSD-x86-Install"}
+{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%>}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ShowProgressiveOutput
 Yes
@@ -468,6 +478,15 @@ Jail_FTP
 
 200C24BE-4475-060E-AA9D-15C3874583D9,Conditions
 {1 condition}
+
+22D6324D-5106-5143-7CA5-4F1197CAD03E,Conditions
+{0 conditions}
+
+22D6324D-5106-5143-7CA5-4F1197CAD03E,Prompt
+{Please set database superuser password: }
+
+22D6324D-5106-5143-7CA5-4F1197CAD03E,VirtualText
+DB_PASS
 
 23805F1D-4C10-B99F-5679-71557F2CDBA6,Conditions
 {0 conditions}
@@ -513,6 +532,15 @@ false
 
 26880B6C-181F-C697-D8BC-5CDAC28B4218,String
 <%Answer%>
+
+29C0BD3E-90EE-6572-8629-6CAC2AB815BF,Conditions
+{0 conditions}
+
+29C0BD3E-90EE-6572-8629-6CAC2AB815BF,Value
+of
+
+29C0BD3E-90EE-6572-8629-6CAC2AB815BF,VirtualText
+DB_PREFIX
 
 29E28522-9663-C7FD-C0B8-3E5DF452E6DD,Conditions
 {0 conditions}
@@ -565,6 +593,15 @@ Yes
 339743C7-33AB-4D86-9C00-AB240813B056,Message,subst
 1
 
+3744140E-A9A5-AA7D-19C4-5DBF8D039B78,Conditions
+{0 conditions}
+
+3744140E-A9A5-AA7D-19C4-5DBF8D039B78,Value
+openfoundry
+
+3744140E-A9A5-AA7D-19C4-5DBF8D039B78,VirtualText
+DB_USER
+
 394E257E-C203-2306-854B-AF5C2E7F2C03,Comment
 {Don't display this pane in an upgrade install}
 
@@ -573,6 +610,15 @@ false
 
 394E257E-C203-2306-854B-AF5C2E7F2C03,String
 <%UpgradeInstall%>
+
+3976C977-DAD1-577C-E87F-1ECED288E621,Conditions
+{0 conditions}
+
+3976C977-DAD1-577C-E87F-1ECED288E621,Prompt
+{Please set synchronization password: }
+
+3976C977-DAD1-577C-E87F-1ECED288E621,VirtualText
+SYNC_PASS
 
 40F95B7C-29E6-1800-71EE-0539FB5FD57A,ExecuteAction
 {Before Pane is Displayed}
@@ -743,10 +789,19 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-4912345
+8112875
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,Name
 {Program Files}
+
+660D5947-8820-70C2-E5E5-523A54619DEB,Conditions
+{0 conditions}
+
+660D5947-8820-70C2-E5E5-523A54619DEB,Value
+ossfossfossf
+
+660D5947-8820-70C2-E5E5-523A54619DEB,VirtualText
+SYNC_PASS
 
 6CFAEAA4-86C9-C367-B09B-D5F77E9532EC,Alias
 {Cancel Actions}
@@ -866,7 +921,7 @@ Yes
 Yes
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
-{jexec <%Jail_FTP%> "/root/ProFTPD for OpenFoundry-1.0-FreeBSD-x86-Install"}
+{jexec <%Jail_FTP%> /root/ProFTPD\for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ShowProgressiveOutput
 Yes
@@ -960,6 +1015,15 @@ Yes
 
 9C47753E-9D29-B2C6-79A9-EA3008AB1FBC,Comment
 {Ask the user if they want to proceed with the uninstall.}
+
+9CBEE669-3148-50A7-C523-A6867E7FAE2A,Conditions
+{0 conditions}
+
+9CBEE669-3148-50A7-C523-A6867E7FAE2A,Prompt
+{Please set database prefix: }
+
+9CBEE669-3148-50A7-C523-A6867E7FAE2A,VirtualText
+DB_PREFIX
 
 A046BFCD-DCF2-6DB3-19BE-B5865260E58B,Conditions
 {0 conditions}
@@ -1217,7 +1281,7 @@ CEE222D2-8D08-A4C2-23D2-111374787634,IncludeStderr
 Yes
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ProgramCommandLine
-{jexec <%Jail_OF%> "/root/OpenFoundry Website-1.0-FreeBSD-x86-Install"}
+{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> }
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ShowProgressiveOutput
 Yes
@@ -1249,6 +1313,12 @@ Yes
 D5004018-2749-ABF1-792D-D90CCFD8E942,WorkingDirectory
 <%InstallDir%>/gotojail
 
+E50A9191-9517-4C10-C7D4-5C2A3FDAB075,Alias
+{Set Default}
+
+E50A9191-9517-4C10-C7D4-5C2A3FDAB075,Conditions
+{0 conditions}
+
 E56FB3CD-F352-D95F-EC30-164109044398,Alias
 {Jexec VCS}
 
@@ -1262,7 +1332,7 @@ E56FB3CD-F352-D95F-EC30-164109044398,IncludeStderr
 Yes
 
 E56FB3CD-F352-D95F-EC30-164109044398,ProgramCommandLine
-{jexec <%Jail_VCS%> "/root/VCS for OpenFoundry-1.0-FreeBSD-x86-Install"}
+{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%>}
 
 E56FB3CD-F352-D95F-EC30-164109044398,ShowProgressiveOutput
 Yes
@@ -1270,8 +1340,23 @@ Yes
 E56FB3CD-F352-D95F-EC30-164109044398,WorkingDirectory
 <%InstallDir%>
 
+E64E893E-3BCC-2B03-B7BE-E66C4E7BF0E1,Conditions
+{0 conditions}
+
+E64E893E-3BCC-2B03-B7BE-E66C4E7BF0E1,Value
+ossfosssf
+
+E64E893E-3BCC-2B03-B7BE-E66C4E7BF0E1,VirtualText
+DB_PASS
+
 E7094588-0B4F-3475-0E05-7BEA8E0DF41C,ExitType
 Finish
+
+E7FDA7F6-3F37-E75A-9632-A942DB29B798,Action
+{Set Default}
+
+E7FDA7F6-3F37-E75A-9632-A942DB29B798,Conditions
+{0 conditions}
 
 E906638D-E2A9-D545-96BD-1E1DAAD8C9F0,Default
 Yes
@@ -1326,6 +1411,15 @@ F77BED28-0E15-1267-BD73-95B161E9A670,Prompt
 
 F9C57B68-DE16-B3A6-8025-9147C9527184,ExitType
 Finish
+
+FAF01A55-833D-5FB7-4C62-32D3D0648C41,Conditions
+{0 conditions}
+
+FAF01A55-833D-5FB7-4C62-32D3D0648C41,Prompt
+{Please set database super username: }
+
+FAF01A55-833D-5FB7-4C62-32D3D0648C41,VirtualText
+DB_USER
 
 FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Alias
 {Run Install.sh}

@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 0F32FEEB-8938-06B9-DD96-346EBDF10AC8
+set info(InstallerID) 3984C2C7-F740-9E69-943D-E9375D50DF5C
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -218,6 +218,9 @@ mode
 prefix
 {InstallDir String No No {} {set the installation directory}}
 
+sync_pass
+{SYNC_PASS String No No {} {set synchronization passwd}}
+
 test
 {Testing Switch Yes No {} {run installer without installing any files}}
 
@@ -302,7 +305,7 @@ Yes
 {Setup Actions}
 
 0D9D1D87-0F0A-8455-792C-77128D17FC3E,Conditions
-{}
+{0 conditions}
 
 0D9D1D87-0F0A-8455-792C-77128D17FC3E,ID
 {}
@@ -398,7 +401,7 @@ Yes
 {Finish Actions}
 
 3AB107B1-D6BC-0016-7C8C-F63BBF58A7FD,Conditions
-{}
+{0 conditions}
 
 3AB107B1-D6BC-0016-7C8C-F63BBF58A7FD,ID
 {}
@@ -452,7 +455,7 @@ Yes
 {}
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,Conditions
-{0 conditions}
+{1 condition}
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,ExecuteAction
 {After Pane is Displayed}
@@ -473,7 +476,7 @@ No
 it_is_a_good_day_to_die
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,VirtualText
-DumpSecret
+SYNC_PASS
 
 3D941B27-FED4-D23D-C81C-ADDC2D9682E4,Active
 Yes
@@ -923,7 +926,7 @@ No
 Auto
 
 94E3E430-CA29-0F0F-437D-F2E079D30F7D,StringMap
-{"###########" <%DumpSecret%>}
+{"###########" <%SYNC_PASS%>}
 
 97CD20AE-326C-1542-E4A8-CA7989C95318,Active
 Yes
@@ -972,6 +975,30 @@ A48312B4-B9D0-2C7C-D061-50F19C1F3F68,Title,subst
 
 A48312B4-B9D0-2C7C-D061-50F19C1F3F68,TrueValue
 No
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,Active
+Yes
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,CheckCondition
+{Before Action is Executed}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,Component
+{}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,FailureFocus
+{}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,FailureMessage
+{}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,ID
+{}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,Operator
+{was not passed on the command line}
+
+A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0,Option
+sync_pass
 
 AAFBD9D4-9BEF-B21E-FA84-89402DA189B4,Active
 Yes
@@ -1229,7 +1256,7 @@ B86D6EAB-D035-15EA-3B36-A4C2D9095451,Alias
 {Cancel Actions}
 
 B86D6EAB-D035-15EA-3B36-A4C2D9095451,Conditions
-{}
+{0 conditions}
 
 B86D6EAB-D035-15EA-3B36-A4C2D9095451,ID
 {}
@@ -1268,7 +1295,7 @@ C3EDFBDB-4379-0B93-B0D3-3796C13D4512,Alias
 {Startup Actions}
 
 C3EDFBDB-4379-0B93-B0D3-3796C13D4512,Conditions
-{}
+{0 conditions}
 
 C3EDFBDB-4379-0B93-B0D3-3796C13D4512,ID
 {}
@@ -20716,6 +20743,23 @@ set info($props(ResultVirtualText)) $result
 return [string equal -nocase $result $props(TrueValue)]
 }
 
+proc ::InstallJammer::conditions::CommandLineTestCondition {obj} {
+variable ::InstallJammer::PassedCommandLineOptions
+
+$obj properties props -subst 1
+
+debug "Checking to see if $props(Option) $props(Operator)"
+
+set option [string tolower [string trimleft $props(Option) -/]]
+set exists [info exists PassedCommandLineOptions($option)]
+
+if {$props(Operator) eq "was passed on the command line"} {
+return $exists
+} else {
+return [expr {!$exists}]
+}
+}
+
 proc ::InstallJammer::actions::ConsoleAskYesOrNo {obj} {
 $obj properties props -subst 1
 
@@ -22825,10 +22869,11 @@ InstallComponent ED74A87D-AA28-5F77-EA0C-04FD16A53108 -setup Install -type actio
 InstallComponent 3D941B27-FED4-D23D-C81C-ADDC2D9682E4 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent Default
 InstallType ::Console
 InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent Console
-InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent Console
+InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent Console
+Condition A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -active Yes -parent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent F847003C-9571-28A6-DB30-614106901EFD -setup Install -type action -conditions 28B7BF91-420F-9A3E-AF94-F37B47BC262F -title Exit -component Exit -command insert -active Yes -parent Console
 Condition 28B7BF91-420F-9A3E-AF94-F37B47BC262F -active Yes -parent F847003C-9571-28A6-DB30-614106901EFD -title {String Is Condition} -component StringIsCondition
-InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent Console
+InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent Console
 Condition FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -active Yes -parent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent C6A79C93-57D3-D574-B379-4B210BA06E37 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
 InstallComponent CE6F8400-50B1-1A9D-DAF8-21BEFC27924A -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
