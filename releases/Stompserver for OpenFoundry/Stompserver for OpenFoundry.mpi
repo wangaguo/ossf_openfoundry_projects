@@ -156,7 +156,7 @@ db_pass
 {DB_PASS String No No {} {set database passwd}}
 
 db_prefix
-{DB_PREFIX Switch No No {} {set database prefix}}
+{DB_PREFIX String No No {} {set database prefix}}
 
 db_user
 {DB_USER String No No {} {set database user}}
