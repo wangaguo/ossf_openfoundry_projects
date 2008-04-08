@@ -205,7 +205,7 @@ InstallComponent 71A43EB5-DA90-57D2-886D-A1E0FB289584 -setup Install -type actio
 InstallComponent ED74A87D-AA28-5F77-EA0C-04FD16A53108 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 01C0A149-9434-3330-2B27-247570AAC2D2
 InstallComponent 3D941B27-FED4-D23D-C81C-ADDC2D9682E4 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent DefaultInstall
 InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
-InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent ConsoleInstall
+InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
 Condition A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -active Yes -parent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent F847003C-9571-28A6-DB30-614106901EFD -setup Install -type action -conditions 28B7BF91-420F-9A3E-AF94-F37B47BC262F -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 28B7BF91-420F-9A3E-AF94-F37B47BC262F -active Yes -parent F847003C-9571-28A6-DB30-614106901EFD -title {String Is Condition} -component StringIsCondition
