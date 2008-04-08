@@ -464,7 +464,7 @@ Yes
 {0 conditions}
 
 1C5107A8-2C1C-65CD-5881-F088B9EED968,File
-/var/run/jail_50_ftpid
+/var/run/jail_50_ftp.id
 
 1C5107A8-2C1C-65CD-5881-F088B9EED968,VirtualText
 Jail_FTP

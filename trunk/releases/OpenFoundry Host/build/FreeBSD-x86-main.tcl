@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 524C9673-5FEF-22AC-62DD-E4D12994E520
+set info(InstallerID) 8478EC62-F0AC-FD4C-036E-374027B560DE
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -530,7 +530,7 @@ Yes
 {After Pane is Displayed}
 
 1C5107A8-2C1C-65CD-5881-F088B9EED968,File
-/var/run/jail_50_ftpid
+/var/run/jail_50_ftp.id
 
 1C5107A8-2C1C-65CD-5881-F088B9EED968,ID
 {}
@@ -1370,7 +1370,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-8112875
+8125164
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Update files with more recent dates}
@@ -3797,7 +3797,7 @@ File ::9979D042-33D8-34E6-F294-B783376C1955 -name tmp -parent 65C973D8-1F96-A6D9
 File ::0DCFAF4C-8101-7BC6-BE19-F4ADFC51CACB -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::1BF7EFF3-1C68-E218-6EDF-DEAFA1C1B8D2 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206694766 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207640442 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207644790 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Update files with more recent dates"
@@ -3831,11 +3831,12 @@ File ::FE0F19F3-08A3-385B-E25D-83E506E1AF6B -name tmp -parent 65C973D8-1F96-A6D9
 File ::F11DCFB4-E490-5461-B83D-A5D89373BE80 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::517405A6-77E8-3B15-02EC-2A8A89A21DDA -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::7D0ACF6E-7154-0A10-60FF-987CED40B2F9 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1640 -mtime 1207192242 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1641 -mtime 1207644790 -permissions 00700 -filemethod "Update files with more recent dates"
 File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1028 -mtime 1207102854 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::6618D23C-6D9F-A226-026F-4612498E02DB -name .install.sh.swp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 12288 -mtime 1207644796 -permissions 00600 -filemethod "Update files with more recent dates"
 File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1642202 -mtime 1207636691 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1589630 -mtime 1207626810 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%> -size 1591745 -mtime 1207634153 -permissions 00755 -filemethod "Update files with more recent dates"
