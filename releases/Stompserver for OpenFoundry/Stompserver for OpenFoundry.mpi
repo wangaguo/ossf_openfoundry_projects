@@ -159,7 +159,7 @@ db_prefix
 {DB_PREFIX Switch No No {} {set database prefix}}
 
 db_user
-{DB_USER Switch No No {} {set database user}}
+{DB_USER String No No {} {set database user}}
 
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}

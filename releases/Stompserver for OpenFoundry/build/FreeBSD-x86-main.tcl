@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 3B820042-B4F6-43B3-B301-3C3574EBD09B
+set info(InstallerID) F2850C4A-80E2-B29C-BE67-BDC5E95D254C
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -213,7 +213,7 @@ db_prefix
 {DB_PREFIX Switch No No {} {set database prefix}}
 
 db_user
-{DB_USER Switch No No {} {set database user}}
+{DB_USER String No No {} {set database user}}
 
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}

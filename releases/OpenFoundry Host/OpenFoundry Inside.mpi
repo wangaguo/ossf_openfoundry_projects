@@ -239,6 +239,7 @@ File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 107DD4
 File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::6618D23C-6D9F-A226-026F-4612498E02DB -name .install.sh.swp -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::5001DEF7-B792-E28F-B8D5-C43A297D7B92 -name {/media/sda3/kaworu/InstallJammerProjects/RT for OpenFoundry/output/Request Tracker-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
 File ::B53FC762-F67E-FE35-6CD6-A923D91C322C -name {/media/sda3/kaworu/InstallJammerProjects/Stompserver for OpenFoundry/output/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
 File ::B37014DC-2555-A01C-BE3E-80071D13188C -name {/media/sda3/kaworu/InstallJammerProjects/ProFTPD for Openfoundry/output/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install} -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525
@@ -791,7 +792,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-8112875
+8112876
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,Name
 {Program Files}
