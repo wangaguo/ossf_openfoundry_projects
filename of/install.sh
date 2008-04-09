@@ -35,4 +35,7 @@ ROR
 
 #install /usr/local/rc.d/script
 cp /home/openfoundry/of/misc/openfoundry /usr/local/etc/rc.d/
+#start openfoundry
+/usr/local/etc/rc.d/openfoundry start
+
 date
