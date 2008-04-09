@@ -1,8 +1,8 @@
 proc ::InstallJammer::InitFiles {} {
     File ::E96634E7-262B-0A5C-A572-36790F86EA25 -name host -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207640373 -permissions 040755 -filemethod "Always overwrite files"
-    File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207187724 -permissions 040755 -filemethod "Always overwrite files"
-    File ::9086FEFC-34A2-61CD-EBC2-6382F8DB3823 -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 514 -mtime 1207187724 -permissions 00444 -filemethod "Always overwrite files"
-    File ::C7D6019B-67DB-E825-CDBA-3A848DC07B4F -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 730 -mtime 1207187724 -permissions 00444 -filemethod "Always overwrite files"
+    File ::E1487014-CA4C-1BEC-F5C8-274AB620467D -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207717909 -permissions 040755 -filemethod "Always overwrite files"
+    File ::9086FEFC-34A2-61CD-EBC2-6382F8DB3823 -name all-wcprops -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 514 -mtime 1207717909 -permissions 00444 -filemethod "Always overwrite files"
+    File ::C7D6019B-67DB-E825-CDBA-3A848DC07B4F -name entries -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 730 -mtime 1207717909 -permissions 00444 -filemethod "Always overwrite files"
     File ::FB091A56-3C54-C505-95C1-F58B9ABCF420 -name format -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn -size 2 -mtime 1206694765 -permissions 00444 -filemethod "Always overwrite files"
     File ::41DEFF20-DD6D-F960-329D-92D8826BB4EA -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
     File ::BD1B86A8-05F6-7F62-6533-01BC74F2A014 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
@@ -11,11 +11,11 @@ proc ::InstallJammer::InitFiles {} {
     File ::E338E74F-EAD7-AF91-C0B8-4A22598C0889 -name ipnat.rules.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 92 -mtime 1206694766 -permissions 00444 -filemethod "Always overwrite files"
     File ::D7AEF7C8-858C-3D1A-F632-8C759E757698 -name proxy.conf.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 546 -mtime 1206694766 -permissions 00444 -filemethod "Always overwrite files"
     File ::A2F1AC70-22E7-9C18-4108-51106941B151 -name rc.conf.svn-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/.svn/text-base -size 3832 -mtime 1206694766 -permissions 00444 -filemethod "Always overwrite files"
-    File ::9979D042-33D8-34E6-F294-B783376C1955 -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1207187724 -permissions 040755 -filemethod "Always overwrite files"
+    File ::9979D042-33D8-34E6-F294-B783376C1955 -name tmp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1207717909 -permissions 040755 -filemethod "Always overwrite files"
     File ::0DCFAF4C-8101-7BC6-BE19-F4ADFC51CACB -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
     File ::1BF7EFF3-1C68-E218-6EDF-DEAFA1C1B8D2 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
     File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206694766 -permissions 040755 -filemethod "Always overwrite files"
-    File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207711016 -permissions 040755 -filemethod "Always overwrite files"
+    File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207712401 -permissions 040755 -filemethod "Always overwrite files"
     File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Always overwrite files"
     File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
     File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Always overwrite files"
@@ -54,6 +54,5 @@ proc ::InstallJammer::InitFiles {} {
     File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
     File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
     File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1428 -mtime 1207108695 -permissions 00700 -filemethod "Always overwrite files"
-    File ::4886BA3B-0C3B-41E6-7B45-07F3EA39520D -name .pound_config.sh.swp -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 12288 -mtime 1207711020 -permissions 00644 -filemethod "Always overwrite files"
 
 }
