@@ -240,6 +240,7 @@ File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -par
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::6618D23C-6D9F-A226-026F-4612498E02DB -name .install.sh.swp -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::4886BA3B-0C3B-41E6-7B45-07F3EA39520D -name .pound_config.sh.swp -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 Component ::23A4DC27-44AD-45FB-B390-B0D386548EF2 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::5CB8A105-9859-A9C6-CFCA-98F708E6E10D -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::46BB6C77-504D-93EB-258D-5B2020905421 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -373,7 +374,7 @@ Yes
 Yes
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
-{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%> --mode silent}
+{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%>}
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ShowProgressiveOutput
 Yes
@@ -448,7 +449,7 @@ Yes
 Yes
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ProgramCommandLine
-{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%> --mode silent}
+{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%>}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ShowProgressiveOutput
 Yes
@@ -521,6 +522,9 @@ Yes
 
 2525A73F-1F0D-1223-FC8B-112BF776DAA4,Action
 {Install Actions}
+
+2525A73F-1F0D-1223-FC8B-112BF776DAA4,Conditions
+{0 conditions}
 
 26880B6C-181F-C697-D8BC-5CDAC28B4218,CheckCondition
 {Before Action is Executed}
@@ -787,7 +791,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-8111826
+146162
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Always overwrite files}
@@ -922,7 +926,7 @@ Yes
 Yes
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
-{jexec <%Jail_FTP%> /root/ProFTPD\for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --mode silent}
+{jexec <%Jail_FTP%> /root/ProFTPD\for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ShowProgressiveOutput
 Yes
@@ -1291,7 +1295,7 @@ CEE222D2-8D08-A4C2-23D2-111374787634,IncludeStderr
 Yes
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ProgramCommandLine
-{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> --mode silent }
+{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> }
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ShowProgressiveOutput
 Yes
@@ -1351,7 +1355,7 @@ E56FB3CD-F352-D95F-EC30-164109044398,IncludeStderr
 Yes
 
 E56FB3CD-F352-D95F-EC30-164109044398,ProgramCommandLine
-{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> --mode silent}
+{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> }
 
 E56FB3CD-F352-D95F-EC30-164109044398,ShowProgressiveOutput
 Yes
@@ -1427,6 +1431,9 @@ Yes
 
 F77BED28-0E15-1267-BD73-95B161E9A670,Prompt
 <%InstallStartupText%>
+
+F9C57B68-DE16-B3A6-8025-9147C9527184,Conditions
+{0 conditions}
 
 F9C57B68-DE16-B3A6-8025-9147C9527184,ExitType
 Finish
