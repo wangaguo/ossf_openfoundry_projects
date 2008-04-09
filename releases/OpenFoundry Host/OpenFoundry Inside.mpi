@@ -314,6 +314,11 @@ InstallComponent 23805F1D-4C10-B99F-5679-71557F2CDBA6 -setup Install -type actio
 InstallComponent A046BFCD-DCF2-6DB3-19BE-B5865260E58B -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent C711B177-2AF7-8E6D-2EEB-FFC9A1EF6EEA -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent A8FD02D7-C5F1-054C-B227-EE2794E43DDB -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 7063C7BD-D452-0D7C-1A59-73940F3569E5 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549 -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
+InstallComponent 94927C12-D18F-F391-5706-83FDBD1D905C -setup Install -type action -title {Execute External Program} -component ExecuteExternalProgram -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F -setup Install -type action -title {Jexec DATA} -component ExecuteExternalProgram -alias {Jexec DATA} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent CEE222D2-8D08-A4C2-23D2-111374787634 -setup Install -type action -title {Jexec OF} -component ExecuteExternalProgram -alias {Jexec OF} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
 InstallComponent E56FB3CD-F352-D95F-EC30-164109044398 -setup Install -type action -title {Jexec VCS} -component ExecuteExternalProgram -alias {Jexec VCS} -active Yes -parent 45B7FCAE-BE64-870D-2F8C-EA3635194611
@@ -398,6 +403,24 @@ Yes
 Yes
 
 0ADF2576-DC75-C8D0-B19E-14C43E219253,WorkingDirectory
+<%InstallDir%>
+
+0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549,Conditions
+{0 conditions}
+
+0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549,ExecuteAsRoot
+Yes
+
+0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549,IncludeStderr
+Yes
+
+0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549,ProgramCommandLine
+{chmod +x "<%InstallDir%>/jails/rt/root/Request Tracker-1.0-FreeBSD-x86-Install"}
+
+0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549,ShowProgressiveOutput
+Yes
+
+0BE16E3E-5EA9-FF72-1BF5-E97B0CF39549,WorkingDirectory
 <%InstallDir%>
 
 138C9F83-4B7A-5BA6-2133-2D6CB55056D0,Alias
@@ -622,6 +645,24 @@ false
 3976C977-DAD1-577C-E87F-1ECED288E621,VirtualText
 SYNC_PASS
 
+3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37,Conditions
+{0 conditions}
+
+3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37,ExecuteAsRoot
+Yes
+
+3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37,IncludeStderr
+Yes
+
+3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37,ProgramCommandLine
+{chmod +x "<%InstallDir%>/jails/vcs/root/VCS for OpenFoundry-1.0-FreeBSD-x86-Install"}
+
+3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37,ShowProgressiveOutput
+Yes
+
+3DE7EDF0-ECC2-B5EA-290C-E09BEEA09F37,WorkingDirectory
+<%InstallDir%>
+
 40F95B7C-29E6-1800-71EE-0539FB5FD57A,ExecuteAction
 {Before Pane is Displayed}
 
@@ -791,7 +832,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-146162
+133874
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Always overwrite files}
@@ -816,6 +857,24 @@ SYNC_PASS
 
 6E7AF4A6-7B68-89D5-4B3A-BA428DAA13D7,ExitType
 Finish
+
+7063C7BD-D452-0D7C-1A59-73940F3569E5,Conditions
+{0 conditions}
+
+7063C7BD-D452-0D7C-1A59-73940F3569E5,ExecuteAsRoot
+Yes
+
+7063C7BD-D452-0D7C-1A59-73940F3569E5,IncludeStderr
+Yes
+
+7063C7BD-D452-0D7C-1A59-73940F3569E5,ProgramCommandLine
+{chmod +x "<%InstallDir%>/jails/of/root/OpenFoundry Website-1.0-FreeBSD-x86-Install"}
+
+7063C7BD-D452-0D7C-1A59-73940F3569E5,ShowProgressiveOutput
+Yes
+
+7063C7BD-D452-0D7C-1A59-73940F3569E5,WorkingDirectory
+<%InstallDir%>
 
 71FC575A-8001-D76A-5B51-D424C4260CAC,Action
 {Uninstall Actions}
@@ -926,7 +985,7 @@ Yes
 Yes
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
-{jexec <%Jail_FTP%> /root/ProFTPD\for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
+{jexec <%Jail_FTP%> /root/ProFTPD\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ShowProgressiveOutput
 Yes
@@ -969,6 +1028,24 @@ Yes
 
 88DC57F2-6E1B-1B84-83D9-F1B4EC612AB2,String
 <%GuiMode%>
+
+94927C12-D18F-F391-5706-83FDBD1D905C,Conditions
+{0 conditions}
+
+94927C12-D18F-F391-5706-83FDBD1D905C,ExecuteAsRoot
+Yes
+
+94927C12-D18F-F391-5706-83FDBD1D905C,IncludeStderr
+Yes
+
+94927C12-D18F-F391-5706-83FDBD1D905C,ProgramCommandLine
+{chmod +x "<%InstallDir%>/jails/data/root/Stompserver for OpenFoundry-1.0-FreeBSD-x86-Install"}
+
+94927C12-D18F-F391-5706-83FDBD1D905C,ShowProgressiveOutput
+Yes
+
+94927C12-D18F-F391-5706-83FDBD1D905C,WorkingDirectory
+<%InstallDir%>
 
 955CCB7D-076D-07F9-DE2A-16BCA960051C,BackButton,subst
 1
@@ -1128,6 +1205,24 @@ AB61D5EA-038F-3DC0-4CFC-73B091A63112,Message,subst
 
 AB61D5EA-038F-3DC0-4CFC-73B091A63112,NextButton,subst
 1
+
+AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B,Conditions
+{0 conditions}
+
+AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B,ExecuteAsRoot
+Yes
+
+AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B,IncludeStderr
+Yes
+
+AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B,ProgramCommandLine
+{chmod +x "<%InstallDir%>/jails/ftp/root/ProFTPD for Openfoundry-1.0-FreeBSD-x86-Install"}
+
+AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B,ShowProgressiveOutput
+Yes
+
+AD6D2A47-9C5F-3300-D6B3-6029EC7ADB0B,WorkingDirectory
+<%InstallDir%>
 
 AIX-ppc,Active
 No
