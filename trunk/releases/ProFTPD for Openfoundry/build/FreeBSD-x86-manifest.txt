@@ -11,4 +11,3 @@
 /media/sda3/_work/ftp/.svn/text-base/sync_ftp_users.sql.svn-base 96351DFA-1E5E-7DC6-40C2-5CA8380CC233 zlib
 /media/sda3/_work/ftp/.svn/text-base/install_rep.sh.svn-base F0F5801F-54F7-095B-725C-27206BDEB18A zlib
 /media/sda3/_work/ftp/install_rep.sh 733EA2DA-1176-96A0-35B2-BDD564AE8674 zlib
-/media/sda3/_work/ftp/.sync_ftp_users.sql.swp 8B4857D2-A48E-0D80-C7D4-8A202F705049 zlib

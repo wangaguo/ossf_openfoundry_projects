@@ -38,6 +38,8 @@
 /media/sda3/_work/rt/usr/local/rt3/etc/.svn/format 78A55CB0-F414-C79B-4D28-A56792909CE7 zlib
 /media/sda3/_work/rt/usr/local/rt3/etc/.svn/text-base/initialdata.svn-base 4915C309-2814-7263-2F42-13F39CF0D0E3 zlib
 /media/sda3/_work/rt/usr/local/rt3/etc/.svn/text-base/RT_SiteConfig.pm.svn-base 33525ADC-E7B2-552E-9BEF-E406D822DCF2 zlib
+/media/sda3/_work/rt/usr/local/rt3/etc/.svn/text-base/schema.mysql.svn-base 03FB841E-FD45-CD6D-4DDF-872C830FA48C zlib
+/media/sda3/_work/rt/usr/local/rt3/etc/schema.mysql 847FDAA1-388F-8868-BE1B-000C1B191C62 zlib
 /media/sda3/_work/rt/usr/local/rt3/share/.svn/all-wcprops 43E38E16-7D81-271A-AE52-3BB0D0A0BB4D zlib
 /media/sda3/_work/rt/usr/local/rt3/share/.svn/entries FF2620E3-AAB8-4F2E-759C-F38205B71CB6 zlib
 /media/sda3/_work/rt/usr/local/rt3/share/.svn/format 56BC4F81-ED0C-7D19-2230-7124A6C0D748 zlib
@@ -71,4 +73,3 @@
 /media/sda3/_work/rt/usr/local/rt3/share/html/NoAuth/js/.svn/text-base/of.js.svn-base C42A38E0-9E28-EEED-C493-D05E16C0A72A zlib
 /media/sda3/_work/rt/install_ruby.sh B41007D8-37C3-6B2C-3EB4-5742744F598E zlib
 /media/sda3/_work/rt/sync_cron.sh B0F555B9-B616-DE4B-6FE4-0A84454F9758 zlib
-/media/sda3/_work/rt/.install.sh.swp C9576BB3-D23E-8CC7-BB4E-FAEBCCCE72A6 zlib
