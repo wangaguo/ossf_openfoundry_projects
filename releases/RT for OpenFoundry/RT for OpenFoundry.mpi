@@ -681,6 +681,9 @@ disabled
 3AB987A0-DE96-88ED-6225-A16EA6E2346E,Widget
 {NextButton; CancelButton}
 
+3CB2159F-25E7-950F-4781-2B502F48B766,Active
+No
+
 3CB2159F-25E7-950F-4781-2B502F48B766,Conditions
 {0 conditions}
 
@@ -1764,7 +1767,7 @@ F2EBBF82-A8F1-6A1D-0ABF-D8749347F6A2,Message
 {After Installaction:
         
         Be sure to DISALBE temporary ACCOUNT on the 'data' site by
-        "REVOKE ALL PRIVILEGES, GRANT OPTION FROM <%UserInfoName%>"}
+        "REVOKE ALL PRIVILEGES, GRANT OPTION FROM <%DB%>"}
 
 3F63A3F0-F8A2-BD9E-7B80-C665420E6FCB,TextToWrite
 {*/2	*	*	*	*	root	<%InstallDir%>/sync_cron.sh}
@@ -1792,8 +1795,8 @@ BF47B479-8894-54DD-BFAD-215FE08AD69C,Message
             <%InstallDir%>
 
     Tempority Database Account:
-            username: <%UserInfoName%>
-            password: <%UserInfoPass%>
+            username: <%TMP_DBA_USER%>
+            password: <%TMP_DBA_PASS%>
 
     Ports Installations:
             www/apache22 

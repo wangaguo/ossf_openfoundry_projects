@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 80A6726B-65F5-8EF1-57FF-84AA3291F4E4
+set info(InstallerID) 9C4FF87A-CF3E-D0D8-38DA-46A248F73705
 array set ::InstallJammer::languagecodes {en English}
 array set info {
 AllowLanguageSelection
@@ -716,7 +716,7 @@ Yes
 No
 
 3CB2159F-25E7-950F-4781-2B502F48B766,Active
-Yes
+No
 
 3CB2159F-25E7-950F-4781-2B502F48B766,AllowQuit
 Yes
@@ -2702,7 +2702,7 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::519C2B01-56D6-F8DF-6755-5F96C84B49C3 -name rt -parent 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207720038 -permissions 040755 -filemethod "Always overwrite files"
+File ::519C2B01-56D6-F8DF-6755-5F96C84B49C3 -name rt -parent 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207722223 -permissions 040755 -filemethod "Always overwrite files"
 File ::CBE493E6-58C0-BA47-FA0B-C7B7FB233A59 -name config.rb -parent 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51 -directory <%InstallDir%> -size 282 -mtime 1206065422 -permissions 00644 -filemethod "Always overwrite files"
 File ::8BE3BAAA-39F3-BBD1-DE7E-57EA5C977D66 -name install.sh -parent 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51 -directory <%InstallDir%> -size 2117 -mtime 1206065422 -permissions 00644 -filemethod "Always overwrite files"
 File ::ED3289A5-FB65-CD45-1843-58FA3115B723 -name install_rep.sh -parent 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51 -directory <%InstallDir%> -size 1663 -mtime 1206091959 -permissions 00700 -filemethod "Always overwrite files"
