@@ -239,8 +239,7 @@ File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 107DD4
 File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 File ::AD8FB5FF-CD52-B4A7-B7CE-72BAF9C94993 -name create_jail.sh -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
-File ::6618D23C-6D9F-A226-026F-4612498E02DB -name .install.sh.swp -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
-File ::4886BA3B-0C3B-41E6-7B45-07F3EA39520D -name .pound_config.sh.swp -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
+File ::B7A1638E-EE32-0F2D-55EC-4DA6F3917599 -name pound.cfg.dist -parent 107DD4D0-CA31-2CD5-1942-AE1B5360FD37
 Component ::23A4DC27-44AD-45FB-B390-B0D386548EF2 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::5CB8A105-9859-A9C6-CFCA-98F708E6E10D -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::46BB6C77-504D-93EB-258D-5B2020905421 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -284,7 +283,7 @@ InstallComponent F726CB5C-A210-BEE7-D0B0-86886640407C -setup Install -type actio
 InstallComponent 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1 -setup Install -type action -title {Run Install Jails VCS} -component ExecuteExternalProgram -alias {Run Install Jails VCS} -active Yes -parent ConsoleInstall
 InstallComponent 9B5D19E5-18E4-1FAE-5132-073998BA7D72 -setup Install -type action -title {Run Install Jails RT} -component ExecuteExternalProgram -alias {Run Install Jails RT} -active Yes -parent ConsoleInstall
 InstallComponent 5EB6748B-D366-A83F-28DE-5655C2A0A8E3 -setup Install -type action -title {Run Install Jails FTP} -component ExecuteExternalProgram -alias {Run Install Jails FTP} -active Yes -parent ConsoleInstall
-InstallComponent FC6AEC71-8E5F-2A74-4AF1-150900DA6238 -setup Install -type action -title {Run Install.sh} -component ExecuteExternalProgram -alias {Run Install.sh} -active Yes -parent ConsoleInstall
+InstallComponent FC6AEC71-8E5F-2A74-4AF1-150900DA6238 -setup Install -type action -title {Run Install.sh} -component ExecuteExternalProgram -alias {Run Install.sh} -active No -parent ConsoleInstall
 InstallComponent 1F4452A0-399E-6064-308E-D3F58FEBE451 -setup Install -type action -title {Setup Each Jail} -component ExecuteAction -alias {Setup Each Jail} -active Yes -parent ConsoleInstall
 InstallComponent 3008DD71-184E-8F98-3845-CD3D0CFC1CA7 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent ConsoleInstall
 InstallComponent 6E7AF4A6-7B68-89D5-4B3A-BA428DAA13D7 -setup Install -type action -title Exit -component Exit -active Yes -parent ConsoleInstall
@@ -832,7 +831,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-133874
+134614
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Always overwrite files}
@@ -1541,6 +1540,9 @@ FAF01A55-833D-5FB7-4C62-32D3D0648C41,Prompt
 
 FAF01A55-833D-5FB7-4C62-32D3D0648C41,VirtualText
 DB_USER
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Active
+No
 
 FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Alias
 {Run Install.sh}
