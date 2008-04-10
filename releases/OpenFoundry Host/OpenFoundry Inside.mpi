@@ -283,7 +283,7 @@ InstallComponent F726CB5C-A210-BEE7-D0B0-86886640407C -setup Install -type actio
 InstallComponent 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1 -setup Install -type action -title {Run Install Jails VCS} -component ExecuteExternalProgram -alias {Run Install Jails VCS} -active Yes -parent ConsoleInstall
 InstallComponent 9B5D19E5-18E4-1FAE-5132-073998BA7D72 -setup Install -type action -title {Run Install Jails RT} -component ExecuteExternalProgram -alias {Run Install Jails RT} -active Yes -parent ConsoleInstall
 InstallComponent 5EB6748B-D366-A83F-28DE-5655C2A0A8E3 -setup Install -type action -title {Run Install Jails FTP} -component ExecuteExternalProgram -alias {Run Install Jails FTP} -active Yes -parent ConsoleInstall
-InstallComponent FC6AEC71-8E5F-2A74-4AF1-150900DA6238 -setup Install -type action -title {Run Install.sh} -component ExecuteExternalProgram -alias {Run Install.sh} -active No -parent ConsoleInstall
+InstallComponent FC6AEC71-8E5F-2A74-4AF1-150900DA6238 -setup Install -type action -title {Run Install.sh} -component ExecuteExternalProgram -alias {Run Install.sh} -active Yes -parent ConsoleInstall
 InstallComponent 1F4452A0-399E-6064-308E-D3F58FEBE451 -setup Install -type action -title {Setup Each Jail} -component ExecuteAction -alias {Setup Each Jail} -active Yes -parent ConsoleInstall
 InstallComponent 3008DD71-184E-8F98-3845-CD3D0CFC1CA7 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent ConsoleInstall
 InstallComponent 6E7AF4A6-7B68-89D5-4B3A-BA428DAA13D7 -setup Install -type action -title Exit -component Exit -active Yes -parent ConsoleInstall
@@ -1540,9 +1540,6 @@ FAF01A55-833D-5FB7-4C62-32D3D0648C41,Prompt
 
 FAF01A55-833D-5FB7-4C62-32D3D0648C41,VirtualText
 DB_USER
-
-FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Active
-No
 
 FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Alias
 {Run Install.sh}
