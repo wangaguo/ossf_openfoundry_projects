@@ -1,5 +1,5 @@
 proc ::InstallJammer::InitFiles {} {
-    File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207722364 -permissions 040755 -filemethod "Update files with more recent dates"
+    File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207725068 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 193 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
     File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2270 -mtime 1207720132 -permissions 00700 -filemethod "Update files with more recent dates"
     File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 148 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"

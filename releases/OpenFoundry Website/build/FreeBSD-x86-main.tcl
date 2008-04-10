@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 4CF64008-9FCE-BC4C-F428-5AF98886AD78
+set info(InstallerID) A6E5CEE3-E605-D175-B3B0-D08F5B4A5F9A
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -306,7 +306,7 @@ Yes
 <%InstallDir%>
 
 067E12AE-14EE-C5A3-BC08-0BCB563B8C02,FileSize
-1286
+1344
 
 067E12AE-14EE-C5A3-BC08-0BCB563B8C02,FileUpdateMethod
 {Update files with more recent dates}
@@ -369,7 +369,7 @@ Yes
 {was not passed on the command line}
 
 0F94BECD-9428-1C1F-23F1-861D0CABAA29,Option
-DB_PREFIX
+db_prefix
 
 17C7DA2B-AB25-578A-3639-FC788E6420A8,Active
 Yes
@@ -393,7 +393,7 @@ Yes
 {was not passed on the command line}
 
 17C7DA2B-AB25-578A-3639-FC788E6420A8,Option
-DB_USER
+db_user
 
 23668F22-C121-0BB1-28B5-F3E2D1D6B7E2,Active
 Yes
@@ -1086,7 +1086,7 @@ Yes
 {was not passed on the command line}
 
 9F9EF267-73F1-FA7C-91F9-E6E4FC326869,Option
-DB_PASS
+db_pass
 
 A02E1464-5940-E0F1-F039-8D79049E072E,Active
 Yes
@@ -2397,7 +2397,7 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::731E883A-74C8-A30C-896E-FD35956467EC -name install.sh -parent 067E12AE-14EE-C5A3-BC08-0BCB563B8C02 -directory <%InstallDir%> -size 1286 -mtime 1205113648 -permissions 00755 -filemethod "Update files with more recent dates"
+File ::731E883A-74C8-A30C-896E-FD35956467EC -name install.sh -parent 067E12AE-14EE-C5A3-BC08-0BCB563B8C02 -directory <%InstallDir%> -size 1344 -mtime 1207722127 -permissions 00700 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {

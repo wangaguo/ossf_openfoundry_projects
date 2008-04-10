@@ -387,7 +387,6 @@ File ::666B3CDE-7BE8-917C-3861-A75AABE84CD5 -type dir -name props -parent 2C53AA
 File ::4BD62B0F-BF06-F588-9E7A-6DB91FF27801 -type dir -name text-base -parent 2C53AA02-08C7-30C1-AA91-BCE7DAA6DC96
 File ::B41007D8-37C3-6B2C-3EB4-5742744F598E -name install_ruby.sh -parent 519C2B01-56D6-F8DF-6755-5F96C84B49C3
 File ::B0F555B9-B616-DE4B-6FE4-0A84454F9758 -name sync_cron.sh -parent 519C2B01-56D6-F8DF-6755-5F96C84B49C3
-File ::C9576BB3-D23E-8CC7-BB4E-FAEBCCCE72A6 -name .install.sh.swp -parent 519C2B01-56D6-F8DF-6755-5F96C84B49C3
 Component ::9F4203E9-0832-9E2E-BC5C-D3DEAA668684 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::5A237703-9E99-41DF-439F-9ADB952A2BE3 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::3154B501-8161-69A4-CE8E-D494E7137818 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes

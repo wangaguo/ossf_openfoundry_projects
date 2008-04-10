@@ -208,7 +208,6 @@ File ::7F4D9AE1-1DA9-1A4F-048A-E138037D5319 -type dir -name prop-base -parent E9
 File ::6AB41268-6582-080A-7B9A-AD33F2730EAF -type dir -name props -parent E9249B12-50B2-BB71-D23B-A68FFE150956
 File ::291EA41E-B76A-E19F-E85E-ECD9152B2391 -type dir -name text-base -parent E9249B12-50B2-BB71-D23B-A68FFE150956
 File ::733EA2DA-1176-96A0-35B2-BDD564AE8674 -name install_rep.sh -parent DEB80E36-1CD1-274D-F640-186CB9BEACAE
-File ::8B4857D2-A48E-0D80-C7D4-8A202F705049 -name .sync_ftp_users.sql.swp -parent DEB80E36-1CD1-274D-F640-186CB9BEACAE
 Component ::76F67FB0-DA45-0EAE-F59F-8C17993BEAA2 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::AEC6D4D7-0B78-403A-E1AD-98BD7AD12377 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::C0254555-E0E7-BCAD-0255-0287D51AED94 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -1113,7 +1112,7 @@ DCB7EB11-1E99-8A2D-228F-B8758262DFC5,Destination
 <%InstallDir%>
 
 DCB7EB11-1E99-8A2D-228F-B8758262DFC5,FileSize
-62517
+49925
 
 DCB7EB11-1E99-8A2D-228F-B8758262DFC5,Name
 {Program Files}

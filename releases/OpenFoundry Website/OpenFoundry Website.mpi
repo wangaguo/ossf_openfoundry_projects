@@ -235,11 +235,11 @@ InstallComponent D33ACED4-4689-70ED-F3DB-EFDC03BD174A -setup Install -type actio
 InstallComponent 75725F53-5399-15BD-0CA3-FC558F0F42C2 -setup Install -type actiongroup -title {Run Script} -alias {Run Script} -active Yes -parent ActionGroupsInstall
 InstallComponent 02B26988-521E-1B90-9CE5-74F4D4FD354D -setup Install -type action -title install.sh -component ExecuteExternalProgram -alias install.sh -active Yes -parent 75725F53-5399-15BD-0CA3-FC558F0F42C2
 InstallComponent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6 -setup Install -type actiongroup -title {Set Default} -alias {Set Default} -active Yes -parent ActionGroupsInstall
-InstallComponent 75375120-6DDE-2F12-EE29-249273FC8A4F -setup Install -type action -conditions 0F94BECD-9428-1C1F-23F1-861D0CABAA29 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
+InstallComponent 75375120-6DDE-2F12-EE29-249273FC8A4F -setup Install -type action -conditions 0F94BECD-9428-1C1F-23F1-861D0CABAA29 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
 Condition 0F94BECD-9428-1C1F-23F1-861D0CABAA29 -active Yes -parent 75375120-6DDE-2F12-EE29-249273FC8A4F -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB -setup Install -type action -conditions 17C7DA2B-AB25-578A-3639-FC788E6420A8 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
+InstallComponent D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB -setup Install -type action -conditions 17C7DA2B-AB25-578A-3639-FC788E6420A8 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
 Condition 17C7DA2B-AB25-578A-3639-FC788E6420A8 -active Yes -parent D0FE23E8-BC29-5387-F4F5-2FEC84EE43FB -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 8A4A3114-EB3F-A757-1F8E-1EA922B4480B -setup Install -type action -conditions 9F9EF267-73F1-FA7C-91F9-E6E4FC326869 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
+InstallComponent 8A4A3114-EB3F-A757-1F8E-1EA922B4480B -setup Install -type action -conditions 9F9EF267-73F1-FA7C-91F9-E6E4FC326869 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6
 Condition 9F9EF267-73F1-FA7C-91F9-E6E4FC326869 -active Yes -parent 8A4A3114-EB3F-A757-1F8E-1EA922B4480B -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 78A4F894-5DBD-1A1D-C185-45FFBEF56B8C -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent 9AB2BF79-23A5-C432-9263-65194342D182 -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent 78A4F894-5DBD-1A1D-C185-45FFBEF56B8C
@@ -318,7 +318,7 @@ Yes
 {was not passed on the command line}
 
 0F94BECD-9428-1C1F-23F1-861D0CABAA29,Option
-DB_PREFIX
+db_prefix
 
 17C7DA2B-AB25-578A-3639-FC788E6420A8,CheckCondition
 {Before Action is Executed}
@@ -327,7 +327,7 @@ DB_PREFIX
 {was not passed on the command line}
 
 17C7DA2B-AB25-578A-3639-FC788E6420A8,Option
-DB_USER
+db_user
 
 19F65CB4-9133-986E-EB16-A9B280F3F8D5,Alias
 {Setup Actions}
@@ -654,7 +654,7 @@ disabled
 {was not passed on the command line}
 
 9F9EF267-73F1-FA7C-91F9-E6E4FC326869,Option
-DB_PASS
+db_pass
 
 A02E1464-5940-E0F1-F039-8D79049E072E,Alias
 {Finish Actions}

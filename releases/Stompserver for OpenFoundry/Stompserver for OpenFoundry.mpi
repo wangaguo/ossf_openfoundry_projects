@@ -221,7 +221,6 @@ File ::F1F7556B-FEBE-F13A-66A9-1D6EB8A71902 -type dir -name prop-base -parent 59
 File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -type dir -name props -parent 5910AF71-3593-C6E9-BE27-FDDCCCF86FB1
 File ::B33FFEFA-22D6-6024-0A30-146A538D602E -type dir -name text-base -parent 5910AF71-3593-C6E9-BE27-FDDCCCF86FB1
 File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
-File ::377E6598-39FB-D2E5-AA58-B0E514A2D3E7 -name .install_ruby.sh.swp -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
 Component ::32A84B0B-1176-6A6F-5282-ED4E3AC3CAFA -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::7850A46B-32D0-6FF7-C51D-E5007DB0C99A -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::25BC91C5-ADB0-780C-1539-3B4882A4ED69 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -324,7 +323,7 @@ array set Properties {
 {was not passed on the command line}
 
 02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE,Option
-DB_PASS
+db_pass
 
 06E24AE5-F266-3F5F-08EF-ED0CA0172F8E,State
 disabled
@@ -486,7 +485,7 @@ Custom
 {was not passed on the command line}
 
 293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE,Option
-DB_PREFIX
+db_prefix
 
 322CFE04-E55C-A370-62E0-0E5024500F52,Conditions
 {0 conditions}
@@ -548,7 +547,7 @@ Yes
 {was not passed on the command line}
 
 3928B730-247F-759D-AB67-65DD9372B7A4,Option
-StompUser
+stomp_user
 
 3B13D960-4C4C-852A-450E-8833E1BCFFBA,Action
 {Install Actions}
@@ -638,7 +637,7 @@ StompUser
 {was not passed on the command line}
 
 4AF7B25E-52DB-8296-3C2A-346FD2CC0E71,Option
-StompPass
+stomp_pass
 
 4B171170-374F-4C68-B158-43C9A6AED87F,String
 <%ErrorsOccurred%>
@@ -1133,7 +1132,7 @@ EF88E638-1FED-F134-6ECB-644659BBCFEE,Operator
 {was not passed on the command line}
 
 EF88E638-1FED-F134-6ECB-644659BBCFEE,Option
-DB_USER
+db_user
 
 F5050338-5351-8CD0-46CD-5DA0DF94B559,CheckCondition
 {Before Next Action is Executed}
