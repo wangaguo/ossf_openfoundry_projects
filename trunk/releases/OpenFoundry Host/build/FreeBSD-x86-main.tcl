@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 0A3CC7AF-06ED-8F41-933D-F0CB950D3CF5
+set info(InstallerID) 44706103-8554-6771-BC56-8A5EC92D548B
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -1484,7 +1484,7 @@ Yes
 <%InstallDir%>
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileSize
-134614
+134701
 
 65C973D8-1F96-A6D9-90E5-1F3620D20525,FileUpdateMethod
 {Always overwrite files}
@@ -4082,7 +4082,7 @@ File ::9979D042-33D8-34E6-F294-B783376C1955 -name tmp -parent 65C973D8-1F96-A6D9
 File ::0DCFAF4C-8101-7BC6-BE19-F4ADFC51CACB -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
 File ::1BF7EFF3-1C68-E218-6EDF-DEAFA1C1B8D2 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
 File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206694766 -permissions 040755 -filemethod "Always overwrite files"
-File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207794445 -permissions 040755 -filemethod "Always overwrite files"
+File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207794854 -permissions 040755 -filemethod "Always overwrite files"
 File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Always overwrite files"
 File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
 File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Always overwrite files"
@@ -4116,7 +4116,7 @@ File ::FE0F19F3-08A3-385B-E25D-83E506E1AF6B -name tmp -parent 65C973D8-1F96-A6D9
 File ::F11DCFB4-E490-5461-B83D-A5D89373BE80 -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/prop-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Always overwrite files"
 File ::517405A6-77E8-3B15-02EC-2A8A89A21DDA -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/props -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Always overwrite files"
 File ::7D0ACF6E-7154-0A10-60FF-987CED40B2F9 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/.svn/tmp/text-base -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Always overwrite files"
-File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1853 -mtime 1207793746 -permissions 00700 -filemethod "Always overwrite files"
+File ::F6D4A88C-5197-D32F-E724-A5145B3F5406 -name install.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1940 -mtime 1207794852 -permissions 00700 -filemethod "Always overwrite files"
 File ::52BB1482-8BE5-0518-10F9-90C9201A0BE3 -name pound_config.sh -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1028 -mtime 1207102854 -permissions 00755 -filemethod "Always overwrite files"
 File ::577B9C73-7384-F32C-D978-89644314745D -name create_jail_sample_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1881 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
 File ::FE05DB8A-529F-5779-6FF6-CE2250556F81 -name README -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail -size 1038 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
