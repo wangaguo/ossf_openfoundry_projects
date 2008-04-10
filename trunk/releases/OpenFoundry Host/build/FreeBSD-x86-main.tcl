@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 76E390A4-DF5D-4DB1-DBB5-18A238766AA5
+set info(InstallerID) 0A3CC7AF-06ED-8F41-933D-F0CB950D3CF5
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -3217,6 +3217,66 @@ Yes
 FAF01A55-833D-5FB7-4C62-32D3D0648C41,VirtualText
 DB_USER
 
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Active
+Yes
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Alias
+{Run Install.sh}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Component
+{}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,Conditions
+{0 conditions}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ConsoleTitle
+{<%AppName%> Setup}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ExecuteAction
+{After Pane is Displayed}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ExecuteAsRoot
+Yes
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ExecuteInConsole
+No
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ID
+{}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,IgnoreErrors
+No
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,IncludeStderr
+Yes
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ProgramCommandLine
+{sh install.sh}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ProgressiveOutputWidget
+{}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ResultVirtualText
+ExternalProgramResult
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,ShowProgressiveOutput
+Yes
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,StatusVirtualText
+ExternalProgramStatus
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WaitForProgram
+Yes
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WatchProgressiveOutput
+No
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+FC6AEC71-8E5F-2A74-4AF1-150900DA6238,WorkingDirectory
+<%InstallDir%>/gotojail
+
 FEB1BF8F-4C93-0C1A-A3ED-FCCD67F0C53E,Active
 Yes
 
@@ -4022,7 +4082,7 @@ File ::9979D042-33D8-34E6-F294-B783376C1955 -name tmp -parent 65C973D8-1F96-A6D9
 File ::0DCFAF4C-8101-7BC6-BE19-F4ADFC51CACB -name prop-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
 File ::1BF7EFF3-1C68-E218-6EDF-DEAFA1C1B8D2 -name props -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206694765 -permissions 040755 -filemethod "Always overwrite files"
 File ::2FDF5052-C49C-F073-2F5C-BFC83BD6C343 -name text-base -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206694766 -permissions 040755 -filemethod "Always overwrite files"
-File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207793757 -permissions 040755 -filemethod "Always overwrite files"
+File ::107DD4D0-CA31-2CD5-1942-AE1B5360FD37 -name gotojail -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail -size 4096 -mtime 1207794445 -permissions 040755 -filemethod "Always overwrite files"
 File ::0987BA11-8F7A-D59B-5AC3-288BA5E35091 -name conf -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf -size 4096 -mtime 1207102854 -permissions 040755 -filemethod "Always overwrite files"
 File ::0E9806A7-5256-CA99-81DA-A893EAE686F7 -name gotojail_config -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -directory <%InstallDir%>/gotojail/conf -size 681 -mtime 1207102854 -permissions 00644 -filemethod "Always overwrite files"
 File ::F04A5BC4-62BA-907D-2D35-17168858D570 -name .svn -parent 65C973D8-1F96-A6D9-90E5-1F3620D20525 -type dir -directory <%InstallDir%>/gotojail/conf/.svn -size 4096 -mtime 1207643247 -permissions 040755 -filemethod "Always overwrite files"
@@ -24717,6 +24777,7 @@ InstallComponent F726CB5C-A210-BEE7-D0B0-86886640407C -setup Install -type actio
 InstallComponent 637E6BA7-A3CE-7748-C026-8C31BFEEBBD1 -setup Install -type action -title {Run Install Jails VCS} -component ExecuteExternalProgram -alias {Run Install Jails VCS} -active Yes -parent Console
 InstallComponent 9B5D19E5-18E4-1FAE-5132-073998BA7D72 -setup Install -type action -title {Run Install Jails RT} -component ExecuteExternalProgram -alias {Run Install Jails RT} -active Yes -parent Console
 InstallComponent 5EB6748B-D366-A83F-28DE-5655C2A0A8E3 -setup Install -type action -title {Run Install Jails FTP} -component ExecuteExternalProgram -alias {Run Install Jails FTP} -active Yes -parent Console
+InstallComponent FC6AEC71-8E5F-2A74-4AF1-150900DA6238 -setup Install -type action -title {Run Install.sh} -component ExecuteExternalProgram -alias {Run Install.sh} -active Yes -parent Console
 InstallComponent 1F4452A0-399E-6064-308E-D3F58FEBE451 -setup Install -type action -title {Setup Each Jail} -component ExecuteAction -alias {Setup Each Jail} -active Yes -parent Console
 InstallComponent 3008DD71-184E-8F98-3845-CD3D0CFC1CA7 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
 InstallComponent 6E7AF4A6-7B68-89D5-4B3A-BA428DAA13D7 -setup Install -type action -title Exit -component Exit -active Yes -parent Console
