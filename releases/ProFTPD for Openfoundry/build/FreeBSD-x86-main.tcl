@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) A5354CDE-7507-1F58-7452-C9C9C144A08C
+set info(InstallerID) 84E4144F-EC15-0E2A-1DB1-00BE61C62666
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -206,6 +206,9 @@ Version
 
 }
 array set ::InstallJammer::CommandLineOptions {
+db_host
+{DB_HOST String No No {} {set database host}}
+
 db_pass
 {DB_PASS String No No {} {set database passwd}}
 
@@ -217,6 +220,12 @@ debug
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
+
+ftp_home
+{FTP_HOME String No No {} {set ftp home dir}}
+
+ftp_servername
+{FTP__ServerName String No No {} {}}
 
 mode
 {InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
@@ -339,6 +348,30 @@ Yes
 
 08D16C17-2B04-87B7-5BB6-616F7FE9F37F,Permission
 {can create}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,Active
+Yes
+
+0E13A63F-B482-7957-9377-6F6231FA8610,CheckCondition
+{Before Action is Executed}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,Component
+{}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,FailureFocus
+{}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,FailureMessage
+{}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,ID
+{}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,Operator
+{was not passed on the command line}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,Option
+ftp_servername
 
 0EE40770-04ED-48F7-D5DA-586A4C081502,Action
 {Install Actions}
@@ -616,6 +649,9 @@ Yes
 34F65FB7-CEE7-4591-5573-238C1C47C156,Active
 Yes
 
+34F65FB7-CEE7-4591-5573-238C1C47C156,Alias
+{Set Virtual Text}
+
 34F65FB7-CEE7-4591-5573-238C1C47C156,AutoUpdate
 {}
 
@@ -623,7 +659,7 @@ Yes
 {}
 
 34F65FB7-CEE7-4591-5573-238C1C47C156,Conditions
-{0 conditions}
+{1 condition}
 
 34F65FB7-CEE7-4591-5573-238C1C47C156,ExecuteAction
 {After Pane is Displayed}
@@ -686,7 +722,7 @@ Yes
 {was not passed on the command line}
 
 37295F32-EF86-F848-7D40-DF7BDCC6421C,Option
-DB_PASS
+db_pass
 
 3841E9D4-88A6-AABF-43D0-55A5319C922E,Active
 Yes
@@ -717,6 +753,30 @@ Yes
 
 3CFF1A57-FFF9-EAF1-C2EF-A827F7223835,ID
 {}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,Active
+Yes
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,CheckCondition
+{Before Action is Executed}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,Component
+{}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,FailureFocus
+{}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,FailureMessage
+{}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,ID
+{}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,Operator
+{was not passed on the command line}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,Option
+ftp_home
 
 42FD58FC-0A78-1B94-3563-165A57938C57,Active
 Yes
@@ -856,6 +916,54 @@ Yes
 52536535-49E0-BCF0-AAAA-E2D137B260EB,VirtualText
 DB_PASS
 
+53342817-9F83-78A5-EE97-DE33F7A97C63,Active
+Yes
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,CheckCondition
+{Before Action is Executed}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,Component
+{}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,FailureFocus
+{}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,FailureMessage
+{}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,ID
+{}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,Operator
+{was not passed on the command line}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,Option
+db_host
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,Active
+Yes
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,CheckCondition
+{Before Next Action is Executed}
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,Component
+{}
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,FailureFocus
+{}
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,FailureMessage
+{}
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,Filename
+<%FTP_HOME%>
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,ID
+{}
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,Permission
+{is writable}
+
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,Active
 Yes
 
@@ -866,7 +974,7 @@ Yes
 {}
 
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,Conditions
-{0 conditions}
+{2 conditions}
 
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,ExecuteAction
 {After Pane is Displayed}
@@ -1228,7 +1336,7 @@ Yes
 {}
 
 85DE7B68-36BD-97E4-23DA-976290ED8270,Conditions
-{0 conditions}
+{1 condition}
 
 85DE7B68-36BD-97E4-23DA-976290ED8270,ExecuteAction
 {After Pane is Displayed}
@@ -1297,7 +1405,7 @@ Yes
 {was not passed on the command line}
 
 8B29C108-E28D-50BB-A35A-0AB9EAD60228,Option
-DB_USER
+db_user
 
 90A0AD25-474F-F40A-D1EA-E027C22C9FCB,Action
 {Install Actions}
@@ -2107,7 +2215,7 @@ DCB7EB11-1E99-8A2D-228F-B8758262DFC5,Destination
 <%InstallDir%>
 
 DCB7EB11-1E99-8A2D-228F-B8758262DFC5,FileSize
-49925
+49656
 
 DCB7EB11-1E99-8A2D-228F-B8758262DFC5,FileUpdateMethod
 {Update files with more recent dates}
@@ -3081,13 +3189,13 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::DEB80E36-1CD1-274D-F640-186CB9BEACAE -name ftp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207722234 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::DEB80E36-1CD1-274D-F640-186CB9BEACAE -name ftp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207819102 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::003128C5-767F-F35E-447D-D2968D6AE335 -name proftpd_with_mysql.conf -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 3194 -mtime 1207040593 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::45D88B29-21EF-76DD-7B05-1AA8DDE9F897 -name sync_ftp_users.sh -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 177 -mtime 1207040780 -permissions 00700 -filemethod "Update files with more recent dates"
 File ::CFCB9E5E-00A3-F6D0-BCB0-43684CC0A0B5 -name sync_ftp_users.sql -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 1476 -mtime 1207639690 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9 -name .svn -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207718031 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::C93FB581-801E-1EBF-D5C4-99CC1F414F19 -name all-wcprops -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 597 -mtime 1207718031 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::93BEE932-CA01-15A6-05F3-7B83AA5B1569 -name entries -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 787 -mtime 1207718031 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9 -name .svn -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207819184 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::C93FB581-801E-1EBF-D5C4-99CC1F414F19 -name all-wcprops -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 597 -mtime 1207819183 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::93BEE932-CA01-15A6-05F3-7B83AA5B1569 -name entries -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 793 -mtime 1207819183 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::F9DBC59C-C7BE-802B-2CE1-07A76E790F33 -name format -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn -size 2 -mtime 1207030686 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::5710DD2B-DB38-291E-B4A5-88FBDC084314 -name prop-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/prop-base -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::85C1FC84-8FC5-7C86-2378-425F7AF9096B -name sync_ftp_users.sh.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/prop-base -size 30 -mtime 1207030686 -permissions 00444 -filemethod "Update files with more recent dates"
@@ -3096,13 +3204,13 @@ File ::25F233F5-B35D-5BD1-9DB6-0084AD4620E3 -name props -parent DCB7EB11-1E99-8A
 File ::9F23C031-F0AE-37A3-F25E-3AABFBFFA837 -name text-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/text-base -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::788055D0-C870-63FF-11DB-021B2DCEA4E3 -name proftpd_with_mysql.conf.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/text-base -size 3194 -mtime 1207040593 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::54F3E340-0AEF-FEB4-AAC4-500E39695080 -name sync_ftp_users.sh.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/text-base -size 177 -mtime 1207040780 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::96351DFA-1E5E-7DC6-40C2-5CA8380CC233 -name sync_ftp_users.sql.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/text-base -size 1771 -mtime 1207030686 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::F0F5801F-54F7-095B-725C-27206BDEB18A -name install_rep.sh.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/text-base -size 813 -mtime 1207040631 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::E9249B12-50B2-BB71-D23B-A68FFE150956 -name tmp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1207718031 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::96351DFA-1E5E-7DC6-40C2-5CA8380CC233 -name sync_ftp_users.sql.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/text-base -size 1476 -mtime 1207639690 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::F0F5801F-54F7-095B-725C-27206BDEB18A -name install_rep.sh.svn-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%>/.svn/text-base -size 823 -mtime 1207819102 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::E9249B12-50B2-BB71-D23B-A68FFE150956 -name tmp -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1207819183 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::7F4D9AE1-1DA9-1A4F-048A-E138037D5319 -name prop-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1207030686 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::6AB41268-6582-080A-7B9A-AD33F2730EAF -name props -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::291EA41E-B76A-E19F-E85E-ECD9152B2391 -name text-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1207041630 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::733EA2DA-1176-96A0-35B2-BDD564AE8674 -name install_rep.sh -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 813 -mtime 1207040631 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::291EA41E-B76A-E19F-E85E-ECD9152B2391 -name text-base -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1207819183 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::733EA2DA-1176-96A0-35B2-BDD564AE8674 -name install_rep.sh -parent DCB7EB11-1E99-8A2D-228F-B8758262DFC5 -directory <%InstallDir%> -size 823 -mtime 1207819102 -permissions 00700 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -23849,9 +23957,13 @@ InstallComponent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -setup Install -type actio
 Condition 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -active Yes -parent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent A159845F-404A-1408-D4D7-52A768478BEA -setup Install -type action -conditions 37295F32-EF86-F848-7D40-DF7BDCC6421C -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 37295F32-EF86-F848-7D40-DF7BDCC6421C -active Yes -parent A159845F-404A-1408-D4D7-52A768478BEA -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 34F65FB7-CEE7-4591-5573-238C1C47C156 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
-InstallComponent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
-InstallComponent 85DE7B68-36BD-97E4-23DA-976290ED8270 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent 34F65FB7-CEE7-4591-5573-238C1C47C156 -setup Install -type action -conditions 53342817-9F83-78A5-EE97-DE33F7A97C63 -title {Set Virtual Text} -component SetVirtualText -command insert -alias {Set Virtual Text} -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+Condition 53342817-9F83-78A5-EE97-DE33F7A97C63 -active Yes -parent 34F65FB7-CEE7-4591-5573-238C1C47C156 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -setup Install -type action -conditions {3DE6ADB9-3788-EDD2-1C99-07787295C017 535C6324-771E-FE5F-01FA-8FD87DD78805} -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+Condition 3DE6ADB9-3788-EDD2-1C99-07787295C017 -active Yes -parent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -title {Command Line Test Condition} -component CommandLineTestCondition
+Condition 535C6324-771E-FE5F-01FA-8FD87DD78805 -active Yes -parent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -title {File Permission Condition} -component FilePermissionCondition
+InstallComponent 85DE7B68-36BD-97E4-23DA-976290ED8270 -setup Install -type action -conditions 0E13A63F-B482-7957-9377-6F6231FA8610 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+Condition 0E13A63F-B482-7957-9377-6F6231FA8610 -active Yes -parent 85DE7B68-36BD-97E4-23DA-976290ED8270 -title {Command Line Test Condition} -component CommandLineTestCondition
 
 
 proc ::ThemeMain {} {

@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) B98C7AD8-76FA-78D4-5765-708AB9F1645E
+set info(InstallerID) E89279BB-68E4-18CE-10B4-9984F55A894F
 array set ::InstallJammer::languagecodes {en English}
 array set info {
 AllowLanguageSelection
