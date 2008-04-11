@@ -152,6 +152,9 @@ Version
 }
 
 array set ::InstallJammer::InstallCommandLineOptions {
+db_host
+{DB_HOST String No No {} {set database host}}
+
 db_pass
 {DB_PASS String No No {} {set database passwd}}
 
@@ -163,6 +166,12 @@ debug
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
+
+ftp_home
+{FTP_HOME String No No {} {set ftp home dir}}
+
+ftp_servername
+{FTP__ServerName String No No {} {}}
 
 mode
 {InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
@@ -274,13 +283,17 @@ InstallComponent 5975727D-86F5-37DA-976A-7D292163BF9B -setup Install -type actio
 InstallComponent 0869B0A8-1687-A7E4-2C6F-A08D00027F3B -setup Install -type action -title {Add Entry to proftpd.conf} -component WriteTextToFile -alias {Add Entry to proftpd.conf} -active Yes -parent F48D2F36-E25F-CDBC-924A-4B3E1857B4F8
 InstallComponent 6036E19D-AE0E-13A3-AAB4-7F4150095881 -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent F48D2F36-E25F-CDBC-924A-4B3E1857B4F8
 InstallComponent 5CD90A92-8487-FF26-B928-2F9117CE2AE1 -setup Install -type actiongroup -title {Set Defaults} -alias {Set Defaults} -active Yes -parent ActionGroupsInstall
-InstallComponent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -setup Install -type action -conditions 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -setup Install -type action -conditions 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -active Yes -parent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent A159845F-404A-1408-D4D7-52A768478BEA -setup Install -type action -conditions 37295F32-EF86-F848-7D40-DF7BDCC6421C -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent A159845F-404A-1408-D4D7-52A768478BEA -setup Install -type action -conditions 37295F32-EF86-F848-7D40-DF7BDCC6421C -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 37295F32-EF86-F848-7D40-DF7BDCC6421C -active Yes -parent A159845F-404A-1408-D4D7-52A768478BEA -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 34F65FB7-CEE7-4591-5573-238C1C47C156 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
-InstallComponent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
-InstallComponent 85DE7B68-36BD-97E4-23DA-976290ED8270 -setup Install -type action -title {Set Virtual Text} -component SetVirtualText -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent 34F65FB7-CEE7-4591-5573-238C1C47C156 -setup Install -type action -conditions 53342817-9F83-78A5-EE97-DE33F7A97C63 -title {Set Virtual Text} -component SetVirtualText -command reorder -alias {Set Virtual Text} -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+Condition 53342817-9F83-78A5-EE97-DE33F7A97C63 -active Yes -parent 34F65FB7-CEE7-4591-5573-238C1C47C156 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -setup Install -type action -conditions {3DE6ADB9-3788-EDD2-1C99-07787295C017 535C6324-771E-FE5F-01FA-8FD87DD78805} -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+Condition 3DE6ADB9-3788-EDD2-1C99-07787295C017 -active Yes -parent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -title {Command Line Test Condition} -component CommandLineTestCondition
+Condition 535C6324-771E-FE5F-01FA-8FD87DD78805 -active Yes -parent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -title {File Permission Condition} -component FilePermissionCondition
+InstallComponent 85DE7B68-36BD-97E4-23DA-976290ED8270 -setup Install -type action -conditions 0E13A63F-B482-7957-9377-6F6231FA8610 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+Condition 0E13A63F-B482-7957-9377-6F6231FA8610 -active Yes -parent 85DE7B68-36BD-97E4-23DA-976290ED8270 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent DBA7C336-02D7-FFEB-FFA9-0B0EEA40598B -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
 InstallComponent 0DD69F93-FC08-EC02-7B30-4AB9F41E3CBF -setup Uninstall -type action -title {Modify Widget} -component ModifyWidget -active Yes -parent DBA7C336-02D7-FFEB-FFA9-0B0EEA40598B
 InstallComponent FA0511DB-F5B1-4671-C3F6-8FC182200D71 -setup Uninstall -type action -title {Execute Action} -component ExecuteAction -active Yes -parent DBA7C336-02D7-FFEB-FFA9-0B0EEA40598B
@@ -352,6 +365,15 @@ disabled
 
 0DD69F93-FC08-EC02-7B30-4AB9F41E3CBF,Widget
 {NextButton; CancelButton}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,CheckCondition
+{Before Action is Executed}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,Operator
+{was not passed on the command line}
+
+0E13A63F-B482-7957-9377-6F6231FA8610,Option
+ftp_servername
 
 0EE40770-04ED-48F7-D5DA-586A4C081502,Action
 {Install Actions}
@@ -434,8 +456,11 @@ FTP_HOME
 34415F3E-4652-C555-5894-4A8C0F5AA9EC,Script
 {!<%UpgradeInstall%> || <%PreviousInstallCount%> != 1}
 
+34F65FB7-CEE7-4591-5573-238C1C47C156,Alias
+{Set Virtual Text}
+
 34F65FB7-CEE7-4591-5573-238C1C47C156,Conditions
-{0 conditions}
+{1 condition}
 
 34F65FB7-CEE7-4591-5573-238C1C47C156,Value
 192.168.0.10
@@ -450,7 +475,7 @@ DB_HOST
 {was not passed on the command line}
 
 37295F32-EF86-F848-7D40-DF7BDCC6421C,Option
-DB_PASS
+db_pass
 
 3841E9D4-88A6-AABF-43D0-55A5319C922E,ExecuteAction
 {Before Pane is Displayed}
@@ -463,6 +488,15 @@ DB_PASS
 
 3D50A205-9890-2CDB-A8E7-83C645E71419,Alias
 {Cancel Actions}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,CheckCondition
+{Before Action is Executed}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,Operator
+{was not passed on the command line}
+
+3DE6ADB9-3788-EDD2-1C99-07787295C017,Option
+ftp_home
 
 42FD58FC-0A78-1B94-3563-165A57938C57,CheckCondition
 {Before Action is Executed}
@@ -509,8 +543,26 @@ Yes
 52536535-49E0-BCF0-AAAA-E2D137B260EB,VirtualText
 DB_PASS
 
+53342817-9F83-78A5-EE97-DE33F7A97C63,CheckCondition
+{Before Action is Executed}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,Operator
+{was not passed on the command line}
+
+53342817-9F83-78A5-EE97-DE33F7A97C63,Option
+db_host
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,CheckCondition
+{Before Next Action is Executed}
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,Filename
+<%FTP_HOME%>
+
+535C6324-771E-FE5F-01FA-8FD87DD78805,Permission
+{is writable}
+
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,Conditions
-{0 conditions}
+{2 conditions}
 
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,SubstituteValue
 Yes
@@ -671,7 +723,7 @@ DB_USER
 1
 
 85DE7B68-36BD-97E4-23DA-976290ED8270,Conditions
-{0 conditions}
+{1 condition}
 
 85DE7B68-36BD-97E4-23DA-976290ED8270,Value
 {OSSF dev.ftp}
@@ -692,7 +744,7 @@ FTP_ServerName
 {was not passed on the command line}
 
 8B29C108-E28D-50BB-A35A-0AB9EAD60228,Option
-DB_USER
+db_user
 
 90A0AD25-474F-F40A-D1EA-E027C22C9FCB,Action
 {Install Actions}

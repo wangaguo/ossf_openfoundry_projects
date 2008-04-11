@@ -205,7 +205,7 @@ InstallComponent 71A43EB5-DA90-57D2-886D-A1E0FB289584 -setup Install -type actio
 InstallComponent ED74A87D-AA28-5F77-EA0C-04FD16A53108 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 01C0A149-9434-3330-2B27-247570AAC2D2
 InstallComponent 3D941B27-FED4-D23D-C81C-ADDC2D9682E4 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent DefaultInstall
 InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
-InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
+InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent ConsoleInstall
 Condition A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -active Yes -parent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent F847003C-9571-28A6-DB30-614106901EFD -setup Install -type action -conditions 28B7BF91-420F-9A3E-AF94-F37B47BC262F -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 28B7BF91-420F-9A3E-AF94-F37B47BC262F -active Yes -parent F847003C-9571-28A6-DB30-614106901EFD -title {String Is Condition} -component StringIsCondition
@@ -232,6 +232,7 @@ Condition 5931A84A-0820-4496-5CB8-BE9E6A2CC28A -active Yes -parent B8C8C054-0711
 InstallComponent 3AB107B1-D6BC-0016-7C8C-F63BBF58A7FD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent B86D6EAB-D035-15EA-3B36-A4C2D9095451 -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroupsInstall
 InstallComponent 97CD20AE-326C-1542-E4A8-CA7989C95318 -setup Install -type actiongroup -title {Run Script} -alias {Run Script} -active Yes -parent ActionGroupsInstall
+InstallComponent 3C7D4F89-FEAE-B792-FD93-E1C1625A0056 -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
 InstallComponent 7B6A3653-98A5-758F-4CC1-6AD00804E169 -setup Install -type action -title install.sh -component ExecuteExternalProgram -alias install.sh -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
 InstallComponent 94E3E430-CA29-0F0F-437D-F2E079D30F7D -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
 InstallComponent DCADD775-D50F-4009-AF5C-125371F1BCBB -setup Install -type action -title config.sh -component ExecuteExternalProgram -alias config.sh -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
@@ -402,6 +403,15 @@ it_is_a_good_day_to_die
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,VirtualText
 SYNC_PASS
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,Conditions
+{0 conditions}
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,Files
+install.sh
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,StringMap
+{"%%InstallDir%%" <%InstallDir%>}
 
 3D941B27-FED4-D23D-C81C-ADDC2D9682E4,BackButton,subst
 1
@@ -809,7 +819,7 @@ C6A79C93-57D3-D574-B379-4B210BA06E37,Prompt
 {Please set the dump secret: }
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,VirtualText
-DumpSecret
+SYNC_PASS
 
 C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,Destination
 <%InstallDir%>

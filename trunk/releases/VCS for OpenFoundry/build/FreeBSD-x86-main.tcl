@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 26ACF245-3296-1AB4-CB9D-D8CB1679C847
+set info(InstallerID) 6614A80F-6F70-F690-E4EB-4561D1F0F41D
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -477,6 +477,33 @@ it_is_a_good_day_to_die
 
 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB,VirtualText
 SYNC_PASS
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,Active
+Yes
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,Component
+{}
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,Conditions
+{0 conditions}
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,ExecuteAction
+{After Pane is Displayed}
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,Files
+install.sh
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,ID
+{}
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,IgnoreErrors
+No
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,LineFeed
+Auto
+
+3C7D4F89-FEAE-B792-FD93-E1C1625A0056,StringMap
+{"%%InstallDir%%" <%InstallDir%>}
 
 3D941B27-FED4-D23D-C81C-ADDC2D9682E4,Active
 Yes
@@ -1328,7 +1355,7 @@ C6A79C93-57D3-D574-B379-4B210BA06E37,TrimResult
 Yes
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,VirtualText
-DumpSecret
+SYNC_PASS
 
 C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,Active
 Yes
@@ -1343,7 +1370,7 @@ C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,Destination
 <%InstallDir%>
 
 C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,FileSize
-7078
+7070
 
 C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,FileUpdateMethod
 {Update files with more recent dates}
@@ -2328,7 +2355,7 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
 File ::265A9D1F-B262-0049-C27D-9AE4A8D8E51E -name config.sh -parent C73213B8-9061-3CB9-2E6B-4A9C7FFF000F -directory <%InstallDir%> -size 4051 -mtime 1207214464 -permissions 00755 -filemethod "Update files with more recent dates"
-File ::2642F637-B5BB-5A2A-59D8-0015159628AF -name install.sh -parent C73213B8-9061-3CB9-2E6B-4A9C7FFF000F -directory <%InstallDir%> -size 3027 -mtime 1207555025 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::2642F637-B5BB-5A2A-59D8-0015159628AF -name install.sh -parent C73213B8-9061-3CB9-2E6B-4A9C7FFF000F -directory <%InstallDir%> -size 3019 -mtime 1207820171 -permissions 00700 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -22898,6 +22925,7 @@ Condition 5931A84A-0820-4496-5CB8-BE9E6A2CC28A -active Yes -parent B8C8C054-0711
 InstallComponent 3AB107B1-D6BC-0016-7C8C-F63BBF58A7FD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent B86D6EAB-D035-15EA-3B36-A4C2D9095451 -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
 InstallComponent 97CD20AE-326C-1542-E4A8-CA7989C95318 -setup Install -type actiongroup -title {Run Script} -alias {Run Script} -active Yes -parent ActionGroups
+InstallComponent 3C7D4F89-FEAE-B792-FD93-E1C1625A0056 -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
 InstallComponent 7B6A3653-98A5-758F-4CC1-6AD00804E169 -setup Install -type action -title install.sh -component ExecuteExternalProgram -alias install.sh -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
 InstallComponent 94E3E430-CA29-0F0F-437D-F2E079D30F7D -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
 InstallComponent DCADD775-D50F-4009-AF5C-125371F1BCBB -setup Install -type action -title config.sh -component ExecuteExternalProgram -alias config.sh -active Yes -parent 97CD20AE-326C-1542-E4A8-CA7989C95318
