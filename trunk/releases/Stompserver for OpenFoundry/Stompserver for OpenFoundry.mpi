@@ -195,7 +195,7 @@ test
 
 }
 FileGroup ::25AD9916-293E-E4C0-F14E-E07F7284A462 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows TarArchive ZipArchive} -name {Program Files} -parent FileGroups
-File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -type dir -directory <%InstallDir%> -name /media/sda3/_work/stompserver -active 0 -parent 25AD9916-293E-E4C0-F14E-E07F7284A462
+File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -type dir -directory <%InstallDir%> -name /media/sda3/_work/stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462
 File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
 File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
 File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF
