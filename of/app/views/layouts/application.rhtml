@@ -48,12 +48,20 @@
 
 <div id="MiddlePane">
   <div id="MainContent">
+    <%if params["project_id"] != nil%>
+      <h1><%=@project.projectname%></h1>
+    <%end%>
     <div id="Flash"><%= show_flash %></div>
     <%= yield :layout %>
   </div>
   <div id="LeftWidget">   
     <%if params["project_id"] != nil%>
-     <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
+      <div class="project_logo_border">
+        <div>
+        <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
+        </div>
+        <span><br/>  <img src="/images/green_arrow_right.gif"/> <a href="#">更換圖示</a></span>
+      </div>
     <%end%>
 
   	<%if params["project_id"] != nil%>
