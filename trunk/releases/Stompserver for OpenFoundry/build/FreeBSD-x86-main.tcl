@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 6FE0A678-9B54-37B0-B3A7-A88000899BC3
+set info(InstallerID) FE42F791-A2E8-C454-EA52-1C58F402A126
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -23567,9 +23567,9 @@ Condition 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -active Yes -parent 59B7B4B2-B4EC
 InstallComponent 36B81582-1192-2679-3E40-3F58690C9405 -setup Install -type action -title {Replace files} -component ReplaceTextInFile -alias {Replace files} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 6D4F9B01-2B35-EFC4-DB85-413CFA354806 -setup Install -type action -title {Add UGO} -component ExecuteAction -alias {Add UGO} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -title {Install Ruby} -component ExecuteExternalProgram -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 729C387C-88AE-74A0-879D-47CFEA1FDF4C -setup Install -type action -title {Run stompserver} -component ExecuteExternalProgram -alias {Run stompserver} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 136EEE11-8D97-3638-C03B-77E94EF7FBCD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent 5F9B0FA8-1982-E774-90BB-CE07416AD5DC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
 InstallComponent 4145D082-C98A-6F40-2468-BE0FDE3E77AD -setup Install -type actiongroup -title {Add User Group Ownership} -alias {Add User Group Ownership} -active Yes -parent ActionGroups
