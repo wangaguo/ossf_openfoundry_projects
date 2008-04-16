@@ -16,3 +16,21 @@ function submenuSwitch(item)
 	if(submenu.style.display == 'none') submenu.style.display = 'block';
 	else submenu.style.display = 'none';
 }
+
+function project_menu()
+{
+  $('project_admin_menu').style.display = "none";
+}
+
+function project_leftmenu_onclick(tab)
+{
+  if (tab == 1) {
+    $('project_menu').style.display = "block";
+    $('project_admin_menu').style.display = "none";
+  }
+  else
+  {
+    $('project_menu').style.display = "none";
+    $('project_admin_menu').style.display = "block";
+  }
+}
