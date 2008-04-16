@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) E177A43E-31B2-187E-5EA2-B93DA2E785F0
+set info(InstallerID) 70112BB6-9D10-06E0-960A-B411D9060B01
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -1134,6 +1134,30 @@ Yes
 6D4F9B01-2B35-EFC4-DB85-413CFA354806,IgnoreErrors
 No
 
+70DF24AA-52AE-30EA-06B1-58089EFF1369,Active
+Yes
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,CheckCondition
+{Before Action is Executed}
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,Component
+{}
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,FailureFocus
+{}
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,FailureMessage
+{}
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,ID
+{}
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,Operator
+{cannot bind}
+
+70DF24AA-52AE-30EA-06B1-58089EFF1369,Port
+3306
+
 729C387C-88AE-74A0-879D-47CFEA1FDF4C,Active
 Yes
 
@@ -1705,7 +1729,7 @@ B712873A-762E-5C69-B019-40C1FBD0CBF4,Component
 {}
 
 B712873A-762E-5C69-B019-40C1FBD0CBF4,Conditions
-{0 conditions}
+{1 condition}
 
 B712873A-762E-5C69-B019-40C1FBD0CBF4,ConsoleTitle
 {<%AppName%> Setup}
@@ -1861,7 +1885,7 @@ CA695D57-52D7-446D-3A80-8FF9CD866459,StatusVirtualText
 ExternalProgramStatus
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,WaitForProgram
-Yes
+No
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,WatchProgressiveOutput
 No
@@ -22176,6 +22200,22 @@ after 0 [list $info(Wizard) next 1]
 }
 }
 
+proc ::InstallJammer::conditions::PortTestCondition {obj} {
+$obj properties props -subst 1
+
+debug "Checking to see if port $props(Port) $props(Operator)"
+
+if {![set result [catch { socket 127.0.0.1 $props(Port) } sock]]} {
+catch { close $sock }
+}
+
+if {$props(Operator) eq "can bind"} {
+return $result
+} elseif {$props(Operator) eq "cannot bind"} {
+return [expr !$result]
+}
+}
+
 proc ::InstallJammer::actions::ReplaceTextInFile {obj} {
 $obj properties props
 
@@ -23568,7 +23608,8 @@ InstallComponent 36B81582-1192-2679-3E40-3F58690C9405 -setup Install -type actio
 InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 6D4F9B01-2B35-EFC4-DB85-413CFA354806 -setup Install -type action -title {Add UGO} -component ExecuteAction -alias {Add UGO} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -title {Install Ruby} -component ExecuteExternalProgram -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -conditions 70DF24AA-52AE-30EA-06B1-58089EFF1369 -title {Install Ruby} -component ExecuteExternalProgram -command reorder -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+Condition 70DF24AA-52AE-30EA-06B1-58089EFF1369 -active Yes -parent B712873A-762E-5C69-B019-40C1FBD0CBF4 -title {Port Test Condition} -component PortTestCondition
 InstallComponent 729C387C-88AE-74A0-879D-47CFEA1FDF4C -setup Install -type action -title {Run stompserver} -component ExecuteExternalProgram -alias {Run stompserver} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 136EEE11-8D97-3638-C03B-77E94EF7FBCD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent 5F9B0FA8-1982-E774-90BB-CE07416AD5DC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
