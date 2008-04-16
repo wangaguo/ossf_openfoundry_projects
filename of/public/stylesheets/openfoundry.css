@@ -80,28 +80,48 @@ body {
 
 
 /* Left menu */
-#LeftMenu { width:180px; }
-#LeftMenu ul{
+#LeftMenu { padding-left:5px; }
+
+/* project log */
+.project_logo_border{
+  background:url(/images/project_logo_border.png) no-repeat;
+  width:166px; height:187px;
+  padding:15px 17px;
+  margin-left:13px;
+}
+.project_logo_border div{
+  width:128px; height:128px;
+}
+
+/* project left menu tab */
+#menu_tab li { list-style:none; float:left; width:73px; height:27px; text-align:center; line-height:27px; cursor:pointer;}
+#menu_tab #project_menu_tab { background:url(/images/tab_green.gif); }
+#menu_tab #project_admin_menu_tab { background:url(/images/tab_pink.gif); }
+
+/* project left menu */
+#project_left_menu { width:180px; text-align:center; }
+#project_left_menu #project_menu{ background-color:#dbf3d5; }
+#project_left_menu #project_admin_menu { background-color:#F3E1D2; }
+#project_left_menu ul{
   list-style-image:none;
   list-style-position:outside;
   list-style-type:none;
 	padding:0px;
   margin:0px;
   width:100%;
-  background:#ffffff;
+  background-color:transparent;
 }
-#LeftMenu ul{
+#project_left_menu ul{
   padding-left:0px;
 }
-#LeftMenu li {
+#project_left_menu li {
   position:relative;
 	display:block;
 	padding-left:20px;/*ul margin 20px*/
-	background:url(http://www.openfoundry.org/templates/rt_versatility_ii_sienna/images/play.png) no-repeat;
 	margin-bottom:3px;
   border-bottom:dotted 1px #ccc;
 }
-#LeftMenu li ul {
+#project_left_menu li ul {
   display:none;
   left:100.1%;
   position:absolute;
@@ -110,19 +130,19 @@ body {
   margin-left:-20px;/*IE*/
   background-color:#DAE3F9;
 }
-#LeftMenu li:hover { background-color:#DAE3F9; }
-#LeftMenu ul ul,
-#LeftMenu ul li:hover ul ul,
-#LeftMenu ul ul li:hover ul ul
+#project_left_menu li:hover { background-color:#DAE3F9; }
+#project_left_menu ul ul,
+#project_left_menu ul li:hover ul ul,
+#project_left_menu ul ul li:hover ul ul
 {display: none;}
 
-#LeftMenu ul li:hover ul,
-#LeftMenu ul ul li:hover ul,
-#LeftMenu ul ul ul li:hover ul
+#project_left_menu ul li:hover ul,
+#project_left_menu ul ul li:hover ul,
+#project_left_menu ul ul ul li:hover ul
 {display: block;}
 
-#LeftMenu a { display:block; }
-#LeftMenu .subimg { background:url(/images/subimg.png) no-repeat right; }
+#project_left_menu a { display:block; }
+#project_left_menu .subimg { background:url(/images/subimg.gif) no-repeat right; }
 
 
 
@@ -140,24 +160,26 @@ body {
 #ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
 #ProjectList th { background-color:#DEE7FF; }
 
+/*
+border-bottom:solid 2px #DEE7FF;
 
-.module_tab, #TabNav { border-bottom:solid 2px #DEE7FF; }
-.module_tab, #TabNav {
 background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
-  float:left;
+ width:99%;
+ */
+.module_tab {  }
+.module_tab {
   font-size:93%;
   line-height:normal;
-  width:99%;
 }
-.module_tab ul, #TabNav ul {
+.module_tab ul {
   list-style-image:none;
   list-style-position:outside;
   list-style-type:none;
   margin:0pt;
   padding:10px 10px 0pt;
 }
-.module_tab li, #TabNav li {
-  background:transparent url(http://rt.openfoundry.org/img/tab/left.gif) no-repeat scroll left top;
+.module_tab li {
+  background:transparent url(/images/project_nav_tab_l.gif) no-repeat scroll left top;
   float:left;
   list-style-image:none;
   list-style-position:outside;
@@ -165,8 +187,8 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
   margin:0pt;
   padding:0pt 0pt 0pt 9px;
 }
-.module_tab a, #TabNav a {
-  background:transparent url(http://rt.openfoundry.org/img/tab/right.gif) no-repeat scroll right top;
+.module_tab a {
+  background:transparent url(/images/project_nav_tab_r.gif) no-repeat scroll right top;
   color:#776655;
   display:block;
   font-weight:bold;
@@ -175,10 +197,10 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 }
 
 .off{
-  opacity:0.6; filter:alpha(opacity=60);
+  opacity:0.4; filter:alpha(opacity=40);
 }
-.on{
-  opacity:1.0; filter:alpha(opacity=100);
+.module_tab li:hover, .module_tab a:hover, .on{
+  opacity:0.9; filter:alpha(opacity=90);
 }
 
 /* For project-release */
@@ -231,4 +253,4 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 }
 
 /* For RT */
-#TicketSearchForm { background:white; border:2px outset; position:absolute; left:0px; display:none; z-index: 9999;}
+#TicketSearchForm { background:white; border:2px outset; position:absolute;  display:none; z-index: 1;}
