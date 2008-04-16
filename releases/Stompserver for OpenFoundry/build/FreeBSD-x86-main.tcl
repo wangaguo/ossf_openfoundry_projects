@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 70112BB6-9D10-06E0-960A-B411D9060B01
+set info(InstallerID) AA7AF8BF-D12E-6B00-DFC5-39518C635154
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -282,6 +282,30 @@ Yes
 
 02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE,Option
 db_pass
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Active
+Yes
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,CheckCondition
+{Before Next Action is Executed}
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Component
+{}
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,FailureFocus
+{}
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,FailureMessage
+{}
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,ID
+{}
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Operator
+{cannot bind}
+
+043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Port
+3306
 
 06E24AE5-F266-3F5F-08EF-ED0CA0172F8E,Active
 Yes
@@ -931,7 +955,7 @@ Yes
 {0 conditions}
 
 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12,Destination
-/etc/rc.d/stompserver
+/usr/local/etc/rc.d/stompserver
 
 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12,ExecuteAction
 {After Pane is Displayed}
@@ -1133,30 +1157,6 @@ Yes
 
 6D4F9B01-2B35-EFC4-DB85-413CFA354806,IgnoreErrors
 No
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,Active
-Yes
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,CheckCondition
-{Before Action is Executed}
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,Component
-{}
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,FailureFocus
-{}
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,FailureMessage
-{}
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,ID
-{}
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,Operator
-{cannot bind}
-
-70DF24AA-52AE-30EA-06B1-58089EFF1369,Port
-3306
 
 729C387C-88AE-74A0-879D-47CFEA1FDF4C,Active
 Yes
@@ -1729,7 +1729,7 @@ B712873A-762E-5C69-B019-40C1FBD0CBF4,Component
 {}
 
 B712873A-762E-5C69-B019-40C1FBD0CBF4,Conditions
-{1 condition}
+{0 conditions}
 
 B712873A-762E-5C69-B019-40C1FBD0CBF4,ConsoleTitle
 {<%AppName%> Setup}
@@ -1846,7 +1846,7 @@ CA695D57-52D7-446D-3A80-8FF9CD866459,Component
 {}
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,Conditions
-{0 conditions}
+{1 condition}
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,ConsoleTitle
 {<%AppName%> Setup}
@@ -23602,14 +23602,14 @@ InstallComponent 33319B23-484F-5E3D-7EC7-5D29A9D5872F -setup Install -type actio
 InstallComponent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37 -setup Install -type actiongroup -title {Install Actions} -alias {Install Actions} -active Yes -parent ActionGroups
 InstallComponent 322CFE04-E55C-A370-62E0-0E5024500F52 -setup Install -type action -title {Install Selected Files} -component InstallSelectedFiles -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 360E3799-406F-D22F-570F-876BE31B06FC -setup Install -type action -title {Add into /etc/rc.conf} -component WriteTextToFile -alias {Add into /etc/rc.conf} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent 59B7B4B2-B4EC-4175-5722-002958B86743 -setup Install -type action -conditions 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -title {Install Uninstaller} -component InstallUninstaller -command insert -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent 59B7B4B2-B4EC-4175-5722-002958B86743 -setup Install -type action -conditions 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -title {Install Uninstaller} -component InstallUninstaller -command reorder -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 Condition 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -active Yes -parent 59B7B4B2-B4EC-4175-5722-002958B86743 -title {String Is Condition} -component StringIsCondition
 InstallComponent 36B81582-1192-2679-3E40-3F58690C9405 -setup Install -type action -title {Replace files} -component ReplaceTextInFile -alias {Replace files} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 6D4F9B01-2B35-EFC4-DB85-413CFA354806 -setup Install -type action -title {Add UGO} -component ExecuteAction -alias {Add UGO} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -conditions 70DF24AA-52AE-30EA-06B1-58089EFF1369 -title {Install Ruby} -component ExecuteExternalProgram -command reorder -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-Condition 70DF24AA-52AE-30EA-06B1-58089EFF1369 -active Yes -parent B712873A-762E-5C69-B019-40C1FBD0CBF4 -title {Port Test Condition} -component PortTestCondition
+InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -conditions 043263B3-1E88-AC85-A5DF-A1284FAFCCFD -title {Install DB} -component ExecuteExternalProgram -command reorder -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+Condition 043263B3-1E88-AC85-A5DF-A1284FAFCCFD -active Yes -parent CA695D57-52D7-446D-3A80-8FF9CD866459 -title {Port Test Condition} -component PortTestCondition
+InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -title {Install Ruby} -component ExecuteExternalProgram -command reorder -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 729C387C-88AE-74A0-879D-47CFEA1FDF4C -setup Install -type action -title {Run stompserver} -component ExecuteExternalProgram -alias {Run stompserver} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 136EEE11-8D97-3638-C03B-77E94EF7FBCD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent 5F9B0FA8-1982-E774-90BB-CE07416AD5DC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
