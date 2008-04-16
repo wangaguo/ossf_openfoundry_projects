@@ -1,17 +1,3 @@
-<ul id="rt_nav" class="module_tab">
-<li id="type_all" onclick="rt_nav(this)" class="off"><a href="<%=@base_url%>" target="of_module">綜覽</a></li>
-<li id="type_defect" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'defect')%>" target="of_module">瑕疵(Bug)</a></li>
-<li id="type_patch" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'patch')%>" target="of_module">修正檔</a></li>
-<li id="type_task" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'task')%>" target="of_module">工作事項</a></li>
-<li id="type_feature" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'feature')%>" target="of_module">新功能</a></li>
-<li id="type_enhancement" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'enhancement')%>" target="of_module">改進</a></li>
-</ul>
-<%if(@project != nil)%>
-<a href="<%=@rt_url%>/Ticket/Create.html?Queue=<%=@project.id%>" target="of_module">問題回報</a>
-<%end%>
-<a href="#" onclick="hideDiv('TicketSearchForm');">查詢</a>
-<a href="<%=@rt_url%>/Search/Build.html" target="of_module">進階查詢</a>
-<input type="hidden" id="TicketSearchString" value="<%=@base_url%>" />
 <script type="text/javascript">
   function hideDiv(target)
   {
@@ -70,6 +56,12 @@
 
   Event.observe(window, 'load', page_load);
 </script>
+
+<div id="rt_function_bar">
+  <%if(@project != nil)%>
+  <a href="<%=@rt_url%>/Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" class="bug_report">問題回報</a>
+  <%end%>
+  &nbsp;&nbsp;<a href="#" onclick="hideDiv('TicketSearchForm');" class="search">查詢</a>
 <div style="" id="TicketSearchForm">
   <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
   <ul>
@@ -98,5 +90,9 @@
   </ul>
   <input type="button" value="送出查詢" onclick="TicketSearch()" class="button"/>
 </div>
+  &nbsp;&nbsp;<a href="<%=@rt_url%>/Search/Build.html" target="of_module" class="search">進階查詢</a>
+</div>
 
-<iframe src="<%=@show_url%>" id="of_module" name="of_module" frameborder="0" style="width:750px; height:3000px; "></iframe>
+<input type="hidden" id="TicketSearchString" value="<%=@base_url%>" />
+
+<iframe src="<%=@show_url%>" id="of_module" name="of_module" frameborder="0" style="width:750px; height:460px; "></iframe>

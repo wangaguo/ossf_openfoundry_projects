@@ -1,4 +1,5 @@
 class RtController < ApplicationController
+  layout 'rt'
   before_filter :get_project
   def get_project
     if(params[:project_id] != nil)
