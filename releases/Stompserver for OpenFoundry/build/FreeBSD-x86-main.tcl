@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 9E9D1970-1902-153B-21DB-7D7BB5A0A0D6
+set info(InstallerID) 6FE0A678-9B54-37B0-B3A7-A88000899BC3
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -464,7 +464,7 @@ Yes
 {}
 
 1446F693-C8F7-9A44-CB78-0A61BF5022B2,Conditions
-{}
+{0 conditions}
 
 1446F693-C8F7-9A44-CB78-0A61BF5022B2,ExecuteAction
 {After Pane is Displayed}
@@ -1714,7 +1714,7 @@ B712873A-762E-5C69-B019-40C1FBD0CBF4,ExecuteAction
 {After Pane is Displayed}
 
 B712873A-762E-5C69-B019-40C1FBD0CBF4,ExecuteAsRoot
-No
+Yes
 
 B712873A-762E-5C69-B019-40C1FBD0CBF4,ExecuteInConsole
 No
@@ -1945,7 +1945,7 @@ D2041115-4CC3-DF11-B6C1-B908D5632D32,Component
 {}
 
 D2041115-4CC3-DF11-B6C1-B908D5632D32,Conditions
-{}
+{0 conditions}
 
 D2041115-4CC3-DF11-B6C1-B908D5632D32,EvaluateConditions
 Yes
@@ -2917,7 +2917,7 @@ proc CreateWindow.CustomBlankPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1207725068 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1208312799 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 193 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2270 -mtime 1207720132 -permissions 00700 -filemethod "Update files with more recent dates"
 File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 148 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
@@ -23567,9 +23567,9 @@ Condition 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -active Yes -parent 59B7B4B2-B4EC
 InstallComponent 36B81582-1192-2679-3E40-3F58690C9405 -setup Install -type action -title {Replace files} -component ReplaceTextInFile -alias {Replace files} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 6D4F9B01-2B35-EFC4-DB85-413CFA354806 -setup Install -type action -title {Add UGO} -component ExecuteAction -alias {Add UGO} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -title {Install Ruby} -component ExecuteExternalProgram -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 729C387C-88AE-74A0-879D-47CFEA1FDF4C -setup Install -type action -title {Run stompserver} -component ExecuteExternalProgram -alias {Run stompserver} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 136EEE11-8D97-3638-C03B-77E94EF7FBCD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent 5F9B0FA8-1982-E774-90BB-CE07416AD5DC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
 InstallComponent 4145D082-C98A-6F40-2468-BE0FDE3E77AD -setup Install -type actiongroup -title {Add User Group Ownership} -alias {Add User Group Ownership} -active Yes -parent ActionGroups
