@@ -203,6 +203,27 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
   opacity:0.9; filter:alpha(opacity=90);
 }
 
+
+/* module */
+#moudule_nav { display:table; padding:0 0 0 0px; margin:0px 0 0 0px; width:100%; background:url(/images/project_navbar_l.gif) no-repeat;}
+#moudule_nav #moudule_nav_center { margin:0 0 0 8px; background:url(/images/project_navbar_c.gif); }
+#moudule_nav #moudule_nav_right { background:url(/images/project_navbar_r.gif) no-repeat right; line-height:23px; height:32px; }
+#moudule_nav h3 { background:url(/images/project_navbar_arrow.gif) no-repeat; padding-left:30px; float:left; }
+#moudule_nav #moudule_nav_tab { float:right; text-align:right; margin-top:7px; }
+#module_content { border:solid 1px #ccc; border-top:none; }
+
+/* rt */
+#rt_function_bar { padding:5px 10px; }
+*:first-child+html .bug_report { background:url(/images/bug.gif) no-repeat; padding-left:25px; line-height:25px; display:inline-block; }
+* html .bug_report { background:url(/images/bug.gif) no-repeat; padding-left:25px; line-height:25px; display:inline-block; }
+.bug_report:before { content:url(/images/bug.gif); padding-top:5px; }
+*:first-child+html .search { background:url(/images/search.gif) no-repeat; padding-left:25px; line-height:25px; display:inline-block; }
+* html .search { background:url(/images/search.gif) no-repeat; padding-left:25px; line-height:25px; display:inline-block; }
+.search:before { content:url(/images/search.gif); padding-top:5px; }
+
+
+
+
 /* For project-release */
 #Uploaddirs { overflow:auto;height:250px;width:50%;float:left; }
 #Uploadfile_selection { width:50%;float:right; }
