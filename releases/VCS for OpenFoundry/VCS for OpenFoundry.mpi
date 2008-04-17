@@ -152,14 +152,14 @@ Version
 }
 
 array set ::InstallJammer::InstallCommandLineOptions {
+batch
+{batch Switch No No {} {batch execution (no interaction)}}
+
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
-
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
 
 prefix
 {InstallDir String No No {} {set the installation directory}}
@@ -204,14 +204,17 @@ InstallComponent 50D96909-8FCB-F482-D69F-9308638C6937 -setup Install -type actio
 InstallComponent 71A43EB5-DA90-57D2-886D-A1E0FB289584 -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent 01C0A149-9434-3330-2B27-247570AAC2D2
 InstallComponent ED74A87D-AA28-5F77-EA0C-04FD16A53108 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 01C0A149-9434-3330-2B27-247570AAC2D2
 InstallComponent 3D941B27-FED4-D23D-C81C-ADDC2D9682E4 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent DefaultInstall
-InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent ConsoleInstall
-InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent ConsoleInstall
+InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -conditions CE1A3F17-27F7-C90A-9D6B-4E36A00B261B -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -command reorder -active Yes -parent ConsoleInstall
+Condition CE1A3F17-27F7-C90A-9D6B-4E36A00B261B -active Yes -parent 04B38871-6A20-4629-025C-29DE295F5F8A -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent ConsoleInstall
 Condition A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -active Yes -parent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent F847003C-9571-28A6-DB30-614106901EFD -setup Install -type action -conditions 28B7BF91-420F-9A3E-AF94-F37B47BC262F -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 28B7BF91-420F-9A3E-AF94-F37B47BC262F -active Yes -parent F847003C-9571-28A6-DB30-614106901EFD -title {String Is Condition} -component StringIsCondition
-InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
+InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions {FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 59B90D49-D048-6951-B5C9-5CD010863D1F} -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
 Condition FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -active Yes -parent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -title {File Permission Condition} -component FilePermissionCondition
-InstallComponent C6A79C93-57D3-D574-B379-4B210BA06E37 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent ConsoleInstall
+Condition 59B90D49-D048-6951-B5C9-5CD010863D1F -active Yes -parent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent C6A79C93-57D3-D574-B379-4B210BA06E37 -setup Install -type action -conditions CFE65023-D722-EE0F-6591-5ADDC76F8AA1 -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+Condition CFE65023-D722-EE0F-6591-5ADDC76F8AA1 -active Yes -parent C6A79C93-57D3-D574-B379-4B210BA06E37 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent CE6F8400-50B1-1A9D-DAF8-21BEFC27924A -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent ConsoleInstall
 InstallComponent 529346A1-A67C-E0F6-68D5-61683C382A41 -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent ConsoleInstall
 InstallComponent 4040D00F-A39E-036F-F007-5CF3184AF4C6 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent ConsoleInstall
@@ -289,6 +292,9 @@ array set Properties {
 
 01C0A149-9434-3330-2B27-247570AAC2D2,Title,subst
 1
+
+04B38871-6A20-4629-025C-29DE295F5F8A,Conditions
+{1 condition}
 
 04B38871-6A20-4629-025C-29DE295F5F8A,Default
 Yes
@@ -523,6 +529,15 @@ false
 
 5931A84A-0820-4496-5CB8-BE9E6A2CC28A,String
 <%UpgradeInstall%>
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,CheckCondition
+{Before Action is Executed}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,Operator
+{was not passed on the command line}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,Option
+batch
 
 6C7EAE01-34A0-5F46-119E-8F1F4B24BF69,Comment
 {Do not display this pane if this is an upgrade install unless there is more than one installation present}
@@ -765,7 +780,7 @@ B6894913-D141-24F4-C2C8-2002F8F3E3AC,Permission
 {can create}
 
 B6D6D429-BEB0-CED0-7384-DBA5777F8BE8,Conditions
-{1 condition}
+{2 conditions}
 
 B6D6D429-BEB0-CED0-7384-DBA5777F8BE8,Prompt
 <%ConsoleSelectDestinationText%>
@@ -813,7 +828,7 @@ C3EDFBDB-4379-0B93-B0D3-3796C13D4512,Conditions
 {0 conditions}
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,Conditions
-{0 conditions}
+{1 condition}
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,Prompt
 {Please set the dump secret: }
@@ -842,6 +857,15 @@ Yes
 CBB8A7A3-83CF-7E30-05A2-ACE82DAF0F24,Prompt
 <%UninstallStartupText%>
 
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,CheckCondition
+{Before Action is Executed}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,Operator
+{was not passed on the command line}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,Option
+batch
+
 CE4AC5CB-1A5C-862F-2DBA-3BDE56EF7938,BackButton,subst
 1
 
@@ -862,6 +886,15 @@ CE6F8400-50B1-1A9D-DAF8-21BEFC27924A,Conditions
 
 CE6F8400-50B1-1A9D-DAF8-21BEFC27924A,Message,subst
 1
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,CheckCondition
+{Before Action is Executed}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,Operator
+{was not passed on the command line}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,Option
+batch
 
 D0440A4A-BEC0-DACA-F852-3F1E36D1549B,Action
 {Install Actions}

@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) E89279BB-68E4-18CE-10B4-9984F55A894F
+set info(InstallerID) B6545B8B-90AD-0F2F-4F60-F47B1F5F15FA
 array set ::InstallJammer::languagecodes {en English}
 array set info {
 AllowLanguageSelection
@@ -206,6 +206,9 @@ Version
 
 }
 array set ::InstallJammer::CommandLineOptions {
+batch
+{batch Switch No No {} {batch execution (no interaction)}}
+
 db_pass
 {DB_PASS String No No {} {set database passwd}}
 
@@ -214,9 +217,6 @@ debug
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
-
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
 
 prefix
 {InstallDir String No No {} {set the installation directory}}
@@ -355,6 +355,30 @@ Yes
 0BEE8E77-56FC-1099-62A7-46D2E4E9EF51,Version
 {}
 
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,Active
+Yes
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,CheckCondition
+{Before Action is Executed}
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,Component
+{}
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,FailureFocus
+{}
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,FailureMessage
+{}
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,ID
+{}
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,Operator
+{was not passed on the command line}
+
+0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55,Option
+batch
+
 0C2E33D5-80D1-0D2E-8BF5-BCC40AD29366,Active
 Yes
 
@@ -455,7 +479,7 @@ Yes
 {}
 
 1BED45F1-9FFE-16AA-DB99-471166D64CC5,Conditions
-{1 condition}
+{2 conditions}
 
 1BED45F1-9FFE-16AA-DB99-471166D64CC5,EchoInput
 Yes
@@ -477,6 +501,54 @@ Yes
 
 1BED45F1-9FFE-16AA-DB99-471166D64CC5,VirtualText
 InstallDir
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,Active
+Yes
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,CheckCondition
+{Before Action is Executed}
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,Component
+{}
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,FailureFocus
+{}
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,FailureMessage
+{}
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,ID
+{}
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,Operator
+{was not passed on the command line}
+
+1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF,Option
+batch
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,Active
+Yes
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,CheckCondition
+{Before Action is Executed}
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,Component
+{}
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,FailureFocus
+{}
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,FailureMessage
+{}
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,ID
+{}
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,Operator
+{was not passed on the command line}
+
+243E85E0-44EA-5DE3-C08A-37A9B442EAA4,Option
+batch
 
 255883ED-72FF-0EDC-63E2-48C72F2A2F85,Active
 Yes
@@ -558,6 +630,30 @@ Yes
 
 2C0F73C8-FE82-305A-2078-247F8B0A4826,Option
 DB_PASS
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,Active
+Yes
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,CheckCondition
+{Before Action is Executed}
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,Component
+{}
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,FailureFocus
+{}
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,FailureMessage
+{}
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,ID
+{}
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,Operator
+{was not passed on the command line}
+
+2FD34FE6-C2D5-988D-F728-367F4A1810BE,Option
+batch
 
 3154B501-8161-69A4-CE8E-D494E7137818,Active
 Yes
@@ -811,6 +907,30 @@ disabled
 414FB173-93FC-DBA8-7E9E-70202A447809,Widget
 {Back Button;Next Button}
 
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,Active
+Yes
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,CheckCondition
+{Before Action is Executed}
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,Component
+{}
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,FailureFocus
+{}
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,FailureMessage
+{}
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,ID
+{}
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,Operator
+{was not passed on the command line}
+
+4202D6B0-99BC-20CB-5194-D9A76F8D5AF8,Option
+batch
+
 42C4C1D4-5C5E-B5E9-23C0-E7A23E2DAEEA,Active
 Yes
 
@@ -872,7 +992,7 @@ Yes
 {}
 
 4CA60FF0-2367-BC94-7C2D-2652A04B114E,Conditions
-{0 conditions}
+{1 condition}
 
 4CA60FF0-2367-BC94-7C2D-2652A04B114E,Default
 Yes
@@ -1166,7 +1286,7 @@ Yes
 {}
 
 6AA4700A-FB3A-35CE-080E-C7D476F7B926,Conditions
-{0 conditions}
+{1 condition}
 
 6AA4700A-FB3A-35CE-080E-C7D476F7B926,Default
 Yes
@@ -1196,7 +1316,7 @@ Yes
 {}
 
 786E23CA-E67D-DF26-5B61-B399367643E5,Conditions
-{0 conditions}
+{1 condition}
 
 786E23CA-E67D-DF26-5B61-B399367643E5,EchoInput
 Yes
@@ -1511,7 +1631,7 @@ Yes
 {}
 
 97B1AC33-75E1-6F5F-E304-C8DB537E5468,Conditions
-{0 conditions}
+{1 condition}
 
 97B1AC33-75E1-6F5F-E304-C8DB537E5468,EchoInput
 Yes
@@ -1642,6 +1762,30 @@ Yes
 9F4203E9-0832-9E2E-BC5C-D3DEAA668684,Size
 {}
 
+A0EECB86-C959-C0E5-E4C3-F259B465D770,Active
+Yes
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,CheckCondition
+{Before Action is Executed}
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,Component
+{}
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,FailureFocus
+{}
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,FailureMessage
+{}
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,ID
+{}
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,Operator
+{was not passed on the command line}
+
+A0EECB86-C959-C0E5-E4C3-F259B465D770,Option
+batch
+
 A5EC0BCD-7DAE-36AB-66C0-8C68A4D789A9,Active
 Yes
 
@@ -1727,7 +1871,7 @@ B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0,Component
 {}
 
 B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0,Conditions
-{0 conditions}
+{1 condition}
 
 B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0,EchoInput
 Yes
@@ -1990,6 +2134,30 @@ DE80E35A-2C21-F0E1-31A8-5F02A0361430,WatchRegularExpression
 DE80E35A-2C21-F0E1-31A8-5F02A0361430,WorkingDirectory
 <%InstallDir%>
 
+EED938DD-EC7D-154A-0F21-DF111FCA325D,Active
+Yes
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,CheckCondition
+{Before Action is Executed}
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,Component
+{}
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,FailureFocus
+{}
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,FailureMessage
+{}
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,ID
+{}
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,Operator
+{was not passed on the command line}
+
+EED938DD-EC7D-154A-0F21-DF111FCA325D,Option
+batch
+
 F93360AB-CB86-E503-5352-4A216A5CD34E,Active
 Yes
 
@@ -2000,7 +2168,7 @@ F93360AB-CB86-E503-5352-4A216A5CD34E,Component
 {}
 
 F93360AB-CB86-E503-5352-4A216A5CD34E,Conditions
-{0 conditions}
+{1 condition}
 
 F93360AB-CB86-E503-5352-4A216A5CD34E,EchoInput
 Yes
@@ -23478,18 +23646,25 @@ InstallComponent 26F567E7-38C7-33BE-0F99-D19242828DFF -setup Install -type actio
 InstallComponent 1BAEC4AC-C606-2DC6-4478-93DBA438B247 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 03DE4EE8-B80C-5085-76B2-2416B9E18077
 InstallComponent CE03F5F0-F649-F95F-517B-6C4938F0ADB3 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent Default
 InstallType ::Console
-InstallComponent 6AA4700A-FB3A-35CE-080E-C7D476F7B926 -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent Console
+InstallComponent 6AA4700A-FB3A-35CE-080E-C7D476F7B926 -setup Install -type action -conditions 4202D6B0-99BC-20CB-5194-D9A76F8D5AF8 -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -command reorder -active Yes -parent Console
+Condition 4202D6B0-99BC-20CB-5194-D9A76F8D5AF8 -active Yes -parent 6AA4700A-FB3A-35CE-080E-C7D476F7B926 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 9EAEE2BD-C139-F8C9-5326-6A8E9D8AEB81 -setup Install -type action -conditions C6B07E2F-DC0C-DBDD-BECC-8024D0CEA2CA -title Exit -component Exit -command insert -active Yes -parent Console
 Condition C6B07E2F-DC0C-DBDD-BECC-8024D0CEA2CA -active Yes -parent 9EAEE2BD-C139-F8C9-5326-6A8E9D8AEB81 -title {String Is Condition} -component StringIsCondition
 InstallComponent 4F91EB60-5019-D56E-4342-004E634285DF -setup Install -type action -title {Setup Defaults} -component ExecuteAction -alias {Setup Defaults} -active Yes -parent Console
-InstallComponent F93360AB-CB86-E503-5352-4A216A5CD34E -setup Install -type action -title {Enter Tmp User} -component ConsoleGetUserInput -alias {Enter Tmp User} -active Yes -parent Console
-InstallComponent 786E23CA-E67D-DF26-5B61-B399367643E5 -setup Install -type action -title {Enter Tmp Password} -component ConsoleGetUserInput -alias {Enter Tmp Password} -active Yes -parent Console
-InstallComponent B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0 -setup Install -type action -title {Enter DB_HOST} -component ConsoleGetUserInput -alias {Enter DB_HOST} -active Yes -parent Console
-InstallComponent 97B1AC33-75E1-6F5F-E304-C8DB537E5468 -setup Install -type action -title {Enter DB_PASS} -component ConsoleGetUserInput -alias {Enter DB_PASS} -active Yes -parent Console
-InstallComponent 1BED45F1-9FFE-16AA-DB99-471166D64CC5 -setup Install -type action -conditions 504F2A65-D12A-0FBB-D273-84CDAD23E11C -title {Select Destination} -component ConsoleGetUserInput -command insert -alias {Select Destination} -active Yes -parent Console
+InstallComponent F93360AB-CB86-E503-5352-4A216A5CD34E -setup Install -type action -conditions 243E85E0-44EA-5DE3-C08A-37A9B442EAA4 -title {Enter Tmp User} -component ConsoleGetUserInput -command reorder -alias {Enter Tmp User} -active Yes -parent Console
+Condition 243E85E0-44EA-5DE3-C08A-37A9B442EAA4 -active Yes -parent F93360AB-CB86-E503-5352-4A216A5CD34E -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 786E23CA-E67D-DF26-5B61-B399367643E5 -setup Install -type action -conditions 2FD34FE6-C2D5-988D-F728-367F4A1810BE -title {Enter Tmp Password} -component ConsoleGetUserInput -command reorder -alias {Enter Tmp Password} -active Yes -parent Console
+Condition 2FD34FE6-C2D5-988D-F728-367F4A1810BE -active Yes -parent 786E23CA-E67D-DF26-5B61-B399367643E5 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0 -setup Install -type action -conditions 1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF -title {Enter DB_HOST} -component ConsoleGetUserInput -command reorder -alias {Enter DB_HOST} -active Yes -parent Console
+Condition 1D5BCCFA-E41B-B6FA-66A2-367B78F3E2DF -active Yes -parent B2EC4B32-DC0E-72F6-E2A1-A860E2786EC0 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 97B1AC33-75E1-6F5F-E304-C8DB537E5468 -setup Install -type action -conditions 0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55 -title {Enter DB_PASS} -component ConsoleGetUserInput -command reorder -alias {Enter DB_PASS} -active Yes -parent Console
+Condition 0C1FD8F9-B3EE-4CC4-69E4-ADC8AC20AD55 -active Yes -parent 97B1AC33-75E1-6F5F-E304-C8DB537E5468 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 1BED45F1-9FFE-16AA-DB99-471166D64CC5 -setup Install -type action -conditions {504F2A65-D12A-0FBB-D273-84CDAD23E11C A0EECB86-C959-C0E5-E4C3-F259B465D770} -title {Select Destination} -component ConsoleGetUserInput -command reorder -alias {Select Destination} -active Yes -parent Console
 Condition 504F2A65-D12A-0FBB-D273-84CDAD23E11C -active Yes -parent 1BED45F1-9FFE-16AA-DB99-471166D64CC5 -title {File Permission Condition} -component FilePermissionCondition
+Condition A0EECB86-C959-C0E5-E4C3-F259B465D770 -active Yes -parent 1BED45F1-9FFE-16AA-DB99-471166D64CC5 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent BF47B479-8894-54DD-BFAD-215FE08AD69C -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
-InstallComponent 4CA60FF0-2367-BC94-7C2D-2652A04B114E -setup Install -type action -title {Are You Sure?} -component ConsoleAskYesOrNo -alias {Are You Sure?} -active Yes -parent Console
+InstallComponent 4CA60FF0-2367-BC94-7C2D-2652A04B114E -setup Install -type action -conditions EED938DD-EC7D-154A-0F21-DF111FCA325D -title {Are You Sure?} -component ConsoleAskYesOrNo -command reorder -alias {Are You Sure?} -active Yes -parent Console
+Condition EED938DD-EC7D-154A-0F21-DF111FCA325D -active Yes -parent 4CA60FF0-2367-BC94-7C2D-2652A04B114E -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 191C5F08-7F67-7B7F-03C5-72910A7E7CEA -setup Install -type action -conditions 8D530ADD-17BD-302F-1F01-CD00471EEDE9 -title Exit -component Exit -command insert -alias Exit -active Yes -parent Console
 Condition 8D530ADD-17BD-302F-1F01-CD00471EEDE9 -active Yes -parent 191C5F08-7F67-7B7F-03C5-72910A7E7CEA -title {String Is Condition} -component StringIsCondition
 InstallComponent 395ADBD8-86F1-4A49-3B2A-A523EC5299D3 -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Console

@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 9F809689-903E-2282-5C48-FB83BFABC51A
+set info(InstallerID) 38FCDAAE-689B-9135-2B72-A05F9FCD78DF
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -212,9 +212,6 @@ debug
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
 
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
-
 prefix
 {InstallDir String No No {} {set the installation directory}}
 
@@ -323,7 +320,7 @@ No
 Yes
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
-{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%>}
+{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%> --batch}
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgressiveOutputWidget
 {}
@@ -545,7 +542,7 @@ No
 Yes
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ProgramCommandLine
-{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%>}
+{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%> --batch}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ProgressiveOutputWidget
 {}
@@ -1895,7 +1892,7 @@ No
 Yes
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
-{jexec <%Jail_FTP%> /root/ProFTPD\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
+{jexec <%Jail_FTP%> /root/ProFTPD\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --batch}
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgressiveOutputWidget
 {}
@@ -2792,7 +2789,7 @@ CEE222D2-8D08-A4C2-23D2-111374787634,IncludeStderr
 Yes
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ProgramCommandLine
-{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> }
+{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> --batch}
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ProgressiveOutputWidget
 {}
@@ -2972,7 +2969,7 @@ E56FB3CD-F352-D95F-EC30-164109044398,IncludeStderr
 Yes
 
 E56FB3CD-F352-D95F-EC30-164109044398,ProgramCommandLine
-{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> }
+{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> --batch}
 
 E56FB3CD-F352-D95F-EC30-164109044398,ProgressiveOutputWidget
 {}

@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 2B9D08DB-CCE5-743D-9F26-1AD51961704B
+set info(InstallerID) 135A8A54-989E-A031-3FAB-BD1694C8A0C9
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -206,6 +206,9 @@ Version
 
 }
 array set ::InstallJammer::CommandLineOptions {
+batch
+{batch Switch No No {} {batch execution (no interaction)}}
+
 db_pass
 {DB_PASS String No No {} {set database passwd}}
 
@@ -220,9 +223,6 @@ debug
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
-
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
 
 prefix
 {InstallDir String No No {} {set the installation directory}}
@@ -306,7 +306,7 @@ Yes
 <%InstallDir%>
 
 067E12AE-14EE-C5A3-BC08-0BCB563B8C02,FileSize
-1344
+1458
 
 067E12AE-14EE-C5A3-BC08-0BCB563B8C02,FileUpdateMethod
 {Update files with more recent dates}
@@ -509,6 +509,30 @@ Yes
 37DAFE46-DB49-4C0A-7CE2-CC2EB0EB72C6,ID
 {}
 
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,Active
+Yes
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,CheckCondition
+{Before Action is Executed}
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,Component
+{}
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,FailureFocus
+{}
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,FailureMessage
+{}
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,ID
+{}
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,Operator
+{was not passed on the command line}
+
+4639E13B-F39D-6C29-F838-CF4B97CFC9B5,Option
+batch
+
 48B1B87C-32F9-2780-9357-9D67402ACBDA,Active
 Yes
 
@@ -699,7 +723,7 @@ Yes
 {}
 
 6FE5C5C3-FFA0-84C7-099C-BF4F58DF096F,Conditions
-{0 conditions}
+{1 condition}
 
 6FE5C5C3-FFA0-84C7-099C-BF4F58DF096F,EchoInput
 Yes
@@ -1064,6 +1088,30 @@ Yes
 8D06DD26-EF01-5764-1075-7D4459BB5911,WrapText
 Yes
 
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,Active
+Yes
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,CheckCondition
+{Before Action is Executed}
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,Component
+{}
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,FailureFocus
+{}
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,FailureMessage
+{}
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,ID
+{}
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,Operator
+{was not passed on the command line}
+
+9AAE26B5-F01C-DA4C-F006-AE473FB2722A,Option
+batch
+
 9F9EF267-73F1-FA7C-91F9-E6E4FC326869,Active
 Yes
 
@@ -1315,6 +1363,30 @@ BD6F66C7-78C1-874A-E7FB-DF0EADBF216B,ID
 
 BD6F66C7-78C1-874A-E7FB-DF0EADBF216B,IgnoreErrors
 No
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,Active
+Yes
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,CheckCondition
+{Before Action is Executed}
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,Component
+{}
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,FailureFocus
+{}
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,FailureMessage
+{}
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,ID
+{}
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,Operator
+{was not passed on the command line}
+
+BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB,Option
+batch
 
 C04566FF-EF7B-C823-9F9E-C7E8F3EBCCF4,Active
 Yes
@@ -1668,7 +1740,7 @@ F8AA80CA-3330-810A-6668-D5C99205215D,Component
 {}
 
 F8AA80CA-3330-810A-6668-D5C99205215D,Conditions
-{}
+{1 condition}
 
 F8AA80CA-3330-810A-6668-D5C99205215D,Default
 Yes
@@ -1695,7 +1767,7 @@ FC750F74-1003-D534-4E7F-E3A72B20475E,Component
 {}
 
 FC750F74-1003-D534-4E7F-E3A72B20475E,Conditions
-{1 condition}
+{2 conditions}
 
 FC750F74-1003-D534-4E7F-E3A72B20475E,EchoInput
 Yes
@@ -2397,7 +2469,7 @@ proc CreateWindow.CustomTextPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::731E883A-74C8-A30C-896E-FD35956467EC -name install.sh -parent 067E12AE-14EE-C5A3-BC08-0BCB563B8C02 -directory <%InstallDir%> -size 1344 -mtime 1207722127 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::731E883A-74C8-A30C-896E-FD35956467EC -name install.sh -parent 067E12AE-14EE-C5A3-BC08-0BCB563B8C02 -directory <%InstallDir%> -size 1458 -mtime 1208398656 -permissions 00700 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -22915,13 +22987,16 @@ InstallComponent 4D4C1625-61DF-8F37-1390-6D9AE287FEE1 -setup Install -type actio
 InstallComponent E3D93119-EE13-5194-7C81-FD5FF6C2DB09 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 879F6D5E-4600-90F3-18C6-4E9D17123118
 InstallComponent 48B1B87C-32F9-2780-9357-9D67402ACBDA -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent Default
 InstallType ::Console
-InstallComponent F8AA80CA-3330-810A-6668-D5C99205215D -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent Console
+InstallComponent F8AA80CA-3330-810A-6668-D5C99205215D -setup Install -type action -conditions 9AAE26B5-F01C-DA4C-F006-AE473FB2722A -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -command reorder -active Yes -parent Console
+Condition 9AAE26B5-F01C-DA4C-F006-AE473FB2722A -active Yes -parent F8AA80CA-3330-810A-6668-D5C99205215D -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 0A6D0A32-C378-6102-37E2-7A4CAB099755 -setup Install -type action -conditions 75AE8204-7529-1B74-69E4-70EE123C7B03 -title Exit -component Exit -command insert -active Yes -parent Console
 Condition 75AE8204-7529-1B74-69E4-70EE123C7B03 -active Yes -parent 0A6D0A32-C378-6102-37E2-7A4CAB099755 -title {String Is Condition} -component StringIsCondition
 InstallComponent E0024813-CF12-C941-C42F-A984F35FDFAC -setup Install -type action -title {Set Default Values} -component ExecuteAction -alias {Set Default Values} -active Yes -parent Console
-InstallComponent FC750F74-1003-D534-4E7F-E3A72B20475E -setup Install -type action -conditions 598B2754-4977-C956-691A-1071AF044D72 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent Console
+InstallComponent FC750F74-1003-D534-4E7F-E3A72B20475E -setup Install -type action -conditions {598B2754-4977-C956-691A-1071AF044D72 4639E13B-F39D-6C29-F838-CF4B97CFC9B5} -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent Console
 Condition 598B2754-4977-C956-691A-1071AF044D72 -active Yes -parent FC750F74-1003-D534-4E7F-E3A72B20475E -title {File Permission Condition} -component FilePermissionCondition
-InstallComponent 6FE5C5C3-FFA0-84C7-099C-BF4F58DF096F -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
+Condition 4639E13B-F39D-6C29-F838-CF4B97CFC9B5 -active Yes -parent FC750F74-1003-D534-4E7F-E3A72B20475E -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 6FE5C5C3-FFA0-84C7-099C-BF4F58DF096F -setup Install -type action -conditions BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent Console
+Condition BDE2A9D1-5CB7-1897-2D84-23DB75B52ABB -active Yes -parent 6FE5C5C3-FFA0-84C7-099C-BF4F58DF096F -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent B070D5D9-EEA8-3E81-987B-2F5DFA877C35 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
 InstallComponent AAA3D552-1707-0012-19F9-78B1E9A8556C -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Console
 InstallComponent 8D06DD26-EF01-5764-1075-7D4459BB5911 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
