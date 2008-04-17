@@ -6,12 +6,16 @@ DB_HOST=$4
 
 # for replacing database.yml only
 export DB_PREFIX; export DB_USER; export DB_PASS; export DB_HOST
+: ${PACKAGEROOT:=ftp://ftp.tw.freebsd.org}
 
 date
 
 pw group add openfoundry
 pw user add -n openfoundry -u 5566 -g openfoundry -s /bin/csh -m
-env PACKAGEROOT=ftp://ftp.tw.freebsd.org pkg_add -r subversion mysql50-client ImageMagick
+
+env PACKAGEROOT=$PACKAGEROOT pkg_add -r subversion 
+env PACKAGEROOT=$PACKAGEROOT pkg_add -r mysql50-client 
+env PACKAGEROOT=$PACKAGEROOT pkg_add -r ImageMagick
 
 
 su openfoundry -c sh -x <<'ROR'
