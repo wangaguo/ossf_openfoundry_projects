@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 6614A80F-6F70-F690-E4EB-4561D1F0F41D
+set info(InstallerID) 3BBCBDE1-4DE1-4911-75FE-96180898A6DA
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -206,14 +206,14 @@ Version
 
 }
 array set ::InstallJammer::CommandLineOptions {
+batch
+{batch Switch No No {} {batch execution (no interaction)}}
+
 debug
 {Debugging Switch Yes No {} {run installer in debug mode}}
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
-
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
 
 prefix
 {InstallDir String No No {} {set the installation directory}}
@@ -278,7 +278,7 @@ Yes
 {}
 
 04B38871-6A20-4629-025C-29DE295F5F8A,Conditions
-{}
+{1 condition}
 
 04B38871-6A20-4629-025C-29DE295F5F8A,Default
 Yes
@@ -762,6 +762,30 @@ false
 
 5931A84A-0820-4496-5CB8-BE9E6A2CC28A,String
 <%UpgradeInstall%>
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,Active
+Yes
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,CheckCondition
+{Before Action is Executed}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,Component
+{}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,FailureFocus
+{}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,FailureMessage
+{}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,ID
+{}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,Operator
+{was not passed on the command line}
+
+59B90D49-D048-6951-B5C9-5CD010863D1F,Option
+batch
 
 6C7EAE01-34A0-5F46-119E-8F1F4B24BF69,Active
 Yes
@@ -1253,7 +1277,7 @@ B6D6D429-BEB0-CED0-7384-DBA5777F8BE8,Component
 {}
 
 B6D6D429-BEB0-CED0-7384-DBA5777F8BE8,Conditions
-{1 condition}
+{2 conditions}
 
 B6D6D429-BEB0-CED0-7384-DBA5777F8BE8,EchoInput
 Yes
@@ -1334,7 +1358,7 @@ C6A79C93-57D3-D574-B379-4B210BA06E37,Component
 {}
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,Conditions
-{0 conditions}
+{1 condition}
 
 C6A79C93-57D3-D574-B379-4B210BA06E37,EchoInput
 Yes
@@ -1390,6 +1414,30 @@ C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,Size
 C73213B8-9061-3CB9-2E6B-4A9C7FFF000F,Version
 {}
 
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,Active
+Yes
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,CheckCondition
+{Before Action is Executed}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,Component
+{}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,FailureFocus
+{}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,FailureMessage
+{}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,ID
+{}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,Operator
+{was not passed on the command line}
+
+CE1A3F17-27F7-C90A-9D6B-4E36A00B261B,Option
+batch
+
 CE6F8400-50B1-1A9D-DAF8-21BEFC27924A,Active
 Yes
 
@@ -1419,6 +1467,30 @@ Yes
 
 CE6F8400-50B1-1A9D-DAF8-21BEFC27924A,WrapText
 Yes
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,Active
+Yes
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,CheckCondition
+{Before Action is Executed}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,Component
+{}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,FailureFocus
+{}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,FailureMessage
+{}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,ID
+{}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,Operator
+{was not passed on the command line}
+
+CFE65023-D722-EE0F-6591-5ADDC76F8AA1,Option
+batch
 
 D0440A4A-BEC0-DACA-F852-3F1E36D1549B,Action
 {Install Actions}
@@ -22895,14 +22967,17 @@ InstallComponent 71A43EB5-DA90-57D2-886D-A1E0FB289584 -setup Install -type actio
 InstallComponent ED74A87D-AA28-5F77-EA0C-04FD16A53108 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 01C0A149-9434-3330-2B27-247570AAC2D2
 InstallComponent 3D941B27-FED4-D23D-C81C-ADDC2D9682E4 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent Default
 InstallType ::Console
-InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent Console
+InstallComponent 04B38871-6A20-4629-025C-29DE295F5F8A -setup Install -type action -conditions CE1A3F17-27F7-C90A-9D6B-4E36A00B261B -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -command reorder -active Yes -parent Console
+Condition CE1A3F17-27F7-C90A-9D6B-4E36A00B261B -active Yes -parent 04B38871-6A20-4629-025C-29DE295F5F8A -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -setup Install -type action -conditions A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent Console
 Condition A7AEE531-72D8-8E7B-E002-9B0C1EA5EFA0 -active Yes -parent 3B5A5D46-2DBA-3FAC-E611-B62A4826D0EB -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent F847003C-9571-28A6-DB30-614106901EFD -setup Install -type action -conditions 28B7BF91-420F-9A3E-AF94-F37B47BC262F -title Exit -component Exit -command insert -active Yes -parent Console
 Condition 28B7BF91-420F-9A3E-AF94-F37B47BC262F -active Yes -parent F847003C-9571-28A6-DB30-614106901EFD -title {String Is Condition} -component StringIsCondition
-InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent Console
+InstallComponent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -setup Install -type action -conditions {FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 59B90D49-D048-6951-B5C9-5CD010863D1F} -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent Console
 Condition FACC3CBA-3E22-BA00-3DD1-8AD7DEC483A4 -active Yes -parent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -title {File Permission Condition} -component FilePermissionCondition
-InstallComponent C6A79C93-57D3-D574-B379-4B210BA06E37 -setup Install -type action -title {Console Get User Input} -component ConsoleGetUserInput -active Yes -parent Console
+Condition 59B90D49-D048-6951-B5C9-5CD010863D1F -active Yes -parent B6D6D429-BEB0-CED0-7384-DBA5777F8BE8 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent C6A79C93-57D3-D574-B379-4B210BA06E37 -setup Install -type action -conditions CFE65023-D722-EE0F-6591-5ADDC76F8AA1 -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent Console
+Condition CFE65023-D722-EE0F-6591-5ADDC76F8AA1 -active Yes -parent C6A79C93-57D3-D574-B379-4B210BA06E37 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent CE6F8400-50B1-1A9D-DAF8-21BEFC27924A -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
 InstallComponent 529346A1-A67C-E0F6-68D5-61683C382A41 -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Console
 InstallComponent 4040D00F-A39E-036F-F007-5CF3184AF4C6 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console

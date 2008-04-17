@@ -560,6 +560,9 @@ Ja
 25BC91C5-ADB0-780C-1539-3B4882A4ED69,Description
 <%CustomInstallDescription%>
 
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,Message
+{Start to download ruby sources...}
+
 32A84B0B-1176-6A6F-5282-ED4E3AC3CAFA,Description
 <%ProgramFilesDescription%>
 
@@ -571,6 +574,9 @@ stompserver_enable=\"YES\"
 
 7850A46B-32D0-6FF7-C51D-E5007DB0C99A,Description
 <%TypicalInstallDescription%>
+
+9B4B8885-A396-ACBD-8DAB-6880D456373B,Message
+.
 
 A6EF33D1-57BC-C370-60AC-3C29F5DCB89B,Message
 <%InstallingApplicationText%>

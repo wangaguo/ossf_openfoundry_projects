@@ -69,7 +69,7 @@ namespace eval ::InstallAPI {}
 namespace eval ::InstallJammer {}
 set conf(version)     1.2.5
 set info(Platform)    FreeBSD-x86
-set info(InstallerID) 866D91C9-2345-2D14-6613-ACD145AADA13
+set info(InstallerID) D81646D2-3795-C526-2139-745DF975E514
 array set ::InstallJammer::languagecodes {de German en English es Spanish fr French hu Magyar it Italian nl Nederlands pl Polish pt_br {Brazilian Portuguese}}
 array set info {
 AllowLanguageSelection
@@ -206,6 +206,9 @@ Version
 
 }
 array set ::InstallJammer::CommandLineOptions {
+batch
+{batch Switch No No {} {batch execution (no interaction)}}
+
 db_pass
 {DB_PASS String No No {} {set database passwd}}
 
@@ -220,9 +223,6 @@ debug
 
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
-
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
 
 prefix
 {InstallDir String No No {} {set the installation directory}}
@@ -283,30 +283,6 @@ Yes
 02F2F4FB-0E24-1A3F-7F87-512C1FCF84DE,Option
 db_pass
 
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Active
-Yes
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,CheckCondition
-{Before Next Action is Executed}
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Component
-{}
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,FailureFocus
-{}
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,FailureMessage
-{}
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,ID
-{}
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Operator
-{cannot bind}
-
-043263B3-1E88-AC85-A5DF-A1284FAFCCFD,Port
-3306
-
 06E24AE5-F266-3F5F-08EF-ED0CA0172F8E,Active
 Yes
 
@@ -333,6 +309,30 @@ disabled
 
 06E24AE5-F266-3F5F-08EF-ED0CA0172F8E,Widget
 {Back Button;Next Button}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,Active
+Yes
+
+085680FA-5566-9F7D-02C5-653060CE91B6,CheckCondition
+{Before Action is Executed}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,Component
+{}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,FailureFocus
+{}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,FailureMessage
+{}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,ID
+{}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,Operator
+{was not passed on the command line}
+
+085680FA-5566-9F7D-02C5-653060CE91B6,Option
+batch
 
 0A38F72B-96CC-233C-B592-2E2AA040D39E,Active
 Yes
@@ -402,6 +402,66 @@ of
 
 0A4F07D7-6DE3-2123-D55A-20FA2FA94946,VirtualText
 DB_PREFIX
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,Active
+Yes
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,Alias
+{fetch rubygems}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,Component
+{}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,Conditions
+{2 conditions}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ConsoleTitle
+{<%AppName%> Setup}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ExecuteAction
+{After Pane is Displayed}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ExecuteAsRoot
+No
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ExecuteInConsole
+No
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ID
+{}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,IgnoreErrors
+No
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,IncludeStderr
+Yes
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ProgramCommandLine
+{/usr/bin/fetch -T 10000 -o <%InstallDir%>/ruby/download http://rubyforge.org/frs/download.php/35283/rubygems-1.1.1.tgz}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ProgressiveOutputWidget
+{}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ResultVirtualText
+ExternalProgramResult
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,ShowProgressiveOutput
+Yes
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,StatusVirtualText
+ExternalProgramStatus
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,WaitForProgram
+Yes
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,WatchProgressiveOutput
+No
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D,WorkingDirectory
+{}
 
 0D0E0039-04E9-138D-B37A-B9C2192425D7,Active
 Yes
@@ -628,6 +688,18 @@ No
 20C93FA4-605C-3EBE-316E-1F7102707F2D,WorkingDirectory
 {}
 
+239B8979-E025-B166-EB83-4557B909C0F9,Active
+Yes
+
+239B8979-E025-B166-EB83-4557B909C0F9,Alias
+{Download files}
+
+239B8979-E025-B166-EB83-4557B909C0F9,Conditions
+{0 conditions}
+
+239B8979-E025-B166-EB83-4557B909C0F9,ID
+{}
+
 25AD9916-293E-E4C0-F14E-E07F7284A462,Active
 Yes
 
@@ -641,7 +713,7 @@ Yes
 <%InstallDir%>
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,FileSize
-46851
+59258
 
 25AD9916-293E-E4C0-F14E-E07F7284A462,FileUpdateMethod
 {Update files with more recent dates}
@@ -724,6 +796,36 @@ Yes
 293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE,Option
 db_prefix
 
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,Active
+Yes
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,AllowQuit
+Yes
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,Component
+{}
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,Conditions
+{0 conditions}
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,ExecuteAction
+{After Pane is Displayed}
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,ID
+{}
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,IgnoreErrors
+No
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,Message,subst
+1
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,PaginateMessage
+Yes
+
+2DD172F6-7A34-9E40-2BB7-E19FD54628EF,WrapText
+Yes
+
 322CFE04-E55C-A370-62E0-0E5024500F52,Active
 Yes
 
@@ -788,7 +890,7 @@ Yes
 {}
 
 33319B23-484F-5E3D-7EC7-5D29A9D5872F,Conditions
-{}
+{0 conditions}
 
 33319B23-484F-5E3D-7EC7-5D29A9D5872F,ExecuteAction
 {After Pane is Displayed}
@@ -797,6 +899,27 @@ Yes
 {}
 
 33319B23-484F-5E3D-7EC7-5D29A9D5872F,IgnoreErrors
+No
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,Active
+Yes
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,Component
+{}
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,Conditions
+{0 conditions}
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,ExecuteAction
+{After Pane is Displayed}
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,FolderName
+/usr/local/etc/rc.d
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,ID
+{}
+
+34C5FC78-34BE-1AEC-E05F-C1A8E029A36A,IgnoreErrors
 No
 
 360E3799-406F-D22F-570F-876BE31B06FC,Active
@@ -877,7 +1000,7 @@ Yes
 {Setup Actions}
 
 38891A3A-4112-F396-A21D-3225526302C3,Conditions
-{}
+{0 conditions}
 
 38891A3A-4112-F396-A21D-3225526302C3,ID
 {}
@@ -928,6 +1051,27 @@ Yes
 {}
 
 3B13D960-4C4C-852A-450E-8833E1BCFFBA,IgnoreErrors
+No
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,Active
+Yes
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,Component
+{}
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,Conditions
+{0 conditions}
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,ExecuteAction
+{After Pane is Displayed}
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,FolderName
+<%InstallDir%>/ruby/download
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,ID
+{}
+
+3D24005E-3F7C-1E74-4084-D1026B6EF6E9,IgnoreErrors
 No
 
 4145D082-C98A-6F40-2468-BE0FDE3E77AD,Active
@@ -1050,6 +1194,30 @@ Yes
 4AF7B25E-52DB-8296-3C2A-346FD2CC0E71,Option
 stomp_pass
 
+4DA5560C-4540-9DAC-EE09-45740477EEB6,Active
+Yes
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,CheckCondition
+{Before Action is Executed}
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,Component
+{}
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,FailureFocus
+{}
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,FailureMessage
+{}
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,Filename
+<%InstallDir%>/ruby/download/ruby-1.8.6-p114.tar.gz
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,ID
+{}
+
+4DA5560C-4540-9DAC-EE09-45740477EEB6,Operator
+{does not exist}
+
 59B7B4B2-B4EC-4175-5722-002958B86743,Active
 Yes
 
@@ -1076,6 +1244,87 @@ No
 
 59B7B4B2-B4EC-4175-5722-002958B86743,UninstallFilename
 uninstall<%Ext%>
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,Action
+{Download files}
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,Active
+Yes
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,Alias
+{download }
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,Component
+{}
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,Conditions
+{0 conditions}
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,EvaluateConditions
+Yes
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,ExecuteAction
+{After Pane is Displayed}
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,ID
+{}
+
+5A5B6524-D14D-7214-85B0-24DEAF77761B,IgnoreErrors
+No
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,Active
+Yes
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,CheckCondition
+{Before Next Action is Executed}
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,Component
+{}
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,FailureFocus
+{}
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,FailureMessage
+{}
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,Filename
+<%InstallDir%>/ruby/download/ruby-1.8.6-p114.tar.gz
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,ID
+{}
+
+5A90E603-F3A9-78DD-64BC-88740540C51D,Operator
+exists
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,Active
+Yes
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,AllowQuit
+Yes
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,Component
+{}
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,Conditions
+{0 conditions}
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,ExecuteAction
+{After Pane is Displayed}
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,ID
+{}
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,IgnoreErrors
+No
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,Message,subst
+1
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,PaginateMessage
+Yes
+
+5B9A0C3F-91FB-6215-FB42-B43955F05641,WrapText
+Yes
 
 5C16465C-FDD0-2F05-5C91-6D01C09856D0,Active
 Yes
@@ -1108,7 +1357,7 @@ Yes
 {Cancel Actions}
 
 5F9B0FA8-1982-E774-90BB-CE07416AD5DC,Conditions
-{}
+{0 conditions}
 
 5F9B0FA8-1982-E774-90BB-CE07416AD5DC,ID
 {}
@@ -1157,6 +1406,54 @@ Yes
 
 6D4F9B01-2B35-EFC4-DB85-413CFA354806,IgnoreErrors
 No
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,Active
+Yes
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,CheckCondition
+{Before Next Action is Executed}
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,Component
+{}
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,FailureFocus
+{}
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,FailureMessage
+{}
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,Filename
+<%InstallDir%>/ruby/download/rubygems-1.1.1.tgz
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,ID
+{}
+
+6EA600DB-8ABC-EB1B-65E8-35A8928FC934,Operator
+exists
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,Active
+Yes
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,CheckCondition
+{Before Action is Executed}
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,Component
+{}
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,FailureFocus
+{}
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,FailureMessage
+{}
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,ID
+{}
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,Operator
+{was not passed on the command line}
+
+700AF505-7C4B-464C-3C87-1F1E8AE3322B,Option
+batch
 
 729C387C-88AE-74A0-879D-47CFEA1FDF4C,Active
 Yes
@@ -1266,6 +1563,30 @@ false
 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A,String
 <%UpgradeInstall%>
 
+774CCCA6-714E-7477-2986-6E61272F8F5A,Active
+Yes
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,CheckCondition
+{Before Action is Executed}
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,Component
+{}
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,FailureFocus
+{}
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,FailureMessage
+{}
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,Filename
+<%InstallDir%>/ruby/download/libiconv-1.12.tar.gz
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,ID
+{}
+
+774CCCA6-714E-7477-2986-6E61272F8F5A,Operator
+{does not exist}
+
 7850A46B-32D0-6FF7-C51D-E5007DB0C99A,Active
 Yes
 
@@ -1297,7 +1618,7 @@ Yes
 {}
 
 7A40BF59-4755-0132-1CFE-ACC49930DD1B,Conditions
-{}
+{2 conditions}
 
 7A40BF59-4755-0132-1CFE-ACC49930DD1B,ExecuteAction
 {After Pane is Displayed}
@@ -1309,6 +1630,24 @@ Cancel
 {}
 
 7A40BF59-4755-0132-1CFE-ACC49930DD1B,IgnoreErrors
+No
+
+825DA846-B935-4929-3423-BD22CDF7E2B2,Active
+Yes
+
+825DA846-B935-4929-3423-BD22CDF7E2B2,Component
+{}
+
+825DA846-B935-4929-3423-BD22CDF7E2B2,Conditions
+{1 condition}
+
+825DA846-B935-4929-3423-BD22CDF7E2B2,ExecuteAction
+{After Pane is Displayed}
+
+825DA846-B935-4929-3423-BD22CDF7E2B2,ID
+{}
+
+825DA846-B935-4929-3423-BD22CDF7E2B2,IgnoreErrors
 No
 
 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37,Active
@@ -1438,7 +1777,7 @@ Yes
 {}
 
 9731A0C7-1769-D0A2-EE8A-7AEFEEE467B9,Conditions
-{0 conditions}
+{1 condition}
 
 9731A0C7-1769-D0A2-EE8A-7AEFEEE467B9,EchoInput
 Yes
@@ -1461,6 +1800,66 @@ Yes
 9731A0C7-1769-D0A2-EE8A-7AEFEEE467B9,VirtualText
 StompPass
 
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,Active
+Yes
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,Alias
+{fetch ruby}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,Component
+{}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,Conditions
+{2 conditions}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ConsoleTitle
+{<%AppName%> Setup}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ExecuteAction
+{After Pane is Displayed}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ExecuteAsRoot
+No
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ExecuteInConsole
+No
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ID
+{}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,IgnoreErrors
+No
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,IncludeStderr
+Yes
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ProgramCommandLine
+{/usr/bin/fetch -T 10000 -o <%InstallDir%>/ruby/download http://mirrors.ibiblio.org/pub/mirrors/ruby/1.8/ruby-1.8.6-p114.tar.gz}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ProgressiveOutputWidget
+{}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ResultVirtualText
+ExternalProgramResult
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,ShowProgressiveOutput
+Yes
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,StatusVirtualText
+ExternalProgramStatus
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,WaitForProgram
+Yes
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,WatchProgressiveOutput
+No
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+9E70C65D-B583-8FAB-EAE0-D6BDFACD1936,WorkingDirectory
+{}
+
 A51ABA7B-6CDC-9BF4-E684-E46A3745548E,Active
 Yes
 
@@ -1468,7 +1867,7 @@ A51ABA7B-6CDC-9BF4-E684-E46A3745548E,Component
 {}
 
 A51ABA7B-6CDC-9BF4-E684-E46A3745548E,Conditions
-{1 condition}
+{2 conditions}
 
 A51ABA7B-6CDC-9BF4-E684-E46A3745548E,EchoInput
 Yes
@@ -1523,6 +1922,30 @@ Yes
 
 A6EF33D1-57BC-C370-60AC-3C29F5DCB89B,WrapText
 Yes
+
+AE08D790-4B80-299B-764D-B2E74447325E,Active
+Yes
+
+AE08D790-4B80-299B-764D-B2E74447325E,CheckCondition
+{Before Action is Executed}
+
+AE08D790-4B80-299B-764D-B2E74447325E,Component
+{}
+
+AE08D790-4B80-299B-764D-B2E74447325E,FailureFocus
+{}
+
+AE08D790-4B80-299B-764D-B2E74447325E,FailureMessage
+{}
+
+AE08D790-4B80-299B-764D-B2E74447325E,Filename
+<%InstallDir%>/ruby/download/rubygems-1.1.1.tgz
+
+AE08D790-4B80-299B-764D-B2E74447325E,ID
+{}
+
+AE08D790-4B80-299B-764D-B2E74447325E,Operator
+{does not exist}
 
 AF3F0CF8-E3FF-2E34-E97A-F96247A51FDE,Active
 Yes
@@ -1789,7 +2212,7 @@ C00B29CF-1D5B-721C-D2A0-F62F2E614128,Component
 {}
 
 C00B29CF-1D5B-721C-D2A0-F62F2E614128,Conditions
-{0 conditions}
+{1 condition}
 
 C00B29CF-1D5B-721C-D2A0-F62F2E614128,EchoInput
 Yes
@@ -1836,6 +2259,30 @@ C2FB75F5-99E9-25E4-7EED-0624AF02CBC7,ID
 C2FB75F5-99E9-25E4-7EED-0624AF02CBC7,IgnoreErrors
 No
 
+C9B03903-4B33-CDE7-A44C-452395759B02,Active
+Yes
+
+C9B03903-4B33-CDE7-A44C-452395759B02,CheckCondition
+{Before Next Action is Executed}
+
+C9B03903-4B33-CDE7-A44C-452395759B02,Component
+{}
+
+C9B03903-4B33-CDE7-A44C-452395759B02,FailureFocus
+{}
+
+C9B03903-4B33-CDE7-A44C-452395759B02,FailureMessage
+{}
+
+C9B03903-4B33-CDE7-A44C-452395759B02,Filename
+<%InstallDir%>/ruby/download/libiconv-1.12.tar.gz
+
+C9B03903-4B33-CDE7-A44C-452395759B02,ID
+{}
+
+C9B03903-4B33-CDE7-A44C-452395759B02,Operator
+exists
+
 CA695D57-52D7-446D-3A80-8FF9CD866459,Active
 Yes
 
@@ -1846,7 +2293,7 @@ CA695D57-52D7-446D-3A80-8FF9CD866459,Component
 {}
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,Conditions
-{1 condition}
+{0 conditions}
 
 CA695D57-52D7-446D-3A80-8FF9CD866459,ConsoleTitle
 {<%AppName%> Setup}
@@ -1935,11 +2382,14 @@ CB5B0DD7-51CA-DDD9-A90C-00D03C6C0804,WizardOptions
 CCFF824E-E289-DA60-B7C3-A0E640AE81CA,Active
 Yes
 
+CCFF824E-E289-DA60-B7C3-A0E640AE81CA,Alias
+{Console Ask YN}
+
 CCFF824E-E289-DA60-B7C3-A0E640AE81CA,Component
 {}
 
 CCFF824E-E289-DA60-B7C3-A0E640AE81CA,Conditions
-{0 conditions}
+{1 condition}
 
 CCFF824E-E289-DA60-B7C3-A0E640AE81CA,Default
 Yes
@@ -1986,11 +2436,14 @@ No
 D27614D9-4C65-51C2-A62E-D363D71C793A,Active
 Yes
 
+D27614D9-4C65-51C2-A62E-D363D71C793A,Alias
+exit
+
 D27614D9-4C65-51C2-A62E-D363D71C793A,Component
 {}
 
 D27614D9-4C65-51C2-A62E-D363D71C793A,Conditions
-{}
+{0 conditions}
 
 D27614D9-4C65-51C2-A62E-D363D71C793A,ExecuteAction
 {After Pane is Displayed}
@@ -2139,6 +2592,90 @@ E00EE755-CC7F-2AE4-0A8A-347508024781,ID
 E00EE755-CC7F-2AE4-0A8A-347508024781,IgnoreErrors
 No
 
+E1ADDF99-43AA-D303-7C20-D27D04840F77,Active
+Yes
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,Alias
+{fetch icov}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,Component
+{}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,Conditions
+{2 conditions}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ConsoleTitle
+{<%AppName%> Setup}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ExecuteAction
+{After Pane is Displayed}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ExecuteAsRoot
+No
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ExecuteInConsole
+No
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ID
+{}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,IgnoreErrors
+No
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,IncludeStderr
+Yes
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ProgramCommandLine
+{/usr/bin/fetch -T 10000 -o <%InstallDir%>/ruby/download http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.12.tar.gz}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ProgressiveOutputWidget
+{}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ResultVirtualText
+ExternalProgramResult
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,ShowProgressiveOutput
+Yes
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,StatusVirtualText
+ExternalProgramStatus
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,WaitForProgram
+Yes
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,WatchProgressiveOutput
+No
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+E1ADDF99-43AA-D303-7C20-D27D04840F77,WorkingDirectory
+{}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,Active
+Yes
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,CheckCondition
+{Before Action is Executed}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,Component
+{}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,FailureFocus
+{}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,FailureMessage
+{}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,ID
+{}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,Operator
+{was not passed on the command line}
+
+E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B,Option
+batch
+
 ED8D7D5F-E6B7-DC8B-B6AA-F5C4DB04EE42,Active
 Yes
 
@@ -2238,6 +2775,30 @@ EF88E638-1FED-F134-6ECB-644659BBCFEE,Operator
 EF88E638-1FED-F134-6ECB-644659BBCFEE,Option
 db_user
 
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,Active
+Yes
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,CheckCondition
+{Before Next Action is Executed}
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,Component
+{}
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,FailureFocus
+{}
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,FailureMessage
+{}
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,Filename
+/var/db/mysql/data.openfoundry.org.pid
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,ID
+{}
+
+F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431,Operator
+exists
+
 F5050338-5351-8CD0-46CD-5DA0DF94B559,Active
 Yes
 
@@ -2261,6 +2822,30 @@ F5050338-5351-8CD0-46CD-5DA0DF94B559,ID
 
 F5050338-5351-8CD0-46CD-5DA0DF94B559,Permission
 {can create}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,Active
+Yes
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,CheckCondition
+{Before Action is Executed}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,Component
+{}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,FailureFocus
+{}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,FailureMessage
+{}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,ID
+{}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,Operator
+{was not passed on the command line}
+
+FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E,Option
+batch
 
 FreeBSD-4-x86,Active
 No
@@ -2941,32 +3526,34 @@ proc CreateWindow.CustomBlankPane1 {wizard id} {
 
 
 array set ::InstallJammer::files {files.tcl {proc ::InstallJammer::InitFiles {} {
-File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1208312799 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1208414735 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 193 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
-File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2270 -mtime 1207720132 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2270 -mtime 1208414454 -permissions 00700 -filemethod "Update files with more recent dates"
 File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 148 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
 File ::63DB80A3-C445-657A-9E09-3214368DC5E7 -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 662 -mtime 1206954174 -permissions 00755 -filemethod "Update files with more recent dates"
 File ::B643137E-D6DD-B404-1715-4DD70949D371 -name stompserver.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 181 -mtime 1206954174 -permissions 00755 -filemethod "Update files with more recent dates"
-File ::A9571BF7-0A49-533D-9352-39E3570BC2FD -name .svn -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1207720083 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::A9571BF7-0A49-533D-9352-39E3570BC2FD -name .svn -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn -size 4096 -mtime 1208401156 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::2F0C4BFD-3622-8568-0F3B-5F53A9FE1A22 -name all-wcprops -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 694 -mtime 1207718023 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::18B8BB3F-E1E0-B857-AC16-C16C2FCAA625 -name entries -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 904 -mtime 1207720083 -permissions 00444 -filemethod "Update files with more recent dates"
+File ::18B8BB3F-E1E0-B857-AC16-C16C2FCAA625 -name entries -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 962 -mtime 1208401156 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::A5645542-4025-B086-1634-32337FE46D44 -name format -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn -size 2 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::9D166F18-CC64-C07E-FC34-E314AF1BFF28 -name prop-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/prop-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::74DA04E2-81B7-94DF-967F-E9A1EA2C2C91 -name install_ruby.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/prop-base -size 29 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::66E847E3-6B7F-29A8-C71E-50CD95966E80 -name stompserver.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/prop-base -size 29 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::DA807343-2E92-A251-A996-69158BEFA844 -name stompserver.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/prop-base -size 29 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::3582E12D-AFF2-19DC-05F0-CA67E8826BE8 -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/props -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::3582E12D-AFF2-19DC-05F0-CA67E8826BE8 -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/props -size 4096 -mtime 1208401156 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::CCA4079C-2D15-F5B8-354F-0ED0F4653AE3 -name install_db.sh.svn-work -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/props -size 30 -mtime 1208401156 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::DADCF6A3-214F-AE80-24E7-8A914C7A0440 -name text-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/text-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::AB577E03-2DA6-6C25-3562-D82019B87E83 -name .passwd.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 193 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::24B3E07D-4A75-B070-2164-2E55FF1C6053 -name install_ruby.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 2451 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::5C1E605C-9778-2C11-9888-B7D0D95AB14E -name stompserver.conf.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 148 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::30A18B9A-4BAC-3AE6-E11E-A604BB3BC50A -name stompserver.sh.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 181 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
 File ::4F8F5EF6-0C36-AD66-5058-DB13A1D00C59 -name stompserver.svn-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%>/.svn/text-base -size 662 -mtime 1206954174 -permissions 00444 -filemethod "Update files with more recent dates"
-File ::5910AF71-3593-C6E9-BE27-FDDCCCF86FB1 -name tmp -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1207720083 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::5910AF71-3593-C6E9-BE27-FDDCCCF86FB1 -name tmp -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp -size 4096 -mtime 1208401156 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::F1F7556B-FEBE-F13A-66A9-1D6EB8A71902 -name prop-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/prop-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
+File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1208401156 -permissions 040755 -filemethod "Update files with more recent dates"
 File ::B33FFEFA-22D6-6024-0A30-146A538D602E -name text-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
-File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 1211 -mtime 1207640256 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 1242 -mtime 1208402295 -permissions 00700 -filemethod "Update files with more recent dates"
+File ::D57D3D80-A501-8EF0-D6F1-3A52055698E8 -name .install_ruby.sh.swp -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 12288 -mtime 1208414740 -permissions 00600 -filemethod "Update files with more recent dates"
 
 }
 } console.tcl {
@@ -19283,6 +19870,66 @@ Yes
 218B3F80-7EB3-E8B9-5F48-E11A569D43FA,IgnoreErrors
 No
 
+35AE3303-D32A-8412-D014-C8BFFEF59592,Active
+Yes
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,Alias
+{remove ruby }
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,Component
+{}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,Conditions
+{0 conditions}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ConsoleTitle
+{<%AppName%> Setup}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ExecuteAction
+{After Pane is Displayed}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ExecuteAsRoot
+Yes
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ExecuteInConsole
+No
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ID
+{}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,IgnoreErrors
+No
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,IncludeStderr
+Yes
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ProgramCommandLine
+{rm -rf <%InstallDir%>/ruby/ruby}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ProgressiveOutputWidget
+{}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ResultVirtualText
+ExternalProgramResult
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,ShowProgressiveOutput
+Yes
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,StatusVirtualText
+ExternalProgramStatus
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,WaitForProgram
+Yes
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,WatchProgressiveOutput
+No
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+35AE3303-D32A-8412-D014-C8BFFEF59592,WorkingDirectory
+{}
+
 40205BEC-D63E-F146-4D30-49CEC5B6F304,Active
 Yes
 
@@ -19434,6 +20081,66 @@ Yes
 {}
 
 4E3514A3-FFB6-84D0-FB99-7BCF6AB7CD05,ID
+{}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,Active
+Yes
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,Alias
+{remove mysql}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,Component
+{}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,Conditions
+{0 conditions}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ConsoleTitle
+{<%AppName%> Setup}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ExecuteAction
+{After Pane is Displayed}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ExecuteAsRoot
+Yes
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ExecuteInConsole
+No
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ID
+{}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,IgnoreErrors
+No
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,IncludeStderr
+Yes
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ProgramCommandLine
+{/usr/sbin/pkg_delete -x mysql}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ProgressiveOutputWidget
+{}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ResultVirtualText
+ExternalProgramResult
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,ShowProgressiveOutput
+Yes
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,StatusVirtualText
+ExternalProgramStatus
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,WaitForProgram
+Yes
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,WatchProgressiveOutput
+No
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,WatchRegularExpression
+{^:([^ ]+) (.*):$}
+
+5A5B5BAF-45C1-41A3-4F03-CC95946DB615,WorkingDirectory
 {}
 
 632BF355-7465-5E97-850F-3593C7A1D3DE,Active
@@ -19779,7 +20486,7 @@ E222520E-F00E-D8F5-EB5B-DBF0733D842B,Component
 {}
 
 E222520E-F00E-D8F5-EB5B-DBF0733D842B,Conditions
-{}
+{0 conditions}
 
 E222520E-F00E-D8F5-EB5B-DBF0733D842B,ExecuteAction
 {After Pane is Displayed}
@@ -19790,6 +20497,30 @@ E222520E-F00E-D8F5-EB5B-DBF0733D842B,ID
 E222520E-F00E-D8F5-EB5B-DBF0733D842B,IgnoreErrors
 No
 
+F13297ED-5800-4420-9A3D-3D7458C77906,Active
+Yes
+
+F13297ED-5800-4420-9A3D-3D7458C77906,Alias
+{delete stompserver in /usr/local/etc/rc.d}
+
+F13297ED-5800-4420-9A3D-3D7458C77906,Component
+{}
+
+F13297ED-5800-4420-9A3D-3D7458C77906,Conditions
+{0 conditions}
+
+F13297ED-5800-4420-9A3D-3D7458C77906,ExecuteAction
+{After Pane is Displayed}
+
+F13297ED-5800-4420-9A3D-3D7458C77906,Files
+/usr/local/etc/rc.d/stompserver
+
+F13297ED-5800-4420-9A3D-3D7458C77906,ID
+{}
+
+F13297ED-5800-4420-9A3D-3D7458C77906,IgnoreErrors
+No
+
 FC806F46-A8D0-C692-CDA7-32B3C06A25F6,Active
 Yes
 
@@ -19797,7 +20528,7 @@ FC806F46-A8D0-C692-CDA7-32B3C06A25F6,Alias
 {Uninstall Actions}
 
 FC806F46-A8D0-C692-CDA7-32B3C06A25F6,Conditions
-{}
+{0 conditions}
 
 FC806F46-A8D0-C692-CDA7-32B3C06A25F6,ID
 {}
@@ -20377,6 +21108,14 @@ set message [::InstallJammer::WrapText $message]
 eval $command [list $message]
 }
 
+proc ::InstallJammer::actions::DeleteFile {obj} {
+$obj properties props
+
+foreach file [::InstallJammer::GetFilesForPattern $props(Files)] {
+file delete -force $file
+}
+}
+
 proc ::InstallJammer::actions::ExecuteAction {obj} {
 set id [$obj id]
 
@@ -20414,6 +21153,250 @@ while {1} {
 ::InstallJammer::ExecuteActions $action -parent $id -conditions $eval
 if {!$eval || [$action checkConditions $when]} { break }
 }
+}
+
+proc ::InstallJammer::actions::ExecuteExternalProgram {obj} {
+global conf
+global info
+
+set id [$obj id]
+
+$obj properties props -subst {ConsoleTitle}
+
+set resultVarName [::InstallJammer::SubstText $props(ResultVirtualText)]
+set statusVarName [::InstallJammer::SubstText $props(StatusVirtualText)]
+
+set resultVar ::conf(ExternalResult)
+if {[string length $resultVarName]} { set resultVar ::info($resultVarName) }
+
+set statusVar ::conf(ExternalStatus)
+if {[string length $statusVarName]} { set statusVar ::info($statusVarName) }
+
+set $statusVar 0
+set $resultVar ""
+
+::InstallJammer::UpdateWidgets -update 1
+
+set workdir [::InstallJammer::SubstText $props(WorkingDirectory)]
+if {$workdir ne "" && [file exists $workdir]} {
+debug "Changing to working directory $workdir"
+set pwd [pwd]
+cd $workdir
+}
+
+set cmdline $props(ProgramCommandLine)
+
+if {$props(ShowProgressiveOutput)} {
+debug "Executing with progressive output"
+
+set proc   ::ReadOutput${id}
+set watch  $props(WatchProgressiveOutput)
+set widget [join $props(ProgressiveOutputWidget) ""]
+set widget [[$obj parent] widget get $widget]
+
+if {!$info(GuiMode) || ![winfo exists $widget]
+|| [winfo class $widget] ne "Text"} {
+set widget ""
+} else {
+$widget delete 1.0 end
+
+$widget configure -maxundo 1
+}
+
+if {$watch} {
+debug "Watching progressive output for special syntax."
+}
+
+proc ::CloseProgressive { fp statusVar } {
+if {[catch { close $fp } error]} {
+if {[lindex $::errorCode 0] eq "CHILDSTATUS"} {
+set $statusVar [lindex $::errorCode 2]
+} else {
+set $statusVar 1
+}
+
+set $resultVar $error
+return -code error $error
+} else {
+set $statusVar 0
+}
+}
+
+proc $proc { fp statusVar resultVar widget watch } {
+if {[eof $fp]} {
+CloseProgressive $fp $statusVar
+return
+}
+
+if {$watch ne ""} {
+gets $fp data
+
+if {$::conf(windows)} {
+set data [string map [list \r ""] $data]
+}
+
+if {[eof $fp]} {
+CloseProgressive $fp $statusVar
+return
+}
+
+if {[fblocked $fp]} { return }
+
+if {[regexp $watch $data -> varName theRest]} {
+set ::info($varName) [::InstallJammer::SubstText $theRest]
+::InstallJammer::UpdateWidgets -update 1
+return
+}
+
+append data \n
+} else {
+set data [read $fp]
+
+if {[eof $fp]} {
+CloseProgressive $fp $statusVar
+return
+}
+
+if {$::conf(windows)} {
+set data [string map [list \r ""] $data]
+}
+}
+
+append $resultVar $data
+
+if {$::info(ConsoleMode)} {
+puts -nonewline stdout $data
+flush stdout
+} elseif {$widget ne ""} {
+set auto [expr {[lindex [$widget yview] 1] == 1}]
+
+$widget configure -state normal
+$widget insert end $data
+$widget configure -state disabled
+
+if {$auto} { $widget yview moveto 1.0 }
+
+update idletasks
+}
+}
+
+set cmd [::InstallJammer::SubstForPipe $cmdline]
+
+if {$props(IncludeStderr)} { lappend cmd "2>@1" }
+
+debug "Executing Command Line: $cmd"
+
+if {[catch { open "|$cmd" } fp]} {
+set $statusVar 1
+set $resultVar $fp
+if {[lindex $::errorCode 0] eq "CHILDSTATUS"} {
+set $statusVar [lindex $::errorCode 2]
+}
+
+return -code error [set $resultVar]
+} else {
+if {$watch} {
+set watch $props(WatchRegularExpression)
+} else {
+set watch ""
+}
+
+fconfigure $fp -buffering none -blocking 0 -translation lf
+fileevent $fp readable  [list $proc $fp $statusVar $resultVar $widget $watch]
+
+if {$props(WaitForProgram)} { vwait $statusVar }
+}
+} else {
+set cmd [::InstallJammer::SubstForPipe $cmdline]
+
+if {$props(ExecuteInConsole)} {
+debug "Executing in console"
+
+if {$conf(windows)} {
+set cmd [linsert $cmd 0 $::env(COMSPEC) /c]
+} else {
+set title Console
+if {$props(ConsoleTitle) ne ""} {
+set title $props(ConsoleTitle)
+}
+
+set t       -T
+set konsole 0
+set desktop [::InstallJammer::GetDesktopEnvironment]
+
+if {$desktop eq "KDE" && [auto_execok konsole] ne ""} {
+set konsole 1
+set term konsole
+} elseif {$desktop eq "Gnome"
+&& [auto_execok gnome-terminal] ne ""} {
+set t -t
+set term gnome-terminal
+} else {
+set term xterm
+}
+
+if {[auto_execok $term] eq ""} {
+return -code error "Execute External Program failled: Cannot execute program in console because a suitable terminal program could not be found."
+}
+
+if {$konsole} {
+set cmd [concat [list $term $t $title] -e $cmd]
+} else {
+set cmd [list $term $t $title -e $cmd]
+}
+
+if {$props(ExecuteAsRoot) && !$info(UserIsRoot)} {
+set msg [::InstallJammer::SubstText "<%PromptForRootText%>"]
+set cmd [join [::InstallJammer::SubstForPipe $cmdline]]
+if {$konsole} {
+set cmd [concat [list $term $t $title]  [list -e echo '$msg' && su -c '$cmd']]
+} else {
+set cmd [list $term $t $title  -e "echo '$msg' && su -c '$cmd'"]
+}
+}
+}
+
+if {!$props(WaitForProgram)} { lappend cmd & }
+
+debug "Executing Command Line: $cmd"
+
+if {[catch { eval exec $cmd } $resultVar]} {
+debug "Error while executing: [set $resultVar]"
+
+set $statusVar 1
+if {[lindex $::errorCode 0] eq "CHILDSTATUS"} {
+set $statusVar [lindex $::errorCode 2]
+}
+}
+} elseif {$props(ExecuteAsRoot) && !$info(UserIsRoot)
+&& !$conf(windows)} {
+debug "Executing as root"
+set cmd [::InstallJammer::SubstForPipe $cmdline]
+
+if {$props(IncludeStderr)} { lappend cmd "2>@1" }
+
+debug "Executing Command Line: $cmd"
+::InstallJammer::ExecAsRoot $cmd -wait $props(WaitForProgram)
+} else {
+if {$props(IncludeStderr)} { lappend cmd "2>@1" }
+
+if {!$props(WaitForProgram)} { lappend cmd & }
+
+debug "Executing Command Line: $cmd"
+if {[catch { eval exec $cmd } $resultVar]} {
+debug "Error while executing: [set $resultVar]"
+
+set $statusVar 1
+if {[lindex $::errorCode 0] eq "CHILDSTATUS"} {
+set $statusVar [lindex $::errorCode 2]
+}
+}
+}
+}
+
+::InstallJammer::UpdateWidgets -updateidletasks 1
+
+if {[info exists pwd]} { cd $pwd }
 }
 
 proc ::InstallJammer::actions::Exit {obj} {
@@ -21327,6 +22310,9 @@ InstallComponent C1147463-816A-E9CC-898E-8EEE5F82E838 -setup Uninstall -type act
 Condition 4C59F95E-9453-EDC2-7336-CB2499C1675C -active Yes -parent C1147463-816A-E9CC-898E-8EEE5F82E838 -title {String Is Condition} -component StringIsCondition
 Condition BF92D3DB-8D5B-78E4-12EF-9624AC1DB1B1 -active Yes -parent C1147463-816A-E9CC-898E-8EEE5F82E838 -title {Ask Yes or No} -component AskYesOrNo
 InstallComponent FC806F46-A8D0-C692-CDA7-32B3C06A25F6 -setup Uninstall -type actiongroup -title {Uninstall Actions} -alias {Uninstall Actions} -active Yes -parent ActionGroups
+InstallComponent 35AE3303-D32A-8412-D014-C8BFFEF59592 -setup Uninstall -type action -title {remove ruby } -component ExecuteExternalProgram -alias {remove ruby } -active Yes -parent FC806F46-A8D0-C692-CDA7-32B3C06A25F6
+InstallComponent 5A5B5BAF-45C1-41A3-4F03-CC95946DB615 -setup Uninstall -type action -title {remove mysql} -component ExecuteExternalProgram -alias {remove mysql} -active Yes -parent FC806F46-A8D0-C692-CDA7-32B3C06A25F6
+InstallComponent F13297ED-5800-4420-9A3D-3D7458C77906 -setup Uninstall -type action -title {delete stompserver in /usr/local/etc/rc.d} -component DeleteFile -alias {delete stompserver in /usr/local/etc/rc.d} -active Yes -parent FC806F46-A8D0-C692-CDA7-32B3C06A25F6
 InstallComponent E222520E-F00E-D8F5-EB5B-DBF0733D842B -setup Uninstall -type action -title {Uninstall Selected Files} -component UninstallSelectedFiles -active Yes -parent FC806F46-A8D0-C692-CDA7-32B3C06A25F6
 InstallComponent C63DC73C-8A64-C1D9-54AA-BDB7E66BF011 -setup Uninstall -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent D2B895D2-539D-2776-39FE-4E0BD23B667B -setup Uninstall -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
@@ -21503,6 +22489,10 @@ set message [::InstallJammer::WrapText $message]
 eval $command [list $message]
 }
 
+proc ::InstallJammer::actions::ContinueInstall {{id {}}} {
+::InstallJammer::ContinueInstall
+}
+
 proc ::InstallJammer::actions::CopyFile {obj} {
 $obj properties props -subst 1
 
@@ -21511,6 +22501,11 @@ set dst [::InstallJammer::RelativeFile $props(Destination)]
 foreach src [::InstallJammer::GetFilesForPattern $props(Source)] {
 file copy -force $src $dst
 }
+}
+
+proc ::InstallJammer::actions::CreateFolder {obj} {
+$obj get FolderName folder
+::InstallJammer::CreateDir [::InstallJammer::SubstText $folder]
 }
 
 proc ::InstallJammer::actions::CreateInstallPanes {obj} {
@@ -21826,6 +22821,20 @@ foreach command [list ::Exit ::InstallJammer::exit ::exit] {
 if {[::InstallJammer::CommandExists $command]} {
 $command
 }
+}
+}
+
+proc ::InstallJammer::conditions::FileExistsCondition {obj} {
+$obj properties props
+
+debug "Checking to see if $props(Filename) $props(Operator)"
+
+set file [::InstallJammer::SubstText $props(Filename)]
+
+if {$props(Operator) eq "exists"} {
+return [file exists $file]
+} else {
+return [expr {![file exists $file]}]
 }
 }
 
@@ -22197,22 +23206,6 @@ debug "No more panes left to move forward... exiting"
 } else {
 debug "Moving forward to $next"
 after 0 [list $info(Wizard) next 1]
-}
-}
-
-proc ::InstallJammer::conditions::PortTestCondition {obj} {
-$obj properties props -subst 1
-
-debug "Checking to see if port $props(Port) $props(Operator)"
-
-if {![set result [catch { socket 127.0.0.1 $props(Port) } sock]]} {
-catch { close $sock }
-}
-
-if {$props(Operator) eq "can bind"} {
-return $result
-} elseif {$props(Operator) eq "cannot bind"} {
-return [expr !$result]
 }
 }
 
@@ -23568,8 +24561,9 @@ InstallComponent 3B13D960-4C4C-852A-450E-8833E1BCFFBA -setup Install -type actio
 InstallComponent 27BFCD7B-696A-139D-A252-C941250DD032 -setup Install -type action -title {Move Forward} -component MoveForward -active Yes -parent 49A4F6B1-A39A-C682-E53A-2B25F201CDEF
 InstallComponent CB5B0DD7-51CA-DDD9-A90C-00D03C6C0804 -setup Install -type pane -title {Setup Complete} -component SetupComplete -active Yes -parent Default
 InstallType ::Console
-InstallComponent CCFF824E-E289-DA60-B7C3-A0E640AE81CA -setup Install -type action -title {Console Ask Yes Or No} -component ConsoleAskYesOrNo -active Yes -parent Console
-InstallComponent 002BFD35-BD2C-9A4C-77A2-20962C78BC20 -setup Install -type action -conditions DCEA67E5-318B-0447-0FCB-5F8DB07C32F9 -title Exit -component Exit -command insert -active Yes -parent Console
+InstallComponent CCFF824E-E289-DA60-B7C3-A0E640AE81CA -setup Install -type action -conditions E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B -title {Console Ask YN} -component ConsoleAskYesOrNo -command reorder -alias {Console Ask YN} -active Yes -parent Console
+Condition E4AF2018-F5AE-3B19-9BF1-4543D4E4C58B -active Yes -parent CCFF824E-E289-DA60-B7C3-A0E640AE81CA -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 002BFD35-BD2C-9A4C-77A2-20962C78BC20 -setup Install -type action -conditions DCEA67E5-318B-0447-0FCB-5F8DB07C32F9 -title Exit -component Exit -command reorder -active Yes -parent Console
 Condition DCEA67E5-318B-0447-0FCB-5F8DB07C32F9 -active Yes -parent 002BFD35-BD2C-9A4C-77A2-20962C78BC20 -title {String Is Condition} -component StringIsCondition
 InstallComponent 0A4F07D7-6DE3-2123-D55A-20FA2FA94946 -setup Install -type action -conditions 293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent Console
 Condition 293B3356-FB3A-8B8B-C5F0-6EF46BC83FEE -active Yes -parent 0A4F07D7-6DE3-2123-D55A-20FA2FA94946 -title {Command Line Test Condition} -component CommandLineTestCondition
@@ -23581,14 +24575,17 @@ InstallComponent D8C6ACFC-F4A1-4E88-59B1-994686D68831 -setup Install -type actio
 Condition 4AF7B25E-52DB-8296-3C2A-346FD2CC0E71 -active Yes -parent D8C6ACFC-F4A1-4E88-59B1-994686D68831 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent B4FE9A1C-B153-42C0-F1EF-CD9E6831C110 -setup Install -type action -conditions 3928B730-247F-759D-AB67-65DD9372B7A4 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent Console
 Condition 3928B730-247F-759D-AB67-65DD9372B7A4 -active Yes -parent B4FE9A1C-B153-42C0-F1EF-CD9E6831C110 -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent A51ABA7B-6CDC-9BF4-E684-E46A3745548E -setup Install -type action -conditions F5050338-5351-8CD0-46CD-5DA0DF94B559 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent Console
+InstallComponent A51ABA7B-6CDC-9BF4-E684-E46A3745548E -setup Install -type action -conditions {F5050338-5351-8CD0-46CD-5DA0DF94B559 085680FA-5566-9F7D-02C5-653060CE91B6} -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent Console
 Condition F5050338-5351-8CD0-46CD-5DA0DF94B559 -active Yes -parent A51ABA7B-6CDC-9BF4-E684-E46A3745548E -title {File Permission Condition} -component FilePermissionCondition
-InstallComponent C00B29CF-1D5B-721C-D2A0-F62F2E614128 -setup Install -type action -title {set StompUser} -component ConsoleGetUserInput -alias {set StompUser} -active Yes -parent Console
-InstallComponent 9731A0C7-1769-D0A2-EE8A-7AEFEEE467B9 -setup Install -type action -title {set StompPass} -component ConsoleGetUserInput -alias {set StompPass} -active Yes -parent Console
+Condition 085680FA-5566-9F7D-02C5-653060CE91B6 -active Yes -parent A51ABA7B-6CDC-9BF4-E684-E46A3745548E -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent C00B29CF-1D5B-721C-D2A0-F62F2E614128 -setup Install -type action -conditions 700AF505-7C4B-464C-3C87-1F1E8AE3322B -title {set StompUser} -component ConsoleGetUserInput -command reorder -alias {set StompUser} -active Yes -parent Console
+Condition 700AF505-7C4B-464C-3C87-1F1E8AE3322B -active Yes -parent C00B29CF-1D5B-721C-D2A0-F62F2E614128 -title {Command Line Test Condition} -component CommandLineTestCondition
+InstallComponent 9731A0C7-1769-D0A2-EE8A-7AEFEEE467B9 -setup Install -type action -conditions FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E -title {set StompPass} -component ConsoleGetUserInput -command reorder -alias {set StompPass} -active Yes -parent Console
+Condition FDB71C7F-4B60-EA8E-3303-3EDC6DA90C9E -active Yes -parent 9731A0C7-1769-D0A2-EE8A-7AEFEEE467B9 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent A6EF33D1-57BC-C370-60AC-3C29F5DCB89B -setup Install -type action -title {Console Message} -component ConsoleMessage -alias {Console Message} -active Yes -parent Console
 InstallComponent D2041115-4CC3-DF11-B6C1-B908D5632D32 -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Console
 InstallComponent 1446F693-C8F7-9A44-CB78-0A61BF5022B2 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent Console
-InstallComponent D27614D9-4C65-51C2-A62E-D363D71C793A -setup Install -type action -title Exit -component Exit -active Yes -parent Console
+InstallComponent D27614D9-4C65-51C2-A62E-D363D71C793A -setup Install -type action -title exit -component Exit -command reorder -alias exit -active Yes -parent Console
 InstallType ::Silent
 InstallComponent 76AFB6EF-3183-1DCB-2A12-C7ECA94D25FC -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent Silent
 InstallComponent E00EE755-CC7F-2AE4-0A8A-347508024781 -setup Install -type action -title Exit -component Exit -active Yes -parent Silent
@@ -23600,23 +24597,39 @@ Condition 5C16465C-FDD0-2F05-5C91-6D01C09856D0 -active Yes -parent 7A40BF59-4755
 Condition 108F36BD-78A1-1F21-59A4-8DBA1D3DDE30 -active Yes -parent 7A40BF59-4755-0132-1CFE-ACC49930DD1B -title {Ask Yes or No} -component AskYesOrNo
 InstallComponent 33319B23-484F-5E3D-7EC7-5D29A9D5872F -setup Install -type action -title {Create Install Panes} -component CreateInstallPanes -active Yes -parent 45219FC3-1713-56A9-B03C-A92D2FD5E9C4
 InstallComponent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37 -setup Install -type actiongroup -title {Install Actions} -alias {Install Actions} -active Yes -parent ActionGroups
+InstallComponent 5A5B6524-D14D-7214-85B0-24DEAF77761B -setup Install -type action -title {download } -component ExecuteAction -alias {download } -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 322CFE04-E55C-A370-62E0-0E5024500F52 -setup Install -type action -title {Install Selected Files} -component InstallSelectedFiles -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent 34C5FC78-34BE-1AEC-E05F-C1A8E029A36A -setup Install -type action -title {Create Folder} -component CreateFolder -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 360E3799-406F-D22F-570F-876BE31B06FC -setup Install -type action -title {Add into /etc/rc.conf} -component WriteTextToFile -alias {Add into /etc/rc.conf} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent 59B7B4B2-B4EC-4175-5722-002958B86743 -setup Install -type action -conditions 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -title {Install Uninstaller} -component InstallUninstaller -command reorder -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-Condition 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -active Yes -parent 59B7B4B2-B4EC-4175-5722-002958B86743 -title {String Is Condition} -component StringIsCondition
 InstallComponent 36B81582-1192-2679-3E40-3F58690C9405 -setup Install -type action -title {Replace files} -component ReplaceTextInFile -alias {Replace files} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 6D4F9B01-2B35-EFC4-DB85-413CFA354806 -setup Install -type action -title {Add UGO} -component ExecuteAction -alias {Add UGO} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -conditions 043263B3-1E88-AC85-A5DF-A1284FAFCCFD -title {Install DB} -component ExecuteExternalProgram -command reorder -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
-Condition 043263B3-1E88-AC85-A5DF-A1284FAFCCFD -active Yes -parent CA695D57-52D7-446D-3A80-8FF9CD866459 -title {Port Test Condition} -component PortTestCondition
+InstallComponent CA695D57-52D7-446D-3A80-8FF9CD866459 -setup Install -type action -title {Install DB} -component ExecuteExternalProgram -command reorder -alias {Install DB} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent 825DA846-B935-4929-3423-BD22CDF7E2B2 -setup Install -type action -conditions F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431 -title {Continue Install} -component ContinueInstall -command insert -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+Condition F1F0D2EA-F3A1-08E4-CD60-73C9BDEE6431 -active Yes -parent 825DA846-B935-4929-3423-BD22CDF7E2B2 -title {File Exists Condition} -component FileExistsCondition
 InstallComponent B712873A-762E-5C69-B019-40C1FBD0CBF4 -setup Install -type action -title {Install Ruby} -component ExecuteExternalProgram -command reorder -alias {Install Ruby} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent 424DE9B9-25EA-AC6E-AF42-FE62DCD34C12 -setup Install -type action -title {Copy File to /usr/local/etc/rc.d} -component CopyFile -alias {Copy File to /usr/local/etc/rc.d} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
 InstallComponent 729C387C-88AE-74A0-879D-47CFEA1FDF4C -setup Install -type action -title {Run stompserver} -component ExecuteExternalProgram -alias {Run stompserver} -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+InstallComponent 59B7B4B2-B4EC-4175-5722-002958B86743 -setup Install -type action -conditions 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -title {Install Uninstaller} -component InstallUninstaller -command insert -active Yes -parent 89CC3AB4-6CF8-B538-4E9E-CBA560AD1E37
+Condition 76C27D6F-2031-6321-B85A-E3AF9BD4EA5A -active Yes -parent 59B7B4B2-B4EC-4175-5722-002958B86743 -title {String Is Condition} -component StringIsCondition
 InstallComponent 136EEE11-8D97-3638-C03B-77E94EF7FBCD -setup Install -type actiongroup -title {Finish Actions} -alias {Finish Actions} -active Yes -parent ActionGroups
 InstallComponent 5F9B0FA8-1982-E774-90BB-CE07416AD5DC -setup Install -type actiongroup -title {Cancel Actions} -alias {Cancel Actions} -active Yes -parent ActionGroups
 InstallComponent 4145D082-C98A-6F40-2468-BE0FDE3E77AD -setup Install -type actiongroup -title {Add User Group Ownership} -alias {Add User Group Ownership} -active Yes -parent ActionGroups
 InstallComponent 20C93FA4-605C-3EBE-316E-1F7102707F2D -setup Install -type action -title {Add Group stompserver} -component ExecuteExternalProgram -alias {Add Group stompserver} -active Yes -parent 4145D082-C98A-6F40-2468-BE0FDE3E77AD
 InstallComponent 921E3740-4B6E-50F5-A6D2-11B7EDD483AE -setup Install -type action -title {Add User stompserver} -component ExecuteExternalProgram -alias {Add User stompserver} -active Yes -parent 4145D082-C98A-6F40-2468-BE0FDE3E77AD
 InstallComponent 1ADCE0E8-B033-FDAF-BB9C-75308D666B88 -setup Install -type action -title {Change Ownership} -component ExecuteExternalProgram -alias {Change Ownership} -active Yes -parent 4145D082-C98A-6F40-2468-BE0FDE3E77AD
+InstallComponent 239B8979-E025-B166-EB83-4557B909C0F9 -setup Install -type actiongroup -title {Download files} -alias {Download files} -active Yes -parent ActionGroups
+InstallComponent 2DD172F6-7A34-9E40-2BB7-E19FD54628EF -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent 239B8979-E025-B166-EB83-4557B909C0F9
+InstallComponent 3D24005E-3F7C-1E74-4084-D1026B6EF6E9 -setup Install -type action -title {Create Folder} -component CreateFolder -active Yes -parent 239B8979-E025-B166-EB83-4557B909C0F9
+InstallComponent E1ADDF99-43AA-D303-7C20-D27D04840F77 -setup Install -type action -conditions {C9B03903-4B33-CDE7-A44C-452395759B02 774CCCA6-714E-7477-2986-6E61272F8F5A} -title {fetch icov} -component ExecuteExternalProgram -command insert -alias {fetch icov} -active Yes -parent 239B8979-E025-B166-EB83-4557B909C0F9
+Condition C9B03903-4B33-CDE7-A44C-452395759B02 -active Yes -parent E1ADDF99-43AA-D303-7C20-D27D04840F77 -title {File Exists Condition} -component FileExistsCondition
+Condition 774CCCA6-714E-7477-2986-6E61272F8F5A -active Yes -parent E1ADDF99-43AA-D303-7C20-D27D04840F77 -title {File Exists Condition} -component FileExistsCondition
+InstallComponent 9E70C65D-B583-8FAB-EAE0-D6BDFACD1936 -setup Install -type action -conditions {5A90E603-F3A9-78DD-64BC-88740540C51D 4DA5560C-4540-9DAC-EE09-45740477EEB6} -title {fetch ruby} -component ExecuteExternalProgram -command insert -alias {fetch ruby} -active Yes -parent 239B8979-E025-B166-EB83-4557B909C0F9
+Condition 5A90E603-F3A9-78DD-64BC-88740540C51D -active Yes -parent 9E70C65D-B583-8FAB-EAE0-D6BDFACD1936 -title {File Exists Condition} -component FileExistsCondition
+Condition 4DA5560C-4540-9DAC-EE09-45740477EEB6 -active Yes -parent 9E70C65D-B583-8FAB-EAE0-D6BDFACD1936 -title {File Exists Condition} -component FileExistsCondition
+InstallComponent 0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D -setup Install -type action -conditions {6EA600DB-8ABC-EB1B-65E8-35A8928FC934 AE08D790-4B80-299B-764D-B2E74447325E} -title {fetch rubygems} -component ExecuteExternalProgram -command insert -alias {fetch rubygems} -active Yes -parent 239B8979-E025-B166-EB83-4557B909C0F9
+Condition 6EA600DB-8ABC-EB1B-65E8-35A8928FC934 -active Yes -parent 0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D -title {File Exists Condition} -component FileExistsCondition
+Condition AE08D790-4B80-299B-764D-B2E74447325E -active Yes -parent 0B7C5F8B-315C-B456-6CF8-982DCA8C6A1D -title {File Exists Condition} -component FileExistsCondition
+InstallComponent 5B9A0C3F-91FB-6215-FB42-B43955F05641 -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent 239B8979-E025-B166-EB83-4557B909C0F9
 
 
 proc ::ThemeMain {} {

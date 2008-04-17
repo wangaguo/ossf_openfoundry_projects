@@ -158,9 +158,6 @@ debug
 debugconsole
 {ShowConsole Switch Yes No {} {run installer with a debug console open}}
 
-mode
-{InstallMode Choice No No {Console Default Silent Standard} {set the mode to run the installer in}}
-
 prefix
 {InstallDir String No No {} {set the installation directory}}
 
@@ -378,7 +375,7 @@ Yes
 Yes
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ProgramCommandLine
-{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%>}
+{jexec <%Jail_DATA%> /root/Stompserver\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --db_prefix <%DB_PREFIX%> --stomp_user <%DB_USER%> --stomp_pass <%DB_PASS%> --batch}
 
 091BF7A7-0172-A9A3-CD1F-D1C70EE7AA2F,ShowProgressiveOutput
 Yes
@@ -471,7 +468,7 @@ Yes
 Yes
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ProgramCommandLine
-{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%>}
+{jexec <%Jail_RT%> /root/Request\ Tracker-1.0-FreeBSD-x86-Install --db_pass <%DB_PASS%> --tmp_dba_user <%DB_USER%> --tmp_dba_pass <%DB_PASS%> --batch}
 
 19A6775D-B618-CA48-8BF8-E41BFAAA9677,ShowProgressiveOutput
 Yes
@@ -984,7 +981,7 @@ Yes
 Yes
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ProgramCommandLine
-{jexec <%Jail_FTP%> /root/ProFTPD\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%>}
+{jexec <%Jail_FTP%> /root/ProFTPD\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --db_user <%DB_USER%> --db_pass <%DB_PASS%> --batch}
 
 80F68020-C58D-8EE3-E471-971C80BCAFB5,ShowProgressiveOutput
 Yes
@@ -1389,7 +1386,7 @@ CEE222D2-8D08-A4C2-23D2-111374787634,IncludeStderr
 Yes
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ProgramCommandLine
-{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> }
+{jexec <%Jail_OF%> /root/OpenFoundry\ Website-1.0-FreeBSD-x86-Install --db_prefix <%DB_PREFIX%> --db_user <%DB_USER%> --db_pass <%DB_PASS%> --batch}
 
 CEE222D2-8D08-A4C2-23D2-111374787634,ShowProgressiveOutput
 Yes
@@ -1449,7 +1446,7 @@ E56FB3CD-F352-D95F-EC30-164109044398,IncludeStderr
 Yes
 
 E56FB3CD-F352-D95F-EC30-164109044398,ProgramCommandLine
-{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> }
+{jexec <%Jail_VCS%> /root/VCS\ for\ OpenFoundry-1.0-FreeBSD-x86-Install --sync_pass <%SYNC_PASS%> --batch}
 
 E56FB3CD-F352-D95F-EC30-164109044398,ShowProgressiveOutput
 Yes
