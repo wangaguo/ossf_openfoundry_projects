@@ -1,5 +1,5 @@
 proc ::InstallJammer::InitFiles {} {
-    File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1208414735 -permissions 040755 -filemethod "Update files with more recent dates"
+    File ::B406A6AB-1F5C-0DD3-EEBD-5BB4F3C6FCEF -name stompserver -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%> -size 4096 -mtime 1208508131 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::505507FC-FDD9-B5E3-2448-4EEF869F29AA -name .passwd -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 193 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
     File ::79AA37F7-A0A1-84D5-6A5A-641BBB1EB74D -name install_ruby.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 2270 -mtime 1208414454 -permissions 00700 -filemethod "Update files with more recent dates"
     File ::C2C2A42B-A466-0DBC-D477-5A05E2D3C9F3 -name stompserver.conf -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 148 -mtime 1206954174 -permissions 00644 -filemethod "Update files with more recent dates"
@@ -26,6 +26,6 @@ proc ::InstallJammer::InitFiles {} {
     File ::C8356297-A213-4EAD-44F2-41C9CE93BF2A -name props -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/props -size 4096 -mtime 1208401156 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::B33FFEFA-22D6-6024-0A30-146A538D602E -name text-base -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -type dir -directory <%InstallDir%>/.svn/tmp/text-base -size 4096 -mtime 1206954174 -permissions 040755 -filemethod "Update files with more recent dates"
     File ::FCAEC989-CC04-1D46-4CF8-3EEB0F4CE21A -name install_db.sh -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 1242 -mtime 1208402295 -permissions 00700 -filemethod "Update files with more recent dates"
-    File ::D57D3D80-A501-8EF0-D6F1-3A52055698E8 -name .install_ruby.sh.swp -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 12288 -mtime 1208414740 -permissions 00600 -filemethod "Update files with more recent dates"
+    File ::92C32910-877E-9019-A68E-6CDA54CD0912 -name .install_db.sh.swp -parent 25AD9916-293E-E4C0-F14E-E07F7284A462 -directory <%InstallDir%> -size 12288 -mtime 1208508142 -permissions 00600 -filemethod "Update files with more recent dates"
 
 }

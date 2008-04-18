@@ -6,8 +6,12 @@
 /media/sda3/_work/ftp/.svn/format F9DBC59C-C7BE-802B-2CE1-07A76E790F33 zlib
 /media/sda3/_work/ftp/.svn/prop-base/sync_ftp_users.sh.svn-base 85C1FC84-8FC5-7C86-2378-425F7AF9096B zlib
 /media/sda3/_work/ftp/.svn/prop-base/install_rep.sh.svn-base F63B05A1-165B-2A14-1A50-EF26B69EC3C0 zlib
+/media/sda3/_work/ftp/.svn/prop-base/make_cert.sh.svn-base 8E5BE808-F44D-B5A5-3D3A-5BA168013135 zlib
 /media/sda3/_work/ftp/.svn/text-base/proftpd_with_mysql.conf.svn-base 788055D0-C870-63FF-11DB-021B2DCEA4E3 zlib
 /media/sda3/_work/ftp/.svn/text-base/sync_ftp_users.sh.svn-base 54F3E340-0AEF-FEB4-AAC4-500E39695080 zlib
 /media/sda3/_work/ftp/.svn/text-base/sync_ftp_users.sql.svn-base 96351DFA-1E5E-7DC6-40C2-5CA8380CC233 zlib
 /media/sda3/_work/ftp/.svn/text-base/install_rep.sh.svn-base F0F5801F-54F7-095B-725C-27206BDEB18A zlib
+/media/sda3/_work/ftp/.svn/text-base/make_cert.sh.svn-base 5DF647BB-29E1-66F7-6A91-DC29BE7A6B4F zlib
 /media/sda3/_work/ftp/install_rep.sh 733EA2DA-1176-96A0-35B2-BDD564AE8674 zlib
+/media/sda3/_work/ftp/make_cert.sh 37686E14-6094-9180-6800-D9A890986D6F zlib
+/media/sda3/_work/ftp/.make_cert.sh.swp 33D0F75C-99CB-B4D3-B233-58DAADF89A17 zlib
