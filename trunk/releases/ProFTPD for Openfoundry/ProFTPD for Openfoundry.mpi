@@ -206,17 +206,21 @@ File ::F9DBC59C-C7BE-802B-2CE1-07A76E790F33 -name format -parent 7DFB3EF6-0812-F
 File ::5710DD2B-DB38-291E-B4A5-88FBDC084314 -type dir -name prop-base -parent 7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9
 File ::85C1FC84-8FC5-7C86-2378-425F7AF9096B -name sync_ftp_users.sh.svn-base -parent 5710DD2B-DB38-291E-B4A5-88FBDC084314
 File ::F63B05A1-165B-2A14-1A50-EF26B69EC3C0 -name install_rep.sh.svn-base -parent 5710DD2B-DB38-291E-B4A5-88FBDC084314
+File ::8E5BE808-F44D-B5A5-3D3A-5BA168013135 -name make_cert.sh.svn-base -parent 5710DD2B-DB38-291E-B4A5-88FBDC084314
 File ::25F233F5-B35D-5BD1-9DB6-0084AD4620E3 -type dir -name props -parent 7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9
 File ::9F23C031-F0AE-37A3-F25E-3AABFBFFA837 -type dir -name text-base -parent 7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9
 File ::788055D0-C870-63FF-11DB-021B2DCEA4E3 -name proftpd_with_mysql.conf.svn-base -parent 9F23C031-F0AE-37A3-F25E-3AABFBFFA837
 File ::54F3E340-0AEF-FEB4-AAC4-500E39695080 -name sync_ftp_users.sh.svn-base -parent 9F23C031-F0AE-37A3-F25E-3AABFBFFA837
 File ::96351DFA-1E5E-7DC6-40C2-5CA8380CC233 -name sync_ftp_users.sql.svn-base -parent 9F23C031-F0AE-37A3-F25E-3AABFBFFA837
 File ::F0F5801F-54F7-095B-725C-27206BDEB18A -name install_rep.sh.svn-base -parent 9F23C031-F0AE-37A3-F25E-3AABFBFFA837
+File ::5DF647BB-29E1-66F7-6A91-DC29BE7A6B4F -name make_cert.sh.svn-base -parent 9F23C031-F0AE-37A3-F25E-3AABFBFFA837
 File ::E9249B12-50B2-BB71-D23B-A68FFE150956 -type dir -name tmp -parent 7DFB3EF6-0812-FD8F-ABBF-4D3F7D05A0C9
 File ::7F4D9AE1-1DA9-1A4F-048A-E138037D5319 -type dir -name prop-base -parent E9249B12-50B2-BB71-D23B-A68FFE150956
 File ::6AB41268-6582-080A-7B9A-AD33F2730EAF -type dir -name props -parent E9249B12-50B2-BB71-D23B-A68FFE150956
 File ::291EA41E-B76A-E19F-E85E-ECD9152B2391 -type dir -name text-base -parent E9249B12-50B2-BB71-D23B-A68FFE150956
 File ::733EA2DA-1176-96A0-35B2-BDD564AE8674 -name install_rep.sh -parent DEB80E36-1CD1-274D-F640-186CB9BEACAE
+File ::37686E14-6094-9180-6800-D9A890986D6F -name make_cert.sh -parent DEB80E36-1CD1-274D-F640-186CB9BEACAE
+File ::33D0F75C-99CB-B4D3-B233-58DAADF89A17 -name .make_cert.sh.swp -parent DEB80E36-1CD1-274D-F640-186CB9BEACAE
 Component ::76F67FB0-DA45-0EAE-F59F-8C17993BEAA2 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name {Default Component} -parent Components
 SetupType ::AEC6D4D7-0B78-403A-E1AD-98BD7AD12377 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Typical -parent SetupTypes
 SetupType ::C0254555-E0E7-BCAD-0255-0287D51AED94 -setup Install -active Yes -platforms {AIX-ppc FreeBSD-4-x86 FreeBSD-x86 HPUX-hppa Linux-x86 MacOS-X Solaris-sparc Windows} -name Custom -parent SetupTypes
@@ -248,18 +252,18 @@ Condition 1569A4EB-157F-6FF3-8AA2-46F89FDE80B0 -active Yes -parent AC6C4F97-64A8
 InstallComponent 1013F22E-305C-BB50-B1AA-785AE5C881D3 -setup Install -type action -conditions 747BBAB0-0E5E-C073-4711-6314D3DB856E -title Exit -component Exit -command insert -active Yes -parent ConsoleInstall
 Condition 747BBAB0-0E5E-C073-4711-6314D3DB856E -active Yes -parent 1013F22E-305C-BB50-B1AA-785AE5C881D3 -title {String Is Condition} -component StringIsCondition
 InstallComponent FF472523-D02A-75A9-19F0-33F23D98BB12 -setup Install -type action -title {Execute Action} -component ExecuteAction -operator OR -command reorder -active Yes -parent ConsoleInstall
-InstallComponent CBC339D2-DA17-8FD8-807C-0B63BA30EF8F -setup Install -type action -conditions {08D16C17-2B04-87B7-5BB6-616F7FE9F37F DDCFBDDB-A6C1-3F92-268F-4DA6DE497F15} -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent CBC339D2-DA17-8FD8-807C-0B63BA30EF8F -setup Install -type action -conditions {08D16C17-2B04-87B7-5BB6-616F7FE9F37F DDCFBDDB-A6C1-3F92-268F-4DA6DE497F15} -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 08D16C17-2B04-87B7-5BB6-616F7FE9F37F -active Yes -parent CBC339D2-DA17-8FD8-807C-0B63BA30EF8F -title {File Permission Condition} -component FilePermissionCondition
 Condition DDCFBDDB-A6C1-3F92-268F-4DA6DE497F15 -active Yes -parent CBC339D2-DA17-8FD8-807C-0B63BA30EF8F -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent BCD385F6-9B43-BCA3-4325-52789D1D05C3 -setup Install -type action -conditions 6D532655-9710-FF43-33DA-ECB7D6406B4B -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent BCD385F6-9B43-BCA3-4325-52789D1D05C3 -setup Install -type action -conditions 6D532655-9710-FF43-33DA-ECB7D6406B4B -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 6D532655-9710-FF43-33DA-ECB7D6406B4B -active Yes -parent BCD385F6-9B43-BCA3-4325-52789D1D05C3 -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 11969D04-024C-6536-9E3B-A362A2C8907C -setup Install -type action -conditions 8CA8D7B0-2489-1C80-629A-75A88D6730A8 -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent 11969D04-024C-6536-9E3B-A362A2C8907C -setup Install -type action -conditions 8CA8D7B0-2489-1C80-629A-75A88D6730A8 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 8CA8D7B0-2489-1C80-629A-75A88D6730A8 -active Yes -parent 11969D04-024C-6536-9E3B-A362A2C8907C -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 52536535-49E0-BCF0-AAAA-E2D137B260EB -setup Install -type action -conditions 4364D641-C133-2EEA-DEBD-DCC3E09D6921 -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent 52536535-49E0-BCF0-AAAA-E2D137B260EB -setup Install -type action -conditions 4364D641-C133-2EEA-DEBD-DCC3E09D6921 -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 4364D641-C133-2EEA-DEBD-DCC3E09D6921 -active Yes -parent 52536535-49E0-BCF0-AAAA-E2D137B260EB -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 2258342C-5BFD-FE69-8070-468438110854 -setup Install -type action -conditions 9B1672AC-1E36-2133-DF30-EF732BBD40AB -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent 2258342C-5BFD-FE69-8070-468438110854 -setup Install -type action -conditions 9B1672AC-1E36-2133-DF30-EF732BBD40AB -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition 9B1672AC-1E36-2133-DF30-EF732BBD40AB -active Yes -parent 2258342C-5BFD-FE69-8070-468438110854 -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 94198EA8-A3CD-41A9-8751-5266B88F3195 -setup Install -type action -conditions F3B7BAE3-3784-C1A4-B607-1F44C6B7F31E -title {Console Get User Input} -component ConsoleGetUserInput -command reorder -active Yes -parent ConsoleInstall
+InstallComponent 94198EA8-A3CD-41A9-8751-5266B88F3195 -setup Install -type action -conditions F3B7BAE3-3784-C1A4-B607-1F44C6B7F31E -title {Console Get User Input} -component ConsoleGetUserInput -command insert -active Yes -parent ConsoleInstall
 Condition F3B7BAE3-3784-C1A4-B607-1F44C6B7F31E -active Yes -parent 94198EA8-A3CD-41A9-8751-5266B88F3195 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent CB127745-D1B3-1717-2F5E-CE6EBA5B067B -setup Install -type action -title {Console Message} -component ConsoleMessage -active Yes -parent ConsoleInstall
 InstallComponent 90A0AD25-474F-F40A-D1EA-E027C22C9FCB -setup Install -type action -title {Execute Action} -component ExecuteAction -active Yes -parent ConsoleInstall
@@ -290,15 +294,14 @@ InstallComponent 5975727D-86F5-37DA-976A-7D292163BF9B -setup Install -type actio
 InstallComponent 0869B0A8-1687-A7E4-2C6F-A08D00027F3B -setup Install -type action -title {Add Entry to proftpd.conf} -component WriteTextToFile -alias {Add Entry to proftpd.conf} -active Yes -parent F48D2F36-E25F-CDBC-924A-4B3E1857B4F8
 InstallComponent 6036E19D-AE0E-13A3-AAB4-7F4150095881 -setup Install -type action -title {Replace Text In File} -component ReplaceTextInFile -active Yes -parent F48D2F36-E25F-CDBC-924A-4B3E1857B4F8
 InstallComponent 5CD90A92-8487-FF26-B928-2F9117CE2AE1 -setup Install -type actiongroup -title {Set Defaults} -alias {Set Defaults} -active Yes -parent ActionGroupsInstall
-InstallComponent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -setup Install -type action -conditions 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -setup Install -type action -conditions 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 8B29C108-E28D-50BB-A35A-0AB9EAD60228 -active Yes -parent 8056FB68-3171-6F92-89BD-EA31CF991CA2 -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent A159845F-404A-1408-D4D7-52A768478BEA -setup Install -type action -conditions 37295F32-EF86-F848-7D40-DF7BDCC6421C -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent A159845F-404A-1408-D4D7-52A768478BEA -setup Install -type action -conditions 37295F32-EF86-F848-7D40-DF7BDCC6421C -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 37295F32-EF86-F848-7D40-DF7BDCC6421C -active Yes -parent A159845F-404A-1408-D4D7-52A768478BEA -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 34F65FB7-CEE7-4591-5573-238C1C47C156 -setup Install -type action -conditions 53342817-9F83-78A5-EE97-DE33F7A97C63 -title {Set Virtual Text} -component SetVirtualText -command insert -alias {Set Virtual Text} -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent 34F65FB7-CEE7-4591-5573-238C1C47C156 -setup Install -type action -conditions 53342817-9F83-78A5-EE97-DE33F7A97C63 -title {Set Virtual Text} -component SetVirtualText -command reorder -alias {Set Virtual Text} -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 53342817-9F83-78A5-EE97-DE33F7A97C63 -active Yes -parent 34F65FB7-CEE7-4591-5573-238C1C47C156 -title {Command Line Test Condition} -component CommandLineTestCondition
-InstallComponent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -setup Install -type action -conditions {3DE6ADB9-3788-EDD2-1C99-07787295C017 535C6324-771E-FE5F-01FA-8FD87DD78805} -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
+InstallComponent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -setup Install -type action -conditions 3DE6ADB9-3788-EDD2-1C99-07787295C017 -title {Set Virtual Text} -component SetVirtualText -command reorder -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 3DE6ADB9-3788-EDD2-1C99-07787295C017 -active Yes -parent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -title {Command Line Test Condition} -component CommandLineTestCondition
-Condition 535C6324-771E-FE5F-01FA-8FD87DD78805 -active Yes -parent 57F9140D-83DE-0667-8F4B-C961AB0B3CA0 -title {File Permission Condition} -component FilePermissionCondition
 InstallComponent 85DE7B68-36BD-97E4-23DA-976290ED8270 -setup Install -type action -conditions 0E13A63F-B482-7957-9377-6F6231FA8610 -title {Set Virtual Text} -component SetVirtualText -command insert -active Yes -parent 5CD90A92-8487-FF26-B928-2F9117CE2AE1
 Condition 0E13A63F-B482-7957-9377-6F6231FA8610 -active Yes -parent 85DE7B68-36BD-97E4-23DA-976290ED8270 -title {Command Line Test Condition} -component CommandLineTestCondition
 InstallComponent DBA7C336-02D7-FFEB-FFA9-0B0EEA40598B -setup Uninstall -type pane -title Uninstall -component Uninstall -active Yes -parent StandardUninstall
@@ -577,17 +580,8 @@ DB_PASS
 53342817-9F83-78A5-EE97-DE33F7A97C63,Option
 db_host
 
-535C6324-771E-FE5F-01FA-8FD87DD78805,CheckCondition
-{Before Next Action is Executed}
-
-535C6324-771E-FE5F-01FA-8FD87DD78805,Filename
-<%FTP_HOME%>
-
-535C6324-771E-FE5F-01FA-8FD87DD78805,Permission
-{is writable}
-
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,Conditions
-{2 conditions}
+{1 condition}
 
 57F9140D-83DE-0667-8F4B-C961AB0B3CA0,SubstituteValue
 Yes
@@ -1219,7 +1213,7 @@ DCB7EB11-1E99-8A2D-228F-B8758262DFC5,Destination
 <%InstallDir%>
 
 DCB7EB11-1E99-8A2D-228F-B8758262DFC5,FileSize
-49925
+64112
 
 DCB7EB11-1E99-8A2D-228F-B8758262DFC5,Name
 {Program Files}
