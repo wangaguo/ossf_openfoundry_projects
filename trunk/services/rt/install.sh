@@ -32,7 +32,7 @@ svn co http://svn.openfoundry.org/openfoundry/trunk/services/rt "${OPENFOUNDRY_C
 
 
 
-( cd /usr/ports/www/rt36 ; make -DWITH_FASTCGI -DWITH_APACHE2 -DBATCH DB_HOST=${DB_HOST} DB_PASSWORD=${DB_PASSWORD} DB_DBA_USER=${TEMP_DBA_USER} DB_DBA_PASSWORD=${TEMP_DBA_PASSWORD} -DINITIAL_INSTALL install)
+( cd /usr/ports/www/rt36 ; make -DWITH_FASTCGI -DWITH_APACHE2 -DBATCH DB_HOST=${DB_HOST} DB_PASSWORD=${DB_PASSWORD} DB_DBA_USER=${TEMP_DBA_USER} DB_DBA_PASSWORD=${TEMP_DBA_PASSWORD} -DINITIAL_INSTALL CONFIGURE_ARGS=--with-db-rt-host=`ifconfig lo0 | tail +2 | awk '{print $2}'` install)
 
 echo "patching for LONGTEXT..."
 mysql -h ${DB_HOST} -u rt_user "-p${DB_PASSWORD}" -e "ALTER TABLE sessions MODIFY a_session longblob"
