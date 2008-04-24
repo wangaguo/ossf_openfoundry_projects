@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
-  
+  layout 'module'
   before_filter :set_project_id
-
+  
   def set_project_id
     params[:project_id] = params[:id]
+    @module_name = "專案資訊"
   end
   
   def sympa
