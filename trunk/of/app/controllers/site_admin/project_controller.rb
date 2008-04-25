@@ -9,7 +9,7 @@ class SiteAdmin::ProjectController < SiteAdmin
          :redirect_to => { :action => :list }
 
   def list
-    @project_pages, @projects = paginate :projects, :per_page => 10
+    @projects = Project.paginate(:page => params[:page], :per_page => 10)
   end
 
   def show
