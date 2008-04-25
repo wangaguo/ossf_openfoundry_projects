@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }
   #for releases ftp upload and web download...
-  PROJECT_UPLOAD_PATH = "/usr/upload".freeze
+  PROJECT_UPLOAD_PATH = "/tmp".freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
   
   def self.status_to_s(int_status)
@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
   acts_as_taggable
   
   #model relationships
-  has_many :release
+  has_many :releases
   
   #field validations...
   #validates_format_of :unixname, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/
@@ -71,7 +71,7 @@ class Project < ActiveRecord::Base
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
-    Release::build_path(self.unixname)
+    Release::build_path(self.unixname, self.id)
     ProjectNotify.deliver_approved(self)
   end
   # reason: string
