@@ -1,13 +1,7 @@
 <div id="Home">
 	<h1>Openfoundry#Search Result</h1>
 	<h1>Search Hits: <%= @result[0].total_hits + @result[1].total_hits %></h1>
-<%#
-	<% @result.each { |search_result|%>
-		<% search_result.each { |item| %>
-			<%= item.inspect%>
-		<% } %>
-	<% } %>
-%>
+
 
 
         <%
@@ -20,5 +14,5 @@
           end
         %>
 
-<%= render(:partial => 'project/list', :layout => false, :locals => { :project_pages => project_pages, :projects => @result[1] }) %>
+<%= render(:partial => 'projects/list', :layout => false, :locals => { :project_pages => project_pages, :projects => @result[1] }) %>
 </div>
