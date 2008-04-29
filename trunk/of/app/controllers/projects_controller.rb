@@ -33,6 +33,9 @@ class ProjectsController < ApplicationController
 
   def list
     projects = Project.paginate(:page => params[:page], :per_page => 10)
+    if projects.out_of_bounds?
+      projects = Project.paginate(:page => 1, :per_page => 10)
+    end
     render(:partial => 'list', :layout => true, :locals => { :projects => projects })
   end
 
@@ -61,6 +64,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
+      send_msg(TYPES[:project], ACTIONS[:create], {'id' => @project.id, 'name' => @project.projectname, 'summary' => @project.publicdescription})
       redirect_to :action => 'applied'
     else
       render :action => 'new'
