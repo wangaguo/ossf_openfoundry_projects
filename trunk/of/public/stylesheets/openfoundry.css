@@ -24,7 +24,7 @@ ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:u
 
 /* For Layout */
 body { 
-	behavior: url(http://l:3000/stylesheets/csshover2.htc); /* call hover behaviour file */
+	behavior: url(/stylesheets/csshover2.htc); /* call hover behaviour file */
   margin: 0px;
 }
 /*width:227px; */
