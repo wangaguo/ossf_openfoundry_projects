@@ -114,7 +114,7 @@ class UserController < ApplicationController
     return if generate_filled_in
     params['user'].delete('form')
     @user.change_password(params['user']['password'], params['user']['password_confirmation'])
-    if @user.valid?
+    if @user.save!
       UserNotify.deliver_change_password(@user, params['user']['password'])
       flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
     else
