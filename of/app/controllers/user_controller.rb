@@ -15,7 +15,7 @@ class UserController < ApplicationController
       @admin_of = user.admin_of
       @member_of = user.member_of
     else
-      flash[:notice] = "You are guest!!"
+      flash[:message] = "You are guest!!"
       redirect_to :action => 'login'
     end
   end
@@ -29,7 +29,7 @@ class UserController < ApplicationController
 
     @user = User.new(params['user'])
     if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
-      flash[:notice] = _('user_login_succeeded')
+      flash[:message] = _('user_login_succeeded')
       redirect_back_or_default :action => :home
       # For "paranoid session store"
       self.app_user=session['user']
@@ -84,7 +84,7 @@ class UserController < ApplicationController
       k = @user.generate_security_token()
       s = Base64.encode64(Marshal.dump(@user.email))
       url = url_for(:action => :welcome)
-      url+= "?user[id]=#{@user.id}&k=#{k}&s=#{s}"
+      url+= "?user=#{@user.id}&k=#{k}&s=#{s}"
       UserNotify.deliver_change_email(@user, url)
       flash.now[:notice] = _('user_updated_email') % "#{@user.email}"
     else
@@ -113,15 +113,11 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing password")
     return if generate_filled_in
     params['user'].delete('form')
-    begin
-      User.transaction(@user) do
-        @user.change_password(params['user']['password'], params['user']['password_confirmation'])
-        if @user.save
-          UserNotify.deliver_change_password(@user, params['user']['password'])
-          flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
-        end
-      end
-    rescue
+    @user.change_password(params['user']['password'], params['user']['password_confirmation'])
+    if @user.valid?
+      UserNotify.deliver_change_password(@user, params['user']['password'])
+      flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
+    else
       flash.now[:warning] = _('user_change_password_email_error')
     end
   end
@@ -147,7 +143,7 @@ class UserController < ApplicationController
         User.transaction(user) do
           key = user.generate_security_token
           url = url_for(:action => 'change_password')
-          url += "?user[id]=#{user.id}&key=#{key}"
+          url += "?user=#{user.id}&key=#{key}"
           UserNotify.deliver_forgot_password(user, url)
           flash[:notice] = _('user_forgotten_password_emailed') % "#{params['user']['email']}"
           unless user?
