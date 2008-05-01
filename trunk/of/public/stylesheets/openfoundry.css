@@ -116,9 +116,10 @@ body {
 }
 #project_left_menu li {
   position:relative;
-	display:block;
-	padding-left:20px;/*ul margin 20px*/
-	margin-bottom:3px;
+  display:block;
+  padding:0 0 0 20px;
+  line-height:1.5em;
+  margin-bottom:3px;
   border-bottom:dotted 1px #ccc;
 }
 #project_left_menu li ul {
@@ -127,7 +128,7 @@ body {
   position:absolute;
   top:0pt;
   margin-left:0px !important;/*FF*/
-  margin-left:-20px;/*IE*/
+  margin-left:-74px;/*IE6*/
   background-color:#DAE3F9;
 }
 #project_left_menu li:hover { background-color:#DAE3F9; }
