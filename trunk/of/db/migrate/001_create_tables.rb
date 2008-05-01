@@ -1,4 +1,4 @@
-class CreateProjects < ActiveRecord::Migration
+class CreateTables < ActiveRecord::Migration
   def self.up
     create_table "categories", :force => true do |t|
       t.string   "name"
