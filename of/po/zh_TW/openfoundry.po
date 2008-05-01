@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2007-12-25 10:33+0800\n"
+"POT-Creation-Date: 2008-05-01 14:53-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,105 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: app/controllers/user_controller.rb:30
-msgid "user_login_succeeded"
-msgstr "登入成功"
-
-#: app/controllers/user_controller.rb:36
-msgid "user_login_failed"
-msgstr "登入失敗"
-
-#: app/controllers/user_controller.rb:57
-msgid "user_confirmation_email_error"
-msgstr "您的驗證信傳送失敗"
-
-#: app/controllers/user_controller.rb:79
-msgid "user_updated_password"
-msgstr "密碼更新成功"
-
-#: app/controllers/user_controller.rb:83
-msgid "user_change_password_email_error"
-msgstr "密碼更新失敗"
-
-#: app/controllers/user_controller.rb:90
-msgid "user_forgot_password_logged_in"
-msgstr "您已經登入, 請直接更改密碼"
-
-#: app/controllers/user_controller.rb:100
-msgid "user_enter_valid_email_address"
-msgstr "Email Address不正確"
-
-#: app/controllers/user_controller.rb:102
-msgid "user_email_address_not_found"
-msgstr "查無此Email Address"
-
-#: app/controllers/user_controller.rb:110
-msgid "user_forgotten_password_emailed"
-msgstr "您的確認信已寄出"
-
-#: app/controllers/user_controller.rb:118
-msgid "user_forgotten_password_email_error"
-msgstr "確認信傳送失敗"
-
-#: app/controllers/user_controller.rb:162
-msgid "user_delete_email_error"
-msgstr "刪除使用者確認信傳送失敗"
-
-#: app/controllers/user_controller.rb:171
-msgid "user_restore_deleted_error"
-msgstr "復原刪除使用者"
-
-#: app/controllers/user_controller.rb:186
-msgid "user_delete_finished"
-msgstr "使用者已刪除"
-
-#: app/helpers/application_helper.rb:28
+#: app/helpers/application_helper.rb:46
 msgid "Home"
 msgstr "首頁"
 
-#: app/helpers/application_helper.rb:37 app/models/user.rb:-
+#: app/helpers/application_helper.rb:55 app/models/user.rb:-
 msgid "user"
-msgstr ""
+msgstr "使用者"
 
-#: app/helpers/application_helper.rb:40
+#: app/helpers/application_helper.rb:58
 msgid "Projects List"
 msgstr "專案一覽"
 
-#: app/helpers/application_helper.rb:43
+#: app/helpers/application_helper.rb:61
 msgid "Project Releases"
 msgstr "專案釋出"
 
-#: app/helpers/application_helper.rb:46
+#: app/helpers/application_helper.rb:64
 msgid "Project News"
 msgstr "專案新聞"
 
-#: app/models/session.rb:-
-msgid "session"
-msgstr ""
-
-#: app/models/session.rb:-
-msgid "Session|Session"
-msgstr ""
-
-#: app/models/session.rb:-
-msgid "Session|User"
-msgstr ""
-
-#: app/models/session.rb:-
-msgid "Session|Host"
-msgstr ""
-
-#: app/models/session.rb:-
-msgid "Session|Created at"
-msgstr ""
-
-#: app/models/session.rb:-
-msgid "Session|Updated at"
-msgstr ""
-
-#: app/models/session.rb:-
-msgid "Session|Data"
-msgstr ""
+#: app/helpers/application_helper.rb:67
+msgid "Issue Tracker"
+msgstr "事件追蹤"
 
 #: app/models/category.rb:-
 msgid "category"
@@ -142,6 +66,108 @@ msgstr ""
 
 #: app/models/category.rb:-
 msgid "Category|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Icon"
+msgstr "圖像"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:8
+msgid "User|Login"
+msgstr "登入"
+
+#: app/models/user.rb:-
+msgid "User|Salted password"
+msgstr "密碼(加密)"
+
+#: app/models/user.rb:- app/views/user/forgot_password.rhtml:8
+#: app/views/user/_email.rhtml:5
+msgid "User|Email"
+msgstr "Email"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:4
+msgid "User|Firstname"
+msgstr "名"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:6
+msgid "User|Lastname"
+msgstr "姓"
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr "密碼(token)"
+
+#: app/models/user.rb:-
+msgid "User|Verified"
+msgstr "已驗證"
+
+#: app/models/user.rb:-
+msgid "User|Role"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Security token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Token expiry"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Deleted"
+msgstr "已刪除"
+
+#: app/models/user.rb:-
+msgid "User|Delete after"
+msgstr "將要刪除"
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr "建立時間"
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr "上次修改時間"
+
+#: app/models/user.rb:-
+msgid "User|Logged in at"
+msgstr "上次登入時間"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:10
+msgid "User|Language"
+msgstr "語言"
+
+#: app/models/user.rb:-
+#, fuzzy
+msgid "User|Timezone"
+msgstr "圖像"
+
+#: app/models/user.rb:-
+msgid "session"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Session"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|User"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Host"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Data"
 msgstr ""
 
 #: app/models/release.rb:-
@@ -220,42 +246,6 @@ msgstr ""
 msgid "Role|Creator"
 msgstr ""
 
-#: app/models/news.rb:-
-msgid "news"
-msgstr ""
-
-#: app/models/news.rb:-
-msgid "News|Subject"
-msgstr "標題"
-
-#: app/models/news.rb:-
-msgid "News|Description"
-msgstr "描述"
-
-#: app/models/news.rb:-
-msgid "News|Tags"
-msgstr ""
-
-#: app/models/news.rb:-
-msgid "News|Catid"
-msgstr ""
-
-#: app/models/news.rb:-
-msgid "News|Status"
-msgstr "狀態"
-
-#: app/models/news.rb:-
-msgid "News|Creator"
-msgstr "建立者"
-
-#: app/models/news.rb:-
-msgid "News|Created at"
-msgstr "建立時間"
-
-#: app/models/news.rb:-
-msgid "News|Updated at"
-msgstr "更新時間"
-
 #: app/models/image.rb:-
 msgid "image"
 msgstr ""
@@ -275,6 +265,34 @@ msgstr "註解"
 #: app/models/image.rb:-
 msgid "Image|Data"
 msgstr ""
+
+#: app/models/function.rb:-
+msgid "function"
+msgstr ""
+
+#: app/models/function.rb:-
+#, fuzzy
+msgid "Function|Name"
+msgstr "名稱"
+
+#: app/models/function.rb:-
+msgid "Function|Module"
+msgstr ""
+
+#: app/models/function.rb:-
+#, fuzzy
+msgid "Function|Description"
+msgstr "描述"
+
+#: app/models/function.rb:-
+#, fuzzy
+msgid "Function|Created at"
+msgstr "建立時間"
+
+#: app/models/function.rb:-
+#, fuzzy
+msgid "Function|Updated at"
+msgstr "上次修改時間"
 
 #: app/models/project.rb:-
 msgid "project"
@@ -404,74 +422,170 @@ msgstr "建立者"
 msgid "Fileentity|File counter"
 msgstr "下載次數"
 
-#: app/models/user.rb:-
-msgid "User|Icon"
-msgstr "圖像"
-
-#: app/models/user.rb:- app/views/user/_edit.rhtml:8
-msgid "User|Login"
-msgstr "登入"
-
-#: app/models/user.rb:-
-msgid "User|Salted password"
+#: app/models/news.rb:-
+msgid "news"
 msgstr ""
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:10
-#: app/views/user/forgot_password.rhtml:8
-msgid "User|Email"
-msgstr "Email"
+#: app/models/news.rb:-
+msgid "News|Subject"
+msgstr "標題"
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:4
-msgid "User|Firstname"
-msgstr "名"
+#: app/models/news.rb:-
+msgid "News|Description"
+msgstr "描述"
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:6
-msgid "User|Lastname"
-msgstr "姓"
-
-#: app/models/user.rb:-
-msgid "User|Salt"
+#: app/models/news.rb:-
+msgid "News|Tags"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Verified"
-msgstr "已驗證"
-
-#: app/models/user.rb:-
-msgid "User|Role"
+#: app/models/news.rb:-
+msgid "News|Catid"
 msgstr ""
 
-#: app/models/user.rb:-
-msgid "User|Security token"
-msgstr ""
+#: app/models/news.rb:-
+msgid "News|Status"
+msgstr "狀態"
 
-#: app/models/user.rb:-
-msgid "User|Token expiry"
-msgstr ""
+#: app/models/news.rb:-
+msgid "News|Creator"
+msgstr "建立者"
 
-#: app/models/user.rb:-
-msgid "User|Deleted"
-msgstr "已刪除"
-
-#: app/models/user.rb:-
-msgid "User|Delete after"
-msgstr "將要刪除"
-
-#: app/models/user.rb:-
-msgid "User|Created at"
+#: app/models/news.rb:-
+msgid "News|Created at"
 msgstr "建立時間"
 
-#: app/models/user.rb:-
-msgid "User|Updated at"
-msgstr "上次修改時間"
+#: app/models/news.rb:-
+msgid "News|Updated at"
+msgstr "更新時間"
 
-#: app/models/user.rb:-
-msgid "User|Logged in at"
-msgstr "上次登入時間"
+#: app/controllers/user_controller.rb:32
+msgid "user_login_succeeded"
+msgstr "登入成功"
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:12
-msgid "User|Language"
-msgstr "語言"
+#: app/controllers/user_controller.rb:44
+msgid "user_login_failed"
+msgstr "登入失敗"
+
+#: app/controllers/user_controller.rb:60
+#, fuzzy
+msgid "user_signup_succeeded"
+msgstr "登入成功"
+
+#: app/controllers/user_controller.rb:65
+msgid "user_confirmation_email_error"
+msgstr "您的驗證信傳送失敗"
+
+#: app/controllers/user_controller.rb:89
+#, fuzzy
+msgid "user_updated_email"
+msgstr "密碼更新成功"
+
+#: app/controllers/user_controller.rb:91
+#, fuzzy
+msgid "user_change_email_error"
+msgstr "密碼更新失敗"
+
+#: app/controllers/user_controller.rb:121
+msgid "user_updated_password"
+msgstr "密碼更新成功"
+
+#: app/controllers/user_controller.rb:125
+msgid "user_change_password_email_error"
+msgstr "密碼更新失敗"
+
+#: app/controllers/user_controller.rb:132
+msgid "user_forgot_password_logged_in"
+msgstr "您已經登入, 請直接更改密碼"
+
+#: app/controllers/user_controller.rb:142
+msgid "user_enter_valid_email_address"
+msgstr "Email Address不正確"
+
+#: app/controllers/user_controller.rb:144
+msgid "user_email_address_not_found"
+msgstr "查無此Email Address"
+
+#: app/controllers/user_controller.rb:152
+msgid "user_forgotten_password_emailed"
+msgstr "您的確認信已寄出"
+
+#: app/controllers/user_controller.rb:160
+msgid "user_forgotten_password_email_error"
+msgstr "確認信傳送失敗"
+
+#: app/controllers/user_controller.rb:207
+msgid "user_delete_email_error"
+msgstr "刪除使用者確認信傳送失敗"
+
+#: app/controllers/user_controller.rb:216
+msgid "user_restore_deleted_error"
+msgstr "復原刪除使用者"
+
+#: app/controllers/user_controller.rb:231
+msgid "user_delete_finished"
+msgstr "使用者已刪除"
+
+#: app/controllers/application.rb:72
+msgid "&laquo; Previous"
+msgstr "上一頁"
+
+#: app/controllers/application.rb:73
+msgid "Next &raquo;"
+msgstr "下一頁"
+
+#: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
+msgid "Show"
+msgstr "顯示"
+
+#: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
+#: app/views/projects/show.rhtml:29
+msgid "Edit"
+msgstr "修改"
+
+#: app/views/partials/_sed.rhtml:4 app/views/partials/_sed.rhtml:8
+msgid "Destroy"
+msgstr "刪除"
+
+#: app/views/partials/_tagcloud.rhtml:2 app/views/layouts/application.rhtml:91
+msgid "Tag Cloud"
+msgstr "標籤雲"
+
+#: app/views/partials/_captcha.rhtml:3
+msgid "In case you were not an alian. Please keyin according the image"
+msgstr "請依照圖示內容輸入驗證碼"
+
+#: app/views/partials/_login.rhtml:6
+msgid "Welcome"
+msgstr "歡迎"
+
+#: app/views/partials/_login.rhtml:6
+msgid "Logout"
+msgstr "登出"
+
+#: app/views/partials/_login.rhtml:11 app/views/user/login.rhtml:30
+msgid "Login"
+msgstr "登入"
+
+#: app/views/partials/_login.rhtml:12
+msgid "Signup"
+msgstr "註冊"
+
+#: app/views/partials/_login.rhtml:13 app/views/user/login.rhtml:32
+msgid "Forgot my password"
+msgstr "忘記密碼"
+
+#: app/views/partials/_project_menu.rhtml:35
+#: app/views/projects/_tabnav.rhtml:6
+msgid "Subversion"
+msgstr "版本控制系統"
+
+#: app/views/partials/_project_menu.rhtml:37
+msgid "ViewVC"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:7 app/views/layouts/admin.rhtml:6
+msgid "OpenFoundry"
+msgstr "自由軟體鑄造場"
 
 #: app/views/images/_edit.rhtml:9
 msgid "Upload your picture"
@@ -481,123 +595,21 @@ msgstr "選擇上傳的圖片"
 msgid "Upload"
 msgstr "上傳"
 
-#: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
-msgid "Show"
-msgstr ""
-
-#: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:32
-msgid "Edit"
-msgstr "修改"
-
-#: app/views/partials/_sed.rhtml:4 app/views/partials/_sed.rhtml:8
-msgid "Destroy"
-msgstr "刪除"
-
-#: app/views/partials/_login.rhtml:4
-msgid "Welcome"
-msgstr "歡迎"
-
-#: app/views/partials/_login.rhtml:6
-msgid "Logout"
-msgstr "登出"
-
-#: app/views/partials/_login.rhtml:8 app/views/user/login.rhtml:9
-msgid "Login"
-msgstr "登入"
-
-#: app/views/partials/_login.rhtml:10
-msgid "Signup"
-msgstr "註冊"
-
-#: app/views/partials/_login.rhtml:12 app/views/user/login.rhtml:11
-msgid "Forgot my password"
-msgstr "忘記密碼"
-
-#: app/views/partials/_tagcloud.rhtml:2
-msgid "Tag Cloud"
-msgstr "標籤雲"
-
-#: app/views/layouts/application.rhtml:7 app/views/layouts/admin.rhtml:6
-msgid "OpenFoundry"
-msgstr "自由軟體鑄造場"
-
-#: app/views/user/_password.rhtml:5
-msgid "User|Password"
-msgstr "密碼"
-
-#: app/views/user/_password.rhtml:8
-msgid "User|Password Confirmation"
-msgstr "密碼確認"
-
-#: app/views/user/_password.rhtml:11 app/views/user/change_password.rhtml:10
-msgid "User|Change Password"
-msgstr "密碼更新"
-
-#: app/views/user/_edit.rhtml:14
-#, fuzzy
-msgid "User|Signup"
-msgstr "註冊"
-
-#: app/views/user/_edit.rhtml:14
-#, fuzzy
-msgid "User|Change Settings"
-msgstr "密碼更新"
-
-#: app/views/user/change_password.rhtml:11
-#: app/views/user/forgot_password.rhtml:13
-msgid "Cancel"
-msgstr "取消"
-
-#: app/views/user/edit.rhtml:17
-msgid "Delete Account"
-msgstr "刪除帳號"
-
-#: app/views/user/home.rhtml:1
-msgid "My projects"
-msgstr "我參與的專案"
-
-#: app/views/user/home.rhtml:4
-msgid "Admin of"
-msgstr ""
-
-#: app/views/user/home.rhtml:11
-msgid "Member of"
-msgstr ""
-
-#: app/views/user/forgot_password.rhtml:12
-msgid "User|Reset Password"
-msgstr "重設密碼"
-
-#: app/views/user/login.rhtml:2
-msgid "Login to OpenFoundry"
-msgstr "登入自由軟體鑄造場"
-
-#: app/views/user/login.rhtml:6
-msgid "Login ID"
-msgstr "帳號"
-
-#: app/views/user/login.rhtml:7
-msgid "Password"
-msgstr "密碼"
-
-#: app/views/user/login.rhtml:10
-msgid "Register for an account"
-msgstr "註冊帳號"
-
 #: app/views/projects/_list.rhtml:2
 msgid "Listing projects"
 msgstr "專案一覽"
 
-#: app/views/projects/_list.rhtml:26
-msgid "Previous page"
-msgstr "上一頁"
+#: app/views/projects/_list.rhtml:7
+#, fuzzy
+msgid "Project UNIX Name"
+msgstr "專案新聞"
 
-#: app/views/projects/_list.rhtml:27
-msgid "Next page"
-msgstr "下一頁"
+#: app/views/projects/_list.rhtml:8
+#, fuzzy
+msgid "Project Name"
+msgstr "專案新聞"
 
-#: app/views/projects/_list.rhtml:31
+#: app/views/projects/_list.rhtml:24
 msgid "New project"
 msgstr "註冊專案"
 
@@ -617,28 +629,148 @@ msgstr "WIKI"
 msgid "Sympa"
 msgstr "通訊論壇"
 
-#: app/views/projects/_tabnav.rhtml:6
-msgid "Subversion"
-msgstr "版本控制系統"
-
-#: app/views/projects/show.rhtml:10
-msgid "Project Role"
-msgstr "專案成員"
-
-#: app/views/projects/show.rhtml:12
-msgid "Project Admins"
-msgstr "專案成員"
-
-#: app/views/projects/show.rhtml:20
-msgid "Project Members"
-msgstr "專案成員"
-
-#: app/views/projects/show.rhtml:33
-msgid "Back"
-msgstr "回上一頁"
-
 #: app/views/projects/applied.rhtml:1
 msgid ""
 "Your project creating request has been submitted. Please wait 72 hours for "
 "approving."
+msgstr "您註冊的專案已提交, 將會在72小時之內核定"
+
+#: app/views/projects/show.rhtml:15
+msgid "Project Role"
+msgstr "專案成員"
+
+#: app/views/projects/show.rhtml:30
+msgid "Back"
+msgstr "回上一頁"
+
+#: app/views/news/list.rhtml:3
+msgid "Sort by"
 msgstr ""
+
+#: app/views/news/list.rhtml:4
+#, fuzzy
+msgid "Subject"
+msgstr "標題"
+
+#: app/views/news/list.rhtml:5
+#, fuzzy
+msgid "Last Updated"
+msgstr "更新時間"
+
+#: app/views/site_admin/site_admin/index.rhtml:4
+#, fuzzy
+msgid "Project"
+msgstr "專案"
+
+#: app/views/site_admin/site_admin/index.rhtml:5
+msgid "News"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:6
+#, fuzzy
+msgid "User"
+msgstr "圖像"
+
+#: app/views/user/welcome.rhtml:5
+#, fuzzy
+msgid "home"
+msgstr "首頁"
+
+#: app/views/user/welcome.rhtml:7
+#, fuzzy
+msgid "logout"
+msgstr "登出"
+
+#: app/views/user/_password.rhtml:5
+msgid "User|Password"
+msgstr "密碼"
+
+#: app/views/user/_password.rhtml:8
+msgid "User|Password Confirmation"
+msgstr "密碼確認"
+
+#: app/views/user/_password.rhtml:11 app/views/user/change_password.rhtml:10
+msgid "User|Change Password"
+msgstr "密碼更新"
+
+#: app/views/user/forgot_password.rhtml:12
+msgid "User|Reset Password"
+msgstr "重設密碼"
+
+#: app/views/user/forgot_password.rhtml:13
+#: app/views/user/change_password.rhtml:11
+msgid "Cancel"
+msgstr "取消"
+
+#: app/views/user/_edit.rhtml:12
+#, fuzzy
+msgid "User|TimeZone"
+msgstr "圖像"
+
+#: app/views/user/_edit.rhtml:14 app/views/user/signup.rhtml:11
+#, fuzzy
+msgid "User|Signup"
+msgstr "註冊"
+
+#: app/views/user/_edit.rhtml:14
+#, fuzzy
+msgid "User|Change Settings"
+msgstr "密碼更新"
+
+#: app/views/user/edit.rhtml:22
+msgid "Delete Account"
+msgstr "刪除帳號"
+
+#: app/views/user/_email.rhtml:8
+#, fuzzy
+msgid "User|Email Confirmation"
+msgstr "密碼確認"
+
+#: app/views/user/_email.rhtml:11
+#, fuzzy
+msgid "User|Change Email"
+msgstr "Email"
+
+#: app/views/user/home.rhtml:1
+msgid "My projects"
+msgstr "我參與的專案"
+
+#: app/views/user/home.rhtml:4
+msgid "Admin of"
+msgstr "管理員列表"
+
+#: app/views/user/home.rhtml:11
+msgid "Member of"
+msgstr "成員列表"
+
+#: app/views/user/login.rhtml:1
+msgid "Login to OpenFoundry"
+msgstr "登入自由軟體鑄造場"
+
+#: app/views/user/login.rhtml:6
+msgid "Login ID"
+msgstr "帳號"
+
+#: app/views/user/login.rhtml:14
+msgid "Password"
+msgstr "密碼"
+
+#: app/views/user/login.rhtml:23
+msgid "Remember me on this computer"
+msgstr "記住我的登入資訊"
+
+#: app/views/user/login.rhtml:31
+msgid "Register for an account"
+msgstr "註冊帳號"
+
+#~ msgid "Previous page"
+#~ msgstr "上一頁"
+
+#~ msgid "Next page"
+#~ msgstr "下一頁"
+
+#~ msgid "Project Admins"
+#~ msgstr "專案成員"
+
+#~ msgid "Project Members"
+#~ msgstr "專案成員"

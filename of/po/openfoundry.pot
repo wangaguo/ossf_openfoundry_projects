@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2007-05-17 09:13-0000\n"
+"POT-Creation-Date: 2008-05-01 14:53-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,15 +16,292 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
+#: app/helpers/application_helper.rb:46
+msgid "Home"
+msgstr ""
+
+#: app/helpers/application_helper.rb:55 app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/helpers/application_helper.rb:58
+msgid "Projects List"
+msgstr ""
+
+#: app/helpers/application_helper.rb:61
+msgid "Project Releases"
+msgstr ""
+
+#: app/helpers/application_helper.rb:64
+msgid "Project News"
+msgstr ""
+
+#: app/helpers/application_helper.rb:67
+msgid "Issue Tracker"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "category"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Creator"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Description"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Created at"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Icon"
+msgstr ""
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:8
+msgid "User|Login"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Salted password"
+msgstr ""
+
+#: app/models/user.rb:- app/views/user/forgot_password.rhtml:8
+#: app/views/user/_email.rhtml:5
+msgid "User|Email"
+msgstr ""
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:4
+msgid "User|Firstname"
+msgstr ""
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:6
+msgid "User|Lastname"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Salt"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Verified"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Role"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Security token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Token expiry"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Deleted"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Delete after"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Logged in at"
+msgstr ""
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:10
+msgid "User|Language"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "User|Timezone"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "session"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Session"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|User"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Host"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Created at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Updated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Session|Data"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "release"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Icon"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Project"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Name"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Description"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Version"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Due"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Status"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Created at"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Updated at"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Creator"
+msgstr ""
+
+#: app/models/release.rb:-
+msgid "Release|Release counter"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "role"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Name"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Authorizable type"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Authorizable"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Created at"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Updated at"
+msgstr ""
+
+#: app/models/role.rb:-
+msgid "Role|Creator"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "image"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Name"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Meta"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Comment"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Image|Data"
+msgstr ""
+
+#: app/models/function.rb:-
+msgid "function"
+msgstr ""
+
+#: app/models/function.rb:-
+msgid "Function|Name"
+msgstr ""
+
+#: app/models/function.rb:-
+msgid "Function|Module"
+msgstr ""
+
+#: app/models/function.rb:-
+msgid "Function|Description"
+msgstr ""
+
+#: app/models/function.rb:-
+msgid "Function|Created at"
+msgstr ""
+
+#: app/models/function.rb:-
+msgid "Function|Updated at"
+msgstr ""
+
 #: app/models/project.rb:-
 msgid "project"
 msgstr ""
 
-#: app/models/project.rb:- app/views/project/_form.rhtml:4
+#: app/models/project.rb:-
+msgid "Project|Icon"
+msgstr ""
+
+#: app/models/project.rb:- app/views/projects/_form.rhtml:4
 msgid "Project|Unixname"
 msgstr ""
 
-#: app/models/project.rb:- app/views/project/_form.rhtml:7
+#: app/models/project.rb:- app/views/projects/_form.rhtml:7
 msgid "Project|Projectname"
 msgstr ""
 
@@ -76,79 +353,391 @@ msgstr ""
 msgid "Project|Remotevcs"
 msgstr ""
 
-#: app/models/role.rb:-
-msgid "role"
+#: app/models/project.rb:-
+msgid "Project|Creator"
 msgstr ""
 
-#: app/models/role.rb:-
-msgid "Role|Name"
+#: app/models/project.rb:-
+msgid "Project|Status"
 msgstr ""
 
-#: app/models/role.rb:-
-msgid "Role|Authorizable type"
+#: app/models/project.rb:-
+msgid "Project|Statusreason"
 msgstr ""
 
-#: app/models/role.rb:-
-msgid "Role|Authorizable"
+#: app/models/project.rb:-
+msgid "Project|Project counter"
 msgstr ""
 
-#: app/models/role.rb:-
-msgid "Role|Created at"
+#: app/models/fileentity.rb:-
+msgid "fileentity"
 msgstr ""
 
-#: app/models/role.rb:-
-msgid "Role|Updated at"
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Icon"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:32
-msgid "Home"
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Release"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:38 app/views/user/login.rhtml:8
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Name"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Description"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Size"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Path"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Meta"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Created at"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Updated at"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Creator"
+msgstr ""
+
+#: app/models/fileentity.rb:-
+msgid "Fileentity|File counter"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "news"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Subject"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Description"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Tags"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Catid"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Status"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Creator"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Created at"
+msgstr ""
+
+#: app/models/news.rb:-
+msgid "News|Updated at"
+msgstr ""
+
+#: app/controllers/user_controller.rb:32
+msgid "user_login_succeeded"
+msgstr ""
+
+#: app/controllers/user_controller.rb:44
+msgid "user_login_failed"
+msgstr ""
+
+#: app/controllers/user_controller.rb:60
+msgid "user_signup_succeeded"
+msgstr ""
+
+#: app/controllers/user_controller.rb:65
+msgid "user_confirmation_email_error"
+msgstr ""
+
+#: app/controllers/user_controller.rb:89
+msgid "user_updated_email"
+msgstr ""
+
+#: app/controllers/user_controller.rb:91
+msgid "user_change_email_error"
+msgstr ""
+
+#: app/controllers/user_controller.rb:121
+msgid "user_updated_password"
+msgstr ""
+
+#: app/controllers/user_controller.rb:125
+msgid "user_change_password_email_error"
+msgstr ""
+
+#: app/controllers/user_controller.rb:132
+msgid "user_forgot_password_logged_in"
+msgstr ""
+
+#: app/controllers/user_controller.rb:142
+msgid "user_enter_valid_email_address"
+msgstr ""
+
+#: app/controllers/user_controller.rb:144
+msgid "user_email_address_not_found"
+msgstr ""
+
+#: app/controllers/user_controller.rb:152
+msgid "user_forgotten_password_emailed"
+msgstr ""
+
+#: app/controllers/user_controller.rb:160
+msgid "user_forgotten_password_email_error"
+msgstr ""
+
+#: app/controllers/user_controller.rb:207
+msgid "user_delete_email_error"
+msgstr ""
+
+#: app/controllers/user_controller.rb:216
+msgid "user_restore_deleted_error"
+msgstr ""
+
+#: app/controllers/user_controller.rb:231
+msgid "user_delete_finished"
+msgstr ""
+
+#: app/controllers/application.rb:72
+msgid "&laquo; Previous"
+msgstr ""
+
+#: app/controllers/application.rb:73
+msgid "Next &raquo;"
+msgstr ""
+
+#: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
+msgid "Show"
+msgstr ""
+
+#: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
+#: app/views/projects/show.rhtml:29
+msgid "Edit"
+msgstr ""
+
+#: app/views/partials/_sed.rhtml:4 app/views/partials/_sed.rhtml:8
+msgid "Destroy"
+msgstr ""
+
+#: app/views/partials/_tagcloud.rhtml:2 app/views/layouts/application.rhtml:91
+msgid "Tag Cloud"
+msgstr ""
+
+#: app/views/partials/_captcha.rhtml:3
+msgid "In case you were not an alian. Please keyin according the image"
+msgstr ""
+
 #: app/views/partials/_login.rhtml:6
-msgid "Login"
+msgid "Welcome"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:41 app/views/partials/_login.rhtml:4
+#: app/views/partials/_login.rhtml:6
 msgid "Logout"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:44 app/views/partials/_login.rhtml:8
+#: app/views/partials/_login.rhtml:11 app/views/user/login.rhtml:30
+msgid "Login"
+msgstr ""
+
+#: app/views/partials/_login.rhtml:12
 msgid "Signup"
 msgstr ""
 
-#: app/views/project/show.rhtml:1
-msgid "Project Basic"
-msgstr ""
-
-#: app/views/project/show.rhtml:2
-msgid "Sympa"
-msgstr ""
-
-#: app/views/project/show.rhtml:3
-msgid "Subversion"
-msgstr ""
-
-#: app/views/user/login.rhtml:2
-msgid "Login to OpenFoundry"
-msgstr ""
-
-#: app/views/user/login.rhtml:5
-msgid "Login ID"
-msgstr ""
-
-#: app/views/user/login.rhtml:6
-msgid "Password"
-msgstr ""
-
-#: app/views/user/login.rhtml:9
-msgid "Register for an account"
-msgstr ""
-
-#: app/views/user/login.rhtml:10 app/views/partials/_login.rhtml:10
+#: app/views/partials/_login.rhtml:13 app/views/user/login.rhtml:32
 msgid "Forgot my password"
 msgstr ""
 
-#: app/views/partials/_login.rhtml:2
-msgid "Welcome"
+#: app/views/partials/_project_menu.rhtml:35
+#: app/views/projects/_tabnav.rhtml:6
+msgid "Subversion"
+msgstr ""
+
+#: app/views/partials/_project_menu.rhtml:37
+msgid "ViewVC"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:7 app/views/layouts/admin.rhtml:6
+msgid "OpenFoundry"
+msgstr ""
+
+#: app/views/images/_edit.rhtml:9
+msgid "Upload your picture"
+msgstr ""
+
+#: app/views/images/_edit.rhtml:11
+msgid "Upload"
+msgstr ""
+
+#: app/views/projects/_list.rhtml:2
+msgid "Listing projects"
+msgstr ""
+
+#: app/views/projects/_list.rhtml:7
+msgid "Project UNIX Name"
+msgstr ""
+
+#: app/views/projects/_list.rhtml:8
+msgid "Project Name"
+msgstr ""
+
+#: app/views/projects/_list.rhtml:24
+msgid "New project"
+msgstr ""
+
+#: app/views/projects/_tabnav.rhtml:1
+msgid "Project navigation bar"
+msgstr ""
+
+#: app/views/projects/_tabnav.rhtml:3
+msgid "Project Basic"
+msgstr ""
+
+#: app/views/projects/_tabnav.rhtml:4
+msgid "Kwiki"
+msgstr ""
+
+#: app/views/projects/_tabnav.rhtml:5
+msgid "Sympa"
+msgstr ""
+
+#: app/views/projects/applied.rhtml:1
+msgid ""
+"Your project creating request has been submitted. Please wait 72 hours for "
+"approving."
+msgstr ""
+
+#: app/views/projects/show.rhtml:15
+msgid "Project Role"
+msgstr ""
+
+#: app/views/projects/show.rhtml:30
+msgid "Back"
+msgstr ""
+
+#: app/views/news/list.rhtml:3
+msgid "Sort by"
+msgstr ""
+
+#: app/views/news/list.rhtml:4
+msgid "Subject"
+msgstr ""
+
+#: app/views/news/list.rhtml:5
+msgid "Last Updated"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:4
+msgid "Project"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:5
+msgid "News"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:6
+msgid "User"
+msgstr ""
+
+#: app/views/user/welcome.rhtml:5
+msgid "home"
+msgstr ""
+
+#: app/views/user/welcome.rhtml:7
+msgid "logout"
+msgstr ""
+
+#: app/views/user/_password.rhtml:5
+msgid "User|Password"
+msgstr ""
+
+#: app/views/user/_password.rhtml:8
+msgid "User|Password Confirmation"
+msgstr ""
+
+#: app/views/user/_password.rhtml:11 app/views/user/change_password.rhtml:10
+msgid "User|Change Password"
+msgstr ""
+
+#: app/views/user/forgot_password.rhtml:12
+msgid "User|Reset Password"
+msgstr ""
+
+#: app/views/user/forgot_password.rhtml:13
+#: app/views/user/change_password.rhtml:11
+msgid "Cancel"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:12
+msgid "User|TimeZone"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:14 app/views/user/signup.rhtml:11
+msgid "User|Signup"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:14
+msgid "User|Change Settings"
+msgstr ""
+
+#: app/views/user/edit.rhtml:22
+msgid "Delete Account"
+msgstr ""
+
+#: app/views/user/_email.rhtml:8
+msgid "User|Email Confirmation"
+msgstr ""
+
+#: app/views/user/_email.rhtml:11
+msgid "User|Change Email"
+msgstr ""
+
+#: app/views/user/home.rhtml:1
+msgid "My projects"
+msgstr ""
+
+#: app/views/user/home.rhtml:4
+msgid "Admin of"
+msgstr ""
+
+#: app/views/user/home.rhtml:11
+msgid "Member of"
+msgstr ""
+
+#: app/views/user/login.rhtml:1
+msgid "Login to OpenFoundry"
+msgstr ""
+
+#: app/views/user/login.rhtml:6
+msgid "Login ID"
+msgstr ""
+
+#: app/views/user/login.rhtml:14
+msgid "Password"
+msgstr ""
+
+#: app/views/user/login.rhtml:23
+msgid "Remember me on this computer"
+msgstr ""
+
+#: app/views/user/login.rhtml:31
+msgid "Register for an account"
 msgstr ""
