@@ -117,6 +117,8 @@ class ApplicationController < ActionController::Base
 
   protected
   def touch_session
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+    
     # NOTE: I rewrote reset_session in action_controller_cgi_request_hack
     return if not ParanoidSqlSessionStore === session
     reset_session unless session.host.nil? || session.host == request.remote_ip
