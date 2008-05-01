@@ -113,11 +113,15 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing password")
     return if generate_filled_in
     params['user'].delete('form')
-    @user.change_password(params['user']['password'], params['user']['password_confirmation'])
-    if @user.save!
-      UserNotify.deliver_change_password(@user, params['user']['password'])
-      flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
-    else
+    begin
+      User.transaction do
+        @user.change_password(params['user']['password'], params['user']['password_confirmation'])
+        if @user.save
+          UserNotify.deliver_change_password(@user, params['user']['password'])
+          flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
+        end
+      end
+    rescue
       flash.now[:warning] = _('user_change_password_email_error')
     end
   end
@@ -140,7 +144,7 @@ class UserController < ApplicationController
       flash.now[:message] = _('user_email_address_not_found') % "#{params['user']['email']}"
     else
       begin
-        User.transaction(user) do
+        User.transaction do
           key = user.generate_security_token
           url = url_for(:action => 'change_password')
           url += "?user=#{user.id}&key=#{key}"
