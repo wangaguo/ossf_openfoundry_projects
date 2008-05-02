@@ -1,5 +1,4 @@
 require 'digest/sha1'
-
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
   acts_as_authorized_user
@@ -45,7 +44,6 @@ class User < ActiveRecord::Base
       u.save
       atts['id'] = u.id
       atts['name'] = u.login
-      send_msg(TYPES[:user], ACTIONS[:update], atts)
     end
     u
   end

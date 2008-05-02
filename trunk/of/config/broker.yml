@@ -10,9 +10,9 @@ development:
     ############################
     adapter: stomp
     # properties below are all defaults for this adapter
-    login: "ossf"
-    passcode: "ossf"
-    host: 140.109.17.80
+    login: "openfoundry"
+    passcode: "openfoundry"
+    host: 192.168.0.10 
     #port: 61613
     #reliable: true
     #reconnectDelay: 5
