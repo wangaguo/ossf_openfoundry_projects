@@ -50,12 +50,12 @@ class UserController < ApplicationController
     params['user'].delete('form')
     @user = User.new(params['user'])
     begin
-      User.transaction(@user) do
+      User.transaction() do
         @user.new_password = true
         if @user.save
           key = @user.generate_security_token
           url = url_for(:action => 'welcome')
-          url += "?user[id]=#{@user.id}&key=#{key}"
+          url += "?user=#{@user.id}&key=#{key}"
           UserNotify.deliver_signup(@user, params['user']['password'], url)
           flash[:notice] = _('user_signup_succeeded')
           redirect_to :action => 'login'
@@ -196,7 +196,7 @@ class UserController < ApplicationController
         User.transaction(@user) do
           key = @user.set_delete_after
           url = url_for(:action => 'restore_deleted')
-          url += "?user[id]=#{@user.id}&key=#{key}"
+          url += "?user=#{@user.id}&key=#{key}"
           UserNotify.deliver_pending_delete(@user, url)
         end
       else
