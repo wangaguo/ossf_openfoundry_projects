@@ -15,7 +15,7 @@
   platform: FreeBSD,linux
   programminglanguage: ruby
   intendedaudience: no haha
-  creator: 1
+  creator: 1003
   status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
   vcs: svn
 <%end%>
