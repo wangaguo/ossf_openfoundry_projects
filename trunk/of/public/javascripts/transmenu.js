@@ -807,7 +807,8 @@ var menudata = [
 			{id:'專案新聞', url:'/news/project'},
 			{id:'下載排行(x)', url:'m1s1ur2'},
 			{id:'徵人啟事(x)', url:'m1s1ur2'},
-			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'}
+			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'},
+			{id:'註冊專案', url:'/projects/new'}
 		]
 	},
 	{id:'個人', url:'/user/home',
