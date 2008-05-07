@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
   has_many :releases
   
   #field validations...
-  #validates_format_of :unixname, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/
+  validates_format_of :unixname, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/, :message => _('專案名稱應以英數字組成, 英文字母開頭, 長度不超過16個字')
   #validates_inclusion_of :license, :in => LICENSES
   #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
   
