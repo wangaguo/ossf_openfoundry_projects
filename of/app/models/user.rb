@@ -1,4 +1,6 @@
 require 'digest/sha1'
+require 'of'
+
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
   acts_as_authorized_user
@@ -33,6 +35,7 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate_by_token(id, token, atts = {})
+    include OpenFoundry::Message
     # 加上了用atts修改個人資料的功能 by tim
     # Allow logins for deleted accounts, but only via this method (and
     # not the regular authenticate call)
@@ -44,6 +47,8 @@ class User < ActiveRecord::Base
       u.save
       atts['id'] = u.id
       atts['name'] = u.login
+    else
+      send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login})
     end
     u
   end
