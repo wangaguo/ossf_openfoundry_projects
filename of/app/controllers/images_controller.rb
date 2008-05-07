@@ -98,14 +98,16 @@ class ImagesController < ApplicationController
     begin
       Image.transaction do
         @image = Image.new(params[:images])
+        @image.save
         type = Object.const_get(params[:type])
         obj = type.find(params[:id])
-        obj.icon.destory unless obj.icon.nil?
+        old = Image.find(obj.icon) if obj.icon > 0
+        old.destroy unless old.nil?
         obj.icon=@image.id
         obj.save
       end
-    rescue
-      flash[:message] = _('image_upload_error')
+    rescue Exception 
+      flash[:message] = _('image_upload_error')+ $!
     end
     redirect_to params[:back_to]
   end
