@@ -4,12 +4,13 @@
   <%#= form_remote_tag(:update => 'UserImage', :url => 
       {:controller => :images, :action => 'upload'},
     :multipart => true) %>
-  <%= form_tag({:controller => :images, :action => 'upload'}, :multipart => true)%>
+  <% form_tag({:controller => :images, :action => 'upload'}, :multipart => true) do %>
   <br/>
-  <%= hidden_field_tag 'user_id', user_id %>
+  <%= hidden_field_tag 'type', type %>
+  <%= hidden_field_tag 'id', id %>
   <%= hidden_field_tag 'back_to', '/user/edit' %>
   <%= _('Upload your picture')%> : <%= file_field("images","image") %>
   <br/>
   <%= submit_tag( _("Upload") ) %>
-  </form>
+  <%end%>
 </div>
