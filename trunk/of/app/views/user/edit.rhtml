@@ -2,7 +2,7 @@
   <%#= head_helper :error => true %>
   <%= error_messages_for :user %>
   <%= render :partial => 'images/edit', :locals => 
-    {:image_id => @user.icon, :id => @user.id, :type => 'User' }%>
+  {:image_id => @user.icon, :id => @user.id, :type => 'User', :back_to => '/user/edit' }%>
   
   <% form_for :user, @user, :url => {:action => :edit} do |f|-%>
     <%= render :partial => 'edit', :locals => {:f => f, :new_record => @user.new_record?, :submit => true} %>
