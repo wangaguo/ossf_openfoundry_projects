@@ -95,16 +95,19 @@ class ImagesController < ApplicationController
   end
 
   def upload
-    @image = Image.new(params[:images])
-    if @image.save!
-      u=User.find(params[:user_id])
-      u.icon=@image.id
-      u.save
-      #redirect_to(:action => 'show', :id => @image.id)
-      redirect_to params[:back_to]
-      #render :partial => 'images/edit', :lauout =>false, :locals => 
-      #  {:image_id => @image.id, :user_id => u.id }
+    begin
+      Image.transaction do
+        @image = Image.new(params[:images])
+        type = Object.const_get(params[:type])
+        obj = type.find(params[:id])
+        obj.icon.destory unless obj.icon.nil?
+        obj.icon=@image.id
+        obj.save
+      end
+    rescue
+      flash[:message] = _('image_upload_error')
     end
+    redirect_to params[:back_to]
   end
   
   def new
