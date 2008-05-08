@@ -22,7 +22,7 @@ CREATE TABLE `tmp_users` (
 
 
 INSERT tmp_users (userid, passwd, uid, homedir, shell) SELECT login, salted_password, id, '/usr/upload', '/usr/bin/nologin' FROM `of_development`.users;
-INSERT IGNORE tmp_groups SELECT t6.unixname, t6.id, t4.login FROM `of_development`.functions t1 LEFT JOIN `of_development`.`roles_functions` t2 ON t1.id=t2.function_id LEFT JOIN `of_development`.roles_users t3 ON t2.role_id=t3.role_id LEFT JOIN `of_development`.users t4 ON t3.user_id=t4.id LEFT JOIN `of_development`.roles t5 ON t2.role_id=t5.id LEFT JOIN `of_development`.projects t6 ON t5.authorizable_id=t6.id  WHERE t1.name='ftp_login' ORDER BY t6.unixname, t4.login;
+INSERT IGNORE tmp_groups SELECT t6.name, t6.id, t4.login FROM `of_development`.functions t1 LEFT JOIN `of_development`.`roles_functions` t2 ON t1.id=t2.function_id LEFT JOIN `of_development`.roles_users t3 ON t2.role_id=t3.role_id LEFT JOIN `of_development`.users t4 ON t3.user_id=t4.id LEFT JOIN `of_development`.roles t5 ON t2.role_id=t5.id LEFT JOIN `of_development`.projects t6 ON t5.authorizable_id=t6.id  WHERE t1.name='ftp_login' ORDER BY t6.name, t4.login;
 
 DROP TABLE IF EXISTS old_groups, old_users;
 
