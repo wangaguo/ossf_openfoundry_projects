@@ -4,7 +4,7 @@
 <%=summary%>:
   icon: 5
   id: <%=index+=1%>
-  unixname: <%=summary%>
+  name: <%=summary%>
   summary: <%=summary%> ver 0.0.0 super song
   rationale: <%=summary%>, it is a good day to die!!
   description: to <%=summary%> or not to <%=summary%>, that is a question~

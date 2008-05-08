@@ -7,7 +7,7 @@ class Function < ActiveRecord::Base
         "where roles_users.user_id = users.id and roles_users.role_id = roles.id and " +
         "roles_functions.role_id = roles.id and roles_functions.function_id = functions.id and " +
         "roles.authorizable_type = 'Project' and roles.authorizable_id = projects.id and " +
-        "users.login = '" + current_user.login + "' and projects.unixname = '" + project_name +"' and functions.name = '" + function_name +"'"))
+        "users.login = '" + current_user.login + "' and projects.name = '" + project_name +"' and functions.name = '" + function_name +"'"))
       return true
     else
       return false;

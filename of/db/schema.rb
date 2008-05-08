@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 6) do
 
   create_table "projects", :force => true do |t|
     t.integer "icon",                :default => 0, :null => false
-    t.string  "unixname"
+    t.string  "name"
     t.string  "summary"
     t.text    "rationale"
     t.text    "description"

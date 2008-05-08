@@ -12,13 +12,13 @@ class ProjectsController < ApplicationController
     if (params[:path] != nil)
       @Path = "http://rt.openfoundry.org/Sympa/" +params[:path] 
     else
-      @Path = "http://rt.openfoundry.org/Sympa/lists_by_project/" + @project.unixname
+      @Path = "http://rt.openfoundry.org/Sympa/lists_by_project/" + @project.name
     end
   end
   
   def viewvc
     @project = Project.find(params[:id])
-    @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.unixname
+    @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.name
   end
 
   def index

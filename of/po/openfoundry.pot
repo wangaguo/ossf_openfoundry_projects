@@ -298,7 +298,7 @@ msgid "Project|Icon"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:4
-msgid "Project|Unixname"
+msgid "Project|name"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:7

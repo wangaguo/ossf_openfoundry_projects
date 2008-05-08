@@ -1,8 +1,8 @@
 <div id="TabNav" title="<%= _("Project navigation bar") %>">
 <ul>
   <li><%= link_to _("Project Basic"), :action => "show", :id => @project %></li>
-  <li><%= link_to _("Kwiki"), :action => "kwiki", :id => @project.unixname %></li>
-  <li><%= link_to _("Sympa"), :action => "sympa", :id => @project.unixname %></li>
+  <li><%= link_to _("Kwiki"), :action => "kwiki", :id => @project.name %></li>
+  <li><%= link_to _("Sympa"), :action => "sympa", :id => @project.name %></li>
   <li><%= link_to _("Subversion"), :action => "subversion" %></li>
 </ul>
 </div>
