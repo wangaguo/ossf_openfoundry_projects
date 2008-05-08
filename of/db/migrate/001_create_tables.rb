@@ -56,7 +56,7 @@ class CreateTables < ActiveRecord::Migration
       t.string  "unixname"
       t.string  "summary"
       t.text    "rationale"
-      t.text    "publicdescription"
+      t.text    "description"
       t.string  "contactinfo"
       t.string  "maturity"
       t.string  "license"

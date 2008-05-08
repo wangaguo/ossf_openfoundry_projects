@@ -64,7 +64,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
-      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => @project.id, 'name' => @project.summary, 'summary' => @project.publicdescription})
+      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => @project.id, 'name' => @project.summary, 'summary' => @project.description})
       redirect_to :action => 'applied'
     else
       render :action => 'new'
