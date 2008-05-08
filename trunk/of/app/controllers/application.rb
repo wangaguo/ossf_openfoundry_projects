@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   helper :user
   require_dependency 'user'
-#  require 'tzinfo'
+  require 'tzinfo'
 
 #  before_filter :configure_charsets
 #
