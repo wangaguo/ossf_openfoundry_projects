@@ -311,7 +311,7 @@ msgid "Project|Rationale"
 msgstr ""
 
 #: app/models/project.rb:-
-msgid "Project|Publicdescription"
+msgid "Project|description"
 msgstr ""
 
 #: app/models/project.rb:-

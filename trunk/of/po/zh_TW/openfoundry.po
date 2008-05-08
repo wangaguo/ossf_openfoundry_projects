@@ -315,7 +315,7 @@ msgid "Project|Rationale"
 msgstr "註冊原因"
 
 #: app/models/project.rb:-
-msgid "Project|Publicdescription"
+msgid "Project|description"
 msgstr "公開描述"
 
 #: app/models/project.rb:-
