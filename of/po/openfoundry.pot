@@ -302,7 +302,7 @@ msgid "Project|Unixname"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:7
-msgid "Project|Projectname"
+msgid "Project|summary"
 msgstr ""
 
 #: app/models/project.rb:-
@@ -596,7 +596,7 @@ msgid "Project UNIX Name"
 msgstr ""
 
 #: app/views/projects/_list.rhtml:8
-msgid "Project Name"
+msgid "Summary"
 msgstr ""
 
 #: app/views/projects/_list.rhtml:24

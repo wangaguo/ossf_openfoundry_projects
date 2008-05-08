@@ -46,7 +46,7 @@
 <div id="MiddlePane">
   <div id="MainContent">
     <%if params["project_id"] != nil%>
-      <h1><%=@project.projectname%></h1>
+      <h1><%=@project.summary%></h1>
     <%end%>
     <div id="Flash"><%= show_flash %></div>
     <%= yield :layout %>

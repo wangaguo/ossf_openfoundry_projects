@@ -5,14 +5,14 @@
   <tr>
     <th></th>
     <th><%= _('Project UNIX Name') %></th>
-    <th><%= _('Project Name') %></th>
+    <th><%= _('Summary') %></th>
   </tr>
   
 <% for project in projects %>
   <tr>
     <td><img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon,:size => 16) %>"/></td>
     <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h project.unixname %></a></td>
-    <td><%= h project.projectname %></td>
+    <td><%= h project.summary %></td>
   </tr>
 <% end %>
 </table>

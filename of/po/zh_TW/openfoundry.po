@@ -307,7 +307,7 @@ msgid "Project|Unixname"
 msgstr "專案代號"
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:7
-msgid "Project|Projectname"
+msgid "Project|summary"
 msgstr "專案名稱"
 
 #: app/models/project.rb:-
@@ -606,7 +606,7 @@ msgstr "專案新聞"
 
 #: app/views/projects/_list.rhtml:8
 #, fuzzy
-msgid "Project Name"
+msgid "Summary"
 msgstr "專案新聞"
 
 #: app/views/projects/_list.rhtml:24

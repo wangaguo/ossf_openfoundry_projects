@@ -34,7 +34,7 @@ class NewsController < ApplicationController
       @head1 = "OpenFoundry 新聞"
     else
       project_id = params[:project_id]
-      @head1 = @project.projectname + " 專案新聞"
+      @head1 = @project.summary + " 專案新聞"
     end
     if permit?("site_admin") || (@project != nil && permit?("admin of :project"))
       sqlStatus = ''
