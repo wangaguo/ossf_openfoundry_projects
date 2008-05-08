@@ -296,15 +296,15 @@ msgstr ""
 #: app/models/project.rb:-
 #, fuzzy
 msgid "Project|Icon"
-msgstr "Project Name"
+msgstr "Summary"
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:4
 msgid "Project|Unixname"
 msgstr "Project Unixname"
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:7
-msgid "Project|Projectname"
-msgstr "Project Name"
+msgid "Project|summary"
+msgstr "Summary"
 
 #: app/models/project.rb:-
 msgid "Project|Rationale"
@@ -357,12 +357,12 @@ msgstr ""
 #: app/models/project.rb:-
 #, fuzzy
 msgid "Project|Creator"
-msgstr "Project Name"
+msgstr "Summary"
 
 #: app/models/project.rb:-
 #, fuzzy
 msgid "Project|Status"
-msgstr "Project Name"
+msgstr "Summary"
 
 #: app/models/project.rb:-
 msgid "Project|Statusreason"
@@ -371,7 +371,7 @@ msgstr ""
 #: app/models/project.rb:-
 #, fuzzy
 msgid "Project|Project counter"
-msgstr "Project Name"
+msgstr "Summary"
 
 #: app/models/fileentity.rb:-
 msgid "fileentity"
@@ -602,7 +602,7 @@ msgstr "Project Unixname"
 
 #: app/views/projects/_list.rhtml:8
 #, fuzzy
-msgid "Project Name"
+msgid "Summary"
 msgstr "Project Unixname"
 
 #: app/views/projects/_list.rhtml:24

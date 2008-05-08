@@ -2,8 +2,8 @@
 <%index=0%>
 <%rid=0%>
 <%t1=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
-<% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro).each do |projectname| %>
-<%=projectname%>_rel<%=rid+=1%>_f0:
+<% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro).each do |summary| %>
+<%=summary%>_rel<%=rid+=1%>_f0:
   id: <%=index+=1%>
   release_id: <%=rid%>
   name: file<%=index%>_of_relase<%=rid%>
@@ -11,7 +11,7 @@
   size: 777
   path: /tmp/file<%=index%>_of_relase<%=rid%>
 
-<%=projectname%>_rel<%rid%>_f1:
+<%=summary%>_rel<%rid%>_f1:
   id: <%=index+=1%>
   release_id: <%=rid%>
   name: file<%=index%>_of_relase<%=rid%>

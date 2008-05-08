@@ -61,7 +61,7 @@ class OpenfoundryController < ApplicationController
     end
 
     data = {
-      :projects => Project.find(:all).map { |p| { :Id => p.id, :ProjectName => p.projectname , :UnixName => p.unixname, :VCS => p.vcs } },
+      :projects => Project.find(:all).map { |p| { :Id => p.id, :summary => p.summary , :UnixName => p.unixname, :VCS => p.vcs } },
       :users => User.find(:all).map { |u| { :Id => u.id, :Name => u.login, :Email => u.email, :Password => u.salted_password } },
       :relations => {
         :admin => Project.find(:all).inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
@@ -77,7 +77,7 @@ class OpenfoundryController < ApplicationController
     data = JSON.parse(r.body)
 
 #    data["projects"].each do |pd|
-#      p = Project.new({ :projectname => pd["ProjectName"], :unixname => pd["UnixName"] })
+#      p = Project.new({ :summary => pd["summary"], :unixname => pd["UnixName"] })
 #      p.id = pd["Id"]
 #      p.save!
 #    end
