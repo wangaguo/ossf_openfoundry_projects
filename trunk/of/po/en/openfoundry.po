@@ -299,8 +299,8 @@ msgid "Project|Icon"
 msgstr "Summary"
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:4
-msgid "Project|Unixname"
-msgstr "Project Unixname"
+msgid "Project|name"
+msgstr "Project name"
 
 #: app/models/project.rb:- app/views/projects/_form.rhtml:7
 msgid "Project|summary"
@@ -598,12 +598,12 @@ msgstr ""
 #: app/views/projects/_list.rhtml:7
 #, fuzzy
 msgid "Project UNIX Name"
-msgstr "Project Unixname"
+msgstr "Project name"
 
 #: app/views/projects/_list.rhtml:8
 #, fuzzy
 msgid "Summary"
-msgstr "Project Unixname"
+msgstr "Project name"
 
 #: app/views/projects/_list.rhtml:24
 msgid "New project"
@@ -654,7 +654,7 @@ msgstr ""
 #: app/views/site_admin/site_admin/index.rhtml:4
 #, fuzzy
 msgid "Project"
-msgstr "Project Unixname"
+msgstr "Project name"
 
 #: app/views/site_admin/site_admin/index.rhtml:5
 msgid "News"

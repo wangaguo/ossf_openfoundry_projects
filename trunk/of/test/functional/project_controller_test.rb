@@ -54,7 +54,7 @@ class ProjectControllerTest < Test::Unit::TestCase
   def test_create   
     num_projects = Project.count
   
-    post :create,{ :project => {:unixname => "newproject"+rand(100).to_s} }, @test_session
+    post :create,{ :project => {:name => "newproject"+rand(100).to_s} }, @test_session
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
@@ -73,7 +73,7 @@ class ProjectControllerTest < Test::Unit::TestCase
   end
 
   def test_update
-    post :update, :id => @first_id, :project => {:unixname => "meow"}
+    post :update, :id => @first_id, :project => {:name => "meow"}
     assert_response :redirect
     assert_redirected_to :action => 'show', :id => @first_id
   end

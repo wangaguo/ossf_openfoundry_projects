@@ -55,7 +55,7 @@ module ApplicationHelper
               _('user'), User, 'login'
           when 'projects'
             level_name, level_class, level_title = 
-              _('Projects List'), Project, 'unixname'
+              _('Projects List'), Project, 'name'
           when 'releases'
             level_name, level_class, level_title = 
               _('Project Releases'), Release, 'name'

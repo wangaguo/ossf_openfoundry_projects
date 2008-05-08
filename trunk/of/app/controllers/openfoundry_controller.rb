@@ -28,11 +28,11 @@ class OpenfoundryController < ApplicationController
   # TODO: optimize!!!!!!!!!!
   def authentication_authorization
     #self.class.layout(nil)
-    session_id, project_unixname = params[:SID], params[:projectUnixName]
+    session_id, project_name = params[:SID], params[:projectname]
     if the_session_data = get_session_by_id(session_id)
       user = the_session_data['user']
       @name = user.login
-      project = Project.find_by_unixname(project_unixname)
+      project = Project.find_by_name(project_name)
       if project == nil
         @role = "Other"
       elsif user.has_role?('Admin', project)
@@ -61,7 +61,7 @@ class OpenfoundryController < ApplicationController
     end
 
     data = {
-      :projects => Project.find(:all).map { |p| { :Id => p.id, :summary => p.summary , :UnixName => p.unixname, :VCS => p.vcs } },
+      :projects => Project.find(:all).map { |p| { :Id => p.id, :summary => p.summary , :name => p.name, :VCS => p.vcs } },
       :users => User.find(:all).map { |u| { :Id => u.id, :Name => u.login, :Email => u.email, :Password => u.salted_password } },
       :relations => {
         :admin => Project.find(:all).inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
@@ -77,7 +77,7 @@ class OpenfoundryController < ApplicationController
     data = JSON.parse(r.body)
 
 #    data["projects"].each do |pd|
-#      p = Project.new({ :summary => pd["summary"], :unixname => pd["UnixName"] })
+#      p = Project.new({ :summary => pd["summary"], :name => pd["name"] })
 #      p.id = pd["Id"]
 #      p.save!
 #    end
@@ -111,8 +111,8 @@ class OpenfoundryController < ApplicationController
     render :text => data.inspect, :layout => false
 #    render :text => bad, :layout => false
   end
-  def is_project_unixname
-    rtn = Project.find_by_unixname(params[:projectUnixName]) ? "1" : "0"
+  def is_project_name
+    rtn = Project.find_by_name(params[:projectname]) ? "1" : "0"
     render :text => rtn, :layout => false
   end
   def search #for search!!! TODO: catalog and optimize?
@@ -132,7 +132,7 @@ class OpenfoundryController < ApplicationController
   
   def download
     #render :text => params[:file_name]
-    download_project = Project.find_by_unixname(params[:project_name])
+    download_project = Project.find_by_name(params[:project_name])
     if download_project
       download_release = Release.find(:first , :conditions => "project_id = '#{download_project.id}' AND name = '#{params[:release_name]}'")
       if download_release
@@ -144,7 +144,7 @@ class OpenfoundryController < ApplicationController
           download_project.save
           download_release.save
           download_file.save
-          #render :text => "#{download_project.unixname} #{download_project.project_counter}\n
+          #render :text => "#{download_project.name} #{download_project.project_counter}\n
           #                #{download_release.version} #{download_release.release_counter}\n
           #                #{download_file.name} #{download_file.path} #{download_file.file_counter}"
           redirect_to "http://dev.openfoundry.org/download/#{params[:project_name]}/#{params[:release_name]}/#{params[:file_name]}"

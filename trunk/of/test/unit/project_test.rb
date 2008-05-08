@@ -9,16 +9,16 @@ class ProjectTest < Test::Unit::TestCase
   end
 
   def apply_a_new_project
-    Project.apply({:unixname => 'testproject1'}, User.find(1))
+    Project.apply({:name => 'testproject1'}, User.find(1))
   end
   def find_the_new_project
-    Project.find_by_unixname('testproject1')
+    Project.find_by_name('testproject1')
   end
 
   def test_apply
     apply_a_new_project
     p = find_the_new_project
-    assert_equal 'testproject1', p.unixname
+    assert_equal 'testproject1', p.name
     assert_equal Project::STATUS[:APPLYING], p.status
   end
 

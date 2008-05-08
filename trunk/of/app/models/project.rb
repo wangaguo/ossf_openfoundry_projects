@@ -30,7 +30,7 @@ class Project < ActiveRecord::Base
   has_many :releases
   
   #field validations...
-  validates_format_of :unixname, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/, :message => _('專案名稱應以英數字組成, 英文字母開頭, 長度不超過16個字')
+  validates_format_of :name, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/, :message => _('專案名稱應以英數字組成, 英文字母開頭, 長度不超過16個字')
   #validates_inclusion_of :license, :in => LICENSES
   #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
   
@@ -71,7 +71,7 @@ class Project < ActiveRecord::Base
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
-    Release::build_path(self.unixname, self.id)
+    Release::build_path(self.name, self.id)
     ProjectNotify.deliver_approved(self)
   end
   # reason: string
@@ -99,10 +99,10 @@ class Project < ActiveRecord::Base
     # TODO: notify by email
   end
 
-  # Project.find(:first, :conditions => Project.in_used_projects(['unixname = ?', 'openfoundry']))
-  # Project.find(:first, :conditions => Project.in_used_projects("unixname = 'openfoundry'"))
+  # Project.find(:first, :conditions => Project.in_used_projects(['name = ?', 'openfoundry']))
+  # Project.find(:first, :conditions => Project.in_used_projects("name = 'openfoundry'"))
   # Project.find(:first, :conditions => Project.in_used_projects())
-  # Project.exists?(Project.in_used_projects(['unixname = ?', unixname]))
+  # Project.exists?(Project.in_used_projects(['name = ?', name]))
   def self.in_used_projects(condition = 'true')
     if condition.is_a?(String)
       "(#{condition}) and (status = #{Project::STATUS[:READY]} or status = #{Project::STATUS[:SUSPENDED]})"
@@ -113,13 +113,13 @@ class Project < ActiveRecord::Base
     end
   end
 
-  # Project.new(:unixname => 'openfoundry').valid?
+  # Project.new(:name => 'openfoundry').valid?
   def validate
     # read http://dev.rubyonrails.org/changeset/5192 
     # and active_record/calculations.rb
-    #if Project.count(:conditions => Project.in_used_projects(['unixname = ?', unixname])) > 0
-    if Project.exists?(Project.in_used_projects(['unixname = ?', unixname]))
-      errors.add(:unixname, "'#{unixname}' has already been used")
+    #if Project.count(:conditions => Project.in_used_projects(['name = ?', name])) > 0
+    if Project.exists?(Project.in_used_projects(['name = ?', name]))
+      errors.add(:name, "'#{name}' has already been used")
     end
   end
 end
