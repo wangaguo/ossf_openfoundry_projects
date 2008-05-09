@@ -789,7 +789,7 @@ if (window.attachEvent) {
 // Auto Create Menu below
 //=====================================================================
 var ms;
-var menudata = [
+var menudata_XXX = [
 	{id:'OpenFoundry', url:'/',
 		submenu:[
 			{id:'首頁', url:'/'},
@@ -910,10 +910,12 @@ TransMenu.renderAll2 = function() {
 	document.body.insertBefore(div, null);
 };
 
+//for IE 
 if(window.attachEvent)
 {
 	window.attachEvent("onload", init);
 }
+//for FF
 else if(window.addEventListener)
 {
 	window.addEventListener('load', init, false);
