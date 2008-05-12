@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   layout 'module'
   before_filter :set_project_id
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users]
   
   def set_project_id
     params[:project_id] = params[:id]
@@ -10,7 +11,7 @@ class ProjectsController < ApplicationController
   def sympa
     @project = Project.find(params[:id])
     if (params[:path] != nil)
-      @Path = "http://rt.openfoundry.org/Sympa/" +params[:path] 
+      @Path = "http://rt.openfoundry.org/Sympa/" + params[:path] 
     else
       @Path = "http://rt.openfoundry.org/Sympa/lists_by_project/" + @project.name
     end
@@ -45,7 +46,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    login_required #_("create project require login")
     @project = Project.new
   end
 
@@ -59,7 +59,6 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    login_required #_("create project require login")
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
 
     @project = Project.apply(params[:project], current_user())
