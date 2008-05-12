@@ -121,10 +121,10 @@
         <div id='project_logo'>
         <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
         </div>
-        <span><br/>  <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UserImage','appear'); return false">更換圖示</a></span>
+        <span><br/>  <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">更換圖示</a></span>
+      </div>
           <%= render :partial => 'images/edit', :locals => 
           {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) }%>
-      </div>
     <%end%>
 
   	<%if params["project_id"] != nil%>
