@@ -3,7 +3,10 @@ class RtController < ApplicationController
   before_filter :get_project
   def get_project
     if(params[:project_id] != nil)
-      @project = Project.find(params[:project_id])
+      @project = Project.find(:first, :conditions => "id = #{params[:project_id]}")
+      if(@project == nil)
+        redirect_to "http://of.openfoundry.org"
+      end
     end
   end
   
