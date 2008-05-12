@@ -1,7 +1,8 @@
 require 'RMagick'
 
 class ImagesController < ApplicationController
-  #upload_status_for :upload
+  before_filter :login_required, :except => [:image, :code_image, :show,
+    :reload_code_image, ]
   
   def image
     begin
@@ -95,20 +96,31 @@ class ImagesController < ApplicationController
   end
 
   def upload
-    begin
-      Image.transaction do
-        @image = Image.new(params[:images])
-        @image.save!
-        type = Object.const_get(params[:type])
-        obj = type.find(params[:id])
-        old_id = obj.icon
-        obj.icon=@image.id
-        obj.save!
-        old_img = Image.find(old_id)
-        old_img.destroy unless old_img.nil?
+    allow=false
+    if params[:type]=='User'
+      allow = (current_user.id == params[:id])
+    elsif params[:type]=='Project'
+      allow = fpermit?(params[:id],"CHANGE_PROJECT_INFO")
+    end
+   
+    if allow
+      begin
+        Image.transaction do
+          @image = Image.new(params[:images])
+          @image.save!
+          type = Object.const_get(params[:type])
+          obj = type.find(params[:id])
+          old_id = obj.icon
+          obj.icon=@image.id
+          obj.save!
+          old_img = Image.find(old_id)
+          old_img.destroy unless old_img.nil?
+        end
+      rescue Exception 
+        flash[:message] = _('image_upload_error')+ $!
       end
-    rescue Exception 
-      flash[:message] = _('image_upload_error')+ $!
+    else
+      flash[:message] = _('you have no permission')
     end
     redirect_to params[:back_to]
   end
