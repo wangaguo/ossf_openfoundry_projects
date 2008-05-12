@@ -2,6 +2,8 @@ class Function < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => 'roles_functions'
   
   def self.function_permit(project_name, function_name)
+    return true if current_user.has_role "site_admin"
+    
     if(0 < Function.count_by_sql("" +
         "select count(*) from roles, roles_users, users, projects, roles_functions, functions " +
         "where roles_users.user_id = users.id and roles_users.role_id = roles.id and " +
