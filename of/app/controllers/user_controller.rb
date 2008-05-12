@@ -2,6 +2,7 @@ require 'base64'
 
 class UserController < ApplicationController
   require_dependency  'user'
+  before_filter :login_required, :except => [:login, :signup, :forgot_password, :welcome]
 
   def online_users
     @online_users=User.online_users
@@ -65,7 +66,7 @@ class UserController < ApplicationController
       flash.now[:message] = _('user_confirmation_email_error')
     end
   end  
-  
+   
   def logout
     session['user'] = nil
     #For "paranoid session store"

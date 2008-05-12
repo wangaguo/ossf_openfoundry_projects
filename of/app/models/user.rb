@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(login, pass)
-    u = find( :first, :conditions => ["login = ? AND verified = 1 AND deleted = 0", login])
+    u = find( :first, :conditions => ["login = ? AND verified = 1 AND status = 0", login])
     return nil if u.nil?
     #find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
     find( :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
 
   def set_delete_after
     hours = UserSystem::CONFIG[:delayed_delete_days] * 24
-    write_attribute('deleted', 1)
+    write_attribute('status', 4)
     write_attribute('delete_after', Time.at(Time.now.to_i + hours * 60 * 60))
 
     # Generate and return a token here, so that it expires at

@@ -22,19 +22,4 @@
       <%= submit_tag _('Delete Account'), "class" => "button" %>
     </div>
   <% end -%>
-  <fieldset>
-    <% form_tag :action => 'add_tag', :id => @user do %>
-      <label for="tag">Add a tag:</label><br/>
-      <%= hidden_field_tag 'class', 'User' %>
-      <%= text_field_tag 'tag', '',{:size => 10} %>
-      <%= submit_tag 'Add Tag', "class" => "button" %>
-    <% end %>
-    
-    <% form_tag :action => 'remove_tag', :id => @user do %>
-      <label for="tag">Remove a tag:</label><br/>
-      <%= hidden_field_tag 'class', 'User' %>
-      <%= select_tag 'tag[]', options_for_select(@user.tag_list.names.collect {|s| [s,s] }), { :multiple => true, :size => 10} %>
-      <%= submit_tag 'Remove Tag', "class" => "button" %>
-    <% end %>
-  </fieldset>
 </div>
