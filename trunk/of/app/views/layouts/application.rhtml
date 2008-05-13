@@ -32,34 +32,34 @@
   <div id="nav">
     <div id="mtm_menu">
       <script>var menudata=[
-	{id:'OpenFoundry', url:'/',
+        {id: '<%=_('menu_OpenFoundry')%>', url:'/',
 		submenu:[
-			{id:'首頁', url:'/'},
-			{id:'OpenFoundry新聞 ', url:'/news'},
-			{id:'關於OSSF', url:'http://www.openfoundry.org/index.php?option=com_content&task=blogcategory&id=69&Itemid=114&lang=tw'},
-			{id:'自由軟體鑄造場電子報', url:'http://www.openfoundry.org/index.php?option=com_letterman&Itemid=92&lang=tw'}
+                        {id:'<%=_('menu_Home')%>', url:'/'},
+                        {id:'<%=_('menu_OpenFoundry News')%>', url:'/news'},
+                        {id:'<%=_('menu_About OSSF')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=blogcategory&id=69&Itemid=114&lang=tw'},
+                        {id:'<%=_('menu_Newsletter')%>', url:'http://www.openfoundry.org/index.php?option=com_letterman&Itemid=92&lang=tw'}
 		]
 	},
-	{id:'專案', url:'/projects',
+        {id:'<%=_('menu_Project')%>', url:'/projects',
 		submenu:[
-			{id:'專案一覽', url:'/projects'},
+                        {id:'<%=_('menu_Overview')%>', url:'/projects'},
 			{id:'最新釋出(x)', url:'m1s1ur2'},
 			{id:'活躍專案(x)', url:'m1s1ur2'},
 			{id:'新進專案(x)', url:'m1s1ur2'},
-			{id:'專案新聞', url:'/news/project'},
+                        {id:'<%=_('menu_News')%>', url:'/news/project'},
 			{id:'下載排行(x)', url:'m1s1ur2'},
 			{id:'徵人啟事(x)', url:'m1s1ur2'},
-			{id:'專案網頁空間', url:'http://webhosting.openfoundry.org/'},
-			{id:'註冊專案', url:'/projects/new'}
+                        {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'},
+                        {id:'<%=_('menu_New Project')%>', url:'/projects/new'}
 		]
 	},
-	{id:'個人', url:'/user/home',
+        {id:'<%=_('menu_My Account')%>', url:'/user/home',
 		submenu:[
-			{id:'偏好設定', url:'/user/edit'},
-      {id:'修改密碼', url:'/user/change_password'},
-			{id:'我的首頁', url:'/user/home'},
-			{id:'我的專案', url:'m1s1ur2'},
-			{id:'我的待辦事項', url:'',
+                        {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
+                        {id:'<%=_('menu_Password')%>', url:'/user/change_password'},
+                        {id:'<%=_('menu_My Pages')%>', url:'/user/home'},
+                        {id:'<%=_('menu_My Projects')%>', url:'m1s1ur2'},
+                        {id:'<%=_('menu_My Tickets')%>', url:'',
     		submenu:[
     			{id:'Owner', url:'/rt/owner'},
           {id:'Creator', url:'/rt/creator'},
@@ -67,30 +67,30 @@
     			{id:'LastUpdatedBy', url:'/rt/lastupdatedby'}
     		]
       },
-			{id:'註冊專案', url:'/projects/new'}
+                        {id:'<%=_('menu_New Project')%>', url:'/projects/new'}
 		]
 	},
-	{id:'授權 指引/精靈', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
+        {id:'<%=_('menu_License Wizard')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
 		submenu:[
 			{id:'授權指引 v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
       {id:'授權精靈 v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
       {id:'說明', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
 		]  
   },
-	{id:'說明', url:'http://rt.openfoundry.org/Foundry/Help/',
+  {id:'<%=_('menu_Help')%>', url:'http://rt.openfoundry.org/Foundry/Help/',
 		submenu:[
       {id:'關於本手冊', url:'http://rt.openfoundry.org/Foundry/Help/'},
 			{id:'專案管理平台介紹', url:'http://rt.openfoundry.org/Foundry/Help/1-02.html'},
       {id:'一般使用者功能', url:'http://rt.openfoundry.org/Foundry/Help/2-01.html'},
       {id:'專案管理者功能', url:'http://rt.openfoundry.org/Foundry/Help/3-01.html'},
       {id:'專案管理服務平台功能', url:'http://rt.openfoundry.org/Foundry/Help/vcs/OpenFoundry%20_.html'},
-      {id:'Download PDF', url:'http://rt.openfoundry.org/Foundry/Help/ossf.pdf'}
+      {id:'<%=_('Download PDF')%>', url:'http://rt.openfoundry.org/Foundry/Help/ossf.pdf'}
 		]  
   },
-	{id:'聯絡我們', url:'m3url',
+  {id:'<%=_('menu_Contact Us')%>', url:'m3url',
 		submenu:[
-			{id:'聯絡方式', url:'m1s1ur2'},
-			{id:'錯誤回報', url:'m1s1ur2'}
+			{id:'聯絡方式(x)', url:'m1s1ur2'},
+			{id:'錯誤回報(x)', url:'m1s1ur2'}
 			
 		]
 	}
@@ -121,7 +121,7 @@
         <div id='project_logo'>
         <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
         </div>
-        <span><br/>  <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">更換圖示</a></span>
+        <span><br/>  <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a></span>
       </div>
           <%= render :partial => 'images/edit', :locals => 
           {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) }%>
@@ -134,26 +134,9 @@
       </div>
     <%else%>
       <div id="HomeLeft">
-        <h3><img src="/images/of/icon06.gif" align="left" />活躍專案</h3>
-        <ul>
-          <li>Create Animation Make a</li>
-          <li>TinyTux with Pho ... Make a</li>
-          <li>Buddy Make a porthole !</li>
-        </ul>
-        <h3><img src="/images/of/icon02.gif" align="left" />下載排行</h3>
-        <ul>
-          <li>Create Animation Make a</li>
-          <li>TinyTux with Pho ... Make a</li>
-          <li>Buddy Make a porthole !</li>
-        </ul>
-        <h3><img src="/images/of/icon01.gif" align="left" />統計資訊</h3>
-        <ul>
-          <li>Create Animation Make a</li>
-          <li>TinyTux with Pho ... Make a</li>
-          <li>Buddy Make a porthole !</li>
-        </ul>
-        <h3></h3>
-        <h3><img src="/images/of/icon01.gif" align="left" /><%= _('Tag Cloud') %></h3>
+        <%= render :partial => 'projects/most_active' %>
+        <%= render :partial => 'releases/most_popular' %>
+        <%= render :partial => 'openfoundry/staticities' %>
         <%= render :partial => 'partials/tagcloud'%>
       </div>
     <%end%>
