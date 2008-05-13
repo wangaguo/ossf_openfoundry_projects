@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
 #  s.add_dependency(%q<fxruby>, ["= 1.6.13"])
 #  s.add_dependency(%q<gem_plugin>, ["= 0.2.3"])
 #  s.add_dependency(%q<gemsonrails>, ["= 0.7.1"])
-  s.add_dependency(%q<gettext>, ["= 1.10.0"])
+  s.add_dependency(%q<gettext>, ["= 1.91.0"])
 #  s.add_dependency(%q<highline>, ["= 1.4.0"])
 #  s.add_dependency(%q<hoe>, ["= 1.4.0"])
   s.add_dependency(%q<json>, ["= 1.1.2"])
