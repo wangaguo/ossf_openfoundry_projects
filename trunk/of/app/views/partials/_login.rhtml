@@ -2,13 +2,20 @@
 <% if(login?) -%>
   <%# = lightbox_link_to "Link Name", url_for(:controller => :images, :action => "image", :id => current_user.icon) %> 
   <%# = lightbox_image_tag(url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24), url_for(:controller => :images, :action => "image", :id => current_user.icon), {:class=>"images"}, :title => "This is a test!") %>
-  <img src="<%= url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24) %>"/>
-  <%= _("Welcome") %>! <%=current_user.login%><%= link_to _("Logout"), { :action => :logout, :controller => :user} %>
+  <img src="<%= url_for(:controller => :images,
+                :action => "image", :id => current_user.icon, :size => 24) %>"/>
+  <%= _("Welcome")%>!
+  &nbsp;
+  <%=current_user.login%> 
+  &nbsp; 
+  <%= link_to "[#{_("Logout")}]", { :action => :logout, :controller => :user} %>
 <% else -%>
   <!--
   <h3>Login</h3>
   -->
   <%= link_to _('Login'), :controller => :user, :action => 'login' %>
+  &nbsp;
   <%= link_to _('Signup'), :controller => 'user', :action => 'signup' %> 
-  <%= link_to _('Forgot my password'), :controller => 'user', :action => 'forgot_password' %>
+  &nbsp;
+  <%= link_to _('Forgot Password'), :controller => 'user', :action => 'forgot_password' %>
 <% end -%>
