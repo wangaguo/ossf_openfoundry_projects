@@ -668,7 +668,7 @@ msgstr "首頁"
 
 #: app/views/layouts/application.rhtml:38
 msgid "menu_OpenFoundry News"
-msgstr "自由軟體鑄造場新聞"
+msgstr "OpenFoundry新聞"
 
 #: app/views/layouts/application.rhtml:39
 msgid "menu_About OSSF"
