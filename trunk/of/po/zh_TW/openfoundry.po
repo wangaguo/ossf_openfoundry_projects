@@ -880,7 +880,7 @@ msgstr "註冊"
 
 #: app/views/user/_edit.rhtml:14
 msgid "User|Change Settings"
-msgstr "密碼更新"
+msgstr "偏好設定更新"
 
 #: app/views/user/edit.rhtml:22
 msgid "Delete Account"
