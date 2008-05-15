@@ -134,10 +134,21 @@
       </div>
     <%else%>
       <div id="HomeLeft">
-        <%= render :partial => 'projects/most_active' %>
-        <%= render :partial => 'releases/most_popular' %>
         <%= render :partial => 'openfoundry/staticities' %>
+        <%= render :partial => 'releases/most_popular' %>
+        <%= render :partial => 'projects/most_active' %>
         <%= render :partial => 'partials/tagcloud'%>
+        
+        <h3><img src="/images/of/icon01.gif" align="left" /><%=_('Steering Organization')%></h3>
+        <div style="text-align:center;">
+          <a href="http://www.iis.sinica.edu.tw/" target="_blank">
+            <img src="http://www.openfoundry.org/images/stories/iis_logo.jpg" title="Institute of Information Science Academia Sinica" style="text-align:center;"/> 
+          </a>
+          <a href="http://web.nsc.gov.tw/default.asp" target="_blank">
+            <img src="http://www.openfoundry.org/images/stories/nsc.jpg" title="行政院國家科學委員會">
+          </a>
+        </div>
+
       </div>
     <%end%>
   </div>
