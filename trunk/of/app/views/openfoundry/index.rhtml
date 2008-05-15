@@ -21,16 +21,14 @@
 </div>
 <div id="RightWidget">
   <div id="HomeRight">
-    <h3><img src="/images/of/icon06.gif" align="left" valign="middle" />下載排行</h3>
+    <h3><img src="/images/of/icon05.gif" align="left" />專案新聞<%#=link_to_remote( "<img src='http://publib.boulder.ibm.com/infocenter/tivihelp/v10r1/topic/com.ibm.ccmdb.doc/cmdb_user/images/icon_reload.gif' style='border:none;' border='0'></img>", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %></h3>
+    <%= render :partial => "news/listn", :locals => {:newsList => News.ProjectNews}%>
+    <h3><img src="/images/of/icon06.gif" align="left" valign="middle" />最新釋出</h3>
     <ul>
       <li>Create Animation Make a</li>
       <li>TinyTux with Pho ... Make a</li>
       <li>Buddy Make a porthole !</li>
     </ul>
-    <h3><img src="/images/of/icon05.gif" align="left" />專案新聞<%#=link_to_remote( "<img src='http://publib.boulder.ibm.com/infocenter/tivihelp/v10r1/topic/com.ibm.ccmdb.doc/cmdb_user/images/icon_reload.gif' style='border:none;' border='0'></img>", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %></h3>
-    <%= render :partial => "news/listn", :locals => {:newsList => News.ProjectNews}%>
-    <h3><img src="/images/of/icon05.gif" align="left" />專案目錄</h3>
-    <%= render :partial => "partials/category" %>
   </div>
 </div>
 <div id="Home">
@@ -42,29 +40,5 @@
   
   <h3><img src="/images/of/main_icon02.gif" align="left" />釋出資訊</h3>
   <div>
-   <h4>OpenFoundry 0.1</h4>
-    <pre>
-    * OpenFoundry 0.1 (frontend / sympa / kwiki)
-    ** Ruby on Rails
-    ** MySQL
-    ** 0.1 features
-    *** 可 Project / User / Relationship 的 CRUD
-    *** 原 foundry data migration
-    *** 支援 sympa / kwiki
-    *** 不考慮美工
-    *** 採 utf-8, 支援繁體中文與英文 
-    </pre>
-    <pre>
-    * OpenFoundry 0.2 (2007/06/18)
-    ** 0.2 features
-    *** CVS / Subversion
-    *** Search (不含子系統)
-    **** 全文檢索
-    **** 分類搜尋
-    *** Tagging
-    **** Tag Cloud
-    **** Tags 搜尋
-    </pre>
-    Subversion: http://svn.openfoundry.org/openfoundry/
   </div>
 </div>
