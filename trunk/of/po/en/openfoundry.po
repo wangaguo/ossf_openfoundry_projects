@@ -668,7 +668,7 @@ msgstr "Home"
 
 #: app/views/layouts/application.rhtml:38
 msgid "menu_OpenFoundry News"
-msgstr "News"
+msgstr "OpenFoundry News"
 
 #: app/views/layouts/application.rhtml:39
 msgid "menu_About OSSF"
@@ -687,8 +687,8 @@ msgid "menu_Overview"
 msgstr "Overview"
 
 #: app/views/layouts/application.rhtml:49
-msgid "menu_News"
-msgstr "News"
+msgid "menu_Project News"
+msgstr "Project News"
 
 #: app/views/layouts/application.rhtml:52
 msgid "menu_WebHosting"
