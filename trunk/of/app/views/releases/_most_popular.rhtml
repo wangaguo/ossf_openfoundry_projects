@@ -1,7 +1,9 @@
 <h3><img src="/images/of/icon02.gif" align="left" /><%=_('Top Download')%></h3>
 <ul>
-  <li>Create Animation Make a</li>
-  <li>TinyTux with Pho ... Make a</li>
-  <li>Buddy Make a porthole !</li>
+  <%for download in downloadList %>
+    <li>
+      <%= link_to download.name, :controller => "release", :action => "show", :id => download.id %>
+    </li>
+    <%end %>
 </ul>
 

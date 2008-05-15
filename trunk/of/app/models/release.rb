@@ -27,4 +27,7 @@ class Release < ActiveRecord::Base
     Dir.mkdir(prefix) unless File.exist?(prefix)    
     File::umask(tmp_umask)
   end
+  def self.top_download
+    Release.find(:all, :order => "release_counter desc", :limit => 5)
+  end
 end
