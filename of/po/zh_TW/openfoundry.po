@@ -687,7 +687,7 @@ msgid "menu_Overview"
 msgstr "專案一覽"
 
 #: app/views/layouts/application.rhtml:49
-msgid "menu_News"
+msgid "menu_Project News"
 msgstr "專案新聞"
 
 #: app/views/layouts/application.rhtml:52
