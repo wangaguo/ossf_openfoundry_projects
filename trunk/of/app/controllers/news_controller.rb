@@ -12,7 +12,6 @@ class NewsController < ApplicationController
   
   def index
     list
-    render :action => 'list'
   end
 
   def _home_news
@@ -20,7 +19,7 @@ class NewsController < ApplicationController
   end
   
   def project
-    @head1 = "專案新聞"
+    @head1 = _('project_News')
     @news = News.paginate(:page => params[:page], :per_page => 2, :conditions => ["catid<>0 and status='1'"], :order => "updated_at desc")
     render :action => 'list'
   end
@@ -31,10 +30,12 @@ class NewsController < ApplicationController
   def list
     if params[:project_id].nil? 
       project_id = 0
-      @head1 = "OpenFoundry 新聞"
+      @head1 = _('OpenFoundry News')
+      layout_name = "application"
     else
       project_id = params[:project_id]
-      @head1 = @project.summary + " 專案新聞"
+      @module_name = _('project_News')
+      layout_name = "module"
     end
     if permit?("site_admin") || (@project != nil && permit?("admin of :project"))
       sqlStatus = ''
@@ -45,9 +46,17 @@ class NewsController < ApplicationController
     add_to_sortable_columns('listing', News, 'updated_at', 'updated_at') 
     @news = News.paginate(:page => params[:page], :per_page => 2, :conditions => ["catid=?"+sqlStatus, project_id],
                           :order => sortable_order('listing', :model => News, :field => 'updated_at', :sort_direction => :desc) )
+    render :layout => layout_name, :template => 'news/list'
   end
   
   def show
+    if params[:project_id].nil? 
+      layout_name = "application"
+    else
+      @module_name = _('project_News')
+      layout_name = "module"
+    end
+    render :layout => layout_name, :template => 'news/show'
   end
   
   def new
