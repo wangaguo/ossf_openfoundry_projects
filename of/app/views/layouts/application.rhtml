@@ -135,7 +135,7 @@
     <%else%>
       <div id="HomeLeft">
         <%= render :partial => 'openfoundry/staticities' %>
-        <%= render :partial => 'releases/most_popular' %>
+        <%= render :partial => 'releases/most_popular', :locals => {:downloadList => Release.top_download} %>
         <%= render :partial => 'projects/most_active' %>
         <%= render :partial => 'partials/tagcloud'%>
         
