@@ -11,13 +11,14 @@ h4 { font-size:14px; }
 h1, h2, h3, h4 { color:#31659C; margin:3px; }
 /*input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }*/
 label { font-weight:bold; }
+img { border:none; }
 fieldset { border:solid 2px #DEE7FF; }
 fieldset legend { font-weight:bold; color:#4265DE; }
 a { text-decoration: none; color:#0D356F; }
 a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
 textarea { height:100px; width:500px; }
 ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
-.button { background:url(/images/button.gif) repeat-x; color:white; padding:0px; margin:0px; cursor:pointer; border:outset 2px #2E2C8F;}
+.button { background:url(/images/button.gif) repeat-x; color:white; cursor:pointer; padding:2px 5px; margin:0px; }
 .button:hover { background-position:bottom; }
 .odd { }
 .even { background-color:#EFF4FF; }
