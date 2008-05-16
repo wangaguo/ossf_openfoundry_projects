@@ -1,5 +1,5 @@
 # wwslib.pm - This module includes functions used by wwsympa.fcgi
-# RCS Identication ; $Revision: 1.53 $ ; $Date: 2006/01/27 14:54:23 $ 
+# RCS Identication ; $Revision: 4747 $ ; $Date: 2007-12-13 11:54:45 +0100 (jeu, 13 déc 2007) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -40,7 +40,7 @@ use Conf;
 		   'txt' => {'gettext_id' => 'text only mode'},
 		   'html'=> {'gettext_id' => 'html only mode'},
 		   'urlize' => {'gettext_id' => 'urlize mode'},
-		   'nomail' => {'gettext_id' => 'no mail (usefull for vacations)'},
+		   'nomail' => {'gettext_id' => 'no mail (useful for vacations)'},
 		   'not_me' => {'gettext_id' => 'you do not receive your own posts'}
 		   );
 
@@ -59,7 +59,7 @@ use Conf;
 
 ## Filenames with corresponding entry in NLS set 15
 %filenames = ('welcome.tt2'             => {'gettext_id' => "welcome message"},
-	      'bye.tt2'                 => {'gettext_id' => "unsubscription message"},
+	      'bye.tt2'                 => {'gettext_id' => "unsubscribe message"},
 	      'removed.tt2'             => {'gettext_id' => "deletion message"},
 	      'message.footer'          => {'gettext_id' => "message footer"},
 	      'message.header'          => {'gettext_id' => "message header"},
@@ -137,8 +137,9 @@ sub load_config {
     my $file = pop;
 
     ## Old params
-    my %old_param = ('alias_manager' => 'No more used, using --SBINDIR--/alias_manager.pl',
-		     'wws_path' => 'No more used');
+    my %old_param = ('alias_manager' => 'No more used, using '.$Conf{'alias_manager'},
+		     'wws_path' => 'No more used',
+		     'icons_url' => 'No more used. Using static_content/icons instead.');
 
     ## Valid params
     my %default_conf = (arc_path => '/home/httpd/html/arc',
@@ -148,9 +149,9 @@ sub load_config {
 			bounced_pidfile => '--PIDDIR--/bounced.pid',
 			cookie_domain => 'localhost',
 			cookie_expire => 0,
-			icons_url => '/icons',
 			mhonarc => '/usr/bin/mhonarc',
 			review_page_size => 25,
+			viewlogs_page_size => 25,
 			task_manager_pidfile => '--PIDDIR--/task_manager.pid',
 			title => 'Mailing Lists Service',
 			use_fast_cgi => 1,
@@ -254,20 +255,24 @@ sub load_mime_types {
 ## Returns user information extracted from the cookie
 sub get_email_from_cookie {
 #    &Log::do_log('debug', 'get_email_from_cookie');
+    my $cookie = shift;
     my $secret = shift;
+
     my ($email, $auth) ;
 
-    unless ($secret) {
+    # &Log::do_log('info', "get_email_from_cookie($cookie,$secret)");
+    
+    unless (defined $secret) {
 	&report::reject_report_web('intern','cookie_error',{},'','','',$robot);
-	&Log::do_log('info', 'parameter cookie undefine, authentication failure');
+	&Log::do_log('info', 'parameter cookie undefined, authentication failure');
     }
 
-    unless ($ENV{'HTTP_COOKIE'}) {
-	&report::reject_report_web('intern','cookie_error_env',{'env'=> ENV{HTTP_COOKIE}},'get_email_from_cookie','','',$robot);
-	&Log::do_log('info', ' ENV{HTTP_COOKIE} undefined, authentication failure');
+    unless ($cookie) {
+	&report::reject_report_web('intern','cookie_error',$cookie,'get_email_from_cookie','','',$robot);
+	&Log::do_log('info', ' cookie undefined, authentication failure');
     }
 
-    ($email, $auth) = &cookielib::check_cookie ($ENV{'HTTP_COOKIE'}, $secret);
+    ($email, $auth) = &cookielib::check_cookie ($cookie, $secret);
     unless ( $email) {
 	&report::reject_report_web('user','auth_failed',{},'');
 	&Log::do_log('info', 'get_email_from_cookie: auth failed for user %s', $email);
@@ -294,45 +299,6 @@ sub valid_email {
     
     $email =~ /^([\w\-\_\.\/\+\=]+|\".*\")\@[\w\-]+(\.[\w\-]+)+$/;
 }
-
-# create a cipher
-sub ciphersaber_installed {
-    if (eval "require Crypt::CipherSaber") {
-	require Crypt::CipherSaber;
-	return &Crypt::CipherSaber->new($Conf{'cookie'});
-    }else{
-	return ('no_cipher');
-    }
-}
-
-## encrypt a password
-sub crypt_passwd {
-    my $inpasswd = shift ;
-
-    unless (define($cipher)){
-	$cipher = ciphersaber_installed();
-    }
-    return $inpasswd if ($cipher eq 'no_cipher') ;
-    return ("crypt.".$cipher->encrypt ($inpasswd)) ;
-}
-
-## decrypt a password
-sub decrypt_passwd {
-    my $inpasswd = shift ;
-
-    return $inpasswd unless ($inpasswd =~ /^crypt\.(.*)$/) ;
-    $inpasswd = $1;
-
-    unless (define($cipher)){
-	$cipher = ciphersaber_installed();
-    }
-    if ($cipher eq 'no_cipher') {
-	do_log('info','password seems crypted while CipherSaber is not installed !');
-	return $inpasswd ;
-    }
-    return $cipher->decrypt ($inpasswd);
-}
-
 
 sub init_passwd {
     my ($email, $data) = @_;
@@ -376,7 +342,7 @@ sub get_my_url {
     my $return_url;
     
     ## Mod_ssl sets SSL_PROTOCOL ; apache-ssl sets SSL_PROTOCOL_VERSION
-    if ($ENV{SSL_PROTOCOL} || $ENV{SSL_PROTOCOL_VERSION}) {
+    if ($ENV{'HTTPS'} eq 'on') {
 	$return_url = 'https';
     }else{
 	$return_url = 'http';	
@@ -387,6 +353,7 @@ sub get_my_url {
     $return_url .= $ENV{'REQUEST_URI'};
     return ($return_url);
 }
+
 
 1;
 

@@ -240,7 +240,7 @@ sub search
 	foreach $file (@MSGFILES) 
 	{
 		my ($subj,$from,$date,$id,$body_ref);
-		unless (open FH, "<$file")
+		unless (open FH, ,'<:bytes',  $file)
 		{
 #			$self->error("Couldn't open file $file, $!");
 		}
@@ -255,15 +255,26 @@ sub search
 		# think, a good argument in favor of open source code!
 		while (<FH>)
 		{
-			if (/^<!--X-Subject: (.*) -->/)
+		        ## Next line is appended to the subject
+			if (defined $subj) {
+			    $subj .= $1 if (/\s(.*)( -->|$)/);
+					    if (/-->$/) {
+						$subj =~ s/ -->$//;
+						last;
+					    }
+			    } elsif (/^<!--X-Subject: (.*)( -->|$)/)
 			{
-			        $subj = &MIME::Words::decode_mimewords($1);
-			        #$subj = $1;
-				last;
+			    ## No more need to decode header fields
+			    # $subj = &MIME::Words::decode_mimewords($1); 
+			    $subj = $1;
+			    last if (/-->/);
 			} 
 		} 
 		($from = <FH>) =~ s/^<!--X-From-R13: (.*) -->/$1/;
-		$from = &MIME::Words::decode_mimewords($from);
+
+		## No more need to decode header fields
+		#$from = &MIME::Words::decode_mimewords($from);
+		
 		$from =~ tr/N-Z[@A-Mn-za-m/@A-Z[a-z/;
 		($date = <FH>) =~ s/^<!--X-Date: (.*) -->/$1/;
         ($id = <FH>) =~ s/^<!--X-Message-Id: (.*) -->/$1/;

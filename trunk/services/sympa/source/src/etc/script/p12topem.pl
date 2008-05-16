@@ -3,7 +3,7 @@
 # p12topem.pl - This script installs a List X509 cert and
 # the associated private key in list directory
 # Input is PKCS#12 file
-# RCS Identication ; $Revision: 1.7 $ ; $Date: 2005/08/12 15:46:18 $ 
+# RCS Identication ; $Revision: 4469 $ ; $Date: 2007-06-26 15:20:24 +0200 (mar, 26 jun 2007) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -40,7 +40,7 @@ unless (&Conf::load($sympa_conf_file)) {
 
 ## Probe Db if defined
 if ($Conf{'db_name'} and $Conf{'db_type'}) {
-    unless ($List::use_db = &List::probe_db()) {
+    unless (&Upgrade::probe_db()) {
 	&die('Database %s defined in sympa.conf has not the right structure or is unreachable. If you don\'t use any database, comment db_xxx parameters in sympa.conf', $Conf{'db_name'});
     }
 }
