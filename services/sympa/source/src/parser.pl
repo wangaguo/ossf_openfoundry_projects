@@ -1,7 +1,7 @@
 # List.pm -  This module provides parsing functions for sympa template files.
 # These templates consists of text files including variables and directives
 # (IF, FOREACH, INCLUDE, PARSE,...)
-# RCS Identication ; $Revision: 4790 $ ; $Date: 2008-01-07 16:25:58 +0100 (lun, 07 jan 2008) $ 
+# RCS Identication ; $Revision: 1.19 $ ; $Date: 2004/04/08 08:51:40 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -23,12 +23,10 @@
 
 package parser;
 
-use strict "vars";
-
 use FileHandle;
 use Log;
 
-my ($index, @t, $data, $recurse, $internal, $previous_file, %option, $current_output);
+my ($index, @t, $data, $internal, $previous_file, %option, $current_output);
 
 ## The main parsing sub
 ## Parameters are   
@@ -242,7 +240,6 @@ sub do_foreach {
     &do_log('debug3','Parser [%d] do_foreach(%s)', $index, $t[$index]);
 
     if (/\[\s*FOREACH\s+(\w+)\s+IN\s+(\w+)(\->(\w+))?\s*\]/i) {
-      my ($key, $key2);
 	($var, $key, $key2) = ($1, $2, $4);
 	$start = $index;
 

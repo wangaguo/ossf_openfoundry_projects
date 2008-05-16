@@ -1,5 +1,5 @@
 # Makefile - This Makefile does the mail templates installation
-# RCS Identication ; $Revision: 4097 $ ; $Date: 2006-12-21 10:10:01 +0100 (jeu, 21 déc 2006) $ 
+# RCS Identication ; $Revision: 1.4 $ ; $Date: 2005/08/11 12:27:15 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -66,5 +66,4 @@ installtemplates:
 	$(PERL) ../set_symlinks.pl mail_tt2 $(DESTDIR)$(ETCBINDIR)/mail_tt2
 	find $(DESTDIR)$(ETCBINDIR) -type d -exec chmod 755 {} \;
 	find $(DESTDIR)$(ETCBINDIR) -type f -exec chmod 444 {} \;
-	rm -f $(DESTDIR)$(ETCBINDIR)/web_tt2/authorization_reject.tt2 ; \
-	(cd $(DESTDIR)$(ETCBINDIR)/web_tt2 ; ln -s ../mail_tt2/authorization_reject.tt2 authorization_reject.tt2)
+	rm -f $(DESTDIR)$(ETCBINDIR)/web_tt2/authorization_reject.tt2 ; ln -s $(DESTDIR)$(ETCBINDIR)/mail_tt2/authorization_reject.tt2 $(DESTDIR)$(ETCBINDIR)/web_tt2

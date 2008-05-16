@@ -1,5 +1,5 @@
 # Makefile - This Makefile does Sympa samples installation
-# RCS Identication ; $Revision: 4215 $ ; $Date: 2007-03-30 14:42:00 +0200 (ven, 30 mar 2007) $ 
+# RCS Identication ; $Revision: 1.7 $ ; $Date: 2004/07/05 14:21:19 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -19,9 +19,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-SRC	=	README trusted_applications.conf
+SRC	=	README config.* 
 
-SUBSTSRC	=	robot.conf *.ldap
+SUBSTSRC	=	sympa.conf wwsympa.conf
 
 SAMPLEDIR	=	$(DIR)/sample
 

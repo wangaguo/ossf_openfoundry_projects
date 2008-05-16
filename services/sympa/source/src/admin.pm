@@ -1,5 +1,5 @@
 # admin.pm - This module includes administrative function for the lists
-# RCS Identication ; $Revision: 4747 $ ; $Date: 2007-12-13 11:54:45 +0100 (jeu, 13 déc 2007) $ 
+# RCS Identication ; $Revision: 1.12 $ ; $Date: 2005/12/08 15:43:00 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -19,18 +19,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-=pod 
-
-=head1 NAME 
-
-I<admin.pm> - This module includes administrative function for the lists.
-
-=head1 DESCRIPTION 
-
-Central module for creating and editing lists.
-
-=cut 
-
 package admin;
 
 use strict;
@@ -38,99 +26,10 @@ use strict;
 ## Sympa API
 use List;
 use Conf;
-use Language;
 use Log;
 
 require "--LIBDIR--/tools.pl";
 
-
-=pod 
-
-=head1 SUBFUNCTIONS 
-
-This is the description of the subfunctions contained by admin.pm 
-
-=cut 
-
-=pod 
-
-=head2 sub create_list_old(HASHRef,STRING,STRING)
-
-Creates a list. Used by the create_list() sub in sympa.pl and the do_create_list() sub in wwsympa.fcgi.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$param>, a ref on a hash containing parameters of the config list. The following keys are mandatory:
-
-=over 4
-
-=item - I<$param-E<gt>{'listname'}>,
-
-=item - I<$param-E<gt>{'subject'}>,
-
-=item - I<$param-E<gt>{'owner'}>, (or owner_include): array of hashes, with key email mandatory
-
-=item - I<$param-E<gt>{'owner_include'}>, array of hashes, with key source mandatory
-
-=back
-
-=item * I<$template>, a string containing the list creation template
-
-=item * I<$robot>, a string containing the name of the robot the list will be hosted by.
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<undef>, if something prevents the list creation
-
-=item * I<a reference to a hash>, if the list is normally created. This hash contains two keys:
-
-=over 4
-
-=item - I<list>, the list object corresponding to the list just created
-
-=item - I<aliases>, undef if not applicable; 1 (if ok) or $aliases : concatenated string of aliases if they are not installed or 1 (in status open)
-
-=back
-
-=back 
-
-=head3 Calls 
-
-=item * check_owner_defined
-
-=item * check_topics
-
-=item * install_aliases
-
-=item * list_check_smtp
-
-=item * Conf::get_robot_conf
-
-=item * Language::gettext_strftime
-
-=item * List::create_shared
-
-=item * List::has_include_data_sources
-
-=item * List::sync_includetools::get_filename
-
-=item * Log::do_log
-
-=item * tools::get_regexp
-
-=item * tools::make_tt2_include_path
-
-=item * tt2::parse_tt2 
-
-=back 
-
-=cut 
 
 ########################################################
 # create_list_old                                       
@@ -148,17 +47,16 @@ Creates a list. Used by the create_list() sub in sympa.pl and the do_create_list
 #         $param->{'owner_include'} array of hash :
 #              with key source obligatory
 #       - $template : the create list template 
-#       - $robot : the list's robot       
-#       - $origin : the source of the command : web, soap or command_line  
+#       - $robot : the list's robot         
 # OUT : - hash with keys :
 #          -list :$list
-#          -aliases : undef if not applicable; 1 (if ok) or
+#          -aliases :1 (if ok) or
 #           $aliases : concated string of alias if they 
 #           are not installed or 1(in status open)
 #######################################################
 sub create_list_old{
-    my ($param,$template,$robot,$origin) = @_;
-    &do_log('debug', 'admin::create_list_old(%s,%s)',$param->{'listname'},$robot,$origin);
+    my ($param,$template,$robot) = @_;
+    &do_log('debug', 'admin::create_list_old(%s,%s)',$param->{'listname'},$robot);
 
      ## obligatory list parameters 
     foreach my $arg ('listname','subject') {
@@ -187,9 +85,8 @@ sub create_list_old{
    
     ## check listname
     $param->{'listname'} = lc ($param->{'listname'});
-    my $listname_regexp = &tools::get_regexp('listname');
 
-    unless ($param->{'listname'} =~ /^$listname_regexp$/i) {
+    unless ($param->{'listname'} =~ /^$tools::regexp{'listname'}$/i) {
 	&do_log('err','admin::create_list_old : incorrect listname %s', $param->{'listname'});
 	return undef;
     }
@@ -210,8 +107,7 @@ sub create_list_old{
 		$Conf{'list_check_smtp'});
 	return undef;
     }
-    
-    ## Check this listname doesn't exist already.
+
     if( $res || new List ($param->{'listname'}, $robot, {'just_try' => 1})) {
 	&do_log('err', 'admin::create_list_old : could not create already existing list %s for ', 
 		$param->{'listname'});
@@ -222,8 +118,7 @@ sub create_list_old{
     }
 
 
-    ## Check the template supposed to be used exist.
-    my $template_file = &tools::get_filename('etc',{},'create_list_templates/'.$template.'/config.tt2', $robot);
+    my $template_file = &tools::get_filename('etc', 'create_list_templates/'.$template.'/config.tt2', $robot);
     unless (defined $template_file) {
 	&do_log('err', 'no template %s found',$template);
 	return undef;
@@ -245,7 +140,6 @@ sub create_list_old{
 	 $list_dir = $Conf{'home'}.'/'.$param->{'listname'};
      }
 
-    ## Check the privileges on the list directory
      unless (mkdir ($list_dir,0777)) {
 	 &do_log('err', 'admin::create_list_old : unable to create %s : %s',$list_dir,$?);
 	 return undef;
@@ -260,58 +154,25 @@ sub create_list_old{
       
     ## Creation of the config file
     my $host = &Conf::get_robot_conf($robot, 'host');
-    $param->{'creation'}{'date'} = gettext_strftime "%d %b %Y at %H:%M:%S", localtime(time);
+    $param->{'creation'}{'date'} = &POSIX::strftime("%d %b %Y at %H:%M:%S", localtime(time));
     $param->{'creation'}{'date_epoch'} = time;
     $param->{'creation_email'} = "listmaster\@$host" unless ($param->{'creation_email'});
     $param->{'status'} = 'open'  unless ($param->{'status'});
        
     my $tt2_include_path = &tools::make_tt2_include_path($robot,'create_list_templates/'.$template,'','');
 
-    ## Lock config before openning the config file
-    my $lock = new Lock ($list_dir.'/config');
-    unless (defined $lock) {
-	&do_log('err','Lock could not be created');
-	return undef;
-    }
-    $lock->set_timeout(5); 
-    unless ($lock->lock('write')) {
-	return undef;
-    }
-    if($origin eq "command_line") {
-	open CONFIG, '>:utf8', "$list_dir/config";
-    }
-    else {
-	open CONFIG, '>:bytes', "$list_dir/config";
-    }
-    ## Use an intermediate handler to encode to filesystem_encoding
-    my $config = '';
-    my $fd = new IO::Scalar \$config;    
-    &tt2::parse_tt2($param, 'config.tt2', $fd, $tt2_include_path);
-#    Encode::from_to($config, 'utf8', $Conf{'filesystem_encoding'});
-    print CONFIG $config;
-
+    open CONFIG, ">$list_dir/config";
+    &tt2::parse_tt2($param, 'config.tt2', \*CONFIG, $tt2_include_path);
     close CONFIG;
     
-    ## Unlock config file
-    $lock->unlock();
-
     ## Creation of the info file 
     # remove DOS linefeeds (^M) that cause problems with Outlook 98, AOL, and EIMS:
     $param->{'description'} =~ s/\015//g;
-
-    ## info file creation. Use UTF-8 for command line orgigin only.
-    if($origin eq "command_line") {
-	unless (open INFO, '>:utf8', "$list_dir/info") {
-	    &do_log('err','Impossible to create %s/info : %s',$list_dir,$!);
-	}
-    }
-    else {
-	unless (open INFO, '>:bytes', "$list_dir/info") {
-	    &do_log('err','Impossible to create %s/info : %s',$list_dir,$!);
-	}
+    
+    unless (open INFO, ">$list_dir/info") {
+	&do_log('err','Impossible to create %s/info : %s',$list_dir,$!);
     }
     if (defined $param->{'description'}) {
-	Encode::from_to($param->{'description'}, 'utf8', $Conf{'filesystem_encoding'});
 	print INFO $param->{'description'};
     }
     close INFO;
@@ -337,13 +198,6 @@ sub create_list_old{
     }
 
     $return->{'aliases'} = 1;
-
-    ## Synchronize list members if required
-    if ($list->has_include_data_sources()) {
-	&do_log('notice', "Synchronizing list members...");
-	$list->sync_include();
-    }   
-
     return $return;
 }
 
@@ -363,17 +217,14 @@ sub create_list_old{
 #              with key source obligatory
 #       - $family : the family object 
 #       - $robot : the list's robot         
-#       - $abort_on_error : won't create the list directory on
-#          tt2 process error (usefull for dynamic lists that
-#          throw exceptions)
 # OUT : - hash with keys :
 #          -list :$list
-#          -aliases : undef if not applicable; 1 (if ok) or
+#          -aliases :1 (if ok) or
 #           $aliases : concated string of alias if they 
 #           are not installed or 1(in status open)
 #######################################################
 sub create_list{
-    my ($param,$family,$robot, $abort_on_error) = @_;
+    my ($param,$family,$robot) = @_;
     &do_log('info', 'admin::create_list(%s,%s,%s)',$param->{'listname'},$family->{'name'},$param->{'subject'});
 
     ## mandatory list parameters 
@@ -397,9 +248,8 @@ sub create_list{
    
     ## check listname
     $param->{'listname'} = lc ($param->{'listname'});
-    my $listname_regexp = &tools::get_regexp('listname');
 
-    unless ($param->{'listname'} =~ /^$listname_regexp$/i) {
+    unless ($param->{'listname'} =~ /^$tools::regexp{'listname'}$/i) {
 	&do_log('err','admin::create_list : incorrect listname %s', $param->{'listname'});
 	return undef;
     }
@@ -430,18 +280,10 @@ sub create_list{
     }
 
     ## template file
-    my $template_file = &tools::get_filename('etc',{},'config.tt2', $robot,$family);
+    my $template_file = &tools::get_filename('etc', 'config.tt2', $robot,$family);
     unless (defined $template_file) {
 	&do_log('err', 'admin::create_list : no config template from family %s@%s',$family->{'name'},$robot);
 	return undef;
-    }
-
-    my $conf;
-    my $tt_result = &tt2::parse_tt2($param, 'config.tt2', \$conf, [$family->{'dir'}]);
-    unless (defined $tt_result || !$abort_on_error) {
-      &do_log('err', 'admin::create_list : abort on tt2 error. List %s from family %s@%s',
-                $param->{'listname'}, $family->{'name'},$robot);
-      return undef;
     }
 
      ## Create the list directory
@@ -459,7 +301,7 @@ sub create_list{
 	$list_dir = $Conf{'home'}.'/'.$param->{'listname'};
     }
 
-     unless (-r $list_dir || mkdir ($list_dir,0777)) {
+     unless (mkdir ($list_dir,0777)) {
 	 &do_log('err', 'admin::create_list : unable to create %s : %s',$list_dir,$?);
 	 return undef;
      }    
@@ -468,34 +310,20 @@ sub create_list{
     if (defined $param->{'topics'}){
 	unless (&check_topics($param->{'topics'},$robot)){
 	    &do_log('err', 'admin::create_list : topics param %s not defined in topics.conf',$param->{'topics'});
+	    return undef;
 	}
     }
       
-    ## Lock config before openning the config file
-    my $lock = new Lock ($list_dir.'/config');
-    unless (defined $lock) {
-	&do_log('err','Lock could not be created');
-	return undef;
-    }
-    $lock->set_timeout(5); 
-    unless ($lock->lock('write')) {
-	return undef;
-    }
-
     ## Creation of the config file
-    open CONFIG, '>:utf8', "$list_dir/config";
-    #&tt2::parse_tt2($param, 'config.tt2', \*CONFIG, [$family->{'dir'}]);
-    print CONFIG $conf;
+    open CONFIG, ">$list_dir/config";
+    &tt2::parse_tt2($param, 'config.tt2', \*CONFIG, [$family->{'dir'}]);
     close CONFIG;
     
-    ## Unlock config file
-    $lock->unlock();
-
     ## Creation of the info file 
     # remove DOS linefeeds (^M) that cause problems with Outlook 98, AOL, and EIMS:
     $param->{'description'} =~ s/\015//g;
     
-    unless (open INFO, '>:utf8', "$list_dir/info") {
+    unless (open INFO, ">$list_dir/info") {
 	&do_log('err','Impossible to create %s/info : %s',$list_dir,$!);
     }
     if (defined $param->{'description'}) {
@@ -515,7 +343,7 @@ sub create_list{
 	$list->create_shared();
     }   
     
-    $list->{'admin'}{'creation'}{'date'} = gettext_strftime "%d %b %Y at %H:%M:%S", localtime(time);
+    $list->{'admin'}{'creation'}{'date'} = &POSIX::strftime("%d %b %Y at %H:%M:%S", localtime(time));
     $list->{'admin'}{'creation'}{'date_epoch'} = time;
     if ($param->{'creation_email'}) {
 	$list->{'admin'}{'creation'}{'email'} = $param->{'creation_email'};
@@ -539,13 +367,6 @@ sub create_list{
     }
 
     $return->{'aliases'} = 1;
-
-    ## Synchronize list members if required
-    if ($list->has_include_data_sources()) {
-	&do_log('notice', "Synchronizing list members...");
-	$list->sync_include();
-    }
-
     return $return;
 }
 
@@ -582,7 +403,7 @@ sub update_list{
     }
 
     ## template file
-    my $template_file = &tools::get_filename('etc',{}, 'config.tt2', $robot,$family);
+    my $template_file = &tools::get_filename('etc', 'config.tt2', $robot,$family);
     unless (defined $template_file) {
 	&do_log('err', 'admin::update_list : no config template from family %s@%s',$family->{'name'},$robot);
 	return undef;
@@ -592,27 +413,14 @@ sub update_list{
     if (defined $param->{'topics'}){
 	unless (&check_topics($param->{'topics'},$robot)){
 	    &do_log('err', 'admin::update_list : topics param %s not defined in topics.conf',$param->{'topics'});
+	    return undef;
 	}
     }
 
-    ## Lock config before openning the config file
-    my $lock = new Lock ($list->{'dir'}.'/config');
-    unless (defined $lock) {
-	&do_log('err','Lock could not be created');
-	return undef;
-    }
-    $lock->set_timeout(5); 
-    unless ($lock->lock('write')) {
-	return undef;
-    }
-
     ## Creation of the config file
-    open CONFIG, '>:utf8', "$list->{'dir'}/config";
+    open CONFIG, ">$list->{'dir'}/config";
     &tt2::parse_tt2($param, 'config.tt2', \*CONFIG, [$family->{'dir'}]);
     close CONFIG;
-
-    ## Unlock config file
-    $lock->unlock();
 
     ## Create list object
     my $list;
@@ -621,7 +429,7 @@ sub update_list{
 	return undef;
     }
 ############## ? update
-    $list->{'admin'}{'creation'}{'date'} = gettext_strftime "%d %b %Y at %H:%M:%S", localtime(time);
+    $list->{'admin'}{'creation'}{'date'} = &POSIX::strftime("%d %b %Y at %H:%M:%S", localtime(time));
     $list->{'admin'}{'creation'}{'date_epoch'} = time;
     if ($param->{'creation_email'}) {
 	$list->{'admin'}{'creation'}{'email'} = $param->{'creation_email'};
@@ -636,12 +444,6 @@ sub update_list{
 	$list->{'admin'}{'status'} = 'open';
     }
     $list->{'admin'}{'family_name'} = $family->{'name'};
-
-    ## Synchronize list members if required
-    if ($list->has_include_data_sources()) {
-	&do_log('notice', "Synchronizing list members...");
-	$list->sync_include();
-    }
 
     return $list;
 }
@@ -799,20 +601,16 @@ sub check_owner_defined {
 #
 # IN  : - $list : object list
 #       - $robot : the list's robot
-# OUT : - undef if not applicable
-#         1 (if ok) or
+# OUT : - 1 (if ok) or
 #         $resul : concated string of alias not installed 
 ##########################################################
 sub install_aliases {
     my $list = shift;
     my $robot = shift;
     &do_log('debug', "admin::install_aliases($list->{'name'},$robot)");
-
-    return 1
-	if ($Conf{'sendmail_aliases'} =~ /^none$/i);
-
+  
     my $alias_installed = 0;
-    my $alias_manager = $Conf{'alias_manager' };
+    my $alias_manager = '--SBINDIR--/alias_manager.pl';
     &do_log('debug2',"admin::install_aliases : $alias_manager add $list->{'name'} $list->{'admin'}{'host'}");
      if (-x $alias_manager) {
 	 system ("$alias_manager add $list->{'name'} $list->{'admin'}{'host'}") ;
@@ -876,8 +674,7 @@ sub install_aliases {
 #
 # IN  : - $list : object list
 #       - $robot : the list's robot
-# OUT : - undef if not applicable
-#         1 (if ok) or
+# OUT : - 1 (if ok) or
 #         $aliases : concated string of alias not removed
 #########################################################
 
@@ -885,9 +682,6 @@ sub install_aliases {
      my $list = shift;
      my $robot = shift;
      &do_log('info', "_remove_aliases($list->{'name'},$robot");
-
-    return 1
-	if ($Conf{'sendmail_aliases'} =~ /^none$/i);
 
      my $status = $list->remove_aliases();
      my $suffix = &Conf::get_robot_conf($robot, 'return_path_suffix');
@@ -946,17 +740,3 @@ sub check_topics {
 
 ########################################""
 return 1;
-
-=pod 
-
-=head1 AUTHORS 
-
-=over 
-
-=item * Serge Aumont <sa AT cru.fr> 
-
-=item * Olivier Salaun <os AT cru.fr> 
-
-=back 
-
-=cut 

@@ -1,5 +1,5 @@
 /* boucequeue.c - This program does the non-delivery deports spooling
-  RCS Identication ; $Revision: 4399 $ ; $Date: 2007-05-15 14:01:14 +0200 (mar, 15 mai 2007) $ 
+  RCS Identication ; $Revision: 1.7 $ ; $Date: 2006/03/21 09:59:04 $ 
 
   Sympa - SYsteme de Multi-Postage Automatique
   Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -85,7 +85,7 @@ main(int argn, char **argv)
    char	*bouncedir;
    char        *listname;
    unsigned int		priority;
-   int			firstline = 1;
+   int			firstfrom = 0;
 
    /* Usage : bouncequeue list-name */
    if (argn != 2) {
@@ -110,11 +110,10 @@ main(int argn, char **argv)
    write(fd, listname, strlen(listname));
    write(fd, "\n", 1);
    while (fgets(buf, sizeof buf, stdin) != NULL) {
-      if (firstline == 1 && strncmp(buf, "From ", 5) == 0) {
-         firstline = 0;
+      if (firstfrom == 0 && strncmp(buf, "From ", 5) == 0) {
+         firstfrom = 1;
          continue;
       }
-      firstline = 0;
       write(fd, buf, strlen(buf));
    }
    while ((i = read(fileno(stdin), buf, sizeof buf)) > 0)

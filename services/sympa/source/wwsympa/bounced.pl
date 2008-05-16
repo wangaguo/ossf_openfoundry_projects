@@ -2,7 +2,7 @@
 
 # bounced.pl - This script runs as a daemon ; it does the incoming 
 # non-delivery reports analysis and storage
-# RCS Identication ; $Revision: 4972 $ ; $Date: 2008-04-16 11:27:37 +0200 (mer, 16 avr 2008) $ 
+# RCS Identication ; $Revision: 1.56.2.1 $ ; $Date: 2006/04/19 13:21:17 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -79,10 +79,7 @@ use wwslib;
 #getopts('dF');
 ## Check options
 my %options;
-unless (&GetOptions(\%main::options, 'debug|d','log_level=s','foreground|F')) {
-    &fatal_err("Unknown options.");
-}
-
+&GetOptions(\%main::options, 'debug|d','log_level=s','foreground|F');
 # $main::options{'debug2'} = 1 if ($main::options{'debug'});
 
 if ($main::options{'debug'}) {
@@ -90,14 +87,10 @@ if ($main::options{'debug'}) {
 }
 
 $main::options{'foreground'} = 1 if ($main::options{'debug'});
-$main::options{'log_to_stderr'} = 1 if ($main::options{'debug'} || $main::options{'foreground'});
 
 
 my $wwsympa_conf = "--WWSCONFIG--";
 my $sympa_conf_file = '--CONFIG--';
-
-my $daemon_name = &Log::set_daemon($0);
-my $ip = $ENV{'REMOTE_HOST'};
 
 my $wwsconf = {};
 
@@ -116,8 +109,13 @@ unless (Conf::load($sympa_conf_file)) {
 unshift @INC, $wwsconf->{'wws_path'};
 
 ## Check databse connectivity
-unless (&List::check_db_connect()) {
-    &fatal_err('Database %s defined in sympa.conf has not the right structure or is unreachable.', $Conf{'db_name'});
+unless ($List::use_db = &List::check_db_connect()) {
+    print STDERR "Sympa not setup to use DBI, unable to manage bounces\n";
+    exit (-1);
+}
+## Check databse connectivity
+unless ($List::use_db = &List::check_db_connect()) {
+    &fatal_err('Database %s defined in sympa.conf has not the right structure or is unreachable. If you don\'t use any database, comment db_xxx parameters in sympa.conf', $Conf{'db_name'});
 }
 
 ## Put ourselves in background if not in debug mode. 
@@ -141,13 +139,7 @@ unless ($main::options{'debug'} || $main::options{'foreground'}) {
 ## Create and write the pidfile
 &tools::write_pid($wwsconf->{'bounced_pidfile'}, $$);
 
-if ($main::options{'log_level'}) {
-    &Log::set_log_level($main::options{'log_level'});
-    do_log('info', "Configuration file read, log level set using options : $main::options{'log_level'}"); 
-}else{
-    &Log::set_log_level($Conf{'log_level'});
-    do_log('info', "Configuration file read, default log level $Conf{'log_level'}"); 
-}
+$log_level = $main::options{'log_level'} || $Conf{'log_level'};
 
 $wwsconf->{'log_facility'}||= $Conf{'syslog'};
 do_openlog($wwsconf->{'log_facility'}, $Conf{'log_socket_type'}, 'bounced');
@@ -160,17 +152,13 @@ $< = $> = (getpwnam('--USER--'))[2];
 &POSIX::setuid((getpwnam('--USER--'))[2]);
 &POSIX::setgid((getgrnam('--GROUP--'))[2]);
 
-## Check if the UID has correctly been set (usefull on OS X)
-unless (($( == (getgrnam('--GROUP--'))[2]) && ($< == (getpwnam('--USER--'))[2])) {
-    &fatal_err("Failed to change process userID and groupID. Note that on some OS Perl scripts can't change their real UID. In such circumstances Sympa should be run via SUDO.");
-}
-
 ## Sets the UMASK
 umask(oct($Conf{'umask'}));
 
 ## Change to list root
 unless (chdir($Conf{'home'})) {
-     &do_log('info','Unable to change directory');
+    &report::reject_report_web('intern','chdir_error',{},'','','',$Conf{'host'});
+    &do_log('info','Unable to change directory');
     exit (-1);
 }
 
@@ -186,7 +174,6 @@ my $end = 0;
 
 my $queue = $Conf{'queuebounce'};
 
-do_log('debug','starting infinite loop');
 ## infinite loop scanning the queue (unless a sig TERM is received
 while (!$end) {
     ## this sleep is important to be raisonably sure that sympa is not currently
@@ -200,48 +187,32 @@ while (!$end) {
 	fatal_err("Can't open dir %s: %m", $queue); ## No return.
     }
 
-    my @files =  (sort grep(!/^(\.|T\.|BAD\-)/, readdir DIR ));
+    my @files =  (sort grep(!/^(\.{1,2}|T\..*|BAD\-.*)$/, readdir DIR ));
     closedir DIR;
     foreach my $file (@files) {
 
 	last if $end;
-	next unless (-f "$queue/$file");
 	
 	unless ($file =~ /^(\S+)\.\d+\.\d+$/) {
 	    my @s = stat("$queue/$file");
 	    if (POSIX::S_ISREG($s[2])) {
 		do_log ('notice',"Ignoring file $queue/$file because unknown format");
-		&ignore_bounce({'file' => $file,
-				'queue' => $queue,
-			    });
 	        unlink("$queue/$file");
 	    }
 	    next;
 	}
-
-	if ($file =~ /^(\S+)\.\d+\.\d+$/) {
-	    my ($listname, $robot) = split(/\@/,$1);
-	    $robot ||= &List::search_list_among_robots($listname);
-	}
 	
+	if (-z "$queue/$file") {
+	    do_log ('notice',"Ignoring file $queue/$file because empty file");
+	    unlink("$queue/$file");
+	}
 	my ($listname, $robot) = split(/\@/,$1);
 	$robot ||= &List::search_list_among_robots($listname);
 
-	if (-z "$queue/$file") {
-	    do_log ('notice',"Ignoring file $queue/$file because empty file");
-	    &ignore_bounce({'file' => $file,
-			    'robot' => $robot,
-			    'queue' => $queue,
-			});
-	    unlink("$queue/$file");
-	}
          
 	unless (open BOUNCE, "$queue/$file") {
 	    &do_log('notice', 'Could not open %s/%s: %s', $queue, $file, $!);
-	    &ignore_bounce({'file' => $file,
-			    'robot' => $robot,
-			    'queue' => $queue,
-			});
+	    rename "$queue/$file", "$queue/BAD-$file";
 	    next;
 	}
 	my $parser = new MIME::Parser;
@@ -277,10 +248,6 @@ while (!$end) {
 		my $list = new List ($listname, $robot);		
 		unless($list) {
 		    do_log('notice','Skipping bouncefile %s for unknown list %s@%s',$file,$listname,$robot);
-		    &ignore_bounce({'file' => $file,
-				    'robot' => $robot,
-				    'queue' => $queue,
-				});
 		    unlink("$queue/$file");
 		    next;
 		}
@@ -293,167 +260,28 @@ while (!$end) {
 		if ($action =~ /do_it/i) {
 		    if ($list->is_user($who)) {
 			my $u = $list->delete_user($who);
+			$list->save();
 			do_log ('notice',"$who has been removed from $listname because welcome message bounced");
-			&Log::db_log({'robot' => $list->{'domain'},'list' => $list->{'name'},'action' => 'del',
-				      'target_email' => $who,'status' => 'error','error_type' => 'welcome_bounced',
-				      'daemon' => 'bounced'});
-
-			if ($action =~ /notify/) {
-			    unless ($list->send_notify_to_owner('automatic_del',
-								{'who' => $who,
-								 'by' => 'bounce manager',
-								 'reason' => 'welcome'})) {
-				&wwslog('err',"Unable to send notify 'automatic_del' to $list->{'name'} list owner");
-			    } 
+			
+			unless ($list->send_notify_to_owner('notice',{'who' => $who, 
+								      'gecos' => "", 
+								      'command' => 'automatic_del', 
+								      'by' => 'listmaster'})) {
+			    &do_log('notice',"Unable to send notify 'notice' to $list->{'name'} list owner");
 			}
 		    }
 		}else {
 		    do_log ('notice',"Unable to remove $who from $listname (welcome message bounced but del is closed)");
-		    &ignore_bounce({'file' => $file,
-				    'robot' => $robot,
-				    'queue' => $queue,
-				});
 		}
 		unlink("$queue/$file");
 		next;
 	    }
 	}
-	if(($head->get('Content-type') =~ /multipart\/report/) && ($head->get('Content-type') =~ /report\-type\=feedback-report/)) {
-	    # this case a report Email Feedback Reports http://www.shaftek.org/publications/drafts/abuse-report/draft-shafranovich-feedback-report-01.txt mainly use by AOL
-	    do_log ('notice',"processing  Email Feedback Report");
-	    my @parts = $entity->parts();
-	    my $original_rcpt;
-	    my $user_agent;
-	    my $version;
-	    my $feedback_type = '';
-	    my $listname, $robot;
-	    foreach my $p (@parts) {
-		my $h = $p->head();
-		my $content = $h->get('Content-type');
-		next if ($content =~ /text\/plain/i);		 
-		if ($content =~ /message\/feedback-report/) {
-		    my @report = split(/\n/, $p->bodyhandle->as_string());
-		    foreach my $line (@report) {
-			$feedback_type = 'abuse' if ($line =~ /Feedback\-Type\:\s*abuse/i);
-			if ($line =~ /Feedback\-Type\:\s*(.*)/i) {
-			    $feedback_type = $1;
-			}
 
-			if ($line =~ /User\-Agent\:\s*(.*)/i) {
-			    $user_agent = $1;
-			}
-			if ($line =~ /Version\:\s*(.*)/i) {
-			    $version = $1;
-			}
-			my $email_regexp = &tools::get_regexp('email');
-			if ($line =~ /Original\-Rcpt\-To\:\s*($email_regexp)\s*$/i) {
-			    $original_rcpt = $1;
-			    chomp $original_rcpt;
-			}
-		    }
-		}elsif ($content =~ /message\/rfc822/) {
-		    # do_log ('notice',"xxx processing  Email Feedback Report : message/rfc822 part");
-		    my @subparts = $p->parts();
-		    foreach my $subp (@subparts) {
-			# do_log ('notice',"xxx subparts : subps");
-			my $subph =  $subp->head;
-			$listname = $subph->get('X-Loop');
-		    }
-		    # do_log ('notice',"xxx processing  Email Feedback Report : extract listname $listname");
-		}
-	    }
-	    my $forward ;
-	    ## RFC compliance remark: We do something if there is an abuse or an unsubscribe request.
-	    ## We don't throw an error if we find another kind of feedback (fraud, miscategorized, not-spam, virus or other)
-	    ## but we don't take action if we meet them yet. This is to be done, if relevant.
-	    if (($feedback_type =~ /(abuse|opt-out|opt-out-list|fraud|miscategorized|not-spam|virus|other)/i) && (defined $version) && (defined $user_agent)) {
-		
-		do_log ('debug',"Email Feedback Report: $listname feedback-type: $feedback_type");
-		if (defined $original_rcpt) {
-		    do_log ('debug',"Recognized user : $original_rcpt list");		
-		    my @lists;
-		    
-		    if (( $feedback_type =~ /(opt-out-list|abuse)/i ) && (defined $listname)) {
-			$listname = lc($listname);
-			chomp $listname ;
-			$listname =~ /(.*)\@(.*)/;
-			$listname = $1;
-			$robot = $2;
-			my $list = new List ($listname, $robot);
-			unless($list) {
-			    do_log('err','Skipping Feedback Report for unknown list %s@%s',$file,$listname,$robot);
-			    &ignore_bounce({'file' => $file,
-					    'robot' => $robot,
-					    'queue' => $queue,
-					});
-			    unlink("$queue/$file");
-			    next;
-			}
-			push @lists, $list;
-		    }elsif( $feedback_type =~ /opt-out/ && (defined $original_rcpt)){
-			@lists = &List::get_which($original_rcpt,$robot,'member');
-		    }else {
-			&do_log('notice','Ignoring Feedback Report %s : Nothing to do for this feedback type.(feedback_type:%s, original_rcpt:%s, listname:%s)',$file, $feedback_type, $original_rcpt, $listname );		
-			&ignore_bounce({'file' => $file,
-					'robot' => $robot,
-					'queue' => $queue,
-				    });
-		    }
-		    foreach my $list (@lists){
-			my $result =$list->check_list_authz('unsubscribe','smtp',{'sender' => $original_rcpt});
-			my $action;
-			$action = $result->{'action'} if (ref($result) eq 'HASH');		    
-			if ($action =~ /do_it/i) {
-			    if ($list->is_user($original_rcpt)) {
-				my $u = $list->delete_user($original_rcpt);
-				
-				do_log ('notice',"$original_rcpt has been removed from %s because abuse feedback report",$list->name);	
-				unless ($list->send_notify_to_owner('automatic_del',{'who' => $original_rcpt, 'by' => 'listmaster'})) {
-				    &do_log('notice',"Unable to send notify 'automatic_del' to $list->{'name'} list owner");
-				}
-			    }else{
-				do_log('err','Ignore Feedback Report %s for list %s@%s : user %s not subscribed',$file,$list->name,$robot,$original_rcpt);
-				unless ($list->send_notify_to_owner('warn-signoff',{'who' => $original_rcpt})) {
-				    &do_log('notice',"Unable to send notify 'warn-signoff' to $list->{'name'} list owner");
-				}
-			    }
-			}else{
-			    $forward = 'request';
-			    do_log('err','Ignore Feedback Report %s for list %s@%s : user %s is not allowed to unsubscribe',$file,$list->name,$robot,$original_rcpt);
-			}
-		    }
-		}else{
-		    do_log ('err','Ignoring Feedback Report %s : Unknown Original-Rcpt-To field. Can\'t do anything. (feedback_type:%s, listname:%s)',$file, $feedback_type, $listname );		
-		    &ignore_bounce({'file' => $file,
-				    'notify' => 1,
-				    'robot' => $robot,
-				    'queue' => $queue,
-				    'error' => "Unknown Original-Rcpt-To field (feedback_type:$feedback_type, listname:$listname)",
-				});
-		}
-	    }else{
-		do_log ('err','Ignoring Feedback Report %s : Unknown format (feedback_type:%s, original_rcpt:%s, listname:%s)',$file, $feedback_type, $original_rcpt, $listname );		
-		&ignore_bounce({'file' => $file,
-				'notify' => 1,
-				'robot' => $robot,
-				'queue' => $queue,
-				'error' => "Unknown format (feedback_type:$feedback_type, original_rcpt:$original_rcpt, listname:$listname)",
-			    });
-	    }
-	    if (-f "$queue/$file") {
-		unlink("$queue/$file");
-	    }
-	    next;		
-	}
-
-	# else (not welcome or remind) 
+	# else (not a welcome or remind) 
 	my $list = new List ($listname, $robot);
 	if (! $list) {
  	    &do_log('err','Skipping bouncefile %s for unknown list %s@%s',$file,$listname,$robot);
-	    &ignore_bounce({'file' => $file,
-			    'robot' => $robot,
-			    'queue' => $queue,
-			});
   	    unlink("$queue/$file");
   	    next;
  	}else{
@@ -461,10 +289,7 @@ while (!$end) {
 
 	    unless (open BOUNCE, "$queue/$file") {
 		&do_log('notice', 'Could not open %s/%s: %s', $queue, $file, $!);
-		&ignore_bounce({'file' => $file,
-				'robot' => $robot,
-				'queue' => $queue,
-			    });
+		rename "$queue/$file", "$queue/BAD-$file";
 		next;
 	    }
 
@@ -478,10 +303,7 @@ while (!$end) {
 		close BOUNCE;
 		unless (open BOUNCE, "$queue/$file") {
 		    &do_log('notice', 'Could not open %s/%s: %s', $queue, $file, $!);
-		    &ignore_bounce({'file' => $file,
-				    'robot' => $robot,
-				    'queue' => $queue,
-				});
+		    rename "$queue/$file", "$queue/BAD-$file";
 		    next;
 		    }		
 		## Analysis of bounced message
@@ -492,8 +314,7 @@ while (!$end) {
 	    ## Bounce directory
 	    if (! -d $bounce_dir) {
 		unless (mkdir $bounce_dir, 0777) {
-		    &List::send_notify_to_listmaster('intern_error',$Conf{'domain'},{'error' => "Failed to list create bounce directory $bounce_dir"});
-		    &do_log('err', 'Could not create %s: %s bounced die, check bounce-path in wwsympa.conf', $bounce_dir, $!);
+		    &do_log('notice', 'Could not create %s: %s bounced die, check bounce-path in wwsympa.conf', $bounce_dir, $!);
 		    exit;
 		} 
 	    }
@@ -532,10 +353,7 @@ while (!$end) {
 		    if (-w "$bounce_dir/OTHER") {
 			unless (open BOUNCE, "$queue/$file") {
 			    &do_log('notice', 'Could not open %s/%s: %s', $queue, $file, $!);
-			    &ignore_bounce({'file' => $file,
-					    'robot' => $robot,
-					    'queue' => $queue,
-					});
+			    rename "$queue/$file", "$queue/BAD-$file";
 			    next;
 			}
 			
@@ -555,12 +373,8 @@ while (!$end) {
 	
 	unless (unlink("$queue/$file")) {
 	    do_log ('err',"Could not remove $queue/$file ; $0 might NOT be running with the right UID or file was not created with the right UID");
-	    &ignore_bounce({'file' => $file,
-			    'notify' => 1,
-			    'robot' => $robot,
-			    'queue' => $queue,
-			    'error' => "Could not remove $queue/$file ; $0 might NOT be running with the right UID or file was not created with the right UID",
-			});
+	    &do_log('err',"Renaming file to $queue/BAD-$file.");
+	    rename "$queue/$file", "$queue/BAD-$file";
 	    last;
 	}
     }
@@ -570,7 +384,7 @@ while (!$end) {
 
 }
 do_log('notice', 'bounced exited normally due to signal');
-&tools::remove_pid($wwsconf->{'bounced_pidfile'}, $$);
+unlink("$wwsconf->{'bounced_pidfile'}");
 
 exit(0);
 
@@ -595,9 +409,7 @@ sub store_bounce {
     #Store bounce 
     unless (open BOUNCE, "$queue/$file") {
 	&do_log('notice', 'Could not open %s/%s: %s', $queue, $file, $!);
-	&ignore_bounce({'file' => $file,
-			'queue' => $queue,
-		    });
+	rename "$queue/$file", "$queue/BAD-$file";
 	return undef;
     }
 
@@ -605,9 +417,6 @@ sub store_bounce {
     
     unless (open ARC, ">$bounce_dir/$filename") {
 	&do_log('notice', "Unable to write $bounce_dir/$filename");
-	&ignore_bounce({'file' => $file,
-			'queue' => $queue,
-		    });
 	return undef;
     }
     print ARC <BOUNCE>;
@@ -663,45 +472,11 @@ sub update_subscriber_bounce_history {
 	&do_log ('debug','&update_subscribe (%s, bounce-> %s %s %s %s,bounce_address->%s)',$bouncefor,$first,$last,$count,$status,$rcpt); 
 	$list->update_user($bouncefor,{'bounce' => "$first $last $count $status",
 				       'bounce_address' => $rcpt});
-	&Log::db_log({'robot' => $list->{'domain'},'list' => $list->{'name'},'action' => 'get_bounce','parameters' => "address=$rcpt",
-		      'target_email' => $bouncefor,'msg_id' => '','status' => 'error','error_type' => $status,
-		      'daemon' => 'bounced'});
     }else{
 	$list->update_user($bouncefor,{'bounce' => "$first $last $count $status"});
-	&do_log('notice','Received bounce for email address %s, list %s', $bouncefor, $list->{'name'});
-	&Log::db_log({'robot' => $list->{'domain'},'list' => $list->{'name'},'action' => 'get_bounce',
-		      'target_email' => $bouncefor,'msg_id' => '','status' => 'error','error_type' => $status,
-		      'daemon' => 'bounced'});
     }
 }
 
-## If bounce can't be handled correctly, saves it to the "bad" subdirectory of the bounce spool and notifies listmaster.
-sub ignore_bounce {
-
-    my $param = shift;
-
-    my $file = $param -> {'file'};
-    my $notify = $param -> {'notify'};
-    my $error = $param -> {'error'};
-    my $queue = $param -> {'queue'};
-    my $robot = $param -> {'robot'};
-
-    $notify |= 0;
-
-    &tools::save_to_bad({
-	'file' => $file,
-	'hostname' => $robot,
-	'queue' => $queue,
-    });
-    if ($notify) {
-	unless (&List::send_notify_to_listmaster('bounce_management_failed',$robot,{'file' => $file,
-										    'bad' => "$queue/bad",
-										    'error' => $error,
-										})) {
-	    &do_log('notice',"Unable to send notify 'bounce_management_failed' to listmaster");
-	}
-    }
-}
 
 
 

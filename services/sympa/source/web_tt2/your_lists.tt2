@@ -20,7 +20,7 @@ function checkProject(obj)
 <div class="MenuBlock">
 
 [% IF which_info %]
-<p class="text_center"><strong> [%|loc%]Your Lists[%END%] </strong></p>
+<p align=center><strong> [%|loc%]Your Lists[%END%] </strong></p>
 
  <ul class="listenum" >
  [% FOREACH l = which_info %]
@@ -30,7 +30,7 @@ function checkProject(obj)
 <span style="font-size: 10px;">
 [%|loc%]admin[%END%]</span></a>
   [% END %]
-  <a class="list_menu_links" href="[% path_cgi %]/info/[% l.key %]" onclick="return checkProject(this);">
+  <a href="[% path_cgi %]/info/[% l.key %]" onclick="return checkProject(this);">
 <strong><span style="font-size: 10px;">
 [% hidden_head %][% l.key %][% hidden_end %]</span></strong></a><br />
   <span style="font-size: 10px;">[% l.value.subject %]</span><br />

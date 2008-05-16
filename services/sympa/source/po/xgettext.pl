@@ -2,22 +2,15 @@
 
 eval 'exec /usr/bin/perl  -S $0 ${1+"$@"}'
     if 0; # not running under some shell
-# $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: david.verdin $
-# $Revision: 4691 $ $Change: 5999 $ $DateTime: 2003/05/20 07:50:59 $
+# $File: //member/autrijus/Locale-Maketext-Lexicon/bin/xgettext.pl $ $Author: sympa-authors $
+# $Revision: 1.11 $ $Change: 5999 $ $DateTime: 2003/05/20 07:50:59 $
 ## [O. Salaun] 12/08/02 : Also look for gettext() in perl code
 ##                        No more escape '\' chars
 ##                        Extract gettext_id entries from List.pm
 ##                        Extract title.gettext entries from scenarios
 
-## [D. Verdin] 05/11/2007 : 
-##                        Strings ordered following the order in which files are read and
-##                        the order in which they appear in the files.
-##                        Switch to Getopt::Long to allow multiple value parameter.
-##                        Added 't' parameter the specifies which tags to explore in TT2.
-
-
 use strict;
-use Getopt::Long;
+use Getopt::Std;
 use Pod::Usage;
 use constant NUL  => 0;
 use constant BEG  => 1;
@@ -25,11 +18,6 @@ use constant PAR  => 2;
 use constant QUO1 => 3;
 use constant QUO2 => 4;
 use constant QUO3 => 5;
-use constant BEGM => 6;
-use constant PARM => 7;
-use constant QUOM1 => 8;
-use constant QUOM2 => 9;
-use constant COMM => 10;
 
 =head1 NAME
 
@@ -37,7 +25,7 @@ xgettext.pl - Extract gettext strings from source
 
 =head1 SYNOPSIS
 
-B<xgettext.pl> [ B<-u> ] [ B<-g> ] [ B<-t> I<tag1> I<tag2> ...]  [ B<-o> I<outputfile> ] [ I<inputfile>... ]
+B<xgettext.pl> [ B<-u> ] [ B<-g> ] [ B<-o> I<outputfile> ] [ I<inputfile>... ]
 
 =head1 OPTIONS
 
@@ -47,8 +35,6 @@ also using the B<Gettext> syntax in your program.
 
 [ B<-g> ] Enables GNU gettext interoperability by printing C<#,
 maketext-format> before each entry that has C<%> variables.
-
-[ B<-t> I<tag1> I<tag2> ...] specifies which tag(s) must be used to extract Template Toolkit strings.
 
 [ B<-o> I<outputfile> ] PO file name to be written or incrementally
 updated C<-> means writing to F<STDOUT>.  If not specified,
@@ -77,8 +63,8 @@ C<E<lt>&|/locE<gt>I<...>E<lt>/&E<gt>> will be extracted.
 
 =item Template Toolkit
 
-Texts inside C<[%|l%]...[%END%]>, C<[%|loc%]...[%END%]>, C<[%|helploc%]...[%END%]> or C<[%|locdt%]...[%END%]>
-are extracted, unless specified otherwise by B<-t> option.
+Texts inside C<[%|l%]...[%END%]> or C<[%|loc%]...[%END%]>
+are extracted.
 
 =item Text::Template
 
@@ -87,118 +73,34 @@ extracted.
 
 =cut
 
-## A hash that will contain the strings to translate and their meta informations.
-my %file;
-## conatins informations if a string is a date string.
-my %type_of_entries;
-## Contains unique occurences of each string
-my %Lexicon;
-## File handle to the .pot file used.
-my $PO;
-## a string
-my $out;
-## All the strings, in the order they were found while parsing the files
-my @ordered_strings = ();
-## One occurence of each string, in the order they were found while parsing the files
-my @unique_keys = ();
-## A hash used for control when filling @unique_keys
-my %unique_keys;
-## A string containing the TT2 tags that will be used to extract the strings.
-my $available_tags;
+my (%file, %Lexicon, %opts);
+my ($PO, $out);
 
 # options as above. Values in %opts
-#getopts('hugot:', \%opts)
-#    or pod2usage( -verbose => 1, -exitval => 1 );
-#$help and pod2usage( -verbose => 2, -exitval => 0 );
+getopts('hugo:', \%opts)
+  or pod2usage( -verbose => 1, -exitval => 1 );
+$opts{h} and pod2usage( -verbose => 2, -exitval => 0 );
 
-## The variables that will store the arguments.
-my $help;
-my $leave_brackets;
-my $gnu_gettext;
-my $output_file;
-my @default_tags = ('locdt','loc'); # Defaults stored separately because GetOptions append arguments to defaults.
-my @specified_tags;
-
-## Retrieving options.
-GetOptions ("h" => \$help,
-	    "u"   => \$leave_brackets,
-	    "g"   => \$gnu_gettext,
-	    "o=s"   => \$output_file,
-	    "t=s"   => \@specified_tags,
-	    );
-
-## Initiliazing tags with defaults if necessary.
-unless ($specified_tags[0]) {
-    @specified_tags = @default_tags;
-}
-
-## Building the string to insert into the regexp that will search strings to extract.
-for my $tag_index ( 0..$#specified_tags ) {
-    $available_tags .= $specified_tags[$tag_index];
-    if ($tag_index < $#specified_tags) {
-	$available_tags .= '|';
-    }
-}
-
-$PO = $output_file || "messages.po";
+$PO = $opts{o} || "messages.po";
 
 @ARGV = ('-') unless @ARGV;
 
-## Ordering files to present the most interresting strings to translate first.
-my %files_to_parse;
-foreach my $file_to_parse (@ARGV) {
-    $files_to_parse{$file_to_parse} = 1;
-}
-my %favoured_files;
-my @ordered_files;
-my @planned_ordered_files = ("web_tt2/help.tt2","web_tt2/help_introduction.tt2","web_tt2/help_user.tt2","web_tt2/help_admin.tt2","web_tt2/home.tt2","web_tt2/login.tt2","web_tt2/main.tt2","web_tt2/title.tt2","web_tt2/menu.tt2","web_tt2/login_menu.tt2",
-			     "web_tt2/your_lists.tt2","web_tt2/footer.tt2","web_tt2/list_menu.tt2","web_tt2/list_panel.tt2","web_tt2/admin.tt2","web_tt2/list_admin_menu.tt2");
-foreach my $file (@planned_ordered_files) {
-    if ($files_to_parse{$file}) {
-	@ordered_files = (@ordered_files,$file);
-    }
-}
-my @ordered_directories = ("web_tt2","mail_tt2","src/etc/scenari","src/etc");
-
-foreach my $file (@ordered_files) {
-    $favoured_files{$file} = 1;
-}
-## Sorting by directories
-foreach my $dir (@ordered_directories) {
-    foreach my $file (@ARGV) {
-	unless ($favoured_files{$file}) {
-	    if ($file =~ /^$dir/g) {
-		@ordered_files = (@ordered_files,$file);
-		$favoured_files{$file} = 1;
-	    }
-	}
-    }
-}
-    
-## Sorting by files
-foreach my $file (@ARGV) {
-    unless ( $favoured_files{$file} ) {
-	@ordered_files = (@ordered_files,$file);
-    }
-}
-
-## Initializes %Lexicon.
 if (-r $PO) {
     open LEXICON, $PO or die $!;
     while (<LEXICON>) {
 	if (1 .. /^$/) { $out .= $_; next }
 	last;
     }
-    
+
     1 while chomp $out;
-    
+
     require Locale::Maketext::Lexicon::Gettext;
     %Lexicon = map {
-	if ($leave_brackets) {
+	if ($opts{u}) {
 	    s/\\/\\\\/g;
-	    s/"/\\"/g;
+	    s/\"/\\"/g;
 	    s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
-	    s/((?<!~)(?:~~)*)\[([A-Za-z\#*]\w*),([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	    s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*),([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
 	    s/~([\~\[\]])/$1/g;
 	}
 	$_;
@@ -211,12 +113,8 @@ open PO, ">$PO" or die "Can't write to $PO:$!\n";
 select PO;
 
 undef $/;
-
-## Gathering strings in the source files.
-## They will finally be stored into %file
-
-foreach my $file (@ordered_files) {
-    next if ($file=~/\.po.?$/i); # Don't parse po files
+foreach my $file (@ARGV) {
+    next if ($file=~/\.po$/i); # Don't parse po files
     my $filename = $file;
     printf STDOUT "Processing $file...\n";	    
     unless (-f $file) {
@@ -238,9 +136,7 @@ foreach my $file (@ordered_files) {
 		my ($self, $text, $is_cdata) = @_;
 		my $sentences = Lingua::EN::Sentence::get_sentences($text) or return;
 		$text =~ s/\n/ /g; $text =~ s/^\s+//; $text =~ s/\s+$//;
-		&add_expression({'expression' => $text,
-				 'filename' => $filename,
-				 'line' => $line});
+		push @{$file{$text}}, [ $filename, $line ];
 	    }
 	}   
 
@@ -258,43 +154,30 @@ foreach my $file (@ordered_files) {
     while (m!\G.*?<&\|/l(?:oc)?(.*?)&>(.*?)</&>!sg) {
 	my ($vars, $str) = ($1, $2);
 	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-	$str =~ s/\\\'/\'/g; 
-	&add_expression({'expression' => $str,
-			 'filename' => $filename,
-			 'line' => $line,
-			 'vars' => $vars});
+	$str =~ s/\\'/\'/g; 
+	push @{$file{$str}}, [ $filename, $line, $vars ];
     }
 
     # Template Toolkit
     $line = 1; pos($_) = 0;
-    while (m!\G.*?\[%\s*\|($available_tags)(.*?)\s*%\](.*?)\[%\-?\s*END\s*\-?%\]!sg) {
-	my ($this_tag, $vars, $str) = ($1, $2, $3);
+    while (m!\G.*?\[%\s*\|l(?:oc)?(.*?)\s*%\](.*?)\[%\-?\s*END\s*\-?%\]!sg) {
+	my ($vars, $str) = ($1, $2);
 	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-	$str =~ s/\\\'/\'/g; 
+	$str =~ s/\\'/\'/g; 
 	$vars =~ s/^\s*\(//;
 	$vars =~ s/\)\s*$//;
-	my $expression = {'expression' => $str,
-			  'filename' => $filename,
-			  'line' => $line,
-			  'vars' => $vars};       
-	$expression->{'type'} = 'date' if ($this_tag eq 'locdt');
-	&add_expression($expression);
+	push @{$file{$str}}, [ $filename, $line, $vars ];
     }
 	    
     # Template Toolkit with ($tag$%|loc%$tag$)...($tag$%END%$tag$) in archives
     $line = 1; pos($_) = 0;
-    while (m!\G.*?\(\$tag\$%\s*\|($available_tags)(.*?)\s*%\$tag\$\)(.*?)\(\$tag\$%\s*END\s*%\$tag\$\)!sg) {
-	my ($this_tag, $vars, $str) = ($1, $2, $3);
+    while (m!\G.*?\(\$tag\$%\s*\|l(?:oc)?(.*?)\s*%\$tag\$\)(.*?)\(\$tag\$%\s*END\s*%\$tag\$\)!sg) {
+	my ($vars, $str) = ($1, $2);
 	$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-	$str =~ s/\\\'/\'/g; 
+	$str =~ s/\\'/\'/g; 
 	$vars =~ s/^\s*\(//;
 	$vars =~ s/\)\s*$//;
-	my $expression = {'expression' => $str,
-			  'filename' => $filename,
-			  'line' => $line,
-			  'vars' => $vars};       
-	$expression->{'type'} = 'date' if ($this_tag eq 'locdt');
-	&add_expression($expression);
+	push @{$file{$str}}, [ $filename, $line, $vars ];
     }	    
 
 	    # Sympa variables (gettext_id)
@@ -302,18 +185,14 @@ foreach my $file (@ordered_files) {
 	    while (/\G.*?\'gettext_id\'\s*=>\s*\"([^\"]+)\"/sg) {
 		my $str = $1;
 		$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-		&add_expression({'expression' => $str,
-				 'filename' => $filename,
-				 'line' => $line});
+		push @{$file{$str}}, [ $filename, $line];
 	    }
 
 	    $line = 1; pos($_) = 0;
 	    while (/\G.*?\'gettext_id\'\s*=>\s*\'([^\']+)\'/sg) {
 		my $str = $1;
 		$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-		&add_expression({'expression' => $str,
-				 'filename' => $filename,
-				 'line' => $line});
+		push @{$file{$str}}, [ $filename, $line];
 	    }
 
 	    # Sympa scenarios variables (title.gettext)
@@ -321,13 +200,11 @@ foreach my $file (@ordered_files) {
 	    while (/\G.*?title.gettext\s*([^\n]+)/sg) {
 		my $str = $1;
 		$line += ( () = ($& =~ /\n/g) ); # cryptocontext!
-		&add_expression({'expression' => $str,
-				 'filename' => $filename,
-				 'line' => $line});
+		push @{$file{$str}}, [ $filename, $line];
 	    }
 
     # Perl source file
-	    my ($state,$str,$vars)=(0); my $is_date = 0;
+    my ($state,$str,$vars)=(0);
     pos($_) = 0;
     my $orig = 1 + (() = ((my $__ = $_) =~ /\n/g));
   PARSER: {
@@ -335,24 +212,13 @@ foreach my $file (@ordered_files) {
       my $line = $orig - (() = ((my $__ = $_) =~ /\n/g));
       # maketext or loc or _
       $state == NUL &&
-        m/\b(translate|gettext(?:_strftime)?|maketext|__?|loc|x)/gcx && do {
-          if ($& eq 'gettext_strftime') {
-            $state = BEGM;
-	    $is_date = 1;
-          } else {
-            $state = BEG;
-	    $is_date = 0;
-          }
-          redo;
-        };
-      ($state == BEG || $state == BEGM) && m/^([\s\t\n]*)/gcx && do { redo; };
+        m/\b(translate|gettext|maketext|__?|loc|x)/gcx && do { $state = BEG;  redo; };
+      $state == BEG && m/^([\s\t\n]*)/gcx && do { redo; };
       # begin ()
       $state == BEG && m/^([\S\(]) /gcx && do {
 	$state = ( ($1 eq '(') ? PAR : NUL) ;
 	redo;
       };
-      $state == BEGM && m/^([\(])  /gcx && do { $state = PARM; redo };
-
       # begin or end of string
       $state == PAR  && m/^(\')  /gcx     && do { $state = QUO1; redo; };
       $state == QUO1 && m/^([^\']+)/gcx && do { $str.=$1; redo; };
@@ -366,30 +232,12 @@ foreach my $file (@ordered_files) {
       $state == QUO3 && m/^([^\`]*)/gcx && do { $str.=$1; redo; };
       $state == QUO3 && m/^\`  /gcx     && do { $state = PAR;  redo; };
 
-      $state == BEGM && m/^(\') /gcx     && do { $state = QUOM1; redo; };
-      $state == PARM && m/^(\') /gcx     && do { $state = QUOM1; redo; };
-      $state == QUOM1 && m/^([^\']+)/gcx && do { $str.=$1; redo; };
-      $state == QUOM1 && m/^\'  /gcx     && do { $state = COMM;  redo; };
-
-      $state == BEGM && m/^(\") /gcx     && do { $state = QUOM2; redo; };
-      $state == PARM && m/^(\") /gcx     && do { $state = QUOM2; redo; };
-      $state == QUOM2 && m/^([^\"]+)/gcx && do { $str.=$1; redo; };
-      $state == QUOM2 && m/^\"  /gcx     && do { $state = COMM;  redo; };
-
       # end ()
-      ($state == PAR && m/^[\)]/gcx || $state == COMM && m/^,/gcx)
+      $state == PAR && m/^[\)]/gcx
 	&& do {
 	  $state = NUL;	
 	  $vars =~ s/[\n\r]//g if ($vars);
-	  if ($str) {
-	      my $expression = {'expression' => $str,
-				'filename' => $filename,
-				'line' => $line - (() = $str =~ /\n/g),
-				'vars' => $vars};
-	      $expression->{'type'} = 'date' if ($is_date);
-
-	      &add_expression($expression);
-	  }
+	  push @{$file{$str}}, [ $filename, $line - (() = $str =~ /\n/g), $vars] if ($str);
 	  undef $str; undef $vars;
 	  redo;
 	};
@@ -399,11 +247,7 @@ foreach my $file (@ordered_files) {
     }
 }
 
-## Transfers all data from %file to %Lexicon, removing duplicates in the process.
-my $index = 0;
-my @ordered_bis;
-my %ordered_hash;
-foreach my $str (@ordered_strings) {
+foreach my $str (sort keys %file) {
     my $ostr = $str;
     my $entry = $file{$str};
     my $lexi = $Lexicon{$ostr};
@@ -411,31 +255,28 @@ foreach my $str (@ordered_strings) {
     ## Skip meta information (specific to Sympa)
     next if ($str =~ /^_\w+\_$/);
 
-    $str =~ s/"/\\"/g;
+#    $str =~ s/\\/\\\\/g;
+    $str =~ s/\"/\\"/g;
     $lexi =~ s/\\/\\\\/g;
-    $lexi =~ s/"/\\"/g;
+    $lexi =~ s/\"/\\"/g;
 
-    unless ($leave_brackets) {
+    unless ($opts{u}) {
 	$str =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
-	$str =~ s/((?<!~)(?:~~)*)\[([A-Za-z\#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	$str =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
 	$str =~ s/~([\~\[\]])/$1/g;
 	$lexi =~ s/((?<!~)(?:~~)*)\[_(\d+)\]/$1%$2/g;
-	$lexi =~ s/((?<!~)(?:~~)*)\[([A-Za-z\#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
+	$lexi =~ s/((?<!~)(?:~~)*)\[([A-Za-z#*]\w*)([^\]]+)\]/"$1%$2(".escape($3).")"/eg;
 	$lexi =~ s/~([\~\[\]])/$1/g;
     }
 
-    unless ($ordered_hash{$str}){
-	$ordered_bis[$index] = $str;
-	$index++;
-	$ordered_hash{$str} = 1;
-    }
     $Lexicon{$str} ||= '';
     next if $ostr eq $str;
 
     $Lexicon{$str} ||= $lexi;
-    unless ($file{$str}) {$file{$str} = $entry;}
     delete $file{$ostr}; delete $Lexicon{$ostr};
+    $file{$str} = $entry;
 }
+
 exit unless %Lexicon;
 
 print $out ? "$out\n" : (<< '.');
@@ -457,7 +298,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 .
 
-foreach my $entry (@ordered_bis) {
+foreach my $entry (sort keys %Lexicon) {
     my %f = (map { ( "$_->[0]:$_->[1]" => 1 ) } @{$file{$entry}});
     my $f = join(' ', sort keys %f);
     $f = " $f" if length $f;
@@ -470,37 +311,16 @@ foreach my $entry (@ordered_bis) {
     }
 
     my %seen;
-
-    ## Print code/templates references
     print "\n#:$f\n";
-
-    ## Print variables if any
     foreach my $entry ( grep { $_->[2] } @{$file{$entry}} ) {
 	my ($file, $line, $var) = @{$entry};
 	$var =~ s/^\s*,\s*//; $var =~ s/\s*$//;
 	print "#. ($var)\n" unless !length($var) or $seen{$var}++;
     }
 
-    ## If the entry is a date format, add a developper comment to help translators
-    if ($type_of_entries{$entry} eq 'date') {
-	print "#. This entry is a date/time format\n";
-	print "#. Check the strftime manpage for format details : http://docs.freebsd.org/info/gawk/gawk.info.Time_Functions.html\n";
-    }
-
-    print "#, maketext-format" if $gnu_gettext and /%(?:\d|\w+\([^\)]*\))/;
+    print "#, maketext-format" if $opts{g} and /%(?:\d|\w+\([^\)]*\))/;
     print "msgid "; output($entry);
     print "msgstr "; output($Lexicon{$entry});
-}
-
-## Add expressions to list of expressions to translate
-## parameters : expression, filename, line, vars
-sub add_expression {
-    my $param = shift;
-    
-    @ordered_strings = (@ordered_strings,$param->{'expression'});
-    push @{$file{$param->{'expression'}}}, [ $param->{'filename'}, $param->{'line'}, $param->{'vars'} ];
-    $type_of_entries{$param->{'expression'}} = $param->{'type'} if ($param->{'type'});
-
 }
 
 sub output {
@@ -556,37 +376,6 @@ sub escape {
     $text =~ s/\b_(\d+)/%$1/;
     return $text;
 }
-
-## Dump a variable's content
-sub dump_var {
-    my ($var, $level, $fd) = @_;
-
-    return undef unless ($fd);
-
-    if (ref($var)) {
-	if (ref($var) eq 'ARRAY') {
-	    foreach my $index (0..$#{$var}) {
-		print $fd "\t"x$level.$index."\n";
-		&dump_var($var->[$index], $level+1, $fd);
-	    }
-	}elsif (ref($var) eq 'HASH' || ref($var) eq 'Scenario' || ref($var) eq 'List') {
-	    foreach my $key (sort keys %{$var}) {
-		print $fd "\t"x$level.'_'.$key.'_'."\n";
-		&dump_var($var->{$key}, $level+1, $fd);
-	    }    
-	}else {
-	    printf $fd "\t"x$level."'%s'"."\n", ref($var);
-	}
-    }else {
-	if (defined $var) {
-	    print $fd "\t"x$level."'$var'"."\n";
-	}else {
-	    print $fd "\t"x$level."UNDEF\n";
-	}
-    }
-}
-
-
 
 1;
 
