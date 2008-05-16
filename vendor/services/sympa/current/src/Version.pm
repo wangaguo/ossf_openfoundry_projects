@@ -1,5 +1,5 @@
 # Version.pm - This module tells the current Sympa version
-# RCS Identication ; $Revision: 4774 $ ; $Date: 2007-12-19 16:22:54 +0100 (mer, 19 déc 2007) $ 
+# RCS Identication ; $Revision: 1.3 $ ; $Date: 2001/11/30 10:39:09 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -21,16 +21,14 @@
 
 package Version;
 
-use strict "vars";
-
 require Exporter;
 use Carp;
 
-our @ISA = qw(Exporter);
-our @EXPORT = qw($Version);
+@ISA = qw(Exporter);
+@EXPORT = qw($Version);
 
 
-our $Version = '--SYMPA_VERSION--';
+$Version = '--SYMPA_VERSION--';
 
 1;
 

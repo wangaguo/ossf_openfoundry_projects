@@ -1,5 +1,5 @@
 # Makefile - This Makefile does the web interface of Sympa installation
-# RCS Identication ; $Revision: 4817 $ ; $Date: 2008-01-30 18:10:56 +0100 (mer, 30 jan 2008) $ 
+# RCS Identication ; $Revision: 1.25 $ ; $Date: 2006/04/10 16:13:20 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -23,25 +23,19 @@ sbin_SUBST	=	bounced.pl archived.pl
 
 cgi_SUBST	=	wwsympa.fcgi wwsympa_sudo_wrapper.pl
 
-cgi_SRC		=	wwsympa-wrapper.fcgi
-
-lib_SUBST	=	wwslib.pm cookielib.pm bounce-lib.pl Marc.pm Auth.pm SharedDocument.pm SympaSession.pm
+lib_SUBST	=	wwslib.pm cookielib.pm bounce-lib.pl Marc.pm Auth.pm SharedDocument.pm
 
 SRC		=	mime.types 
 
-all:	wwsympa-wrapper.fcgi
+default: none
 
 clean: 
 	rm -rf $(DESTDIR)$(SBINDIR)
-	@if [ -f ./wwsympa-wrapper.fcgi ]; then \
-		rm -f wwsympa-wrapper.fcgi ; \
-	fi
-
 
 install: 
 	echo "Please use the main Makefile for installing WWSympa."
 
-newinstall: makedir $(sbin_SUBST) $(cgi_SUBST) $(cgi_SRC) $(lib_SUBST) substcgi substsbin substlib installicons installsrc installwrapper installmod
+newinstall: makedir $(sbin_SUBST) $(cgi_SUBST) $(lib_SUBST) substcgi substsbin substlib installicons installsrc installmod
 
 installmod:
 	@for i in $(SRC) ; do \
@@ -56,13 +50,12 @@ installmod:
 	chown $(USER) $(DESTDIR)$(CGIDIR)/$$i; \
 	chgrp $(GROUP) $(DESTDIR)$(CGIDIR)/$$i; \
 	done
-	@for i in $(cgi_SRC) ; do \
-	chown $(USER) $(DESTDIR)$(CGIDIR)/$$i; \
-	chgrp $(GROUP) $(DESTDIR)$(CGIDIR)/$$i; \
-	done
-	echo "Setting SetUID bit on wwsympa-wrapper.fcgi..."; \
-	chmod u+s $(DESTDIR)$(CGIDIR)/wwsympa-wrapper.fcgi; \
-	chmod g+s $(DESTDIR)$(CGIDIR)/wwsympa-wrapper.fcgi; \
+	@if [ "$(enable_secure)" != "yes" ]; then \
+		echo "Setting SetUID bit on wwsympa.fcgi..."; \
+		chmod u+s $(DESTDIR)$(CGIDIR)/wwsympa.fcgi; \
+		chmod g+s $(DESTDIR)$(CGIDIR)/wwsympa.fcgi; \
+	fi
+	chmod 755 $(DESTDIR)$(ICONSDIR)
 	chmod 755 $(DESTDIR)$(LIBDIR)/Marc
 	@for i in $(lib_SUBST) Marc/Search.pm; do \
 	chown $(USER) $(DESTDIR)$(LIBDIR)/$$i; \
@@ -87,6 +80,10 @@ makedir:
 		echo "Creating required directory $(DESTDIR)$(ETCBINDIR)"; \
 		mkdir -p $(DESTDIR)$(ETCBINDIR); \
 	fi
+	@if [ ! -d $(DESTDIR)$(ICONSDIR) ]; then \
+		echo "Creating required directory $(DESTDIR)$(ICONSDIR)"; \
+		mkdir -p $(DESTDIR)$(ICONSDIR); \
+	fi
 	@if [ ! -d $(DESTDIR)$(LIBDIR)/Marc ]; then \
 		echo "Creating required directory $(DESTDIR)$(LIBDIR)/Marc"; \
 		mkdir $(DESTDIR)$(LIBDIR)/Marc; \
@@ -100,12 +97,7 @@ installsrc:
 
 installicons:
 	@echo "Installing icons..."
-	@echo $(DIR)/static_content/icons
-	cp icons/*.png $(DIR)/static_content/icons
-
-installwrapper:
-	@echo "Installing wwsympa-wrapper binary..."
-	cp wwsympa-wrapper.fcgi $(DESTDIR)$(CGIDIR)/
+	cp icons/*.png $(DESTDIR)$(ICONSDIR)
 
 substlib:
 	@echo "Doing multiple substitutions while installing librairies..."
@@ -122,6 +114,7 @@ substlib:
 		DESTDIR=$(DESTDIR); export DESDIR; \
 		ETCBINDIR=$(ETCBINDIR); export ETCBINDIR; \
 		MAILERPROGDIR=$(MAILERPROGDIR); export MAILERPROGDIR; \
+		ICONSDIR=$(ICONSDIR); export ICONSDIR; \
 		WWSCONFIG=$(WWSCONFIG); export WWSCONFIG; \
 		CONFIG=$(CONFIG); export CONFIG; \
 		$(PERL) ../subst.pl $(lib_SUBST) \
@@ -142,6 +135,7 @@ substsbin:
 		DESTDIR=$(DESTDIR); export DESDIR; \
 		ETCBINDIR=$(ETCBINDIR); export ETCBINDIR; \
 		MAILERPROGDIR=$(MAILERPROGDIR); export MAILERPROGDIR; \
+		ICONSDIR=$(ICONSDIR); export ICONSDIR; \
 		WWSCONFIG=$(WWSCONFIG); export WWSCONFIG; \
 		CONFIG=$(CONFIG); export CONFIG; \
 		$(PERL) ../subst.pl $(sbin_SUBST) \
@@ -162,11 +156,10 @@ substcgi:
 		DESTDIR=$(DESTDIR); export DESDIR; \
 		ETCBINDIR=$(ETCBINDIR); export ETCBINDIR; \
 		MAILERPROGDIR=$(MAILERPROGDIR); export MAILERPROGDIR; \
+		ICONSDIR=$(ICONSDIR); export ICONSDIR; \
 		WWSCONFIG=$(WWSCONFIG); export WWSCONFIG; \
 		CONFIG=$(CONFIG); export CONFIG; \
-		PERLOPT="-U"; export PERLOPT; \
+		if [ "$(enable_secure)" = "yes" ]; then PERLOPT=""; else PERLOPT="-U"; fi; export PERLOPT; \
 		$(PERL) ../subst.pl $(cgi_SUBST) \
 	)
 
-wwsympa-wrapper.fcgi: wwsympa-wrapper.fcgi.c Makefile ../Makefile
-	$(CC) $(CFLAGS) -DWWSYMPA=\"$(WWSYMPA)\" -o wwsympa-wrapper.fcgi wwsympa-wrapper.fcgi.c

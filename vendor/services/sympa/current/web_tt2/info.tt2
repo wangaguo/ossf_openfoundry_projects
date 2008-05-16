@@ -1,9 +1,15 @@
-<!-- $Id: info.tt2 3871 2006-08-30 08:58:16Z sympa-authors $ -->
-[% IF homepage_content %]
-     [% homepage_content %]
+<!-- $Id: info.tt2,v 1.7 2005/08/09 09:52:42 sympa-authors Exp $ -->
+[% IF homepage %]
+  [% TRY %]
+     [% INSERT 'homepage' %]
+  [% CATCH %]
+  [% END %]
 [% ELSE %]
    <pre>
-     [% info_content %]
+   [% TRY %]
+     [% INSERT 'info' %]
+   [% CATCH %]
+   [% END %]
    </pre>
 [% END %]
 

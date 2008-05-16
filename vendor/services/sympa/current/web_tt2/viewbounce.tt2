@@ -1,4 +1,4 @@
-<!-- $Id: viewbounce.tt2 2713 2005-01-06 09:32:25Z sympa-authors $ -->
+<!-- $Id: viewbounce.tt2,v 1.2 2005/01/06 09:32:25 sympa-authors Exp $ -->
 
 <pre>
 [% FILTER html_entity %]

@@ -2,7 +2,7 @@
 # Sympa uses locales to build the user interface ; if none is available, 
 # Sympa will speak English only
 
-# RCS Identication ; $Revision: 4521 $ ; $Date: 2007-08-07 15:52:48 +0200 (mar, 07 aoû 2007) $ 
+# RCS Identication ; $Revision: 1.2 $ ; $Date: 2005/08/09 09:52:42 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -28,23 +28,12 @@ my @locales = split /\s+/,$ENV{'SYMPA_LOCALES'};
 
 my (@supported, @not_supported);
 
-foreach my $loc (@locales) {
-    my $locale_dashless = $loc.'.utf-8'; $locale_dashless =~ s/-//g;
-    my $lang = substr($loc, 0, 2);
-    my $success;
-    foreach my $try ($loc.'.utf-8',
-		     $loc.'.UTF-8',  ## UpperCase required for FreeBSD
-		     $locale_dashless, ## Required on HPUX
-		     $loc,
-		     $lang) {
-	if (setlocale(&POSIX::LC_ALL, $try)) {
-	    push @supported, $loc;
-	    $success = 1;
-	    last; 
-	}	
+foreach my $l (@locales) {
+    if (setlocale(&POSIX::LC_ALL, $l)) {
+	push @supported, $l;
+    }else {
+	push @not_supported, $l;
     }
-    push @not_supported, $loc unless ($success);
-
 }
 
 if ($#supported == -1) {
@@ -59,8 +48,8 @@ if ($#supported == -1) {
     my $s = $<;
 }elsif ($#not_supported > -1){
     printf "#############################################################################################################\n";
-    printf "## IMPORTANT : Sympa is not able to use all supported locales because they are not properly configured on this server\n";
-    printf "## Herer is a list of NOT supported locales :\n";
+    printf "## IMPORTANT : Sympa is not able to use all supported because they are not properly configured on this server\n";
+    printf "## Herer is a list on NOT supported locales :\n";
     printf "##     %s\n", join(' ', @not_supported);
     printf "## On Debian you should run the following command : dpkg-reconfigure locales\n";
     printf "## On others systems, check /etc/locale.gen or /etc/sysconfig/i18n files\n";
