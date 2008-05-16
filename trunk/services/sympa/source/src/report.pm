@@ -1,6 +1,6 @@
 # report.pm - This module provides various tools for command and message 
 # diffusion report
-# RCS Identication ; $Revision: 4823 $ ; $Date: 2008-02-04 15:17:07 +0100 (lun, 04 fév 2008) $ 
+# RCS Identication ; $Revision: 1.4 $ ; $Date: 2006/02/07 08:30:21 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -59,7 +59,6 @@ use List;
 ############################################################## 
 sub reject_report_msg {
     my ($type,$error,$user,$param,$robot,$msg_string,$list) = @_;
-    &do_log('debug2', "reject::reject_report_msg(%s,%s,%s)", $type,$error,$user);
 
     unless ($type eq 'intern' || $type eq 'intern_quiet' || $type eq 'user'|| $type eq 'auth') {
 	&do_log('err',"report::reject_report_msg(): error to prepare parsing 'message_report' template to $user : not a valid error type");
@@ -67,12 +66,12 @@ sub reject_report_msg {
     }
 
     unless ($user){
-	&do_log('err',"report::reject_report_msg(): unable to send template command_report.tt2 : no user to notify");
+	&do_log('err',"report::reject_report_msg(): unable to send template message_report.tt2 : no user to notify");
 	return undef;
     }
  
     unless ($robot){
-	&do_log('err',"report::reject_report_msg(): unable to send template command_report.tt2 : no robot");
+	&do_log('err',"report::reject_report_msg(): unable to send template message_report.tt2 : no robot");
 	return undef;
     }
 
@@ -92,11 +91,6 @@ sub reject_report_msg {
 	$param->{'type'} = 'intern_error';
     }
 
-    ## Prepare the original message if provided
-    if (defined $param->{'message'}) {
-	$param->{'original_msg'} = &_get_msg_as_hash($param->{'message'});
-     }
-
     if (ref($list) eq "List") {
 	unless ($list->send_file('message_report',$user,$robot,$param)) {
 	    &do_log('notice',"report::reject_report_msg(): Unable to send template 'message_report' to '$user'");
@@ -108,13 +102,17 @@ sub reject_report_msg {
     }
     if ($type eq 'intern') {
 	chomp($param->{'msg_id'});
+	my $listname;
+	if (ref($list) ){
+	    $listname = $list->{'name'}; 
+	}
 
 	$param ||= {}; 
 	$param->{'error'} =  &gettext($error);
 	$param->{'who'} = $user;
 	$param->{'action'} = 'message diffusion';
 	$param->{'msg_id'} = $param->{'msg_id'};
-	$param->{'list'} = $list if (defined $list);
+	$param->{'listname'} = $listname;
 	unless (&List::send_notify_to_listmaster('mail_intern_error', $robot, $param)) {
 	    &do_log('notice',"report::reject_report_msg(): Unable to notify_listmaster concerning '$user'");
 	}
@@ -122,52 +120,6 @@ sub reject_report_msg {
     return 1;
 }
 
-
-
-############################################################
-#  _get_msg_as_hash
-############################################################
-#  Internal subroutine
-#  Provide useful parts of a message as a hash entries
-#  
-# IN : -$msg_object (+): ref(HASH) - the MIME::Entity or Message object
-#
-# OUT : $msg_hash : ref(HASH) - the hashref
-#
-############################################################## 
-
-sub _get_msg_as_hash {
-    my $msg_object = shift;
-
-    my ($msg_entity, $msg_hash);
-
-    if (ref($msg_object) =~ /^MIME::Entity/) { ## MIME-ttols object
-	$msg_entity = $msg_object;
-    }elsif (ref($msg_object) =~ /^Message/) { ## Sympa's own Message object
-	$msg_entity = $msg_object->{'msg'};
-    }else {
-	&do_log('err', "reject_report_msg: wrong type for msg parameter");
-    }
-    
-    my $head = $msg_entity->head;
-    my $body_handle = $msg_entity->bodyhandle;
-    my $body_as_string;
-    
-    if (defined $body_handle) {
-	$body_as_string = $body_handle->as_lines();
-    }
-
-    ## TODO : we should also decode headers + remove trailing \n + use these variables in default mail templates
-
-    $msg_hash = {'full' => $msg_entity->as_string, 
-		 'body' => $body_as_string,
-		 'from' => $head->get('From'),
-		 'subject' => $head->get('Subject'),
-		 'message_id' => $head->get('Message-Id')
-		 };
-
-    return $msg_hash;
-}
 
 ############################################################
 #  notice_report_msg
@@ -201,11 +153,6 @@ sub notice_report_msg {
 	&do_log('err',"report::notice_report_msg(): unable to send template message_report.tt2 : no robot");
 	return undef;
     }
-
-    ## Prepare the original message if provided
-    if (defined $param->{'message'}) {
-	$param->{'original_msg'} = &_get_msg_as_hash($param->{'message'});
-     }
 
     if (ref($list) eq "List") {
 	unless ($list->send_file('message_report',$user,$robot,$param)) {
@@ -755,7 +702,7 @@ sub reject_report_web {
 	    my $param = $data;
 	    $param ||= {};
 	    $param->{'error'} = &gettext($error);
-	    $param->{'list'} = $list if (defined $list);
+	    $param->{'listname'} = $listname;
 	    $param->{'who'} = $user;
 	    $param->{'action'} ||= 'Command process';
 

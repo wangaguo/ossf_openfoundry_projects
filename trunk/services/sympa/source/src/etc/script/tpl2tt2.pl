@@ -57,7 +57,7 @@ unless (&Conf::load($sympa_conf_file)) {
 }
 
 if ($Conf{'db_name'} and $Conf{'db_type'}) {
-    unless ($List::use_db = &Upgrade::probe_db()) {
+    unless ($List::use_db = &List::probe_db()) {
  	&die('Database %s defined in sympa.conf has not the right structure or is unreachable. If you don\'t use any database, comment db_xxx parameters in sympa.conf', $Conf{'db_name'});
     }
 }
@@ -107,9 +107,7 @@ if (-d $Conf::Conf{'etc'}.'/create_list_templates') {
 ## Go through Virtual Robots
 foreach my $vr (keys %{$Conf::Conf{'robots'}}) {
     ## Search in etc/
-    if ( -d "$Conf::Conf{'etc'}/$vr") {
-	push @directories, "$Conf::Conf{'etc'}/$vr";
-    }
+    push @directories, "$Conf::Conf{'etc'}/$vr";
 
     if (-d "$Conf::Conf{'etc'}/$vr/templates") {
 	push @directories, "$Conf::Conf{'etc'}/$vr/templates";
@@ -130,9 +128,8 @@ foreach my $vr (keys %{$Conf::Conf{'robots'}}) {
     }
 
     ## Search in V. Robot Lists
-    my $listOfLists = &List::get_lists($vr);
-    foreach my $list ( @$listOfLists ) {
-
+    foreach my $list ( &List::get_lists($vr) ) {
+	
 	push @directories, $list->{'dir'};
 	
 	if (-d "$list->{'dir'}/templates") {
@@ -146,9 +143,8 @@ foreach my $vr (keys %{$Conf::Conf{'robots'}}) {
 
 ## List .tpl files
 foreach my $d (@directories) {
-
     unless (opendir DIR, $d) {
-	printf STDERR "Error: Cannot read %s directory : %s\n", $d, $!;
+	printf STDERR "Error: Cannot read %s directory : %s", $d, $!;
 	next;
     }
     

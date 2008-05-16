@@ -1,5 +1,5 @@
 # subst.pl - This script replaces --VAR-- occurences at installation time
-# RCS Identication ; $Revision: 4495 $ ; $Date: 2007-08-01 14:30:13 +0200 (mer, 01 aoû 2007) $ 
+# RCS Identication ; $Revision: 1.6 $ ; $Date: 2006/03/14 13:46:31 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -59,22 +59,7 @@ foreach $src (@ARGV) {
 #   }
 
    while (<IN>) {
-       ## Instantiate variables --VAR--
        s/--(\w+)--/$ENV{$1}/g;
-
-       ## Conditional logging, for performances concerns
-       if (/^\s*(\&?(Log::)?(do_log|wwslog)\s*\(\'(\w+)\').*$/) {
-	   my $facility = $4;
-	   my $level = 0;
-	   if ($facility =~ /^debug(\d+)?$/) {
-	       $level = $1 || 1;
-	   }
-	   
-	   my $condition = '($Log::log_level >= '.$level.') && ';
-
-	   s/^(\s*)/$1$condition/;
-       }
-
        print OUT $_;
    }
    close(OUT);

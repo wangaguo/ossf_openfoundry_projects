@@ -1,5 +1,5 @@
 # Makefile - This Makefile does the web templates installation
-# RCS Identication ; $Revision: 4692 $ ; $Date: 2007-11-14 17:34:21 +0100 (mer, 14 nov 2007) $ 
+# RCS Identication ; $Revision: 1.3 $ ; $Date: 2006/01/30 17:03:48 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -53,6 +53,14 @@ installtemplates:
 		LIBDIR=$(LIBDIR); export LIBDIR; \
 		DESTDIR=$(DESTDIR); export DESTDIR; \
 		ETCBINDIR=$(ETCBINDIR); export ETCBINDIR; \
+		COL1=5; export COL1; \
+		COL2=40; export COL2; \
+		COL3=30; export COL3; \
+		COL4=40; export COL4; \
+		COL12=45; export COL12; \
+		COL23=70; export COL23; \
+		COL34=70; export COL34; \
+		COL234=110; export COL234; \
 		$(PERL) ../subst.pl *.tt2; \
 		); \
 	$(PERL) ../set_symlinks.pl web_tt2 $(DESTDIR)$(ETCBINDIR)/web_tt2

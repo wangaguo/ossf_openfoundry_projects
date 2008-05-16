@@ -1,7 +1,7 @@
 #!--PERL--
 
 # archived.pl - This script does the web archives building for Sympa
-# RCS Identication ; $Revision: 4986 $ ; $Date: 2008-05-02 12:06:30 +0200 (ven, 02 mai 2008) $ 
+# RCS Identication ; $Revision: 1.68.2.2 $ ; $Date: 2006/08/29 11:25:36 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -25,18 +25,6 @@
 ##         :  d		-> debug -d is equiv to -dF
 ## Now, it is impossible to use -dF but you have to write it -d -F
 
-=pod 
-
-=head1 NAME 
-
-I<archived.pl> - Daemon running the web archive building.
-
-=head1 DESCRIPTION 
-
-This script must be run along with sympa. It regularly checks the 'outgoing' spool and picks the messages it finds in it. It then calls MHonArc to build the HTML version of archives and add an SMTP text version (i.e. an ASCII file including headers and body) to the appropriate directory.
-
-=cut 
-
 ## Change this to point to your Sympa bin directory
 use lib '--LIBDIR--';
 
@@ -56,23 +44,17 @@ use Version;
 require 'tt2.pl';
 require 'tools.pl';
 
-my $daemon_name = &Log::set_daemon($0);
-my $ip = $ENV{'REMOTE_HOST'};
-
 #getopts('dF');
 
 ## Check options
 my %options;
-unless (&GetOptions(\%main::options, 'debug|d', 'foreground|F')) {
-    &fatal_err("Unknown options.");
-}
+&GetOptions(\%main::options, 'debug|d', 'foreground|F');
 
 if ($main::options{'debug'}) {
     $main::options{'log_level'} = 2 unless ($main::options{'log_level'});
 }
 
 $main::options{'foreground'} = 1 if ($main::options{'debug'});
-$main::options{'log_to_stderr'} = 1 if ($main::options{'debug'} || $main::options{'foreground'});
 
 $wwsympa_conf = "--WWSCONFIG--";
 $sympa_conf_file = '--CONFIG--';
@@ -101,8 +83,13 @@ if ($wwsconf->{'arc_path'}) {
 }
 
 ## Check databse connectivity
-unless (&List::check_db_connect()) {
-    &fatal_err('Database %s defined in sympa.conf has not the right structure or is unreachable.', $Conf{'db_name'});
+unless ($List::use_db = &List::check_db_connect()) {
+    &fatal_err('Database %s defined in sympa.conf has not the right structure or is unreachable. If you don\'t use any database, comment db_xxx parameters in sympa.conf', $Conf{'db_name'});
+}
+
+## Check databse connectivity
+unless ($List::use_db = &List::check_db_connect()) {
+    &fatal_err('Database %s defined in sympa.conf has not the right structure or is unreachable. If you don\'t use any database, comment db_xxx parameters in sympa.conf', $Conf{'db_name'});
 }
 
 ## Put ourselves in background if not in debug mode. 
@@ -124,14 +111,7 @@ unless ($main::options{'debug'} || $main::options{'foreground'}) {
 ## Create and write the pidfile
 &tools::write_pid($wwsconf->{'archived_pidfile'}, $$);
 
-# setting log_level using conf unless it is set by calling option
-if ($main::options{'log_level'}) {
-    &Log::set_log_level($main::options{'log_level'});
-    do_log('info', "Configuration file read, log level set using options : $main::options{'log_level'}"); 
-}else{
-    &Log::set_log_level($Conf{'log_level'});
-    do_log('info', "Configuration file read, default log level $Conf{'log_level'}"); 
-}
+$log_level = $main::options{'log_level'} || $Conf{'log_level'};
 
 $wwsconf->{'log_facility'}||= $Conf{'syslog'};
 do_openlog($wwsconf->{'log_facility'}, $Conf{'log_socket_type'}, 'archived');
@@ -145,11 +125,6 @@ $< = $> = (getpwnam('--USER--'))[2];
 &POSIX::setuid((getpwnam('--USER--'))[2]);
 &POSIX::setgid((getgrnam('--GROUP--'))[2]);
 
-## Check if the UID has correctly been set (usefull on OS X)
-unless (($( == (getgrnam('--GROUP--'))[2]) && ($< == (getpwnam('--USER--'))[2])) {
-    &fatal_err("Failed to change process userID and groupID. Note that on some OS Perl scripts can't change their real UID. In such circumstances Sympa should be run via SUDO.");
-}
-
 ## Sets the UMASK
 umask(oct($Conf{'umask'}));
 
@@ -160,6 +135,7 @@ unless ((-r $wwsconf->{'arc_path'}) && (-w $wwsconf->{'arc_path'})) {
 
 ## Change to list root
 unless (chdir($Conf{'home'})) {
+    &report::reject_report_web('intern','chdir_error',{},'','','',$robot);
     &do_log('err','unable to change directory');
     exit (-1);
 }
@@ -193,7 +169,7 @@ while (!$end) {
        fatal_err("Can't open dir %s: %m", $queue); ## No return.
    }
 
-   my @files =  (grep(/(^[^\.]|^\.(remove|rebuild)\.(.*))/, readdir DIR ));
+   my @files =  (grep(!/^\.{1,2}$/, readdir DIR ));
    closedir DIR;
 
    ## this sleep is important to be raisonably sure that sympa is not currently
@@ -203,7 +179,6 @@ while (!$end) {
    foreach my $file (@files) {
 
        last if $end;
-       next unless (-f "$queue/$file");
 
        if ($file  =~ /^\.remove\.((.*)\.(\d\d\d\d\-\d\d))\.\d+$/ ) {
 	   my $arclistdir = $1;
@@ -225,11 +200,8 @@ while (!$end) {
 	        do_log ('err',"Ignoring file $queue/$file because couldn't read it, archived.pl must use the same uid as sympa");
 		   next;
 	       }
-
-	   my $email_regexp = &tools::get_regexp('email');
-
 	   foreach my $removeorder (<REMOVE>) { 
-	       unless($removeorder =~ /(.*)\|\|($email_regexp)/){
+	       unless($removeorder =~ /(.*)\|\|($tools::regexp{'email'})/){
 		   do_log ('err',"Ignoring remove_order $removeorder not recognized format");   
 		   next;
 	       }
@@ -271,6 +243,7 @@ while (!$end) {
 	       &tools::remove_dir ($url_dir);
 
 	       unless (-d "$arcpath/deleted"){
+		   # do_log('info',"xxxxxxxxxxxxxxxxxxxxxxx  $arcpath/deleted");
 		   unless (mkdir ("$arcpath/deleted",0777)) {
 		       do_log('info',"remove_arc: unable to create $arcpath/deleted : $!");
 		       last;
@@ -287,11 +260,14 @@ while (!$end) {
 		   do_log('info',"remove_arc: unable to open dir $arcpath/arctxt");
 		   next;
 	       }
+	       # do_log('info',"xxxxxxxxxxxxxxxxxxxxxxx  test emptydir");
 	       my @files = grep(/^\d+$/, readdir( DIR ));
 	       closedir (DIR);
 	       if ($#files == -1) {
+		   # do_log('info','remove_dir   xxxxxxxxxxxxxxxxxxx %s',$arcpath);
 		   &tools::remove_dir ($arcpath); 
 	       }else{			
+		   # do_log('info', "xxxxxxxxxxxxxxxxxxx $arcpath/arctxt not empty");
 	       }
 	   }
 	   close REMOVE;
@@ -340,114 +316,27 @@ while (!$end) {
 	       return undef;
 	   }
 
-	   do_log('notice',"Archiving $file for list $adrlist");
-	   unless (mail2arc ($file, $listname, $hostname, $yyyy, $mm, $dd, $hh, $min, $ss)) {
-	       &tools::save_to_bad({
-		   'file' => $file,
-		   'hostname' => $hostname,
-		   'queue' => $queue,
-	       });
-	       unless (&List::send_notify_to_listmaster('archiving_failed',$hostname,{'file' => "$file",'bad' => "$queue/bad"})) {
-		   &do_log('notice',"Unable to send notify 'archiving_failed' to listmaster");
-	       }
-	   }
-	   if (-f "$queue/$file") {
-	       unless (unlink("$queue/$file")) {
-		   do_log ('err',"Ignoring file $queue/$file because couldn't remove it, archived.pl must use the same uid as sympa");
-		   do_log ('err',"exiting because I don't want to loop until file system is full");
-		   last;
-	       }
+	   do_log('notice',"Archiving $file for list $adrlist");      
+	   mail2arc ($file, $listname, $hostname, $yyyy, $mm, $dd, $hh, $min, $ss) ;
+	   unless (unlink("$queue/$file")) {
+	       do_log ('err',"Ignoring file $queue/$file because couldn't remove it, archived.pl must use the same uid as sympa");
+	       do_log ('err',"exiting because I don't want to loop until file system is full");
+	       last;
 	   }
        }
    }
 }
 do_log('notice', 'archived exited normally due to signal');
-&tools::remove_pid($wwsconf->{'archived_pidfile'}, $$);
+unlink("$wwsconf->{'archived_pidfile'}");
 
 exit(0);
 
-
-=pod 
-
-=head1 SUBFUNCTIONS 
-
-This is the description of the subfunctions contained by archived.pl.
-
-=cut 
-
-=pod 
-
-=head2 sub sigterm()
-
-Switches the loop control variable $end value to 1 when SIGTERM signal is caught.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * none
-
-=back 
-
-=cut 
 
 ## When we catch SIGTERM, just change the value of the loop
 ## variable.
 sub sigterm {
     $end = 1;
 }
-
-=pod 
-
-=head2 sub remove(STRING $adrlist, STRING $msgid)
-
-Removes the message having the identifier $msgid from the list named $adrlist.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$adrlist>, a character string containing the list name.
-
-=item * I<$msgid> , a character string containing the message identifier.
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * Log::db_log
-
-=item * Log::do_log
-
-=back 
-
-=cut 
 
 sub remove {
     my $adrlist = shift;
@@ -462,9 +351,6 @@ sub remove {
     }
 
     do_log('notice',"Removing $msgid in list $adrlist section $2");
-    unless(&Log::db_log({'robot' => $robot,'list' => $adrlist,'action' => 'remove','parameters' => $msgid.','.$adrlist,'target_email' => '','msg_id' => $msgid,'status' => 'succes','error_type' => '','user_email' =>'','client' => $ip,'daemon' => $daemon_name})) {
-	&do_log('error','archived::remove: unable to log event');
-    }
   
     $arc =~ /^(\d{4})-(\d{2})$/ ;
     my $yyyy = $1 ;
@@ -473,50 +359,6 @@ sub remove {
     $msgid =~ s/\$/\\\$/g;
     system "$wwsconf->{'mhonarc'}  -outdir $wwsconf->{'arc_path'}/$adrlist/$yyyy-$mm -rmm $msgid";
 }
-
-=pod 
-
-=head2 sub rebuild(STRING $adrlist)
-
-Rebuilds archives for the list the name of which is given in the argument $adrlist.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$adrlist>, a character string containing the name of the list the archives of which we want to rebuild.
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<undef> if something goes wrong.
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * get_tag
-
-=item * set_hidden_mode
-
-=item * unset_hidden_mode
-
-=item * List::new
-
-=item * Log::do_log
-
-=item * tools::get_filename
-
-=item * tools::remove_dir
-
-=back 
-
-=cut 
 
 sub rebuild {
 
@@ -545,7 +387,7 @@ sub rebuild {
 
     do_log('debug',"Rebuilding $adrlist archive ($2)");
 
-    my $mhonarc_ressources = &tools::get_filename('etc',{},'mhonarc-ressources.tt2',$list->{'domain'}, $list);
+    my $mhonarc_ressources = &tools::get_filename('etc','mhonarc-ressources.tt2',$list->{'domain'}, $list);
 
     if (($list->{'admin'}{'web_archive_spam_protection'} ne 'none') && ($list->{'admin'}{'web_archive_spam_protection'} ne 'cookie')) {
 	&set_hidden_mode($tag);
@@ -553,10 +395,10 @@ sub rebuild {
 	&unset_hidden_mode();
     }
 
-    &do_log('notice',"Rebuilding  $arc with M2H_ADDRESSMODIFYCODE : %s",$ENV{'M2H_ADDRESSMODIFYCODE'});
+    do_log('notice','Rebuilding  $arc with M2H_ADDRESSMODIFYCODE : %s',$ENV{'M2H_ADDRESSMODIFYCODE'});
 
     if ($arc) {
-        &do_log('notice',"Rebuilding  $arc of $adrlist archive");
+        do_log('notice',"Rebuilding  $arc of $adrlist archive");
 	$arc =~ /^(\d{4})-(\d{2})$/ ;
 	my $yyyy = $1 ;
 	my $mm = $2 ;
@@ -565,22 +407,13 @@ sub rebuild {
 	my $arcdir = $wwsconf->{'arc_path'}.'/'.$adrlist.'/'.$yyyy.'-'.$mm ;
 	my $arctxt = $arcdir.'/arctxt' ;
 	if (opendir (DIR,$arctxt)) {
-	    my @files = (grep(/^\d+$/,(readdir DIR )));
+	    my @files = (grep /^\d+$/,(readdir DIR ));
 	    close (DIR);
 	    if ($#files == -1) { 
 		do_log('notice', "Removing empty directory $arcdir");
 		&tools::remove_dir ($arcdir);
 		next ;	 
 	    } 
-
-	    ## index file was removed ; recreate it
-	    my $index = $files[$#files];
-	    &save_idx($arcdir.'/index', $index+1);
-	}
-	
-	## recreate index file if needed
-	unless (-f $arcdir.'/index') {
-	    &create_idx($arcdir);
 	}
 
 	## Remove .mhonarc.db
@@ -628,32 +461,25 @@ sub rebuild {
 	    my $yyyy = $1 ;
 	    my $mm = $2 ;
 
-	    my $arcdir = $wwsconf->{'arc_path'}.'/'.$adrlist.'/'.$yyyy.'-'.$mm;
-
 	    ## Remove .mhonarc.db
-	    unlink $arcdir.'/.mhonarc.db';
+	    unlink $wwsconf->{'arc_path'}.'/'.$adrlist.'/'.$yyyy.'-'.$mm.'/.mhonarc.db';
 	    
 	    ## Remove existing HTML files
-	    opendir HTML, $arcdir;
+	    opendir HTML, "$wwsconf->{'arc_path'}/$adrlist/$yyyy-$mm";
 	    ## Skip arctxt/ . and ..
 	    foreach my $html_file (grep !/^arctxt$|^index$|\.+$/, readdir(HTML)) {
-		unlink $arcdir.'/'.$html_file;
+		unlink $wwsconf->{'arc_path'}.'/'.$adrlist.'/'.$yyyy.'-'.$mm.'/'.$html_file;
 	    }	
 	    closedir HTML;	
 
-	    ## recreate index file if needed
-	    unless (-f $arcdir.'/index') {
-		&create_idx($arcdir);
-	    }
-
-	    my $cmd = "$wwsconf->{'mhonarc'} -modifybodyaddresses -addressmodifycode \'$ENV{'M2H_ADDRESSMODIFYCODE'}\'  -rcfile $mhonarc_ressources -outdir $arcdir  -definevars \"listname=$listname hostname=$hostname yyyy=$yyyy mois=$mm yyyymm=$yyyy-$mm wdir=$wwsconf->{'arc_path'} base=$Conf{'wwsympa_url'}/arc tag=$tag\" -umask $Conf{'umask'} $wwsconf->{'arc_path'}/$adrlist/$arc/arctxt";
+	    my $cmd = "$wwsconf->{'mhonarc'} -modifybodyaddresses -addressmodifycode \'$ENV{'M2H_ADDRESSMODIFYCODE'}\'  -rcfile $mhonarc_ressources -outdir $wwsconf->{'arc_path'}/$adrlist/$yyyy-$mm  -definevars \"listname=$listname hostname=$hostname yyyy=$yyyy mois=$mm yyyymm=$yyyy-$mm wdir=$wwsconf->{'arc_path'} base=$Conf{'wwsympa_url'}/arc tag=$tag\" -umask $Conf{'umask'} $wwsconf->{'arc_path'}/$adrlist/$arc/arctxt";
 	    my $exitcode = system($cmd);
 	    $exitcode = $exitcode / 256;
 
 	    ## Remove lock if required
 	    if ($exitcode == 75) {
-		&do_log('notice', 'Removing lock directory %s', $arcdir.'/.mhonarc.lck');
-		rmdir $arcdir.'/.mhonarc.lck';
+		&do_log('notice', 'Removing lock directory %s', $wwsconf->{'arc_path'}.'/'.$adrlist.'/'.$arc.'/.mhonarc.lck');
+		rmdir $wwsconf->{'arc_path'}.'/'.$adrlist.'/'.$arc.'/.mhonarc.lck';
 		
 		$exitcode = system($cmd);
 		$exitcode = $exitcode / 256;	    
@@ -667,74 +493,6 @@ sub rebuild {
 }
 
 
-=pod 
-
-=head2 sub mail2arc(STRING $file,STRING $listname,STRING $hostname,STRING $yyyy,STRING $mm,STRING $dd,STRING $hh,STRING $min,STRING $ss)
-
-Archives one message into one list archives directory.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$file>: a character string containing the message filename.
-
-=item * I<$listname>: a character string containing the name of the list in which to archive the message
-
-=item * I<$hostname>: a character string containing the name of the virtual robot hosting the list.
-
-=item * I<$yyyy>: a character string containing the year of the date when the message is archived (i.e. now)
-
-=item * I<$mm>: a character string containing the month of the date when the message is archived (i.e. now)
-
-=item * I<$dd>: a character string containing the day of the date when the message is archived (i.e. now)
-
-=item * I<$hh>: a character string containing the hour of the date when the message is archived (i.e. now)
-
-=item * I<$min>: a character string containing the minute of the date when the message is archived (i.e. now)
-
-=item * I<$ss>: a character string containing the second of the date when the message is archived (i.e. now)
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<undef> if something goes wrong.
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * get_tag
-
-=item * save_idx
-
-=item * set_hidden_mode
-
-=item * unset_hidden_mode
-
-=item * List::get_arc_size
-
-=item * List::get_list_id
-
-=item * List::new
-
-=item * List::send_notify_to_owner
-
-=item * Log::do_log
-
-=item * tools::get_filename
-
-=item * tools::remove_dir
-
-=back 
-
-=cut 
-
 sub mail2arc {
 
     my ($file, $listname, $hostname, $yyyy, $mm, $dd, $hh, $min, $ss) = @_;
@@ -742,11 +500,6 @@ sub mail2arc {
     my $newfile;
 
     my $list = new List($listname, $hostname);
-
-    unless (defined $list) {
-	&do_log('err', 'Unknown list %s@%s', $listname, $hostname);
-	return undef;
-    }
 
     my $tag = &get_tag($listname);
 
@@ -764,9 +517,7 @@ sub mail2arc {
     if (! -d $basedir) {
 	unless (mkdir $basedir, 0775) {
 	    &do_log('err', 'Cannot create directory %s', $basedir);
-	    unless (&List::send_notify_to_listmaster('unable_to_create_dir',$hostname,{'dir' => "$basedir"})) {
-		&do_log('notice',"Unable to send notify 'unable_to_create_dir' to listmaster");
-	    }
+	    return undef;
 	}
 	do_log('debug',"mkdir $basedir");
     }
@@ -837,11 +588,15 @@ sub mail2arc {
      }
      else
      {
-	 ## recreate index file if needed and update it
-	 $newfile = $index = &create_idx($monthdir) + 1;
+	do_log('debug',"indexing $listname archive");
+	opendir (DIR, arctxtdir);
+	my @files = (sort { $a <=> $b;}  readdir(DIR)) ;
+	my $index = $files[$#files];
+	$index +=1;
+	$newfile = $index;
      }
     
-    my $mhonarc_ressources = &tools::get_filename('etc',{},'mhonarc-ressources.tt2',$list->{'domain'}, $list);
+    my $mhonarc_ressources = &tools::get_filename('etc','mhonarc-ressources.tt2',$list->{'domain'}, $list);
     
     do_log ('debug',"calling $wwsconf->{'mhonarc'} for list %s", $list->get_list_id() ) ;
     my $cmd = "$wwsconf->{'mhonarc'} -add -modifybodyaddresses -addressmodifycode \'$ENV{'M2H_ADDRESSMODIFYCODE'}\'  -rcfile $mhonarc_ressources -outdir $monthdir  -definevars \"listname='$listname' hostname=$hostname yyyy=$yyyy mois=$mm yyyymm=$yyyy-$mm wdir=$wwsconf->{'arc_path'} base=$Conf{'wwsympa_url'}/arc tag=$tag\" -umask $Conf{'umask'} < $queue/$file";
@@ -875,38 +630,6 @@ sub mail2arc {
     &save_idx("$monthdir/index",$newfile);
 }
 
-=pod 
-
-=head2 sub set_hidden_mode(STRING $tag)
-
-Sets the value of $ENV{'M2H_ADDRESSMODIFYCODE'} and $ENV{'M2H_MODIFYBODYADDRESSES'}
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$tag> a character string (containing the result of get_tag($listname))
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * none
-
-=back 
-
-=cut 
-
 sub set_hidden_mode {
     my $tag = shift; ## tag is used as variable elements in tags to prevent message contents to be parsed
 
@@ -915,81 +638,14 @@ sub set_hidden_mode {
     $ENV{'M2H_MODIFYBODYADDRESSES'} = 1;
 }
 
-=pod 
-
-=head2 sub unset_hidden_mode()
-
-Empties $ENV{'M2H_ADDRESSMODIFYCODE'}.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * none
-
-=back 
-
-=cut 
-
 sub unset_hidden_mode {
     
     ## Be carefull, the .mhonarc.db file keeps track of previous M2H_ADDRESSMODIFYCODE setup
     $ENV{'M2H_ADDRESSMODIFYCODE'} = '';
 }
 
-=pod 
-
-=head2 sub save_idx(STRING $index,STRING $lst)
-
-Saves the archives index file
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$index>, a string corresponding to the file name to which save an index.
-
-=item * I<$lst>, a character string
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<none> 
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * none
-
-=back 
-
-=cut 
-
 sub save_idx {
     my ($index,$lst) = @_;
-#    &do_log('notice', "save_idx($index,$lst)");
     
     open(INDEXF,">$index") || fatal_err("couldn't overwrite index $index");
     print INDEXF "$lst\n";
@@ -997,82 +653,8 @@ sub save_idx {
     #   do_log('debug',"last arc entry for $index is $lst");
 }
 
-## Create the 'index' file for one archive subdir
-sub create_idx {
-    my $arc_dir = shift; ## corresponds to the yyyy-mm directory
-
-    my $arc_txt_dir = $arc_dir.'/arctxt';
-
-    unless (opendir (DIR, $arc_txt_dir)) {
-	&do_log('err', "Failed to open directory '$arc_txt_dir'");
-	return undef;
-    }
-
-    my @files = (sort { $a <=> $b;}  grep(/^\d+$/,(readdir DIR ))) ;
-    my $index = $files[$#files];
-    &save_idx($arc_dir.'/index', $index);
-
-    closedir DIR;
-
-    return $index;
-}
-
-=pod 
-
-=head2 sub get_tag(STRING $listname)
-
-Returns a tag derived from the listname.
-
-=head3 Arguments 
-
-=over 
-
-=item * I<$listname>, a character string correspondiong to the list name.
-
-=back 
-
-=head3 Return 
-
-=over 
-
-=item * I<a character string>, corresponding to the 10 last characters of a 32 bytes string containing the MD5 digest of the concatenation of the following strings (in this order):
-
-=over 4
-
-=item - the cookie config parameter
-
-=item - a slash: "/"
-
-=item - the I<$listname> argument
-
-=back 
-
-=head3 Calls 
-
-=over 
-
-=item * Digest::MD5::md5_hex
-
-=back 
-
-=cut 
-
 sub get_tag {
     my $listname = shift;
     
     return (substr(Digest::MD5::md5_hex(join('/', $Conf{'cookie'}, $listname)), -10)) ;
 }
-
-=pod 
-
-=head1 AUTHORS 
-
-=over 
-
-=item * Serge Aumont <sa AT cru.fr> 
-
-=item * Olivier Salaun <os AT cru.fr> 
-
-=back 
-
-=cut 

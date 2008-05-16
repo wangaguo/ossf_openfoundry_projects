@@ -1,6 +1,6 @@
 # check_perl_modules.pl - This script checks installed and required Perl modules
 # It also does the required installations
-# RCS Identication ; $Revision: 4974 $ ; $Date: 2008-04-17 08:50:01 +0200 (jeu, 17 avr 2008) $ 
+# RCS Identication ; $Revision: 1.47.2.1 $ ; $Date: 2006/06/08 12:53:26 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -24,20 +24,19 @@ use CPAN;
 
 ## assume version = 1.0 if not specified.
 ## 
-%versions = ('perl' => '5.008',
+%versions = ('perl' => '5.005',
              'Net::LDAP' =>, '0.27', 
 	     'perl-ldap' => '0.10',
 	     'Mail::Internet' => '1.51', 
-	     'DBI' => '1.48',
+	     'DBI' => '1.06',
 	     'DBD::Pg' => '0.90',
 	     'DBD::Sybase' => '0.90',
 	     'DBD::mysql' => '2.0407',
 	     'FCGI' => '0.67',
-	     'HTML::StripScripts::Parser' => '1.0',
-	     'MIME::Tools' => '5.423',
+	     'MIME::Tools' => '5.209',
 	     'File::Spec' => '0.8',
              'Crypt::CipherSaber' => '0.50',
-	     'CGI' => '3.35',
+	     'CGI' => '2.52',
 	     'Digest::MD5' => '2.00',
 	     'DB_File' => '1.75',
 	     'IO::Socket::SSL' => '0.90',
@@ -46,9 +45,7 @@ use CPAN;
 	     'Bundle::LWP' => '1.09',
 	     'SOAP::Lite' => '0.60',
 	     'MHonArc::UTF8' => '2.6.0',
-	     'MIME::Base64' => '3.03',
-	     'MIME::Charset' => '0.04.1',
-	     'MIME::EncWords' => '0.040',
+	     'MIME::Base64' => '3.03'
 	     );
 
 ### key:left "module" used by SYMPA, 
@@ -73,9 +70,6 @@ use CPAN;
 	     'DBD::mysql' => 'Msql-Mysql-modules',
 	     'Crypt::CipherSaber' => 'CipherSaber',
 	     'Encode' => 'Encode',
-	     'MIME::Charset' => 'MIME-Charset',
-	     'MIME::EncWords' => 'MIME-EncWords',
-	     'HTML::StripScripts::Parser' => 'HTML-StripScripts-Parser',
 	     );
 
 %opt_CPAN = ('DBD::Pg' => 'DBD-Pg',
@@ -88,15 +82,14 @@ use CPAN;
 	     'IO::Socket::SSL' => 'IO-Socket-SSL',
 	     'Net::SSLeay' => 'NET-SSLeay',
 	     'Bundle::LWP' => 'LWP',
-	     'SOAP::Lite' => 'SOAP-Lite',
-	     'File::NFSLock' => 'File-NFSLock');
+	     'SOAP::Lite' => 'SOAP-Lite');
 
 %opt_features = ('DBI' => 'a generic Database Driver, required by Sympa to access Subscriber information and User preferences. An additional Database Driver is required for each database type you wish to connect to.',
 		 'DBD::mysql' => 'Mysql database driver, required if you connect to a Mysql database.\nYou first need to install the Mysql server and have it started before installing the Perl DBD module.',
 		 'DBD::Pg' => 'PostgreSQL database driver, required if you connect to a PostgreSQL database.',
 		 'DBD::Oracle' => 'Oracle database driver, required if you connect to a Oracle database.',
 		 'DBD::Sybase' => 'Sybase database driver, required if you connect to a Sybase database.',
-		 'DBD::SQLite' => 'SQLite database driver, required if you connect to a SQLite database.',
+		 'DBD::SQLite' => 'Sybase database driver, required if you connect to a SQLite database.',
 		 'Net::LDAP' =>   'required to query LDAP directories. Sympa can do LDAP-based authentication ; it can also build mailing lists with LDAP-extracted members.',
 		 'CGI::Fast' => 'WWSympa, Sympa\'s web interface can run as a FastCGI (ie: a persistent CGI). If you install this module, you will also need to install the associated mod_fastcgi for Apache.',
 		 'Crypt::CipherSaber' => 'this module provides reversible encryption of user passwords in the database.',
@@ -106,16 +99,14 @@ use CPAN;
 		 'IO::Socket::SSL' => 'required by CAS (single sign-on) and the \'include_remote_sympa_list\' feature that includes members of a list on a remote server, using X509 authentication',
 		 'Net::SSLeay' => 'required by the \'include_remote_sympa_list\' feature that includes members of a list on a remote server, using X509 authentication',
 		 'Bundle::LWP' => 'required by the \'include_remote_sympa_list\' feature that includes members of a list on a remote server, using X509 authentication',
-		 'SOAP::Lite' => 'required if you want to run the Sympa SOAP server that provides ML services via a "web service"',
-		 'File::NFSLock' => 'required to perform NFS lock ; see also lock_method sympa.conf parameter'
-		 );
+		 'SOAP::Lite' => 'required if you want to run the Sympa SOAP server that provides ML services via a "web service"');
 
 ### main:
 print "******* Check perl for SYMPA ********\n";
 ### REQ perl version
 print "\nChecking for PERL version:\n-----------------------------\n";
 $rpv = $versions{"perl"};
-if ($] >= $versions{"perl"}){
+if ($] ge $versions{"perl"}){
     print "your version of perl is OK ($]  >= $rpv)\n";
 }else {
     print "Your version of perl is TOO OLD ($]  < $rpv)\nPlease INSTALL a new one !\n";
@@ -159,13 +150,13 @@ sub check_modules {
 	    }else {
 		print "version is too old ($v < $rv).\n";
                 print ">>>>>>> You must update \"$todo{$mod}\" to version \"$versions{$todo{$mod}}\" <<<<<<.\n";
-		&install_module($mod, {'default' => $default});
+		&install_module($mod, $default);
 	    }
 	} elsif ($status eq "nofile") {
 	    ### not installed
 	    print "was not found on this system.\n";
 
-	    &install_module($mod, {'default' => $default});
+	    &install_module($mod, $default);
 
 	} elsif ($status eq "pb_retval") {
 	    ### doesn't return 1;
@@ -180,9 +171,7 @@ sub check_modules {
 # Install a CPAN module
 ##----------------------
 sub install_module {
-    my ($module, $options) = @_;
-
-    my $default = $options->{'default'};
+    my ($module, $default) = @_;
 
     unless ($ENV{'FTP_PASSIVE'} eq 1) {
 	$ENV{'FTP_PASSIVE'} = 1;
@@ -200,45 +189,13 @@ sub install_module {
 	return undef;
     }
 
-    unless ($options->{'force'}) {
-	printf "Description: %s\n", $opt_features{$module};
-	print "Install module $module ? [$default]";
-	my $answer = <STDIN>; chomp $answer;
-	$answer ||= $default;
-	return unless ($answer =~ /^y$/i);
-    }
-    
-    $CPAN::Config->{'inactivity_timeout'} = 4;
-    $CPAN::Config->{'colorize_output'} = 1;
-
-    #CPAN::Shell->clean($module) if ($options->{'force'});
-
-    CPAN::Shell->make($module);
-    
-    if ($options->{'force'}) {
-	CPAN::Shell->force('test', $module);
-      }else {
-	  CPAN::Shell->test($module);
-      }
-    
-
-    CPAN::Shell->install($module); ## Could use CPAN::Shell->force('install') if make test failed
-
-    ## Check if module has been successfuly installed
-    unless (&test_module($module) == 1) {
-
-	## Prevent recusive calls if already in force mode
-	if ($options->{'force'}) {
-	    print  "Installation of $module still FAILED. You should download the tar.gz from http://search.cpan.org and install it manually.";
-	    my $answer = <STDIN>;
-	}else {
-	    print  "Installation of $module FAILED. Do you want to force the installation of this module? (y/N) ";
-	    my $answer = <STDIN>; chomp $answer;
-	    if ($answer =~ /^y/i) {
-		&install_module($module, {'force' => 1});
-	    }
-	}
-    }
+    printf "Description: %s\n", $opt_features{$module};
+    print "Install module $module ? [$default]";
+    my $answer = <STDIN>; chomp $answer;
+    $answer ||= $default;
+    next unless ($answer =~ /^y$/i);
+  CPAN::Shell->conf('inactivity_timeout', 4);
+    CPAN::Shell->install($module);
 
     ## Restore lang
     $ENV{'LANG'} = $lang if (defined $lang);

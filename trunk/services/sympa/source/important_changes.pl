@@ -1,6 +1,6 @@
 # important_changes.pl - This script prints important changes in Sympa since last install
 # It is based on the NEWS ***** entries
-# RCS Identication ; $Revision: 4868 $ ; $Date: 2008-03-03 17:54:09 +0100 (lun, 03 mar 2008) $ 
+# RCS Identication ; $Revision: 1.17.2.1 $ ; $Date: 2006/04/19 14:45:21 $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -40,8 +40,8 @@ unless (open VERSION, "$ENV{'DESTDIR'}$ENV{'BINDIR'}/Version.pm") {
 
 unless ($first_install) {
     while (<VERSION>) {
-	if (/^(our )?\$Version = \'(\S+)\'\;/) {
-	    $previous_version = $2;
+	if (/^\$Version = \'(\S+)\'\;/) {
+	    $previous_version = $1;
 	    last;
 	}
     }
@@ -90,6 +90,7 @@ my $wait = <STDIN>;
 open NOTES, 'NEWS';
 my ($current, $ok);
 while (<NOTES>) {
+    
     if (/^([\w_.]+)\s/) {
 	my $v = $1;
 	if ($v eq $previous_version  || 

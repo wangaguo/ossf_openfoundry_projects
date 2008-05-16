@@ -1,5 +1,5 @@
 # SharedDocument.pm - module to manipulate shared web documents
-# <!-- RCS Identication ; $Revision: 3539 $ ; $Date: 2006-02-02 14:10:35 +0100 (jeu, 02 fév 2006) $ -->
+# <!-- RCS Identication ; $Revision: 1.4 $ ; $Date: 2006/02/02 13:10:35 $ -->
 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
