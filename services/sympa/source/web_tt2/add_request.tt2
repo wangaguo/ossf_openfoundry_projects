@@ -1,14 +1,14 @@
-<!-- $Id: add_request.tt2,v 1.3 2005/08/09 09:52:42 sympa-authors Exp $ -->
+<!-- $Id: add_request.tt2 4811 2008-01-22 11:23:21Z david.verdin $ -->
 
-    <form action="[% path_cgi %]" method="post" class="add-request">
+    <form action="[% path_cgi %]" method="post" class="add-request" name="multipleadd">
+      <fieldset>
       <input type="hidden" name="list" value="[% list %]" />
-
-        <textarea name="dump" cols="80" rows="25">[%|loc%]email1@dom1 Name1[%END%]
+        <textarea name="dump" cols="80" rows="25" onclick="document.multipleadd.dump.value='';" >[%|loc%]email1@dom1 Name1[%END%]
 [%|loc%]email2@dom2 Name2[%END%]
-	.......
+...
         </textarea>
-
+      <br />
       <input class="MainMenuLinks" type="submit" name="action_add" value="[%|loc%]Add subscribers[%END%]" />
-      <label><input type="checkbox" name="quiet" /> [%|loc%]quiet[%END%]</label>
-
+      <input id="quiet" type="checkbox" name="quiet" /> <label for="quiet">[%|loc%]quiet[%END%]</label>
+      </fieldset>
     </form>

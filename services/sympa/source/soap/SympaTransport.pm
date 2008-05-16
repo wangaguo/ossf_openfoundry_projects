@@ -33,6 +33,9 @@ sub request {
 	    }
 	}
 	
+	## Empty cache of the List.pm module
+	&List::init_list_cache();
+
 	delete $ENV{'USER_EMAIL'};
 	if (defined $sympa_cookies{'sympauser'}) {
 	    my ($email, $md5) = split /:/,$sympa_cookies{'sympauser'};
@@ -48,7 +51,7 @@ sub request {
 	&Log::do_log('debug2', 'Robot : %s', $ENV{'SYMPA_ROBOT'});
     }else {
 	&Log::do_log('debug2', 'URL : %s', $ENV{'SERVER_NAME'}.$ENV{'SCRIPT_NAME'});
-	delete $ENV{'SYMPA_ROBOT'};
+	$ENV{'SYMPA_ROBOT'} =  $Conf::Conf{'host'} ;
     }
 
     $self->SUPER::request(@_);

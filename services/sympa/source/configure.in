@@ -1,5 +1,5 @@
 # configure.in - Top-level configure.in for Sympa
-# RCS Identication ; $Revision: 1.28 $ ; $Date: 2006/04/05 08:22:07 $ 
+# RCS Identication ; $Revision: 4592 $ ; $Date: 2007-09-11 17:34:07 +0200 (mar, 11 sep 2007) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -47,11 +47,6 @@ AC_SUBST(CONFDIR)
 CGIDIR='${prefix}/bin'
 AC_ARG_WITH(cgidir, [  --with-cgidir=DIR     CGIs in DIR  (default ${prefix}/bin)], [CGIDIR="$withval"])
 AC_SUBST(CGIDIR)
-
-## location of icons
-ICONSDIR='/var/www/icons'
-AC_ARG_WITH(iconsdir, [  --with-iconsdir=DIR     web interface icons in DIR  (default /var/www/icons)], [ICONSDIR="$withval"])
-AC_SUBST(ICONSDIR)
 
 ## location of user executables
 BINDIR='${prefix}/bin'

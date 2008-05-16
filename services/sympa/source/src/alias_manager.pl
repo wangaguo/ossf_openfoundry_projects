@@ -1,7 +1,9 @@
 #!--PERL--
 # alias_manager.pl -  this script is intended to create automatically list aliases
 # when using sympa. Aliases can be added or removed in file --SENDMAIL_ALIASES--
-# RCS Identication ; $Revision: 1.34 $ ; $Date: 2006/01/04 13:16:30 $ 
+# To use a different script, you should edit the 'alias_manager' sympa.conf parameter
+
+# RCS Identication ; $Revision: 4747 $ ; $Date: 2007-12-13 11:54:45 +0100 (jeu, 13 déc 2007) $ 
 
 # L. Marcotte has written a version of alias_manager.pl that is LDAP enabled
 # check the contrib. page for more information :

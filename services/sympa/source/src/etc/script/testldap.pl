@@ -1,7 +1,7 @@
 #!--PERL--
 
 # testldap.pl - This script aims at testing LDAP queries
-# RCS Identication ; $Revision: 1.2 $ ; $Date: 2001/11/30 10:39:10 $ 
+# RCS Identication ; $Revision: 3711 $ ; $Date: 2006-04-19 10:28:49 +0200 (mer, 19 avr 2006) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -21,21 +21,43 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-unless ($#ARGV == 3) {
-   die "Usage $ARGV[-1] <host> <suffix> <filter> <attrs>";
+use Getopt::Long;
+
+my %opt;
+unless (&GetOptions(\%opt, 'host=s', 'suffix=s', 'filter=s','attrs=s', 'ssl=s', 'scope=s')) {
+    die "Unknown options.";
 }
 
-($directory, $suffix, $filter, $attrs) = @ARGV;
+unless (defined $opt{'host'} &&
+	defined $opt{'suffix'} &&
+	defined $opt{'filter'}) {
+    die "Usage $ARGV[-1] --host=<host> --ssl=on|off --suffix=<suffix> --scope=base|one|sub --filter=<filter> --attrs=<attrs>";
+}
 
-printf "host : $directory\nsuffix : $suffix\nfilter: $filter\n";
-use Net::LDAP;
-$ldap=Net::LDAP->new($directory) or print "connect impossible\n";
+printf "host : $opt{'host'}\nsuffix : $opt{'suffix'}\nfilter: $opt{'filter'}\n";
+
+my %arg;
+$arg{'scope'} = $opt{'scope'};
+
+
+if ($opt{'ssl'} eq 'on') {
+    eval "require Net::LDAPS";
+
+    $arg{'sslversion'} = 'sslv3';
+    $arg{'sslciphers'} = 'ALL';
+
+    $ldap=Net::LDAPS->new($opt{'host'},%arg) or print "connect impossible\n";
+}else {
+    use Net::LDAP;
+    $ldap=Net::LDAP->new($opt{'host'},%arg) or print "connect impossible\n";
+}
+
 $ldap->bind or print "bind impossible \n";
 
-#$mesg = $ldap->search ( base => "$suffix", filter => "(cn=$nom)" )
-$mesg = $ldap->search ( base => "$suffix", 
-			filter => "$filter", 
-			attrs => [$attrs] )
+#$mesg = $ldap->search ( base => "$opt{'suffix'}", filter => "(cn=$nom)" )
+$mesg = $ldap->search ( base => $opt{'suffix'}, 
+			filter => $opt{'filter'}, 
+			attrs => [$opt{'attrs'}] )
 or  print "Search  impossible \n";
 
 # $mesg->code or  print "code chjie\n";
