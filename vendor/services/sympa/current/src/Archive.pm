@@ -1,5 +1,5 @@
 # Archive.pm - This module does the archiving job for a mailing lists.
-# RCS Identication ; $Revision: 1.16 $ ; $Date: 2006/02/13 14:29:44 $ 
+# RCS Identication ; $Revision: 4848 $ ; $Date: 2008-02-12 17:52:34 +0100 (mar, 12 fév 2008) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -40,7 +40,9 @@ sub outgoing {
     return 1 if ($dir eq '/dev/null');
 
     ## ignoring message with a no-archive flag
-    if (ref($msg) && (($msg->head->get('X-no-archive') =~ /yes/i) || ($msg->head->get('Restrict') =~ /no\-external\-archive/i))) {
+    if (ref($msg) && 
+	($Conf::Conf{'ignore_x_no_archive_header_feature'} ne 'on') && 
+	(($msg->head->get('X-no-archive') =~ /yes/i) || ($msg->head->get('Restrict') =~ /no\-external\-archive/i))) {
 	do_log('info',"Do not archive message with no-archive flag for list $list_id");
 	return 1;
     }
@@ -158,13 +160,13 @@ sub scan_dir_archive {
 	my $msg = {};
 	$msg->{'id'} = $i;
 
-	$msg->{'subject'}  = &MIME::Words::decode_mimewords($mail->{'msg'}->head->get('Subject'));
+	$msg->{'subject'} = &MIME::EncWords::decode_mimewords($mail->{'msg'}->head->get('Subject'), Charset=>'utf8');
 	chomp $msg->{'subject'};
 
-	$msg->{'from'}= &MIME::Words::decode_mimewords($mail->{'msg'}->head->get('From'));
+	$msg->{'from'} = &MIME::EncWords::decode_mimewords($mail->{'msg'}->head->get('From'), Charset=>'utf8');
 	chomp $msg->{'from'};    	        	
         
-	$msg->{'date'} = $mail->{'msg'}->head->get('Date');
+	$msg->{'date'} = &MIME::EncWords::decode_mimewords($mail->{'msg'}->head->get('Date'), Charset=>'utf8');
 	chomp $msg->{'date'};
 	
 	$msg->{'full_msg'} = $mail->{'msg'}->as_string;
@@ -211,7 +213,6 @@ sub search_msgid {
     chomp $msgid ;
 
     foreach my $file (grep (!/\./,readdir ARC)) {
-	#  do_log('info',"xxxxxxxxxxxxxxxxxxxxxxx  scan $arcpath/arctxt");
 	next unless (open MAIL,"$dir/$file") ;
 	while (<MAIL>) {
 	    last if /^$/ ; #stop parse after end of headers
@@ -245,14 +246,47 @@ sub last_path {
     my $list = shift;
 
     &do_log('debug', 'Archived::last_path(%s)', $list->{'name'});
-  my $file = $list->{'dir'}.'/archives/last_message';  &do_log('info', 'yyyyyyyyyyyyyyyyyyy file %s', $file);
+  my $file = $list->{'dir'}.'/archives/last_message';
     return undef unless ($list->is_archived());
-    my $file = $list->{'dir'}.'/archives/last_message';  &do_log('info', 'xxxxxxxxxxxxxx file %s', $file);
+    my $file = $list->{'dir'}.'/archives/last_message';
 
     return ($list->{'dir'}.'/archives/last_message') if (-f $list->{'dir'}.'/archives/last_message'); 
     return undef;
 
 }
+
+## Load an archived message, returns the mhonarc metadata
+## IN : file_path
+sub load_html_message {
+    my %parameters = @_;
+
+    &do_log ('debug2',$parameters{'file_path'});
+    my %metadata;
+
+    unless (open ARC, $parameters{'file_path'}) {
+	&do_log('err', "Failed to load message '%s' : $!", $parameters{'file_path'});
+	return undef;
+    }
+
+    while (<ARC>) {
+	last if /^\s*$/; ## Metadata end with an emtpy line
+
+	if (/^<!--(\S+): (.*) -->$/) {
+	    my ($key, $value) = ($1, $2);
+	    if ($key eq 'X-From-R13') {
+		$metadata{'X-From'} = $value;
+		$metadata{'X-From'} =~ tr/N-Z[@A-Mn-za-m/@A-Z[a-z/; ## Mhonarc protection of email addresses
+		$metadata{'X-From'} =~ s/^.*<(.*)>/$1/g; ## Remove the gecos
+	    }
+	    $metadata{$key} = $value;
+	}
+    }
+
+    close ARC;
+    
+    return \%metadata;
+}
+
 1;
 
 

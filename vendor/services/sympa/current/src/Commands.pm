@@ -1,5 +1,5 @@
 # Command.pm - this module does the mail commands processing
-# RCS Identication ; $Revision: 1.120.2.1 $ ; $Date: 2006/09/15 15:25:57 $ 
+# RCS Identication ; $Revision: 4984 $ ; $Date: 2008-05-02 10:31:47 +0200 (ven, 02 mai 2008) $ 
 
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -35,7 +35,7 @@ use Digest::MD5;
 use Fcntl;
 use DB_File;
 use Time::Local;
-use MIME::Words;
+use MIME::EncWords;
 
 require 'tools.pl';
 
@@ -98,8 +98,9 @@ sub parse {
    my $robot = shift;
    my $i = shift;
    my $sign_mod = shift;
+   my $message = shift;
 
-   &do_log('debug2', 'Commands::parse(%s, %s, %s, %s)', $sender, $robot, $i,$sign_mod );
+   &do_log('debug2', 'Commands::parse(%s, %s, %s, %s, %s)', $sender, $robot, $i, $sign_mod, $message );
 
    my $j;
    $cmd_line = '';
@@ -131,7 +132,7 @@ sub parse {
 	   my $status;
 	  
 	   $cmd_line = $i;
-	   $status = & {$comms{$j}}($args, $robot, $sign_mod);
+	   $status = & {$comms{$j}}($args, $robot, $sign_mod, $message);
 
 	   return $status ;
        }
@@ -193,7 +194,7 @@ sub help {
 	$data->{'is_editor'} = 1 if ($#editor > -1);
 	$data->{'user'} =  &List::get_user_db($sender);
 	&Language::SetLang($data->{'user'}{'lang'}) if $data->{'user'}{'lang'};
-	$data->{'subject'} = MIME::Words::encode_mimewords(sprintf gettext("User guide"));
+	$data->{'subject'} = gettext("User guide");
 
 	unless(&List::send_global_file("helpfile", $sender, $robot, $data)){
 	    &do_log('notice',"Unable to send template 'helpfile' to $sender");
@@ -209,7 +210,7 @@ sub help {
 	
 	$data->{'is_owner'} = 1 if ($#owner > -1);
 	$data->{'is_editor'} = 1 if ($#editor > -1);
-	$data->{'subject'} = sprintf gettext("User guide");
+	$data->{'subject'} = gettext("User guide");
 	unless (&List::send_global_file("helpfile", $sender, $robot, $data)){
 	    &do_log('notice',"Unable to send template 'helpfile' to $sender");
 	    &report::reject_report_cmd('intern_quiet','',{},$cmd_line,$sender,$robot);
@@ -241,11 +242,13 @@ sub help {
 sub lists {
     shift; 
     my $robot=shift;
+    my $sign_mod = shift;
+    my $message = shift;
 
     my $sympa = &Conf::get_robot_conf($robot, 'sympa');
     my $host = &Conf::get_robot_conf($robot, 'host');
 
-    &do_log('debug', 'Commands::lists for robot %s', $robot);
+    &do_log('debug', 'Commands::lists for robot %s, sign_mod %, message %s', $robot,$sign_mod , $message);
 
     my $data = {};
     my $lists = {};
@@ -255,7 +258,9 @@ sub lists {
 	my $l = $list->{'name'};
 
 	my $result = $list->check_list_authz('visibility','smtp',
-					     {'sender' => $sender });
+					     {'sender' => $sender,
+					      'message' => $message, });
+
 	my $action;
 	$action = $result->{'action'} if (ref($result) eq 'HASH');
 
@@ -264,7 +269,7 @@ sub lists {
 	    &List::send_notify_to_listmaster('intern_error',$robot, {'error' => $error,
 								     'who' => $sender,
 								     'cmd' => $cmd_line,
-								     'listname' => $l,
+								     'list' => $list,
 								     'action' => 'Command process'});
 	    next;
 	}
@@ -305,8 +310,9 @@ sub stats {
     my $listname = shift;
     my $robot=shift;
     my $sign_mod=shift;
+    my $message = shift;
 
-    do_log('debug', 'Commands::stats(%s)', $listname);
+    do_log('debug', 'Commands::stats(%s, %s, %s, %s)', $listname, $robot, $sign_mod, $message);
 
     my $list = new List ($listname, $robot);
     unless ($list) {
@@ -322,7 +328,8 @@ sub stats {
 	unless (defined $auth_method);
 
     my $result = $list->check_list_authz('review',$auth_method,
-					 {'sender' => $sender});
+					 {'sender' => $sender,
+					  'message' => $message,});
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
 
@@ -379,7 +386,7 @@ sub getfile {
     my($which, $file) = split(/\s+/, shift);
     my $robot=shift;
 
-    do_log('debug', 'Commands::getfile(%s, %s)', $which, $file);
+    do_log('debug', 'Commands::getfile(%s, %s, %s)', $which, $file, $robot);
 
     my $list = new List ($which, $robot);
     unless ($list) {
@@ -440,7 +447,7 @@ sub last {
 
     my $sympa = &Conf::get_robot_conf($robot, 'sympa');
 
-    do_log('debug', 'Commands::last(%s, %s)', $which);
+    &do_log('debug', 'Commands::last(%s, %s)', $which, $robot);
 
     my $list = new List ($which,$robot);
     unless ($list)  {
@@ -493,8 +500,7 @@ sub index {
     my $which = shift;
     my $robot = shift;
 
-
-    do_log('debug', 'Commands::index(%s) robot (%s)',$which,$robot);
+    &do_log('debug', 'Commands::index(%s) robot (%s)',$which,$robot);
 
     my $list = new List ($which, $robot);
     unless ($list) {
@@ -547,8 +553,9 @@ sub review {
     my $listname  = shift;
     my $robot = shift;
     my $sign_mod = shift ;
+    my $message = shift ;
 
-    do_log('debug', 'Commands::review(%s,%s,%s)', $listname,$robot,$sign_mod );
+    &do_log('debug', 'Commands::review(%s,%s,%s)', $listname,$robot,$sign_mod );
 
     my $sympa = &Conf::get_robot_conf($robot, 'sympa');
 
@@ -563,6 +570,8 @@ sub review {
 
     &Language::SetLang($list->{'admin'}{'lang'});
 
+    $list->on_the_fly_sync_include('use_ttl' => 1);
+
     my $auth_method = &get_auth_method('review','',{'type'=>'auth_failed',
 						    'data'=>{},
 						    'msg'=> "REVIEW $listname from $sender"},$sign_mod,$list);
@@ -570,7 +579,8 @@ sub review {
 	unless (defined $auth_method);
 
     my $result = $list->check_list_authz('review',$auth_method,
-					 {'sender' => $sender});
+					 {'sender' => $sender,
+					  'message' => $message});
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
 
@@ -655,7 +665,7 @@ sub verify {
     my $robot = shift;
 
     my $sign_mod = shift ;
-    do_log('debug', 'Commands::verify(%s)', $sign_mod );
+    &do_log('debug', 'Commands::verify(%s, %s)', $sign_mod, $robot);
     
     my $user;
     
@@ -689,10 +699,12 @@ sub verify {
 sub subscribe {
     my $what = shift;
     my $robot = shift;
+    my $sign_mod = shift;
+    my $message = shift;
 
     my $sign_mod = shift ;
 
-    &do_log('debug', 'Commands::subscribe(%s,%s)', $what,$sign_mod);
+    &do_log('debug', 'Commands::subscribe(%s,%s, %s, %s)', $what,$robot,$sign_mod,$message);
 
     $what =~ /^(\S+)(\s+(.+))?\s*$/;
     my($which, $comment) = ($1, $3);
@@ -725,7 +737,8 @@ sub subscribe {
     ## query what to do with this subscribtion request
     
     my $result = $list->check_list_authz('subscribe',$auth_method,
-					 {'sender' => $sender });
+					 {'sender' => $sender,
+					  'message' => $message, });
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
     
@@ -749,6 +762,16 @@ sub subscribe {
 	&do_log('info', 'SUB %s from %s refused (not allowed)', $which, $sender);
 	return 'not_allowed';
     }
+
+    ## Unless rejected by scenario, don't go further if the user is subscribed already.
+    my $user_entry = $list->get_subscriber($sender);    
+    if ( defined($user_entry) && ($user_entry->{'subscribed'} == 1)) {
+	&report::reject_report_cmd('user','already_subscriber',{'email'=>$sender, 'listname'=>$list->{'name'}},$cmd_line);
+	&do_log('err','User %s is subscribed to %s already. Ignoring subscription request.', $sender, $list->{'name'});
+	return undef;
+    }
+
+    ## Continue checking scenario.
     if ($action =~ /owner/i) {
 	&report::notice_report_cmd('req_forward',{},$cmd_line);  
 	## Send a notice to the owners.
@@ -759,8 +782,9 @@ sub subscribe {
 	    &do_log('info',"Unable to send notify 'subrequest' to $list->{'name'} list owner");
 	    &report::reject_report_cmd('intern',"Unable to send subrequest to $list->{'name'} list owner",{'listname'=> $list->{'name'}},$cmd_line,$sender,$robot);
 	}
-	$list->store_subscription_request($sender, $comment);
-	&do_log('info', 'SUB %s from %s forwarded to the owners of the list (%d seconds)', $which, $sender,time-$time_command);   
+	if ($list->store_subscription_request($sender, $comment)) {
+	    &do_log('info', 'SUB %s from %s forwarded to the owners of the list (%d seconds)', $which, $sender,time-$time_command);
+	}
 	return 1;
     }
     if ($action =~ /request_auth/i) {
@@ -816,8 +840,6 @@ sub subscribe {
 					    });
 	}
 	
-	$list->save();
-	
 	## Now send the welcome file to the user
 	unless ($quiet || ($action =~ /quiet/i )) {
 	    unless ($list->send_file('welcome', $sender, $robot,{})) {
@@ -863,8 +885,9 @@ sub info {
     my $listname = shift;
     my $robot = shift;
     my $sign_mod = shift ;
+    my $message = shift;
 
-    do_log('debug', 'Commands::info(%s,%s)', $listname,$robot);
+    &do_log('debug', 'Commands::info(%s,%s, %s, %s)', $listname,$robot, $sign_mod, $message);
 
     my $sympa = &Conf::get_robot_conf($robot, 'sympa');
 
@@ -886,7 +909,9 @@ sub info {
 	unless (defined $auth_method);
 
     my $result = $list->check_list_authz('info',$auth_method,
-					 {'sender' => $sender });
+					 {'sender' => $sender,
+					  'message' => $message, });
+
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
     
@@ -916,7 +941,7 @@ sub info {
 	}
 
 	foreach my $p ('subscribe','unsubscribe','send','review') {
-	    $data->{$p} = $list->{'admin'}{$p}{'title'}{'gettext'}; 
+	    $data->{$p} = gettext($list->{'admin'}{$p}{'title'}{'gettext'}); 
 	}
 
 	## Digest
@@ -924,7 +949,7 @@ sub info {
 	if (defined $list->{'admin'}{'digest'}) {
 	    
 	    foreach my $d (@{$list->{'admin'}{'digest'}{'days'}}) {
-		push @days, &POSIX::strftime("%A", localtime(0 + ($d +3) * (3600 * 24)))
+		push @days, (gettext_strftime "%A", localtime(0 + ($d +3) * (3600 * 24)));
 		}
 	    $data->{'digest'} = join (',', @days).' '.$list->{'admin'}{'digest'}{'hour'}.':'.$list->{'admin'}{'digest'}{'minute'};
 	}
@@ -968,9 +993,11 @@ sub info {
 sub signoff {
     my $which = shift;
     my $robot = shift;
+    my $sign_mod = shift;
+    my $message = shift;
 
     my $sign_mod = shift ;
-    &do_log('debug', 'Commands::signoff(%s,%s)', $which,$sign_mod);
+    &do_log('debug', 'Commands::signoff(%s,%s, %s, %s)', $which,$robot, $sign_mod, $message);
 
     my ($l,$list,$auth_method);
     my $host = &Conf::get_robot_conf($robot, 'host');
@@ -991,7 +1018,9 @@ sub signoff {
 
 	    ## Skip hidden lists
 	    my $result = $list->check_list_authz('visibility', 'smtp',
-						 {'sender' => $sender}) ;
+						 {'sender' => $sender,
+						  'message' => $message, });
+
 	    my $action;
 	    $action = $result->{'action'} if (ref($result) eq 'HASH');
 	    
@@ -1000,7 +1029,7 @@ sub signoff {
 		&List::send_notify_to_listmaster('intern_error',$robot, {'error' => $error,
 									 'who' => $sender,
 									 'cmd' => $cmd_line,
-									 'listname' => $l,
+									 'list' => $list,
 									 'action' => 'Command process'});
 		next;
 	    }
@@ -1034,7 +1063,8 @@ sub signoff {
     
     my $result = $list->check_list_authz('unsubscribe',$auth_method,
 					 {'email' => $email,
-					  'sender' => $sender });
+					  'sender' => $sender,
+					  'message' => $message, });
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
    
@@ -1127,8 +1157,6 @@ sub signoff {
 	    } 
 	}
 	
-	$list->save();
-
 	unless ($quiet || ($action =~ /quiet/i)) {
 	    ## Send bye file to subscriber
 	    unless ($list->send_file('bye', $email, $robot, {})) {
@@ -1165,12 +1193,16 @@ sub signoff {
 sub add {
     my $what = shift;
     my $robot = shift;
+    my $sign_mod = shift;
+    my $message = shift;
 
     my $sign_mod = shift ;
 
-    do_log('debug', 'Commands::add(%s,%s)', $what,$sign_mod );
+    do_log('debug', 'Commands::add(%s,%s,%s,%s)', $what,$robot, $sign_mod, $message);
 
-    $what =~ /^(\S+)\s+($tools::regexp{'email'})(\s+(.+))?\s*$/;
+    my $email_regexp = &tools::get_regexp('email');    
+
+    $what =~ /^(\S+)\s+($email_regexp)(\s+(.+))?\s*$/;
     my($which, $email, $comment) = ($1, $2, $6);
     my $auth_method ;
 
@@ -1193,7 +1225,8 @@ sub add {
     
     my $result = $list->check_list_authz('add',$auth_method,
 					 {'email' => $email,
-					  'sender' => $sender });
+					  'sender' => $sender,
+					  'message' => $message, });
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
     
@@ -1229,17 +1262,10 @@ sub add {
     }
     if ($action =~ /do_it/i) {
 	if ($list->is_user($email)) {
-	    my $user = {};
-	    $user->{'update_date'} = time;
-	    $user->{'gecos'} = $comment if $comment;
-	    $user->{'subscribed'} = 1;
+	  &report::reject_report_cmd('user','already_subscriber',{'email'=> $email, 'listname' => $which},$cmd_line); 
+	  &do_log('err',"ADD command rejected ; user '%s' already member of list '%s'", $email, $which);
+	  return undef; 
 
-	    unless ($list->update_user($email, $user)){
-		my $error = "Unable to update user $user in list $listname";
-		&report::reject_report_cmd('intern',$error,{'listname'=>$which},$cmd_line,$sender,$robot);
-		return undef; 
-	    }
-	    &report::notice_report_cmd('updated_info',{'email'=> $email,'listname' => $which},$cmd_line);  
 	}else {
 	    my $u;
 	    my $defaults = $list->get_default_user_options();
@@ -1265,8 +1291,6 @@ sub add {
 					    });
 	}
 
-	$list->save();
-    
 	## Now send the welcome file to the user if it exists.
 	unless ($quiet || ($action =~ /quiet/i )) {
 	    unless ($list->send_file('welcome', $email, $robot,{})) {
@@ -1312,7 +1336,9 @@ sub invite {
     my $what = shift;
     my $robot=shift;
     my $sign_mod = shift ;
-    do_log('debug', 'Commands::invite(%s,%s)', $what,$sign_mod);
+    my $message = shift;
+
+    &do_log('debug', 'Commands::invite(%s,%s,%s,%s)', $what, $robot, $sign_mod, $message);
 
     my $sympa = &Conf::get_robot_conf($robot, 'sympa');
 
@@ -1338,7 +1364,9 @@ sub invite {
 	unless (defined $auth_method);    
     
     my $result = $list->check_list_authz('invite',$auth_method,
-					 {'sender' => $sender });
+					 {'sender' => $sender,
+					  'message' => $message, });
+
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');
 
@@ -1374,6 +1402,8 @@ sub invite {
     if ($action =~ /do_it/i) {
 	if ($list->is_user($email)) {
 	    &report::reject_report_cmd('user','already_subscriber',{'email'=> $email, 'listname' => $which},$cmd_line); 
+	    &do_log('err',"INVITE command rejected ; user '%s' already member of list '%s'", $email, $which);
+	    return undef;
 	}else{
             ## Is the guest user allowed to subscribe in this list ?
 
@@ -1383,7 +1413,8 @@ sub invite {
 	    $context{'requested_by'} = $sender;
 
 	    my $result = $list->check_list_authz('subscribe','smtp',
-						 {'sender' => $sender });
+						 {'sender' => $sender,
+						  'message' => $message, });
 	    my $action;
 	    $action = $result->{'action'} if (ref($result) eq 'HASH');
 
@@ -1408,7 +1439,7 @@ sub invite {
 		&report::notice_report_cmd('invite',{'email'=> $email, 'listname' => $which},$cmd_line); 
 
 	    }elsif ($action !~ /reject/i) {
-                $context{'subject'} = "sub $which $comment";
+		$context{'subject'} = "sub $which $comment";
 		$context{'url'}= "mailto:$sympa?subject=$context{'subject'}";
 		$context{'url'} =~ s/\s/%20/g;
 		unless ($list->send_file('invite', $email, $robot,\%context)) {
@@ -1460,8 +1491,9 @@ sub remind {
     my $which = shift;
     my $robot = shift;
     my $sign_mod = shift ;
+    my $message = shift;
 
-    do_log('debug', 'Commands::remind(%s,%s)', $which,$sign_mod);
+    do_log('debug', 'Commands::remind(%s,%s,%s,%s)', $which,$robot,$sign_mod,$message);
 
     my $host = &Conf::get_robot_conf($robot, 'host');
     
@@ -1506,7 +1538,7 @@ sub remind {
 
     if ($listname eq '*') {
 
-	$result = &List::request_action('global_remind',$auth_method,$robot,
+	$result = &Scenario::request_action('global_remind',$auth_method,$robot,
 					{'sender' => $sender });
 	$action = $result->{'action'} if (ref($result) eq 'HASH');
 	
@@ -1517,7 +1549,9 @@ sub remind {
 	$host = $list->{'admin'}{'host'};
 
 	$result = $list->check_list_authz('remind',$auth_method,
-					  {'sender' => $sender });
+					  {'sender' => $sender,
+					   'message' => $message, });
+
 	$action = $result->{'action'} if (ref($result) eq 'HASH');	
 
     }
@@ -1611,7 +1645,8 @@ sub remind {
 
 		    
 		    my $result = $list->check_list_authz('visibility','smtp',
-							 {'sender' => $email});
+							 {'sender' => $sender,
+							  'message' => $message, });
 		    my $action;
 		    $action = $result->{'action'} if (ref($result) eq 'HASH');	
 
@@ -1620,7 +1655,7 @@ sub remind {
 			&List::send_notify_to_listmaster('intern_error',$robot, {'error' => $error,
 										 'who' => $sender,
 										 'cmd' => $cmd_line,
-										 'listname' => $listname,
+										 'list' => $list,
 										 'action' => 'Command process'});
 			next;
 		    }
@@ -1688,12 +1723,14 @@ sub remind {
 sub del {
     my $what = shift;
     my $robot = shift;
-
     my $sign_mod = shift ;
+    my $message = shift;
 
-    &do_log('debug', 'Commands::del(%s,%s)', $what,$sign_mod);
+    &do_log('debug', 'Commands::del(%s,%s,%s,%s)', $what,$robot,$sign_mod,$message);
 
-    $what =~ /^(\S+)\s+($tools::regexp{'email'})\s*/;
+    my $email_regexp = &tools::get_regexp('email');    
+
+    $what =~ /^(\S+)\s+($email_regexp)\s*/;
     my($which, $who) = ($1, $2);
     my $auth_method;
     
@@ -1716,9 +1753,10 @@ sub del {
 
     ## query what to do with this DEL request
     my $result = $list->check_list_authz('del',$auth_method,
-					  {'sender' => $sender,
-					   'email' => $who
-					   });
+					 {'sender' => $sender,
+					  'email' => $who,
+					  'message' => $message, });
+
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');	
     
@@ -1786,8 +1824,6 @@ sub del {
 	    }
 	}
 
-	$list->save();
-	
 	## Send a notice to the removed user, unless the owner indicated
 	## quiet del.
 	unless ($quiet || ($action =~ /quiet/i )) {
@@ -1831,8 +1867,10 @@ sub del {
 sub set {
     my $what = shift;
     my $robot = shift;
+    my $sign_mod = shift;
+    my $message = shift;
 
-    &do_log('debug', 'Commands::set(%s)', $what);
+    &do_log('debug', 'Commands::set(%s,%s,%s,%s)', $what, $robot, $sign_mod, $message);
 
     $what =~ /^\s*(\S+)\s+(\S+)\s*$/; 
     my ($which, $mode) = ($1, $2);
@@ -1855,7 +1893,9 @@ sub set {
 
 	    ## Skip hidden lists
 	    my $result = $list->check_list_authz('visibility', 'smtp',
-						 {'sender' => $sender});
+						 {'sender' => $sender,
+						  'message' => $message, });
+
 	    my $action;
 	    $action = $result->{'action'} if (ref($result) eq 'HASH');	
 
@@ -1864,7 +1904,7 @@ sub set {
 		&List::send_notify_to_listmaster('intern_error',$robot, {'error' => $error,
 									 'who' => $sender,
 									 'cmd' => $cmd_line,
-									 'listname' => $l,
+									 'list' => $list,
 									 'action' => 'Command process'});
 		next;
 	    }
@@ -1930,7 +1970,6 @@ sub set {
 	    &do_log('info', 'SET %s %s from %s refused, update failed',  $which, $mode, $sender);
 	    return 'failed';
 	}
-	$list->save();
 	
 	&report::notice_report_cmd('config_updated',{'listname' => $which},$cmd_line);  
 
@@ -1944,7 +1983,6 @@ sub set {
 	    &do_log('info', 'SET %s %s from %s refused, update failed',  $which, $mode, $sender);
 	    return 'failed';
 	}
-	$list->save();
 	
 	&report::notice_report_cmd('config_updated',{'listname' => $which},$cmd_line);  
 	&do_log('info', 'SET %s %s from %s accepted (%d seconds)', $which, $mode, $sender, time-$time_command);
@@ -2030,7 +2068,7 @@ sub distribute {
     $hdr->add('X-Validation-by', $sender);
 
     ## Distribute the message
-    if (($main::daemon_usage eq  'message') || ($main::daemon_usage eq  'command_and_message')) {
+    if (($main::daemon_usage == DAEMON_MESSAGE) || ($main::daemon_usage == DAEMON_ALL)) {
 
 	my $numsmtp =$list->distribute_msg($message);
 	unless (defined $numsmtp) {
@@ -2043,8 +2081,8 @@ sub distribute {
 	} 
 	&do_log('info', 'Message for %s from %s accepted (%d seconds, %d sessions, %d subscribers), message-id=%s, size=%d', $which, $sender, time - $start_time, $numsmtp, $list->get_total(), $hdr->get('Message-Id'), $bytes);
 
-	unless ($quiet || ($action =~ /quiet/i )) {
-	    unless (&report::notice_report_msg('message_distributed',$sender,{'listname' => $which,'key' => $key},$robot,$list)) {
+	unless ($quiet) {
+	    unless (&report::notice_report_msg('message_distributed',$sender,{'key' => $key,'message' => $message},$robot,$list)) {
 		&do_log('notice',"Commands::distribute(): Unable to send template 'message_report', entry 'message_distributed' to $sender");
 	    }
 	}
@@ -2053,13 +2091,13 @@ sub distribute {
 	
     }else{   
 	# this message is to be distributed but this daemon is dedicated to commands -> move it to distribution spool
-	unless ($list->move_message($file)) {
+	unless ($list->move_message($file, $Conf{'queuedistribute'})) {
 	    &do_log('err','COmmands::distribute(): Unable to move in spool for distribution message to list %s (daemon_usage = command)', $listname);
 	    &report::reject_report_msg('intern','',$sender,{'msg_id' => $msg_id},$robot,$msg_string,$list);
 	    return undef;
 	}
-	unless ($quiet || ($action =~ /quiet/i )) {
-	    &report::notice_report_msg('message_in_distribution_spool',$sender,{'listname' => $which,'key' => $key},$robot,$list);
+	unless ($quiet) {
+	    &report::notice_report_msg('message_in_distribution_spool',$sender,{'key' => $key,'message' => $message},$robot,$list);
 	}
 	&do_log('info', 'Message for %s from %s moved in spool %s for distribution message-id=%s', $name, $sender, $Conf{'queuedistribute'},$hdr->get('Message-Id'));
     }
@@ -2086,7 +2124,7 @@ sub distribute {
 sub confirm {
     my $what = shift;
     my $robot = shift;
-    do_log('debug', 'Commands::confirm(%s)', $what);
+    do_log('debug', 'Commands::confirm(%s,%s)', $what, $robot);
 
     $what =~ /^\s*(\S+)\s*$/;
     my $key = $1;
@@ -2138,15 +2176,16 @@ sub confirm {
     my $msg_string = $message->{'msg'}->as_string;
 
     my $result = $list->check_list_authz('send','md5',
-					 {'sender' => $sender ,
-					  'message' => $message});
+					 {'sender' => $sender,
+					  'message' => $message, });
+
     my $action;
     $action = $result->{'action'} if (ref($result) eq 'HASH');	
 
 
     unless (defined $action) {
 	&do_log('err', 'Commands::confirm(): message (%s) ignored because unable to evaluate scenario for list %s',$messageid,$name);
-	&report::reject_report_msg('intern','Message ignored because scenario "send" cannot be evaluated',$sender,{'msg_id' => $msgid},
+	&report::reject_report_msg('intern','Message ignored because scenario "send" cannot be evaluated',$sender,{'msg_id' => $msgid,'message' => $message},
 				  $robot,$msg_string,$list);
 	return undef ;
     }
@@ -2156,14 +2195,14 @@ sub confirm {
 
 	unless (defined $key) {
 	    &do_log('err','Commands::confirm(): Calling to send_to_editor() function failed for user %s in list %s', $sender, $name);
-	    &report::reject_report_msg('intern','The request moderation sending to moderator failed.',$sender,{'msg_id' => $msgid},$robot,$msg_string,$list);
+	    &report::reject_report_msg('intern','The request moderation sending to moderator failed.',$sender,{'msg_id' => $msgid,'message' => $message},$robot,$msg_string,$list);
 	    return undef
 	}
 
 	&do_log('info', 'Message with key %s for list %s from %s sent to editors', $key, $name, $sender);
 
 	unless ($2 eq 'quiet') {
-	    unless (&report::notice_report_msg('moderating_message',$sender,{},$robot,$list)) {
+	    unless (&report::notice_report_msg('moderating_message',$sender,{'message' => $message},$robot,$list)) {
 		&do_log('notice',"Commands::confirm(): Unable to send template 'message_report', entry 'moderating_message' to $sender");
 	    }
 	}
@@ -2174,14 +2213,14 @@ sub confirm {
 
 	unless (defined $key) {
 	    &do_log('err','Commands::confirm(): Calling to send_to_editor() function failed for user %s in list %s', $sender, $name);
-	    &report::reject_report_msg('intern','The request moderation sending to moderator failed.',$sender,{'msg_id' => $msgid},$robot,$msg_string,$list);
+	    &report::reject_report_msg('intern','The request moderation sending to moderator failed.',$sender,{'msg_id' => $msgid,'message' => $message},$robot,$msg_string,$list);
 	    return undef
 	}
 
 	&do_log('info', 'Message with key %s for list %s from %s sent to editors', $name, $sender);
 	
 	unless ($2 eq 'quiet') {
-	    unless (&report::notice_report_msg('moderating_message',$sender,{},$robot,$list)) {
+	    unless (&report::notice_report_msg('moderating_message',$sender,{'message' => $message},$robot,$list)) {
 		&do_log('notice',"Commands::confirm(): Unable to send template 'message_report', type 'success', entry 'moderating_message' to $sender");
 	    }
 	}
@@ -2193,10 +2232,10 @@ sub confirm {
 	    if (defined $result->{'tt2'}) {
 		unless ($list->send_file($result->{'tt2'}, $sender, $robot, {})) {
 		    &do_log('notice',"Commands::confirm(): Unable to send template '$result->{'tt2'}' to $sender");
-		    &report::reject_report_msg('auth',$result->{'reason'},$sender,{},$robot,$msg_string,$list);
+		    &report::reject_report_msg('auth',$result->{'reason'},$sender,{'message' => $message},$robot,$msg_string,$list);
 		}
 	    }else {
-		unless (&report::reject_report_msg('auth',$result->{'reason'},$sender,{},$robot,$msg_string,$list)) {
+		unless (&report::reject_report_msg('auth',$result->{'reason'},$sender,{'message' => $message},$robot,$msg_string,$list)) {
 		    &do_log('notice',"Commands::confirm(): Unable to send template 'message_report', type 'auth' to $sender");
 		}
 	    }
@@ -2208,31 +2247,31 @@ sub confirm {
 	$hdr->add('X-Validation-by', $sender);
 	
 	## Distribute the message
-	if (($main::daemon_usage eq  'message') || ($main::daemon_usage eq  'command_and_message')) {
+	if (($main::daemon_usage == DAEMON_MESSAGE) || ($main::daemon_usage == DAEMON_ALL)) {
 	    my $numsmtp = $list->distribute_msg($message);
 
 	    unless (defined $numsmtp) {
 		&do_log('err','Commands::confirm(): Unable to send message to list %s', $list->{'name'});
-		&report::reject_report_msg('intern','',$sender,{'msg_id' => $msgid},$robot,$msg_string,$list);
+		&report::reject_report_msg('intern','',$sender,{'msg_id' => $msgid,'message' => $message},$robot,$msg_string,$list);
 		return undef;
 	    }
  
 	    unless ($quiet || ($action =~ /quiet/i )) {
-		unless (&report::notice_report_msg('message_distributed',$sender,{'listname' => $name,'key' => $key},$robot,$list)) {
+		unless (&report::notice_report_msg('message_confirmed',$sender,{'key' => $key,'message' => $message},$robot,$list)) {
 		    &do_log('notice',"Commands::confirm(): Unable to send template 'message_report', entry 'message_distributed' to $sender");
 		}
 	    }
-	    &do_log('info', 'CONFIRM %s from %s for list %s accepted (%d seconds)', $key, $sender, $which, time-$time_command);
+	    &do_log('info', 'CONFIRM %s from %s for list %s accepted (%d seconds)', $key, $sender, $list->{'name'}, time-$time_command);
 
 	}else{
 	    # this message is to be distributed but this daemon is dedicated to commands -> move it to distribution spool
-	    unless ($list->move_message($file)){
+	    unless ($list->move_message($file, $Conf{'queuedistribute'})){
 		&do_log('err','Commands::confirm(): Unable to move in spool for distribution message to list %s (daemon_usage = command)', $listname);
-		&report::reject_report_msg('intern','',$sender,{'msg_id' => $msgid},$robot,$msg_string,$list);
+		&report::reject_report_msg('intern','',$sender,{'msg_id' => $msgid,'message' => $message},$robot,$msg_string,$list);
 		return undef;
 	    }
 	    unless ($quiet || ($action =~ /quiet/i )) {
-		&report::notice_report_msg('message_in_distribution_spool',$sender,{'listname' => $which,'key' => $key},$robot,$list);
+		&report::notice_report_msg('message_confirmed_and_in_distribution_spool',$sender,{'key' => $key,'message' => $message},$robot,$list);
 	    }
 
 	    &do_log('info', 'Message for %s from %s moved in spool %s for distribution message-id=%s', $name, $sender, $Conf{'queuedistribute'},$hdr->get('Message-Id'));
@@ -2260,7 +2299,7 @@ sub reject {
     my $what = shift;
     my $robot = shift;
 
-    &do_log('debug', 'Commands::reject(%s)', $what);
+    &do_log('debug', 'Commands::reject(%s,%s)', $what, $robot);
 
     $what =~ /^(\S+)\s+(.+)\s*$/;
     my($which, $key) = ($1, $2);
@@ -2307,7 +2346,7 @@ sub reject {
     ## Open the file
     if (!open(IN, $file)) {
 	&do_log('info', 'REJECT %s %s from %s refused, auth failed', $which, $key, $sender);
-	&report::reject_report_msg('user','unfound_message',$sender,{'listname' => $name,'key'=> $key},$robot,'',$list);
+	&report::reject_report_msg('user','unfound_message',$sender,{'key'=> $key},$robot,'',$list);
 	return 'wrong_auth';
     }
     
@@ -2324,19 +2363,21 @@ sub reject {
     unless  ($#sender_hdr == -1) {
 	my $rejected_sender = $sender_hdr[0]->address;
 	my %context;
-	$context{'subject'} = &MIME::Words::decode_mimewords($message->head->get('subject'));
+	$context{'subject'} = &MIME::EncWords::decode_mimewords($message->head->get('subject'), Charset=>'utf8');
 	chomp($context{'subject'});
 	$context{'rejected_by'} = $sender;
 	&do_log('debug2', 'message %s by %s rejected sender %s',$context{'subject'},$context{'rejected_by'},$rejected_sender);
 
 	## Notify author of message
-	unless ($list->send_file('reject', $rejected_sender, $robot, \%context)){
-	    &do_log('notice',"Unable to send template 'reject' to $rejected_sender");
-	    &report::reject_report_msg('intern_quiet','',$sender,{'listname'=> $list->{'name'}},$robot,'',$list);	    
+	unless ($quiet) {
+	    unless ($list->send_file('reject', $rejected_sender, $robot, \%context)){
+		&do_log('notice',"Unable to send template 'reject' to $rejected_sender");
+		&report::reject_report_msg('intern_quiet','',$sender,{'listname'=> $list->{'name'},'message' => $msg},$robot,'',$list);	    
+	    }
 	}
 
 	## Notify list moderator
-	unless (&report::notice_report_msg('message_rejected', $sender, {'listname' => $which,'key' => $key}, $robot, $list)) {
+	unless (&report::notice_report_msg('message_rejected', $sender, {'key' => $key,'message' => $msg}, $robot, $list)) {
 	    &do_log('err',"Commands::reject(): Unable to send template 'message_report', entry 'message_rejected' to $sender");
 	}
 
@@ -2366,7 +2407,7 @@ sub reject {
 sub modindex {
     my $name = shift;
     my $robot = shift;
-    do_log('debug', 'Commands::modindex(%s)', $name);
+    do_log('debug', 'Commands::modindex(%s,%s)', $name,$robot);
     
     $name =~ y/A-Z/a-z/;
 
@@ -2481,7 +2522,10 @@ sub which {
     my($listname, @which);
     shift;
     my $robot = shift;
-    do_log('debug', 'Commands::which(%s)', $listname);
+    my $sign_mod = shift;
+    my $message = shift;
+
+    do_log('debug', 'Commands::which(%s,%s,%s,%s)', $listname, $robot, $sign_mod, $message);
     
     ## Subscriptions
     my $data;
@@ -2491,7 +2535,8 @@ sub which {
 	$listname = $list->{'name'};
 
 	my $result = $list->check_list_authz('visibility', 'smtp',
-					     {'sender' => $sender});
+					     {'sender' => $sender,
+					      'message' => $message, });
 	
 	my $action;
 	$action = $result->{'action'} if (ref($result) eq 'HASH');
@@ -2501,7 +2546,7 @@ sub which {
 	    &List::send_notify_to_listmaster('intern_error',$robot, {'error' => $error,
 								     'who' => $sender,
 								     'cmd' => $cmd_line,
-								     'listname' => $listname,
+								     'list' => $list,
 								     'action' => 'Command process'});
 	    next;
 	}
@@ -2601,8 +2646,6 @@ sub get_auth_method {
 
 # end of package
 1;
-
-
 
 
 

@@ -1,4 +1,4 @@
-<!-- $Id: menu.tt2,v 1.8 2005/08/09 09:52:43 sympa-authors Exp $ -->
+<!-- $Id: menu.tt2 4769 2007-12-17 13:06:37Z serge.aumont $ -->
 
 <!-- begin menu.tt2 -->
 <div class="navBar printNone">
@@ -14,14 +14,26 @@
 [% END %]
 
  [% IF action == 'lists' %][% SET class = 'MainMenuLinksCurrentPage' %][% ELSE %][% SET class = 'MainMenuLinks' %][% END %]
-<li><a class="[% class %]" href="[% path_cgi %]/lists">[%|loc%]list of lists[%END%]</a></li>
+<li><a class="[% class %]" href="[% path_cgi %]/lists">[%|loc%]List of lists[%END%]</a></li>
 
  [% IF action == 'home' %][% SET class = 'MainMenuLinksCurrentPage' %][% ELSE %][% SET class = 'MainMenuLinks' %][% END %]
-<li><a class="[% class %]" href="[% path_cgi %]/">[%|loc%]Home[%END%]</a></li>
+<li><a class="[% class %]" href="[% path_cgi %]/home">[%|loc%]Home[%END%]</a></li>
 
 [% IF action == 'help' %][% SET class = 'MainMenuLinksCurrentPage' %][% ELSE %][% SET class = 'MainMenuLinks' %][% END %]
   <li> <a class="[% class %]" href="[% path_cgi %]/help" >[%|loc%]Help[%END%]</a></li>
+
+[% IF  conf.main_menu_custom_button_1_title %]
+  <li> <a class="MainMenuLinks"  [% IF  conf.main_menu_custom_button_1_target %] target ="[% conf.main_menu_custom_button_1_target %]"[% END %] href="[% conf.main_menu_custom_button_1_url %]">[% conf.main_menu_custom_button_1_title %]</a></li>
+[%END%]
+[% IF  conf.main_menu_custom_button_2_title %]
+  <li> <a class="MainMenuLinks"  [% IF  conf.main_menu_custom_button_2_target %] target ="[% conf.main_menu_custom_button_2_target %]"[% END %] href="[% conf.main_menu_custom_button_2_url %]">[% conf.main_menu_custom_button_2_title %]</a></li>
+[%END%]
+[% IF  conf.main_menu_custom_button_3_title %]
+  <li> <a class="MainMenuLinks"  [% IF  conf.main_menu_custom_button_3_target %] target ="[% conf.main_menu_custom_button_3_target %]"[% END %] href="[% conf.main_menu_custom_button_3_url %]">[% conf.main_menu_custom_button_3_title %]</a></li>
+[%END%]
+
 </ul>
+
 
 </div>
 <!-- </div> -->

@@ -3,101 +3,1163 @@
 
 (See Changelog file for the full changes log)
 
-5.2.2		25th September 2006
+5.4.3		02 May 2008
 
-   Changes :
+Features:
 
-*****	doc/sympa.tex.tpl, src/Conf.pm, src/List.pm, src/sympa_wizard.pl: config.bin files are no more used unless the new
-*****	cache_list_config sympa.conf parameter is set to 'binary_file'. This mode is only usefull if you manage lots of
-*****	lists (1000+) to have a faster startup of processes.
+  po/ja.po, po/web_help_ja.po: Introduction of the huge work in progress by Soji Ikeda to update the Japanese translation of the user interface and translate the online help in Japanese.
+
+  po/ru.po: Updated Russian translation.
+
+  src/Commands.pm: [#3990][Submitted by A. Berstein, electricembers.net] The quiet option has been reactivated for the "reject" mail command.
+
+Bug fixes:
+
+  wwsympa/archived.pl: [Reported by M. Kretchner, INRIA] It was impossible to remove a message from web archives or rebuild these archives. This was due to a regexp to prevent archived.pl from using dot-starting files added by some Linux distribution (as Gentoo). Fixed by extending the regexp.
+
+  check_perl_modules.pl: [Reported by M. Gorecka-Wolniewicz, Nicolaus Copernicus univ., Torun] In some cases, CAS logout didn't work, due to a value of "0" transformed into an empty string in the session cookie. Fixed by upgrading CGI version.
+
+  src/task_manager.pl, wwsympa/archived.pl, wwsympa/bounced.pl: [#3957][Reported by O. Berger, Telecom & Management SudParis] When launching Sympa daemons (other than sympa.pl) with an unknown option, the daemon was still launched instead of failing to launch.
+
+
+5.4.2		14 April 2008
+
+Features:
+
+   po/zh_CN.po: [Submitted by Li Xuejiang, Zhao Yongming, Yahoo!] Simplified Chinese is now fully translated.
+
+Changes:
+
+   src/List.pm, src/Upgrade.pm: [Reported by L. Gentis, IUFM Lorraine]When updating a config file while the upgrade process, the "email" parameter value of the "update" paragraph was set to 'listmaster'. However, this value was validated against a regexp for emails. this produced an error log, as 'listmaster' is not a valid email address. Fixed by allowing 'listamster' and 'automatic' strings in this regexp. 'automatic will be used to designate updates done by processes instead of users.
+
+Bug fixes:
+
+   wwsympa/wwsympa.fcgi: [#3947][Reported by S. costard Univ. Haute Bretagne] In the case of CAS authentication, a CAS ticket was requested for any request in the web interface. Fixed by ensuring that the user email is attached to the session.
+
+   src/List.pm: [Submitted by W. Werner, Fraunhofer-Institut SIT] The path that Sympa used to look for encryption keys had '.enc' instead of a '@enc' in the file name.
+
+   src/List.pm: [Submitted by W. Werner, Fraunhofer-Institut SIT] Message signature verification didn't work if user used different certificate for signing and encrypting AND didn't send both in each message, like Kmail does.
+
+   src/Upgrade.pm, src/etc/script/create_db.SQLite: [#3915][Submitted by M. Deranek, slonko.net] SQLite support was broken for the session table.
+   
+
+5.4.1		01 April 2008
+
+Bug fixes:
+
+  /wwsympa/wwsympa.fcgi: [Reported by J.M. Beuken, univ. cat. Louvain] When copying a template through the web interface, HTML was not unescaped before writing the file. c onsequently, the file used to reload the page for template edition had escaped HTML. for critical files such as main.tt2 or title.tt2, this caused the web page diaply to choke on tt2 parse errors.
+
+Changes:
+
+  src/Lock.pm: Increasing log levels in low level functions of Lock.pm.
+
+5.4		27 March 2008
 
    Bug fixes :
 
-	src/sympa.pl: [reported by P.Maes, Université Louvain] Sympa would improperly detect a loop if the same message is 
-	sent to 2 lists with same local part. Now added list robot to %msgid_table keys.
+   /wwsympa/wwsympa.fcgi: While processing a subscription request, first check if user is member of the list
 
-	mail_tt2/message_report.tt2, src/Commands.pm: [reported by D.Lamballais, IRISA] Moderator was no more notified after
+   /wwsympa/bounced.pl: When a bounce file could not be created, nothing was done, so at the next bounced.pl iteration, the faulty report was still present. In such a case, the bounce report is now moved to bad.
+
+   /wwsympa/wwsympa.fcgi: Anybody loading a page from the web archives would presented a HTTP header for the page expiration corresponding to the last time the archive file was modified (this was introduced to limit multiple harvesting of hte same page by web crawlers). The drawback was that, when browsing archives, all the page is not staitc, just the part related to archives. This posed problems for session management. Fixed by testing if a user is a crawler prior to define the expiration header.
+
+   /wwsympa/wwsympa.fcgi: [#3790][Reported by R. Tassoni, National Library of Australia and T. Danel] When displaying a message to moderate in the web interface, if a document was attached to the message, the link to display the message lead to empty documents. This was because we didn't take into account the fact that MHonArc put the file in a subdirectory. Fixed by changing the kind of ergument file passed from scalar to vector.
+
+   src/etc/scenari/access_web_archive.intranet, src/etc/scenari/review.intranet, src/etc/scenari/visibility.intranet: [#3744] [remote_addr] variable might not be available for a scenario. [env->remote_addr] should be used instead
+
+   wwsympa/wwsympa.fcgi: [#1809][Reported by P. von der Hagen, univ. Karlsruhe] Files in the shared directory with regexp special characters could not be renamed. Fixed by using "\Q" escape signal at the beginning of the regexp (s/\Q$strtofind/strtosubst/).
+
+   src/Lock.pm: [#3229][#3237][#3518][Reported by T. Berry, NASA and D. Lalot, univ. Aix-Marseille] Lock failed when two processes were reading the same file, then one of them switched to write mode. It could then modify the file while the other process was reading, leading to uncomplete informations gathered from reading. Fixed by changing behaviour: Now if a process wants to switch to or from write mode, it first release the file lock at the filesystem level, then tries to put a new one. this way, switching to write mode is controlled by the filesystem.
+
+   wwsympa/SympaSession.pm, wwsympa/wwsympa.fcgi: Bug related to session lost when RSS access comes from the same browser as web browser.
+
+
+   src/PlainDigest.pm: [#3702][Reported by A. Bernstein, electricembers.net] Some malformed headers caused Sympa to crash by calling a method on an undefined MIME::Entity::head object. Fixed by testing the definition of this object before calling the method.
+
+   src/List.pm: [#3713][Reported by A. Bernstein, electricembers.net] Call to functions in the Storage CPAN module could lead to Sympa processes dying because these functions could issue "croak" message. Fixed by enclosing these call into eval{} blocks.
+
+   src/etc/script/create_db.Pg: [Reported by S. Kristoffersen, univ. Oslo] Missing "DROP TABLE session_table;" line in Pg creation script.  Field id_session in table session_table had the type "int4" which was too small for the size of session id. Fixed by changing type to int8.
+
+   wwsympa/wwsympa.fcgi: [#3479] http://listes.mydomain.fr/sympa/dump/mylist/light returned an error if authentication was required and not satisfied. Now Sympa asks for authentification instead.
+
+   wwsympa/wwsympa.fcgi: [#3596] "spam_protection" list parameter was not used. Just the robot parameter value.
+
+
+   Changes:
+
+   src/SQLSource.pm: [M.Redinger] Reported problems with field names upper cased with Oracle. Now forcing lower cased field names.
+
+   src/Commands.pm, src/List.pm, src/report.pm: [#3636] When accepting multiple subscription requests, the list of pending subscription was not updated. This was due to two loops over email addresses one the one hand and over files on the other hand which were embedded in the wrong order, causing only the first file to be parsed. When an authorized subscription request is received, if the sender is subscribed already, the request is rejected.
+
+
+
+
+5.4b.1		31 January 2008
+
+
+   New features :
+
+	
+	[A.de Bignicourt, UREC]: Custom user attributes
+	This feature allows the use of per list custom user attributes. Once defined by the list owner, a form will be presented to new list members on the subscription web page. These custom attributes are either optional or mandatory. The list owner will then see the provided user information while taking the subscription decision. Custom attributes can later be viewed from the review page and editsubscriber page. Custom attributes are stored in a dedicated field of the subscriber_table DB table, as XML data.
+
+	wwsympa/wwsympa.fcgi: Anti-XSS protection. Sympa escapes any HTML that is not its generated by its templates. Some exceptions are the homepage file, which is filtered using  the perl module HTML::StripSripts.
+
+	[#3235][requested by T.Berry, NASA] Allow list owners and editors to set a visibility option. If set to 'conceal', the person is not listed in the list panel. This new option also applies to owner_include and editor_include parameters.
+
+	[requested by S.Carmody, Internet2] New 'remove_outgoing_headers' sympa.conf and list parameter. This parameter
+	allows to define a list of SMTP header fields that should be removed before
+	a message is distributed to list members. Thus it even makes it possible to
+	remove the header fields that Sympa sets.
+	The existing 'remove_headers' can now be set in a list config file.
+	New 'ignore_x_no_archive_header_feature' sympa.conf parameter ; if set to
+	'on', x-no-archive SMTP header field is ignored if found in an incoming
+	message (sympa will archive the message).
+
+	custom_vars. Users can define custom parameters in lists and use them in scenarios and mail templates.
+
+	User pictures are now showed (if available) in the web archives. Pictures are showed to authenticated users only, to prevent web harvesters to get them.
+
+	Online help is now internationalized. Use [%helploc%] tags anywhere in the code to create strings that will be located in web_help.po catalogue.
+
+	[#3520][Submitted by C. Paul, evil-wire.org] New parameter in sympa.conf: "allow_subscribe_if_pending". Default value is "on". If set to "off", it is forbidden to add subscribers (through wwsympa) to a list whose status is different from "open".
+
+	[#3357][P.Baumgart, British Telecom] LDAP alias manager is now LDAPS enabled and can be configured via a separate configuration file.
+	We've also added a new 'alias_manager' sympa.conf parameter that allows to use such alternate mail aliases management scripts.
+
+	Add custom button in main menu by config 
+	https://www.sympa.org/wiki/manual/conf-parameters/part1#main_menu_custom_button
+
+	[requested by B.Thale, Motorola] Keep the 'nomenu' attribute from page to page. Note that the nomenu attribute is lost whenever the user hits a button that uses POST. A better implementation would require the nomenu attribute to be attached to the user session.
+
+	Five new languages supported in Sympa:
+	Almost complete:
+		- Korean: Mark Smith and Kang Tae-Hee (HP)
+		- Simplified Chinese: Mark Smith and Xun Yan (HP)
+		- Tradional Chinese: Mark Smith (HP)
+	Still partial but on good way:
+		- Russian: Chernysh
+		- Catalan: Jordi Deu-Pons
+
+
+
+   Changes :
+
+
+	Character strings in po files are now sorted following the files they are found in and their order of apparition in the files.
+
+	src/Scenario.pm: Now, in scenari using SMTP header fields, if a message exists, the value of the header is defaulted to an empty strings if it is empty or missing.
+
+***** NOTE 1 :YOU MAY HAVE TO CHANGE YOUR WEB SERVER CONFIGURATION! We definitely disabled the setuid solution to run **wwsympa.fcgi**.
+***** If the script you used in your web server configuration was wwsympa.fcgi (to whom you had attributed the "S" bit) you MUST change
+***** your Apache configuration so that the script you use becomes wwsympa-wrapper.fcgi instead of wwsympa.fcgi.
+
+***** NOTE 2 :YOU MUST CHANGE YOUR SOAP SERVER CONFIGURATION! We ALSO definitely disabled the setuid solution to run **sympa_soap_server.fcgi**.
+***** If the script you used in your web server configuration was sympa_soap_server.fcgi (to whom you had attributed the "S" bit) you MUST change
+***** your Apache configuration so that the script you use becomes sympa_soap_server-wrapper.fcgi instead of sympa_soap_server.fcgi.
+
+	wwsympa/wwsympa.fcgi: Now wwsympa switches to maintenance mode if not run under the right user id. It quits the maintenace mode as soon as the user id is the good one.
+
+	web_tt2/review.tt2: The Dump button is now proposed to list owners only
+
+	src/List.pm, src/SQLSource.pm: [#3550] Change: Changed the SQLSource module to keep track of existing DB handler and their status. The new code allows to save connect() if $dbh already exists. It also allows to prevent multiple "DB connectoin" notifications to be sent to the listmaster ; only the first one is sent.
+
+	mail_tt2/listmaster_notification.tt2, wwsympa/archived.pl, src/tools.pl: [#3388] If archived.pl can't create the list archive directory when archiving the first message, a notification is set to the listmaster, and the message is saved to spool/outgoing/bad.
+
+	mail_tt2/listmaster_notification.tt2, wwsympa/bounced.pl: When a problem occurs while handling a bounce, the message is saved to a "spool/bounce/bad" directory.
+
+	src/List.pm: [#3219][Charles Paul, evil-wire.org] Optimizations to List::get_list and List::get_which. List::get_lists() calls from List::get_which() now only load lists of interest, ie those that were determined by querying the subscriber_table DB table.
+
+	src/List.pm: [#1174] default_user_options now applies to included list members. Sympa now ignore most user attributes coming from the original data source (date, update_date, reception, visibility). It make sence to adopt this behavior because these data were set in another list's context and should not be inherited in the new list.
+
+	src/Conf.pm, web_tt2/menu.tt2, wwsympa/wwsympa.fcgi: [#3537] In web archives, sets a "Last-Modified" HTTP header to prevent frequent web-harvesting.
+
+	[#2989][Reported by J.C. Delepine, univ. Picardie] If "apply" has the value "forced", then a single "reply" button is available, without any choice. The reply is sent to the addresses specified by "value". Otherwise, the user has three choices: reply to sender, to list or to both.
+
+	Web mail composer is now able to send messages to several recipients.
+
+	Genralization of "use strict vars"
+
+	wwsympa/SympaSession.pm, wwsympa/wwsympa.fcgi: Reduce SQL queries for sessions. Don't exist if new session abort.
+	Also renew the cookie (a random used as session_id) so it make session hijacking much more difficult.
+	
+	src/List.pm: [#3611][Reported by A. Berstein, electricembers.net] Adds a "Precedence:" field with value "bulk" in addition to the preexisting one with the value "list" to let MS exchange autoresponders ignore mails from Sympa.
+
+	src/Task.pm: [Reported by M. Deranek, slonko.net] task_manager now ignores files whose name starts with a dot in the spool directory. this done to avoid errors in distributions (such as gentoo) which add doted (system) files in the file system.
+
+	src/sympa.pl, src/List.pm: [#3253][Reported by P. Ferrari, riseup.net] When all editors and owners have set their reception mode to "nomail", a message is sent to all of them instead of generating an internal server error and sendinf a message to listmaster.
+
+src/Commands.pm, src/List.pm, src/Scenario.pm, src/sympa.pl, src/tools.pl: [#3662][Submitted by J. Kirkland, westover.org] Message headers can now be used by any scenario. Admin can use, for example, match([msg_header-><HeaderName>],/someregexp/)       smtp      -> do_it in a scenario, for any message header.
+
+	web_tt2/add_request.tt2: multiple_add : a JS to clear textarea on click
+
+	src/List.pm: [Reported by C. desmoulins and J. Beretta, Orange] During an LDAP include, we didn't check if an email address was present several times, leading to a database field "include_sources_subscriber" containing the LDAP source id as many times as the address had been found. Fixed by preventing an address to be taken into account if it has been met already in the LDAP query result set.
+
+
+
+   Bug fixes :
+
+
+	src/Log.pm: Sympa no longer crashes when logs are not available.
+
+	src/List.pm, /trunk/src/admin.pm: When a new Lock object is created, we didn't check that the object tcreation had succeeded. On one occasion, it made task-manager to crash. Now, if the object isn't defined after the "new"
+invocation, the functions return undef.
+
+	wwsympa/wwsympa.fcgi: [#3363][Reported by M. Deranek, slonko.net] The HTML document date was set to 1 jan 1970 instead of current date, causing some browser to be unable to unlog because they seem to compare cookie date to document date for expiration purpose.
+
+	src/SQLSource.pm, /trunk/src/Upgrade.pm:[#3305][#3136][#3319] [Reported by G. Haverkamp and M. Deranek] Support of SQLite was broken.
+
+	src/List.pm: [#3298][Reported by A. Ma and S. Ikeda] Fix: Sympa would add a "Re:" to each reply, leading to possibly very long chains of "Re:" in messages subjects.
+
+	src/List.pm: [#3182][Reported by G. Bouteille, univ. Rennes 1 and J.H. Belpois, univ. Brest] Fix: When instantiating a family with list containing an include_sql_query paragraph, new parameters appeared in the paragraph (db_user, db_host, db_psswd). This was because we used to pass a ref to the hash containing list config values to functions which added values to this hash. We now pass a copy of this hash, temporary values are then never added to the hash finally saved.
+
+	wwsympa/wwsympa.fcgi: [#3334, #3308][reported by C.Peck, wm.edu and D. Stefano] Dump of bouncers would only return the first 25 entries.
+	src/tools.pl: [#3499][reported  by R.Morvan] Prevent sympa.pl to crash while processing malformed multipart command message.  Error message is "Can't call method "effective_type" on an undefined value".
+	Now tools::as_singlepart() does not recurse with an undefined $msg parameter.
+
+	wwsympa/wwsympa.fcgi: sympa was not able to create missing picture directory in a recursive way
+
+	src/Log.pm: [#3137][Reported by M. Walther, Sun] Error in SQL request for web logs visualization. "GROUP BY" was used instead of "ORDER BY".
+	
+	web_tt2/rss.tt2: [#2959] [proposed by  Luoh Ren-Shan] escape sensible chars in RSS title
+
+	soap/SympaTransport.pm, src/task_manager.pl, wwsympa/wwsympa.fcgi: Some Sympa processes did not initialize the List.pm cache between 2 requests. It could lead to false responses from these processes that still used the cache in memory.
+
+	web_tt2/menu.tt2, wwsympa/wwsympa.fcgi: [#3541] The code and web templates have been changed to still provide the list of topics, even though the default_home is set to 'lists'.
+
+	wwsympa/wwsympa.fcgi: [#3466] Could no more change user's email from the preference page.
+
+	wwsympa/bounced.pl: [Reported by M. Anderson, riseup.net] Sympa didn't support ARF format correctly. errors were thrown when Original-Rcpt-To field was missing, though this field is optional. We now separate two steps of control: the Feedback-Type field value control and the Original-Rcpt-To field value control.
+
+	wwsympa/bounce-lib.pl: [Submitted by M. Quintero, North Central College, Naperville, IL] Bounces from Postfix were not always properly spotted due to a bad identification of the postfix bounce message. Fixed by extending the regexp to match a new kind of message.
+
+	mail_tt2/listmaster_notification.tt2, src/List.pm: [#3272][Reported by M. Anderson, riseup.net] In some cases still to elucidate, the "verp_rate" parameter trailing percent sign disappears before being use. This would mak sympa crash. We now return undef if this parameter hasn't the right structure.
+
+	web_tt2/main.tt2, wwsympa/wwsympa.fcgi: [#2222] RSS feeds for web archives and shared documents are only proposed if access to these contents is available and public. This is required because RSS does not provide authentication methods.
+
+	wwsympa/wwsympa.fcgi: [#3397] while running change_email(), don't try to update the member in DB if new email address is already member of the list.
+
+	src/Conf.pm, src/sympa.pl, task_manager.pl, tools.pl: [#3234] Bounces in spool/bounce/OTHER/ were never cleaned up. Cleaning is now intergrated into the "expire_bounce" task, and the existence duration of such bounces is ruled by a new parameter : clean_delay_queueother.
+
+	soap/sympasoap.pm, src/Commands.pm: [#1287] ADD commands are now rejected if user is already member. This will prevent multiple welcome messages to be sent.
+
+	src/Family.pm: [Reported by D. Lalot, univ. Aix-Marseille] Opening XML files when instantiating families would make Sympa crash under Debian Etch. Fixed by switching "<:utf8" opening mode to "<:raw".
+
+	src/Family.pm, src/List.pm: [#3528][Reported by D. Lalot, univ. Aix-Marseille] A list created by family instantiation without "config_changes" file in its directory would be set to status "error_config". Now, if the file is missing we assume that no changes occur. We still set the list in status error_config if the file exists but can't be opened.
+	**Same behaviour implemented with the file "param_constraint.conf".**
+
+	mail_tt2/invite.tt2: [Reported by M. Bouissou] Invite message suggested to reply to the message to accept to subscribe to a list. This led to an answer with "unknown command" error. Fixed by removing this message and giving an answer address and an appropriate subject string for people who couldn't hit the "mailto" link.
+
+	src/sympa.pl: [Reported by M Bouissou] Command "quit" was ignored in mail commands. This was due to the correction of bug fix in Rev 3548: "Commands starting with 'qui' would be skipped, including QUIET". Fixed by removing comments and changing the regexp to match lines containing 'quit', 'stop', 'end' or '-' ONLY.
+
+	wwsympa/wwsympa.fcgi: [#3661][Reported by S. Kristofferesen, univ. Oslo] In-Reply-To header did not follow rfc2822 format: opening '<' and closing '>' were missing.
+
+	src/tools.pl: [Reported by C. Andrews, Boston College] Ampersand character was forbidden in email addresses though it is authorized by the RFC 2822.
+
+	web_tt2/copy_template.tt2: [#3032][Submitted by J. Kirkland] It was impossible to copy a template through wwsympa to a language-specific directory because the lang was no passe as argument to Sympa. Fixed by modifying the template.
+
+	web_tt2/serveradmin.tt2: All the radio buttons in the form used by the "set_log_level" action didn't share the same control name, thus preventing the web client from expliting them as a set of buttons. This prevented the value from being correctly processed.
+
+	src/Datasource.pm: In a review, data sources name were not displayed because they were searched by comparing a MD5 hash on their parameters to the value stored in the database. As for complex datasources, these description were stored in hash, the order of the parameters was not fixed, leadinf to different values of MD5 for the same data sources. Fixed by sorting the hashes according to the hash keys, storing the result into an array and computing the MD5 with the array.
+
+
+
+
+5.4a.4		25 September 2007
+
+   
+   New features :
+
+	New session management : introduction of http session in order to replace a lot of cookies, for better user interface and security.
+	  -new table session_table
+	  -new module SympaSession.pm
+	  -new features
+	  - from admin page set log level for the current session
+	  - from admin page list active sessions
+	  - from admin page change user email identity
+	  -new task to purge old sessions from table (inactive delay to remove session is set by the sympa.conf parameter session_expiration_period (defaul 1 month)
+	  -session start at first hit usually with an anonymous user. The session continue when the user logging.
+	  -cookie lang replaced by a session parameter
+	  -cookie sympa-user removed
+	  -Crawler detection is controled by /etc/crawlers_detection.conf.
+
+	src/Log.pm: Added "trace" log facility to facilitate development messages insertion, visualization and deletion.
+
+   Changes :
+
+	check_perl_modules.pl, src/tools.pl, src/tt2.pl, wwsympa/wwsympa.fcgi: XSS protection: Any output web parameter is filtered 
+	to avoid creation of XSS vector. Change:Additionnaly, any HTML file put in the shared directory is filtered using StripScripts.
+	Change:HTML::StripScripts::Parser CPAN module is now mandatory.
+
+	src/Conf.pm: [requested by JM.Martins da Cruz] Added X-Sympa-To and X-Family-To header fields to those header that should be
+	removed by Sympa for outgoing mails
+
+	web_tt2/home.tt2: Moved the search list form to the top of the Sympa home page.
+
+	Makefile.am, Makefile.in, configure, configure.in, src/sympa_wizard.pl, wwsympa/Makefile, wwsympa/wwslib.pm,
+	wwsympa/wwsympa.fcgi: icons are now included in the sympa static content directory. Consequently, the
+	"--with-iconsdir" configure option and the "icons_url" wwsympa.conf parameter are no longer used. The default path to
+	icons is now {sympa home}/static_content/icons and the default icons URL is http://host/icons/.
+
+	src/tools.pl: refined Simple XSS filter. Don't ding on simple "<" only, but on <script, <meta and <fdfds javascript:
+
+	wwsympa/wwsympa.fcgi: Web archive search is now performed by default in the whole archive instead of just the current month.
+
+	src/Upgrade.pm, src/etc/script/create_db.Pg, src/etc/script/create_db.mysql: added indexs on email
+	column in both admin_table and subscriber_table. Also changed the order of column in CREATE INDEX directives.
+
+	src/Conf.pm, wwsympa/SympaSession.pm: taskmanager remove anonymous sessions if older then anonymous_session_table Sympa
+	conf parameter
+
+	wwsympa/wwsympa.fcgi: [M.Massar, univ Kaiserslautern] : Sympa is now able to get the Email in SubjAltName. As I
+	was not able to find the mentioned patch to mod_ssl to get SSL_CLIENT_S_EMAIL exported, I wrote another patch based on SSL_CLIENT_CERT 
+	from "SSLOptions +ExportCertData". REAPPLY the patch that had been removed.
+
+	src/Conf.pm: css_url default value is now static_content/css/current_robot. This make it possible to set a
+	single Apache Alias directive for static_content, shared by all virtual hosts.
+
+	src/List.pm: optimization to skip some code in List::load()
+
+	src/sympa.pl: [suggested by T.Berry, NASA] Changed the process identifier in the logs from (message) to (distribute)
+
+   Bug fixes :
+
+	src/List.pm, wwsympa/wwsympa.fcgi: changes of scenario from the admin web interface did not seem to work because the
+	'selected' attributes were cumulated in %Scenario::all_scenarios. Now only pass the required scenario attributes (name and web_title) 
+	to the TT2 web parser.
+	
+	src/Scenario.pm: [#3306][Reported by C. Andrews, boston College] The List::verify resolution of the true test would be applied for
+	all custom conditions that have "true", "any" or "all" in them. Fix: Checks that condiotn starts and ends with the serached condition name.
+
+	soap/sympasoap.pm, src/admin.pm, src/sympa.pl, wwsympa/wwsympa.fcgi: info and config files were not properly encoded 
+	when a list was created using the web or SOAP. fixed by adding the declaration of origin in create_list_old call
+	and then testing this value to know how to handle encoding.
+
+	wwsympa/Auth.pm: [#3183][] : Trusted application name check was case sensitive, xhreas it is not supposed to be the case.
+	Fixed by lowercasing comparison in remote_app_check_password().
+
+	src/Language.pm: [#3269][Submitted by J. Ã–stman, Helsinki univ.of technology]: sympa would take the LANGUAGE environment
+	variable as its default instead of its lang parameter value, because this is Gettext default behaviour.
+
+	src/Conf.pm, src/Family.pm, src/List.pm, wwsympa/bounce-lib.pl: [#3271][Reported by M. Anderson, riseup.net] 
+	"$/" value was changed in several places without using a proper "local" operator to prevent system-wide field seperator contamination.
+
+	src/Conf.pm: robot-specific 'static_content_path' parameter was never used to build 'css_path' parameter value.
+
+	wwsympa/archived.pl: [reported by Alaxa]: rebuild() subroutine did not include code to create index file if missing
+
+	soap/sympasoap.pm: "use strict" into "use strict vars" to prevent "Can't use string xx as a subroutine ref while strict
+	refs" error
+
+	wwsympa/wwsympa.fcgi: [reported by C.Peck, wm.edu] dump of bouncers would only return the first 25 entries
+
+	src/List.pm: [reported by Y.Blusseau]: include_remote_file feature was not supported to include owners or editors.
+
+	src/List.pm: [reported by Y.Blusseau]: $include_file was altered before _load_include_admin_user_file() calls.
+
+	wwsympa/wwsympa.fcgi: missing ',' in check_list_authz() call. The change_email action could therefore never succeed.
+
+	wwsympa/bounce-lib.pl: [reported by R.Levo, J.Hopkins university]: some rfc1891 compliant bounces were not correctly parsed,
+	whenever the "Status" line included the status code + additional comments. The regular expression has been extended.
+
+	soap/sympasoap.pm: [reported by O.Berger, INT]: typo in List::store_susbscription_request() would make
+	sympa_soap_server.fcgi die while receiving a subscription request with moderated subscription.
+	The "use strict" pragma has been added and many other typos have been fixed.
+
+	src/Upgrade.pm: [reported by C.Peck, William and Mary university]: Upgrade process could make subscribers
+	unsubscribeable. The subscribed_subscriber DB field was first set to 1 but then turned into 0 (because of an old enum2int problem).
+	Changed the order of the upgrade processes.
+
+	src/Conf.pm: [A.Hicks, Persistent Objects]: css_url and css_path are not being set from the main config if they do not
+	exist in the robot config as they are being set before the static_content_* checks
+
+	wwsympa/wwsympa.fcgi: 'send_me' feature was broken because of an incorrect regexp on 'month' parameter
+
+	src/Upgrade.pm: [reported by J.M.Martins de Cruz]: incorrect Language::SetLang() calls while migrating create_list_templates
+	and families to UTF-8
+
+	src/etc/script/create_db.Oracle: [reported by F.Lachapelle,Sophos]: incorrect index name
+
+	src/admin.pm: [#3229][reported by T.Berry, NASA]: Sympa did not perform a lock before list config file was created/updated.
+	This could leed to corrupted config files
+
+	wwsympa/wwsympa.fcgi: no more use the buggy regexp $tools::regexp{'html-free'}. It would regexp any string
+	containing '60' or '3c'
+
+	po/check_locales.pl, src/Language.pm: [reported by JG.Pailloncy, O.Girard and JMM. da Cruz] : setlocale() failed on FreeBSD
+	because locales syntax were not standard (ll_CC.ISO8859-N instead of ll_CC.ISO-8859-N). Now using utf-8 as encoding, thus solving
+	the problem. Also changed the algorithm used by check_locales.pl to be the same as Language::SetLang()
+
+
+5.4a.2		7 August 2007
+
+   New features :
+
+	src/List.pm: Added distribution_ttl parameter which will be used when an action should check if a sync_include is needed
+	prior to be executed.
+
+	src/List.pm: When sending a message, Sympa now checks whether the last include is older than ttl OR distribute_ttl if
+	this one is defined. If it is, sychronization is done.
+
+	soap/sympasoap.pm, src/Commands.pm, src/List.pm, wwsympa/wwsympa.fcgi: removes "sync_include" task when a synchronization 
+	is triggered by another event than task processing.
+	Review actions on list using includes trigger a user's list synchronization.
+
+   Changes :
+
+	src/List.pm, wwsympa/wwsympa.fcgi: added a new Robot package inside List.pm. Also optimized List::get_lists() to cache
+	the results within a session and prevent multiple browsing of the expl/ directory
+
+	soap/sympasoap.pm, src/Commands.pm, src/List.pm, src/Makefile,src/Scenario.pm, src/sympa.pl, web_tt2/d_control.tt2,
+	web_tt2/edit_list_request.tt2, wwsympa/wwsympa.fcgi: new Scenario.pm module. The way autorization are loaded has changed :
+	they are now stored in a central place, ie a single copy of a scenario is stored if 2 lists use it. This should make the sympa
+	processes consume less memory when running lots of lists. The scenario are now reloaded whenever they change on disk, except
+	for operations that require good performances (like the 'lists' command). Inclusion of third party scenarios is now performed at
+	evaluation time (in request_action()) and not while loading the scenario as it used to be.
+
+*****	user_data_source values of 'file' and 'database' are no more supported. A migration precedure is run during the upgrade process
+*****	This change will allow to optimize the code where 'file' user_data_source still had to be supported
+
+	check_perl_modules.pl: [reported by S.Hornburg] remove unuseful dependency for Crypt::OpenSSL::X50 perl module. It was
+	introduced in revision 3754.
+
+	soap/sympasoap.pm, src/List.pm, src/Upgrade.pm, src/etc/script/arc2webarc.pl, src/etc/script/mod2html.pl,
+	src/etc/script/p12topem.pl, src/sympa.pl, src/task_manager.pl, wwsympa/archived.pl, wwsympa/bounced.pl, wwsympa/wwsympa.fcgi:
+	Now set List::use_db in Upgrade::Probe_db() and List::check_db_connect() to prevent "Sympa not setup for DBI" errors.
+
+	check_perl_modules.pl: Sympa requires Perl 5.8 (for encoding features)
+
+	src/task_manager.pl: check the $end variable before processing each task, thus making a kill -TERM more quickly
+	processed
+
+	src/Log.pm, subst.pl: optimizations to save most calls to do_log()
+
+	src/List.pm: optimizations to lower the List::new() calls and perform locks on list config files only if reloading is
+	required
+
+   Bug fixes :
+
+	wwsympa/wwslib.pm: [#2931][A.GAVARA, INPL Nancy] CAS authentication would fail because http was used instead of https.
+	Fixed get_my_url() to use HTTPS environment variable instead of SSL_PROTOCOL and SSL_PROTOCOL_VERSION.
+
+	src/task_manager.pl: [#3142][submitted by Y. BLUSSEAU] A typo made the stop() command fail to remove tasks.
+
+	soap/sympasoap.pm: [Reported by P. David, univ. Strasbourg] In some very rare occurences, the session identifier would be
+	constituted of decimal numbers only AND start with at least one "0" (zero) character. In this case, this string was considered a
+	number by sympasoap.pm and the zero removed, thus shortening - and invalidating - the id. This would prevent the user from being
+	authorized to see pages in the wiki.
+
+	soap/sympasoap.pm: Avoid potentially forged cookie from SOAP client.
+	
+	src/List.pm, src/mail.pm: use 'warning' log level instead of 'warn'
+
+	src/Family.pm, src/admin.pm: config files generated by instantiate_family were not UTF-8 but ISO. Now opening files as
+	UTF-8.
+
+	soap/sympa_soap_client.pl, wwsympa/wwsympa.fcgi: sympa_soap_client.pl now takes into account the "--service" and
+	"--service_parameter" arguments for "play_soap()" function.
+
+	src/tools.pl, wwsympa/wwsympa.fcgi: [#2960][Reported by L. Ren-Shan] First attempt at XSS prevention. Now prevents such
+	intrusions in the web interface.
+
+	wwsympa/wwsympa.fcgi: [reported by Alessio] : a security problem would allow a user to directly access arctxt/* files or
+	.mhonarc.db files. A %in_negative_regexp hash has been added to define forbidden expressions in parameters. XSS-related code has
+	also been changed.
+
+
+5.3.2		13 June 2007
+
+   Bug fixes :
+
+	/trunk/src/List.pm : logic for setting 'keep_trying' option to SQLSource::connect() was upside down. As a result, initial DB creation could not happen.
+
+	/trunk/src/etc/mhonarc-ressources.tt2 : [#3126][Reported by E. Koblinger, uhulinux.hu] Removed "keepspace" option from MIME options to avoid inclusion of useless "&nbsp;" sequences.
+
+	/trunk/web_tt2/home.tt2 : [reported by R.Touchais] No more refer to a URL on the front page
+
+
+5.3		22 May 2007
+
+   New features :
+
+	/trunk/src/Conf.pm, /trunk/wwsympa/wwsympa.fcgi,/trunk/wwsympa/cookielib.pm : [proposed by P.Schober, Univ Vienna] added logout feature to generic_sso. This required adding a new sympa_sso_id HTTP cookie to keep track of which SSO was used to login. Also reorganized the cookielib subroutines.
+
+   Changes :
+
+	/trunk/web_tt2/login_menu.tt2, /trunk/web_tt2/loginbanner.tt2:  replaced the "magic authentication" with the SSO service name, defined in auth.conf.
+
+	/trunk/src/List.pm: [#3097]: moved the code that remove SMTP header fields (defined by the remove_headers parameter) before the archiving code.
+
+	/trunk/po/pt_BR.po: [submitted by Prof. P.E.M. Almeida] Updated brazilian translation.
+
+	po/: Several improvment in translations. Main changes are found in Spanish, Italian and Occitan.
+
+	/trunk/src/Upgrade.pm: During upgrade process, if an existing primary key is incomplete, it is completed.
+
+	/trunk/src/Upgrade.pm: [requested by S.Amrani, Gendarmerie Nationale] Change: probe_db() would previously alter DB field format if different from the expected format. Now accept fields with a size larger than expected.
+
+   Bug fixes :
+	
+	/trunk/check_perl_modules.pl : [#3107][E.Koblinger, uhulinux] DBI 1.48 is required by use of selectall_hashref()
+
+	/trunk/src/List.pm, /trunk/src/Message.pm: [reported by T.Berry, NASA] Empty Subject field were replaced with 'Charset'. This seems to be a MIME::EncWords::decode_mimewords() bug. Also fixed problems with custom subject parsing that was still using the old
+parser::parse_tpl().
+
+	/trunk/src/bouncequeue.c, /trunk/src/familyqueue.c, /trunk/src/queue.c: [#2945][D.Jahnke-Zumbusch] queue, bouncequeue and familyqueue scripts were removing the first "From xx" line found even though it was not part of SMTP headers. This caused problems with Postif if the 'F' flag was not set in master.cf, because postfix would not add the expected "From xx" Header field to the delivered message.
+The code has been fixed to look for the "From xx" in the first line of the message only.
+
+	/trunk/src/tt2.pl: [#3086 Submitted by S. Hornburg, linuxia.de] When Sympa failed to create a template object, the last system error was displayed instead of the last Template error.
+
+	/trunk/wwsympa/wwsympa.fcgi: [reported by L.Sousa, univ. do Algarve] Change: don't print the list_menu if info scenario forbid access to list info.
+
+	/trunk/src/Upgrade.pm: [Reported by T. Davis, Metaphor studios] Useless warnings regarding PRIMARY KEY and INDEX at upgrade no longer appear.
+
+	/trunk/src/Upgrade.pm: [Reported by X. Moghrabi, Objectweb] Former indexes are removed if necessary to avoid double indexing of primary keys.
+
+	/trunk/src/tools.pl: [#3075] file were renamed with a parasite '\'
+
+	/trunk/src/List.pm: [Submitted by M. Gaudet, EHESS] Encoding problems when upgrading from versions of pre-all-UTF-8 era. config files were saved into UTF-8 without character conversion which messed list subjects and some admin values.
+
+	/trunk/src/Upgrade.pm: [Reported by M. Gaudet, EHESS] Resolves encoding problems for lists' info files when upgrading from version 4.1.5 in lists where no 'filesystem_encoding' parameter was set.
+
+	/trunk/src/List.pm: Definition of a default LDAP port (389) for include_ldap_xxx was leeding Sympa to use 389 port for LDAPS (instead of 636 port)
+
+	/trunk/src/Upgrade.pm: [deb#418836][Reported by O. Berger, INT] Fix: SHOW FIELDS failed while upgrading. Now removing the dbname part in the tables() return value.
+
+	/trunk/src/List.pm: [T.Berry, NASA] "Undefined subroutine &Task::list_tasks called at /usr/local/jpl/msg/list/sympa/bin/List.pm line 12333". The new version of List::purge() uses Task::list_tasks() subroutine but a "use Task" pragma is missing in List.pm.
+
+	/trunk/src/List.pm: Error "Can't use an undefined value as an ARRAY reference" while processing digests. Fixed the parameter loading procedure to handle correctly defaults (structured parameter with no default in subentries)
+
+
+5.3b.5		23 April 2007
+
+   New features :
+
+	src/etc/script/sympa: Startup script now works with Slackware distributions.
+
+	src/LDAPSource.pm: [#934] [reported by A.Powers, DigiPen] added support for start_tls().
+
+	src/Family.pm, src/sympa.pl: [submitted by S.Amrani, Gendarmerie Nationale] made the family instanciation process quiet 
+	(required when run from a crontab). New sympa.pl options : --quiet and --close_unknown
+
+	web_tt2/skinsedit.tt2: Added color_* parameters usage in the skin administration page.
+
+   Changes :
+
+	src/Conf.pm: [#724] max_size parameter can now be used in robot.conf
+
+	src/List.pm: [requested by S.Amrani, Gend.Nationale] Specify the searched attribute 1.1 (the DN) in List::search()
+
+	src/List.pm: [#2932] [reported by R.Gilbert, Univ Sheffield] Use listmaster as default in List::send_notify_to_owner(), in case no owner is defined.
+
+
+   Bug fixes :
+
+	po/Makefile, src/Language.pm: [reported by L.Garnier, CNRS] complete locale ID for Basque is eu_ES
+
+	src/aliaswrapper.c, src/virtualwrapper.c: [reported by L.Garnier, CNRS] added missing include of stdlib.h
+
+	src/etc/mhonarc-ressources.tt2, wwsympa/archived.pl: [#3013][submitted by P. Timmons, Ec. Polytechnique Montreal] : The button "toggle selection" 
+	did not trigger its action and produced a javascript error instead. Plus added some pod documentation.
+
+	web_tt2/css.tt2: [#2975]removed a '{' in excess at the end of file which would cause two javascript errors at each page loading 
+	("Selector expected. Invalid rule set ignored." and "unexpected end of file while looking for closing } of an invalid rule set."). 
+	Leaving IE proprietary "zoom" property. Must be useful in some way.
+
+	wwsympa/wwsympa.fcgi: [#3012][submitted by P. Timmons, Ec. Polytechnique Montreal] Robot listmaster couldn't edit scenarios due to the $robot parameter not being called by is_listmaster() function in do_dump_scenario().
+
+	wwsympa/archived.pl: archived.pl would die while processing a message for an unknown list. Error message : "Can't call method "get_list_id" on 
+	unblessed reference at /home/sympa/bin/archived.pl line 526."
+
+	soap/sympasoap.pm: [#1325][#2969] [submitted by *both* O. Duval and O. Berger (INT Evry)] topics parameter wasn't used while creating a list with SOAP.
+
+	src/Language.pm, src/tools.pl, wwsympa/wwsympa.fcgi: wwsympa.fcgi would die when a ZIP archive was uploaded (d_unzip). 
+	Added the missing parameter to &tools::qencode_hierarchy()
+
+	src/tt2.pl: [#1464][submitted by S. Ikeda] [patch sympa-MAIN-20070103-escape_url.patch] Some MUAs aren't able to decode ``%40'' (escaped ``@'') 
+	in e-mail address of mailto: URL, or take ``@'' in query component for a delimiter to separate URL from the rest.
+	
+	src/Log.pm: [#1222] [submitted by G.Donnini, Univ Milano] check DB connectivity in Log::db_log_del()
+
+	src/List.pm, src/admin.pm, wwsympa/wwsympa.fcgi: [#2957] Stored Encode::from_to() return value (string length) instead 
+	of string value in info file at list creation time.
+
+	src/Log.pm: [#2930][Reported by T. Berry, Nasa] do_log sub don't apply Encode::from_to() function to reference variables anymore.
+
+	wwsympa/wwsympa.fcgi: [reported by Univ. Rennes 1] Prevent problems with URLS containing '//'. It would break navigations that uses relative URLs. 
+
+	src/Family.pm: [reported by T.Berry, Nasa] [fixed by S.Amrani, Gendarmerie nationale] automatic list creation failure was 
+	incorrectly handled and message could be lost.
+	
+	src/Lock.pm: [#2930][reported by T.Berry, Nasa] sympa processes would print binary data to the TTY. 
+	It was due to a File Handler variable that was logged. Also fixed a bug related to file unlocking.
+
+	src/List.pm, src/Task.pm: [#2940] [reported by T.Berry, Nasa] remove list-related task when purging a closed list
+
+	src/List.pm, wwsympa/wwsympa.fcgi: [#1075] Default values for parameter 'reply_to_header' are now correctly loaded.
+
+	web_tt2/edit_list_request.tt2, wwsympa.fcgi: [#985]: Hide "update" button whenever no parameter can be edited in the current page
+
+	[reported by R.Caldwelr, Franklin university] wwsympa::is_ldap_user() would not use provided bind_dn and bind_password.
+	Change: New LDAPSource module to gather all LDAP-related code. Currently only connect() and disconnect() have been implemented.
+	Change: removed obsolete export_list() functions (+related)
+
+
+5.3b.4		13 March 2007
+
+   New features :
+
+	src/etc/script/: Makefile, mysql_alias_manager.pl: [Bea, Cartables.net] added an alias_manager that is MySQL enabled.
+
+   Changes :
+
+	src/admin.pm: Added sync_include after list creation/update (family context)
+
+	src/: Family.pm, admin.pm: trigger a sync_include after list creation/update Also made list topics problems non blocking
+
+   Bug fixes :
+
+	mail_tt2/listmaster_notification.tt2, src/sympa.pl: sympa.pl processes dedicated to message distribution or automatic list
+	creation would not remove their pid file properly
+
+	src/Log.pm: increase entropy for logs table ID. It was required to prevent "duplicate entries" errors.
+
+	src/Log.pm, web_tt2/viewlogs.tt2, wwsympa/wwsympa.fcgi: list owner could view db logs of other lists.  Changed the feature so
+	that only the current list logs can be viewed. Also simplified the code. Fixed the resize feature. The sortby feature is still
+	buggy
+
+	wwsympa/wwsympa.fcgi: arcsearch would crash wwsympa process if provided a search expression with both invalid expression and
+	\n, because tools::escape_regexp() does not apply on multi-line. Changed the allowed regexp for wwsympa incoming parameters to
+	forbid \n in most of them.
+
+
+5.3b.3		7 February 2007
+
+   New features :
+
+	STDERR of daemons is redirected to a file. If process crashes, next process started will detect the failure and send a notice to listmaster.
+
+	src/Language.pm, wwsympa/wwsympa.fcgi: [reported by E.Beliveau] made the user lang available in the editsubscriber page
+
+	check_perl_modules.pl, src/Conf.pm, src/Lock.pm: [ID 435] [patch provided by Moriwaka] added support for NFS locking,
+	using File::NFSLock perl module. A new 'lock_method' sympa.conf parameter can be set to 'nfs'.
+
+	web_tt2/modindex.tt2: [ID 444] [requested by A.Lund, Uninnett] added "toggle" button in moderation page
+
+	po/xgettext.pl, src/tt2.pl, src/etc/mhonarc-ressources.tt2: [ID 1338][S.Ikeda] A new filter [%|locdt()%] is added
+	for TT2 templates to format date/time according to language context.  It takes a format string to be gettext'ized as main
+	argument, and an extra argument representing date/time.  MHonArc resource file was modified so that it may generate output
+	including this filter spec as nessessity.
+
+	  Note that this spec will be available for newly-updated archives. To apply this improvement to all past archives, it is nessessary
+	  that all archives are rebuilt.
+
+   Changes :
+
+	po/ Translations updatfs from pootle.sympa.org
+
+*****	If your RDBMS is MySQL, you need it to be at least version 4.1.
+*****	src/Upgrade.pm: [ID 1500][S.Ikeda] converting mail templates to UTF8. The script has been integrated 
+*****	into Upgrade.pm and has been extended to convert other configuration files
+
+*****	mail_tt2/, src/mail.pm: all service messages are now UTF8.
+*****	Also made the templates structure simpler.
+
+	src/List.pm: trigger sync_include before distributing a message to a list, unless it was performed during the last 5 min.
+	Fix: $self->{'last_sync'} was never loaded
+
+*****	src/List.pm, wwsympa/wwsympa.fcgi: 'include' mode is now obsolete. 
+*****	Now performing a mapping while to 'include2' while loading the parameter.
+
+	wwsympa/wwsympa.fcgi: remove authentication request for do_tag_topic_by_sender and do_request_topic, autehntication is
+	done because of the md5 key of the message.
+
+	src/: List.pm, sympa.pl: New value possible for msg_topic_required to adpat it both for moderated list and unmoderated lists
+
+	po/pl.po: [Lukasz Zygmanski] Updated Polish translations
+
+	mail_tt2/moderate.tt2, src/List.pm, src/mail.pm: Renamed 'msg' parameter to 'msg_path' in moderate.tt2.  
+	Take 'spool' parameter into account (for 'modindex' template) in the reformat_message() process
+
+	src/: added "use strict" to tools.pl
+
+	wwsympa/wwsympa.fcgi: [ID 106] after unsubscription, no more bring the user back to the list page. He might not be
+	allowed to see the info page.
+
+	po/ja.po: [S.Ikeda] Updated Japanese catalog
+
+   Bug fixes :
+
+	src/Log.pm: db_logs were expired too early (parameter expressed in days instead of months)
+
+	web_tt2/error.tt2: [requested by C.Andrews, Boston College] Added an error message for list creation failure.  It is required when
+	an existing listname has been used ; we cannot get the error diagnostic from admin::create_list_old() though
+
+	wwsympa/Marc/Search.pm: wwsympa might die with error "Cannot decode string with wide characters".	
+	Now opening archives as bytes (not utf8) to prevent decoding
+
+	wwsympa/Marc/Search.pm: arcsearch_id would fail on some  messages.  
+	Marc::Search expects mhonarc to add X-Subject data to generated HTML files. Some examples were found with X-Subject
+	value split among 2 lines.  Marc::Search::search() is now able to parse split X-Subject entries.
+
+	src/task_manager.pl, wwsympa/archived.pl, wwsympa/bounced.pl: debug mode would not work with task_manager.pl, archived.pl
+	and bounced.pl
+
+	src/List.pm: [reported by F.Lachapelle] sync_include tasks were created for all lists, including those with no external data
+	sources The List::has_include_data_source() subroutine has been fixed to correctly check owner_include
+
+	web_tt2/request_topic.tt2, wwsympa/wwsympa.fcgi: Internal error with message that can't be parsed solved in request_topic action.
+
+	src/sympa.pl: incorrect var definition (msg_topic and moderation)
+
+	src/tools.pl: escape_regexp would not work.  This would break arcsearch_id used in RSS context
+
+	src/mail.pm: Some service messages (moderation, topics tagging and reminder) delegated by wwsympa to sympa.pl would have
+	missing X-Sympa-From header field.  Now setting a default value for the return-path in mail.pm
+
+	mail_tt2/remind.tt2: [reported by O.Lacroix] Fix type for transfert_encoding
+
+	src/List.pm: [ID 117][reported by M.Bernard, univ St.Etienne] user initial passwords were not crypted when subscribed by
+	list owners. Moved encrypting logic to lower layers.
+
+	mail_tt2/Makefile: [requested by S.Hornburg] Debian packaging requires that symbolic links are not absolute links
+	because of DESTDIR use.
+
+	src/etc/mhonarc-ressources.tt2: [G.Youger, Univ Newcastle] archive template was inappropriate for email addresses that
+	include an apostrophe (').
+
+	src/List.pm: [S.Ikeda] [ID 1396] A bug relating this patch: ASCII-only subjects are unfolded then can become one long line.
+
+	src/etc/mhonarc-ressources.tt2: [S.Ikeda] [ID 1393] added more translatable items to mhonarc-resources.tt2
+
+	src/: List.pm, mail.pm, tt2.pl: [S.Ikeda] [ID 1396] Body or subject header were occationally empty.  Reproduced by: Sympa CVS
+	HEAD with Encode 2.08.  Not reproduced by: Sympa CVS HEAD with Encode 2.12, 2.18.
+
+	  - Body of service message is removed at all when its source contains non-UTF-8-compliant sequence.  - Subject body of
+	  distributed message is removed when original subject contains  unencoded non-ASCII sequence.
+
+	  It may be caused by a bug in Encode module, RT#8872:  http://rt.cpan.org/Public/Bug/Display.html?id=8872
+
+	src/SQLSource.pm: set SQL client preference regarding character encoding to UTF8. Otherwise we can't determine how data
+	got from SQL is encoded.
+
+	src/List.pm: [J.Schmalenbach, Barrett] empty 'get_subscriber' when removing a list member
+
+
+
+5.3b.1		29 November 2006
+
+   New features :
+
+	src/Ldap.pm: [requested by E.Beliveau] allow folded lines in ldap filters (using '\')
+
+	src/List.pm, src/sympa.pl: new Sympa.pl option : sympa.pl --purge_list <list>@<robot>
+	
+	web_tt2/: [V.Paitrault, CRU] translated online user/admin help to English
+
+	doc/sympa.tex.tpl, src/List.pm: [requested by S.Peterson] Extended available parameters for search filters
+
+	src/etc/script/arc2webarc.pl: can use an input directory containing individual messages files
+
+   Changes :
+	
+	po/fr.po: Updated French translations
+
+	src/: sympa.pl, tools.pl: files in the msg/ spool were processed according to the file name (abbb before zbbb). 
+	now use the date as the sort criteria
+
+	po/: remove Chinese/Taiwan catalog that was out of date and could not be transformed to UTF-8
+
+	po/, src/Language.pm: Updated translations from Rosetta ; added Russian and Bulgarian PO files
+
+	mail_tt2/, soap/sympasoap.pm, src/Language.pm, src/List.pm, src/mail.pm, src/tt2.pl: 
+	no more use encoding defined in PO files to determine charset for messages.  
+	We now use the charsets defined in Language.pm instead.  We now use [% charset %] in mail_tt2 files and
+	&Language::GetCharset() in the code These changes will make it easier to mode all PO files to UTF-8
+
+	mail_tt2/, src/: [Soji Ikeda] changes have been made to switch from Perl Unicode to UTF-8: 
+	  - read raw config files then to convert them to UTF-8.
+	  - change Language::gettext()'s output from Unicode to UTF-8.
+	  - remove Template::Directive::OUTPUT hack (see src/tt2.pl).
+	  - disable PerlIO layer on wwsympa.fcgi.
+
+	web_tt2/, po/en_US.po: revision from Jill Gemmill have been reported down to templates. en_US.po has been reset (with
+	  sympa.pot)
+
+	src/Upgrade.pm: regenerate all config.bin files while upgrading ; required for character encoding problems
+
+
+   Bug fixes :
+
+	src/Upgrade.pm: [reported by J.Schmalenbach] qualify send_notify_to_listmaster() call
+
+	web_tt2/rss.tt2: RSS feed encoding was incorrect
+
+	src/mail.pm: Incorrect handling of empty header fields, could result in duplicate header fields
+
+	soap/sympa.wsdl: [BugID 1262][O.Duval] missing sections in Binding for add, del and closeList
+
+	web_tt2/error.tt2, wwsympa/Auth.pm, wwsympa/wwsympa.fcgi: [BugID 285][reported by M.Verove, Atos Origin]
+	no more allow password reminder if regexp doesn't match user email
+
+	check_perl_modules.pl: inactivity_timeout was not set
+
+	web_tt2/login_menu.tt2: [reported by R.Cadwell] "forgot password" and "first password" buttons were shown regardless of
+ 	auth.conf
+
+	src/List.pm: [A.Zamboni, Univ Strasbourg] sort by subscriber name failed with Pg
+
+	eb_tt2/edit_list_request.tt2: missing form input attribut 'multiple'. Because of this bug parameter digest and
+	avalaible_user_option may habe been corrupted
+
+	wwsympa/wwsympa.fcgi: arcsearch_id would fail if message-id contained '&' because mhonarc encodes it in HTML messages.
+
+	src/, wwsympa/wwsympa.fcgi: [S.Ikeda] strftime() accepts/returns a string encoded by charset that is determined by
+	current system locale. Therefore date strings needed to be decoded according to current charset.
+
+	src/List.pm: print error message if include_remote_file failed
+
+	soap/sympasoap.pm: fixed typo in authenticateAndRun()
+
+	src/List.pm: load topics.conf using filesystem_encoding
+
+	
+
+5.3a.10		6 November 2006
+
+   New features :
+
+	src/etc/script/arc2webarc.pl: arc2webarc.pl can use an input directory containing individual messages files
+
+	soap/: New SOAP method getUserEmailByCookie
+
+	src/: Commands.pm, report.pm, sympa.pl: [requested by W.Howard]: original_msg is now available in msg reports
+
+	[S.Amrani, Gend.Nationale] : Automatic list creation 
+	This new feature allows to trigger list creation when a message is sent for the list. 
+	The set of "possible" lists is defined by a generic mail alias and a list family. 
+	New sympa.conf parameter include :
+	  automatic_list_feature, automatic_list_creation,
+	  automatic_list_removal,	    pidfile_creation,
+	  queueautomatic, clean_delay_queueautomatic 
+	A new familiqueue.c binary file is provided.  The list creation job is performed by a
+	sympa.pl process that forks.	Check the documentation for more informations.
+
+
+   Changes :
+
+	src/List.pm: [requested by S.Peterson] Extended available parameters for search filters
+
+	web_tt2/ : applied revisions from Jill Gemmill to templates
+
+	src/Upgrade.pm: regenerate all config.bin files while
+	  upgrading ; required for character encoding problems
+
+	reported changes in en_US.po (updated by Jill Gemmil) to templates.  
+	Work is half-done.
+
+	[Soji Ikeda] : Sympa now uses new Perl modules MIME::Charset and MIME::EncWords to encode characters. 
+	These modules are alternatives for MIME::Words with better handling of multibyte charsets.
+
+	po/en_US.po: [J.B.Gemmill, Univ. Alabama at Birmingham] Revised version of English translations.
+
+   Bug fixes :
+
+	src/List.pm: print error message if include_remote_file failed
+
+	[S.Ikeda] : strftime() accepts/returns a string encoded by charset that is determined by current system locale. 
+	Therefore date strings needed to be decoded according to current charset.
+
+	wwsympa/wwsympa.fcgi: arcsearch_id would fail if message-id contained '&' because mhonarc encodes it in HTML messages.
+
+	src/List.pm: load topics.conf using filesystem_encoding
+
+	[S.Ikeda] made some fixes to documentation and templates
+
+	wwsympa/Marc/Search.pm: No more decode X-Subject from web  archives ; they are already decoded WWSympa.fcgi would die with
+	the following error : "MIME::Words: unexpected case"
+
+	src/: mail.pm, tt2.pl: [S.Ikeda] : type for suggest_encoding() subroutine ; better UTF-8 management with TT2.
+	Patches: sympa-MAIN-20061021-mail_encoding_fix1.patch + sympa-MAIN-20061015-tt2_utf8.patch
+
+	src/Language.pm: [reported by Soji Ikeda] Japanese was incorrectly encoded in the list of languages.  
+	Also changed the way gettext() handles parameters to prevent unwanted modifications
+
+	src/mail.pm: [reported by Soji Ikeda] : mail_file() subroutine incorrectly detecting folded header fields.
+
+	mail_tt2/moderate.tt2: To header field now also Q-encoded
+
+	src/Log.pm: do_log() would modify parameters by reference, now using an intermediate variable to preserve original
+	parameters from being decoded
+
+	mail_tt2/send_auth.tt2: [Reported by M.Larchet, Univ Nancy 2]: subject of confirmation message was localized
+
+	src/sympa_wizard.pl: [BugID 1102][reported by R.Roessner] sympa_wizard.pl failed because of a typo
+
+	src/List.pm, src/tools.pl, wwsympa/wwsympa.fcgi: could not edit message.header and message.footer from the admin web
+	interface The tools::get_filename() sub did not return the right structure ; it should return an empty array if expected
+
+	web_tt2/compose_mail.tt2, wwsympa/wwsympa.fcgi: [Reported by P.Farmer] topics tagging was not proposed from the "Post" page.
+
+	q-encoding of shared documents filenames has been fixed :  - Encode::Guess now uses list lang  -
+	prevent problems with Encode (words) ; now using lower layer subroutine
+
+
+
+5.3a.9		6 October 2006
+
+   New features :
+
+	[S.Amrani,Gend.Nationale] Custom scenario conditions You can use a Perl package of your own to evaluate a custom scenario
+	condition.  The scenario condition will look like this :
+	  CustomCondition::my_custom_condition([sender],[list->name],[list->total]) smtp,smime,md5	 -> do_it
+
+	Now bounced recognize Abuse Report Feedback forat (ARF). In order to use it, you just need to create a new
+	alias to redirect message from ARF loop (mainly AOL) to bounced according to the documentation (section bounces)
+
+	[S.Amrani, Gendarmerie Nationale] SQL named filters Listmasters can now define SQL search conditions in authorization
+	scenarios such as :	"search(example.sql, [sender]) smtp,smime,md5    -> do_it" 
+	Here is the example.sql named filter  :   
+		sql_named_filter_query
+		   db_type	  mysql
+		   db_name	  people
+		   db_host	  dbserver.rennes1.fr
+		   db_user	  sympa   
+		   db_passwd	  pw_sympa_mysqluser
+		   statement	  SELECT count(*) as c FROM users WHERE mail=[sender] AND EmployeeType='PROFESSOR' AND department='mathematics'
+
+	[A.Brard] Accessibility of the web interface has been enhanced :
+	  - removed styles elements from within web templates
+	  - added ALT tags to images
+	  - all font sizes are expressed in 'em' unit now
+	  - added detailed titles to links
+	  - generalized use of titles (H)
+	  - added "headers" to table/td
+	  - added "label", "id" and "for" attributes to forms
+	  - added alternate to scripts
+	  - other cosmetic / IE compatibility changes
+	The web interface (CSS and HTML) have been validated by the W3C validator
+
+	doc/: Added documentation about i18n
+
+	soap/: New features on the SOAP interface : add, del, closeList
+
+   Changes :
+
+	web_tt2/serveradmin.tt2: Changed the bug tracking URL to a more stable URL
+
+	doc/sympa.tex.tpl: Added libxml 2 as a requirement for Sympa
+
+*****	sympa.pl --upgrade is now the only way to upgrade Sympa data structure
+*****	YOU NEED TO RUN THIS COMMAND AFTER EACH UPGRADE OF SYMPA
+
+	[S.Amrani, gendarmerie Nationale] new Datasource.pm and SQLSource.pm modules that should contain all 
+	DB access subroutines. An LDAPSource.pm module should be created later.
+
+
+
+   Bug fixes :
+
+	src/Commands.pm: [BugID 1071][reported by F.Guilleux, CRU]  response to message confirmation did not include listname.
+	Incorrect $which variable was used.
+
+	src/List.pm: [S.Amrani, Gend. Nationale] errors were not properly raised if an error occured while performing 
+	a scenario search()
+
+	src/tools.pl: [BugID 792] bug in tools.pl prevents per family customization of scenarios, mail_tt2 and web_tt2
+
+	src/List.pm: 'host' robot.conf parameter was not well supported. It is now the default value for the list 'host'
+	parameter.
+
+	src/sympa.pl: [reported by P.Maes, Université Louvain] Sympa would improperly detect a loop if the same message 
+	is sent to 2 lists with same local part. Now added list robot to %msgid_table keys.
+
+	mail_tt2/message_report.tt2, src/Commands.pm: [reported by D.Lamballais, IRISA] moderator was no more notified after
 	message rejection
 
-	wwsympa/wwsympa.fcgi: Fix: attachement were not accessible though web archives Made the last arc_file parameter multiple 
-	(using the @ notation) and changed the associated regexp
+	src/List.pm: [S.Amrani, Gend. Nationale] incorrectly closed file handle
 
-	src/List.pm: [S.Amrani, Gend. Nationale] incorrectly closed file handle. Could leed to include_admin_user.lock files not 
-	unlocked
+	src/List.pm: prevent recursive loop when DB connection failed : 
+	db_connect > send_notify_to_listmaster > send_global_file > get_user_db > db_connect
+
+
+5.3a.8		6 September 2006
+
+   New features :
+
+
+	[Adrien Brard] DB logs : each operations that changes the status of messages/subscriptions/list 
+	config is now logged in a structured DB entry. Both listmasters and listowners can search this events
+	DB using the Sympa web interface.
+
+	New static_content_path and static_content_url parameters. It refers to a directory, accessible
+	from the web server, containing CSS stylesheats, member pictures and other statuc contents 
+	managed by Sympa.
+
+	[Adrien Brard] List members can upload and share their pictures via the REVIEW web page.
+
+	[Virginie Paitrault, Univ. Rennes 2] New user and admin web documentation.
+	Currently in French only.
+
+	Per list blacklist : list owners can manage a blacklist for their list, via the web interface
+	Only one new sympa.conf parameter : use_blacklist
+
+	List creation available via the SOAP server. 
+	New trusted_applications.conf file that defines the trust relationship with SOAP clients.
+
+	src/etc/script/testldap.pl: testldap made LDAPS-aware
+
+	src/List.pm: Added LDAPS support to include_ldap_xx
+
+	wwsympa/wwsympa.fcgi: Templates editor for the listmaster.
+
+   Changes :
+
+	src/etc/script/arc2webarc.pl: [reported by D.Ghent, UMBC] [ID 927] arc2webarc.pl failed 
+	with big lists (lots of messages) because all messages were stored in memory.  Now process 
+	one log file at a time.
+
+	wwsympa/wwsympa.fcgi: [requested by M.Ward] [ID 935] When renaming a list, custom_subject 
+	is not updated with the new list name
+
+	[S.Amrani, Gendarmerie Nat.] alias management can now be disabled.  You should set the 
+	'sendmail_aliases' parameter to 'none'
+
+***** 	Change: config.bin files are no more used unless the new cache_list_config sympa.conf parameter 
+***** 	is set to 'binary_file'. This mode is only usefull if you manage lots of lists (1000+) to 
+***** 	have a faster startup of web processes.
+
+***** 	Changes: web pages are now utf-8 encoded, as well as mhonarc HTML 
+***** 	archives that can now mix different character sets within a single 
+***** 	web archive. Sympa now uses perl's I/O layer to encode/decode characters.  
+***** 	The web_recode_to  parameter is now obsolete ; the new 
+***** 	filesystem_encoding parameter allows you to define how the configuration 
+***** 	files are encoded on disk. A new mhonarc-ressources.tt2 file is provided 
+***** 	and should replace any custom one.
+***** 	Shared documents filenames are now Q-encoded to prevent any encoding problems.
+***** 	An automatic upgrade process will rename existing files according to Q-encoding
+
+***** 	Change: default for css_path is now relative to static_content_path.  
+*****   CSS files are now AUTOMATICALLY updated by sympa.pl if a new css.tt2 has been installed.
+*****	You NEED to add an Alias directive in your Apache config file, as folows :
+*****		Alias /static-sympa /home/sympa/static_content
+
+
+	web_tt2/arcsearch.tt2: [A.Bernstein] [ID 899] Minor bugs and cosmetic improvements 
+	in archive search results 
+	1. In the presentation of search results in the archive, the listing of parameters that 
+	was used for the search is incorrect because of various typos in the arcsearch.tt2 file.
+	2. Search results are hard to read because messages blend together, so I've made minor changes 
+	(making them list elements), and also added some linebreaks and removed some confusing
+	feedback (the "Results" lines at the bottom).
+
+	web_tt2/arcsearch_form.tt2: [A.Bernstein] [ID 900] Cosmetic reorganization of the archive advanced 
+	search page
+
+	doc/sympa.tex.tpl: Added comments about the requirements on the aliases file
+
+	web_tt2/editsubscriber.tt2, wwsympa/wwsympa.fcgi: [A.Bernstein] [ID 901] 
+	List owners are now able to edit subscriber's visibility
+
+	web_tt2/suboptions.tt2: [A.Bernstein] Subscribers can now edit their gecos on a list
+
+	src/etc/mhonarc-ressources.tt2: now provide archives mass-deletion also from the threaded page
+
+	src/etc/mhonarc-ressources.tt2: [A.Bernstein] [ID 905] The threaded view is more useful 
+	if you can see the date of each message in the list.	This requires both adding the date 
+	field to a few lines in mhonarc-ressources.tt2 and adding two new resources that weren't 
+	customized at all before.
+
+	po/: en_US.po, fr.po: use sympa.pot as the default en_US.po
+
+	po/en_US.po, src/Language.pm: changed charset for English from us-ascii to utf-8
+
+	wwsympa/wwsympa.fcgi: [M.Massar, univ Kaiserslautern] Sympa is now able to get the Email in SubjAltName.  
+	As I was not able to find the mentioned patch to mod_ssl to get SSL_CLIENT_S_EMAIL exported, I wrote 
+	another patch based on SSL_CLIENT_CERT from "SSLOptions +ExportCertData"
+
+	src/List.pm: [requested by A.Bernstein] now scenario rules can apply on header fields that have multiple values
+
+	mail_tt2/listmaster_notification.tt2, src/List.pm:  notify listmaster if upgrade procedure failed
+
+	[BugID 709] prevent any process to run before data structure have been updated. 
+	This prevents "duplicate entries error" in DB tables
+
+	src/List.pm: hide closed lists, even to listmasters
+
+   Bug fixes :
+
+	src/etc/script/ldap_alias_manager.pl: [A.Gavara, INPL Nancy] [ID 953] added missing -owner aliases 
+	; fixed $tt2_include_path construction
 
 	wwsympa/archived.pl: sort archives directories before expiring ; otherwise latest months might expire.
 
-	wwsympa/wwsympa.fcgi: [reported by S.Amrani, Gendarmerie Nat.] After editing a subscriber email, the list owner might 
-	get a "not subscribed to list" error.  The bug happened because the do_set() is used by both list members and list owners. 
-	Wwsympa now used the previous_action information to bring the user back to the right page.
+	wwsympa/wwsympa.fcgi: [reported by S.Amrani, Gendarmerie Nat.] After editing a subscriber email, 
+	the list owner might get a "not subscribed to list" error.  The bug happened because the do_set() 
+	is used by both list members and list owners. Wwsympa now used the previous_action information to 
+	bring the user back to the right page.
 
 	wwsympa/wwsympa.fcgi: [reported by P.Von Der Hagen, Karlsruhe Univ.] [ID 876] 
 	Sympa sends message "topics have changed" when owner is changed
 
-	mail_tt2/message_report.tt2: [reported by P.Von Der Hagen, Karlsruhe Univ.] [ID 878] 
-	Used incorrect variable in mail report
+	mail_tt2/message_report.tt2: [reported by P.Von Der Hagen, Karlsruhe Univ.] [ID 878] used incorrect 
+	variable in mail report
 
-	src/sympa.pl: [reported by S.Amrani, Gendarmerie Nat.] sympa.pl would die when processing a message for
-	unknownlist-request.	The error message was : "Can't modify non-lvalue subroutine call" Fixed a buggy call to chomp.
+	src/sympa.pl: [reported by S.Amrani, Gendarmerie Nat.]  sympa.pl would die when processing 
+	a message for unknownlist-request. The error message was : "Can't modify non-lvalue subroutine 
+	call" Fixed a buggy call to chomp.
 
-	web_tt2/: edit_template.tt2, editfile.tt2: [proposed by P.van der Hagen] wrap is non HTML-standard ; setting it to "off"
+	src/sympa.pl: [requested by P.Farmer, ZVENO] [ID 828] on OS X 10.3 scripts can't change their 
+	real UID.  Now checking that the UID change succeeded.
 
-	src/etc/script/: create_db.Oracle, create_db.Pg, create_db.SQLite, create_db.Sybase, create_db.mysql: 
-	[reported by P.Bricourt, Mongueurs] Fix: still refering to idp_netimap DB field
+	src/etc/mhonarc-ressources.tt2: [A.Bernstein] [ID 898] Numerous bugs in mhonarc-ressources.tt2 
+	for thread view When viewing an archive in threaded order, the first/previous/next/last buttons 
+	all return incorrectly to chronological view.  This happens because the line in the 
+	mhonarc-ressources.tt2 that creates these buttons is an exact copy of the one from the chronological 
+	view section, with "PREVPGLINK" and "NEXTPGLINK" instead of "TPREVPGLINK" and "TNEXTPGLINK".
 
-	po/en_US.po: use sympa.pot as the default en_US.po
+	mail_tt2/send_auth.tt2: [reported by W.Werner, Fraunhofer]  When using x509 list certificates, 
+	reply-to would be forced to list-request.  Added a reply-to header field to the send_auth.tt2 template
 
-	check_perl_modules.pl, po/en_US.po, src/Language.pm, wwsympa/wwsympa.fcgi: language names were incorrectly
-	encoded in drop-down web menu. The reason is that each language name is encoded with the associated charset.	
-	We now use the Encode module (added to the list of required modules) to decode and encode the language name
+	src/etc/script/: [reported by P.Bricourt, Mongueurs] still refering to idp_netimap DB field
 
-	src/Language.pm: [reported by P.Maes, Univ. Louvain] localization failed on Solaris. The native Solaris gettext
-	libraries failed to use the appropriate .mo file.  We're now using the "Pure Perl" implementation of gettext
+	wwsympa/wwsympa.fcgi: [reported by J.Abbott, univ Duke]  sending a mail from the web archives would 
+	raise an error if the mail subject contained unusual characters.  The subject regexp has been extended.
+
+	web_tt2/: create_list_request.tt2, editfile.tt2: [reported by P.von der Hagen, univ. Karlsruhe] 
+	removed the wrapping in	textarea
+
+	wwsympa/wwsympa.fcgi: [reported by V.Nilsen] links to archives month from calendar were broken. 
+	Now clean up the arc_file parameter
+
+	src/Language.pm: [reported by P.Maes, Univ. Louvain] localization failed on Solaris. 
+	The native Solaris gettext libraries failed to use the appropriate .mo file.  We're now using the "Pure Perl" 
+	implementation of gettext
 
 	src/: Conf.pm, List.pm: [reported by P.Maes, Univ. Louvain] Don't use chown user.group that fails on Solaris. 
 	Run separate chown and chgrp commands instead
 
-5.2.1		1st June 2006
+	soap/sympasoap.pm: [reported by V. Mathieu, Univ. Nancy2] [BugID 281] now decoding and encoding SOAP data to UTF-8
 
-   New features :
+	wwsympa/wwsympa.fcgi: [reported by JM.Bourdin, IUFM Dijon] visibility authorization scenario was not 
+	evaluated to compute the "your lists" box.
 
-	src/List.pm, src/task_manager.pl wwsympa/archived.pl, wwsympa/bounced.pl, wwsympa/wwsympa.fcgi:
-	[BugID 709] prevent any process to run before data structure have been updated.  
-	This prevents "duplicate entries error" in DB tables
-
-	mail_tt2/listmaster_notification.tt2, src/List.pm:  notify listmaster if upgrade procedure failed
-
-   Changes :
-
-	src/List.pm: Sympa now check if the DBD is available ; otherwise processes would die
-
-	src/List.pm: Change: hide closed lists, even to listmasters
+	src/List.pm: [BugID 750] include_sql_query requests would fail with Oracle.  
+	Apparently the ->rows() method does not return the number of rows.  We now use fetchrow_arrayref() 
+	to get rows, thus allowing to differenciate an empty field an the last row.
 
 	wwsympa/bounce-lib.pl: analyze the 'Original-recipient' entries of message/delivery-status MIME parts
 
-	po/: it.po: [G.Donnini, Univ Milano] Updated Italian translations for Sympa 5.2
-
-   Bug fixes :
-
-	wwsympa/wwsympa.fcgi: report an error if a subscriber email is changed and the new address is already subscribed
-
-	src/List.pm: ignore case where PRIMARY KEY cannot be dropped
-
-	wwsympa/wwsympa.fcgi: [reported by J.Beretta, France Telecom] a renamed list would keep its previous domain name
-
-	web_tt2/review.tt2: Don't show bouncing status to other members
+	src/etc/mhonarc-ressources.tt2: [proposed by E.Hood] now using $FROMADDRNAME$@$FROMADDRDOMAIN$ instead of $FROMADDR$. See
+	https://savannah.nongnu.org/bugs/index.php?func=detailitem&item_id=11759
 
 	important_changes.pl: [reported by C.Peck, Univ William and Mary] on Solaris, chown does not like the '.' separator
 
-	src/etc/mhonarc-ressources.tt2: [proposed by E.Hood] now using $FROMADDRNAME$@$FROMADDRDOMAIN$ instead of $FROMADDR$. 
-	See https://savannah.nongnu.org/bugs/index.php?func=detailitem&item_id=11759
+	web_tt2/review.tt2: don't show bouncing status to other members
 
-	src/List.pm: [BugID 750] include_sql_query requests would fail with Oracle.  
-	Apparently the ->rows() method does not return the number of rows.  We now use fetchrow_arrayref() to get rows,
-	thus allowing to differenciate an empty field an the last row.
+	wwsympa/wwsympa.fcgi: [reported by J.Beretta, France Telecom]: a renamed list would keep its previous domain name
 
-	wwsympa/wwsympa.fcgi: [reported by JM.Bourdin, IUFM Dijon] : visibility authorization scenario was not evaluated to compute
-	  the "your lists" box.
+	mail_tt2/listmaster_notification.tt2, src/List.pm: Sympa now check if the DBD is available ; otherwise processes would die
 
 5.2		11 April 2006
 

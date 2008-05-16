@@ -1,7 +1,7 @@
 #! --PERL--
 
 # crypt_passwd.pl - This script crypts uncrypted passwords in DB
-# RCS Identication ; $Revision: 1.3 $ ; $Date: 2003/04/02 15:16:12 $ 
+# RCS Identication ; $Revision: 1814 $ ; $Date: 2003-04-02 17:16:12 +0200 (mer, 02 avr 2003) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
