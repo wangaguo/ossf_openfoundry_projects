@@ -126,7 +126,19 @@ my @params = ({'title' => 'Directories and file location'},
 	       'query' => 'Bounce incoming spool',
 	       'file' => 'sympa.conf',
 	       'advice' =>''},
+
+	      {'name' => 'static_content_path',
+	       'default' => '--DIR--/static_content',
+	       'query' => 'The directory where Sympa stores static contents (CSS, members pictures, documentation) directly delivered by Apache',
+	       'file' => 'sympa.conf',
+	       'advice' =>''},	      
 	      
+	      {'name' => 'static_content_url',
+	       'default' => '/static-sympa',
+	       'query' => 'The URL mapped with the static_content_path directory defined above',
+	       'file' => 'sympa.conf',
+	       'advice' =>''},	      
+
 	      {'title' => 'Syslog'},
 
 	      {'name' => 'syslog',
@@ -171,12 +183,6 @@ my @params = ({'title' => 'Directories and file location'},
 	       'file' => 'sympa.conf',
 	       'advice' =>"Effective address will be \[EMAIL\]@\[HOST\]"},
 
-	      {'name' => 'lang',
-	       'default' => 'en_US',
-	       'query' => 'Default lang (cs | de | el | en_US | fr | hu | it | ja_JP | nl | oc | pt_BR | tr)',
-	       'file' => 'sympa.conf','edit' => '1',
-	       'advice' =>''},
-
 	      {'name' => 'create_list',
 	       'default' => 'public_listmaster',
 	       'query' => 'Who is able to create lists',
@@ -186,7 +192,7 @@ my @params = ({'title' => 'Directories and file location'},
 	      {'title' => 'Tuning'},
 	      	      
 
-	      {'name' => 'cache\_list\_config',
+	      {'name' => 'cache_list_config',
 	       'default' => 'none',
 	       'query' => 'Use of binary version of the list config structure on disk: none | binary_file',
 	       'file' => 'sympa.conf','edit' => '1',
@@ -228,7 +234,11 @@ my @params = ({'title' => 'Directories and file location'},
 	       'file' => 'sympa.conf','edit' => '1',
 	       'advice' =>''},
 
-
+	      {'name' => 'use_blacklist',
+	       'query' => 'comma separated list of operation for which blacklist filter is applyed', 
+               'default' => 'send,create_list',
+	       'file' => 'sympa.conf','edit' => '1',
+	       'advice' =>'set this parameter to "none" hidde blacklist feature'},
 
 	      {'name'  => 'rfc2369_header_fields',
 	       'query' => 'Specify which rfc2369 mailing list headers to add',
@@ -240,6 +250,20 @@ my @params = ({'title' => 'Directories and file location'},
 	       'query' => 'Specify header fields to be removed before message distribution',
 	       'file' => 'sympa.conf',
 	       'advice' => '' },
+
+	      {'title' => 'Internationalization'},
+
+	      {'name' => 'lang',
+	       'default' => 'en_US',
+	       'query' => 'Default lang (ca | cs | de | el | es | et_EE | en_US | fr | hu | it | ja_JP | ko | nl | oc | pt_BR | ru | sv | tr | zh_CN | zh_TW)',
+	       'file' => 'sympa.conf','edit' => '1',
+	       'advice' =>'This is the default language used by Sympa'},
+
+	      {'name' => 'supported_lang',
+	       'default' => 'ca,cs,de,el,es,et_EE,en_US,fr,hu,it,ja_JP,ko,nl,oc,pt_BR,ru,sv,tr,zh_CN,zh_TW',
+	       'query' => 'Supported languages',
+	       'file' => 'sympa.conf','edit' => '1',
+	       'advice' =>'This is the set of language that will be proposed to your users for the Sympa GUI. Don\'t select a language if you don\'t have the proper locale packages installed.'},
 
 	      {'title' => 'Errors management'},
 
@@ -422,11 +446,6 @@ my @params = ({'title' => 'Directories and file location'},
 	       'query' => 'Title of main web page',
 	       'file' => 'wwsympa.conf','edit' => '1',
 	       'advice' =>''},
-
-	      {'name' => 'icons_url',
-	       'default' => '/icons',
-	       'query' => 'Icons directory (web) location for Sympa',
-	       'file' => 'wwsympa.conf'},
 
 	      {'name' => 'default_home',
 	       'sample' => 'lists',

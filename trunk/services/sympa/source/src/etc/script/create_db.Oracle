@@ -22,12 +22,14 @@ CREATE TABLE user_table (
         cookie_delay_user       number,
         lang_user               varchar2(10),
 	attributes_user		varchar2(500),
+	data_user	        varchar2(500),	
         CONSTRAINT ind_user PRIMARY KEY (email_user)
 );
 CREATE TABLE subscriber_table (
         list_subscriber         varchar2(50) NOT NULL,
         user_subscriber         varchar2(100) NOT NULL,
-        robot_subscriber         varchar2(80) NOT NULL,
+       	custom_attribute_subscriber varchar2(500),
+	robot_subscriber        varchar2(80) NOT NULL,
         date_subscriber         date NOT NULL,
 	update_subscriber	date,
         visibility_subscriber   varchar2(20),
@@ -50,6 +52,7 @@ CREATE TABLE admin_table (
 	date_admin 		date NOT NULL,
 	update_admin 		date,
 	reception_admin 	varchar2(20),
+	visibility_admin 	varchar2(20),
 	comment_admin 		varchar2(150),
 	subscribed_admin  	number NULL    constraint  cons_subscribed_admin CHECK (subscribed_admin in (0,1)),
 	included_admin  	number NULL    constraint  cons_included_admin CHECK (included_admin in (0,1)),
@@ -60,11 +63,40 @@ CREATE TABLE admin_table (
 );
 
 CREATE TABLE netidmap_table (
-        netid_netidmap              varchar (100) NOT NULL,
-	serviceid_netidmap	    varchar (100) NOT NULL,
-	robot_netidmap	            varchar (80) NOT NULL,
-        email_netidmap              varchar (100),
+        netid_netidmap              varchar2 (100) NOT NULL,
+	serviceid_netidmap	    varchar2 (100) NOT NULL,
+	robot_netidmap	            varchar2 (80) NOT NULL,
+        email_netidmap              varchar2 (100),
         CONSTRAINT ind_netidmap PRIMARY KEY (netid_netidmap, serviceid_netidmap, robot_netidmap)
 );
 
+CREATE TABLE logs_table (
+	id_logs			number NOT NULL,
+	date_logs		number NOT NULL,
+	robot_logs		varchar2 (80),
+	list_logs		varchar2 (50),
+	action_logs		varchar2 (50) NOT NULL,
+	parameters_logs		varchar2 (100),
+	target_email_logs	varchar2 (100),
+	user_email_logs		varchar2 (100),
+	msg_id_logs		varchar2 (255),
+	status_logs		varchar2 (10) NOT NULL,
+	error_type_logs		varchar2 (150),
+	client_logs		varchar2 (100),
+	daemon_logs		varchar2 (10) NOT NULL,
+	CONSTRAINT ind_logs PRIMARY KEY (id_logs)
+);
+
+
+CREATE TABLE session_table (
+	id_session			number NOT NULL,
+	start_date_session		number NOT NULL,
+	date_session		        number NOT NULL,
+	remote_addr_session		varchar2(60),
+	robot_session		        varchar2(80),
+	email_session		        varchar2(100),
+	hit_session     	        number,
+	data_session		        varchar2(500),
+	CONSTRAINT ind_session PRIMARY KEY (id_session)
+);
 !

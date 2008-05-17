@@ -1,5 +1,5 @@
 /* aliaswrapper.c - This program, distributed with Sympa, is a wrapper to 'newaliases'
-  RCS Identication ; $Revision: 1.7 $ ; $Date: 2002/04/09 08:41:06 $ 
+  RCS Identication ; $Revision: 4233 $ ; $Date: 2007-04-20 13:54:05 +0200 (ven, 20 avr 2007) $ 
  
   Sympa - SYsteme de Multi-Postage Automatique
   Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -21,6 +21,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {

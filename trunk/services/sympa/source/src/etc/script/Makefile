@@ -1,5 +1,5 @@
 # Makefile - This Makefile does the Sympa scripts installation
-# RCS Identication ; $Revision: 1.15 $ ; $Date: 2006/03/20 14:38:18 $ 
+# RCS Identication ; $Revision: 4232 $ ; $Date: 2007-04-20 12:16:26 +0200 (ven, 20 avr 2007) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -21,7 +21,7 @@
 
 SRC	=	create_db.Pg create_db.mysql create_db.Oracle create_db.Sybase create_db.SQLite 
 
-SUBSTSRC	=	load_subscribers.pl arc2webarc.pl testldap.pl p12topem.pl init_comment.pl crypt_passwd.pl testlogs.pl mod2html.pl tpl2tt2.pl ldap_alias_manager.pl
+SUBSTSRC	=	arc2webarc.pl testldap.pl p12topem.pl init_comment.pl crypt_passwd.pl testlogs.pl mod2html.pl tpl2tt2.pl ldap_alias_manager.pl mysql_alias_manager.pl
 
 INITSRC		=	sympa
 

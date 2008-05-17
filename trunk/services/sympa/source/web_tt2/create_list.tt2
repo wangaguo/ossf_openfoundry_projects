@@ -1,4 +1,4 @@
-<!-- $Id: create_list.tt2,v 1.1 2004/08/09 14:24:00 sympa-authors Exp $ -->
+<!-- $Id: create_list.tt2 3907 2006-09-25 14:50:16Z serge.aumont $ -->
 
 [% IF status == 'open' %]
 [%|loc%]Your list is created.[%END%]<br /> 
@@ -7,8 +7,10 @@
 [% IF auto_aliases %]
 [%|loc%]Aliases have been installed.[%END%]
 [% ELSE %]
- <table border="1">
- <tr style="background: [% light_color %];"><td style="text-align: center;">[%|loc%]Required aliases[%END%]</td></tr>
+ <table summary="[%|loc%]Required aliases[%END%]" class="table_style">
+ <tr class="color_light">
+   <td class="text_center">[%|loc%]Required aliases[%END%]</td>
+ </tr>
  <tr>
  <td>
  <pre><code>
