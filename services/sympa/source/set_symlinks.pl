@@ -1,5 +1,5 @@
 # set_symlinks.pl - This script sets symbolic links at installation time
-# RCS Identication ; $Revision: 1.15 $ ; $Date: 2006/03/14 13:46:31 $ 
+# RCS Identication ; $Revision: 3604 $ ; $Date: 2006-03-14 14:46:31 +0100 (mar, 14 mar 2006) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites

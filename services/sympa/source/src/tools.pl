@@ -1,7 +1,7 @@
 #!--PERL--
 
 # tools.pl - This module provides various tools for Sympa
-# RCS Identication ; $Revision: 1.181 $ ; $Date: 2006/04/03 15:49:49 $ 
+# RCS Identication ; $Revision: 4943 $ ; $Date: 2008-04-08 15:18:17 +0200 (mar, 08 avr 2008) $ 
 #
 # Sympa - SYsteme de Multi-Postage Automatique
 # Copyright (c) 1997, 1998, 1999, 2000, 2001 Comite Reseau des Universites
@@ -23,6 +23,8 @@
 
 package tools;
 
+use strict;
+
 use POSIX;
 use Mail::Internet;
 use Mail::Header;
@@ -32,35 +34,201 @@ use Log;
 use Time::Local;
 use File::Find;
 use Digest::MD5;
+use HTML::StripScripts::Parser;
+
+use Encode::Guess; ## Usefull when encoding should be guessed
+use Encode::MIME::Header;
 
 ## RCS identification.
-#my $id = '@(#)$Id: tools.pl,v 1.181 2006/04/03 15:49:49 sympa-authors Exp $';
+#my $id = '@(#)$Id: tools.pl 4943 2008-04-08 13:18:17Z sympa-authors $';
 
 ## global var to store a CipherSaber object 
 my $cipher;
 
-$separator="------- CUT --- CUT --- CUT --- CUT --- CUT --- CUT --- CUT -------";
+my $separator="------- CUT --- CUT --- CUT --- CUT --- CUT --- CUT --- CUT -------";
 
 ## Regexps for list params
 ## Caution : if this regexp changes (more/less parenthesis), then regexp using it should 
 ## also be changed
-%regexp = ('email' => '([\w\-\_\.\/\+\=\']+|\".*\")\@[\w\-]+(\.[\w\-]+)+',
-	   'family_name' => '[a-z0-9][a-z0-9\-\.\+_]*', 
-	   'host' => '[\w\.\-]+',
-	   'multiple_host_with_port' => '[\w\.\-]+(:\d+)?(,[\w\.\-]+(:\d+)?)*',
-	   'listname' => '[a-z0-9][a-z0-9\-\.\+_]*',
-	   'sql_query' => '(SELECT|select).*',
-	   'scenario' => '[\w,\.\-]+',
-	   'task' => '\w+',
-	   'datasource' => '[\w-]+',
-	   'uid' => '[\w\-\.\+]+',
-	   );
+my %regexp = ('email' => '([\w\-\_\.\/\+\=\'\&]+|\".*\")\@[\w\-]+(\.[\w\-]+)+',
+	      'family_name' => '[a-z0-9][a-z0-9\-\.\+_]*', 
+	      'host' => '[\w\.\-]+',
+	      'multiple_host_with_port' => '[\w\.\-]+(:\d+)?(,[\w\.\-]+(:\d+)?)*',
+	      'listname' => '[a-z0-9][a-z0-9\-\.\+_]*',
+	      'sql_query' => '(SELECT|select).*',
+	      'scenario' => '[\w,\.\-]+',
+	      'task' => '\w+',
+	      'datasource' => '[\w-]+',
+	      'uid' => '[\w\-\.\+]+',
+	      );
 
 my %openssl_errors = (1 => 'an error occurred parsing the command options',
 		      2 => 'one of the input files could not be read',
 		      3 => 'an error occurred creating the PKCS#7 file or when reading the MIME message',
 		      4 => 'an error occurred decrypting or verifying the message',
 		      5 => 'the message was verified correctly but an error occurred writing out the signers certificates');
+
+## Returns an HTML::StripScripts::Parser object built with  the parameters provided as arguments.
+sub _create_xss_parser {
+    my %parameters = @_;
+    &do_log('debug3','tools::_create_xss_parser(%s)',$parameters{'robot'});
+    my $hss = HTML::StripScripts::Parser->new({ Context => 'Document',
+						AllowSrc        => 1,
+						AllowHref       => 1,
+						AllowRelURL     => 1,
+						EscapeFiltered  => 1,
+						Rules => {
+						    '*' => {
+							src => '^http://'.&Conf::get_robot_conf($parameters{'robot'},'http_host'),
+						    },
+						},
+					    });
+    return $hss;
+}
+
+#*******************************************
+# Function : pictures_filename
+# Description : return the type of a pictures
+#               according to the user
+## IN : email, list
+#*******************************************
+sub pictures_filename {
+    my %parameters = @_;
+    
+    my $login = &md5_fingerprint($parameters{'email'});
+    my ($listname, $robot) = ($parameters{'list'}{'name'}, $parameters{'list'}{'domain'});
+    
+    my $filetype;
+    my $filename = undef;
+    foreach my $ext ('.gif','.jpg','.jpeg','.png') {
+ 	if (-f &Conf::get_robot_conf($robot,'pictures_path').'/'.$listname.'@'.$robot.'/'.$login.$ext) {
+ 	    my $file = $login.$ext;
+ 	    $filename = $file;
+ 	    last;
+ 	}
+    }
+    return $filename;
+}
+
+## Creation of pictures url
+## IN : email, list
+sub make_pictures_url {
+    my %parameters = @_;
+
+    my ($listname, $robot) = ($parameters{'list'}{'name'}, $parameters{'list'}{'domain'});
+
+    my $url;
+    if(&pictures_filename('email' => $parameters{'email'}, 'list' => $parameters{'list'})) {
+ 	$url =  &Conf::get_robot_conf($robot, 'pictures_url').$listname.'@'.$robot.'/'.&pictures_filename('email' => $parameters{'email'}, 'list' => $parameters{'list'});
+    }
+    else {
+ 	$url = undef;
+    }
+    return $url;
+}
+
+## Returns sanitized version (using StripScripts) of the string provided as argument.
+sub sanitize_html {
+    my %parameters = @_;
+    &do_log('debug3','tools::sanitize_html(%s,%s)',$parameters{'string'},$parameters{'robot'});
+
+    unless (defined $parameters{'string'}) {
+	&do_log('err',"No string provided.");
+	return undef;
+    }
+
+    my $hss = &_create_xss_parser('robot' => $parameters{'robot'});
+    unless (defined $hss) {
+	&do_log('err',"Can't create StripScript parser.");
+	return undef;
+    }
+    my $string = $hss -> filter_html($parameters{'string'});
+    return $string;
+}
+
+## Returns sanitized version (using StripScripts) of the content of the file whose path is provided as argument.
+sub sanitize_html_file {
+    my %parameters = @_;
+    &do_log('debug3','tools::sanitize_html_file(%s)',$parameters{'robot'});
+
+    unless (defined $parameters{'file'}) {
+	&do_log('err',"No path to file provided.");
+	return undef;
+    }
+
+    my $hss = &_create_xss_parser('robot' => $parameters{'robot'});
+    unless (defined $hss) {
+	&do_log('err',"Can't create StripScript parser.");
+	return undef;
+    }
+    $hss -> parse_file($parameters{'file'});
+    return $hss -> filtered_document;
+}
+
+## Sanitize all values in the hash $var, starting from $level
+sub sanitize_var {
+    my %parameters = @_;
+    &do_log('debug4','tools::sanitize_var(%s,%s,%s)',$parameters{'var'},$parameters{'level'},$parameters{'robot'});
+    unless (defined $parameters{'var'}){
+	&do_log('err','Missing var to sanitize.');
+	return undef;
+    }
+    unless (defined $parameters{'htmlAllowedParam'} && $parameters{'htmlToFilter'}){
+	&do_log('err','Missing var *** %s *** %s *** to ignore.',$parameters{'htmlAllowedParam'},$parameters{'htmlToFilter'});
+	return undef;
+    }
+    my $level = $parameters{'level'};
+    $level |= 0;
+    
+    if(ref($parameters{'var'})) {
+	if(ref($parameters{'var'}) eq 'ARRAY') {
+	    foreach my $index (0..$#{$parameters{'var'}}) {
+		if ((ref($parameters{'var'}->[$index]) eq 'ARRAY') || (ref($parameters{'var'}->[$index]) eq 'HASH')) {
+		    &sanitize_var('var' => $parameters{'var'}->[$index],
+				  'level' => $level+1,
+				  'robot' => $parameters{'robot'},
+				  'htmlAllowedParam' => $parameters{'htmlAllowedParam'},
+				  'htmlToFilter' => $parameters{'htmlToFilter'},
+				  );
+		}
+		else {
+		    if (defined $parameters{'var'}->[$index]) {
+			$parameters{'var'}->[$index] = &escape_html($parameters{'var'}->[$index]);
+		    }
+		}
+	    }
+	}
+	elsif(ref($parameters{'var'}) eq 'HASH') {
+	    foreach my $key (keys %{$parameters{'var'}}) {
+		if ((ref($parameters{'var'}->{$key}) eq 'ARRAY') || (ref($parameters{'var'}->{$key}) eq 'HASH')) {
+		    &sanitize_var('var' => $parameters{'var'}->{$key},
+				  'level' => $level+1,
+				  'robot' => $parameters{'robot'},
+				  'htmlAllowedParam' => $parameters{'htmlAllowedParam'},
+				  'htmlToFilter' => $parameters{'htmlToFilter'},
+				  );
+		}
+		else {
+		    if (defined $parameters{'var'}->{$key}) {
+			unless ($parameters{'htmlAllowedParam'}{$key}||$parameters{'htmlToFilter'}{$key}) {
+			    $parameters{'var'}->{$key} = &escape_html($parameters{'var'}->{$key});
+			}
+			if ($parameters{'htmlToFilter'}{$key}) {
+			    $parameters{'var'}->{$key} = &sanitize_html('string' => $parameters{'var'}->{$key},
+									'robot' =>$parameters{'robot'} );
+			}
+		    }
+		}
+		
+	    }
+	}
+    }
+    else {
+	&do_log('err','Variable is neither a hash nor an array.');
+	return undef;
+    }
+    return 1;
+}
 
 ## Sorts the list of adresses by domain name
 ## Input : users hash
@@ -71,6 +239,19 @@ sub sortbydomain {
    $y = join('.', reverse(split(/[@\.]/, $y)));
    #print "$x $y\n";
    $x cmp $y;
+}
+
+## Sort subroutine to order files in sympa spool by date
+sub by_date {
+    my @a_tokens = split /\./, $a;
+    my @b_tokens = split /\./, $b;
+
+    ## File format : list@dom.date.pid
+    my $a_time = $a_tokens[$#a_tokens -1];
+    my $b_time = $b_tokens[$#b_tokens -1];
+
+    return $a_time <=> $b_time;
+
 }
 
 ## Safefork does several tries before it gives up.
@@ -148,7 +329,7 @@ sub load_edit_list_conf {
     my $conf ;
     
     return undef 
-	unless ($file = &tools::get_filename('etc','edit_list.conf',$robot,$list));
+	unless ($file = &tools::get_filename('etc',{},'edit_list.conf',$robot,$list));
 
     unless (open (FILE, $file)) {
 	&do_log('info','Unable to open config file %s', $file);
@@ -156,7 +337,7 @@ sub load_edit_list_conf {
     }
 
     my $error_in_conf;
-    $roles_regexp = 'listmaster|privileged_owner|owner|editor|subscriber|default';
+    my $roles_regexp = 'listmaster|privileged_owner|owner|editor|subscriber|default';
     while (<FILE>) {
 	next if /^\s*(\#.*|\s*)$/;
 
@@ -199,7 +380,7 @@ sub load_create_list_conf {
     my $file;
     my $conf ;
     
-    $file = &tools::get_filename('etc', 'create_list.conf', $robot);
+    $file = &tools::get_filename('etc',{}, 'create_list.conf', $robot);
     unless ($file) {
 	&do_log('info','unable to read --ETCBINDIR--/create_list.conf');
 	return undef;
@@ -282,6 +463,42 @@ sub mk_parent_dir {
     return undef unless (mkdir ($dir, 0755));
 }
 
+## Recursively create directory and all parent directories
+sub mkdir_all {
+    my ($path, $mode) = @_;
+
+    my $status = 1;
+
+    ## Change umask to fully apply modes of mkdir()
+    my $saved_mask = umask;
+    umask 0000;
+
+    return undef if ($path eq '');
+    return 1 if (-d $path);
+
+    ## Compute parent path
+    my @token = split /\//, $path;
+    pop @token;
+    my $parent_path = join '/', @token;
+
+    unless (-d $parent_path) {
+	unless (&mkdir_all($parent_path, $mode)) {
+	    $status = undef;
+	}
+    }
+
+    if (defined $status) { ## Don't try if parent dir could not be created
+	unless (mkdir ($path, $mode)) {
+	    $status = undef;
+	}
+    }
+
+    ## Restore umask
+    umask $saved_mask;
+
+    return $status;
+}
+
 # shift file renaming it with date. If count is defined, keep $count file and unlink others
 sub shift_file {
     my $file = shift;
@@ -296,7 +513,7 @@ sub shift_file {
     my @date = localtime (time);
     my $file_extention = POSIX::strftime ("%Y:%m:%d:%H:%M:%S", @date);
     
-    unless (rename ($file,$file.'\.'.$file_extention)) {
+    unless (rename ($file,$file.'.'.$file_extention)) {
 	&do_log('err', "shift_file : Cannot rename file $file to $file.$file_extention" );
 	return undef;
     }
@@ -306,7 +523,7 @@ sub shift_file {
 
 	unless (opendir(DIR, $dir)) {
 	    &do_log('err', "shift_file : Cannot read dir $dir" );
-	    return ($file.'\.'.$file_extention);
+	    return ($file.'.'.$file_extention);
 	}
 	my $i = 0 ;
 	foreach my $oldfile (reverse (sort (grep (/^$file\./,readdir(DIR))))) {
@@ -320,60 +537,65 @@ sub shift_file {
 	    }
 	}
     }
-    return ($file.'\.'.$file_extention);
+    return ($file.'.'.$file_extention);
 }
 
 sub get_templates_list {
 
     my $type = shift;
     my $robot = shift;
-    my $langdir = shift;
-    my $listdir = shift;
+    my $list = shift;
 
-    do_log('debug', "get_templates_list ($type, $robot, $langdir, $listdir)");
- #   do_log('info', "xxxxxxxxxxxxxxxxxxxxxxxxxxxx get_templates_list ($type, $robot, $langdir, $listdir)");
+    my $listdir;
+
+    do_log('debug', "get_templates_list ($type, $robot, $list)");
     unless (($type == 'web')||($type == 'mail')) {
 	do_log('info', 'get_templates_list () : internal error incorrect parameter');
     }
 
-    if ($langdir eq 'default') {
-	$langdir = '';
-    }else{
-	$langdir = '/'.$langdir;
-    }
-
     my $distrib_dir = '--ETCBINDIR--/'.$type.'_tt2';
-    my $site_dir = $Conf{'etc'}.'/'.$type.'_tt2'.$langdir;
-    my $robot_dir = $Conf{'etc'}.'/'.$robot.'/'.$type.'_tt2'.$langdir;
+    my $site_dir = $Conf{'etc'}.'/'.$type.'_tt2';
+    my $robot_dir = $Conf{'etc'}.'/'.$robot.'/'.$type.'_tt2';
 
     my @try;
     push @try, $distrib_dir ;
     push @try, $site_dir ;
     push @try, $robot_dir;
     
-    unless ($listdir) {
-	$listdir .='/'.$type.'_tt2'.$langdir;
+    if (defined $list) {
+	$listdir = $list->{'dir'}.'/'.$type.'_tt2';	
 	push @try, $listdir ;
     }
-	
+
     my $i = 0 ;
     my $tpl;
 
     foreach my $dir (@try) {
 	next unless opendir (DIR, $dir);
-	foreach my $file ( readdir(DIR)) {	    
-	    next unless ($file =~ /\.tt2$/);
-	    if ($dir eq $distrib_dir){$tpl->{$file}{'distrib'} = $dir.'/'.$file;}
-	    if ($dir eq $site_dir)   {$tpl->{$file}{'site'} =  $dir.'/'.$file;}
-	    if ($dir eq $robot_dir)  {$tpl->{$file}{'robot'} = $dir.'/'.$file;}
-	    if ($dir eq $listdir)    {$tpl->{$file}{'listname'} = $dir.'/'.$file;}
+	foreach my $file ( grep (!/^\./,readdir(DIR))) {	    
+	    ## Subdirectory for a lang
+	    if (-d $dir.'/'.$file) {
+		my $lang = $file;
+		next unless opendir (LANGDIR, $dir.'/'.$lang);
+		foreach my $file (grep (!/^\./,readdir(LANGDIR))) {
+		    next unless ($file =~ /\.tt2$/);
+		    if ($dir eq $distrib_dir){$tpl->{$file}{'distrib'}{$lang} = $dir.'/'.$lang.'/'.$file;}
+		    if ($dir eq $site_dir)   {$tpl->{$file}{'site'}{$lang} =  $dir.'/'.$lang.'/'.$file;}
+		    if ($dir eq $robot_dir)  {$tpl->{$file}{'robot'}{$lang} = $dir.'/'.$lang.'/'.$file;}
+		    if ($dir eq $listdir)    {$tpl->{$file}{'list'}{$lang} = $dir.'/'.$lang.'/'.$file;}
+		}
+		closedir LANGDIR;
+
+	    }else {
+		next unless ($file =~ /\.tt2$/);
+		if ($dir eq $distrib_dir){$tpl->{$file}{'distrib'}{'default'} = $dir.'/'.$file;}
+		if ($dir eq $site_dir)   {$tpl->{$file}{'site'}{'default'} =  $dir.'/'.$file;}
+		if ($dir eq $robot_dir)  {$tpl->{$file}{'robot'}{'default'} = $dir.'/'.$file;}
+		if ($dir eq $listdir)    {$tpl->{$file}{'list'}{'default'}= $dir.'/'.$file;}
+	    }
 	}
 	closedir DIR;
     }
-
-#    open DUMP, ">/tmp/dump";
-#    &tools::dump_var($tpl, 0, \*DUMP);
-#    close DUMP;
     return ($tpl);
 
 }
@@ -385,47 +607,43 @@ sub get_template_path {
     my $robot = shift;
     my $scope = shift;
     my $tpl = shift;
-    my $lang = shift;
-    my $listname = shift;
+    my $lang = shift || 'default';
+    my $list = shift;
 
-    do_log('info', "get_templates_path ($type,$robot,$scope,$tpl,$lang,$listname)");
-    if ($lang eq 'default') {
-	$lang = '';
-    }else{
-	$lang = '/'.$lang;
+    do_log('debug', "get_templates_path ($type,$robot,$scope,$tpl,$lang,%s)", $list->{'name'});
+
+    my $listdir;
+    if (defined $list) {
+	$listdir = $list->{'dir'};
     }
-
-    if ($listname) {
-	chomp ($listname);
-	unless ($namedlist = new List ($listname, $robot)) {
-	    return undef;		
-	}
-    }
-
-    my $listdir = $namedlist->{'dir'} if (defined $namedlist);
 
     unless (($type == 'web')||($type == 'mail')) {
 	do_log('info', 'get_templates_path () : internal error incorrect parameter');
     }
 
     my $distrib_dir = '--ETCBINDIR--/'.$type.'_tt2';
-    my $site_dir = $Conf{'etc'}.'/'.$type.'_tt2'.$lang;
-    my $robot_dir = $Conf{'etc'}.'/'.$robot.'/'.$type.'_tt2'.$lang;
-
+    my $site_dir = $Conf{'etc'}.'/'.$type.'_tt2';
+    $site_dir .= '/'.$lang unless ($lang eq 'default');
+    my $robot_dir = $Conf{'etc'}.'/'.$robot.'/'.$type.'_tt2';
+    $robot_dir .= '/'.$lang unless ($lang eq 'default');    
 
     if ($scope eq 'list')  {
-	return $listdir.'/'.$type.'_tt2'.$lang.'/'.$tpl ;
-    }
-    if (($scope eq 'robot')||($scope eq 'list'))  {
+	my $dir = $listdir.'/'.$type.'_tt2';
+	$dir .= '/'.$lang unless ($lang eq 'default');
+	return $dir.'/'.$tpl ;
+
+    }elsif ($scope eq 'robot')  {
 	return $robot_dir.'/'.$tpl;
-    }
-    if (($scope eq 'site')||($scope eq 'robot')||($scope eq 'list')) {
+
+    }elsif ($scope eq 'site') {
 	return $site_dir.'/'.$tpl;
-    }
-    
-    if (($scope eq 'distrib')||($scope eq 'site')||($scope eq 'robot')||($scope eq 'list')) {
+
+    }elsif ($scope eq 'distrib') {
 	return $distrib_dir.'/'.$tpl;
+
     }
+
+    return undef;
 }
 
 # input object msg and listname, output signed message object
@@ -657,7 +875,7 @@ sub smime_sign_check {
 	}
     }
     close(BUNDLE);
-    if(!($certs{both} || ($certs{sign} && $certs{enc}))) {
+    if(!($certs{both} || ($certs{sign} || $certs{enc}))) {
 	&do_log('err', "Could not extract certificate for $signer->{email}");
 	return undef;
     }
@@ -905,6 +1123,11 @@ sub as_singlepart {
     my $done = 0;
     $loops++;
     
+    unless (defined $msg) {
+	&do_log('err', "Undefined message parameter");
+	return undef;
+    }
+
     if ($loops > 4) {
 	do_log('err', 'Could not change multipart to singlepart');
 	return undef;
@@ -930,13 +1153,16 @@ sub as_singlepart {
 	my @parts = $msg->parts();
 	## Only keep the first part
 	$msg->parts([$parts[0]]);
-	$msg->make_singlepart();
-	
+	$msg->make_singlepart();       
+
 	$done ||= &as_singlepart($msg, $preferred_type, $loops);
 
     }elsif ($msg->effective_type() =~ /^multipart/) {
 	my @parts = $msg->parts();
 	foreach my $index (0..$#parts) {
+            
+            next unless (defined $parts[$index]); ## Skip empty parts
+ 
 	    if ($parts[$index]->effective_type() =~ /^multipart\/alternative/) {
 		if (&as_singlepart($parts[$index], $preferred_type, $loops)) {
 		    $msg->parts([$parts[$index]]);
@@ -950,6 +1176,19 @@ sub as_singlepart {
     return $done;
 }
 
+## Escape characters before using a string within a regexp parameter
+## Escaped characters are : @ $ [ ] ( ) ' ! '\' * . + ?
+sub escape_regexp {
+    my $s = shift;
+    my @escaped = ("\\",'@','$','[',']','(',')',"'",'!','*','.','+','?');
+    my $backslash = "\\"; ## required in regexp
+
+    foreach my $escaped_char (@escaped) {
+	$s =~ s/$backslash$escaped_char/\\$escaped_char/g;
+    }
+
+    return $s;
+}
 
 ## Escape weird characters
 sub escape_chars {
@@ -970,6 +1209,100 @@ sub escape_chars {
     return $s;
 }
 
+## Escape shared document file name
+## Q-decode it first
+sub escape_docname {
+    my $filename = shift;
+    my $except = shift; ## Exceptions
+
+    ## Q-decode
+    $filename = MIME::EncWords::decode_mimewords($filename);
+
+    ## Decode from FS encoding to utf-8
+    #$filename = &Encode::decode($Conf::Conf{'filesystem_encoding'}, $filename);
+
+    ## escapesome chars for use in URL
+    return &escape_chars($filename, $except);
+}
+
+## Convert from Perl unicode encoding to UTF8
+sub unicode_to_utf8 {
+    my $s = shift;
+    
+    if (&Encode::is_utf8($s)) {
+	return &Encode::encode_utf8($s);
+    }
+
+    return $s;
+}
+
+## This applies recursively to a data structure
+## The transformation subroutine is passed as a ref
+sub recursive_transformation {
+    my ($var, $subref) = @_;
+    
+    return unless (ref($var));
+
+    if (ref($var) eq 'ARRAY') {
+	foreach my $index (0..$#{$var}) {
+	    if (ref($var->[$index])) {
+		&recursive_transformation($var->[$index], $subref);
+	    }else {
+		$var->[$index] = &{$subref}($var->[$index]);
+	    }
+	}
+    }elsif (ref($var) eq 'HASH') {
+	foreach my $key (sort keys %{$var}) {
+	    if (ref($var->{$key})) {
+		&recursive_transformation($var->{$key}, $subref);
+	    }else {
+		$var->{$key} = &{$subref}($var->{$key});
+	    }
+	}    
+    }
+    
+    return;
+}
+
+## Q-Encode web file name
+sub qencode_filename {
+    my $filename = shift;
+
+    ## We don't use MIME::Words here because it does not encode properly Unicode
+    ## Check if string is already Q-encoded first
+    ## Also check if the string contains 8bit chars
+    unless ($filename =~ /\=\?UTF-8\?/ ||
+	    $filename =~ /^[\x00-\x7f]*$/) {
+
+	## Don't encode elements such as .desc. or .url or .moderate or .extension
+	my $part = $filename;
+	my ($leading, $trailing);
+	$leading = $1 if ($part =~ s/^(\.desc\.)//); ## leading .desc
+	$trailing = $1 if ($part =~ s/((\.\w+)+)$//); ## trailing .xx
+
+	## We use low-level subroutine instead of to prevent Encode::encode('MIME-Q')
+	## Otherwise \n are inserted
+	my $encoded_part = &Encode::encode_utf8(&Encode::MIME::Header::_encode_q($part));
+
+	$filename = $leading.$encoded_part.$trailing;
+    }
+    
+    return $filename;
+}
+
+## Q-Decode web file name
+sub qdecode_filename {
+    my $filename = shift;
+    
+    ## We don't use MIME::Words here because it does not encode properly Unicode
+    ## Check if string is already Q-encoded first
+    #if ($filename =~ /\=\?UTF-8\?/) {
+    $filename = Encode::encode_utf8(&Encode::decode('MIME-Q', $filename));
+    #}
+    
+    return $filename;
+}
+
 ## Unescape weird characters
 sub unescape_chars {
     my $s = shift;
@@ -987,9 +1320,19 @@ sub unescape_chars {
 sub escape_html {
     my $s = shift;
 
-    $s =~ s/\"/\&quot\;/g;
-    $s =~ s/\</&lt\;/g;
-    $s =~ s/\>/&gt\;/g;
+    $s =~ s/\"/\&quot\;/gm;
+    $s =~ s/\</&lt\;/gm;
+    $s =~ s/\>/&gt\;/gm;
+    
+    return $s;
+}
+
+sub unescape_html {
+    my $s = shift;
+
+    $s =~ s/\&quot\;/\"/g;
+    $s =~ s/&lt\;/\</g;
+    $s =~ s/&gt\;/\>/g;
     
     return $s;
 }
@@ -1296,7 +1639,7 @@ sub virus_infected {
 
     ## F-Secure
     } elsif($Conf{'antivirus_path'} =~  /\/fsav$/) {
-	$dbdir=$` ;
+	my $dbdir=$` ;
 
 	# impossible to look for viruses with no option set
 	unless ($Conf{'antivirus_args'}) {
@@ -1570,18 +1913,20 @@ sub duration_conv {
 }
 
 ## Look for a file in the list > robot > server > default locations
+## Possible values for $options : order=all
 sub get_filename {
-    my ($type, $name, $robot, $object) = @_;
+    my ($type, $options, $name, $robot, $object) = @_;
     my $list;
     my $family;
-    &do_log('debug3','tools::get_filename(%s,%s,%s,%s)', $type, $name, $robot, $object->{'name'});
+    &do_log('debug3','tools::get_filename(%s,%s,%s,%s,%s)', $type,  join('/',keys %$options), $name, $robot, $object->{'name'});
+
     
     if (ref($object) eq 'List') {
  	$list = $object;
  	if ($list->{'admin'}{'family_name'}) {
  	    unless ($family = $list->get_family()) {
- 		&do_log('err', 'Impossible to get list %s family : %s. The list is set in status error_config',$self->{'name'},$self->{'admin'}{'family_name'});
- 		$list->set_status_error_config('no_list_family',$self->{'name'}, $admin->{'family_name'});
+ 		&do_log('err', 'Impossible to get list %s family : %s. The list is set in status error_config',$list->{'name'},$list->{'admin'}{'family_name'});
+ 		$list->set_status_error_config('no_list_family',$list->{'name'}, $list->{'admin'}{'family_name'});
  		return undef;
  	    }  
  	}
@@ -1626,15 +1971,23 @@ sub get_filename {
 	    
 	    unshift @try, $list->{'dir'}.'/'.$name;
 	}
+	my @result;
 	foreach my $f (@try) {
-	    &do_log('debug3','get_filname : NAME: %s ; DIR %s', $name, $f  );
+	    &do_log('debug3','get_filename : name: %s ; dir %s', $name, $f  );
 	    if (-r $f) {
-		return $f;
+		if ($options->{'order'} eq 'all') {
+		    push @result, $f;
+		}else {
+		    return $f;
+		}
 	    }
+	}
+	if ($options->{'order'} eq 'all') {
+	    return @result ;
 	}
     }
     
-    &do_log('notice','tools::get_filename: Cannot find %s in %s', $name, join(',',@try));
+    #&do_log('notice','tools::get_filename: Cannot find %s in %s', $name, join(',',@try));
     return undef;
 }
 ####################################################
@@ -1652,12 +2005,12 @@ sub get_filename {
 ######################################################
 sub make_tt2_include_path {
     my ($robot,$dir,$lang,$list) = @_;
-    &do_log('debug3','tools::make_tt2_include_path(%s,%s,%s,%s)',$robot,$dir,$lang,$list);
+    &Log::do_log('debug3','tools::make_tt2_include_path(%s,%s,%s,%s)',$robot,$dir,$lang,$list);
 
     my @include_path;
 
-    my $path_etcbin;
-    my $path_etc;
+    my $path_etcbindir;
+    my $path_etcdir;
     my $path_robot;  ## optional
     my $path_list;   ## optional
     my $path_family; ## optional
@@ -1668,8 +2021,8 @@ sub make_tt2_include_path {
 	$path_robot = "$Conf{'etc'}/".$robot.'/'.$dir if (lc($robot) ne lc($Conf{'host'}));
 	if (ref($list) eq 'List'){
 	    $path_list = $list->{'dir'}.'/'.$dir;
-	    if (defined $self->{'admin'}{'family_name'}) {
-		my $family = $self->get_family();
+	    if (defined $list->{'admin'}{'family_name'}) {
+		my $family = $list->get_family();
 	        $path_family = $family->{'dir'}.'/'.$dir;
 	    }
 	} 
@@ -1679,8 +2032,8 @@ sub make_tt2_include_path {
 	$path_robot = "$Conf{'etc'}/".$robot if (lc($robot) ne lc($Conf{'host'}));
 	if (ref($list) eq 'List') {
 	    $path_list = $list->{'dir'} ;
-	    if (defined $self->{'admin'}{'family_name'}) {
-		my $family = $self->get_family();
+	    if (defined $list->{'admin'}{'family_name'}) {
+		my $family = $list->get_family();
 	        $path_family = $family->{'dir'};
 	    }
 	}
@@ -1727,7 +2080,7 @@ sub make_tt2_include_path {
 ## Find a file in an ordered list of directories
 sub find_file {
     my ($filename, @directories) = @_;
-    &do_log('debug3','tools::find_file(%s,%s)', $filename, join(':',@directories));
+    &Log::do_log('debug3','tools::find_file(%s,%s)', $filename, join(':',@directories));
 
     foreach my $d (@directories) {
 	if (-f "$d/$filename") {
@@ -1736,6 +2089,121 @@ sub find_file {
     }
     
     return undef;
+}
+
+## Recursively list the content of a directory
+## Return an array of hash, each entry with directory + filename + encoding
+sub list_dir {
+    my $dir = shift;
+    my $all = shift;
+    my $original_encoding = shift; ## Suspected original encoding of filenames
+
+    my $size=0;
+
+    if (opendir(DIR, $dir)) {
+	foreach my $file ( sort grep (!/^\.\.?$/,readdir(DIR))) {
+
+	    ## Guess filename encoding
+	    my ($encoding, $guess);
+	    my $decoder = &Encode::Guess::guess_encoding($file, $original_encoding, 'utf-8');
+	    if (ref $decoder) {
+		$encoding = $decoder->name;
+	    }else {
+		$guess = $decoder;
+	    }
+
+	    push @$all, {'directory' => $dir,
+			 'filename' => $file,
+			 'encoding' => $encoding,
+			 'guess' => $guess};
+	    if (-d "$dir/$file") {
+		&list_dir($dir.'/'.$file, $all, $original_encoding);
+	    }
+	}
+        closedir DIR;
+    }
+
+    return 1;
+}
+
+## Q-encode a complete file hierarchy
+## Usefull to Q-encode shared documents
+sub qencode_hierarchy {
+    my $dir = shift; ## Root directory
+    my $original_encoding = shift; ## Suspected original encoding of filenames
+
+    my $count;
+    my @all_files;
+    &tools::list_dir($dir, \@all_files, $original_encoding);
+
+    foreach my $f_struct (reverse @all_files) {
+    
+	next unless ($f_struct->{'filename'} =~ /[^\x00-\x7f]/); ## At least one 8bit char
+
+	my $new_filename = $f_struct->{'filename'};
+	my $encoding = $f_struct->{'encoding'};
+	Encode::from_to($new_filename, $encoding, 'utf8') if $encoding;
+    
+	## Q-encode filename to escape chars with accents
+	$new_filename = &tools::qencode_filename($new_filename);
+    
+	my $orig_f = $f_struct->{'directory'}.'/'.$f_struct->{'filename'};
+	my $new_f = $f_struct->{'directory'}.'/'.$new_filename;
+
+	## Rename the file using utf8
+	&do_log('notice', "Renaming %s to %s", $orig_f, $new_f);
+	unless (rename $orig_f, $new_f) {
+	    &do_log('err', "Failed to rename %s to %s : %s", $orig_f, $new_f, $!);
+	    next;
+	}
+	$count++;
+    }
+
+    return $count;
+}
+
+## Dumps the value of each character of the inuput string
+sub dump_encoding {
+    my $out = shift;
+
+    $out =~ s/./sprintf('%02x', ord($&)).' '/eg;
+    return $out;
+}
+
+## Remove PID file and STDERR output
+sub remove_pid {
+    my ($pidfile, $pid) = @_;
+
+    unless (unlink $pidfile) {
+	&do_log('err', "Failed to remove $pidfile: %s", $!);
+	return undef;
+    }
+    
+    my $err_file = $Conf{'tmpdir'}.'/'.$pid.'.stderr';
+    if (-f $err_file) {
+	unless (unlink $err_file) {
+	    &do_log('err', "Failed to remove $err_file: %s", $!);
+	    return undef;
+	}
+    }
+
+    return 1;
+}
+
+# input user agent string and IP. return 1 if suspected to be a crawler.
+# initial version based on rawlers_dtection.conf file only
+# later : use Session table to identify those who create a lot of sessions 
+sub is_a_crawler {
+
+    my $robot = shift;
+    my $context = shift;
+
+#    if ($Conf{$robot}{'crawlers_detection'}) {
+#	return ($Conf{$robot}{'crawlers_detection'}{'user_agent_string'}{$context->{'user_agent_string'}});
+#    }
+
+    # open (TMP, ">> /tmp/dump1"); printf TMP "dump de la conf dans is_a_crawler : \n"; &tools::dump_var($Conf{'crawlers_detection'}, 0,\*TMP);     close TMP;
+    return $Conf{'crawlers_detection'}{'user_agent_string'}{$context->{'user_agent_string'}};
 }
 
 sub write_pid {
@@ -1754,6 +2222,14 @@ sub write_pid {
     
     chown $uid, $gid, $piddir;
 
+    ## If pidfile exists, read the PID and get date
+    my ($other_pid);
+    if (-f $pidfile) {
+	open PFILE, $pidfile;
+	$other_pid = <PFILE>; chomp $other_pid;
+	close PFILE;	
+    }
+
     ## Create and write the pidfile
     unless (open(LOCK, "+>> $pidfile")) {
 	 fatal_err('Could not open %s, exiting', $pidfile);
@@ -1761,6 +2237,25 @@ sub write_pid {
     unless (flock(LOCK, 6)) {
 	fatal_err('Could not lock %s, process is probably already running : %s', $pidfile, $!);
     }
+
+    ## The previous process died suddenly, without pidfile cleanup
+    ## Send a notice to listmaster with STDERR of the previous process
+    if ($other_pid) {
+	&do_log('notice', "Previous process $other_pid died suddenly ; notifying listmaster");
+	my $err_file = $Conf{'tmpdir'}.'/'.$other_pid.'.stderr';
+	my (@err_output, $err_date);
+	if (-f $err_file) {
+	    open ERR, $err_file;
+	    @err_output = <ERR>;
+	    close ERR;
+
+	    $err_date = &POSIX::strftime("%d %b %Y  %H:%M", localtime( (stat($err_file))[9]));
+	}
+
+	&List::send_notify_to_listmaster('crash', $Conf::Conf{'domain'},
+					 {'crash_err' => \@err_output, 'crash_date' => $err_date});
+    }
+
     unless (open(LCK, "> $pidfile")) {
 	fatal_err('Could not open %s, exiting', $pidfile);
     }
@@ -1772,6 +2267,11 @@ sub write_pid {
     close(LCK);
     
     chown $uid, $gid, $pidfile;
+
+    ## Error output is stored in a file with PID-based name
+    ## Usefull if process crashes
+    open(STDERR, '>>',  $Conf{'tmpdir'}.'/'.$pid.'.stderr') unless ($main::options{'foreground'});
+    chown $uid, $gid, $Conf{'tmpdir'}.'/'.$pid.'.stderr';
 
     return 1;
 }
@@ -1810,7 +2310,7 @@ sub get_dir_size {
 sub valid_email {
     my $email = shift;
     
-    unless ($email =~ /^$tools::regexp{'email'}$/) {
+    unless ($email =~ /^$regexp{'email'}$/) {
 	do_log('err', "Invalid email address '%s'", $email);
 	return undef;
     }
@@ -1873,11 +2373,11 @@ sub remove_dir {
 
 	if (!-l && -d _) {
 	    unless (rmdir($name)) {
-		&do_log('err','Error while removing dir %s',$name);
+		&Log::do_log('err','Error while removing dir %s',$name);
 	    }
 	}else{
 	    unless (unlink($name)) {
-		&do_log('err','Error while removing file  %s',$name);
+		&Log::do_log('err','Error while removing file  %s',$name);
 	    }
 	}
     }
@@ -1894,7 +2394,7 @@ sub remove_dir {
 ## for 'decrypt', these are arrayrefs containing absolute filenames
 sub smime_find_keys {
     my($dir, $oper) = @_;
-    &do_log('debug', 'tools::smime_find_keys(%s, %s)', $dir, $oper);
+    &Log::do_log('debug', 'tools::smime_find_keys(%s, %s)', $dir, $oper);
 
     my(%certs, %keys);
     my $ext = ($oper eq 'sign' ? 'sign' : 'enc');
@@ -1962,10 +2462,10 @@ sub smime_find_keys {
 #  sign => true if v3 purpose is signing
 sub smime_parse_cert {
     my($arg) = @_;
-    &do_log('debug', 'tools::smime_parse_cert(%s)', join('/',%{$arg}));
+    &Log::do_log('debug', 'tools::smime_parse_cert(%s)', join('/',%{$arg}));
 
     unless (ref($arg)) {
-	&do_log('err', "smime_parse_cert: must be called with hashref, not %s", ref($arg));
+	&Log::do_log('err', "smime_parse_cert: must be called with hashref, not %s", ref($arg));
 	return undef;
     }
 
@@ -1975,31 +2475,31 @@ sub smime_parse_cert {
 	@cert = ($arg->{'text'});
     }elsif ($arg->{file}) {
 	unless (open(PSC, "$arg->{file}")) {
-	    &do_log('err', "smime_parse_cert: open $file: $!");
+	    &Log::do_log('err', "smime_parse_cert: open %s: $!", $arg->{file});
 	    return undef;
 	}
 	@cert = <PSC>;
 	close(PSC);
     }else {
-	&do_log('err', 'smime_parse_cert: neither "text" nor "file" given');
+	&Log::do_log('err', 'smime_parse_cert: neither "text" nor "file" given');
 	return undef;
     }
 
     ## Extract information from cert
     my ($tmpfile) = $Conf{'tmpdir'}."/parse_cert.$$";
     unless (open(PSC, "| $Conf{openssl} x509 -email -subject -purpose -noout > $tmpfile")) {
-	&do_log('err', "smime_parse_cert: open |openssl: $!");
+	&Log::do_log('err', "smime_parse_cert: open |openssl: $!");
 	return undef;
     }
     print PSC join('', @cert);
 
     unless (close(PSC)) {
-	&do_log('err', "smime_parse_cert: close openssl: $!, $@");
+	&Log::do_log('err', "smime_parse_cert: close openssl: $!, $@");
 	return undef;
     }
 
     unless (open(PSC, "$tmpfile")) {
-	&do_log('err', "smime_parse_cert: open $tmpfile: $!");
+	&Log::do_log('err', "smime_parse_cert: open $tmpfile: $!");
 	return undef;
     }
 
@@ -2037,18 +2537,18 @@ sub smime_parse_cert {
 
 sub smime_extract_certs {
     my($mime, $outfile) = @_;
-    &do_log('debug2', "tools::smime_extract_certs(%s)",$mime->mime_type);
+    &Log::do_log('debug2', "tools::smime_extract_certs(%s)",$mime->mime_type);
 
     if ($mime->mime_type =~ /application\/(x-)?pkcs7-/) {
 	unless (open(MSGDUMP, "| $Conf{openssl} pkcs7 -print_certs ".
 		     "-inform der > $outfile")) {
-	    &do_log('err', "unable to run openssl pkcs7: $!");
+	    &Log::do_log('err', "unable to run openssl pkcs7: $!");
 	    return 0;
 	}
 	print MSGDUMP $mime->bodyhandle->as_string;
 	close(MSGDUMP);
 	if ($?) {
-	    &do_log('err', "openssl pkcs7 returned an error: ", $?/256);
+	    &Log::do_log('err', "openssl pkcs7 returned an error: ", $?/256);
 	    return 0;
 	}
 	return 1;
@@ -2058,14 +2558,16 @@ sub smime_extract_certs {
 ## Dump a variable's content
 sub dump_var {
     my ($var, $level, $fd) = @_;
-    
+
+    return undef unless ($fd);
+
     if (ref($var)) {
 	if (ref($var) eq 'ARRAY') {
 	    foreach my $index (0..$#{$var}) {
 		print $fd "\t"x$level.$index."\n";
 		&dump_var($var->[$index], $level+1, $fd);
 	    }
-	}elsif (ref($var) eq 'HASH') {
+	}elsif (ref($var) eq 'HASH' || ref($var) eq 'Scenario' || ref($var) eq 'List') {
 	    foreach my $key (sort keys %{$var}) {
 		print $fd "\t"x$level.'_'.$key.'_'."\n";
 		&dump_var($var->{$key}, $level+1, $fd);
@@ -2080,6 +2582,80 @@ sub dump_var {
 	    print $fd "\t"x$level."UNDEF\n";
 	}
     }
+}
+
+## Dump a variable's content
+sub dump_html_var {
+    my ($var) = shift;
+	my $html = '';
+
+    
+    if (ref($var)) {
+
+	if (ref($var) eq 'ARRAY') {
+	    $html .= '<ul>';
+	    foreach my $index (0..$#{$var}) {
+		$html .= '<li> '.$index.':';
+		$html .= &dump_html_var($var->[$index]);
+		$html .= '</li>';
+	    }
+	    $html .= '</ul>';
+	}elsif (ref($var) eq 'HASH' || ref($var) eq 'Scenario' || ref($var) eq 'List') {
+	    $html .= '<ul>';
+	    foreach my $key (sort keys %{$var}) {
+		$html .= '<li>'.$key.'=' ;
+		$html .=  &dump_html_var($var->{$key});
+		$html .= '</li>';
+	    }
+	    $html .= '</ul>';
+	}else {
+	    $html .= 'EEEEEEEEEEEEEEEEEEEEE'.ref($var);
+	}
+    }else{
+	if (defined $var) {
+	    $html .= &escape_html($var);
+	}else {
+	    $html .= 'UNDEF';
+	}
+    }
+    return $html;
+}
+
+## Dump a variable's content
+sub dump_html_var2 {
+    my ($var) = shift;
+
+    my $html = '' ;
+    
+    if (ref($var)) {
+	if (ref($var) eq 'ARRAY') {
+	    $html .= 'ARRAY <ul>';
+	    foreach my $index (0..$#{$var}) {
+		$html .= '<li> '.$index;
+		$html .= &dump_html_var($var->[$index]);
+		$html .= '</li>'
+	    }
+	    $html .= '</ul>';
+	}elsif (ref($var) eq 'HASH' || ref($var) eq 'Scenario' || ref($var) eq 'List') {
+	    #$html .= " (".ref($var).') <ul>';
+	    $html .= '<ul>';
+	    foreach my $key (sort keys %{$var}) {
+		$html .= '<li>'.$key.'=' ;
+		$html .=  &dump_html_var($var->{$key});
+		$html .= '</li>'
+	    }    
+	    $html .= '</ul>';
+	}else {
+	    $html .= "<li>'%s'"."</li>", ref($var);
+	}
+    }else{
+	if (defined $var) {
+	    $html .= '<li>'.$var.'</li>';
+	}else {
+	    $html .= '<li>UNDEF</li>';
+	}
+    }
+    return $html;
 }
 
 sub remove_empty_entries {
@@ -2295,7 +2871,7 @@ sub higher_version {
     my $max = $#tab1;
     $max = $#tab2 if ($#tab2 > $#tab1);
 
-    for $i (0..$max) {
+    for my $i (0..$max) {
     
         if ($tab1[0] =~ /^(\d*)a$/) {
             $tab1[0] = $1 - 0.5;
@@ -2332,7 +2908,7 @@ sub lower_version {
     my $max = $#tab1;
     $max = $#tab2 if ($#tab2 > $#tab1);
 
-    for $i (0..$max) {
+    for my $i (0..$max) {
     
         if ($tab1[0] =~ /^(\d*)a$/) {
             $tab1[0] = $1 - 0.5;
@@ -2363,8 +2939,6 @@ sub LOCK_EX {2};
 sub LOCK_NB {4};
 sub LOCK_UN {8};
 
-
-
 ## lock a file 
 sub lock {
     my $lock_file = shift;
@@ -2382,24 +2956,24 @@ sub lock {
     
     ## Read access to prevent "Bad file number" error on Solaris
     unless (open FH, $open_mode.$lock_file) {
-	&do_log('err', 'Cannot open %s: %s', $lock_file, $!);
+	&Log::do_log('err', 'Cannot open %s: %s', $lock_file, $!);
 	return undef;
     }
     
     my $got_lock = 1;
     unless (flock (FH, $operation | LOCK_NB)) {
-	&do_log('notice','Waiting for %s lock on %s', $mode, $lock_file);
+	&Log::do_log('notice','Waiting for %s lock on %s', $mode, $lock_file);
 
 	## If lock was obtained more than 20 minutes ago, then force the lock
 	if ( (time - (stat($lock_file))[9] ) >= 60*20) {
-	    &do_log('notice','Removing lock file %s', $lock_file);
+	    &Log::do_log('notice','Removing lock file %s', $lock_file);
 	    unless (unlink $lock_file) {
-		&do_log('err', 'Cannot remove %s: %s', $lock_file, $!);
+		&Log::do_log('err', 'Cannot remove %s: %s', $lock_file, $!);
 		return undef;	    		
 	    }
 	    
 	    unless (open FH, ">$lock_file") {
-		&do_log('err', 'Cannot open %s: %s', $lock_file, $!);
+		&Log::do_log('err', 'Cannot open %s: %s', $lock_file, $!);
 		return undef;	    
 	    }
 	}
@@ -2413,23 +2987,75 @@ sub lock {
 		$got_lock = 1;
 		last;
 	    }
-	    &do_log('notice','Waiting for %s lock on %s', $mode, $lock_file);
+	    &Log::do_log('notice','Waiting for %s lock on %s', $mode, $lock_file);
 	}
     }
 	
     if ($got_lock) {
-	&do_log('debug2', 'Got lock for %s on %s', $mode, $lock_file);
+	&Log::do_log('debug2', 'Got lock for %s on %s', $mode, $lock_file);
 
 	## Keep track of the locking PID
 	if ($mode eq 'write') {
 	    print FH "$$\n";
 	}
     }else {
-	&do_log('err', 'Failed locking %s: %s', $lock_file, $!);
+	&Log::do_log('err', 'Failed locking %s: %s', $lock_file, $!);
 	return undef;
     }
 
     return \*FH;
+}
+
+sub add_in_blacklist {
+    my $entry = shift;
+    my $robot = shift;
+    my $list =shift;
+
+    &do_log('info',"tools::add_in_blacklist(%s,%s,%s)",$entry,$robot,$list->{'name'});
+    $entry = lc($entry);
+    chomp $entry;
+
+    # robot blacklist not yet availible 
+    unless ($list) {
+	 &do_log('info',"tools::add_in_blacklist: robot blacklist not yet availible, missing list parameter");
+	 return undef;
+    }
+    unless (($entry)&&($robot)) {
+	 &do_log('info',"tools::add_in_blacklist:  missing parameters");
+	 return undef;
+    }
+    if ($entry =~ /\*.*\*/) {
+	&do_log('info',"tools::add_in_blacklist: incorrect parameter $entry");
+	return undef;
+    }
+    my $dir = $list->{'dir'}.'/search_filters';
+    unless ((-d $dir) || mkdir ($dir, 0755)) {
+	&do_log('info','do_blacklist : unable to create dir %s',$dir);
+	return undef;
+    }
+    my $file = $dir.'/blacklist.txt';
+    
+    if (open BLACKLIST, "$file"){
+	while(<BLACKLIST>) {
+	    next if (/^\s*$/o || /^[\#\;]/o);
+	    my $regexp= $_ ;
+	    chomp $regexp;
+	    $regexp =~ s/\*/.*/ ; 
+	    $regexp = '^'.$regexp.'$';
+	    if ($entry =~ /$regexp/i) { 
+		&do_log('notice','do_blacklist : %s already in blacklist(%s)',$entry,$_);
+		return 0;
+	    }	
+	}
+	close BLACKLIST;
+    }   
+    unless (open BLACKLIST, ">> $file"){
+	&do_log('info','do_blacklist : append to file %s',$file);
+	return undef;
+    }
+    printf BLACKLIST "$entry\n";
+    close BLACKLIST;
+
 }
 
 ## unlock a file 
@@ -2438,12 +3064,224 @@ sub unlock {
     my $fh = shift;
     
     unless (flock($fh,LOCK_UN)) {
-	&do_log('err', 'Failed UNlocking %s: %s', $lock_file, $!);
+	&Log::do_log('err', 'Failed UNlocking %s: %s', $lock_file, $!);
 	return undef;
     }
     close $fh;
-    &do_log('debug2', 'Release lock on %s', $lock_file);
+    &Log::do_log('debug2', 'Release lock on %s', $lock_file);
     
+    return 1;
+}
+
+## input a string
+## output md5 digest
+sub md5_fingerprint {
+    
+    my $input_string = shift;
+    return undef unless (defined $input_string);
+    chomp $input_string;
+    
+    my $digestmd5 = new Digest::MD5;
+    $digestmd5->reset;
+    $digestmd5->add($input_string);
+    return (unpack("H*", $digestmd5->digest));
+}
+
+sub get_separator {
+    return $separator;
+}
+
+## Return the Sympa regexp corresponding to the input param
+sub get_regexp {
+    my $type = shift;
+
+    if (defined $regexp{$type}) {
+	return $regexp{$type};
+    }else {
+	return '\w+'; ## default is a very strict regexp
+    }
+
+}
+
+## convert a string formated as var1="value1";var2="value2"; into a hash.
+## Used when extracting from session table some session properties or when extracting users preference from user table
+## Current encoding is NOT compatible with encoding of values with '"'
+##
+sub string_2_hash {
+    my $data = shift;
+    my %hash ;
+    
+    while ($data =~ /^(\;?(\w+)\=\"([^\"]*)\")/) {
+	$hash{$2} = $3; 
+	$data =~ s/$1// ;
+    }    
+
+    return (%hash);
+
+}
+## convert a hash into a string formated as var1="value1";var2="value2"; into a hash
+sub hash_2_string { 
+    my $refhash = shift;
+
+    return undef unless ((ref($refhash))&& (ref($refhash) eq 'HASH')) ;
+
+    my $data_string ;
+    foreach my $var (keys %$refhash ) {
+	next unless ($var);
+	$data_string .= ';'.$var.'="'.$refhash->{$var}.'"';
+    }
+    return ($data_string);
+}
+
+=pod 
+
+=head2 sub save_to_bad(HASH $param)
+
+Saves a message file to the "bad/" spool of a given queue. Creates this directory if not found.
+
+=head3 Arguments 
+
+=over 
+
+=item * I<param> : a hash containing all the arguments, which means:
+
+=over 4
+
+=item * I<file> : the characters string of the path to the file to copy to bad;
+
+=item * I<hostname> : the characters string of the name of the virtual host concerned;
+
+=item * I<queue> : the characters string of the name of the queue.
+
+=back
+
+=back 
+
+=head3 Return 
+
+=over
+
+=item * 1 if the file was correctly saved to the "bad/" directory;
+
+=item * undef if something went wrong.
+
+=back 
+
+=head3 Calls 
+
+=over 
+
+=item * List::send_notify_to_listmaster
+
+=back 
+
+=cut 
+
+sub save_to_bad {
+
+    my $param = shift;
+    
+    my $file = $param->{'file'};
+    my $hostname = $param->{'hostname'};
+    my $queue = $param->{'queue'};
+
+    if (! -d $queue.'/bad') {
+	unless (mkdir $queue.'/bad', 0775) {
+	    &do_log('notice','Unable to create %s/bad/ directory.',$queue);
+	    unless (&List::send_notify_to_listmaster('unable_to_create_dir',$hostname),{'dir' => "$queue/bad"}) {
+		&do_log('notice',"Unable to send notify 'unable_to_create_dir' to listmaster");
+	    }
+	    return undef;
+	}
+	do_log('debug',"mkdir $queue/bad");
+    }
+    &do_log('notice',"Saving file %s to %s", $queue.'/'.$file, $queue.'/bad/'.$file);
+    unless (rename($queue.'/'.$file ,$queue.'/bad/'.$file) ) {
+	&do_log('notice', 'Could not rename %s to %s: %s', $queue.'/'.$file, $queue.'/bad/'.$file, $!);
+	return undef;
+    }
+    
+    return 1;
+}
+
+=pod 
+
+=head2 sub CleanSpool(STRING $spool_dir, INT $clean_delay)
+
+Clean all messages in spool $spool_dir older than $clean_delay.
+
+=head3 Arguments 
+
+=over 
+
+=item * I<spool_dir> : a string corresponding to the path to the spool to clean;
+
+=item * I<clean_delay> : the delay between the moment we try to clean spool and the last modification date of a file.
+
+=back
+
+=back 
+
+=head3 Return 
+
+=over
+
+=item * 1 if the spool was cleaned withou troubles.
+
+=item * undef if something went wrong.
+
+=back 
+
+=head3 Calls 
+
+=over 
+
+=item * tools::remove_dir
+
+=back 
+
+=cut 
+
+############################################################
+#  CleanSpool
+############################################################
+#  Cleans files older than $clean_delay from spool $spool_dir
+#  
+# IN : -$spool_dir (+): the spool directory
+#      -$clean_delay (+): delay in days 
+#
+# OUT : 1
+#
+############################################################## 
+sub CleanSpool {
+    my ($spool_dir, $clean_delay) = @_;
+    &do_log('debug', 'CleanSpool(%s,%s)', $spool_dir, $clean_delay);
+
+    unless (opendir(DIR, $spool_dir)) {
+	&do_log('err', "Unable to open '%s' spool : %s", $spool_dir, $!);
+	return undef;
+    }
+
+    my @qfile = sort grep (!/^\.+$/,readdir(DIR));
+    closedir DIR;
+    
+    my ($curlist,$moddelay);
+    foreach my $f (sort @qfile) {
+
+	if ((stat "$spool_dir/$f")[9] < (time - $clean_delay * 60 * 60 * 24)) {
+	    if (-f "$spool_dir/$f") {
+		unlink ("$spool_dir/$f") ;
+		&do_log('notice', 'Deleting old file %s', "$spool_dir/$f");
+	    }elsif (-d "$spool_dir/$f") {
+		unless (&tools::remove_dir("$spool_dir/$f")) {
+		    &do_log('err', 'Cannot remove old directory %s : %s', "$spool_dir/$f", $!);
+		    next;
+		}
+		&do_log('notice', 'Deleting old directory %s', "$spool_dir/$f");
+	    }
+	}
+    }
+
     return 1;
 }
 

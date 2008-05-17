@@ -1,20 +1,20 @@
-<!-- $Id: view_template.tt2,v 1.4 2005/08/09 09:52:43 sympa-authors Exp $ -->
+<!-- $Id: view_template.tt2 3996 2006-11-03 13:43:20Z sympa-authors $ -->
 
-<h2>Template edition system</h2><br />
+<h2>[%|loc%]Template edition system[%END%]</h2><br />
 <p>
 
 <ul>
-<li>Template name :  <strong> [% template_name %] </strong></li>
-<li>Type : <strong> [% webormail %] </strong></li>
-<li>Path : <strong> [% template_path %] </strong></li>
-<li>Scope : <strong> [% scope %] </strong>.
+<li>[%|loc%]Template name : [%END%] <strong> [% template_name %] </strong></li>
+<li>[%|loc%]Type : [%END%]<strong> [% webormail %] </strong></li>
+<li>[%|loc%]Path : [%END%]<strong> [% template_path %] </strong></li>
+<li>[%|loc%]Scope : [%END%]<strong> [% scope %] </strong>.
 [% IF scope == 'list' %]
-  ( this template is defined for list [% list %]@[%robot %] )
+  [%|loc(list,robot)%]( this template is defined for list %1@%2 )[%END%]
 [% ELSE %]
   [% IF scope == 'robot' %]
-     ( this template is defined for all lists of robot [%robot %] unless it is redefined for some particular list )
+     [%|loc(robot)%]( this template is the default for all lists of robot %1 unless it is redefined for a specific list )[%END%]
   [% ELSE %]
-     ( this template is defined for all robots unless  it is redefined for some particular robot )
+     [%|loc%]( this template is the default used by all robots unless redefined for a specific robot )[%END%]
   [% END %]
 [% END %]
 </li>
