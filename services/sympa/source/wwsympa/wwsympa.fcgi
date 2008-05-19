@@ -318,7 +318,7 @@ my %comm = ('home' => 'do_home',
 	 'rss_request' => 'do_rss_request',
 	 'maintenance' => 'do_maintenance',
 	 'blacklist' => 'do_blacklist',
-	 'edit_attributes' => 'do_edit_attributes'
+	 'edit_attributes' => 'do_edit_attributes',
 # OpenFoundry
 'lists_by_project' => 'do_lists_by_project',
 'create_project_list_request' => 'do_create_project_list_request',
@@ -17117,7 +17117,7 @@ $in{'listname'} = $in{'projectUnixName'} . "-" . $in{'listname'};
      if ($param->{'create_action'} =~ /notify/) {
         &wwslog('info','notify listmaster');
         unless (&List::send_notify_to_listmaster('request_list_creation',$robot,
-                                                 {'list' => $list},
+                                                 {'list' => $list,
                                                   'email' => $param->{'user'}{'email'}})) {
             &wwslog('notice',"Unable to send notify 'request_list_creation' to listmaster");
         }
