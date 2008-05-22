@@ -23,6 +23,14 @@ class ReleasesController < ApplicationController
       render :layout => false   
     end
   end
+
+  def top
+    releases = Release.find(:all, :order => "release_counter desc", :limit => 100).paginate(:page => params[:page], :per_page => 10)
+    if releases.out_of_bounds?
+      releases = Release.paginate(:page => 1, :per_page => 10)
+    end
+    render(:partial => 'top_download_list', :layout => true, :locals => { :releases => releases })
+  end
   
   def create
     if request.post?
@@ -175,5 +183,5 @@ class ReleasesController < ApplicationController
       
     end
   end
-  
+
 end
