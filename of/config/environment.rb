@@ -9,6 +9,7 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require 'bleak_house' if ENV['BLEAK_HOUSE']
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
@@ -82,6 +83,7 @@ OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
 OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
 OPENFOUNDRY_VIEWVC_URL =  'http://viewvc.of.openfoundry.org/viewvc/'
 OPENFOUNDRY_RT_URL = 'http://rt.of.openfoundry.org'
+OPENFOUNDRY_SYMPA_URL = 'http://sympa.of.openfoundry.org/sympa'
 #
 # important password! leak it may leak all your user data!!
 #

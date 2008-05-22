@@ -10,10 +10,11 @@ class ProjectsController < ApplicationController
   
   def sympa
     @project = Project.find(params[:id])
+    @module_name = _('Mail Lists')
     if (params[:path] != nil)
-      @Path = "http://rt.openfoundry.org/Sympa/" + params[:path] 
+      @Path = OPENFOUNDRY_SYMPA_URL + "/#{params[:path]}" 
     else
-      @Path = "http://rt.openfoundry.org/Sympa/lists_by_project/" + @project.name
+      @Path = OPENFOUNDRY_SYMPA_URL + "/lists_by_project/" + @project.name
     end
   end
   

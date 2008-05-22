@@ -29,7 +29,8 @@ class OpenfoundryController < ApplicationController
   def authentication_authorization
     #self.class.layout(nil)
     session_id, project_name = params[:SID], params[:projectname]
-    if the_session_data = get_session_by_id(session_id)
+    begin 
+      the_session_data = get_session_by_id(session_id)
       user = the_session_data['user']
       @name = user.login
       project = Project.find_by_name(project_name)
@@ -43,7 +44,7 @@ class OpenfoundryController < ApplicationController
         @role = "Other"
       end
       @email = user.email
-    else
+    rescue
       #guest Other guest@users.openfoundry.org
       @name = "guest"
       @role = "Other"
