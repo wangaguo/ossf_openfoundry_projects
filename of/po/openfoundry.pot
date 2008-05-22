@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-05-13 15:42-0000\n"
+"POT-Creation-Date: 2008-05-20 15:54-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -457,6 +457,17 @@ msgstr ""
 msgid "News|Updated at"
 msgstr ""
 
+#: app/controllers/news_controller.rb:22 app/controllers/news_controller.rb:37
+#: app/controllers/news_controller.rb:56
+#: app/views/partials/_project_menu.rhtml:17
+#: app/views/partials/_project_menu.rhtml:52
+msgid "project_News"
+msgstr ""
+
+#: app/controllers/news_controller.rb:33
+msgid "OpenFoundry News"
+msgstr ""
+
 #: app/controllers/user_controller.rb:33
 msgid "user_login_succeeded"
 msgstr ""
@@ -537,6 +548,10 @@ msgstr ""
 msgid "you have no permission"
 msgstr ""
 
+#: app/controllers/projects_controller.rb:13
+msgid "Mail Lists"
+msgstr ""
+
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
 msgid "Show"
 msgstr ""
@@ -587,70 +602,79 @@ msgid "project_Admin"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:10
-#: app/views/partials/_project_menu.rhtml:48
+#: app/views/partials/_project_menu.rhtml:45
 msgid "project_Info"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:12
-#: app/views/partials/_project_menu.rhtml:50
-msgid "project_Summery"
+#: app/views/partials/_project_menu.rhtml:47
+msgid "project_Summary"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:17
-#: app/views/partials/_project_menu.rhtml:65
-msgid "project_News"
+#: app/views/partials/_project_menu.rhtml:13
+#: app/views/partials/_project_menu.rhtml:48
+msgid "project_Website"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:14
+msgid "project_Members"
+msgstr ""
+
+#: app/views/partials/_project_menu.rhtml:21
 msgid "project_Tracker"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:24
+#: app/views/partials/_project_menu.rhtml:23
 msgid "tracker_Overview"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:25
+#: app/views/partials/_project_menu.rhtml:24
 msgid "tracker_Defect"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:25
 msgid "tracker_Patch"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:27
+#: app/views/partials/_project_menu.rhtml:26
 msgid "tracker_Task"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:28
+#: app/views/partials/_project_menu.rhtml:27
 msgid "tracker_Feature"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:29
+#: app/views/partials/_project_menu.rhtml:28
 msgid "tracker_Enhancement"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:35
+#: app/views/partials/_project_menu.rhtml:34
 #: app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:37
+#: app/views/partials/_project_menu.rhtml:36
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:78
+#: app/views/partials/_project_menu.rhtml:40
+#: app/views/partials/_project_menu.rhtml:59
+msgid "Mailing List"
+msgstr ""
+
+#: app/views/partials/_project_menu.rhtml:60
 msgid "release_Releases"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:80
+#: app/views/partials/_project_menu.rhtml:62
 msgid "release_Versions"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:81
+#: app/views/partials/_project_menu.rhtml:63
 msgid "release_Upload Pool"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:84
+#: app/views/partials/_project_menu.rhtml:66
 msgid "project_Role Control"
 msgstr ""
 
@@ -687,7 +711,7 @@ msgid "menu_Overview"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:49
-msgid "menu_News"
+msgid "menu_Project News"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:52
@@ -741,6 +765,10 @@ msgstr ""
 
 #: app/views/layouts/application.rhtml:124
 msgid "Change Icon"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:142
+msgid "Steering Organization"
 msgstr ""
 
 #: app/views/releases/_most_popular.rhtml:1
