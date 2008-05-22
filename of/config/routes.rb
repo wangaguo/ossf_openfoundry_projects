@@ -58,6 +58,11 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   
+  map.download 'releases/top',
+    :controller => 'releases',
+    :action => 'top'
+   # :requirements => {:file_name => /.+/, :release_name => /.+/}
+  
   #for download area~
   map.download 'download_path/:project_name/:release_name/:file_name',
     :controller => 'openfoundry',
@@ -65,5 +70,5 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => {:file_name => /.+/, :release_name => /.+/}
 #  require "pp"
 #  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
-  
+
 end
