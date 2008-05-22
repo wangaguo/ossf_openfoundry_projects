@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-05-13 15:42-0000\n"
+"POT-Creation-Date: 2008-05-20 15:54-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -457,6 +457,18 @@ msgstr "建立時間"
 msgid "News|Updated at"
 msgstr "更新時間"
 
+#: app/controllers/news_controller.rb:22 app/controllers/news_controller.rb:37
+#: app/controllers/news_controller.rb:56
+#: app/views/partials/_project_menu.rhtml:17
+#: app/views/partials/_project_menu.rhtml:52
+msgid "project_News"
+msgstr "專案新聞"
+
+#: app/controllers/news_controller.rb:33
+#, fuzzy
+msgid "OpenFoundry News"
+msgstr "OpenFoundry新聞"
+
 #: app/controllers/user_controller.rb:33
 msgid "user_login_succeeded"
 msgstr "登入成功"
@@ -537,6 +549,10 @@ msgstr "圖像上傳錯誤"
 msgid "you have no permission"
 msgstr "您沒有足夠權限"
 
+#: app/controllers/projects_controller.rb:13
+msgid "Mail Lists"
+msgstr ""
+
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
 msgid "Show"
 msgstr "顯示"
@@ -587,70 +603,82 @@ msgid "project_Admin"
 msgstr "專案管理"
 
 #: app/views/partials/_project_menu.rhtml:10
-#: app/views/partials/_project_menu.rhtml:48
+#: app/views/partials/_project_menu.rhtml:45
 msgid "project_Info"
 msgstr "專案資訊"
 
 #: app/views/partials/_project_menu.rhtml:12
-#: app/views/partials/_project_menu.rhtml:50
-msgid "project_Summery"
+#: app/views/partials/_project_menu.rhtml:47
+#, fuzzy
+msgid "project_Summary"
 msgstr "專案名稱"
 
-#: app/views/partials/_project_menu.rhtml:17
-#: app/views/partials/_project_menu.rhtml:65
-msgid "project_News"
+#: app/views/partials/_project_menu.rhtml:13
+#: app/views/partials/_project_menu.rhtml:48
+#, fuzzy
+msgid "project_Website"
 msgstr "專案新聞"
 
-#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:14
+#, fuzzy
+msgid "project_Members"
+msgstr "專案摘要"
+
+#: app/views/partials/_project_menu.rhtml:21
 msgid "project_Tracker"
 msgstr "待辦事項"
 
-#: app/views/partials/_project_menu.rhtml:24
+#: app/views/partials/_project_menu.rhtml:23
 msgid "tracker_Overview"
 msgstr "綜覽"
 
-#: app/views/partials/_project_menu.rhtml:25
+#: app/views/partials/_project_menu.rhtml:24
 msgid "tracker_Defect"
 msgstr "瑕疵"
 
-#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:25
 msgid "tracker_Patch"
 msgstr "修正檔"
 
-#: app/views/partials/_project_menu.rhtml:27
+#: app/views/partials/_project_menu.rhtml:26
 msgid "tracker_Task"
 msgstr "工作事項"
 
-#: app/views/partials/_project_menu.rhtml:28
+#: app/views/partials/_project_menu.rhtml:27
 msgid "tracker_Feature"
 msgstr "新功能"
 
-#: app/views/partials/_project_menu.rhtml:29
+#: app/views/partials/_project_menu.rhtml:28
 msgid "tracker_Enhancement"
 msgstr "改進"
 
-#: app/views/partials/_project_menu.rhtml:35
+#: app/views/partials/_project_menu.rhtml:34
 #: app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr "SVN"
 
-#: app/views/partials/_project_menu.rhtml:37
+#: app/views/partials/_project_menu.rhtml:36
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:78
+#: app/views/partials/_project_menu.rhtml:40
+#: app/views/partials/_project_menu.rhtml:59
+msgid "Mailing List"
+msgstr "通訊論壇"
+
+#: app/views/partials/_project_menu.rhtml:60
 msgid "release_Releases"
 msgstr "規畫釋出"
 
-#: app/views/partials/_project_menu.rhtml:80
+#: app/views/partials/_project_menu.rhtml:62
 msgid "release_Versions"
 msgstr "版本控制"
 
-#: app/views/partials/_project_menu.rhtml:81
+#: app/views/partials/_project_menu.rhtml:63
 msgid "release_Upload Pool"
 msgstr "上傳區"
 
-#: app/views/partials/_project_menu.rhtml:84
+#: app/views/partials/_project_menu.rhtml:66
 msgid "project_Role Control"
 msgstr "成員管理"
 
@@ -742,6 +770,10 @@ msgstr "連絡我們"
 #: app/views/layouts/application.rhtml:124
 msgid "Change Icon"
 msgstr "更換圖像"
+
+#: app/views/layouts/application.rhtml:142
+msgid "Steering Organization"
+msgstr ""
 
 #: app/views/releases/_most_popular.rhtml:1
 msgid "Top Download"
@@ -929,4 +961,3 @@ msgstr "註冊帳號"
 #: app/views/user/login.rhtml:32
 msgid "Forgot my password"
 msgstr "忘記密碼"
-

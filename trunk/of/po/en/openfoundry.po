@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-05-13 15:42-0000\n"
+"POT-Creation-Date: 2008-05-20 15:54-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,11 +70,11 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "User|Icon"
-msgstr ""
+msgstr "Icon"
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:8
 msgid "User|Login"
-msgstr ""
+msgstr "Login"
 
 #: app/models/user.rb:-
 msgid "User|Salted password"
@@ -83,15 +83,15 @@ msgstr ""
 #: app/models/user.rb:- app/views/user/forgot_password.rhtml:8
 #: app/views/user/_email.rhtml:5
 msgid "User|Email"
-msgstr ""
+msgstr "Email Address"
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:4
 msgid "User|Firstname"
-msgstr ""
+msgstr "First Name"
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:6
 msgid "User|Lastname"
-msgstr ""
+msgstr "Last Name"
 
 #: app/models/user.rb:-
 msgid "User|Salt"
@@ -115,7 +115,7 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "User|Status"
-msgstr "Summary"
+msgstr "Status"
 
 #: app/models/user.rb:-
 msgid "User|Delete after"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "User|Created at"
-msgstr ""
+msgstr "Created at"
 
 #: app/models/user.rb:-
 msgid "User|Updated at"
@@ -135,11 +135,11 @@ msgstr ""
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:10
 msgid "User|Language"
-msgstr ""
+msgstr "Language"
 
 #: app/models/user.rb:-
 msgid "User|Timezone"
-msgstr ""
+msgstr "Time Zone"
 
 #: app/models/user.rb:-
 msgid "session"
@@ -457,6 +457,18 @@ msgstr ""
 msgid "News|Updated at"
 msgstr ""
 
+#: app/controllers/news_controller.rb:22 app/controllers/news_controller.rb:37
+#: app/controllers/news_controller.rb:56
+#: app/views/partials/_project_menu.rhtml:17
+#: app/views/partials/_project_menu.rhtml:52
+msgid "project_News"
+msgstr "News"
+
+#: app/controllers/news_controller.rb:33
+#, fuzzy
+msgid "OpenFoundry News"
+msgstr "OpenFoundry News"
+
 #: app/controllers/user_controller.rb:33
 msgid "user_login_succeeded"
 msgstr ""
@@ -531,10 +543,14 @@ msgstr ""
 
 #: app/controllers/images_controller.rb:120
 msgid "image_upload_error"
-msgstr ""
+msgstr "There is an error while upload image"
 
 #: app/controllers/images_controller.rb:123
 msgid "you have no permission"
+msgstr ""
+
+#: app/controllers/projects_controller.rb:13
+msgid "Mail Lists"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
@@ -587,70 +603,82 @@ msgid "project_Admin"
 msgstr "Admin"
 
 #: app/views/partials/_project_menu.rhtml:10
-#: app/views/partials/_project_menu.rhtml:48
+#: app/views/partials/_project_menu.rhtml:45
 msgid "project_Info"
 msgstr "Info"
 
 #: app/views/partials/_project_menu.rhtml:12
-#: app/views/partials/_project_menu.rhtml:50
-msgid "project_Summery"
+#: app/views/partials/_project_menu.rhtml:47
+#, fuzzy
+msgid "project_Summary"
 msgstr "Summary"
 
-#: app/views/partials/_project_menu.rhtml:17
-#: app/views/partials/_project_menu.rhtml:65
-msgid "project_News"
+#: app/views/partials/_project_menu.rhtml:13
+#: app/views/partials/_project_menu.rhtml:48
+#, fuzzy
+msgid "project_Website"
 msgstr "News"
 
-#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:14
+#, fuzzy
+msgid "project_Members"
+msgstr "Menu"
+
+#: app/views/partials/_project_menu.rhtml:21
 msgid "project_Tracker"
 msgstr "Tracker"
 
-#: app/views/partials/_project_menu.rhtml:24
+#: app/views/partials/_project_menu.rhtml:23
 msgid "tracker_Overview"
 msgstr "Overview"
 
-#: app/views/partials/_project_menu.rhtml:25
+#: app/views/partials/_project_menu.rhtml:24
 msgid "tracker_Defect"
 msgstr "Defect"
 
-#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:25
 msgid "tracker_Patch"
 msgstr "Patch"
 
-#: app/views/partials/_project_menu.rhtml:27
+#: app/views/partials/_project_menu.rhtml:26
 msgid "tracker_Task"
 msgstr "Task"
 
-#: app/views/partials/_project_menu.rhtml:28
+#: app/views/partials/_project_menu.rhtml:27
 msgid "tracker_Feature"
 msgstr "Feature"
 
-#: app/views/partials/_project_menu.rhtml:29
+#: app/views/partials/_project_menu.rhtml:28
 msgid "tracker_Enhancement"
 msgstr "Enhancement"
 
-#: app/views/partials/_project_menu.rhtml:35
+#: app/views/partials/_project_menu.rhtml:34
 #: app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:37
+#: app/views/partials/_project_menu.rhtml:36
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:78
+#: app/views/partials/_project_menu.rhtml:40
+#: app/views/partials/_project_menu.rhtml:59
+msgid "Mailing List"
+msgstr ""
+
+#: app/views/partials/_project_menu.rhtml:60
 msgid "release_Releases"
 msgstr "Release"
 
-#: app/views/partials/_project_menu.rhtml:80
+#: app/views/partials/_project_menu.rhtml:62
 msgid "release_Versions"
 msgstr "Versions"
 
-#: app/views/partials/_project_menu.rhtml:81
+#: app/views/partials/_project_menu.rhtml:63
 msgid "release_Upload Pool"
 msgstr "Upload Pool"
 
-#: app/views/partials/_project_menu.rhtml:84
+#: app/views/partials/_project_menu.rhtml:66
 msgid "project_Role Control"
 msgstr "Role Control"
 
@@ -743,6 +771,10 @@ msgstr "Contact Us"
 msgid "Change Icon"
 msgstr ""
 
+#: app/views/layouts/application.rhtml:142
+msgid "Steering Organization"
+msgstr ""
+
 #: app/views/releases/_most_popular.rhtml:1
 msgid "Top Download"
 msgstr ""
@@ -807,7 +839,7 @@ msgstr ""
 
 #: app/views/projects/_form.rhtml:4
 msgid "Project|name"
-msgstr "Project name"
+msgstr "Project Name"
 
 #: app/views/projects/_form.rhtml:7
 msgid "Project|summary"
@@ -851,19 +883,19 @@ msgstr ""
 
 #: app/views/user/_password.rhtml:5
 msgid "User|Password"
-msgstr ""
+msgstr "Password"
 
 #: app/views/user/_password.rhtml:8
 msgid "User|Password Confirmation"
-msgstr ""
+msgstr "Password Again"
 
 #: app/views/user/_password.rhtml:11 app/views/user/change_password.rhtml:10
 msgid "User|Change Password"
-msgstr ""
+msgstr "Change Password"
 
 #: app/views/user/forgot_password.rhtml:12
 msgid "User|Reset Password"
-msgstr ""
+msgstr "Reset Passsword"
 
 #: app/views/user/forgot_password.rhtml:13
 #: app/views/user/change_password.rhtml:11
@@ -872,15 +904,15 @@ msgstr ""
 
 #: app/views/user/_edit.rhtml:12
 msgid "User|TimeZone"
-msgstr ""
+msgstr "Time Zone"
 
 #: app/views/user/_edit.rhtml:14 app/views/user/signup.rhtml:11
 msgid "User|Signup"
-msgstr ""
+msgstr "Sign up"
 
 #: app/views/user/_edit.rhtml:14
 msgid "User|Change Settings"
-msgstr ""
+msgstr "Change Setting"
 
 #: app/views/user/edit.rhtml:22
 msgid "Delete Account"
@@ -888,11 +920,11 @@ msgstr ""
 
 #: app/views/user/_email.rhtml:8
 msgid "User|Email Confirmation"
-msgstr ""
+msgstr "Email Confirmation"
 
 #: app/views/user/_email.rhtml:11
 msgid "User|Change Email"
-msgstr ""
+msgstr "Change Email"
 
 #: app/views/user/home.rhtml:1
 msgid "My projects"
