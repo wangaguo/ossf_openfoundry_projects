@@ -88,3 +88,7 @@ OPENFOUNDRY_SYMPA_URL = 'http://sympa.of.openfoundry.org/sympa'
 # important password! leak it may leak all your user data!!
 #
 OPENFOUNDRY_JSON_DUMP_PASSWORD = ''
+
+# share session cookie for sub-doamins (SSO)
+# TODO: substitide domain name in the installing process
+ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
