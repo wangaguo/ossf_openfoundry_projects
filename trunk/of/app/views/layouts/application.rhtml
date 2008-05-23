@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= _("OpenFoundry") %> -- <%= controller.action_name %></title>
 	<%= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
-  <%= javascript_include_tag "application", "prototype", "effects", "transmenu" %>
+  <%= javascript_include_tag "prototype", "effects", "application", "transmenu" %>
   <%= javascript_include_tag 'calendar/calendar' %>
   <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
   <%= javascript_include_tag 'calendar/calendar-setup' %>
@@ -97,8 +97,8 @@
 	]; </script>
     </div>
   </div>
-  <div>
-    
+  <div id="shortcut_area">
+    &nbsp;<a href="javascript: HeaderOnOff()" title="Header On/Off"><img id="HeaderOnOffImage" src="/images/HeaderOnOff_Off.gif"/></a>
   </div>
 </div>
 
