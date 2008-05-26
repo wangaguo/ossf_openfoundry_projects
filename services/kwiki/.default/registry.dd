@@ -1,5 +1,11 @@
 {
   'action' => {
+    'captcha' => [
+      'scode'
+    ],
+    'diff' => [
+      'diff'
+    ],
     'display' => [
       'display'
     ],
@@ -8,9 +14,37 @@
     ],
     'edit_contention' => [
       'edit'
+    ],
+    'list_pages' => [
+      'list_pages'
+    ],
+    'page_privacy_set' => [
+      'page_privacy'
+    ],
+    'recent_changes' => [
+      'recent_changes'
+    ],
+    'recent_changes_ajax_list' => [
+      'recent_changes'
+    ],
+    'revisions' => [
+      'revisions'
+    ],
+    'search' => [
+      'search'
     ]
   },
   'add_order' => {
+    'archive' => {},
+    'diff' => {
+      'action' => [
+        'diff'
+      ],
+      'toolbar' => [
+        'diff_button',
+        'diff_controls'
+      ]
+    },
     'display' => {
       'action' => [
         'display'
@@ -29,6 +63,60 @@
       ],
       'toolbar' => [
         'edit_button'
+      ]
+    },
+    'list_pages' => {
+      'action' => [
+        'list_pages'
+      ],
+      'toolbar' => [
+        'ListPages'
+      ]
+    },
+    'page_privacy' => {
+      'action' => [
+        'page_privacy_set'
+      ],
+      'widget' => [
+        'page_privacy_select'
+      ]
+    },
+    'recent_changes' => {
+      'action' => [
+        'recent_changes_ajax_list',
+        'recent_changes'
+      ],
+      'preference' => [
+        'recent_changes_depth'
+      ],
+      'toolbar' => [
+        'recent_changes_button',
+        'recent_changes_options'
+      ]
+    },
+    'revisions' => {
+      'action' => [
+        'revisions'
+      ],
+      'prerequisite' => [
+        'archive'
+      ],
+      'toolbar' => [
+        'revisions_button',
+        'revisions_controls'
+      ]
+    },
+    'scode' => {
+      'action' => [
+        'captcha'
+      ]
+    },
+    'search' => {
+      'action' => [
+        'search'
+      ],
+      'toolbar' => [
+        'search_box'
       ]
     },
     'status' => {
@@ -58,11 +146,13 @@
     }
   },
   'classes' => {
+    'archive' => 'Kwiki::Archive::Rcs',
     'cgi' => 'Kwiki::CGI',
     'command' => 'Kwiki::Command',
     'config' => 'Kwiki::Config',
     'cookie' => 'Kwiki::Cookie',
     'css' => 'Kwiki::CSS',
+    'diff' => 'Kwiki::Diff',
     'display' => 'Kwiki::Display',
     'edit' => 'Kwiki::Edit',
     'files' => 'Kwiki::Files',
@@ -71,17 +161,59 @@
     'hooks' => 'Spoon::Hooks',
     'hub' => 'Kwiki::Hub',
     'javascript' => 'Kwiki::Javascript',
+    'list_pages' => 'Kwiki::ListPages',
     'page' => 'Kwiki::Page',
     'page_metadata' => 'Kwiki::PageMeta',
+    'page_privacy' => 'Kwiki::PagePrivacy',
     'pages' => 'Kwiki::Pages',
     'preferences' => 'Kwiki::Preferences',
+    'recent_changes' => 'Kwiki::RecentChanges',
     'registry' => 'Kwiki::Registry',
+    'revisions' => 'Kwiki::Revisions',
+    'scode' => 'Kwiki::Scode',
+    'search' => 'Kwiki::Search',
     'status' => 'Kwiki::Status',
     'template' => 'Kwiki::Template::TT2',
     'theme' => 'Kwiki::Theme::Basic',
     'toolbar' => 'Kwiki::Toolbar',
     'users' => 'Kwiki::Users',
     'widgets' => 'Kwiki::Widgets'
+  },
+  'hook' => {
+    'Kwiki::Edit' => [
+      [
+        'Kwiki::Edit::edit',
+        'post',
+        'Kwiki::Scode::generate_scode'
+      ],
+      [
+        'Kwiki::Edit::save',
+        'pre',
+        'Kwiki::Scode::check_scode'
+      ]
+    ],
+    'Kwiki::Page' => [
+      [
+        'Kwiki::Page::store',
+        'post',
+        'Kwiki::Archive::Rcs::commit_hook'
+      ],
+      [
+        'Kwiki::Page::is_readable',
+        'post',
+        'Kwiki::PagePrivacy::is_readable'
+      ],
+      [
+        'Kwiki::Page::is_writable',
+        'post',
+        'Kwiki::PagePrivacy::is_writable'
+      ],
+      [
+        'Kwiki::Page::to_html',
+        'pre',
+        'Kwiki::PagePrivacy::linked_page_formatter'
+      ]
+    ]
   },
   'plugins' => [
     {
@@ -107,6 +239,38 @@
     {
       'id' => 'widgets',
       'title' => 'Kwiki Widgets'
+    },
+    {
+      'id' => 'recent_changes',
+      'title' => 'Kwiki Recent Changes'
+    },
+    {
+      'id' => 'archive',
+      'title' => 'Page Archive'
+    },
+    {
+      'id' => 'revisions',
+      'title' => 'Kwiki Revisions'
+    },
+    {
+      'id' => 'search',
+      'title' => 'Kwiki Search'
+    },
+    {
+      'id' => 'page_privacy',
+      'title' => 'Kwiki Page Privacy'
+    },
+    {
+      'id' => 'scode',
+      'title' => 'Scode prevents wiki spam'
+    },
+    {
+      'id' => 'diff',
+      'title' => 'Kwiki diffs'
+    },
+    {
+      'id' => 'list_pages',
+      'title' => 'List Pages'
     }
   ],
   'preference' => {
@@ -121,6 +285,39 @@
         'owner_id' => 'display',
         'query' => 'Show a "Changed by ..." section on each page?',
         'type' => 'boolean'
+      }, 'Kwiki::Preference' )
+    ],
+    'recent_changes_depth' => [
+      'recent_changes',
+      'object',
+      bless( {
+        'choices' => [
+          1,
+          'Last 24 hours',
+          2,
+          'Last 2 Days',
+          3,
+          'Last 3 Days',
+          7,
+          'Last Week',
+          14,
+          'Last 2 Weeks',
+          30,
+          'Last Month',
+          60,
+          'Last 2 Months',
+          90,
+          'Last 3 Months',
+          182,
+          'Last 6 Months'
+        ],
+        'default' => 7,
+        'handler' => 'recent_changes_depth_handler',
+        'id' => 'recent_changes_depth',
+        'name' => 'Recent Changes Depth',
+        'owner_id' => 'recent_changes',
+        'query' => 'What time interval should "Recent Changes" display?',
+        'type' => 'pulldown'
       }, 'Kwiki::Preference' )
     ]
   },
@@ -141,6 +338,9 @@
     ]
   },
   'prerequisite' => {
+    'archive' => [
+      'revisions'
+    ],
     'status' => [
       'theme'
     ],
@@ -152,6 +352,29 @@
     ]
   },
   'toolbar' => {
+    'ListPages' => [
+      'list_pages',
+      'template',
+      'list_pages_button.html'
+    ],
+    'diff_button' => [
+      'diff',
+      'template',
+      'diff_button.html',
+      'show_for',
+      'revisions',
+      'params_class',
+      'diff'
+    ],
+    'diff_controls' => [
+      'diff',
+      'template',
+      'diff_controls.html',
+      'show_for',
+      'diff',
+      'params_class',
+      'diff'
+    ],
     'edit_button' => [
       'edit',
       'template',
@@ -167,6 +390,48 @@
       'display',
       'template',
       'home_button.html'
+    ],
+    'recent_changes_button' => [
+      'recent_changes',
+      'template',
+      'recent_changes_button.html'
+    ],
+    'recent_changes_options' => [
+      'recent_changes',
+      'template',
+      'recent_changes_options.html',
+      'show_for',
+      'recent_changes'
+    ],
+    'revisions_button' => [
+      'revisions',
+      'template',
+      'revisions_button.html',
+      'show_for',
+      'display'
+    ],
+    'revisions_controls' => [
+      'revisions',
+      'template',
+      'revisions_controls.html',
+      'show_for',
+      'revisions',
+      'params_class',
+      'revisions'
+    ],
+    'search_box' => [
+      'search',
+      'template',
+      'search_box.html'
+    ]
+  },
+  'widget' => {
+    'page_privacy_select' => [
+      'page_privacy',
+      'template',
+      'page_privacy_select.html',
+      'show_for',
+      'display'
     ]
   }
 }
