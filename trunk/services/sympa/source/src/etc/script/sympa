@@ -109,7 +109,7 @@ sympa_module_start() {
 	if [ ${OSTYPE} = "Slack" -o ${OSTYPE} = "IRIX" -o ${OSTYPE} = "SunOS" -o ${OSTYPE} = "Debian" -o ${OSTYPE} = "Suse" ]; then
 		$sympadir/$1.pl $startparam && echo "success" || echo "failure"
 	else
-		$sympadir/$1.pl $startparam && success || failure
+		$sympadir/$1.pl $startparam && echo "success" || echo "failure"
 	fi
 	echo
 }
@@ -167,7 +167,7 @@ sympa_stop() {
 		if [ ${OSTYPE} = "Slack" -o ${OSTYPE} = "IRIX" -o ${OSTYPE} = "SunOS" -o ${OSTYPE} = "Debian" -o ${OSTYPE} = "Suse" ]; then
 			kill -TERM $pid && echo "success" || echo "failure"
 		    else
-			kill -TERM $pid && success || failure
+			kill -TERM $pid && echo "success" || echo "failure"
 		    fi		    
 		else
 		    echo "died"
