@@ -17,6 +17,10 @@ sub init
 	{
 		return new OpenFoundry::Impl::Mock;
 	}
+	elsif ($backend eq 'OF')
+	{
+		return new OpenFoundry::Impl::OF($conf);
+	}
 	elsif ($backend eq 'RT')
 	{
 		return new OpenFoundry::Impl::RT($conf);
@@ -139,9 +143,9 @@ sub getSessionInfo
 # TODO: fix me !
 sub _log
 {
-	my ($msg) = @_;
-	open my $F, ">>/tmp/openfoundry.org";
-	print {$F} scalar(localtime()), " ", $msg, "\n";
+	my ($self, $msg) = @_;
+	open my $F, ">>/tmp/openfoundry.log";
+	print {$F} scalar(localtime()), "--", $msg, "--\n";
 	close $F;
 }
 
@@ -202,6 +206,70 @@ sub getSessionInfo
 {
 	my ($self, $SID, $projectUnixName) = @_;
 	my $tmp = LWP::Simple::get("http://rt.openfoundry.org/NoAuth/Session.html?SID=$SID&projectUnixName=$projectUnixName");
+	my ($userName, $role, $email) = split / /, $tmp;
+	#_log("userName: $userName role: $role email: $email");
+	return ($userName, $role, $email);
+}
+##########################################
+
+package OpenFoundry::Impl::OF;
+use vars qw(@ISA);
+@ISA = ('OpenFoundry');
+
+use LWP::Simple;
+use Data::Dumper;
+use JSON::XS;
+use Carp;
+use Fatal qw(open close);
+
+#vcs# perl -MOpenFoundry -MBenchmark -e 'timethis(100, sub {OpenFoundry->init("RT")})'
+#timethis 100:  3 wallclock secs ( 2.66 usr +  0.08 sys =  2.73 CPU) @ 36.57/s (n=100)
+#
+#vcs# perl -MOpenFoundry -MBenchmark -e 'timethis(100, sub {OpenFoundry->init("RT")->isInRelationByName("admin", "openfoundry", "LCamel") })'
+#timethis 100:  3 wallclock secs ( 2.75 usr +  0.08 sys =  2.83 CPU) @ 35.36/s (n=100)
+
+sub new
+{
+	my ($class, $conf) = @_;
+	my $self = OpenFoundry::__loadJsonFile($conf->{$> == 0 ? ROOT_JSON_DUMP_CACHE_PATH : JSON_DUMP_CACHE_PATH});
+	$self->{conf} = $conf;
+	return bless $self, $class;
+}
+
+# static (for not loading old data)
+# perl -MOpenFoundry -e 'OpenFoundry::Impl::RT::refresh'
+# see: /usr/local/bin/openfoundry_sync_cache.sh
+sub refresh
+{
+	my $conf = OpenFoundry::loadConf();
+	my $url = $conf->{DUMP_SOURCE_URL} . $conf->{DUMP_SECRET};
+	my $json = LWP::Simple::get($url);
+	# TODO: integrity check ??
+	my $umask = umask 0077;
+	open my $fh, ">", $conf->{ROOT_JSON_DUMP_CACHE_PATH};
+	print {$fh} $json;
+	close $fh;
+	umask $umask;
+
+	# write a stripped-down version for non-root users
+	my $obj = decode_json($json);
+	foreach my $user (@{$obj->{users}})
+	{
+		$user->{Password} = $user->{Email} = '';
+	}
+	open my $fh2, ">", $conf->{JSON_DUMP_CACHE_PATH};
+	print {$fh2} encode_json($obj);
+	close $fh2;
+}
+
+
+sub getSessionInfo
+{
+	my ($self, $SID, $projectname) = @_;
+	my $url = sprintf($self->{conf}->{SSO_URL}, $SID, $projectname);
+	my $tmp = LWP::Simple::get($url);
+	$self->_log($url);
+	$self->_log($self->{conf}->{SSO_URL});
 	my ($userName, $role, $email) = split / /, $tmp;
 	#_log("userName: $userName role: $role email: $email");
 	return ($userName, $role, $email);
@@ -280,7 +348,7 @@ sub syncWithFoundry
 	my $table = "foundry_owner";
 	my $table_tmp = "foundry_owner_tmp";
 
-	my $of = OpenFoundry->init('Aguo');
+	my $of = OpenFoundry->init();
 
 	# admin
 	my $relations = $of->getRelations();
@@ -306,7 +374,7 @@ sub syncWithFoundry
 		my $u=$of->getUserById($userId);
 		my $p=$of->getProjectById($projectId);
 		#die "why??" if (not $u or not $p);
-		$sth->execute($u->{'Email'}, $p->{'UnixName'});
+		$sth->execute($u->{'Email'}, $p->{'name'});
 	}	
 
 
