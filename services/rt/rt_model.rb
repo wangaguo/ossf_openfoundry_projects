@@ -68,7 +68,7 @@ end
 class RTGroupMember < RTModel
   set_table_name 'GroupMembers'
 
-  def add_user_into_group(uid, gid)
+  def self.add_user_into_group(uid, gid)
     cache_id = RTCachedGroupMember.find(:first, :conditions => "MemberId = #{gid}").id
 
     RTGroupMember.new(:GroupId => gid, :MemberId => uid).save
