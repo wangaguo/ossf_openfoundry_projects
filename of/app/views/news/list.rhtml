@@ -7,11 +7,12 @@
 <ul>
   <%for news in @news %>
   <li>
+    <%if news.catid == 0%>
 	  <%= link_to h(news.subject), :controller => "news", :action => "show", :id => news.id %> <%=news.updated_at.strftime("(%Y/%m/%d)")%>
-    <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;<%=link_to ( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
-    <%
-    puts :action_name
-		%>
+    <%else%>
+      <%= link_to news.subject, news1_path(:id => news.id, :project_id => news.catid) %>
+    <%end%>
+    <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;<%=link_to ("(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>
     <% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
     <p>
       <label>狀態:</label>
