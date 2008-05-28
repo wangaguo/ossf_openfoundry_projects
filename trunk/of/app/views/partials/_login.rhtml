@@ -3,7 +3,7 @@
   <%# = lightbox_link_to "Link Name", url_for(:controller => :images, :action => "image", :id => current_user.icon) %> 
   <%# = lightbox_image_tag(url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24), url_for(:controller => :images, :action => "image", :id => current_user.icon), {:class=>"images"}, :title => "This is a test!") %>
   <img src="<%= url_for(:controller => :images,
-                :action => "image", :id => current_user.icon, :size => 24) %>"/>
+                :action => "image", :id => current_user.icon, :size => 24) %>" align="middle"/>
   <%= _("Welcome")%>!
   &nbsp;
   <%=current_user.login%> 
