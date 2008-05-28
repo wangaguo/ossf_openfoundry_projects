@@ -2,22 +2,53 @@
   <div id="Module">
     <table>
       <tr>
-        <td><a><img src="/images/of/banner_icon01.gif" /><br/>待辦事項</a></td>
-        <td><a><img src="/images/of/banner_icon02.gif" /><br/>共同筆記</a></td>
-        <td><a><img src="/images/of/banner_icon03.gif" /><br/>版本控制</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_IssueTracker')" onmouseout="module_text_change('');" title="Issue Tracker"><img src="/images/of/banner_icon01.gif" /><br/>待辦事項</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_Wiki')" onmouseout="module_text_change('');" title="Wiki"><img src="/images/of/banner_icon02.gif" /><br/>共同筆記</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_VCS')" onmouseout="module_text_change('');" title="Version Control"><img src="/images/of/banner_icon03.gif" /><br/>版本控制</a></td>
       </tr>
       <tr>
-        <td><a><img src="/images/of/banner_icon04.gif" /><br/>通信論壇</a></td>
-        <td><a><img src="/images/of/banner_icon05.gif" /><br/>專案管理</a></td>
-        <td><a><img src="/images/of/banner_icon06.gif" /><br/>網站代管</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_MailingList')" onmouseout="module_text_change('');" title="Mailing List"><img src="/images/of/banner_icon04.gif" /><br/>通信論壇</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_ProjectManagement')" onmouseout="module_text_change('');" title="Project Management"><img src="/images/of/banner_icon05.gif" /><br/>專案管理</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_Webhosting')" onmouseout="module_text_change('');" title="Webhosting"><img src="/images/of/banner_icon06.gif" /><br/>網站代管</a></td>
       </tr>
     </table>
-
   </div>
+<script>
+  function module_text_change(id){
+    if(id=='') id='Module_Text_OpenFoundry';
+    $('Module_Text').innerHTML = $(id).innerHTML;
+  }
+</script>
   <h1>Welcome to OpenFoundry</h1>
-  <p>
-    自由軟體鑄造場專案開發平台（OpenFoundry）是一個讓軟體開發者與使用者 可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通 信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自 由軟體，一般使用者也可在此取得軟體並提供意見。
-  </p>
+  <div id="Module_Text">  
+ 自由軟體鑄造場專案開發平台（OpenFoundry）是一個讓軟體開發者與使用者 可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通 信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自 由軟體，一般使用者也可在此取得軟體並提供意見。
+  </div>
+  <div id="Module_Text_OpenFoundry" style="display:none;">
+ 自由軟體鑄造場專案開發平台（OpenFoundry）是一個讓軟體開發者與使用者 可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通 信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自 由軟體，一般使用者也可在此取得軟體並提供意見。  </div>
+  <div id="Module_Text_IssueTracker" style="display:none;">
+待辦事項(Issue Tracker)<br/><br/>
+待辦事項功能可用來追蹤專案內應處理的事項，包括事項的相關負責人，事項的處理狀態及事項的處理過程記錄等資訊；專案管理人員也可以使用這些功能來分派成員工作與追蹤軟體錯誤回報修復的情形。
+  </div>
+  <div id="Module_Text_Wiki" style="display:none;">
+共同筆記(Wiki)<br/><br/>
+共同筆記是一個可以提供多人共同編輯功能與簡易網頁語法的系統。使用者可以針對每篇文章制定不同的存取權限，決定文章是否可被其他人閱讀或修改。專案營運人員可在其上張貼專案簡介、使用手冊等資訊並可作為各個專案之首頁，也可以讓專案參與者在其上交換心得與問題。
+  </div>
+  <div id="Module_Text_VCS" style="display:none;">
+版本控制(Version Control)<br/><br/>
+版本控制功能可以保存著檔案的版本演進，也可讓不同的人同時分別修改。使用者可以於上傳時說明更新的原因，將來便可追溯到任何一行的程式與文件是由誰在何時為了什麼理由而修改。透過版本控制的支援，分散於世界各地的自由軟體開發者便能共同開發及維護其專案。
+  </div>
+  <div id="Module_Text_MailingList" style="display:none;">
+通信論壇(Mailing List)<br/><br/>
+通信論壇可以讓專案開發者與其他使用者彼此互相交流意見，不論是透過網頁介面或電子郵件都可以存取其中的訊息並主動通知，使用者也可從以往的發言紀錄中汲取經驗。專案管理員可以就不同類型的話題分別開設論壇，也可以對不當的訊息加以管理。
+  </div>
+  <div id="Module_Text_ProjectManagement" style="display:none;">
+專案管理(Project Management)<br/><br/>
+專案管理是針對專案管理者所開發出來的管理工具組合，此工具包括專案時程規劃（Gantt Chart，甘特圖）、專案徵人、行事曆、檔案釋出規劃和下載以及軟體開發進度等等。
+  </div>
+  <div id="Module_Text_Webhosting" style="display:none;">
+網站代管(Web Hosting)<br/><br/>
+我們提供網址為 http://[專案ID].openfoundry.org 的網頁空間，讓每個專案管理員可以自行放置與該專案相關的網頁，以便在專案推動上有更多的資源做更靈活的運用。
+  </div>
 </div>
 <div id="RightWidget">
   <div id="HomeRight">

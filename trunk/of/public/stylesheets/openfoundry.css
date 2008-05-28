@@ -78,6 +78,7 @@ body {
 #OFIntro #Module img { opacity:0.6; padding:8px; }
 #OFIntro #Module img:hover { opacity:1; }
 #OFIntro #Module a { font-size:15px; }
+#OFIntro #Module_Text { font-size:120%; }
 
 
 /* Left menu */
