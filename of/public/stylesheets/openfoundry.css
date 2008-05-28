@@ -224,7 +224,8 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 .search:before { content:url(/images/search.gif); padding-top:5px; }
 
 
-
+/* For News */
+.news_subject { color:#215DA9; font-size:120%}
 
 /* For project-release */
 #Uploaddirs { overflow:auto;height:250px;width:50%;float:left; }
