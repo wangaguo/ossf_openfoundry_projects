@@ -26,14 +26,14 @@ class UserController < ApplicationController
     begin redirect_to :action => :home, :controller => :user ;return end if login?
     return if generate_blank
     #For "paranoid session store"
-    rebuild_session
+    #rebuild_session
 
     @user = User.new(params['user'])
     if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
       flash[:message] = _('user_login_succeeded')
       redirect_back_or_default :action => :home
       # For "paranoid session store"
-      self.app_user=session['user']
+      #self.app_user=session['user']
 
       if params['remember_me']
         # TODO: is this always the case ??
@@ -71,7 +71,7 @@ class UserController < ApplicationController
     session['user'] = nil
     #For "paranoid session store"
     #kill_login_key
-    rebuild_session
+    #rebuild_session
 
     redirect_to :action => 'login'
   end

@@ -161,12 +161,12 @@ class User < ActiveRecord::Base
   validates_length_of :password, { :minimum => 5, :if => :validate_password? }
   validates_length_of :password, { :maximum => 40, :if => :validate_password? }
 
-  #For "paranoid session store"
-  has_many   :sessions,   :conditions => ["#{Session.table_name}.updated_at > ?", Session.expires_at], :dependent => :delete_all
-
-  def self.online_users
-    find :all, :include => [:sessions], :conditions => "users.id = #{Session.table_name}.user_id"
-  end  
+#  #For "paranoid session store"
+#  has_many   :sessions,   :conditions => ["#{Session.table_name}.updated_at > ?", Session.expires_at], :dependent => :delete_all
+#
+#  def self.online_users
+#    find :all, :include => [:sessions], :conditions => "users.id = #{Session.table_name}.user_id"
+#  end  
 
   # User.find(:all, :conditions => User.verified_users).size
   def self.verified_users(condition = 'true')

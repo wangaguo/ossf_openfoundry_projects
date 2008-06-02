@@ -4,7 +4,7 @@
 require 'user_system'
 require 'of'
 # For "paranoid session store"
-require 'action_controller_cgi_request_hack'
+#require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
   # for ActiveMQ module
@@ -89,8 +89,8 @@ class ApplicationController < ActionController::Base
   session :session_key => '_of_session_id'
   
   # Fro "paranoid session store"
-  before_filter :touch_session
-  after_filter  :touch_session
+  #before_filter :touch_session
+  #after_filter  :touch_session
 
   def add_tag
 	  type=params['class']
