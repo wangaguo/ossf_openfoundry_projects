@@ -84,6 +84,7 @@ OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
 OPENFOUNDRY_VIEWVC_URL =  'http://viewvc.of.openfoundry.org/viewvc/'
 OPENFOUNDRY_RT_URL = 'http://rt.of.openfoundry.org'
 OPENFOUNDRY_SYMPA_URL = 'http://sympa.of.openfoundry.org/sympa'
+OPENFOUNDRY_KWIKI_URL = 'http://kwiki.of.openfoundry.org/Kwiki'
 #
 # important password! leak it may leak all your user data!!
 #

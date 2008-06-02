@@ -5,6 +5,6 @@ class KwikiController < ApplicationController
   end
   
   def index
-    render 'kwiki/kwiki'
+    @module_url = OPENFOUNDRY_KWIKI_URL + "/" + @project.name + "/index.cgi"
   end
 end
