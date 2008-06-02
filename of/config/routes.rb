@@ -31,9 +31,8 @@ ActionController::Routing::Routes.draw do |map|
     :member => { :uploadfiles => :any, :delete => :post, 
                  :addfiles => :post, :removefile => :post },
     :singular => :release
-  map.connect '/projects/:project_id/:controller', 
-       :controller => 'kwiki',
-       :action => 'index'
+  map.resources :kwiki,
+                :path_prefix => '/projects/:project_id'
   map.resources :rt,
                 :singular => 'rt1',
                 :path_prefix => '/projects/:project_id'
