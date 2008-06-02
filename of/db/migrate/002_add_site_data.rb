@@ -53,5 +53,6 @@ class AddSiteData < ActiveRecord::Migration
   end
 
   def self.down
+    Function.delete_all
   end
 end

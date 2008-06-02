@@ -53,8 +53,8 @@ class CreateTables < ActiveRecord::Migration
 
     create_table "projects", :force => true do |t|
       t.integer "icon",                :default => 0, :null => false
-      t.string  "name"
-      t.string  "summary"
+      t.string  "name",                :limit => 20
+      t.string  "summary",             :limit => 5
       t.text    "rationale"
       t.text    "description"
       t.string  "contactinfo"
@@ -110,20 +110,15 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at"
     end
 
-    create_table "sessions", :force => true do |t|
-      t.string   "session_id", :limit => 32, :default => "", :null => false
-      t.integer  "user_id"
-      t.string   "host",       :limit => 20
-      t.datetime "created_at",                               :null => false
-      t.datetime "updated_at",                               :null => false
-      t.text     "data"
+    create_table :sessions, :force => true do |t|
+      t.string :session_id, :null => false
+      t.text :data
+      t.timestamps
     end
 
-    add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id", :unique => true
-    add_index "sessions", ["user_id"], :name => "index_sessions_on_user_id"
-    add_index "sessions", ["host"], :name => "index_sessions_on_host"
-    add_index "sessions", ["created_at"], :name => "index_sessions_on_created_at"
-    add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+    add_index :sessions, :session_id
+    add_index :sessions, :updated_at
+ 
 
     create_table "taggings", :force => true do |t|
       t.integer  "tag_id"

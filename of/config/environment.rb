@@ -29,8 +29,9 @@ Rails::Initializer.run do |config|
 
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
-  # config.action_controller.session_store = :active_record_store
-  config.action_controller.session_store = :paranoid_sql_session_store
+  config.action_controller.session_store = :active_record_store
+  #config.action_controller.session_store = :paranoid_sql_session_store
+   
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
   # like if you have constraints or database-specific column types
@@ -89,6 +90,7 @@ OPENFOUNDRY_KWIKI_URL = 'http://kwiki.of.openfoundry.org/Kwiki'
 # important password! leak it may leak all your user data!!
 #
 OPENFOUNDRY_JSON_DUMP_PASSWORD = ''
+
 
 # share session cookie for sub-doamins (SSO)
 # TODO: substitide domain name in the installing process
