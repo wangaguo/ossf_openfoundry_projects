@@ -121,7 +121,10 @@
         <div id='project_logo'>
         <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
         </div>
-        <span><br/>  <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a></span>
+        <span><br/>  
+          <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
+            <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a></span>
+          <%end%>
       </div>
           <%= render :partial => 'images/edit', :locals => 
           {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) }%>
