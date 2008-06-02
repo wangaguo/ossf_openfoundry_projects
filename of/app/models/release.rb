@@ -2,6 +2,15 @@ class Release < ActiveRecord::Base
   belongs_to :project
   has_many :fileentity
   
+  #add fulltext indexed SEARCH
+  acts_as_ferret :fields => { 
+                              :name => { :boost => 1.5,
+                                          :store => :no,
+                                          :index => :untokenized },
+                              :description => { :store => :no,
+                                             :index => :untokenized }                                                         
+                            }
+  
   def self.build_path(project_name, gid)
     tmp_umask = File::umask
     File::umask(007)

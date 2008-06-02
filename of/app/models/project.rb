@@ -21,7 +21,17 @@ class Project < ActiveRecord::Base
   acts_as_authorizable
 
   #add fulltext indexed SEARCH
-  acts_as_ferret 
+  acts_as_ferret :fields => { 
+                              :name => { :boost => 1.5,
+                                          :store => :no,
+                                          :index => :untokenized },
+                              :summary => { :store => :no,
+                                              :index => :untokenized },
+                              :rationale => { :store => :no,
+                                             :index => :untokenized },
+                              :description => { :store => :no,
+                                             :index => :untokenized }                                                         
+                            }
 
   #add tags
   acts_as_taggable
