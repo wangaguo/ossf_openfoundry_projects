@@ -3,21 +3,24 @@ require "json"
 require "net/http"
 require "uri"
 require "json"
+require 'base64'
 
 class OpenfoundryController < ApplicationController
 
   def index
   end
 
-  # private
+  class Session < ActiveRecord::Base; end # only used by get_session_by_id
   def get_session_by_id(session_id)
-    # ref: actionpack-2.0.2/lib/action_controller/cgi_process.rb   def session
-    options = ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS.stringify_keys
-    options.merge!('session_id' => session_id)
-    puts options.inspect
-    s = CGI::Session.new(request.cgi, options)
+    begin
+      Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
+    rescue
+      {}
+    end
   end
-  session :off, :only => :get_user_by_session_id
+  private :get_session_by_id
+
+  session :off, :only => [:get_user_by_session_id, :authentication_authorization]
   def get_user_by_session_id
     s = get_session_by_id(params['session_id'])
     u = current_user(s) 
