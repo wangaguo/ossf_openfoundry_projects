@@ -166,7 +166,7 @@ class ProjectsController < ApplicationController
 #    page[:greeting].update "Greetings, " + params[:name]
 #    page[:greeting].visual_effect :grow
 #    page.select("form").first.reset
-    send_msg(TYPES[:project], ACTIONS[:create], "hello world")
+    #send_msg(TYPES[:project], ACTIONS[:create], "hello world")
 
     redirect_to :action => 'role_new', :id => params[:id]
   end
