@@ -2,7 +2,7 @@
 
 <!-- OpenFoundry -->
 <script type="text/javascript">
-if(window.name != '') location.pathname = location.pathname + '/lists_by_project/' + window.name + '/';
+if(window.name != '' && location.pathname.lastIndexOf('lists_by_project') < 0 ) location.pathname = '/sympa/lists_by_project/' + window.name + '/';
 </script>
 
 <p class="text_justify">
