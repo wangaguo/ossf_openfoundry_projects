@@ -857,7 +857,7 @@ my $birthday = time ;
 
 
 # OpenFoundry
-($ENV{HTTP_COOKIE}, $in{'FOUNDRY_ROLE'}) = foundry_auth($ENV{HTTP_COOKIE}, $in{'projectUnixName'});
+#($ENV{HTTP_COOKIE}, $in{'FOUNDRY_ROLE'}) = foundry_auth($ENV{HTTP_COOKIE}, $in{'projectUnixName'});
 
 
 
@@ -885,6 +885,12 @@ my $birthday = time ;
 
      $param->{'session'} = $session;
      
+# OpenFoundry
+     my $sso_email = '';
+     ($sso_email, $in{'FOUNDRY_ROLE'}) = foundry_auth($ENV{HTTP_COOKIE}, $in{'projectUnixName'});
+     $session->{'email'}= $sso_email;
+     #$session->{'id_session'} = SympaSession::get_random() if $sso_user != $session->;
+
      &Log::set_log_level($session->{'log_level'}) if ($session->{'log_level'});
      $param->{'restore_email'} = $session->{'restore_email'};
      $param->{'dumpvars'} = $session->{'dumpvars'};
@@ -17012,10 +17018,10 @@ unless ($in{'FOUNDRY_ROLE'} eq 'Admin') {
 }
 
      ## Lowercase listname if required
-     #if ($in{'listname'} =~ /[A-Z]/) {
-     #  $in{'listname'} = lc($in{'listname'});
-     #  &report::notice_report_web('listname_lowercased',{},$param->{'action'});
-     #}
+     if ($in{'listname'} =~ /[A-Z]/) {
+       $in{'listname'} = lc($in{'listname'});
+       &report::notice_report_web('listname_lowercased',{},$param->{'action'});
+     }
 
      ## Check that a user is logged in
      unless ($param->{'user'}{'email'}) {
@@ -17083,7 +17089,7 @@ $in{'listname'} = $in{'projectUnixName'} . "-" . $in{'listname'};
      $parameters->{'description'} = $in{'info'};
 
      ## create liste
-     my $resul = &admin::create_list_old($parameters,$in{'template'},$robot);
+     my $resul = &admin::create_list_old($parameters,$in{'template'},$robot,"web");
      unless(defined $resul) {
         &report::reject_report_web('intern','create_list',{},$param->{'action'},'',$param->{'user'}{'email'},$robot);
         &wwslog('info','do_create_list: unable to create list %s for %s',$in{'listname'},$param->{'user'}{'email'});
@@ -17136,46 +17142,53 @@ $in{'listname'} = $in{'projectUnixName'} . "-" . $in{'listname'};
 
 sub foundry_auth
 {
-       my ($httpCookie, $projectUnixName) = @_;
+       my $of = OpenFoundry::init();
+       my ($httpCookie, $projectname) = @_;
 
 
        #OpenFoundry::_log("original HTTP_COOKIE: $ENV{HTTP_COOKIE}");
        my %cookies = CGI::Cookie->parse($httpCookie);
-       OpenFoundry::_log("Dumper of cookies: ", Dumper(\%cookies));
+       #$of->_log("Dumper of cookies: ", Dumper(\%cookies));
 
-       my $FOUNDRY_COOKIE_KEY = 'RT_SID_OSSF.80_';
+       my $FOUNDRY_COOKIE_KEY = '_of_session_id';
 
        my $sid = $cookies{$FOUNDRY_COOKIE_KEY} ? $cookies{$FOUNDRY_COOKIE_KEY}->value() : undef;
-       my ($userName, $role, $email) = OpenFoundry::getSessionInfo($sid, $projectUnixName);
+       my ($userName, $role, $email) = $of->getSessionInfo($sid, $projectname);
+       my $sympa_email = '';
        if ($userName and ($userName ne 'guest')) # valid foundry user
        {
                #my $email = $of->getUserByName($userName)->{'Email'};
                #$email = 'root@lists.openfoundry.org';
-               OpenFoundry::_log("email: $email\n");
+               #$of->_log("email: $email\n");
+ 
 
+               #my $secret = $Conf{'cookie'};
+               #my $mac = cookielib::get_mac($email, $secret);
+               #OpenFoundry::_log("email: $email secret: $secret mac: $mac");
+               #$cookies{'sympauser'} ||= new CGI::Cookie(-name=>'sympauser', -value=>'');
+               #$cookies{'sympauser'}->value("$email:$mac");
 
-               my $secret = $Conf{'cookie'};
-               my $mac = cookielib::get_mac($email, $secret);
-               OpenFoundry::_log("email: $email secret: $secret mac: $mac");
-               $cookies{'sympauser'} ||= new CGI::Cookie(-name=>'sympauser', -value=>'');
-               $cookies{'sympauser'}->value("$email:$mac");
+               $sympa_email = $email;
        }
        else
        {
-               delete $cookies{'sympauser'};
+               #delete $cookies{'sympauser'};
+
+	       $sympa_email = 'nobody';
        }
 
 
-       my @newHeaders = ();
-       foreach my $cookie (values %cookies)
-       {
-               OpenFoundry::_log("name: " . $cookie->name() . " value: " . $cookie->value());
-               push @newHeaders, CGI::Util::escape($cookie->name()) . '=' . CGI::Util::escape($cookie->value());
-       }
-       my $newHttpCookie = join("; ", @newHeaders);
-       OpenFoundry::_log("new HTTP_COOKIE: $newHttpCookie");
+       #my @newHeaders = ();
+       #foreach my $cookie (values %cookies)
+       #{
+       #        OpenFoundry::_log("name: " . $cookie->name() . " value: " . $cookie->value());
+       #        push @newHeaders, CGI::Util::escape($cookie->name()) . '=' . CGI::Util::escape($cookie->value());
+       #}
+       #my $newHttpCookie = join("; ", @newHeaders);
+       #OpenFoundry::_log("new HTTP_COOKIE: $newHttpCookie");
 
-       return ($newHttpCookie, $role);
+       #return ($newHttpCookie, $role);
+       return ($sympa_email, $role);
 }
 
 =pod 
