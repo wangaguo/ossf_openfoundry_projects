@@ -44,7 +44,7 @@ class NewsController < ApplicationController
     end
     add_to_sortable_columns('listing', News, 'subject', 'subject') 
     add_to_sortable_columns('listing', News, 'updated_at', 'updated_at') 
-    @news = News.paginate(:page => params[:page], :per_page => 2, :conditions => ["catid=?"+sqlStatus, project_id],
+    @news = News.paginate(:page => params[:page], :per_page => 10, :conditions => ["catid=?"+sqlStatus, project_id],
                           :order => sortable_order('listing', :model => News, :field => 'updated_at', :sort_direction => :desc) )
     render :layout => layout_name, :template => 'news/list'
   end
