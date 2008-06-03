@@ -5,12 +5,12 @@ class ProjectsController < ApplicationController
   
   def set_project_id
     params[:project_id] = params[:id]
-    @module_name = "專案資訊"
+    @module_name = _('Project Infomation')
   end
   
   def sympa
     @project = Project.find(params[:id])
-    @module_name = _('Mail Lists')
+    @module_name = _('Mailing List')
     if (params[:path] != nil)
       @Path = OPENFOUNDRY_SYMPA_URL + "/#{params[:path]}" 
     else
@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
   end
   
   def viewvc
+    @module_name = _('Version Control')
     @project = Project.find(params[:id])
     @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.name
   end
