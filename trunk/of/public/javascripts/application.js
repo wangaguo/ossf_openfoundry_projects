@@ -17,22 +17,25 @@ function submenuSwitch(item)
 	else submenu.style.display = 'none';
 }
 
-function project_menu()
-{
-  $('project_admin_menu').style.display = "none";
-}
-
 function project_leftmenu_onclick(tab)
 {
-  if (tab == 1) {
-    $('project_menu').style.display = "block";
-    $('project_admin_menu').style.display = "none";
-  }
-  else
+  if(tab == 2 && $('project_admin_menu') != null) 
   {
     $('project_menu').style.display = "none";
     $('project_admin_menu').style.display = "block";
   }
+  else
+  {
+    $('project_menu').style.display = "block";
+    $('project_admin_menu').style.display = "none"; 
+  }
+  setCookie("project_leftmenu_state", tab,"","/");
+  alert(999);
+}
+
+function project_leftmenu_init()
+{
+  project_leftmenu_onclick(getCookie("project_leftmenu_state"));
 }
 
 /*
