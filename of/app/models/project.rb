@@ -38,9 +38,13 @@ class Project < ActiveRecord::Base
   
   #model relationships
   has_many :releases
-  
-  #field validations...
-  validates_format_of :name, :with => /^[a-zA-Z][0-9a-zA-Z]{2,15}$/, :message => _('專案名稱應以英數字組成, 英文字母開頭, 長度不超過16個字')
+  # field validations...
+  # see also: http://rt.openfoundry.org/Edit/Queues/CustomField/?Queue=4
+  #
+  # Don't forget to modify "db/migrate/001_create_tables.rb"
+  # 
+  # see: /activerecord-2.0.2/lib/active_record/validations.rb
+  validates_format_of :name, :with => /^[a-z][0-9a-z]{2,14}$/, :message => _('專案名稱應以英數字組成, 英文字母開頭, 長度不超過15個字')
   #validates_inclusion_of :license, :in => LICENSES
   #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
   
