@@ -8,12 +8,15 @@ class User < ActiveRecord::Base
   #add fulltext indexed SEARCH
   acts_as_ferret :fields => { 
                               :login => { :boost => 1.5,
-                                          :store => :no,
+                                          :store => :yes,
                                           :index => :untokenized },
-                              :firstname => { :store => :no,
+                              :firstname => { :store => :yes,
                                               :index => :untokenized },
-                              :lastname => { :store => :no,
-                                             :index => :untokenized }                                                        
+                              :lastname => { :store => :yes,
+                                             :index => :untokenized },
+                              :name => { :boost => 1.5,
+                                         :store => :yes,
+                                         :index => :untokenized }             
                             }
 
   #add tags
@@ -26,6 +29,9 @@ class User < ActiveRecord::Base
     is_member_of_what
   end
 
+  def name
+    "#{self.firstname} #{self.lastname}"
+  end
 
   attr_accessor :new_password, :change_password
   

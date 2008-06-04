@@ -5,10 +5,10 @@ class Release < ActiveRecord::Base
   #add fulltext indexed SEARCH
   acts_as_ferret :fields => { 
                               :name => { :boost => 1.5,
-                                          :store => :no,
+                                          :store => :yes,
                                           :index => :untokenized },
-                              :description => { :store => :no,
-                                             :index => :untokenized }                                                         
+                              :description => { :store => :yes,
+                                             :index => :yes }                                                         
                             }
   
   def self.build_path(project_name, gid)

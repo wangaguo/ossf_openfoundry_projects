@@ -7,6 +7,6 @@ class Fileentity < ActiveRecord::Base
                                           :store => :no,
                                           :index => :untokenized },
                               :description => { :store => :no,
-                                             :index => :untokenized }                                                         
+                                             :index => :yes }                                                         
                             }
 end
