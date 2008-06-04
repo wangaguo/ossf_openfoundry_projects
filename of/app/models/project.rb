@@ -27,8 +27,6 @@ class Project < ActiveRecord::Base
                                          :index => :untokenized },
                               :summary => { :store => :yes,
                                             :index => :yes },
-                              :rationale => { :store => :yes,
-                                              :index => :yes },
                               :description => { :store => :yes,
                                                 :index => :yes }                                                         
                             }
