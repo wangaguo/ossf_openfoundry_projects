@@ -30,7 +30,6 @@ function project_leftmenu_onclick(tab)
     $('project_admin_menu').style.display = "none"; 
   }
   setCookie("project_leftmenu_state", tab,"","/");
-  alert(999);
 }
 
 function project_leftmenu_init()
