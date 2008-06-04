@@ -4,9 +4,9 @@ class News < ActiveRecord::Base
   #add fulltext indexed SEARCH
   acts_as_ferret :fields => { 
                               :subject => { :boost => 1.5,
-                                          :store => :no,
-                                          :index => :untokenized },
-                              :description => { :store => :no,
+                                          :store => :yes,
+                                          :index => :yes },
+                              :description => { :store => :yes,
                                              :index => :yes }                                                         
                             }
   
