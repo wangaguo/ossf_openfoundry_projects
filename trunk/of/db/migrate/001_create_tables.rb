@@ -51,13 +51,14 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                                  :null => false
     end
 
+    # see also: app/models/project.rb
     create_table "projects", :force => true do |t|
       t.integer "icon",                :default => 0, :null => false
-      t.string  "name",                :limit => 20
-      t.string  "summary",             :limit => 5
+      t.string  "name",                :limit => 15 
+      t.string  "summary",             :limit => 255 
       t.text    "rationale"
       t.text    "description"
-      t.string  "contactinfo"
+      t.string  "contactinfo",         :limit => 255
       t.string  "maturity"
       t.string  "license"
       t.string  "contentlicense"
