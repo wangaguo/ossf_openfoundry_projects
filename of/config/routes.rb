@@ -32,6 +32,7 @@ ActionController::Routing::Routes.draw do |map|
                  :addfiles => :post, :removefile => :post },
     :singular => :release
   map.resources :kwiki,
+                :singular => 'kwiki1',
                 :path_prefix => '/projects/:project_id'
   map.resources :rt,
                 :singular => 'rt1',
