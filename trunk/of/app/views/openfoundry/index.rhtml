@@ -52,7 +52,7 @@
 </div>
 <div id="RightWidget">
   <div id="HomeRight">
-    <h3><img src="/images/of/icon05.gif" align="left" />專案新聞<%#=link_to_remote( "<img src='http://publib.boulder.ibm.com/infocenter/tivihelp/v10r1/topic/com.ibm.ccmdb.doc/cmdb_user/images/icon_reload.gif' style='border:none;' border='0'></img>", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %></h3>
+    <h3><img src="/images/of/icon05.gif" align="left" /><%=_('Project News')%><%#=link_to_remote( "<img src='http://publib.boulder.ibm.com/infocenter/tivihelp/v10r1/topic/com.ibm.ccmdb.doc/cmdb_user/images/icon_reload.gif' style='border:none;' border='0'></img>", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %></h3>
     <%= render :partial => "news/listn", :locals => {:newsList => News.ProjectNews}%>
     <h3><img src="/images/of/icon06.gif" align="left" valign="middle" />最新釋出</h3>
     <ul>
@@ -63,7 +63,7 @@
   </div>
 </div>
 <div id="Home">
-  <h3><img src="/images/of/main_icon01.gif" align="left" />OpenFoundry 新聞
+  <h3><img src="/images/of/main_icon01.gif" align="left" /><%=_('OpenFoundry News')%>
     <%#=link_to_remote( "更新", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %>
   </h3>
 	<%= render :partial => "news/home_news", :locals =>{:newsList => News.home_news} %>
