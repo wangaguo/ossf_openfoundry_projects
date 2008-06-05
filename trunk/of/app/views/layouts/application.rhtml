@@ -139,7 +139,7 @@
       <div id="HomeLeft">
         <%= render :partial => 'openfoundry/staticities' %>
         <%= render :partial => 'releases/most_popular', :locals => {:downloadList => Release.top_download} %>
-        <%= render :partial => 'projects/most_active' %>
+        <%= render :partial => 'projects/new_projects', :locals => {:projectList => Project.new_projects} %>
         <%= render :partial => 'partials/tagcloud'%>
         
         <h3><img src="/images/of/icon01.gif" align="left" /><%=_('Steering Organization')%></h3>

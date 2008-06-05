@@ -134,4 +134,8 @@ class Project < ActiveRecord::Base
       errors.add(:name, "'#{name}' has already been used")
     end
   end
+  
+  def self.new_projects
+    Project.find(:all, :conditions => Project.in_used_projects(), :order => "created_at desc", :limit => 5)
+  end
 end
