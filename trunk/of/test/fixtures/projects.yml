@@ -1,4 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<%now=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
 <%index=1000%>
 <% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |summary| %>
 <%=summary%>:
