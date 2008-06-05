@@ -186,6 +186,10 @@ module ApplicationHelper
   def fpermit?(project_name, function_name)
     Function.function_permit(project_name, function_name)
   end
+  
+  def help_icon(tooltip)
+    '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
+  end
 end
 
    

@@ -279,3 +279,22 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 
 /* For RT */
 #TicketSearchForm { background:white; border:2px outset; position:absolute;  display:none; z-index: 1;}
+
+/* For Help Icon */
+a.help
+{
+  cursor:help; 
+  position:relative; /*this is the key*/
+  z-index:24;
+}
+a.help:hover{z-index:25;}
+a.help span{display: none}
+a.help:hover span
+{
+  display:block;
+  position:absolute;
+  top:0; left:2em; width:15em;
+  border:1px solid #0cf;
+  background-color:#cff; color:#000;
+  text-align: center
+}
