@@ -18,5 +18,6 @@
   creator: 1003
   status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
   vcs: svn
+  created_at: <%=now%>
+  updated_at: <%=now%>
 <%end%>
-  
