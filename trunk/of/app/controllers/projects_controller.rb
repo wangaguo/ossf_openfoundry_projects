@@ -35,9 +35,9 @@ class ProjectsController < ApplicationController
   #       :redirect_to => { :action => :list }
 
   def list
-    projects = Project.paginate(:page => params[:page], :per_page => 10)
+    projects = Project.paginate(:page => params[:page], :per_page => 10, :conditions => Project.in_used_projects())
     if projects.out_of_bounds?
-      projects = Project.paginate(:page => 1, :per_page => 10)
+      projects = Project.paginate(:page => 1          , :per_page => 10, :conditions => Project.in_used_projects())
     end
     render(:partial => 'list', :layout => true, :locals => { :projects => projects })
   end
