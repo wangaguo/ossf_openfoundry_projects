@@ -72,6 +72,8 @@ class CreateTables < ActiveRecord::Migration
       t.integer "status"
       t.text    "statusreason"
       t.integer "project_counter",     :default => 0, :null => false
+      t.datetime "created_at",                        :null => false
+      t.datetime "updated_at",                        :null => false
     end
 
     create_table "releases", :force => true do |t|
