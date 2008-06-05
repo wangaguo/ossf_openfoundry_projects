@@ -1,0 +1,9 @@
+<h3><img src="/images/of/icon_new_projects.gif" align="left" /><%= _('New Projects') %></h3>
+<ul>
+  <%for project in projectList %>
+  <li>
+    <%= link_to project.summary, project_path(:id => project.id) %>
+  </li>
+  <%end %>
+</ul>
+<%=link_to _('More...'), projects_path() %>
