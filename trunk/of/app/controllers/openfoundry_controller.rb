@@ -6,6 +6,7 @@ require "json"
 require 'base64'
 
 class OpenfoundryController < ApplicationController
+  RECORD_LOOKUP_TABLE = {'User' => 'user', 'Project' => 'projects'}
 
   def index
   end
@@ -30,6 +31,7 @@ class OpenfoundryController < ApplicationController
 
   # TODO: optimize!!!!!!!!!!
   def authentication_authorization
+    #TODO: filter localhost
     #self.class.layout(nil)
     session_id, project_name = params[:SID], params[:projectname]
     begin 
@@ -115,20 +117,23 @@ class OpenfoundryController < ApplicationController
     render :text => data.inspect, :layout => false
 #    render :text => bad, :layout => false
   end
+  
   def is_project_name
     rtn = Project.find_by_name(params[:projectname]) ? "1" : "0"
     render :text => rtn, :layout => false
   end
+  
   def search #for search!!! TODO: catalog and optimize?
-    query=params[:query]
-    #catalog=params[:catalog]
+    @query = params[:query]#.split(' ').join(' OR ')
+    @options = {}
+    @options[:per_page] = params[:per_page] || 10
+    @options[:page] = params[:page] || 1
+    @options[:models] = :all
+    @results = User.find_with_ferret(@query, @options)
     
-    @result=[]
-    #catalog.each |catalog| do 
-        @result << User.find_by_contents(query)
-	@result << Project.find_by_contents(query)
-    #end
+    @lookup = RECORD_LOOKUP_TABLE
   end
+  
   def tag #for displaying taggalbe objects~
     tag_name=params[:id]	
     @tagged_object=User.find_tagged_with(tag_name)
