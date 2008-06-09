@@ -23,13 +23,15 @@ class Project < ActiveRecord::Base
   #add fulltext indexed SEARCH
   acts_as_ferret :fields => { 
                               :name => { :boost => 1.5,
-                                         :store => :yes,
-                                         :index => :untokenized },
+                                         :store => :yes
+                                         },
                               :summary => { :store => :yes,
                                             :index => :yes },
                               :description => { :store => :yes,
                                                 :index => :yes }                                                         
-                            }
+                            },
+                 :single_index =>true,
+                 :default_field => [:name, :summary, :description]
 
   #add tags
   acts_as_taggable

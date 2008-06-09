@@ -4,9 +4,9 @@ class Fileentity < ActiveRecord::Base
   #add fulltext indexed SEARCH
   acts_as_ferret :fields => { 
                               :name => { :boost => 1.5,
-                                          :store => :no,
-                                          :index => :untokenized },
-                              :description => { :store => :no,
-                                             :index => :yes }                                                         
-                            }
+                                          :store => :yes },
+                              :description => { :store => :yes}
+                            },
+                 :single_index => true,
+                 :default_field => [:name, :description]
 end

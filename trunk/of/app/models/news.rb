@@ -10,7 +10,9 @@ class News < ActiveRecord::Base
                                           :index => :yes },
                               :description => { :store => :yes,
                                              :index => :yes }                                                         
-                            }
+                            },
+                  :single_index => true,
+                  :default_field => [:subject, :description]
   
   def self.home_news
     News.find(:all, :conditions => ['catid="0" and status = "1"'], :order => "updated_at desc", :limit => 5)
