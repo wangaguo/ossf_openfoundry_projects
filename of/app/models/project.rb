@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }
   #for releases ftp upload and web download...
-  PROJECT_UPLOAD_PATH = "/tmp".freeze
+  PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
   
   def self.status_to_s(int_status)
