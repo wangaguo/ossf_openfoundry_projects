@@ -1,6 +1,7 @@
 <div title="user edit" class="form">
   <%#= head_helper :error => true %>
   <%= error_messages_for :user %>
+<img src="<%= url_for(:controller => :images, :action => "image", :id => @user.icon) %>"/>
   <%= render :partial => 'images/edit', :locals => 
   {:image_id => @user.icon, :id => @user.id, :type => 'User', :back_to => '/user/edit' }%>
   
