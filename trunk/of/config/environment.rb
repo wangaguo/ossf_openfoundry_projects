@@ -90,6 +90,7 @@ OPENFOUNDRY_KWIKI_URL = 'http://kwiki.of.openfoundry.org/Kwiki'
 # important password! leak it may leak all your user data!!
 #
 OPENFOUNDRY_JSON_DUMP_PASSWORD = ''
+OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
 
 
 # share session cookie for sub-doamins (SSO)
