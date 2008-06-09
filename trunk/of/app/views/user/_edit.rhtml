@@ -1,16 +1,16 @@
 <div class="user_edit">
   <%= f.hidden_field 'form', :value => 'edit' %>
-  <table>
-    <label><%= _('User|Firstname')%>: </label>
-    <%= f.text_field "firstname" %><br/>
-    <label><%= _('User|Lastname')%>: </label>
-    <%= f.text_field "lastname" %><br/>
-    <label><%= _('User|Login')%>: </label>
-    <%= f.text_field "login", :size => 30 %><br/>
-    <label for="user_language"><%= _('User|Language')%>: </label>
-    <%= language_select "user_language", @user.language, :name => "user[language]"%><br/>
-    <label for="site_timezone"><%= _('User|TimeZone')%>: </label>
-    <%= select_tag 'site_timezone', options_for_select(['UTC'] + TZInfo::Timezone.all.map{|tz| [tz.to_s, tz.name]}.sort, @user.timezone), :name => "user[timezone]" %><br/>
+  <table class='form-table'>
+    <%= f.label :firstname, _('User|Firstname')+':' %>
+    <%= f.text_field :firstname %>
+    <%= f.label :lastname, _('User|Lastname')+':' %>
+    <%= f.text_field "lastname" %>
+    <%= f.label :login, _('User|Login')+':'%>
+    <%= f.text_field "login", :size => 30 %>
+    <%= f.label :language, _('User|Language')+':' %>
+    <%= f.language_select "user_language", @user.language, :name => "user[language]"%>
+    <%= f.label :timezone, _('User|TimeZone')+':'%>
+    <%= f.select_tag 'user_timezone', options_for_select(['UTC'] + TZInfo::Timezone.all.map{|tz| [tz.to_s, tz.name]}.sort, @user.timezone), :name => "user[timezone]" %>
     <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings'), "class" => "button" ) if submit %>
   </table>
-</div>  
+</div> 

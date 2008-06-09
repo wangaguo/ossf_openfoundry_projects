@@ -1,13 +1,11 @@
 <div class="user_email">
   <%= f.hidden_field 'form', :value => 'change_email' %>
 
-  <table>
-    <label><%= _('User|Email')%>: </label>
+  <table class='form-table'>
+    <%= f.label :email, _('User|Email')+':' %>
     <%= f.text_field "email", :size => 30 %>
-    <br/>
-    <label><%= _('User|Email Confirmation')%>: </label>
+    <%= f.label :email_confirmation, _('User|Email Confirmation')+':'%>
     <%= f.text_field "email_confirmation", :size => 30 %>
-    <br/>
     <%= submit_tag _('User|Change Email'), "class" => "button" if submit%>
   </table>
 </div>      

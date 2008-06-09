@@ -88,15 +88,41 @@ module ApplicationHelper
     name = "<a href=\"#{path}\">#{name}</a>" unless path.nil?
     "<td>&raquo;#{name}</td>\n"
   end
+
+  def arranged_select(tag_name, records, options = {})
+    raise ArgumentError.new("should not be #{record.class}") unless ( records.is_a? Array )
+    html = "<select class=#{tag_name}>"
+    #select_options = {:fields_per_column => -1, :with_label => false}
+    records.each_with_index do |record, i|
+      html << "<option class=#{options[:option_tag]} "
+      html << "selected" if i == options[:selected]
+      html << ">#{record.name}</option>"
+    end
+    html << "</select>"  
+    html
+  end
+  
+  def arranged_list(tag_name, records, options = {})
+    raise ArgumentError.new("should not be #{record.class}") unless ( records.is_a? Array )
+    html = "<table class=#{tag_name}>"
+    list_options = {:fields_per_column => -1, :with_label => false}
+    records.each_with_index do |record, i|
+      html << arranged("#{tag_name}_#{i}", record, options.merge(list_options) )
+    end
+    html << "</table>"  
+    html
+  end
   
   #TODO want to build a object view layout 
-  def arranged(tag_name, record, options)
+  def arranged(tag_name, record, options = {})
     raise ArgumentError.new("should not be #{record.class}") unless ( record.is_a? ActiveRecord::Base )
     
     #TODO more flexible...
     default_options={
+      :style => :table,
+      :with_label => true,
       :label_alignment => true,#not implemented
-      :fields_per_column => 2,
+      :fields_per_column => 1,
       :masked_fields => [/^[a-z_]*id$/,/^updated_at$/,/^created_at$/,/^creator$/,
                           /_counter$/,/^icon$/],
       :extra => false,#not implemented
@@ -119,9 +145,9 @@ module ApplicationHelper
     # X X 
     # X X
     # X X
-    cols = options[:fields_per_column]
-    rows = (fields.length.to_f / cols).ceil
-    
+    rows = (fields.length.to_f / cols).ceil if cols > 0
+    (rows = 1;cols = fields.length) 
+     
     rows.times do |i| 
       html << "<tr>"
       
@@ -134,14 +160,17 @@ module ApplicationHelper
       cols.times do |j|
         if j+i*cols >= fields.length 
           #空的cell
-          html << "<td></td>\n<td></td>\n"
+          html << "<td></td>\n"
+          html << "<td></td>\n" if options[:with_label]
         else
           obj = fields[j+i*cols]
           if options[:editable]
             f = options[:editable]
             #必填欄位前面有星星
-            star = obj.null ? '':'<strong>*</strong>'
-            html << "<td>#{star}#{obj.human_name} : </td>\n"
+            if options[:with_label]
+              star = obj.null ? '':"<em class='require'>*</em>"
+              html << "<th>#{star}#{obj.human_name} : </th>\n"
+            end
             #有預設值放預設值
             value = record.send(obj.name)
             value ||= obj.default
@@ -154,7 +183,7 @@ module ApplicationHelper
             html << extra
             html << "</td>\n"
           else
-            html << "<td> #{obj.human_name} : </td>\n"
+            html << "<th> #{obj.human_name} : </th>\n" if options[:with_label]
             html << "<td> #{record.send(obj.name)} </td>\n"
           end
         end
@@ -189,6 +218,31 @@ module ApplicationHelper
   
   def help_icon(tooltip)
     '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
+  end
+  
+  class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
+    include ActionView::Helpers::FormOptionsHelper
+    include ActionView::Helpers::TagHelper
+    def label(method, text = nil, options = {})
+      "<tr><th>#{super(method, text, options )}</th>"
+    end
+    
+    def text_field(method, options = {})
+      "<td>#{super(method, options )}</td></tr>"
+    end
+    
+    def password_field(method, options = {})
+      "<td>#{super(method, options )}</td></tr>"
+    end
+    
+    def language_select(name, selected, options = {})
+      language_options = options_for_select([["English", "en"],["繁體中文", "zh_TW"]], selected)
+      select_tag( name, language_options, options)
+    end
+    
+    def select_tag(name, option_tags = nil, options = {})
+      "<td>#{content_tag :select, option_tags, { "name" => name, "id" => name }.update(options.stringify_keys)}</td></tr>"
+    end
   end
 end
 
