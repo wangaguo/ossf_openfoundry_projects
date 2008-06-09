@@ -5,11 +5,13 @@ class Release < ActiveRecord::Base
   #add fulltext indexed SEARCH
   acts_as_ferret :fields => { 
                               :name => { :boost => 1.5,
-                                          :store => :yes,
-                                          :index => :untokenized },
+                                          :store => :yes
+                                          },
                               :description => { :store => :yes,
                                              :index => :yes }                                                         
-                            }
+                            },
+                 :single_index => true,
+                 :default_field => [:name, :description]
   
   def self.build_path(project_name, gid)
     tmp_umask = File::umask
