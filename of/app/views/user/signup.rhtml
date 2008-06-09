@@ -1,11 +1,15 @@
 <div title="user signup" class="form">
+  <h1><%=  _("User Signup")%></h1>
   <%#= head_helper :error => true %>
   <%= error_messages_for :user %>
   <div class="form-padding">
-    <% form_for :user, :url => {:action => :signup} do |f|-%>
-      <%= render :partial => 'edit', :locals => { :f => f, :user => @user, :submit => false} %></br>
+    <% form_for :user, :url => {:action => :signup}, :builder => ApplicationHelper::TwoColumnFormBuilder do |f|-%>
+      <%= render :partial => 'edit', :locals => { :f => f, :user => @user, :submit => false} %>
+      <br/>
       <%= render :partial => 'password', :locals => { :f => f, :submit => false} %>
+     <br/>
       <%= render :partial => 'email', :locals => { :f => f, :submit => false} %>
+      <br/>
       <%= render :partial => 'partials/captcha' %>
       <div class="button-bar">
         <%= submit_tag _('User|Signup') %>
