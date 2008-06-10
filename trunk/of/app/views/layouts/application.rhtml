@@ -137,7 +137,7 @@
       </div>
     <%else%>
       <div id="HomeLeft">
-        <%= render :partial => 'openfoundry/staticities' %>
+        <%= render :partial => 'openfoundry/staticities', :locals => {:userCount => User.count(), :projectCount => Project.count(:conditions => Project.in_used_projects())} %>
         <%= render :partial => 'releases/most_popular', :locals => {:downloadList => Release.top_download} %>
         <%= render :partial => 'projects/new_projects', :locals => {:projectList => Project.new_projects} %>
         <%= render :partial => 'partials/tagcloud'%>
