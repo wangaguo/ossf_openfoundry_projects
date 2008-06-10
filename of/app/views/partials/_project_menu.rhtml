@@ -10,7 +10,7 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('project_Info'), project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _('project_Summary'), project_path(:id => project.id) %></li>
-              <li><%= _('project_Website') %></li>
+              <li><%= link_to _('project_Website'), "http://#{project.name}.openfoundry.org" %></li>
               <li><%= _('project_Members') %></li>
               <li><%= _('Citations') %></li>
               <li><%= _('References') %></li>
@@ -43,7 +43,7 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('project_Info'), edit_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _('project_Summary'), edit_project_path(:id => project.id) %></li>
-              <li><%= _('project_Website') %></li>
+              <li><%= link_to _('project_Website'), "#{project.name}" %></li>
               <li><%= _('Citations') %></li>
               <li><%= _('References') %></li>
               <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
