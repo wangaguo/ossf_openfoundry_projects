@@ -19,32 +19,36 @@ class NewsController < ApplicationController
   end
   
   def project
-    @head1 = _('project_News')
-    @news = News.paginate(:page => params[:page], :per_page => 2, :conditions => ["catid<>0 and status='1'"], :order => "updated_at desc")
-    render :action => 'list'
+    @is_all_projects_news = true
+    list
   end
   
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
 #  verify :method => :post, :only => [ :destroy, :create, :update ], :redirect_to => { :action => :list }
   
   def list
-    if params[:project_id].nil? 
-      project_id = 0
+    if @is_all_projects_news == true
+      @head1 = _('Project News')
+      layout_name = "application"
+      conditions = "catid<>0"
+    elsif params[:project_id].nil? 
       @head1 = _('OpenFoundry News')
       layout_name = "application"
+      conditions = "catid=0"
     else
-      project_id = params[:project_id]
       @module_name = _('project_News')
       layout_name = "module"
+      conditions = "catid=" + params[:project_id]
     end
     if permit?("site_admin") || (@project != nil && permit?("admin of :project"))
       sqlStatus = ''
     else
       sqlStatus = ' and status = "1"'
     end
+    reset_sortable_columns
     add_to_sortable_columns('listing', News, 'subject', 'subject') 
     add_to_sortable_columns('listing', News, 'updated_at', 'updated_at') 
-    @news = News.paginate(:page => params[:page], :per_page => 10, :conditions => ["catid=?"+sqlStatus, project_id],
+    @news = News.paginate(:page => params[:page], :per_page => 10, :conditions => [conditions + sqlStatus],
                           :order => sortable_order('listing', :model => News, :field => 'updated_at', :sort_direction => :desc) )
     render :layout => layout_name, :template => 'news/list'
   end
