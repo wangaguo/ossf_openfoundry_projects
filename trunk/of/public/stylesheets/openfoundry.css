@@ -157,7 +157,7 @@ body {
 #ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset, .form-padding
   { padding-left:20px; }
 #ProjectNew :focus, #ProjectEdit :focus, * :focus
-  { color:#2332AE; font-weight:bold; }
+  { color:#2332AE; }
 /*#ProjectList img { width:32px; height:32px; display:none; }*/
 #ProjectList table { border-collapse:collapse; width:99%; margin:2px; }
 #ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
@@ -296,5 +296,6 @@ a.help:hover span
   top:0; left:2em; width:15em;
   border:1px solid #0cf;
   background-color:#cff; color:#000;
-  text-align: center
+  text-align: center;
+  padding:5px;
 }
