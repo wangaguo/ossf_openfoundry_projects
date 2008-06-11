@@ -1,6 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 <%index=0%>
-<%pid=0%>
+<%pid=1000%>
 <%t1=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
 <% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro).each do |summary| %>
 <%=summary%>_rel_v0:
