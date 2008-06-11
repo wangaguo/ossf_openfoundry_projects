@@ -6,13 +6,15 @@ class User < ActiveRecord::Base
   acts_as_authorized_user
 
   #add fulltext indexed SEARCH
-  acts_as_ferret :fields => {:login => {:boost => 1.5,:store => :yes}, 
+  acts_as_ferret({
+                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
                              :firstname => {:boost => 0.8,:store => :yes}, 
                              :lastname => {:boost => 0.8,:store => :yes}, 
                              :name => {:boost => 0.8,:store => :yes} }      ,
                  :single_index => true,
                  :default_field => [:login, :firstname, :lastname, :name]
-  
+                 }, { :analyzer => GENERIC_ANALYZER } )
+                   
 
   #add tags
   acts_as_taggable

@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
+  MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
   #VCS = [ "Subversion", "CVS" ].freeze
@@ -7,7 +8,7 @@ class Project < ActiveRecord::Base
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
-  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }
+  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }.freeze
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
@@ -15,13 +16,17 @@ class Project < ActiveRecord::Base
   def self.status_to_s(int_status)
     STATUS.invert()[int_status]
   end
+  def self.maturity_to_s(int_maturity)
+    MATURITY.invert()[int_maturity]
+  end
   #validates_inclusion_of :license, :in => LICENSES
 
   #support Project-User relationship
   acts_as_authorizable
 
   #add fulltext indexed SEARCH
-  acts_as_ferret :fields => { 
+  acts_as_ferret({
+                 :fields => { 
                               :name => { :boost => 1.5,
                                          :store => :yes
                                          },
@@ -32,6 +37,7 @@ class Project < ActiveRecord::Base
                             },
                  :single_index =>true,
                  :default_field => [:name, :summary, :description]
+                 },{ :analyzer => GENERIC_ANALYZER })
 
   #add tags
   acts_as_taggable

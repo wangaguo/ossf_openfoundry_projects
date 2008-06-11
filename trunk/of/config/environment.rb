@@ -79,6 +79,9 @@ require 'acts_as_ferret'
 
 #ActionMailer::Base.delivery_method = :sendmail
 
+# For Project Upload
+OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
+
 # TODO: better naming
 OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
 OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
@@ -90,7 +93,10 @@ OPENFOUNDRY_KWIKI_URL = 'http://kwiki.of.openfoundry.org/Kwiki'
 # important password! leak it may leak all your user data!!
 #
 OPENFOUNDRY_JSON_DUMP_PASSWORD = ''
-OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
+
+#for search in UTF-8
+UTF8_ANALYSIS_REGEX = /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
+GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
 
 
 # share session cookie for sub-doamins (SSO)
