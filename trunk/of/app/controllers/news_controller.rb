@@ -28,11 +28,11 @@ class NewsController < ApplicationController
   
   def list
     if @is_all_projects_news == true
-      @head1 = _('Project News')
+      @head = _('Project News')
       layout_name = "application"
       conditions = "catid<>0"
     elsif params[:project_id].nil? 
-      @head1 = _('OpenFoundry News')
+      @head = _('OpenFoundry News')
       layout_name = "application"
       conditions = "catid=0"
     else
