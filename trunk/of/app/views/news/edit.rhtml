@@ -2,9 +2,8 @@
 
 <% form_for(:news, :url => {:action => "update"}, :html => { :method => :put }) do |f| %>
   <%= render :partial => 'form' %>
-  <%= submit_tag '修改' %>
+  <%= submit_tag _('Save') %>
 <% end %>
 
-<%= link_to '詳全文', :action => 'show', :id => @news %> |
-<%= link_to '回列表', :action => 'index' %> | 
-<%= link_to '首頁', :controller => 'openfoundry' %>
+<%= link_to _('todo詳全文'), :action => 'show', :id => @news %> |
+<%= link_to _('todo回列表'), :action => 'index' %>

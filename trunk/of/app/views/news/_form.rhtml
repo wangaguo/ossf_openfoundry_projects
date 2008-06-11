@@ -1,7 +1,7 @@
 <%= error_messages_for 'news' %>
 
 <!--[form:news]-->
-<p><label for="news_subject">_('Subject')</label><br/>
+<p><label for="news_subject"><%=_('Subject')%></label><br/>
 <%= text_field 'news', 'subject' %></p>
 
 <% if permit?("site_admin") -%>
@@ -15,13 +15,13 @@
 <% end %>
 
 <% if permit?("site_admin") -%>
-<p><label for="news_tags">_('Tags')</label><br/>
+<p><label for="news_tags"><%=_('Tags')%></label><br/>
 <%= text_field 'news', 'tags' %></p>
 <% end %>
 
-<p><label for="news_status_1">_('Status')</label><br/>
-<%= radio_button("news", "status", "1") %>開啟
-<%= radio_button("news", "status", "0") %>關閉
+<p><label for="news_status_1"><%=_('Status')%></label><br/>
+<%= radio_button("news", "status", "1") %><%=_('Enabled')%>
+<%= radio_button("news", "status", "0") %><%=_('Disabled')%>
 </p>
 <!--[eoform:news]-->
 
