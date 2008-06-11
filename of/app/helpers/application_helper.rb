@@ -131,7 +131,7 @@ module ApplicationHelper
       :field_selector => :default_selector
       #...
     }
-    options = default_options.merge options
+    options.reverse_merge! default_options
     html="<table class=#{tag_name} >" #like <div class=xxx id=xxx>
     
     #把不要show的欄位拿掉
@@ -145,9 +145,12 @@ module ApplicationHelper
     # X X 
     # X X
     # X X
-    rows = (fields.length.to_f / cols).ceil if cols > 0
+    cols = options[:fields_per_column] 
+    if cols > 0 
+    rows = (fields.length.to_f / cols).ceil 
+    else
     (rows = 1;cols = fields.length) 
-     
+    end
     rows.times do |i| 
       html << "<tr>"
       
@@ -179,7 +182,7 @@ module ApplicationHelper
             calendar_for(f.object_name.to_s+'_'+obj.name) : ''
             html << "<td>"
             #html << "<input id=#{id} name=#{obj.name} value=\"#{value}\"/>#{extra}"
-            html << f.text_field(obj.name)
+            html << f.text_field(obj.name, :size => 20)
             html << extra
             html << "</td>\n"
           else
