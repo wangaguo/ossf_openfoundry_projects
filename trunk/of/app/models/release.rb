@@ -41,4 +41,7 @@ class Release < ActiveRecord::Base
   def self.top_download
     Release.find(:all, :order => "release_counter desc", :limit => 5)
   end
+  def self.new_releases
+    Release.find(:all, :order => "created_at desc", :limit => 5)
+  end
 end
