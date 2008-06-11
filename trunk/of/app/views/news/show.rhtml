@@ -1,6 +1,6 @@
 <h1><%=@news.subject%></h1>
 
-<p class="date"><%=@news.updated_at.strftime("更新日期:%Y/%m/%d %H:%M")%></p>
+<p class="date"><%=_('todo更新日期')%>:&nbsp;<%=@news.updated_at.strftime("%Y/%m/%d %H:%M")%></p>
 <div class="content">
   <%if @news.catid == 0%>
   <%= @news.description%>
@@ -9,13 +9,12 @@
   <%end%>
 </div>
 
-<p class="tags">標籤:<%=@news.tags%></p>
+<p class="tags"><%=_('Tags')%>:<%=@news.tags%></p>
 <% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
 <p>
-  <%= link_to '編輯', :action => 'edit', :id => @news %>
-  <%= link_to '刪除', { :action => 'destroy', :id => @news }, :confirm => '確定要刪除嗎?', :method => :delete %>
+  <%= link_to _('Edit'), :action => 'edit', :id => @news %>
+  <%= link_to _('Delete'), { :action => 'destroy', :id => @news }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
 </p>
 <% end %>
 
-<%= link_to '回列表', :action => 'index', :project_id => params[:project_id] %> | 
-<%= link_to '首頁', :controller => 'openfoundry' %>
+<%= link_to _('todo回列表'), :action => 'index', :project_id => params[:project_id] %>
