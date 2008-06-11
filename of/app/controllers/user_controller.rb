@@ -11,10 +11,15 @@ class UserController < ApplicationController
   def home
     # TODO: redirect to login .... ok
     # TODO: user may be empty!!!!!!!!!!!!!!!! .... guest account?
-    logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
+    #logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
     if user = session['user']
-      @admin_of = user.admin_of
-      @member_of = user.member_of
+      @my_partners = []
+      @my_projects = user.roles.map{|r| r.name}.uniq.map{|r| user.send("is_#{r}_of_what")}.flatten.uniq
+      @my_projects.reject!{|p| not p === ActiveRecord::Base}
+      @my_projects.each do |project|
+         @my_partners << project.roles.map{|r| project.send("has_#{r.name}")}.flatten.uniq
+      end
+      @my_partners.flatten!.uniq!  
     else
       flash[:message] = "You are guest!!"
       redirect_to :action => 'login'
