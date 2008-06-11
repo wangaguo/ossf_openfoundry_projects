@@ -1,17 +1,17 @@
-<h1><%= _('My projects') %></h1>
 
 <dl>
-<dt><%= _('Admin of')%>:</dt>
+<dt><%= _('My Projects')%>:</dt>
 <dd>
-<% @admin_of.each do |p| %>
+<% @my_projects.each do |p| %>
+  <img src="<%= url_for(:controller => :images, :action => "image", :id => p.icon, :size => 32) %>"/>
   <%= link_to p.name, project_path(p.id) %>
 <% end %>
 </dd>
 
-<dt><%= _('Member of')%>:</dt>
+<dt><%= _('My Partners')%>:</dt>
 <dd>
-<% @member_of.each do |p| %>
-  <%= link_to p.name, project_path(p.id) %>
+<% @my_partners.each do |p| %>
+  <img src="<%= url_for(:controller => :images, :action => "image", :id => p.icon, :size => 32) %>"/>
 <% end %>
 </dd>
 </dl>
