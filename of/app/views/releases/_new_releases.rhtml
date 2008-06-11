@@ -1,0 +1,9 @@
+<h3><img src="/images/of/icon06.gif" align="left" valign="middle" /><%= _("Latest Releases") %></h3>
+    <ul>
+  <% for release in newReleasesList %>
+    <li>
+      <%= link_to release.name, "/projects/#{release.project_id}/releases/#{release.id}" %>
+    </li>
+  <% end %>
+    </ul>
+<%= link_to _("More..."), :controller => 'releases', :action => 'latest' %>
