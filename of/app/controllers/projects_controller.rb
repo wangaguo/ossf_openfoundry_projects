@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
                                 :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
       break if not projects.out_of_bounds?
     end
-    render(:partial => 'list', :layout => true, :locals => { :projects => projects })
+    render(:partial => 'list', :layout => 'application', :locals => { :projects => projects })
   end
 
   def show
