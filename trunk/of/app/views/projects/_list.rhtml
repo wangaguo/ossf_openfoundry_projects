@@ -14,15 +14,15 @@
   <% i = 1 - i -%>
   <% if i == 1; class_name="odd"; else; class_name="even"; end; -%>
   <tr class="item_h <%=class_name%>">
-    <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h project.summary %></a></td>
-    <td><%= h project.created_at %></td>
-    <td><%= h project.updated_at %></td>
-    <td><%= h project.project_counter %></td>
+    <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h(project.summary) %></a></td>
+    <td align="center"><%= h project.created_at.strftime("%Y/%m/%d") %></td>
+    <td align="center"><%= h project.updated_at.strftime("%Y/%m/%d") %></td>
+    <td align="center"><%= h project.project_counter %></td>
   </tr>
   <tr class="item_b <%=class_name%>">
     <td><img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon,:size => 64) %>"/></td>
     <td colspan="2"><%= h project.description %><br/></td>
-    <td><%= link_to _('Download'), releases_path(:project_id => project.id) %></td>
+    <td align="center"><%= link_to _('Download'), releases_path(:project_id => project.id) %></td>
   </tr>
 <% end -%>
 </table>
