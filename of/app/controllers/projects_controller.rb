@@ -35,9 +35,16 @@ class ProjectsController < ApplicationController
   #       :redirect_to => { :action => :list }
 
   def list
-    projects = Project.paginate(:page => params[:page], :per_page => 10, :conditions => Project.in_used_projects())
-    if projects.out_of_bounds?
-      projects = Project.paginate(:page => 1          , :per_page => 10, :conditions => Project.in_used_projects())
+    reset_sortable_columns
+    add_to_sortable_columns('listing', Project, 'summary', 'summary') 
+    add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
+    add_to_sortable_columns('listing', Project, 'project_counter', 'project_counter')
+    
+    projects = nil
+    [params[:page], 1].each do |page|
+      projects = Project.paginate(:page => page, :per_page => 10, :conditions => Project.in_used_projects(),
+                                :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
+      break if not projects.out_of_bounds?
     end
     render(:partial => 'list', :layout => true, :locals => { :projects => projects })
   end
