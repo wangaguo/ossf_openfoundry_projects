@@ -2,7 +2,7 @@
 <ul>
   <%for download in downloadList %>
     <li>
-      <%= link_to download.name, "/projects/#{download.project_id}/releases/#{download.id}" %>
+      <%= link_to h(download.name), "/projects/#{download.project_id}/releases/#{download.id}" %>
     </li>
   <%end %>
 </ul>

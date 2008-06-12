@@ -2,7 +2,7 @@
     <ul>
   <% for release in newReleasesList %>
     <li>
-      <%= link_to release.name, "/projects/#{release.project_id}/releases/#{release.id}" %>
+      <%= link_to h(release.name), "/projects/#{release.project_id}/releases/#{release.id}" %>
     </li>
   <% end %>
     </ul>
