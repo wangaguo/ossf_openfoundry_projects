@@ -243,6 +243,11 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 .form-data-dl dt { font-weight:bold; float:left; clear:left; width:30%; height:20px; margin:1px; }
 .form-data-dl dd { float:left; width:65%; height:20px; margin:1px;}
 
+/* For List Table */
+.list-table { border-collapse:collapse; width:99%; margin:2px; }
+.list-table th { background-color:#DEE7FF; }
+.list-table td { border-bottom:solid 1px grey; }
+
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {
