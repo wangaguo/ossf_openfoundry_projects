@@ -2,7 +2,7 @@
 <ul>
   <%for project in projectList %>
   <li>
-    <%= link_to project.summary, project_path(:id => project.id) %>
+    <%= link_to h(project.summary), project_path(:id => project.id) %>
   </li>
   <%end %>
 </ul>
