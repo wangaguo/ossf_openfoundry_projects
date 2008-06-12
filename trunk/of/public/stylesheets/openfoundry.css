@@ -22,6 +22,7 @@ ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:u
 .button:hover { background-position:bottom; }
 .odd { }
 .even { background-color:#EFF4FF; }
+* :focus { color:#2332AE; }
 
 /* For Layout */
 body { 
@@ -156,12 +157,11 @@ body {
   { margin-left:-20px; display:block; }
 #ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset, .form-padding
   { padding-left:20px; }
-#ProjectNew :focus, #ProjectEdit :focus, * :focus
-  { color:#2332AE; }
 /*#ProjectList img { width:32px; height:32px; display:none; }*/
-#ProjectList table { border-collapse:collapse; width:99%; margin:2px; }
-#ProjectList td, #ProjectList th { padding:5px; border:solid 1px black; } 
-#ProjectList th { background-color:#DEE7FF; }
+.ProjectList { border-collapse:collapse; width:99%; margin:2px; }
+.ProjectList th { background-color:#DEE7FF; }
+.ProjectList .item_h td { }
+.ProjectList .item_b td { border-bottom:solid 1px grey; }
 
 /*
 border-bottom:solid 2px #DEE7FF;

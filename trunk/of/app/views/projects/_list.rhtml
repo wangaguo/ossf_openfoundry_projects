@@ -1,18 +1,26 @@
 <div id="ProjectList">
 <h1><%= _('Listing projects') %></h1>
 
-<table>
+<%= will_paginate projects %>
+<table class="ProjectList">
   <tr>
-    <th></th>
-    <th><%= _('Project UNIX Name') %></th>
-    <th><%= _('Summary') %></th>
+    <th><%= link_to _('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
+    <th><%= link_to _('Created At'),  sort_param('listing', Project, 'created_at', 'created_at') %></th>
+    <th><%= link_to _('Latest File'),  sort_param('listing', Project, 'updated_at', 'updated_at') %></th>
+    <th><%= link_to _('Download'),  sort_param('listing', Project, 'project_counter', 'project_counter') %></th>
   </tr>
   
 <% for project in projects %>
-  <tr>
-    <td><img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon,:size => 16) %>"/></td>
-    <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h project.name %></a></td>
-    <td><%= h project.summary %></td>
+  <tr class="item_h">
+    <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h project.summary %></a></td>
+    <td><%= h project.created_at %></td>
+    <td><%= h project.updated_at %></td>
+    <td><%= h project.project_counter %></td>
+  </tr>
+  <tr class="item_b">
+    <td><img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon,:size => 64) %>"/></td>
+    <td colspan="2"><%= h project.description %><br/></td>
+    <td><%= link_to _('Download'), releases_path(:project_id => project.id) %></td>
   </tr>
 <% end %>
 </table>
