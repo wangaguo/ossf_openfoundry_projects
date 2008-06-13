@@ -55,9 +55,7 @@ class UserController < ApplicationController
     return if generate_blank
     params['user'].delete('form')
     @user = User.new(params['user'])
-    if params['captcha_code'] != session[:captcha_code]
-      @user.errors.add_to_base _('Captcha Mismatch')
-    end
+    return unless valid_captcha?
     begin
       User.transaction() do
         @user.new_password = true

@@ -195,6 +195,17 @@ THECODE
   def fpermit?(project_name, function_name)
     Function.function_permit(project_name, function_name)
   end
+  
+  def valid_captcha?
+    begin
+    match = (params['captcha_code'].downcase == session[:captcha_code].downcase)
+    flash[:error] = _('captcha mismatch') unless match
+    match
+    rescue
+      flash[:error] = _('captcha mismatch') 
+      false
+    end
+  end
 
   # see: vendor/plugins/sliding_sessions/ 
   session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
