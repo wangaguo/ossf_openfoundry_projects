@@ -40,9 +40,9 @@ class Release < ActiveRecord::Base
     File::umask(tmp_umask)
   end
   def self.top_download
-    Release.find(:all, :include => [:project], :order => "release_counter desc", :limit => 5)
+    Release.find(:all, :include => [:project], :order => "release.release_counter desc", :limit => 5)
   end
   def self.new_releases
-    Release.find(:all, :include => [:project], :order => "created_at desc", :limit => 5)
+    Release.find(:all, :include => [:project], :order => "releases.created_at desc", :limit => 5)
   end
 end
