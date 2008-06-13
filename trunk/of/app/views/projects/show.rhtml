@@ -39,7 +39,7 @@
 <dd class="<%= cl[i] %>"><%= h @project.redirecturl %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Vcs") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.vcs %></dd>
+<dd class="<%= cl[i] %>"><%= h @project.vcs_to_s %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Remotevcs") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.remotevcs %></dd>

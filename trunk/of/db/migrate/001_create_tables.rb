@@ -54,8 +54,8 @@ class CreateTables < ActiveRecord::Migration
     # see also: app/models/project.rb
     create_table "projects", :force => true do |t|
       t.integer "icon",                :default => 0, :null => false
-      t.string  "name",                :limit => 15 
-      t.string  "summary",             :limit => 255 
+      t.string  "name",                :limit => 15, :null => false
+      t.string  "summary",             :limit => 255
       t.text    "rationale"
       t.text    "description"
       t.string  "contactinfo",         :limit => 255
@@ -66,7 +66,7 @@ class CreateTables < ActiveRecord::Migration
       t.string  "programminglanguage"
       t.string  "intendedaudience"
       t.string  "redirecturl"
-      t.string  "vcs"
+      t.integer "vcs"
       t.string  "remotevcs"
       t.integer "creator"
       t.integer "status"

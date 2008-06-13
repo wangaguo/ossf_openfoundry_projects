@@ -56,7 +56,7 @@ AAA
   foo("redirecturl", true, _("Project|Redirecturl|Help")), 
     text_field('project', 'redirecturl'),
   foo("vcs", true, _("Project|Vcs|Help")), 
-    select('project', 'vcs', Project::VCS),
+    select('project', 'vcs', [:SUBVERSION, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
   foo("remotevcs", true, _("Project|Remotevcs|Help")), 
     text_field('project', 'remotevcs')
 )

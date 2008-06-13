@@ -1,7 +1,8 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 <%now=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
 <%index=1000%>
-<% %w(openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |summary| %>
+<% def val(h, i); h.values[i % h.length]; end %>
+<% %w(kk openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |summary| %>
 <%=summary%>:
   icon: 5
   id: <%=index+=1%>
@@ -10,7 +11,7 @@
   rationale: <%=summary%>, it is a good day to die!!
   description: to <%=summary%> or not to <%=summary%>, that is a question~
   contactinfo: contact@<%=summary%>.openfoundry.org
-  maturity: mission impossible for <%=summary%>
+  maturity: <%= val(Project::MATURITY, index) %>
   license: BSD
   contentlicense: GPL
   platform: FreeBSD,linux
@@ -18,7 +19,7 @@
   intendedaudience: no haha
   creator: 1003
   status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
-  vcs: svn
+  vcs: <%= val(Project::VCS, index) %>
   created_at: <%=now%>
   updated_at: <%=now%>
 <%end%>
