@@ -2,7 +2,7 @@
 <%now=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
 <%month_ago=Time.now.months_ago(1).strftime '%Y-%m-%d %H:%M:%S'%>
 <%id=0%>
-<%10.times do |i|%>
+<%0.times do |i|%>
 valid_session_<%=id+=1%>:
   id: <%=id%>
   session_id: <%=i.to_s.rjust(32,'0')%>
@@ -12,7 +12,7 @@ valid_session_<%=id+=1%>:
   updated_at: <%= now%>
   data: 0
 <%end%>
-<%10.times do |i|%>
+<%0.times do |i|%>
 valid_guest_session_<%=id+=1%>:
   id: <%=id%>
   session_id: <%=(i+100).to_s.rjust(32,'0')%>
@@ -22,7 +22,7 @@ valid_guest_session_<%=id+=1%>:
   updated_at: <%= now%>
   data: 0
 <%end%>
-<%10.times do |i|%>
+<%0.times do |i|%>
 expired_session_<%=id+=1%>:
   id: <%=id%>
   session_id: <%=(i+200).to_s.rjust(32,'0')%>
