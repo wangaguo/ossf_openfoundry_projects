@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access]
   
   def set_project_id
     params[:project_id] = params[:id]
@@ -216,6 +216,22 @@ class ProjectsController < ApplicationController
         page[:role_new].reload
       end  
 #      redirect_to :action => 'role_new', :id => params[:id]
+    end
+  end
+  
+  def vcs_access
+    @module_name = _('Subversion/CVS Access')
+    @project = Project.find(params[:id])
+    @vcs = @project.vcs
+    @src = ""
+    case(@vcs)
+    when Project::VCS[:SUBVERSION]
+      @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
+    when Project::VCS[:CVS]
+      @src = "cvs -d :ext:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
+    when Project::VCS[:REMOTE]
+      @src = @project.remotevcs
+    else
     end
   end
 end
