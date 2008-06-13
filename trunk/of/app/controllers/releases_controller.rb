@@ -196,7 +196,7 @@ class ReleasesController < ApplicationController
       ret
     else
       #TODO collect meta info for FILE, move FILE
-      Fileentity.create ( :attributes => {:path => path} )
+      Fileentity.create( :attributes => {:path => path} )
       
       
     end

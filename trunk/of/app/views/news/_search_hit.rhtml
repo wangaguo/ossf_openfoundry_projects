@@ -3,6 +3,7 @@
   <%= content_tag 'label', record.subject%>
 </td>
 <td>
- <%= content_tag 'label', record.description %>
+  <%= content_tag 'label', record.highlight(@query, {:field => 'description' 
+                                                     }) %>
 </td>
 <!--search hit end-->

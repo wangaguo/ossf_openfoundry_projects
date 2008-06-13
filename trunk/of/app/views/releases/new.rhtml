@@ -3,7 +3,7 @@
   <% form_for :release, @release, :url => {:action => :create} do |f|%>
     <%= arranged('ReleaseNew', @release, {
         :editable => f,
-        :fields_per_column => 1
+        :fields_per_column =>1 
       }) %>
     <%= submit_tag "Create" %>
   <% end %>
