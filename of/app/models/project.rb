@@ -4,8 +4,8 @@ class Project < ActiveRecord::Base
   dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
-  #VCS = [ "Subversion", "CVS" ].freeze
-  VCS = [ "svn", "cvs" ].freeze
+  VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :REMOTE => -1 }.freeze
+  dummy_fix_me = _("NONE"), _("CVS"), _("SUBVERSION"), _("REMOTE")
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
   INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
@@ -19,6 +19,26 @@ class Project < ActiveRecord::Base
   end
   def self.maturity_to_s(int_maturity)
     MATURITY.index int_maturity
+  end
+  # Project.vcs_to_s(1)    or
+  # Project.vcs_to_s(:CVS)
+  def self.vcs_to_s(vcs) # int or symbol
+    i = (Symbol === vcs) ? VCS[vcs] : vcs.to_i
+    case i
+    when VCS[:CVS]
+      _("TODO: 使用 CVS 版本控制系統")
+    when VCS[:SUBVERSION]
+      _("TODO: 使用 Subversion 版本控制系統")
+    when VCS[:REMOTE]
+      _("TODO: 使用其他站台的版本控制系統")
+    when VCS[:NONE]
+      _("TODO: 不使用版本控制系統")
+    else
+      _("TODO: 系統錯誤, 請通知站台管理員")
+    end
+  end
+  def vcs_to_s
+    Project.vcs_to_s(vcs)
   end
   #validates_inclusion_of :license, :in => LICENSES
 
@@ -51,7 +71,7 @@ class Project < ActiveRecord::Base
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => /^[a-z][0-9a-z]{2,14}$/, :message => _('專案名稱應以英數字組成, 英文字母開頭, 長度不超過15個字')
+  validates_format_of :name, :with => /^[a-z][0-9a-z]{2,14}$/, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
   #validates_inclusion_of :license, :in => LICENSES
   #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
   
