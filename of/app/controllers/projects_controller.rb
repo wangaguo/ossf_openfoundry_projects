@@ -62,7 +62,7 @@ class ProjectsController < ApplicationController
     unless hash.nil?
       keys.each do |k|
         k = k.to_s
-        hash[k] = hash[k].values.grep(/./).join(",") unless hash[k].nil?  
+        hash[k] = hash[k].values.grep(/./).map() {|x| x.strip}.join(",") unless hash[k].nil?  
       end
     end
   end
@@ -85,10 +85,12 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    params[:project].delete(:name)
+
     @project = Project.find(params[:id])
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
     if @project.update_attributes(params[:project])
-      flash[:notice] = 'Project was successfully updated.'
+      flash[:notice] = _('Project was successfully updated.')
       redirect_to :action => 'show', :id => @project
     else
       render :action => 'edit'

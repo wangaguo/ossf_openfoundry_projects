@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
+  dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
   #VCS = [ "Subversion", "CVS" ].freeze
@@ -14,10 +15,10 @@ class Project < ActiveRecord::Base
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
   
   def self.status_to_s(int_status)
-    STATUS.invert()[int_status]
+    STATUS.index int_status
   end
   def self.maturity_to_s(int_maturity)
-    MATURITY.invert()[int_maturity]
+    MATURITY.index int_maturity
   end
   #validates_inclusion_of :license, :in => LICENSES
 
@@ -75,6 +76,7 @@ class Project < ActiveRecord::Base
   def self.apply(data, creator)
     data[:creator] = creator.id
     data[:status] = Project::STATUS[:APPLYING]
+
     returning Project.create(data) do |project|
       if project.errors.empty?
         ProjectNotify.deliver_applied_site_admin(project)
@@ -127,21 +129,19 @@ class Project < ActiveRecord::Base
     if condition.is_a?(String)
       "(#{condition}) and (status = #{Project::STATUS[:READY]} or status = #{Project::STATUS[:SUSPENDED]})"
     elsif condition.is_a?(Array)
-      [ in_used_projects(condition[0]), condition[1 .. -1] ]
+      [ in_used_projects(condition[0]), *condition[1 .. -1] ]
     else
       raise "wrong usage!"
     end
   end
 
   # Project.new(:name => 'openfoundry').valid?
-  def validate
-    # read http://dev.rubyonrails.org/changeset/5192 
-    # and active_record/calculations.rb
-    #if Project.count(:conditions => Project.in_used_projects(['name = ?', name])) > 0
+  def validate_on_create
     if Project.exists?(Project.in_used_projects(['name = ?', name]))
-      errors.add(:name, "'#{name}' has already been used")
+      errors.add(:name, _("'#{name}' has already been taken"))
     end
   end
+
   
   def self.new_projects
     Project.find(:all, :conditions => Project.in_used_projects(), :order => "created_at desc", :limit => 5)

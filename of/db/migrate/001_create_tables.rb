@@ -59,7 +59,7 @@ class CreateTables < ActiveRecord::Migration
       t.text    "rationale"
       t.text    "description"
       t.string  "contactinfo",         :limit => 255
-      t.string  "maturity"
+      t.integer "maturity"
       t.string  "license"
       t.string  "contentlicense"
       t.string  "platform"
