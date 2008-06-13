@@ -227,7 +227,15 @@ module ApplicationHelper
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::TagHelper
     def label(method, text = nil, options = {})
-      "<tr><th>#{super(method, text, options )}</th>"
+      help = options[:help]
+      must = @object.class.columns_hash[method.to_s]
+      must = (must and not must.null)||options[:must] ? '<em class="required">*</em>' : nil
+      
+      "<tr><th>#{super(method, text, options )} #{must} #{help_icon(help) if help}</th>"
+    end
+
+    def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+      "<td>#{super(method, options, checked_value, unchecked_value)}</td></tr>"
     end
     
     def text_field(method, options = {})
