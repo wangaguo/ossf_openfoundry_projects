@@ -15,7 +15,7 @@ class UserController < ApplicationController
     if user = session['user']
       @my_partners = []
       @my_projects = user.roles.map{|r| r.name}.uniq.map{|r| user.send("is_#{r}_of_what")}.flatten.uniq
-      @my_projects.reject!{|p| not p === ActiveRecord::Base}
+      @my_projects.reject!{|p| not ActiveRecord::Base === p}
       @my_projects.each do |project|
          @my_partners << project.roles.map{|r| project.send("has_#{r.name}")}.flatten.uniq
       end
@@ -55,10 +55,14 @@ class UserController < ApplicationController
     return if generate_blank
     params['user'].delete('form')
     @user = User.new(params['user'])
+    if params['captcha_code'] != session[:captcha_code]
+      @user.errors.add_to_base _('Captcha Mismatch')
+    end
     begin
       User.transaction() do
         @user.new_password = true
-        if @user.save
+        @user.new_email = true
+        if @user.save!
           key = @user.generate_security_token
           url = url_for(:action => 'welcome')
           url += "?user=#{@user.id}&key=#{key}"

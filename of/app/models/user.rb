@@ -44,12 +44,12 @@ class User < ActiveRecord::Base
     "#{self.firstname} #{self.lastname}"
   end
 
-  attr_accessor :new_password, :change_password
+  attr_accessor :new_password, :new_email
   
   def initialize(attributes = nil)
     super
     @new_password = false
-    @change_email = false
+    @new_email = false
   end
 
   def self.authenticate(login, pass)
@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
   def change_email(email, confirm = nil)
     self.email = email
     self.email_confirmation = confirm.nil? ? email : confirm
-    @change_email  = true
+    @new_email  = true
   end
     
   protected
@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
   end
   
   def validate_email?
-    @change_email
+    @new_email
   end
 
   def self.hashed(str)
