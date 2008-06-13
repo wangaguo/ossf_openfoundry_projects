@@ -67,7 +67,7 @@ class CreateTables < ActiveRecord::Migration
       t.string  "intendedaudience"
       t.string  "redirecturl"
       t.integer "vcs"
-      t.string  "remotevcs"
+      t.string  "vcsdescription",      :limit => 50
       t.integer "creator"
       t.integer "status"
       t.text    "statusreason"

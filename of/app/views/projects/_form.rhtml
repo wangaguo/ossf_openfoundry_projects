@@ -57,8 +57,8 @@ AAA
     text_field('project', 'redirecturl'),
   foo("vcs", true, _("Project|Vcs|Help")), 
     select('project', 'vcs', [:SUBVERSION, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
-  foo("remotevcs", true, _("Project|Remotevcs|Help")), 
-    text_field('project', 'remotevcs')
+  foo("vcsdescription", true, _("Project|Vcsdescription|Help")), 
+    text_field('project', 'vcsdescription', :maxlength => 50)
 )
 %>
 </table>
