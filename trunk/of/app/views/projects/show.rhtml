@@ -2,13 +2,55 @@
 <div id="ProjectBasic">
 
 <dl class="form-data-dl">
-<%oddeven = ["odd", "even"]; i = 0; ioddeven = "";%>
-<% for column in Project.content_columns -%>
-  <%ioddeven = oddeven[i]; i = 1-i; %>
-  <dt class="<%=ioddeven%>"><%= column.human_name %>:</dt>
-  <dd class="<%=ioddeven%>"><%=h @project.send(column.name) %></dd>
-<% end -%>
+<% cl = ["odd", "even"]; i = 0; %>
+
+<%# rationale %>
+<dt class="<%= cl[i] %>"><%= _("Project|Name") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.name %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Summary") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.summary %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Description") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.description %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Contactinfo") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.contactinfo %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Maturity") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.maturity %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|License") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.license %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Contentlicense") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.contentlicense %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Platform") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.platform %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Programminglanguage") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.programminglanguage %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Intendedaudience") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.intendedaudience %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Redirecturl") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.redirecturl %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Vcs") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.vcs %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Remotevcs") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.remotevcs %></dd>
+<% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|Creator") %>:</dt>
+<dd class="<%= cl[i] %>"><%= h @project.creator %></dd>
+<% i = 1 - i %>
+
 </dl>
+
+
 
 
 <fieldset style="clear:both;">

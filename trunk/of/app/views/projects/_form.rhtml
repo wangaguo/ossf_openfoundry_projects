@@ -25,12 +25,15 @@ AAA
     rtn
   end
 
+  def to_select(h)
+    h.values.sort.map {|x| [_(h.index(x).to_s), x]}
+  end
 %>
 
-<table class="form_table">
+<table class="form-table">
 <%=  rows(
   foo("name", true, _("Project|Name|Help")),
-    text_field('project', 'name'),
+    text_field('project', 'name', :disabled => (is_edit == true)),
   foo("summary", true, _("Project|Summary|Help")),
     text_area('project', 'summary'),
   # rationale
@@ -39,7 +42,7 @@ AAA
   foo("contactinfo", true, _("Project|Contactinfo|Help")),
     text_field('project', 'contactinfo'),
   foo("maturity", true, _("Project|Maturity|Help")),
-    select('project', 'maturity', Project::PLATFORMS),
+    select('project', 'maturity', to_select(Project::MATURITY)),
   foo("license", true, _("Project|License|Help")),
     select('project', 'license', Project::LICENSES),
   foo("contentlicense", true, _("Project|Contentlicense|Help")),
@@ -56,7 +59,6 @@ AAA
     select('project', 'vcs', Project::VCS),
   foo("remotevcs", true, _("Project|Remotevcs|Help")), 
     text_field('project', 'remotevcs')
-
 )
 %>
 </table>

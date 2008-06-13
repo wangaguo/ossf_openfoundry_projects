@@ -2,7 +2,7 @@
 <h1>Editing project</h1>
 
 <% form_tag url_for(:action => 'update', :id => @project), :method => 'put' do %>
-  <%= render :partial => 'form' %>
+  <%= render :partial => 'form', :locals => { :is_edit => true } %>
   <%= submit_tag 'Save' %>
 <% end %>
 
