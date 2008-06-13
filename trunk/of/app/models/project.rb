@@ -72,6 +72,7 @@ class Project < ActiveRecord::Base
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
   validates_format_of :name, :with => /^[a-z][0-9a-z]{2,14}$/, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
+  validates_length_of :vcsdescription, :maximum => 50
   #validates_inclusion_of :license, :in => LICENSES
   #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
   
