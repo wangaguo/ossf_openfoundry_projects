@@ -7,10 +7,11 @@ class User < ActiveRecord::Base
 
   #add fulltext indexed SEARCH
   acts_as_ferret({
-                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
-                             :firstname => {:boost => 0.8,:store => :yes}, 
-                             :lastname => {:boost => 0.8,:store => :yes}, 
-                             :name => {:boost => 0.8,:store => :yes} }      ,
+                 :fields => {:login => {:boost => 1.5,:store => :yes}#, 
+                             #:firstname => {:boost => 0.8,:store => :yes}, 
+                             #:lastname => {:boost => 0.8,:store => :yes}, 
+                             #:name => {:boost => 0.8,:store => :yes} 
+                            },
                  :single_index => true,
                  :default_field => [:login, :firstname, :lastname, :name]
                  }, { :analyzer => GENERIC_ANALYZER } )
@@ -18,13 +19,26 @@ class User < ActiveRecord::Base
 
   #add tags
   acts_as_taggable
+  # use tag_XXX prefix to set tags 
+  # acts like post-modeled options
+  def method_missing(method_name, *args)
+    if /^t_(.*)=$/ =~ method_name.to_s
+      act = args.shift ? 'add' : 'remove'
+      tag_list.send(act, $1) 
+    elsif /^t_([^=]*)$/ =~ method_name.to_s 
+      return tag_list.names.include?($1)
+    else
+      super(method_name, *args)
+    end 
+  end
 
-  def admin_of
-    is_admin_of_what
-  end
-  def member_of
-    is_member_of_what
-  end
+  # !use functions!
+  #def admin_of
+  #  is_admin_of_what
+  #end
+  #def member_of
+  #  is_member_of_what
+  #end
 
   def name
     "#{self.firstname} #{self.lastname}"

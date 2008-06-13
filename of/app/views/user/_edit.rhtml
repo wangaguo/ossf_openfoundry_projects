@@ -1,16 +1,16 @@
 <div class="user_edit">
   <%= f.hidden_field 'form', :value => 'edit' %>
   <table class='form-table'>
+    <%= f.label :login, _('User|Login')+':'%>
+    <%= f.text_field "login", :size => 30 %>
     <%= f.label :firstname, _('User|Firstname')+':' %>
     <%= f.text_field :firstname %>
     <%= f.label :lastname, _('User|Lastname')+':' %>
     <%= f.text_field "lastname" %>
-    <%= f.label :login, _('User|Login')+':'%>
-    <%= f.text_field "login", :size => 30 %>
     <%= f.label :language, _('User|Language')+':' %>
     <%= f.language_select "user_language", @user.language, :name => "user[language]"%>
     <%= f.label :timezone, _('User|TimeZone')+':'%>
     <%= f.select_tag 'user_timezone', options_for_select(['UTC'] + TZInfo::Timezone.all.map{|tz| [tz.to_s, tz.name]}.sort, @user.timezone), :name => "user[timezone]" %>
-    <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings'), "class" => "button" ) if submit %>
   </table>
+    <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings'), "class" => "button" ) if submit %>
 </div> 
