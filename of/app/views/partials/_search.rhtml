@@ -1,4 +1,5 @@
 <% form_tag '/openfoundry/search', :method => :get do -%>
 	<%= text_field_tag 'query','', :size => 10 %>
-	<%= submit_tag _('search'), :class => 'button' %>
+        <%= submit_tag _('search'), :class => 'button' %>
+        <%= link_to _('advensed search'), '/openfoundry/search', :advensed => 1%>
 <% end -%>

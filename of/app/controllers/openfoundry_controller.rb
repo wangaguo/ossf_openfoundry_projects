@@ -6,7 +6,9 @@ require "json"
 require 'base64'
 
 class OpenfoundryController < ApplicationController
-  RECORD_LOOKUP_TABLE = {'User' => 'user', 'Project' => 'projects'}
+  RECORD_LOOKUP_TABLE = {'User' => 'user', 'Project' => 'projects',
+                         'News' => 'news', 'Release' => 'releases', 
+                         'Fileentity' => 'fileentity' }
 
   def index
   end
@@ -130,7 +132,6 @@ class OpenfoundryController < ApplicationController
     @options[:page] = params[:page] || 1
     @options[:models] = :all
     @results = User.find_with_ferret(@query, @options)
-    
     @lookup = RECORD_LOOKUP_TABLE
   end
   
