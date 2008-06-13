@@ -11,7 +11,9 @@
       <br/>
       <%= render :partial => 'privacy', :locals => { :f => f, :user => @user, :submit => false} %>
       <br/>
-      <%= render :partial => 'partials/captcha' %>
+      <div id=generate_captcha_image>
+        <%= render :partial => 'partials/captcha' %>
+      </div>
       <div class="button-bar">
         <%= submit_tag _('User|Signup') %>
       </div>
