@@ -23,7 +23,14 @@ class User < ActiveRecord::Base
   # acts like post-modeled options
   def method_missing(method_name, *args)
     if /^t_(.*)=$/ =~ method_name.to_s
-      act = args.shift ? 'add' : 'remove'
+      act = ''
+      case args.shift
+      when true,1,'true'
+        act = 'add'
+      #when false,0,'false',nil
+      else  
+        act = 'remove'
+      end
       tag_list.send(act, $1) 
     elsif /^t_([^=]*)$/ =~ method_name.to_s 
       return tag_list.names.include?($1)

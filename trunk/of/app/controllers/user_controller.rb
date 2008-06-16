@@ -188,6 +188,13 @@ class UserController < ApplicationController
           change_password
         when "change_email"
           change_email
+        when "change_privacy"
+          changeable_filter = /^t_.*$/
+          params['user'].each_pair do |k, v|
+            next unless changeable_filter =~ k
+            @user.send(k, v)
+          end
+          @user.save
         when "delete"
           delete
         else
