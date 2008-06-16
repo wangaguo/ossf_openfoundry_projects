@@ -46,7 +46,7 @@ class ImagesController < ApplicationController
     count = code.length
     width, height = text_size*count,text_size
     bg = 'white'
-    font = 'serif'
+    font = 'Courier'
     amplitude, wavelength = height/(1.7+rand/3), width*(1.7+rand/3) 
     
     #set image size
@@ -58,7 +58,7 @@ class ImagesController < ApplicationController
       text_pos_x+=text_pen/(1+rand)
       text_pos_y=text_pen
       text_fg = "\"rgba(#{rand(128)},#{rand(128)},#{rand(128)},100)\""
-      command << " -pointsize #{text_pen} -fill #{text_fg} -draw \"text #{text_pos_x},#{text_pos_y} '#{code[i-1].chr}'\""
+      command << "  -font #{font} -pointsize #{text_pen} -fill #{text_fg} -draw \"text #{text_pos_x},#{text_pos_y} '#{code[i-1].chr}'\""
     end
     #draw lines (10 lines, random fg, random positions)
 #    1.upto(10) do |i|
