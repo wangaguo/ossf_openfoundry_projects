@@ -21,7 +21,17 @@ class ProjectsController < ApplicationController
   def viewvc
     @module_name = _('Version Control')
     @project = Project.find(params[:id])
-    @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.name
+    case @project.vcs
+    when Project::VCS[:CVS]
+      @Path = OPENFOUNDRY_VIEWVC_URL + @project.name
+    when Project::VCS[:SUBVERSION]
+      @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.name
+#    when Project::VCS[:REMOTE]
+#    when Project::VCS[:NONE]
+    else
+      render :text => _("System error. Please contact the site administrator.")
+    end
+
   end
 
   def index
