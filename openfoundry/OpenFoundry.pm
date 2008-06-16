@@ -23,7 +23,8 @@ sub init
 	}
 	elsif ($backend eq 'RT')
 	{
-		return new OpenFoundry::Impl::RT($conf);
+		die "The RT backend should no longer be used";
+		#return new OpenFoundry::Impl::RT($conf);
 	}
 	else
 	{
@@ -72,17 +73,17 @@ sub getProjectById
 	my ($self, $id) = @_;
 	foreach my $p (@{$self->getProjects()})
 	{
-		return $p if $p->{'Id'} eq $id;
+		return $p if $p->{'id'} eq $id;
 	}
 	return undef;
 #	return grep { $_->{'id'} eq $id } @{$self->getProjects()};
 }
-sub getProjectByUnixName
+sub getProjectByName
 {
-	my ($self, $unixName) = @_;
+	my ($self, $name) = @_;
 	foreach my $p (@{$self->getProjects()})
 	{
-		return $p if $p->{'UnixName'} eq $unixName;
+		return $p if $p->{'name'} eq $name;
 	}
 	return undef;
 }
@@ -91,7 +92,7 @@ sub getUserById
 	my ($self, $id) = @_;
 	foreach my $u (@{$self->getUsers()})
 	{
-		return $u if $u->{'Id'} eq $id;
+		return $u if $u->{'id'} eq $id;
 	}
 	return undef;
 #	return grep { $_->{'id'} eq $id } @{$self->getUsers()};
@@ -101,7 +102,7 @@ sub getUserByName
 	my ($self, $name) = @_;
 	foreach my $u (@{$self->getUsers()})
 	{
-		return $u if $u->{'Name'} eq $name;
+		return $u if $u->{'name'} eq $name;
 	}
 	return undef;
 }
@@ -119,10 +120,10 @@ sub isInRelation
 
 sub isInRelationByName
 {
-	my ($self, $relation, $projectUnixName, $userName) = @_;
-	my $p = $self->getProjectByUnixName($projectUnixName) || return 0;
+	my ($self, $relation, $projectName, $userName) = @_;
+	my $p = $self->getProjectByName($projectName) || return 0;
 	my $u = $self->getUserByName($userName) || return 0;
-	return $self->isInRelation($relation, $p->{Id}, $u->{Id});
+	return $self->isInRelation($relation, $p->{id}, $u->{id});
 }
 
 sub getConf
@@ -265,8 +266,8 @@ sub refresh
 
 sub getSessionInfo
 {
-	my ($self, $SID, $projectname) = @_;
-	my $url = sprintf($self->{conf}->{SSO_URL}, $SID, $projectname);
+	my ($self, $SID, $projectName) = @_;
+	my $url = sprintf($self->{conf}->{SSO_URL}, $SID, $projectName);
 	my $tmp = LWP::Simple::get($url);
 	$self->_log($url);
 	$self->_log($self->{conf}->{SSO_URL});
