@@ -78,6 +78,11 @@ class NewsController < ApplicationController
       project_id = params[:project_id]
     end
     @news.catid = project_id
+    
+    if(params[:news][:updated_at] != "")
+      News.record_timestamps = false
+    end
+    
     if @news.save
       flash[:notice] = '新增成功.'
       redirect_to :action => 'index'
