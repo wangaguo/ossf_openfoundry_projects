@@ -16934,7 +16934,7 @@ my $all_lists = &List::get_lists_by_prefix($robot, undef, [ $project ]);
         return 'loginrequest';
      }
 
-     my $result = &List::request_action('create_list',$param->{'auth_method'},$robot,
+     my $result = &Scenario::request_action('create_list',$param->{'auth_method'},$robot,
                                                       {'sender' => $param->{'user'}{'email'},
                                                        'remote_host' => $param->{'remote_host'},
                                                        'remote_addr' => $param->{'remote_addr'}});
