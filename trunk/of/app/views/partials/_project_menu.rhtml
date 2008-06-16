@@ -32,7 +32,7 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('Subversion'), viewvc_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
-              <li><%= _('Subversion/CVS Access') %></li>
+              <li><%= link_to _('Subversion/CVS Access'), vcs_access_project_path(:id => project.id) %></li>
           </ul>
       </li>
       <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
