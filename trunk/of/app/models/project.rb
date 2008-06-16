@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
+  # see also: OpenFoundry.pm
   VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :REMOTE => -1 }.freeze
   dummy_fix_me = _("NONE"), _("CVS"), _("SUBVERSION"), _("REMOTE")
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
