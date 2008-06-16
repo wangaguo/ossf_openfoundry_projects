@@ -1,16 +1,11 @@
 <div class="user_privacy">
   <%= f.hidden_field 'form', :value => 'change_privacy' %>
   <table class='form-table'>
-    <%= f.label :t_conceal_name, _('User|Conceal Name')%>
-    <%= f.check_box 't_conceal_name'%>
     <%= f.label :t_conceal_email, _('User|Conceal Email')%>
     <%= f.check_box 't_conceal_email'%>
-    <%= f.label :t_conceal_blog, _('User|Conceal Blog')%>
-    <%= f.check_box 't_conceal_blog'%>
-    <%= f.label :t_conceal_intro, _('User|Conceal Self-Introduction')%>
-    <%= f.check_box 't_conceal_intro'%>
     <%= f.label :t_conceal_intro, _('User|Conceal Login Status')%>
     <%= f.check_box 't_conceal_login'%>
   </table>
-    <%= submit_tag _('User|Change Privacy'), "class" => "button" if submit%>
+  <style>.left-item{position:relative; right:0px; color:yellow;display:block }</style>
+    <%= submit_tag _('User|Change Privacy'), "class" => "button left-item" if submit%>
 </div>      

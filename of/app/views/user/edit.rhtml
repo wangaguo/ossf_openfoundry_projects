@@ -13,10 +13,14 @@
     <%= render :partial => 'email', :locals => {:f => f, :submit => true} %>
   <% end -%>
   
-  <% form_for :user, :url => { :action => :edit }, :builder => ApplicationHelper::TwoColumnFormBuilder do |f|-%>
+  <% form_for :user, @user, :url => { :action => :edit }, :builder => ApplicationHelper::TwoColumnFormBuilder do |f|-%>
     <%= render :partial => 'password', :locals => {:f => f, :submit => true} %>
   <% end -%>
   
+  <% form_for :user, @user, :url => { :action => :edit }, :builder => ApplicationHelper::TwoColumnFormBuilder do |f|-%>
+    <%= render :partial => 'privacy', :locals => {:f => f, :submit => true} %>
+  <% end -%>
+
   <% form_for :user, :url => { :action => :delete } do |f| -%>
     <div class="user_delete">
       <%= hidden_field_tag 'form', :value => 'delete' %>
