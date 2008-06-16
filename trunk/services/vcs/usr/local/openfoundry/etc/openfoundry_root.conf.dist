@@ -3,8 +3,8 @@
 	"DUMP_SECRET": "###########",
 
 
-	"JSON_DUMP_CACHE_PATH": "/usr/local/openfoundry/etc/openfoundry_dump.json",
-	"ROOT_JSON_DUMP_CACHE_PATH": "/usr/local/openfoundry/etc/openfoundry_dump_root.json",
+	"JSON_DUMP_CACHE_PATH": "/usr/local/vcs/etc/openfoundry_dump.json",
+	"ROOT_JSON_DUMP_CACHE_PATH": "/usr/local/vcs/etc/openfoundry_dump_root.json",
 	"JSON_DUMP_REFRESH_INTERVAL": 600,
 
 	"NSS_DATABASE": "auth",
