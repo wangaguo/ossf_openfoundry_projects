@@ -1,10 +1,11 @@
 #!/bin/sh
 
-OPENFOUNDRY_HOME=/usr/local/openfoundry
+OPENFOUNDRY_HOME=/usr/local/vcs
 OPENFOUNDRY_ETC="${OPENFOUNDRY_HOME}/etc"
 OPENFOUNDRY_CHECKOUT="${OPENFOUNDRY_HOME}/checkout"
 OPENFOUNDRY_BIN="${OPENFOUNDRY_HOME}/bin"
-VCS_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/trunk/services/vcs"
+OPENFOUNDRY_PM_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/module"
+VCS_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/vcs"
 
 mkdir -p "${OPENFOUNDRY_HOME}"
 mkdir -p "${OPENFOUNDRY_ETC}"
@@ -47,7 +48,7 @@ ln -sf "${VCS_CHECKOUT}/etc/rc.conf" /etc/
 # OpenFoundry
 export OPENFOUNDRY_ETC
 export OPENFOUNDRY_BIN
-replace "${OPENFOUNDRY_CHECKOUT}/trunk/openfoundry/OpenFoundry.pm" /usr/local/lib/perl5/site_perl/5.8.8/
+replace "${OPENFOUNDRY_PM_CHECKOUT}/OpenFoundry.pm" /usr/local/lib/perl5/site_perl/5.8.8/
 
 # export conf to env
 envs=`perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
