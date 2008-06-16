@@ -69,8 +69,8 @@ class OpenfoundryController < ApplicationController
     end
 
     data = {
-      :projects => Project.find(:all).map { |p| { :Id => p.id, :summary => p.summary , :name => p.name, :VCS => p.vcs } },
-      :users => User.find(:all).map { |u| { :Id => u.id, :Name => u.login, :Email => u.email, :Password => u.salted_password } },
+      :projects => Project.find(:all).map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
+      :users => User.find(:all).map { |u| { :id => u.id, :name => u.login, :email => u.email, :password => u.salted_password } },
       :relations => {
         :admin => Project.find(:all).inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
         :member => Project.find(:all).inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
