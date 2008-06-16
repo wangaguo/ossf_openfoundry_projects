@@ -90,6 +90,10 @@ class NewsController < ApplicationController
   end
   
   def update
+    if(params[:news][:updated_at] != "")
+      News.record_timestamps = false
+    end
+
     if @news.update_attributes(params[:news])
       flash[:notice] = '修改成功.'
       redirect_to :action => 'show', :id => @news

@@ -17,6 +17,8 @@
 <% if permit?("site_admin") -%>
 <p><label for="news_tags"><%=_('Tags')%></label><br/>
 <%= text_field 'news', 'tags' %></p>
+<p><label for="news_updated_at"><%=_('Last Updated')%></label><br/>
+<%= text_field 'news', 'updated_at' %></p>
 <% end %>
 
 <p><label for="news_status_1"><%=_('Status')%></label><br/>
