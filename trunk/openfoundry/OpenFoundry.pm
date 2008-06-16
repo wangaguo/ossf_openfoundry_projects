@@ -8,6 +8,10 @@ use JSON::XS;
 use FileHandle;
 use Fatal qw(open close);
 
+# see: app/models/project.rb
+# VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :REMOTE => -1 }.freeze
+use constant { VCS_NONE => 0, VCS_CVS => 1, VCS_SUBVERSION => 2, VCS_REMOTE => -1 };
+
 sub init
 {
 	#my ($class, $backend) = @_;
