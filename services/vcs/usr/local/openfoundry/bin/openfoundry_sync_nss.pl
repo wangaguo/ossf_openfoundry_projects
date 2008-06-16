@@ -16,7 +16,7 @@ $dbh->do("delete from users");
 my $sth = $dbh->prepare("INSERT INTO users values (?, ?)");
 foreach my $u (@{$of->getUsers()})
 {
-	$sth->execute($u->{Name}, $u->{Password});
+	$sth->execute($u->{name}, $u->{password});
 	print ".";
 }
 $dbh->do("INSERT INTO users values ('$conf{ANONYMOUS_CVS_ACCOUNT}', '\$1\$abcd\$CwbBDotm4UoKv5fATTtzT.')");
