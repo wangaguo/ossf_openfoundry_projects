@@ -17,7 +17,6 @@
 	[% IF o.value.gecos %][% o.value.gecos %][% ELSE %][% o.value.local %][% END %]<br />
       [% END %]
    [% END %]
-   [% END %]
 
    [% IF editor %]<span>[%|loc%]Moderators[%END%]</span><br />[% END %]
    [% FOREACH e = editor %]
