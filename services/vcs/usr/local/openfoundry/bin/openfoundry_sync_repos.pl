@@ -11,6 +11,8 @@ my $of = OpenFoundry->init();
 my %conf = %{ $of->getConf() };
 
 die "cvs directory '$conf{CVSROOT}' dose not exist" if not -d $conf{CVSROOT};
+print __FILE__, ": \$conf{CVSROOT} directory: $conf{CVSROOT}\n";
+print __FILE__, ": \$conf{SVN_PARENT_PATH} directory: $conf{SVN_PARENT_PATH}\n";
 die "svn directory '$conf{SVN_PARENT_PATH}' dose not exist" if not -d $conf{SVN_PARENT_PATH};
 
 my $SVNADMIN_CMD = '/usr/local/bin/svnadmin';
@@ -18,16 +20,18 @@ my $SVNADMIN_CMD = '/usr/local/bin/svnadmin';
 
 foreach my $p (@{$of->getProjects()})
 {
-	my $unixName = $p->{UnixName};
-	my $vcs = $p->{VCS};
-	if ($vcs eq 'cvs') {
-		my $dir = "$conf{CVSROOT}/$unixName"; 
+	my $name = $p->{name};
+	my $vcs = $p->{vcs};
+	if ($vcs eq OpenFoundry::VCS_CVS) {
+		my $dir = "$conf{CVSROOT}/$name"; 
 		next if -d $dir;
+
+		print "Createing cvs directory in $dir\n";
 
 		mkdir $dir;
 		chown $conf{CVS_OWNER}, $conf{CVS_GROUP}, $dir;
-	} elsif ($vcs eq 'svn') {
-		my $dir = "$conf{SVN_PARENT_PATH}/$unixName";
+	} elsif ($vcs eq OpenFoundry::VCS_SUBVERSION) {
+		my $dir = "$conf{SVN_PARENT_PATH}/$name";
 		next if -d $dir;
 
 		print "Creating svn repository in $dir\n";
@@ -40,7 +44,7 @@ foreach my $p (@{$of->getProjects()})
 		symlink '../../.default/hooks/pre-commit', "$dir/hooks/pre-commit";
 		symlink '../../.default/hooks/pre-revprop-change', "$dir/hooks/pre-revprop-change";
 	} else {
-		print ".... $p->{UnixName} #$vcs#\n";
+		print "other value: $p->{name} #$vcs#\n";
 	}
 }
 
