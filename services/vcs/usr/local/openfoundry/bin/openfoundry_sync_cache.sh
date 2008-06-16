@@ -1,2 +1,2 @@
 #!/bin/sh
-perl -MOpenFoundry -e 'OpenFoundry::Impl::RT::refresh'
+perl -MOpenFoundry -e 'OpenFoundry::Impl::OF::refresh'
