@@ -238,7 +238,7 @@ sub new
 }
 
 # static (for not loading old data)
-# perl -MOpenFoundry -e 'OpenFoundry::Impl::RT::refresh'
+# perl -MOpenFoundry -e 'OpenFoundry::Impl::OF::refresh'
 # see: /usr/local/bin/openfoundry_sync_cache.sh
 sub refresh
 {
@@ -256,7 +256,7 @@ sub refresh
 	my $obj = decode_json($json);
 	foreach my $user (@{$obj->{users}})
 	{
-		$user->{Password} = $user->{Email} = '';
+		$user->{password} = $user->{email} = '';
 	}
 	open my $fh2, ">", $conf->{JSON_DUMP_CACHE_PATH};
 	print {$fh2} encode_json($obj);
