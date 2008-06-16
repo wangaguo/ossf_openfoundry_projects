@@ -25,11 +25,12 @@ class User < ActiveRecord::Base
     if /^t_(.*)=$/ =~ method_name.to_s
       act = ''
       case args.shift
-      when true,1,'true'
+      when '1','true'
         act = 'add'
-      #when false,0,'false',nil
-      else  
+      when '0','false'
         act = 'remove'
+      else
+        raise ArgumentError
       end
       tag_list.send(act, $1) 
     elsif /^t_([^=]*)$/ =~ method_name.to_s 

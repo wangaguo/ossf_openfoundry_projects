@@ -192,7 +192,7 @@ class UserController < ApplicationController
           changeable_filter = /^t_.*$/
           params['user'].each_pair do |k, v|
             next unless changeable_filter =~ k
-            @user.send(k, v)
+            @user.send(k+'=', v)
           end
           @user.save
         when "delete"
