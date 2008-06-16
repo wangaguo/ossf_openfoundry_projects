@@ -224,13 +224,13 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @vcs = @project.vcs
     @src = ""
+    @vcs_desc = @project.vcsdescription
     case(@vcs)
     when Project::VCS[:SUBVERSION]
       @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
     when Project::VCS[:CVS]
       @src = "cvs -d :ext:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
     when Project::VCS[:REMOTE]
-      @src = @project.remotevcs
     else
     end
   end
