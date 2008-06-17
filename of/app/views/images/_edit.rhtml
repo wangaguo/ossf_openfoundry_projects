@@ -7,7 +7,9 @@
   <%= hidden_field_tag 'type', type %>
   <%= hidden_field_tag 'id', id %>
   <%= hidden_field_tag 'back_to', back_to %>
-  <%= _('Upload your picture')%> : <%= file_field("images","image", :size => 20) %>
+  <%= _('Upload your picture')%> : 
+  <br/>
+  <%= file_field("images","image", :size => 20) %>
   <br/>
   <%= submit_tag( _("Upload"), "class" => "button" ) %>
   <%end%>

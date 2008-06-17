@@ -1,8 +1,8 @@
 <!--search hit-->
 <td>
-<img src="<%= url_for(:controller => :images, :action => "image", :id => record.icon, :size => 32) %>"/>
+  <%=user_portrait_link(record)%>
 </td>
 <td>
- <%= content_tag 'label', record.login %>
+  <a href=/user/home/<%=record.id%>><%= content_tag 'label', record.login %></a>
 </td>
 <!--search hit end-->

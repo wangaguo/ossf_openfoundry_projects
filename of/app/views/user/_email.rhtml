@@ -1,4 +1,5 @@
-<div class="user_email">
+<fieldset>
+  <legend><%= _('Change User Email')%></legend>
   <%= f.hidden_field 'form', :value => 'change_email' %>
 
   <table class='form-table'>
@@ -8,4 +9,4 @@
     <%= f.text_field "email_confirmation", :size => 30 %>
   </table>
     <%= submit_tag _('User|Change Email'), "class" => "button" if submit%>
-</div>      
+</fieldset>

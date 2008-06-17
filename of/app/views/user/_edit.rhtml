@@ -1,4 +1,5 @@
-<div class="user_edit">
+<fieldset>
+  <legend><%= _('User Info') %></legend>
   <%= f.hidden_field 'form', :value => 'edit' %>
   <table class='form-table'>
     <%= f.label :login, _('User|Login')+':'%>
@@ -13,4 +14,4 @@
     <%= f.select_tag 'user_timezone', options_for_select(['UTC'] + TZInfo::Timezone.all.map{|tz| [tz.to_s, tz.name]}.sort, @user.timezone), :name => "user[timezone]" %>
   </table>
     <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings'), "class" => "button" ) if submit %>
-</div> 
+</fieldset>
