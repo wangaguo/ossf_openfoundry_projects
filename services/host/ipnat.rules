@@ -1,2 +1,37 @@
 map bge0 192.168.0.0/16 -> 0/32
-rdr bge0 140.109.17.79/32 port 2222 -> 192.168.0.30 port 22
+map bge0 192.168.0.0/16 -> 0/32
+map bge0 192.168.0.0/16 -> 0/32
+map bge0 192.168.0.0/16 -> 0/32
+map bge0 192.168.0.0/16 -> 0/32
+
+#ssh for host
+rdr bge0 140.109.17.80/32 port 2222 -> 127.0.0.1 port 22
+
+#ssh-cvs in VCS
+rdr bge0 140.109.17.80/32 port 22 -> 192.168.0.40 port 22
+rdr bge0 140.109.17.80/32 port 4022 -> 192.168.0.40 port 2222
+#ftp in FTP
+rdr bge0 140.109.17.80/32 port 10021 -> 192.168.0.100 port 21
+map bge0 192.168.0.0/16 -> 0/32
+map bge0 192.168.0.0/16 -> 0/32
+#ssh-cvs in VCS
+rdr bge0 140.109.17.80/32 port 4022 -> 192.168.0.40 port 2222
+#ftp in FTP
+rdr bge0 140.109.17.80/32 port 10021 -> 192.168.0.100 port 21
+map bge0 192.168.0.0/16 -> 0/32
+#ssh-cvs in VCS
+rdr bge0 140.109.17.80/32 port 4022 -> 192.168.0.40 port 2222
+#ftp in FTP
+rdr bge0 140.109.17.80/32 port 10021 -> 192.168.0.100 port 21
+map bge0 192.168.0.0/16 -> 0/32
+#ssh-cvs in VCS
+rdr bge0 140.109.17.80/32 port 4022 -> 192.168.0.40 port 2222
+#ftp in FTP
+rdr bge0 140.109.17.80/32 port 10021 -> 192.168.0.100 port 21
+#ftp for Webhosting
+rdr bge0 140.109.17.80/32 port 20 -> 192.168.0.90 port 20
+rdr bge0 140.109.17.80/32 port 21 -> 192.168.0.90 port 21
+#
+# test!!!!!
+#
+rdr bge0 140.109.17.80/32 port 3001 -> 192.168.0.20 port 3001
