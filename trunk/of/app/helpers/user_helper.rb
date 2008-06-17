@@ -1,5 +1,10 @@
 module UserHelper
 
+  def user_portrait_link(user, options={})
+    "<a href=/user/home/#{user.id}><img src=\"#{url_for(:controller => :images, :action => "image", :id => user.icon, :size => options[:size]||32)} \"/></a>"
+  end
+
+
 #  DEFAULT_HEAD_OPTIONS = {
 #    :notice => true,
 #    :message => true,
