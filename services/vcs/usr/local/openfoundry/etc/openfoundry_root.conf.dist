@@ -25,5 +25,6 @@
 	"SVN_BACKUP_PATH": "/svn/.backup",
 
 	"VIEWVC_HOST": "viewvc.of.openfoundry.org",
-	"VIEWVC_SERVER_ALIAS_HOST": "of.openfoundry.org"
+	"VIEWVC_SERVER_ALIAS_HOST": "of.openfoundry.org",
+	"VIEWVC_ADDRESS": "<a href=\"mailto:contact@openfoundry.org\">If you have any question, please contact us.</a>"
 }
