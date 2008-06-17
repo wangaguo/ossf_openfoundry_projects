@@ -31,7 +31,37 @@ class ImagesController < ApplicationController
     render :partial => "partials/captcha", :layout => false, 
       :locals => {:reload => params[:reload].to_i+1}
   end
-  
+
+  def email_image
+    #tmp dir
+    dir = RAILS_ROOT + "/tmp/email/"
+    #if file exist, no regeneration
+    email = session['email_image']
+    filename = email.hash
+    
+    unless File.exist?([dir,filename,".jpg"].join)
+      command = 'convert'
+      
+      #image params
+      text_size = 25
+      count = email.length
+      width, height = text_size*count,text_size
+      bg = 'white'
+      font = 'Courier'
+      
+      #set image size
+      command << " -size #{width}x#{height} xc:#{bg}"
+      #set test color
+      text_fg = "\"rgba(#{rand(128)},#{rand(128)},#{rand(128)},100)\""
+      #text command
+      command << "  -font #{font} -pointsize #{text_size} -fill #{text_fg} -draw \"text 0,#{text_size/4*3} '#{email}'\""
+      
+      @output = `#{command} -trim #{dir}#{filename}.jpg`
+    end
+    send_file([dir,filename,".jpg"].join, :type => 'image/jpeg', :disposition => 'inline')
+    
+  end
+ 
   def code_image
     #about imagick 'convert' command, see http://www.imagemagick.org/script/convert.php
     generate_captcha_code unless params[:not_regenerate]
