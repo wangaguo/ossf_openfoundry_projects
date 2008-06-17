@@ -128,7 +128,7 @@ class ImagesController < ApplicationController
   def upload
     allow=false
     if params[:type]=='User'
-      allow = (current_user.id == params[:id])
+      allow = (current_user.id.to_s == params[:id])
     elsif params[:type]=='Project'
       allow = fpermit?(params[:id],"CHANGE_PROJECT_INFO")
     end
