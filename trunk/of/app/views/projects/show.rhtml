@@ -54,15 +54,12 @@
 
 
 <fieldset style="clear:both;">
-<legend><%= _("Project Role") %></legend>
+<legend><%= _("Project Participents") %>:</legend>
   <dl>
-<% for role in @roles -%>
-    <dt><%= role.name%>:</dt>
+<% for p in @participents-%>
+    <dt><%= p.login%>:</dt>
     <dd>
-    <% users = role.users %>
-    <% for user in users -%>
-    <%= user.login %>
-    <% end %>
+    <%=user_portrait_link(p)%>
     </dd>
 <% end -%>
   </dl>
