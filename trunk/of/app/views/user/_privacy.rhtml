@@ -1,4 +1,5 @@
-<div class="user_privacy">
+<fieldset>
+  <legend><%= _('User Privacy')%></legend>
   <%= f.hidden_field 'form', :value => 'change_privacy' %>
   <table class='form-table'>
     <%= f.label :t_conceal_email, _('User|Conceal Email')%>
@@ -6,6 +7,5 @@
     <%= f.label :t_conceal_intro, _('User|Conceal Login Status')%>
     <%= f.check_box 't_conceal_login'%>
   </table>
-  <style>.left-item{position:relative; right:0px; color:yellow;display:block }</style>
-    <%= submit_tag _('User|Change Privacy'), "class" => "button left-item" if submit%>
-</div>      
+    <%= submit_tag _('User|Change Privacy'), "class" => "button" if submit%>
+</fieldset>
