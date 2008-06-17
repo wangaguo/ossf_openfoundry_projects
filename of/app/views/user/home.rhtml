@@ -1,17 +1,39 @@
-
 <dl>
-<dt><%= _('My Projects')%>:</dt>
-<dd>
-<% @my_projects.each do |p| %>
-  <img src="<%= url_for(:controller => :images, :action => "image", :id => p.icon, :size => 32) %>"/>
-  <%= link_to p.name, project_path(p.id) %>
+  <dt>
+  <% if(@my)%>
+    <%= _('My Partners')%>
+  <%  else %>
+    <%= "<em>#{@name}</em> #{_('\'s Partners')}" %>
+  <% end %>:
+  </dt>
+  <dd>
+  <% @partners.each do |p| %>
+    <%=user_portrait_link(p)%>
+  <% end %>
+  </dd>
+<% unless(@conceal_email)%>
+  <dt>
+    <% if(@my) %>
+      <%=  _('My Email') %>
+    <% else %>
+      <%= "<em>#{@name}</em> #{_('\'s Email')}" %>
+    <% end %>:
+   </dt>  
+  <dd> 
+    <img src="<%= url_for(:controller => :images,:action => "email_image", :email => @email) %>"/>
+  </dd>
 <% end %>
-</dd>
-
-<dt><%= _('My Partners')%>:</dt>
-<dd>
-<% @my_partners.each do |p| %>
-  <img src="<%= url_for(:controller => :images, :action => "image", :id => p.icon, :size => 32) %>"/>
-<% end %>
-</dd>
+  <dt>
+  <% if(@my) %>
+    <%= _('My Projects')%>
+  <% else %>
+    <%= "<em>#{@name}</em> #{_('\'s Projects')}" %>
+  <% end %>:
+  </dt>
+  <dd>
+    <% @projects.each do |p| %>
+    <img src="<%= url_for(:controller => :images, :action => "image", :id => p.icon, :size => 32) %>"/>
+    <%= link_to p.name, project_path(p.id) %>
+    <% end %>
+  </dd>
 </dl>

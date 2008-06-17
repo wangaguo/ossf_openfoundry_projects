@@ -9,17 +9,35 @@ class UserController < ApplicationController
     @online_guests=Session.anonymous_sessions
   end
   def home
+    # given uid to show other user's home
+    # or goto login
     # TODO: redirect to login .... ok
     # TODO: user may be empty!!!!!!!!!!!!!!!! .... guest account?
     #logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
-    if user = session['user']
-      @my_partners = []
-      @my_projects = user.roles.map{|r| r.name}.uniq.map{|r| user.send("is_#{r}_of_what")}.flatten.uniq
-      @my_projects.reject!{|p| not ActiveRecord::Base === p}
-      @my_projects.each do |project|
-         @my_partners << project.roles.map{|r| project.send("has_#{r.name}")}.flatten.uniq
-      end
-      @my_partners.flatten!.uniq!  
+    
+    if params['id']
+      user = User.find params['id']
+      @my = ( session['user'] and (user.id == session['user'].id) )
+    else
+      user = session['user']
+      @my =true
+    end
+
+    if user
+      @name = user.login
+      @conceal_email = user.t_conceal_email
+      session['email_image'] = user.email unless @conceal_email
+      #@last_login, @status = user.last_login, user.status unless user.t_conseal_status
+
+      @partners = User.find_by_sql("select distinct(U.id),U.icon from users U join roles_users RU join roles_users RU2 where U.id = RU.user_id and RU.role_id = RU2.role_id and RU2.user_id =#{user.id} and U.id != #{user.id} order by U.id")
+      @projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} order by P.id")
+      #@partners = []
+      #@projects=user.roles.map{|r| r.name}.uniq.map{|r| user.send("is_#{r}_of_what")}.flatten.uniq
+      #@projects.reject!{|p| not ActiveRecord::Base === p}
+      #@projects.each do |project|
+      #   @partners << project.roles.map{|r| project.send("has_#{r.name}")}.flatten.uniq
+      #end
+      #@partners.flatten!.uniq!  
     else
       flash[:message] = "You are guest!!"
       redirect_to :action => 'login'
