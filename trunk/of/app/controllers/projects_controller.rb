@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    @roles = @project.roles
+    @participents = User.find_by_sql("select distinct(U.id),U.login,U.icon from users U join roles_users RU join roles R where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = #{@project.id} and R.authorizable_type='Project' order by U.id")
   end
 
   def new
