@@ -26,8 +26,9 @@ class ProjectsController < ApplicationController
       @Path = OPENFOUNDRY_VIEWVC_URL + @project.name
     when Project::VCS[:SUBVERSION]
       @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.name
-#    when Project::VCS[:REMOTE]
-#    when Project::VCS[:NONE]
+    when Project::VCS[:REMOTE], Project::VCS[:NONE]
+      vcs_access
+      render :template => 'projects/vcs_access'
     else
       render :text => _("System error. Please contact the site administrator.")
     end
