@@ -192,8 +192,8 @@ THECODE
     module_eval code
   end
   
-  def fpermit?(project_name, function_name)
-    Function.function_permit(project_name, function_name)
+  def fpermit?(function_name, authorizable_id, authorizable_type = 'Project')
+    Function.function_permit(function_name, authorizable_id, authorizable_type)
   end
   
   def valid_captcha?
