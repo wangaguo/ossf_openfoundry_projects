@@ -14,6 +14,8 @@ class Project < ActiveRecord::Base
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
+  # name validation
+  NAME_REGEX = /^[a-z][0-9a-z]{2,14}$/
   
   def self.status_to_s(int_status)
     STATUS.index int_status
@@ -72,7 +74,7 @@ class Project < ActiveRecord::Base
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => /^[a-z][0-9a-z]{2,14}$/, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
+  validates_format_of :name, :with => NAME_REGEX, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
   validates_length_of :vcsdescription, :maximum => 50
   #validates_inclusion_of :license, :in => LICENSES
   #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
