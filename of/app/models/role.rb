@@ -7,6 +7,14 @@ class Role < ActiveRecord::Base
   has_and_belongs_to_many :functions, :join_table => 'roles_functions'
   belongs_to :authorizable, :polymorphic => true
 
+  def self.set_default_privileges_for(role)
+    case role.name.downcase
+    when 'admin'
+      role.functions << Function.find(:all)
+    when 'member'
+      role.functions.clear
+    end
+  end
 #  ROLES = [ "Admin", "Member", "ABC" ].freeze
 #  validates_inclusion_of :name, :in => ROLES
 

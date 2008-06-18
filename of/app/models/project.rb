@@ -111,6 +111,16 @@ class Project < ActiveRecord::Base
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
     self.status = Project::STATUS[:READY]
     self.statusreason = reason
+
+    # add default roles: Admin/Member
+    ['Admin', 'Member'].each do |role_name|
+      self.roles.new do |r|
+        r.name = role_name 
+        r.authorizable_type = 'Project'
+        Role.set_default_privileges_for r
+      end.save
+    end
+
     save
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
