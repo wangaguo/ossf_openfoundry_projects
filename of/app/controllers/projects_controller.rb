@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   layout 'module'
   before_filter :set_project_id
   before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access]
-  before_filter :set_project, :only => [:show, :edit, :update, :roles_edit, :role_users, :role_edit, :role_update, :role_new, :role_create, :role_destroy, :viewvc, :sympa]
+  before_filter :set_project, :only => [:show, :edit, :update, :roles_edit, :role_users, :role_edit, :role_update, :role_new, :role_create, :role_destroy, :viewvc, :vcs_access, :sympa]
 
   def set_project
     case id = params[:id]
@@ -232,7 +232,6 @@ class ProjectsController < ApplicationController
   
   def vcs_access
     @module_name = _('Subversion/CVS Access')
-    @project = Project.find(params[:id])
     @vcs = @project.vcs
     @src = ""
     @vcs_desc = @project.vcsdescription
