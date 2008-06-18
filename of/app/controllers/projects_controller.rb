@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     case id = params[:id]
     when /^\d+$/
       @project = Project.find_by_id(id)
-    when /^[a-z][0-9a-z]{2,14}$/
+    when Project::NAME_REGEX
       if @project = Project.find(:first, :select => 'id', :conditions => ["name = ?", id])
         redirect_to :id => @project.id
       end
