@@ -22,22 +22,23 @@ print "Removed.";
 
 foreach my $p (@{$of->getProjects()})
 {
-	my $unixName = $p->{UnixName};
-	my $vcs = $p->{VCS};
-	if ($vcs eq 'cvs') {
+	my $name = $p->{name};
+	my $vcs = $p->{vcs};
+	if ($vcs eq OpenFoundry::VCS_CVS) {
 #		my $dir = "$conf{CVSROOT}/$unixName"; 
 #		next if -d $dir;
 #
 #		mkdir $dir;
 #		chown $conf{CVS_OWNER}, $conf{CVS_GROUP}, $dir;
-	} elsif ($vcs eq 'svn') {
-		my $dir = "$conf{SVN_PARENT_PATH}/$unixName";
-		my $backup_dir = "$conf{SVN_BACKUP_PATH}/$unixName";
-
+	} elsif ($vcs eq OpenFoundry::VCS_SUBVERSION) {
+		my $dir = "$conf{SVN_PARENT_PATH}/$name";
+		my $backup_dir = "$conf{SVN_BACKUP_PATH}/$name";
+		print "backup svn: $dir => $backup_dir >>>> " .  localtime(), "\n";
 		system $SVNADMIN_CMD, 'hotcopy', $dir, $backup_dir
 			and carp "Couldn't run: $SVNADMIN_CMD, 'hotcopy', $dir, $backup_dir : ($!)";
+		print "backup svn: $dir => $backup_dir <<<< " .  localtime(), "\n";
 	} else {
-		print ".... $p->{UnixName} #$vcs#\n";
+		print ".... $p->{name} #$vcs#\n";
 	}
 }
 
