@@ -19,6 +19,15 @@ class ProjectsController < ApplicationController
   end
   
   def viewvc
+    if not params[:id] =~ /^\d+$/
+      p = Project.find(:first, :select => 'id', :conditions => ["name = ?", params[:id]])
+      if p
+        redirect_to :action => 'viewvc', :id => p.id
+      else
+        redirect_to "/"
+      end
+      return
+    end
     @module_name = _('Version Control')
     @project = Project.find(params[:id])
     case @project.vcs
@@ -244,5 +253,8 @@ class ProjectsController < ApplicationController
     when Project::VCS[:REMOTE]
     else
     end
+  end
+  def the_rest
+    render :text => 'ohoh'
   end
 end
