@@ -2,6 +2,20 @@ class ProjectsController < ApplicationController
   layout 'module'
   before_filter :set_project_id
   before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access]
+  before_filter :set_project, :only => [:show, :edit, :update, :roles_edit, :role_users, :role_edit, :role_update, :role_new, :role_create, :role_destroy, :viewvc, :sympa]
+
+  def set_project
+    case id = params[:id]
+    when /^\d+$/
+      @project = Project.find_by_id(id)
+    when /^[a-z][0-9a-z]{2,14}$/
+      if @project = Project.find(:first, :select => 'id', :conditions => ["name = ?", id])
+        redirect_to :id => @project.id
+      end
+    end
+    redirect_to "/" if not @project
+  end
+
   
   def set_project_id
     params[:project_id] = params[:id]
@@ -9,7 +23,6 @@ class ProjectsController < ApplicationController
   end
   
   def sympa
-    @project = Project.find(params[:id])
     @module_name = _('Mailing List')
     if (params[:path] != nil)
       @Path = OPENFOUNDRY_SYMPA_URL + "/#{params[:path]}" 
@@ -19,17 +32,7 @@ class ProjectsController < ApplicationController
   end
   
   def viewvc
-    if not params[:id] =~ /^\d+$/
-      p = Project.find(:first, :select => 'id', :conditions => ["name = ?", params[:id]])
-      if p
-        redirect_to :action => 'viewvc', :id => p.id
-      else
-        redirect_to "/"
-      end
-      return
-    end
     @module_name = _('Version Control')
-    @project = Project.find(params[:id])
     case @project.vcs
     when Project::VCS[:CVS]
       @Path = OPENFOUNDRY_VIEWVC_URL + @project.name
@@ -41,7 +44,6 @@ class ProjectsController < ApplicationController
     else
       render :text => _("System error. Please contact the site administrator.")
     end
-
   end
 
   def index
@@ -70,7 +72,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
     @participents = User.find_by_sql("select distinct(U.id),U.login,U.icon from users U join roles_users RU join roles R where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = #{@project.id} and R.authorizable_type='Project' order by U.id")
   end
 
@@ -100,14 +101,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
     redirect_to :action => 'index' if not current_user().has_role?("Admin", @project)
   end
 
   def update
     params[:project].delete(:name)
-
-    @project = Project.find(params[:id])
     join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
@@ -146,12 +144,10 @@ class ProjectsController < ApplicationController
   end
 
   def roles_edit
-    @project = Project.find(params[:id])
     @roles = @project.roles
   end
   
   def role_users
-    @project = Project.find(params[:id])
     @role = Role.find(params[:role])
     if(@role.authorizable_id == @project.id)
       @users = @role.users
@@ -160,7 +156,6 @@ class ProjectsController < ApplicationController
   end
   
   def role_edit
-    @project = Project.find(params[:id])
     @role = Role.find(params[:role])
     @role_functions = @role.functions
     @functions = Function.find(:all)
@@ -175,7 +170,6 @@ class ProjectsController < ApplicationController
   end
   
   def role_update
-    @project = Project.find(params[:id])
     @role = Role.find(params[:role])
     if(@role.authorizable_id == @project.id)
       if !(@role.name.upcase == "ADMIN" || @role.name.upcase == "MEMBER")
@@ -202,13 +196,11 @@ class ProjectsController < ApplicationController
   end
   
   def role_new
-    @project = Project.find(params[:id])
     @roles = @project.roles
     render :partial => 'role_new', :layout => false
   end
   
   def role_create
-    @project = Project.find(params[:id])
     @role = @project.roles.new
     if(@role.authorizable_id == @project.id)
       @role.name = params[:name]
@@ -221,7 +213,6 @@ class ProjectsController < ApplicationController
   end
 
   def role_destroy
-    @project = Project.find(params[:id])
     @roles = @project.roles
     role = Role.find(params[:role])
     if(role.name.upcase == "ADMIN" || role.name.upcase == "MEMBER")
