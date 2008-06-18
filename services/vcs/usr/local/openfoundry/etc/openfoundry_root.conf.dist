@@ -24,6 +24,8 @@
 	"SVN_HOST": "svn.openfoundry.org",
 	"SVN_BACKUP_PATH": "/svn/.backup",
 
+	"BACKUP_CRONTAB_TIME": "31 3 * * *",
+
 	"VIEWVC_HOST": "viewvc.of.openfoundry.org",
 	"VIEWVC_SERVER_ALIAS_HOST": "of.openfoundry.org",
 	"VIEWVC_ADDRESS": "<a href=\"mailto:contact@openfoundry.org\">If you have any question, please contact us.</a>"
