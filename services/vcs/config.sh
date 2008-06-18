@@ -100,6 +100,7 @@ replace "${VCS_CHECKOUT}/usr/local/etc/apache22/Includes/vcs.conf" /usr/local/et
 # viewvc
 replace "${VCS_CHECKOUT}/usr/local/viewvc/viewvc.conf" /usr/local/viewvc/
 ln -sf "${VCS_CHECKOUT}/viewvc/templates/include/header.ezt" /usr/local/viewvc/templates/include/
+ln -sf "${VCS_CHECKOUT}/viewvc/templates/include/footer.ezt" /usr/local/viewvc/templates/include/
 ln -sf "${VCS_CHECKOUT}/viewvc/templates/query.ezt" /usr/local/viewvc/templates/
 ln -sf "${VCS_CHECKOUT}/viewvc/templates/docroot/help_log.html" /usr/local/viewvc/templates/docroot/
 ln -sf "${VCS_CHECKOUT}/viewvc/templates/docroot/help_rootview.html" /usr/local/viewvc/templates/docroot/
