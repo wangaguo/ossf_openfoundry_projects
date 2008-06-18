@@ -110,6 +110,8 @@ ln -sf "${VCS_CHECKOUT}/viewvc/templates/docroot/of.js" /usr/local/viewvc/templa
 
 # crontab
 replace "${VCS_CHECKOUT}/etc/crontab" /etc/
+# log rotate
+ln -sf "${VCS_CHECKOUT}/etc/newsyslog.conf" /etc/
 
 # start
 /usr/local/etc/rc.d/apache22 restart
