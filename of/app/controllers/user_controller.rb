@@ -70,7 +70,9 @@ class UserController < ApplicationController
   end
 
   def signup
-    return if generate_blank
+    #term of use agreement
+    return if toua 
+    #return if generate_blank
     params['user'].delete('form')
     @user = User.new(params['user'])
     return unless valid_captcha?
@@ -270,6 +272,36 @@ class UserController < ApplicationController
       return false
     else
       return true
+    end
+  end
+  
+  #Generate End User License Agreement for actions on get 
+  #and chack agreement for normal process
+  def toua
+    case request.method
+    when :get
+      session[:eula] = :show
+      render :partial => 'partials/toua', :layout => true, 
+        :locals => {:submit_to => '/user/signup', 
+                    :file_path => "#{RAILS_ROOT}/public/term_of_use_agreement.#{GetText.locale.to_s}.txt"}
+      return true
+    when :post
+      if( session[:eula] == :show )
+        if( params['agree'] == '1' )
+          # eula check ok, normal process
+          session[:eula] = :pass
+          @user = User.new
+          render
+          return true
+        else
+          # eula disagree, back to root
+          redirect_to '/'
+          return true
+        end
+      elsif( session[:eula] == :pass )
+        #normal process post method!
+        return false
+      end
     end
   end
 
