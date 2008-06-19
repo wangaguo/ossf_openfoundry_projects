@@ -68,12 +68,15 @@ class OpenfoundryController < ApplicationController
       return
     end
 
+    projects = Project.find(:all, :conditions => Project.in_used_projects())
+    users = User.find(:all, :conditions => User.verified_users())
+
     data = {
-      :projects => Project.find(:all).map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
-      :users => User.find(:all).map { |u| { :id => u.id, :name => u.login, :email => u.email, :password => u.salted_password } },
+      :projects => projects.map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
+      :users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email, :password => u.salted_password } },
       :relations => {
-        :admin => Project.find(:all).inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
-        :member => Project.find(:all).inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
+        :admin => projects.inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
+        :member => projects.inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
       }
     }
     render :text => data.to_json, :layout => false
