@@ -11,7 +11,7 @@
     <%= f.label :language, _('User|Language')+':' %>
     <%= f.language_select "user_language", @user.language, :name => "user[language]"%>
     <%= f.label :timezone, _('User|TimeZone')+':'%>
-    <%= time_zone_select 'user', 'timezone', TimeZone.all.sort, :model => TimeZone %>
+    <%= f.time_zone_select 'timezone', TimeZone.all.sort, :model => TimeZone %>
   </table>
     <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings'), "class" => "button" ) if submit %>
 </fieldset>

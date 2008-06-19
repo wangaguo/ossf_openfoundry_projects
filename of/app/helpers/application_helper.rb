@@ -264,6 +264,10 @@ module ApplicationHelper
     def select_tag(name, option_tags = nil, options = {})
       "<td>#{content_tag :select, option_tags, { "name" => name, "id" => name }.update(options.stringify_keys)}</td></tr>"
     end
+
+    def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
+      "<td>#{super(@object_name, method, priority_zones, options.merge(:object => @object), html_options)}</td></tr>"
+    end
   end
 end
 
