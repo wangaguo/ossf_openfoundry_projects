@@ -81,10 +81,12 @@ class NewsController < ApplicationController
     
     if(params[:news][:updated_at] != "")
       News.record_timestamps = false
+      @news.updated_at = TzTime.zone.unadjust(params[:news][:updated_at].to_datetime)
+      @news.created_at = DateTime.now 
     end
     
     if @news.save
-      flash[:notice] = '新增成功.'
+      flash[:notice] = _('Add Successful')
       redirect_to :action => 'index'
     else
       render :action => 'new'
@@ -92,15 +94,20 @@ class NewsController < ApplicationController
   end
   
   def edit
+    @news.updated_at = TzTime.zone.adjust(@news.updated_at).strftime("%Y-%m-%d %H:%M")
   end
   
   def update
+    @news.subject = params[:news][:subject]
+    @news.description = params[:news][:description]
+    @news.tags = params[:news][:tags]
     if(params[:news][:updated_at] != "")
       News.record_timestamps = false
+      @news.updated_at = TzTime.zone.unadjust(params[:news][:updated_at].to_datetime)
     end
 
-    if @news.update_attributes(params[:news])
-      flash[:notice] = '修改成功.'
+    if @news.save
+      flash[:notice] = _('Edit Successful')
       redirect_to :action => 'show', :id => @news
     else
       render :action => 'edit'
@@ -109,6 +116,7 @@ class NewsController < ApplicationController
   
   def destroy
     @news.destroy
+    flash[:notice] = _('Delete Successful')
     redirect_to :action => 'index'
   end
 
