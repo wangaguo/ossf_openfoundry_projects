@@ -3,6 +3,7 @@ require 'of'
 
 # this model expects a certain database layout and its based on the name/login pattern. 
 class User < ActiveRecord::Base
+  composed_of :tz, :class_name => 'TimeZone', :mapping => %w( timezone timezone )
   acts_as_authorized_user
 
   #add fulltext indexed SEARCH
