@@ -7,6 +7,8 @@ require 'of'
 #require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
+  around_filter :set_timezone
+
   # for ActiveMQ module
   include OpenFoundry::Message
   
@@ -18,7 +20,6 @@ class ApplicationController < ActionController::Base
 
   helper :user
   require_dependency 'user'
-  require 'tzinfo'
 
 #  before_filter :configure_charsets
 #
@@ -209,4 +210,15 @@ THECODE
 
   # see: vendor/plugins/sliding_sessions/ 
   session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
+  
+  private
+    def set_timezone
+      if !current_user.timezone.nil?
+        TzTime.zone = current_user.tz
+      else
+        TzTime.zone = TimeZone.new(ENV['TZ'])
+      end
+      yield
+      TzTime.reset!
+    end
 end

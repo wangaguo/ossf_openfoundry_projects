@@ -223,6 +223,16 @@ module ApplicationHelper
     '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
   end
   
+  def tz_date(time_at)
+    time = TzTime.zone.adjust(time_at.utc)
+    time.strftime("%Y-%m-%d")
+  end
+  
+  def tz_datetime(time_at)
+    time = TzTime.zone.adjust(time_at.utc)
+    time.strftime("%Y-%m-%d %H:%M")
+  end
+  
   class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::TagHelper

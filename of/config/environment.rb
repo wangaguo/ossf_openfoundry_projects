@@ -41,14 +41,14 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
 
   # Make Active Record use UTC-base instead of local time
-  # config.active_record.default_timezone = :utc
+  config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
   # DEFAULT_REDIRECTION_HASH
   DEFAULT_REDIRECTION_HASH = { :controller => 'user', :action => 'login' }
   STORE_LOCATION_METHOD = :store_location
 end
-
+ENV['TZ'] = 'Asia/Taipei'
 
 # Add new inflection rules using the following format 
 # (all these examples are active by default):
