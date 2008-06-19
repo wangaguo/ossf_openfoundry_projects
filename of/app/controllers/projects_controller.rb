@@ -5,15 +5,20 @@ class ProjectsController < ApplicationController
   before_filter :set_project, :only => [:show, :edit, :update, :roles_edit, :role_users, :role_edit, :role_update, :role_new, :role_create, :role_destroy, :viewvc, :vcs_access, :sympa]
 
   def set_project
-    case id = params[:id]
+    @project = ProjectsController::get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
+  end
+  def self.get_project_by_id_or_name(id_or_name)
+    rtn = nil
+    case id_or_name
     when /^\d+$/
-      @project = Project.find_by_id(id)
+      rtn = Project.find_by_id(id_or_name)
     when Project::NAME_REGEX
-      if @project = Project.find(:first, :select => 'id', :conditions => ["name = ?", id])
-        redirect_to :id => @project.id
+      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ?", id_or_name])
+        yield rtn.id
       end
     end
-    redirect_to "/" if not @project
+    redirect_to "/" if not rtn
+    rtn
   end
 
   
