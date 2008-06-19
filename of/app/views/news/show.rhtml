@@ -1,6 +1,6 @@
 <h1><%=@news.subject%></h1>
 
-<p class="date"><%=_('Last Updated')%>:&nbsp;<%=@news.updated_at.strftime("%Y/%m/%d %H:%M")%></p>
+<p class="date"><%=_('Last Updated')%>:&nbsp;<%=tz_datetime(@news.updated_at)%></p>
 <div class="content">
   <%if @news.catid == 0%>
   <%= @news.description%>
