@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
   DEFAULT_REDIRECTION_HASH = { :controller => 'user', :action => 'login' }
   STORE_LOCATION_METHOD = :store_location
 end
-ENV['TZ'] = 'Asia/Taipei'
+ENV['TZ'] = 'Taipei'
 
 # Add new inflection rules using the following format 
 # (all these examples are active by default):
@@ -101,4 +101,4 @@ GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, tru
 
 # share session cookie for sub-doamins (SSO)
 # TODO: substitide domain name in the installing process
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
+ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".ofa.openfoundry.org"
