@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-06-12 02:40-0000\n"
+"POT-Creation-Date: 2008-06-19 07:30-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgid "Project Releases"
 msgstr ""
 
 #: app/helpers/application_helper.rb:64 app/controllers/news_controller.rb:31
-#: app/views/openfoundry/index.rhtml:55
+#: app/views/layouts/application.rhtml:49 app/views/openfoundry/index.rhtml:55
 msgid "Project News"
 msgstr ""
 
@@ -73,7 +73,7 @@ msgstr ""
 msgid "User|Icon"
 msgstr ""
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:8
+#: app/models/user.rb:- app/views/user/_edit.rhtml:5
 msgid "User|Login"
 msgstr ""
 
@@ -82,15 +82,15 @@ msgid "User|Salted password"
 msgstr ""
 
 #: app/models/user.rb:- app/views/user/forgot_password.rhtml:8
-#: app/views/user/_email.rhtml:5
+#: app/views/user/_email.rhtml:6
 msgid "User|Email"
 msgstr ""
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:4
+#: app/models/user.rb:- app/views/user/_edit.rhtml:7
 msgid "User|Firstname"
 msgstr ""
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:6
+#: app/models/user.rb:- app/views/user/_edit.rhtml:9
 msgid "User|Lastname"
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "User|Logged in at"
 msgstr ""
 
-#: app/models/user.rb:- app/views/user/_edit.rhtml:10
+#: app/models/user.rb:- app/views/user/_edit.rhtml:11
 msgid "User|Language"
 msgstr ""
 
@@ -270,11 +270,11 @@ msgstr ""
 msgid "Project|Icon"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:7
+#: app/models/project.rb:- app/views/projects/show.rhtml:8
 msgid "Project|Name"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:9
+#: app/models/project.rb:- app/views/projects/show.rhtml:11
 msgid "Project|Summary"
 msgstr ""
 
@@ -282,51 +282,51 @@ msgstr ""
 msgid "Project|Rationale"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:11
+#: app/models/project.rb:- app/views/projects/show.rhtml:14
 msgid "Project|Description"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:13
+#: app/models/project.rb:- app/views/projects/show.rhtml:17
 msgid "Project|Contactinfo"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:15
+#: app/models/project.rb:- app/views/projects/show.rhtml:20
 msgid "Project|Maturity"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:23
 msgid "Project|License"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:26
 msgid "Project|Contentlicense"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:29
 msgid "Project|Platform"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:32
 msgid "Project|Programminglanguage"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:35
 msgid "Project|Intendedaudience"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:38
 msgid "Project|Redirecturl"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:41
 msgid "Project|Vcs"
 msgstr ""
 
-#: app/models/project.rb:-
-msgid "Project|Remotevcs"
+#: app/models/project.rb:- app/views/projects/show.rhtml:44
+msgid "Project|Vcsdescription"
 msgstr ""
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:47
 msgid "Project|Creator"
 msgstr ""
 
@@ -378,8 +378,44 @@ msgstr ""
 msgid "STANDARD"
 msgstr ""
 
-#: app/models/project.rb:54
-msgid "專案名稱應以英數字組成, 英文字母開頭, 長度不超過15個字"
+#: app/models/project.rb:9
+msgid "NONE"
+msgstr ""
+
+#: app/models/project.rb:9
+msgid "CVS"
+msgstr ""
+
+#: app/models/project.rb:9
+msgid "SUBVERSION"
+msgstr ""
+
+#: app/models/project.rb:9
+msgid "REMOTE"
+msgstr ""
+
+#: app/models/project.rb:32
+msgid "TODO: 使用 CVS 版本控制系統"
+msgstr ""
+
+#: app/models/project.rb:34
+msgid "TODO: 使用 Subversion 版本控制系統"
+msgstr ""
+
+#: app/models/project.rb:36
+msgid "TODO: 使用其他站台的版本控制系統"
+msgstr ""
+
+#: app/models/project.rb:38
+msgid "TODO: 不使用版本控制系統"
+msgstr ""
+
+#: app/models/project.rb:40
+msgid "TODO: 系統錯誤, 請通知站台管理員"
+msgstr ""
+
+#: app/models/project.rb:77
+msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
 msgstr ""
 
 #: app/models/fileentity.rb:-
@@ -474,8 +510,12 @@ msgstr ""
 msgid "Not a valid value"
 msgstr ""
 
+#: app/models/news.rb:5
+msgid "Not a valid date time"
+msgstr ""
+
 #: app/controllers/news_controller.rb:35
-#: app/views/layouts/application.rhtml:39 app/views/openfoundry/index.rhtml:61
+#: app/views/layouts/application.rhtml:41 app/views/openfoundry/index.rhtml:61
 msgid "OpenFoundry News"
 msgstr ""
 
@@ -485,67 +525,67 @@ msgstr ""
 msgid "project_News"
 msgstr ""
 
-#: app/controllers/user_controller.rb:38
+#: app/controllers/user_controller.rb:56
 msgid "user_login_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:50
+#: app/controllers/user_controller.rb:68
 msgid "user_login_failed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:66
+#: app/controllers/user_controller.rb:88
 msgid "user_signup_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:71
+#: app/controllers/user_controller.rb:93
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:95
+#: app/controllers/user_controller.rb:117
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:97
+#: app/controllers/user_controller.rb:119
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:127
+#: app/controllers/user_controller.rb:149
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:131
+#: app/controllers/user_controller.rb:153
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:138
+#: app/controllers/user_controller.rb:160
 msgid "user_forgot_password_logged_in"
 msgstr ""
 
-#: app/controllers/user_controller.rb:148
+#: app/controllers/user_controller.rb:170
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:150
+#: app/controllers/user_controller.rb:172
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:158
+#: app/controllers/user_controller.rb:180
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:166
+#: app/controllers/user_controller.rb:188
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:213
+#: app/controllers/user_controller.rb:242
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:222
+#: app/controllers/user_controller.rb:251
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:237
+#: app/controllers/user_controller.rb:266
 msgid "user_delete_finished"
 msgstr ""
 
@@ -557,26 +597,43 @@ msgstr ""
 msgid "Next &raquo;"
 msgstr ""
 
-#: app/controllers/images_controller.rb:120
+#: app/controllers/application.rb:202 app/controllers/application.rb:205
+msgid "captcha mismatch"
+msgstr ""
+
+#: app/controllers/images_controller.rb:151
 msgid "image_upload_error"
 msgstr ""
 
-#: app/controllers/images_controller.rb:123
+#: app/controllers/images_controller.rb:154
 msgid "you have no permission"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:8
+#: app/controllers/projects_controller.rb:22
 msgid "Project Infomation"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:13
+#: app/controllers/projects_controller.rb:26
 #: app/views/partials/_project_menu.rhtml:38
 #: app/views/partials/_project_menu.rhtml:56
 msgid "Mailing List"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:22
+#: app/controllers/projects_controller.rb:35
 msgid "Version Control"
+msgstr ""
+
+#: app/controllers/projects_controller.rb:45
+msgid "System error. Please contact the site administrator."
+msgstr ""
+
+#: app/controllers/projects_controller.rb:111
+msgid "Project was successfully updated."
+msgstr ""
+
+#: app/controllers/projects_controller.rb:234
+#: app/views/partials/_project_menu.rhtml:35
+msgid "Subversion/CVS Access"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
@@ -584,7 +641,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:45 app/views/news/list.rhtml:25
+#: app/views/projects/show.rhtml:68 app/views/news/list.rhtml:25
 #: app/views/news/show.rhtml:15
 msgid "Edit"
 msgstr ""
@@ -597,7 +654,7 @@ msgstr ""
 msgid "Tag Cloud"
 msgstr ""
 
-#: app/views/partials/_captcha.rhtml:3
+#: app/views/partials/_captcha.rhtml:2
 msgid "In case you were not an alian. Please keyin according the image"
 msgstr ""
 
@@ -732,88 +789,113 @@ msgstr ""
 msgid "project_Role Control"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:36
-msgid "menu_OpenFoundry"
+#: app/views/partials/_toua.rhtml:2
+msgid "Term of Use Agreement"
+msgstr ""
+
+#: app/views/partials/_toua.rhtml:10
+msgid "I Agree"
+msgstr ""
+
+#: app/views/partials/_toua.rhtml:13
+msgid "I Do Not Agree"
+msgstr ""
+
+#: app/views/partials/_toua.rhtml:15
+msgid "submit"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:38
-msgid "menu_Home"
+msgid "menu_OpenFoundry"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:40
+msgid "menu_Home"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:42
 msgid "menu_About OSSF"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:41
+#: app/views/layouts/application.rhtml:43
 msgid "menu_Newsletter"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:44
+#: app/views/layouts/application.rhtml:46
 msgid "menu_Project"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:46
+#: app/views/layouts/application.rhtml:48
 msgid "menu_Overview"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:50
-msgid "menu_Project News"
+msgid "New Releases"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:53
-msgid "menu_WebHosting"
+#: app/views/layouts/application.rhtml:51
+#: app/views/projects/_new_projects.rhtml:1
+msgid "New Projects"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:52
+msgid "Top Downloads"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:54
-#: app/views/layouts/application.rhtml:71
-msgid "menu_New Project"
+msgid "menu_WebHosting"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:57
+#: app/views/layouts/application.rhtml:55
+#: app/views/layouts/application.rhtml:72
+msgid "Create Project"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:58
 msgid "menu_My Account"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:59
+#: app/views/layouts/application.rhtml:60
 msgid "menu_Preference"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:60
+#: app/views/layouts/application.rhtml:61
 msgid "menu_Password"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:61
+#: app/views/layouts/application.rhtml:62
 msgid "menu_My Pages"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:62
+#: app/views/layouts/application.rhtml:63
 msgid "menu_My Projects"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:63
+#: app/views/layouts/application.rhtml:64
 msgid "menu_My Tickets"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:74
+#: app/views/layouts/application.rhtml:75
 msgid "menu_License Wizard"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:81
+#: app/views/layouts/application.rhtml:82
 msgid "menu_Help"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:88
+#: app/views/layouts/application.rhtml:89
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:91
+#: app/views/layouts/application.rhtml:92
 msgid "menu_Contact Us"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:127
+#: app/views/layouts/application.rhtml:128 app/views/user/edit.rhtml:11
 msgid "Change Icon"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:146
+#: app/views/layouts/application.rhtml:147
 msgid "Steering Organization"
 msgstr ""
 
@@ -849,6 +931,7 @@ msgid "Release Date"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:10
+#: app/views/projects/_list.rhtml:10 app/views/projects/_list.rhtml:25
 msgid "Download"
 msgstr ""
 
@@ -860,7 +943,7 @@ msgstr ""
 msgid "Upload your picture"
 msgstr ""
 
-#: app/views/images/_edit.rhtml:10
+#: app/views/images/_edit.rhtml:12
 msgid "Upload"
 msgstr ""
 
@@ -881,14 +964,18 @@ msgid "Listing projects"
 msgstr ""
 
 #: app/views/projects/_list.rhtml:7
-msgid "Project UNIX Name"
+msgid "Project Summary"
 msgstr ""
 
 #: app/views/projects/_list.rhtml:8
-msgid "Summary"
+msgid "Created At"
 msgstr ""
 
-#: app/views/projects/_list.rhtml:24
+#: app/views/projects/_list.rhtml:9
+msgid "Latest File"
+msgstr ""
+
+#: app/views/projects/_list.rhtml:33
 msgid "New project"
 msgstr ""
 
@@ -910,72 +997,116 @@ msgid ""
 "approving."
 msgstr ""
 
-#: app/views/projects/show.rhtml:31
-msgid "Project Role"
+#: app/views/projects/show.rhtml:57
+msgid "Project Participents"
 msgstr ""
 
-#: app/views/projects/show.rhtml:46
+#: app/views/projects/show.rhtml:69
 msgid "Back"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:33
+#: app/views/projects/_form.rhtml:35
 msgid "Project|Name|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:35
+#: app/views/projects/_form.rhtml:37
 msgid "Project|Summary|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:38
+#: app/views/projects/_form.rhtml:40
 msgid "Project|Description|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:40
+#: app/views/projects/_form.rhtml:42
 msgid "Project|Contactinfo|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:42
+#: app/views/projects/_form.rhtml:44
 msgid "Project|Maturity|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:44
+#: app/views/projects/_form.rhtml:46
 msgid "Project|License|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:46
+#: app/views/projects/_form.rhtml:48
 msgid "Project|Contentlicense|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:48
+#: app/views/projects/_form.rhtml:50
 msgid "Project|Platform|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:50
+#: app/views/projects/_form.rhtml:52
 msgid "Project|Programminglanguage|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:52
+#: app/views/projects/_form.rhtml:54
 msgid "Project|Intendedaudience|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:54
+#: app/views/projects/_form.rhtml:56
 msgid "Project|Redirecturl|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:56
+#: app/views/projects/_form.rhtml:58
 msgid "Project|Vcs|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:58
-msgid "Project|Remotevcs|Help"
+#: app/views/projects/_form.rhtml:60
+msgid "Project|Vcsdescription|Help"
+msgstr ""
+
+#: app/views/projects/_role_new.rhtml:8
+msgid "New"
+msgstr ""
+
+#: app/views/projects/roles_edit.rhtml:2
+msgid "Editing Project Roles"
+msgstr ""
+
+#: app/views/projects/roles_edit.rhtml:5
+msgid "Role List"
+msgstr ""
+
+#: app/views/projects/roles_edit.rhtml:6
+msgid "Select a Role to Edit"
+msgstr ""
+
+#: app/views/projects/roles_edit.rhtml:15
+msgid "Role with Users"
+msgstr ""
+
+#: app/views/projects/roles_edit.rhtml:16
+msgid "Select a Role to Edit Users"
 msgstr ""
 
 #: app/views/projects/_most_active.rhtml:1
 msgid "Most Active"
 msgstr ""
 
-#: app/views/projects/_new_projects.rhtml:1
-msgid "New Projects"
+#: app/views/projects/vcs_access.rhtml:5
+msgid "Subversion Access"
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:15
+msgid "Anonymous CVS Access"
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:25
+msgid "Remote Repository"
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:27
+msgid "This project is using a remote repository."
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:32
+msgid "No Version Control System"
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:34
+msgid "This project is not using any version control system."
 msgstr ""
 
 #: app/views/news/list.rhtml:3
@@ -986,7 +1117,8 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: app/views/news/list.rhtml:5
+#: app/views/news/list.rhtml:5 app/views/news/show.rhtml:3
+#: app/views/news/_form.rhtml:20
 msgid "Last Updated"
 msgstr ""
 
@@ -994,15 +1126,15 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: app/views/news/list.rhtml:19 app/views/news/_form.rhtml:22
+#: app/views/news/list.rhtml:19 app/views/news/_form.rhtml:24
 msgid "Status"
 msgstr ""
 
-#: app/views/news/list.rhtml:21 app/views/news/_form.rhtml:23
+#: app/views/news/list.rhtml:21 app/views/news/_form.rhtml:25
 msgid "Enabled"
 msgstr ""
 
-#: app/views/news/list.rhtml:23 app/views/news/_form.rhtml:24
+#: app/views/news/list.rhtml:23 app/views/news/_form.rhtml:26
 msgid "Disabled"
 msgstr ""
 
@@ -1018,11 +1150,7 @@ msgstr ""
 msgid "Add News"
 msgstr ""
 
-#: app/views/news/show.rhtml:3
-msgid "todo更新日期"
-msgstr ""
-
-#: app/views/news/show.rhtml:12 app/views/news/_form.rhtml:18
+#: app/views/news/show.rhtml:13 app/views/news/_form.rhtml:18
 msgid "Tags"
 msgstr ""
 
@@ -1062,15 +1190,19 @@ msgstr ""
 msgid "logout"
 msgstr ""
 
-#: app/views/user/_password.rhtml:5
+#: app/views/user/_password.rhtml:2
+msgid "Change User Password"
+msgstr ""
+
+#: app/views/user/_password.rhtml:6
 msgid "User|Password"
 msgstr ""
 
-#: app/views/user/_password.rhtml:7
+#: app/views/user/_password.rhtml:8
 msgid "User|Password Confirmation"
 msgstr ""
 
-#: app/views/user/_password.rhtml:9 app/views/user/change_password.rhtml:10
+#: app/views/user/_password.rhtml:11 app/views/user/change_password.rhtml:10
 msgid "User|Change Password"
 msgstr ""
 
@@ -1083,40 +1215,52 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: app/views/user/_edit.rhtml:12
+#: app/views/user/_edit.rhtml:2
+msgid "User Info"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:13
 msgid "User|TimeZone"
 msgstr ""
 
-#: app/views/user/_edit.rhtml:14 app/views/user/signup.rhtml:15
+#: app/views/user/_edit.rhtml:16 app/views/user/signup.rhtml:18
 msgid "User|Signup"
 msgstr ""
 
-#: app/views/user/_edit.rhtml:14
+#: app/views/user/_edit.rhtml:16
 msgid "User|Change Settings"
 msgstr ""
 
-#: app/views/user/edit.rhtml:23
-msgid "Delete Account"
+#: app/views/user/edit.rhtml:5
+msgid "Change User Icon"
 msgstr ""
 
 #: app/views/user/signup.rhtml:2
 msgid "User Signup"
 msgstr ""
 
-#: app/views/user/_email.rhtml:7
+#: app/views/user/_email.rhtml:2
+msgid "Change User Email"
+msgstr ""
+
+#: app/views/user/_email.rhtml:8
 msgid "User|Email Confirmation"
 msgstr ""
 
-#: app/views/user/_email.rhtml:9
+#: app/views/user/_email.rhtml:11
 msgid "User|Change Email"
 msgstr ""
 
-#: app/views/user/home.rhtml:3
-msgid "My Projects"
+#: app/views/user/home.rhtml:4
+msgid "My Partners"
 msgstr ""
 
-#: app/views/user/home.rhtml:11
-msgid "My Partners"
+#: app/views/user/home.rhtml:17
+msgid "My Email"
+msgstr ""
+
+#: app/views/user/home.rhtml:28
+msgid "My Projects"
 msgstr ""
 
 #: app/views/user/login.rhtml:1
@@ -1141,4 +1285,20 @@ msgstr ""
 
 #: app/views/user/login.rhtml:32
 msgid "Forgot my password"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:2
+msgid "User Privacy"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:5
+msgid "User|Conceal Email"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:7
+msgid "User|Conceal Login Status"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:10
+msgid "User|Change Privacy"
 msgstr ""
