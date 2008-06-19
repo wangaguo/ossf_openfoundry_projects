@@ -3,7 +3,7 @@
   <% form_tag submit_to do %>
     <textarea style='height:300px; width:100%' readonly=true>
       <% File.open(file_path, 'r').each do |line| %>
-        <%= line.chop %>
+        <%= line.chop -%>
       <% end %>  
     </textarea>
     <%= radio_button_tag 'agree', '1' %> 
