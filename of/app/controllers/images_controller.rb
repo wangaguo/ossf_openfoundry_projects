@@ -130,7 +130,7 @@ class ImagesController < ApplicationController
     if params[:type]=='User'
       allow = (current_user.id.to_s == params[:id])
     elsif params[:type]=='Project'
-      allow = fpermit?(params[:id],"CHANGE_PROJECT_INFO")
+      allow = fpermit?("project_info", params[:id])
     end
    
     if allow
@@ -143,8 +143,9 @@ class ImagesController < ApplicationController
           old_id = obj.icon
           obj.icon=@image.id
           obj.save!
-          old_img = Image.find(old_id)
-          old_img.destroy unless old_img.nil?
+          if(Image.exists?(old_id))
+            Image.find(old_id).destroy
+          end
         end
       rescue Exception 
         flash[:message] = _('image_upload_error')+ $!
