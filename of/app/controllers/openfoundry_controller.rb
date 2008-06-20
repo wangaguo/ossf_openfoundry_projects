@@ -1,5 +1,4 @@
 require "rubygems"
-require "json"
 require "net/http"
 require "uri"
 require "json"
@@ -13,7 +12,7 @@ class OpenfoundryController < ApplicationController
   def index
   end
 
-  class Session < ActiveRecord::Base; end # only used by get_session_by_id
+  #class Session < ActiveRecord::Base; end # only used by get_session_by_id
   def get_session_by_id(session_id)
     begin
       Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
@@ -23,7 +22,7 @@ class OpenfoundryController < ApplicationController
   end
   private :get_session_by_id
 
-  session :off, :only => [:get_user_by_session_id, :authentication_authorization]
+  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump]
   def get_user_by_session_id
     s = get_session_by_id(params['session_id'])
     u = current_user(s) 
