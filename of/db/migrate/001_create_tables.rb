@@ -115,14 +115,16 @@ class CreateTables < ActiveRecord::Migration
 
     create_table :sessions, :force => true do |t|
       t.string :session_id, :null => false
+      t.string :host, :null => false
+      t.integer :user_id
       t.text :data
       t.timestamps
     end
 
     add_index :sessions, :session_id
     add_index :sessions, :updated_at
+    add_index :sessions, :user_id
  
-
     create_table "taggings", :force => true do |t|
       t.integer  "tag_id"
       t.integer  "taggable_id"
