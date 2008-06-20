@@ -4,10 +4,6 @@ class UserController < ApplicationController
   require_dependency  'user'
   before_filter :login_required, :except => [:login, :signup, :forgot_password, :welcome]
 
-  def online_users
-    @online_users=User.online_users
-    @online_guests=Session.anonymous_sessions
-  end
   def home
     # given uid to show other user's home
     # or goto login
@@ -301,6 +297,9 @@ class UserController < ApplicationController
       elsif( session[:eula] == :pass )
         #normal process post method!
         return false
+      else
+        redirect_to '/user/signup'
+        return true
       end
     end
   end
