@@ -18,7 +18,7 @@ a { text-decoration: none; color:#0D356F; }
 a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
 textarea { height:100px; width:500px; }
 ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
-em { color:red; font-weight:bold; }
+em { color:red; font-weight:bold; font-style:normal; }
 .button { background:url(/images/button.gif) repeat-x; color:white; cursor:pointer; padding:2px 5px; margin:0px; }
 .button:hover { background-position:bottom; }
 .odd { }
