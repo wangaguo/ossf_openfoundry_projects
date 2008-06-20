@@ -81,7 +81,7 @@ class NewsController < ApplicationController
     
     if(params[:news][:updated_at] != "")
       News.record_timestamps = false
-      @news.updated_at = TzTime.zone.unadjust(params[:news][:updated_at].to_datetime)
+      @news.updated_at = local_to_utc(params[:news][:updated_at].to_datetime)
       @news.created_at = DateTime.now 
     end
     
@@ -94,7 +94,7 @@ class NewsController < ApplicationController
   end
   
   def edit
-    @news.updated_at = TzTime.zone.adjust(@news.updated_at).strftime("%Y-%m-%d %H:%M")
+    @news.updated_at = utc_to_local(@news.updated_at).strftime("%Y-%m-%d %H:%M")
   end
   
   def update
@@ -103,7 +103,7 @@ class NewsController < ApplicationController
     @news.tags = params[:news][:tags]
     if(params[:news][:updated_at] != "")
       News.record_timestamps = false
-      @news.updated_at = TzTime.zone.unadjust(params[:news][:updated_at].to_datetime)
+      @news.updated_at = local_to_utc(params[:news][:updated_at].to_datetime)
     end
 
     if @news.save

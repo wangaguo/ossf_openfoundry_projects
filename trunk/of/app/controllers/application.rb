@@ -200,6 +200,14 @@ THECODE
     Function.function_permit(function_name, authorizable_id, authorizable_type)
   end
   
+  def utc_to_local(time)
+    TzTime.zone.adjust(time)
+  end
+  
+  def local_to_utc(time)
+    TzTime.zone.unadjust(time)
+  end
+  
   def valid_captcha?
     begin
     match = (params['captcha_code'].downcase == session[:captcha_code].downcase)
