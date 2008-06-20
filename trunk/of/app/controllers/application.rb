@@ -3,11 +3,14 @@
 
 require 'user_system'
 require 'of'
+require 'cgi_session_activerecord_store_hack'
+
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
   around_filter :set_timezone
+  around_filter :touch_session
 
   # for ActiveMQ module
   include OpenFoundry::Message
@@ -212,6 +215,14 @@ THECODE
   session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
   
   private
+    def touch_session
+      #logger.info("77777777777777#{session[:host]}77777777777777")
+      #logger.info("77777777777777#{request.remote_ip}77777777777777")
+      session[:host] = request.remote_ip
+      yield
+      session[:host] = request.remote_ip
+    end
+
     def set_timezone
       if !current_user.timezone.nil?
         TzTime.zone = current_user.tz
