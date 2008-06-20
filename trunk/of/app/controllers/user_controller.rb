@@ -211,6 +211,7 @@ class UserController < ApplicationController
             @user.send(k+'=', v)
           end
           @user.save
+          flash.now[:notice] = _('Update User Privacy Setting Successed')
         when "delete"
           delete
         else
