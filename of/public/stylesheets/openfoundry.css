@@ -80,9 +80,8 @@ body {
 #OFIntro #Module { float:right; }
 #OFIntro #Module img { opacity:0.6; padding:8px; }
 #OFIntro #Module img:hover { opacity:1; }
-#OFIntro #Module a , td { font-size:12px; text-align:center;}
+#OFIntro #Module a ,#Module td { font-size:12px; text-align:center;}
 #OFIntro #Module_Text { font-size:100%; margin: 15px; }
-
 
 /* Left menu */
 #LeftMenu { padding-left:5px; }
