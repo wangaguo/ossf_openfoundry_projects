@@ -16,7 +16,11 @@ class User < ActiveRecord::Base
                  :single_index => true,
                  :default_field => [:login, :firstname, :lastname, :name]
                  }, { :analyzer => GENERIC_ANALYZER } )
-                   
+                 
+  # disable ferret search if not verified        
+  def ferret_enabled?(is_bluk_index = false)
+    (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
+  end
 
   #add tags
   acts_as_taggable
@@ -190,9 +194,6 @@ class User < ActiveRecord::Base
 #  #For "paranoid session store"
 #  has_many   :sessions,   :conditions => ["#{Session.table_name}.updated_at > ?", Session.expires_at], :dependent => :delete_all
 #
-#  def self.online_users
-#    find :all, :include => [:sessions], :conditions => "users.id = #{Session.table_name}.user_id"
-#  end  
 
   # User.find(:all, :conditions => User.verified_users).size
   def self.verified_users(condition = 'true')
@@ -205,11 +206,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def validate
-    if User.exists?(User.verified_users(['login = ? and id != ?', self.login, self.id]))
+  def validate_on_create
+    if User.exists?(User.verified_users(['login = ?', self.login]))
       errors.add(:login, "'#{login}' has already been used")
     end
-    if User.exists?(User.verified_users(['email = ? and id != ?', self.email, self.id]))
+    if User.exists?(User.verified_users(['email = ?', self.email]))
       errors.add(:email, "'#{email}' has already been used")
     end
   end
