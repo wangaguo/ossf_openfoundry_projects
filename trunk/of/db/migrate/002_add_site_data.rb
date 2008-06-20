@@ -42,7 +42,7 @@ class AddSiteData < ActiveRecord::Migration
     end
     
     #VCS
-    desc = ['do SVN import', 'do CVS import', 'do SVN commit', 'do CVS commit']
+    desc = ['SVN import', 'CVS import', 'SVN commit', 'CVS commit']
     %w(svn_import cvs_import svn_ci cvs_ci).each_with_index do |name, i|
       Function.create :name => "vcs_#{name}", :module => 'Vcs', 
         :description => desc[i]
