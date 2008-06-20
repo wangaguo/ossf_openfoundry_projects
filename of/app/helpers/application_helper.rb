@@ -239,7 +239,7 @@ module ApplicationHelper
     def label(method, text = nil, options = {})
       help = options[:help]
       must = @object.class.columns_hash[method.to_s]
-      must = (must and not must.null)||options[:must] ? '<em class="required">*</em>' : nil
+      must = (must and not must.null)||options[:must] ? '<em class="required"><img src="/images/icon/star.gif" /></em>' : nil
       
       "<tr><th>#{super(method, text, options )} #{must} #{help_icon(help) if help}</th>"
     end
