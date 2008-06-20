@@ -18,6 +18,7 @@ a { text-decoration: none; color:#0D356F; }
 a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
 textarea { height:100px; width:500px; }
 ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:url(/images/of/icon_s01.gif); }
+em { color:red; font-weight:bold; }
 .button { background:url(/images/button.gif) repeat-x; color:white; cursor:pointer; padding:2px 5px; margin:0px; }
 .button:hover { background-position:bottom; }
 .odd { }
@@ -208,6 +209,7 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 
 
 /* module */
+#of_module { width:750px; height:2000px;}
 #module_nav { display:table; padding:0 0 0 0px; margin:0px 0 0 0px; width:100%; background:url(/images/project_navbar_l.gif) no-repeat;}
 #module_nav #module_nav_center { margin:0 0 0 8px; background:url(/images/project_navbar_c.gif); }
 #module_nav #module_nav_right { background:url(/images/project_navbar_r.gif) no-repeat right; line-height:23px; height:32px; }
