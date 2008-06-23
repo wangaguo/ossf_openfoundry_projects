@@ -45,12 +45,13 @@ var menudata=
     },
     {id:'<%=_('menu_Project')%>', url:'/projects',
       submenu:[
+        {id:'<%=_('Project Category')%>', url:'/category'},
         {id:'<%=_('menu_Overview')%>', url:'/projects'},
         {id:'<%=_('Project News')%>', url:'/news/project'},
         {id:'<%=_('New Releases')%>', url:'/releases/latest'},
         {id:'<%=_('New Projects')%>', url:'/projects?sortdesc=listing-created_at'},
         {id:'<%=_('Top Downloads')%>', url:'/releases/top'},
-        {id:'徵人啟事(x)', url:'m1s1ur2'},
+        {id:'<%=_('Jobs')%>', url:'m1s1ur2'},
         {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'},
         {id:'<%=_('Create Project')%>', url:'/projects/new'}
       ]
@@ -63,10 +64,10 @@ var menudata=
         {id:'<%=_('menu_My Projects')%>', url:'m1s1ur2'},
         {id:'<%=_('menu_My Tickets')%>', url:'',
           submenu:[
-            {id:'Owner', url:'/rt/owner'},
-            {id:'Creator', url:'/rt/creator'},
-            {id:'Requestor', url:'/rt/requestor'},
-            {id:'LastUpdatedBy', url:'/rt/lastupdatedby'}
+            {id:'<%=_('Owner')%>', url:'/rt/owner'},
+            {id:'<%=_('Creator')%>', url:'/rt/creator'},
+            {id:'<%=_('Requestor')%>', url:'/rt/requestor'},
+            {id:'<%=_('LastUpdatedBy')%>', url:'/rt/lastupdatedby'}
           ]
         },
         {id:'<%=_('Create Project')%>', url:'/projects/new'}
@@ -74,9 +75,9 @@ var menudata=
     },
     {id:'<%=_('menu_License Wizard')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
       submenu:[
-        {id:'授權指引 v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
-        {id:'授權精靈 v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
-        {id:'說明', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
+        {id:'<%=_('License Wizard')%> v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
+        {id:'<%=_('License Wizard')%> v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
+        {id:'<%=_('Direction')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
       ]  
     },
     {id:'<%=_('menu_Help')%>', url:'http://rt.openfoundry.org/Foundry/Help/',
@@ -91,8 +92,8 @@ var menudata=
     },
     {id:'<%=_('menu_Contact Us')%>', url:'m3url',
       submenu:[
-        {id:'聯絡方式(x)', url:'m1s1ur2'},
-        {id:'錯誤回報(x)', url:'m1s1ur2'}
+        {id:'<%=_('TODO: 聯絡方式')%>', url:'m1s1ur2'},
+        {id:'<%=_('Bug Report')%>', url:'m1s1ur2'}
       ]
     }
   ];
