@@ -1,0 +1,53 @@
+<h1><%= _('Project Category') %></h1>
+
+<fieldset>
+  <legend><%= _("Project|Maturity") %></legend>
+  <ul>
+  <% Project::MATURITY.each_pair do |key, value| -%>
+    <li><%= link_to Project::maturity_to_s(value), :controller => :projects, :cat => 'maturity', :name => value%></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("Project|License") %></legend>
+  <ul>
+  <% for item in Project::LICENSES -%>
+    <li><%= link_to item, :controller => :projects, :cat => 'license', :name => item %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("Project|Contentlicense") %></legend>
+  <ul>
+  <% for item in Project::CONTENT_LICENSES -%>
+    <li><%= link_to item, :controller => :projects, :cat => 'contentlicense', :name => item %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("Project|Platform") %></legend>
+  <ul>
+  <% for item in Project::PLATFORMS -%>
+    <li><%= link_to item, :controller => :projects, :cat => 'platform', :name => item %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("Project|Programminglanguage") %></legend>
+  <ul>
+  <% for item in Project::PROGRAMMING_LANGUAGES -%>
+    <li><%= link_to item, :controller => :projects, :cat => 'programminglanguage', :name => item %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+<div style="display:block;">
+<%=@platform%><br/>
+<%=@programming_language%><br/>
+<%=@intended_audience%><br/>
+</div>
+
+
