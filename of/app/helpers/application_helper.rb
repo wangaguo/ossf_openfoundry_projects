@@ -214,10 +214,6 @@ module ApplicationHelper
     language_options = options_for_select([["English", "en"],["繁體中文", "zh_TW"]], selected)
     select_tag name, language_options, options
   end
-
-  def fpermit?(function_name, authorizable_id, authorizable_type = 'Project')
-    Function.function_permit(function_name, authorizable_id, authorizable_type)
-  end
   
   def help_icon(tooltip)
     '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'

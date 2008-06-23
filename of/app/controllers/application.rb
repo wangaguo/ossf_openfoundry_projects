@@ -204,6 +204,7 @@ THECODE
   def fpermit?(function_name, authorizable_id, authorizable_type = 'Project')
     Function.function_permit(function_name, authorizable_id, authorizable_type)
   end
+  helper_method :fpermit?
   
   def utc_to_local(time)
     TzTime.zone.adjust(time)
