@@ -36,7 +36,7 @@ AAA
     predefined.each_with_index do |p, i|
       rtn += check_box_tag("#{name}[#{i}]", p, values.include?(p)) + p + "\n"
     end
-    rtn += "<br/> Others "
+    rtn += "<br/>" + _("Others") + " "
     rtn += text_field_tag("#{name}[-1]", (values - predefined).join(","))
   end
 %>
