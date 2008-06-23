@@ -1,27 +1,47 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
+
+  # single selection 
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
   dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
+
+  # TODO
   LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
+  # TODO
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
+
   # see also: OpenFoundry.pm
+
+  # single selection
   VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :REMOTE => -1 }.freeze
   dummy_fix_me = _("NONE"), _("CVS"), _("SUBVERSION"), _("REMOTE")
+
+  # mutiple selection + other (string,string,...)
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
+
+  # mutiple selection + other (string,string,...)
   PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
-  INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
+
+  # this field will only contains old values migrated from RT
+  # INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
+  
+  #
+  # important INTERNAL status
+  #
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }.freeze
+
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
+
   # name validation
   NAME_REGEX = /^[a-z][0-9a-z]{2,14}$/
   
   def self.status_to_s(int_status)
-    STATUS.index int_status
+    _(STATUS.index(int_status).to_s)
   end
   def self.maturity_to_s(int_maturity)
-    MATURITY.index int_maturity
+    _(MATURITY.index(int_maturity).to_s)
   end
   # Project.vcs_to_s(1)    or
   # Project.vcs_to_s(:CVS)
