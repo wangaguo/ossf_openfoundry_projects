@@ -214,6 +214,14 @@ THECODE
     TzTime.zone.unadjust(time)
   end
   
+  #Overwrite sort_param to include url params
+  def sort_param_with_url(sortable_name, *args)
+    params.delete(:sortasc)
+    params.delete(:sortdesc)
+    params.merge(sort_param_without_url(sortable_name, *args))
+  end
+  alias_method_chain :sort_param, :url
+  
   def valid_captcha?
     begin
     match = (params['captcha_code'].downcase == session[:captcha_code].downcase)
