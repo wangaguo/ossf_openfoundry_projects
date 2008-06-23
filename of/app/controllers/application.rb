@@ -3,14 +3,19 @@
 
 require 'user_system'
 require 'of'
+require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
 
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
+  before_filter :check_permission
   around_filter :set_timezone
   around_filter :touch_session
+
+  #for permission table
+  include OpenFoundry::PermissionTable
 
   # for ActiveMQ module
   include OpenFoundry::Message
@@ -120,34 +125,34 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  def touch_session
-    ActionMailer::Base.default_url_options[:host] = request.host_with_port
-    
-    # NOTE: I rewrote reset_session in action_controller_cgi_request_hack
-    return if not ParanoidSqlSessionStore === session
-    reset_session unless session.host.nil? || session.host == request.remote_ip
-    session.host ||= request.remote_ip
-    session.user ||= session[:user_id]
-  end
+  #def touch_session
+  #  ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  #  
+  #  # NOTE: I rewrote reset_session in action_controller_cgi_request_hack
+  #  return if not ParanoidSqlSessionStore === session
+  #  reset_session unless session.host.nil? || session.host == request.remote_ip
+  #  session.host ||= request.remote_ip
+  #  session.user ||= session[:user_id]
+  #end
 
-  def app_user
-    @app_user ||= session[:user_id] ? User.find_by_id(session[:user_id]) : nil
-  end
+  #def app_user
+  #  @app_user ||= session[:user_id] ? User.find_by_id(session[:user_id]) : nil
+  #end
 
-  def app_user=( u )
-    session[:user_id] = u.nil? ? nil : u.id
-    @app_user = u
-  end
+  #def app_user=( u )
+  #  session[:user_id] = u.nil? ? nil : u.id
+  #  @app_user = u
+  #end
 
-  def session_object
-    @session_object ||= Session.find_by_session_id session.session_id
-  end
+  #def session_object
+  #  @session_object ||= Session.find_by_session_id session.session_id
+  #end
 
-  def rebuild_session
-    obj = session_object
-    reset_session
-    obj.destroy and obj = nil if obj.host == request.remote_ip unless obj.nil?
-  end
+  #def rebuild_session
+  #  obj = session_object
+  #  reset_session
+  #  obj.destroy and obj = nil if obj.host == request.remote_ip unless obj.nil?
+  #end
 
   def self.find_resources(options = {:parent => '', :child => '', :parent_id_method => ''})
     child = options[:child].to_s.downcase
@@ -229,6 +234,16 @@ THECODE
       session[:host] = request.remote_ip
       yield
       session[:host] = request.remote_ip
+    end
+    
+    def check_permission
+      #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
+      begin
+        fpermit?(PERMISSION_TABLE[controller_name][action_name], @project.id)
+      rescue
+        flash[:error] = _('Permission Denied')
+        #redirect_to '/'
+      end
     end
 
     def set_timezone
