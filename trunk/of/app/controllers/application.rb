@@ -10,7 +10,6 @@ require 'cgi_session_activerecord_store_hack'
 #require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
-  before_filter :check_permission
   around_filter :set_timezone
   around_filter :touch_session
 
@@ -39,6 +38,7 @@ class ApplicationController < ActionController::Base
 #          ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
 #        end
 #  end
+  protected
   before_init_gettext :set_locale_for_gettext
   # also being invoked when a user changes his/her language preference
   def set_locale_for_gettext!(lang)
@@ -124,7 +124,6 @@ class ApplicationController < ActionController::Base
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
   end
 
-  protected
   #def touch_session
   #  ActionMailer::Base.default_url_options[:host] = request.host_with_port
   #  
@@ -233,6 +232,25 @@ THECODE
     end
   end
 
+  def check_permission
+    #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
+    pass = false
+    begin
+      pass =
+      if @project
+        fpermit?(PERMISSION_TABLE[controller_name][action_name], @project.id)
+      else
+        fpermit?(PERMISSION_TABLE[controller_name][action_name], 0)
+      end
+    rescue
+      pass = false
+    ensure
+      flash[:error] = _('Permission Denied') unless pass
+      #redirect_to '/'
+    end
+    pass
+  end
+
   # see: vendor/plugins/sliding_sessions/ 
   session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
   
@@ -245,25 +263,6 @@ THECODE
       session[:host] = request.remote_ip
     end
     
-    def check_permission
-      #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
-      pass = false
-      begin
-        pass =
-        if @project
-          fpermit?(PERMISSION_TABLE[controller_name][action_name], @project.id)
-        else
-          fpermit?(PERMISSION_TABLE[controller_name][action_name], 0)
-        end
-      rescue
-        pass = false
-      ensure
-        flash[:error] = _('Permission Denied') unless pass
-        #redirect_to '/'
-      end
-      pass
-    end
-
     def set_timezone
       if !current_user.timezone.nil?
         TzTime.zone = current_user.tz
