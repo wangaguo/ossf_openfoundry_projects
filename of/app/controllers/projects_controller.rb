@@ -98,17 +98,26 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  def join_with_separator(hash, *keys)
-    unless hash.nil?
-      keys.each do |k|
-        k = k.to_s
-        hash[k] = hash[k].values.grep(/./).map() {|x| x.strip}.join(",") unless hash[k].nil?  
+  # join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
+  def join_with_separator(hash, keys_and_predefined_values)
+    keys_and_predefined_values.each_pair do |k, predefined_values|
+      k = k.to_s
+      if hash[k]
+        # {... "platform"=>{"-1"=>" ,  a,  b,    c   ,  d ,,  ", "1"=>"Java Environment", "2"=>"Linux"} ...}
+        others = hash[k].delete("-1")
+        all_values = hash[k].values | others.split(",")
+        # ["Java Environment", "Linux", " ", "  a", "  b", "    c   ", "  d ", "", "  "]
+        all_values = all_values.map() {|x| x.strip}.grep(/./).uniq
+        # we may have ["Linux", "linux"] here
+        lcase = {}; predefined_values.each { |v| lcase[v.downcase] = v }
+        all_values = all_values.map { |v| lcase[v.downcase] || v }.uniq
+        hash[k] = all_values.join(",")
       end
     end
   end
 
   def create
-    join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
+    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
@@ -125,7 +134,7 @@ class ProjectsController < ApplicationController
 
   def update
     params[:project].delete(:name)
-    join_with_separator(params[:project], :platform, :programminglanguage, :intendedaudience)
+    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
       redirect_to :action => 'show', :id => @project
