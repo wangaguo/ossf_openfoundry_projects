@@ -239,12 +239,21 @@ THECODE
     
     def check_permission
       #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
+      pass = false
       begin
-        fpermit?(PERMISSION_TABLE[controller_name][action_name], @project.id)
+        pass =
+        if @project
+          fpermit?(PERMISSION_TABLE[controller_name][action_name], @project.id)
+        else
+          fpermit?(PERMISSION_TABLE[controller_name][action_name], 0)
+        end
       rescue
-        flash[:error] = _('Permission Denied')
+        pass = false
+      ensure
+        flash[:error] = _('Permission Denied') unless pass
         #redirect_to '/'
       end
+      pass
     end
 
     def set_timezone
