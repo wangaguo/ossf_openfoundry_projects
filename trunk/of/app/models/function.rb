@@ -2,8 +2,11 @@ class Function < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => 'roles_functions'
   
   def self.function_permit(function_name, authorizable_id, authorizable_type)
+    #if site admin, allow it anyway
     return true if current_user.has_role "site_admin"
-    
+    #if the permission is allow_all, allow it whoever 
+    return true if function_name.to_s == 'allow_all'
+
     if(0 < Function.count_by_sql("" +
         "select count(*) from roles, roles_users, users, roles_functions, functions " +
         "where roles_users.user_id = users.id and roles_users.role_id = roles.id and " +
