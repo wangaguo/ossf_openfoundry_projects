@@ -67,9 +67,23 @@ class ProjectsController < ApplicationController
     add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
     add_to_sortable_columns('listing', Project, 'project_counter', 'project_counter')
     
+    # params[:cat] => 'maturity' / 'platform' ...
+    # params[:name] => 'beta' / 'windows' ...
+    query = "1"
+    if params[:cat] =~ /^(maturity|license|contentlicense|platform|programminglanguage)$/
+      if params[:cat] != '' && params[:name] != ''
+        if params[:cat] !~ /^(maturity)$/
+          name = '%' + params[:name] + '%'
+        else
+          name = params[:name]
+        end
+        query = [params[:cat] + ' like ?', name]
+      end
+    end
+    
     projects = nil
     [params[:page], 1].each do |page|
-      projects = Project.paginate(:page => page, :per_page => 10, :conditions => Project.in_used_projects(),
+      projects = Project.paginate(:page => page, :per_page => 10, :conditions => Project.in_used_projects(query),
                                 :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
       break if not projects.out_of_bounds?
     end
