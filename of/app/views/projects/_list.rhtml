@@ -15,8 +15,8 @@
   <% if i == 1; class_name="odd"; else; class_name="even"; end; -%>
   <tr class="item_h <%=class_name%>">
     <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h(project.summary) %></a></td>
-    <td align="center"><%= h project.created_at.strftime("%Y/%m/%d") %></td>
-    <td align="center"><%= h project.updated_at.strftime("%Y/%m/%d") %></td>
+    <td align="center"><%= h tz_date(project.created_at) %></td>
+    <td align="center"><%= h tz_date(project.updated_at) %></td>
     <td align="center"><%= h project.project_counter %></td>
   </tr>
   <tr class="item_b <%=class_name%>">
