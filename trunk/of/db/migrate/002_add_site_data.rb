@@ -1,6 +1,5 @@
 class AddSiteData < ActiveRecord::Migration
   def self.up   
-
     #Project
     desc = ['Modify Project Information', 'Add/Remove Project Members']
     %w(info member).each_with_index do |name, i|
