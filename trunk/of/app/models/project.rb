@@ -17,10 +17,10 @@ class Project < ActiveRecord::Base
   dummy_fix_me = _("NONE"), _("CVS"), _("SUBVERSION"), _("REMOTE")
 
   # mutiple selection + other (string,string,...)
-  PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment" ].freeze
+  PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment", ".NET Environment", "MacOSX", "MacOS Classic" ].freeze
 
   # mutiple selection + other (string,string,...)
-  PROGRAMMING_LANGUAGES = [ "C", "Java", "Perl", "Ruby" ].freeze
+  PROGRAMMING_LANGUAGES = [ "Assembly", "C", "C++", "Java", "Perl", "PHP", "Python", "Ruby" ].freeze
 
   # this field will only contains old values migrated from RT
   # INTENDED_AUDIENCE = [ "General Use", "Programmer", "System Administrator", "Education", "Researcher" ]
