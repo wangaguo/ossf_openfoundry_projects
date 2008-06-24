@@ -1,25 +1,164 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-<%now=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
-<%index=1000%>
-<% def val(h, i); h.values[i % h.length]; end %>
-<% %w(kk openfoundry closefoundry twrug tossug meowmoew newname pcman lazybuntu wizardry keroro taipei100 ossf200 pqrs).each do |summary| %>
-<%=summary%>:
+
+
+
+
+kk:
   icon: 5
-  id: <%=index+=1%>
-  name: <%=summary%>
-  summary: <%=summary%> ver 0.0.0 super song
-  rationale: <%=summary%>, it is a good day to die!!
-  description: to <%=summary%> or not to <%=summary%>, that is a question~
-  contactinfo: contact@<%=summary%>.openfoundry.org
-  maturity: <%= val(Project::MATURITY, index) %>
+  id: 1001
+  name: kk
+  summary: kk ver 0.0.0 super song
+  rationale: kk, it is a good day to die!!
+  description: to kk or not to kk, that is a question~
+  contactinfo: contact@kk.openfoundry.org
+  maturity: 4
   license: BSD
   contentlicense: GPL
   platform: FreeBSD,linux
   programminglanguage: ruby
   intendedaudience: no haha
   creator: 1003
-  status: <%= Project::STATUS[ index % 2 == 0 ? :READY : :APPLYING] %>
-  vcs: <%= val(Project::VCS, index) %>
-  created_at: <%=now%>
-  updated_at: <%=now%>
-<%end%>
+  status: 0
+  vcs: 1
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+openfoundry:
+  icon: 5
+  id: 1002
+  name: openfoundry
+  summary: openfoundry ver 0.0.0 super song
+  rationale: openfoundry, it is a good day to die!!
+  description: to openfoundry or not to openfoundry, that is a question~
+  contactinfo: contact@openfoundry.openfoundry.org
+  maturity: 2
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 2
+  vcs: 2
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+closefoundry:
+  icon: 5
+  id: 1003
+  name: closefoundry
+  summary: closefoundry ver 0.0.0 super song
+  rationale: closefoundry, it is a good day to die!!
+  description: to closefoundry or not to closefoundry, that is a question~
+  contactinfo: contact@closefoundry.openfoundry.org
+  maturity: 5
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 0
+  vcs: -1
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+twrug:
+  icon: 5
+  id: 1004
+  name: twrug
+  summary: twrug ver 0.0.0 super song
+  rationale: twrug, it is a good day to die!!
+  description: to twrug or not to twrug, that is a question~
+  contactinfo: contact@twrug.openfoundry.org
+  maturity: 6
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 2
+  vcs: 0
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+tossug:
+  icon: 5
+  id: 1005
+  name: tossug
+  summary: tossug ver 0.0.0 super song
+  rationale: tossug, it is a good day to die!!
+  description: to tossug or not to tossug, that is a question~
+  contactinfo: contact@tossug.openfoundry.org
+  maturity: 0
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 0
+  vcs: 1
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+meowmoew:
+  icon: 5
+  id: 1006
+  name: meowmoew
+  summary: meowmoew ver 0.0.0 super song
+  rationale: meowmoew, it is a good day to die!!
+  description: to meowmoew or not to meowmoew, that is a question~
+  contactinfo: contact@meowmoew.openfoundry.org
+  maturity: 1
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 2
+  vcs: 2
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+newname:
+  icon: 5
+  id: 1007
+  name: newname
+  summary: newname ver 0.0.0 super song
+  rationale: newname, it is a good day to die!!
+  description: to newname or not to newname, that is a question~
+  contactinfo: contact@newname.openfoundry.org
+  maturity: 3
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 0
+  vcs: -1
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
+
+pcman:
+  icon: 5
+  id: 1008
+  name: pcman
+  summary: pcman ver 0.0.0 super song
+  rationale: pcman, it is a good day to die!!
+  description: to pcman or not to pcman, that is a question~
+  contactinfo: contact@pcman.openfoundry.org
+  maturity: 4
+  license: BSD
+  contentlicense: GPL
+  platform: FreeBSD,linux
+  programminglanguage: ruby
+  intendedaudience: no haha
+  creator: 1003
+  status: 2
+  vcs: 0
+  created_at: 2008-06-19 14:24:29
+  updated_at: 2008-06-19 14:24:29
