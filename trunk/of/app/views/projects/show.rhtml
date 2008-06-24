@@ -19,7 +19,7 @@
 <dd class="<%= cl[i] %>"><%= h @project.contactinfo %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Maturity") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.maturity %></dd>
+<dd class="<%= cl[i] %>"><%= h @project.maturity_to_s %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|License") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.license %></dd>

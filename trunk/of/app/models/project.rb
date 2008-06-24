@@ -43,6 +43,9 @@ class Project < ActiveRecord::Base
   def self.maturity_to_s(int_maturity)
     _(MATURITY.index(int_maturity).to_s)
   end
+  def maturity_to_s
+    Project.maturity_to_s(maturity)
+  end
   # Project.vcs_to_s(1)    or
   # Project.vcs_to_s(:CVS)
   def self.vcs_to_s(vcs) # int or symbol
