@@ -241,8 +241,8 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 .form-table td { border-bottom:solid 1px #DFE9FF; height:20px; }
 
 .form-data-dl { width:95%; }
-.form-data-dl dt { font-weight:bold; float:left; clear:left; width:30%; height:20px; margin:1px; }
-.form-data-dl dd { float:left; width:65%; height:20px; margin:1px;}
+.form-data-dl dt { font-weight:bold; float:left; clear:left; width:30%; line-height:20px; margin:1px; }
+.form-data-dl dd { float:left; width:65%; line-height:20px; margin:1px;}
 
 /* For List Table */
 .list-table { border-collapse:collapse; width:99%; margin:2px; }
