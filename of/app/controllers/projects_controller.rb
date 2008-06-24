@@ -103,16 +103,20 @@ class ProjectsController < ApplicationController
   def join_with_separator(hash, keys_and_predefined_values)
     keys_and_predefined_values.each_pair do |k, predefined_values|
       k = k.to_s
+      # {"-1"=>" ,  a,  b, linux,   c   ,  a ,, ", "1"=>"XXX", "2"=>"Linux", "4"=>"FreeBSD"}
+      # ["a", "b", "linux", "c", "d", "XXX", "Linux", "FreeBSD"]
       if hash[k]
-        # {... "platform"=>{"-1"=>" ,  a,  b,    c   ,  d ,,  ", "1"=>"Java Environment", "2"=>"Linux"} ...}
-        others = hash[k].delete("-1")
-        all_values = hash[k].values | others.split(",")
-        # ["Java Environment", "Linux", " ", "  a", "  b", "    c   ", "  d ", "", "  "]
-        all_values = all_values.map() {|x| x.strip}.grep(/./).uniq
-        # we may have ["Linux", "linux"] here
-        lcase = {}; predefined_values.each { |v| lcase[v.downcase] = v }
-        all_values = all_values.map { |v| lcase[v.downcase] || v }.uniq
-        hash[k] = all_values.join(",")
+        down = predefined_values.map(&:downcase)
+        choosen = []
+        others = [] 
+        hash[k].values.map {|x| x.split(",")}.flatten.map(&:strip).grep(/./).each do |x|
+          if i = down.index(x.downcase)  
+            choosen[i] = predefined_values[i]
+          else
+            others |= [x]
+          end
+        end
+        hash[k] = (choosen.compact + others).join(",")
       end
     end
   end
