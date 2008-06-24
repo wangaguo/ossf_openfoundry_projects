@@ -226,7 +226,7 @@ module ApplicationHelper
   
   def tz_datetime(time_at)
     time = TzTime.zone.adjust(time_at.utc)
-    time.strftime("%Y-%m-%d %H:%M")
+    time.strftime("%Y-%m-%d %H:%M") + ' ' + TzTime.zone.formatted_offset
   end
   
   class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
