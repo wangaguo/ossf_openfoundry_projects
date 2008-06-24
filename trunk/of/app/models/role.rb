@@ -15,13 +15,4 @@ class Role < ActiveRecord::Base
       role.functions.clear
     end
   end
-#  ROLES = [ "Admin", "Member", "ABC" ].freeze
-#  validates_inclusion_of :name, :in => ROLES
-
-#  def self.valid_role? (role)
-#    ROLES.include? role
-#  end 
-#  def self.validates_role(role) # role string
-#    raise( StandardError, "not a valid role: #{role}" ) unless valid_role?(role)
-#  end 
 end
