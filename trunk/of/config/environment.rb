@@ -89,10 +89,11 @@ OPENFOUNDRY_VIEWVC_URL =  'http://of.openfoundry.org/viewvc/'
 OPENFOUNDRY_RT_URL = 'http://rt.of.openfoundry.org'
 OPENFOUNDRY_SYMPA_URL = 'http://sympa.of.openfoundry.org/sympa'
 OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
+OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
 #
 # important password! leak it may leak all your user data!!
 #
-OPENFOUNDRY_JSON_DUMP_PASSWORD = ''
+OPENFOUNDRY_JSON_DUMP_PASSWORD = 'it_is_a_good_day_to_die'
 
 #for search in UTF-8
 UTF8_ANALYSIS_REGEX = /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
@@ -101,4 +102,4 @@ GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, tru
 
 # share session cookie for sub-doamins (SSO)
 # TODO: substitide domain name in the installing process
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".ofa.openfoundry.org"
+ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"

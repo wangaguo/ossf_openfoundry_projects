@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-06-19 07:30-0000\n"
+"POT-Creation-Date: 2008-06-24 07:40-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,8 +32,8 @@ msgstr ""
 msgid "Project Releases"
 msgstr ""
 
-#: app/helpers/application_helper.rb:64 app/controllers/news_controller.rb:31
-#: app/views/layouts/application.rhtml:49 app/views/openfoundry/index.rhtml:55
+#: app/helpers/application_helper.rb:64 app/controllers/news_controller.rb:34
+#: app/views/layouts/application.rhtml:50 app/views/openfoundry/index.rhtml:55
 msgid "Project News"
 msgstr ""
 
@@ -262,6 +262,34 @@ msgstr ""
 msgid "Function|Updated at"
 msgstr ""
 
+#: app/models/session.rb:-
+msgid "session"
+msgstr ""
+
+#: app/models/session.rb:-
+msgid "Session|Session"
+msgstr ""
+
+#: app/models/session.rb:-
+msgid "Session|Host"
+msgstr ""
+
+#: app/models/session.rb:-
+msgid "Session|User"
+msgstr ""
+
+#: app/models/session.rb:-
+msgid "Session|Data"
+msgstr ""
+
+#: app/models/session.rb:-
+msgid "Session|Created at"
+msgstr ""
+
+#: app/models/session.rb:-
+msgid "Session|Updated at"
+msgstr ""
+
 #: app/models/project.rb:-
 msgid "project"
 msgstr ""
@@ -270,11 +298,11 @@ msgstr ""
 msgid "Project|Icon"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:8
+#: app/models/project.rb:- app/views/projects/show.rhtml:9
 msgid "Project|Name"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:11
+#: app/models/project.rb:- app/views/projects/show.rhtml:12
 msgid "Project|Summary"
 msgstr ""
 
@@ -282,51 +310,56 @@ msgstr ""
 msgid "Project|Rationale"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:14
+#: app/models/project.rb:- app/views/projects/show.rhtml:15
 msgid "Project|Description"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:17
+#: app/models/project.rb:- app/views/projects/show.rhtml:21
 msgid "Project|Contactinfo"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:20
+#: app/models/project.rb:- app/views/projects/show.rhtml:24
+#: app/views/category/list.rhtml:4
 msgid "Project|Maturity"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:23
+#: app/models/project.rb:- app/views/projects/show.rhtml:27
+#: app/views/category/list.rhtml:13
 msgid "Project|License"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:26
+#: app/models/project.rb:- app/views/projects/show.rhtml:30
+#: app/views/category/list.rhtml:22
 msgid "Project|Contentlicense"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:29
+#: app/models/project.rb:- app/views/projects/show.rhtml:33
+#: app/views/category/list.rhtml:31
 msgid "Project|Platform"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:32
+#: app/models/project.rb:- app/views/projects/show.rhtml:36
+#: app/views/category/list.rhtml:40
 msgid "Project|Programminglanguage"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:35
+#: app/models/project.rb:-
 msgid "Project|Intendedaudience"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:38
+#: app/models/project.rb:-
 msgid "Project|Redirecturl"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:41
+#: app/models/project.rb:- app/views/projects/show.rhtml:42
 msgid "Project|Vcs"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:44
+#: app/models/project.rb:- app/views/projects/show.rhtml:45
 msgid "Project|Vcsdescription"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:47
+#: app/models/project.rb:- app/views/projects/show.rhtml:48
 msgid "Project|Creator"
 msgstr ""
 
@@ -350,71 +383,71 @@ msgstr ""
 msgid "Project|Updated at"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "IDEA"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "PREALPHA"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "ALPHA"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "BETA"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "RELEASED"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "MATURE"
 msgstr ""
 
-#: app/models/project.rb:4
+#: app/models/project.rb:6
 msgid "STANDARD"
 msgstr ""
 
-#: app/models/project.rb:9
+#: app/models/project.rb:17
 msgid "NONE"
 msgstr ""
 
-#: app/models/project.rb:9
+#: app/models/project.rb:17
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:9
+#: app/models/project.rb:17
 msgid "SUBVERSION"
 msgstr ""
 
-#: app/models/project.rb:9
+#: app/models/project.rb:17
 msgid "REMOTE"
 msgstr ""
 
-#: app/models/project.rb:32
+#: app/models/project.rb:55
 msgid "TODO: 使用 CVS 版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:34
+#: app/models/project.rb:57
 msgid "TODO: 使用 Subversion 版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:36
+#: app/models/project.rb:59
 msgid "TODO: 使用其他站台的版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:38
+#: app/models/project.rb:61
 msgid "TODO: 不使用版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:40
+#: app/models/project.rb:63
 msgid "TODO: 系統錯誤, 請通知站台管理員"
 msgstr ""
 
-#: app/models/project.rb:77
+#: app/models/project.rb:100
 msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
 msgstr ""
 
@@ -514,124 +547,140 @@ msgstr ""
 msgid "Not a valid date time"
 msgstr ""
 
-#: app/controllers/news_controller.rb:35
+#: app/controllers/news_controller.rb:38
 #: app/views/layouts/application.rhtml:41 app/views/openfoundry/index.rhtml:61
 msgid "OpenFoundry News"
 msgstr ""
 
-#: app/controllers/news_controller.rb:39 app/controllers/news_controller.rb:60
+#: app/controllers/news_controller.rb:42 app/controllers/news_controller.rb:63
 #: app/views/partials/_project_menu.rhtml:17
 #: app/views/partials/_project_menu.rhtml:49
 msgid "project_News"
 msgstr ""
 
-#: app/controllers/user_controller.rb:56
+#: app/controllers/news_controller.rb:92
+msgid "Add Successful"
+msgstr ""
+
+#: app/controllers/news_controller.rb:113
+msgid "Edit Successful"
+msgstr ""
+
+#: app/controllers/news_controller.rb:122
+msgid "Delete Successful"
+msgstr ""
+
+#: app/controllers/user_controller.rb:52
 msgid "user_login_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:68
+#: app/controllers/user_controller.rb:64
 msgid "user_login_failed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:88
+#: app/controllers/user_controller.rb:84
 msgid "user_signup_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:93
+#: app/controllers/user_controller.rb:89
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:117
+#: app/controllers/user_controller.rb:113
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:119
+#: app/controllers/user_controller.rb:115
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:149
+#: app/controllers/user_controller.rb:145
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:153
+#: app/controllers/user_controller.rb:149
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:160
+#: app/controllers/user_controller.rb:156
 msgid "user_forgot_password_logged_in"
 msgstr ""
 
-#: app/controllers/user_controller.rb:170
+#: app/controllers/user_controller.rb:166
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:172
+#: app/controllers/user_controller.rb:168
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:180
+#: app/controllers/user_controller.rb:176
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:188
+#: app/controllers/user_controller.rb:184
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:242
+#: app/controllers/user_controller.rb:214
+msgid "Update User Privacy Setting Successed"
+msgstr ""
+
+#: app/controllers/user_controller.rb:239
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:251
+#: app/controllers/user_controller.rb:248
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:266
+#: app/controllers/user_controller.rb:263
 msgid "user_delete_finished"
 msgstr ""
 
-#: app/controllers/application.rb:72
+#: app/controllers/application.rb:81
 msgid "&laquo; Previous"
 msgstr ""
 
-#: app/controllers/application.rb:73
+#: app/controllers/application.rb:82
 msgid "Next &raquo;"
 msgstr ""
 
-#: app/controllers/application.rb:202 app/controllers/application.rb:205
+#: app/controllers/application.rb:227 app/controllers/application.rb:230
 msgid "captcha mismatch"
+msgstr ""
+
+#: app/controllers/application.rb:249 app/controllers/images_controller.rb:154
+msgid "you have no permission"
 msgstr ""
 
 #: app/controllers/images_controller.rb:151
 msgid "image_upload_error"
 msgstr ""
 
-#: app/controllers/images_controller.rb:154
-msgid "you have no permission"
-msgstr ""
-
-#: app/controllers/projects_controller.rb:22
+#: app/controllers/projects_controller.rb:28
 msgid "Project Infomation"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:26
+#: app/controllers/projects_controller.rb:32
 #: app/views/partials/_project_menu.rhtml:38
 #: app/views/partials/_project_menu.rhtml:56
 msgid "Mailing List"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:35
+#: app/controllers/projects_controller.rb:41
 msgid "Version Control"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:45
+#: app/controllers/projects_controller.rb:51
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:111
+#: app/controllers/projects_controller.rb:144
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:234
+#: app/controllers/projects_controller.rb:267
 #: app/views/partials/_project_menu.rhtml:35
 msgid "Subversion/CVS Access"
 msgstr ""
@@ -641,7 +690,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:68 app/views/news/list.rhtml:25
+#: app/views/projects/show.rhtml:69 app/views/news/list.rhtml:25
 #: app/views/news/show.rhtml:15
 msgid "Edit"
 msgstr ""
@@ -825,73 +874,114 @@ msgstr ""
 msgid "menu_Project"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:48
+#: app/views/layouts/application.rhtml:48 app/views/category/list.rhtml:1
+msgid "Project Category"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:49
 msgid "menu_Overview"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:50
+#: app/views/layouts/application.rhtml:51
 msgid "New Releases"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:51
+#: app/views/layouts/application.rhtml:52
 #: app/views/projects/_new_projects.rhtml:1
 msgid "New Projects"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:52
+#: app/views/layouts/application.rhtml:53
 msgid "Top Downloads"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:54
-msgid "menu_WebHosting"
+msgid "Jobs"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:55
-#: app/views/layouts/application.rhtml:72
+msgid "menu_WebHosting"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:56
+#: app/views/layouts/application.rhtml:73
 msgid "Create Project"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:58
+#: app/views/layouts/application.rhtml:59
 msgid "menu_My Account"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:60
+#: app/views/layouts/application.rhtml:61
 msgid "menu_Preference"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:61
+#: app/views/layouts/application.rhtml:62
 msgid "menu_Password"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:62
+#: app/views/layouts/application.rhtml:63
 msgid "menu_My Pages"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:63
+#: app/views/layouts/application.rhtml:64
 msgid "menu_My Projects"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:64
+#: app/views/layouts/application.rhtml:65
 msgid "menu_My Tickets"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:75
+#: app/views/layouts/application.rhtml:67
+msgid "Owner"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:68
+msgid "Creator"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:69
+msgid "Requestor"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:70
+msgid "LastUpdatedBy"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:76
 msgid "menu_License Wizard"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:82
+#: app/views/layouts/application.rhtml:78
+#: app/views/layouts/application.rhtml:79
+msgid "License Wizard"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:80
+msgid "Direction"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:83
 msgid "menu_Help"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:89
+#: app/views/layouts/application.rhtml:90
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:92
+#: app/views/layouts/application.rhtml:93
 msgid "menu_Contact Us"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:128 app/views/user/edit.rhtml:11
+#: app/views/layouts/application.rhtml:95
+msgid "TODO: 聯絡方式"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:96
+msgid "Bug Report"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:129 app/views/user/edit.rhtml:11
 msgid "Change Icon"
 msgstr ""
 
@@ -997,63 +1087,67 @@ msgid ""
 "approving."
 msgstr ""
 
-#: app/views/projects/show.rhtml:57
-msgid "Project Participents"
+#: app/views/projects/show.rhtml:18
+msgid "Project|HOMEPAGE"
 msgstr ""
 
-#: app/views/projects/show.rhtml:69
+#: app/views/projects/show.rhtml:58
+msgid "Project Participants"
+msgstr ""
+
+#: app/views/projects/show.rhtml:70
 msgid "Back"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:35
-msgid "Project|Name|Help"
-msgstr ""
-
-#: app/views/projects/_form.rhtml:37
-msgid "Project|Summary|Help"
-msgstr ""
-
-#: app/views/projects/_form.rhtml:40
-msgid "Project|Description|Help"
-msgstr ""
-
-#: app/views/projects/_form.rhtml:42
-msgid "Project|Contactinfo|Help"
-msgstr ""
-
-#: app/views/projects/_form.rhtml:44
-msgid "Project|Maturity|Help"
+#: app/views/projects/_form.rhtml:39
+msgid "Others"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:46
-msgid "Project|License|Help"
+msgid "Project|Name|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:48
+msgid "Project|Summary|Help"
+msgstr ""
+
+#: app/views/projects/_form.rhtml:51
+msgid "Project|Description|Help"
+msgstr ""
+
+#: app/views/projects/_form.rhtml:53
+msgid "Project|Contactinfo|Help"
+msgstr ""
+
+#: app/views/projects/_form.rhtml:55
+msgid "Project|Maturity|Help"
+msgstr ""
+
+#: app/views/projects/_form.rhtml:57
+msgid "Project|License|Help"
+msgstr ""
+
+#: app/views/projects/_form.rhtml:59
 msgid "Project|Contentlicense|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:50
+#: app/views/projects/_form.rhtml:61
 msgid "Project|Platform|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:52
+#: app/views/projects/_form.rhtml:63
 msgid "Project|Programminglanguage|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:54
-msgid "Project|Intendedaudience|Help"
-msgstr ""
-
-#: app/views/projects/_form.rhtml:56
+#: app/views/projects/_form.rhtml:67
 msgid "Project|Redirecturl|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:58
+#: app/views/projects/_form.rhtml:69
 msgid "Project|Vcs|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:60
+#: app/views/projects/_form.rhtml:71
 msgid "Project|Vcsdescription|Help"
 msgstr ""
 

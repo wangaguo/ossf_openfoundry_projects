@@ -15,6 +15,9 @@
 <dt class="<%= cl[i] %>"><%= _("Project|Description") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.description %></dd>
 <% i = 1 - i %>
+<dt class="<%= cl[i] %>"><%= _("Project|HOMEPAGE") %>:</dt>
+<dd class="<%= cl[i] %>"><%= url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url %></dd>
+<% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Contactinfo") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.contactinfo %></dd>
 <% i = 1 - i %>
@@ -36,9 +39,6 @@
 <%# <dt class="<%%= cl[i] %%>"><%%= _("Project|Intendedaudience") %%>:</dt> %>
 <%# <dd class="<%%= cl[i] %%>"><%%= h @project.intendedaudience %%></dd> %>
 <%# i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Redirecturl") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.redirecturl %></dd>
-<% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Vcs") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.vcs_to_s %></dd>
 <% i = 1 - i %>
@@ -46,7 +46,7 @@
 <dd class="<%= cl[i] %>"><%= h @project.vcsdescription %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Creator") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.creator %></dd>
+<dd class="<%= cl[i] %>"><%= u = User.find(@project.creator); u.login + " " +  user_portrait_link(u) %></dd>
 <% i = 1 - i %>
 
 </dl>
