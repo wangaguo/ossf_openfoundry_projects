@@ -33,9 +33,9 @@
 <dt class="<%= cl[i] %>"><%= _("Project|Programminglanguage") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h show_with_seperator(@project.programminglanguage) %></dd>
 <% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Intendedaudience") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.intendedaudience %></dd>
-<% i = 1 - i %>
+<%# <dt class="<%%= cl[i] %%>"><%%= _("Project|Intendedaudience") %%>:</dt> %>
+<%# <dd class="<%%= cl[i] %%>"><%%= h @project.intendedaudience %%></dd> %>
+<%# i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Redirecturl") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.redirecturl %></dd>
 <% i = 1 - i %>
