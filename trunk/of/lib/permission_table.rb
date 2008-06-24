@@ -20,26 +20,38 @@ module OpenFoundry
       #:index,
       #:list,
       #:destory,
-      #:delete_role,
-      #:role_create,
-      #:role_destory,
-      #:role_edit,
-      #:role_new,
-      #:role_update,
-      #:role_users,
-      #:roles_edit,
+      :role_new => :role_new,
+      :role_create => :role_new,
+      :role_edit => :role_edit,
+      :role_update => :role_edit,
+      :role_destory => :role_delete,
       #:set_project,
       #:set_project_id,
-      #:set_role,
+      :roles_edit => :project_member,
+      :role_users => :project_member,
+      :set_role => :project_member,
+      :delete_role => :project_member,
       #:sympa,
       #:the_rest,
-      #:update,
+      :update => :project_info,
+      :edit => :project_info
       #:vcs_access,
       #:viewvc
     },
     :user => user_pt = {
     },
     :news => news_pt = {
+      :new => :news_post,
+      :create => :news_post,
+      #:_home_news,
+      :destory,
+      :edit => :news_edit,
+      :update => :news_edit,
+      :index,
+      :list,
+      :permit_redirect,
+      :project,
+      :show
     },
     :releases => releases_pt = {
     }#,
@@ -48,7 +60,7 @@ module OpenFoundry
     #:images,
   }
   #set default permissions
-  default_permission = :ALLOW_EVERYONE  
+  default_permission = :allow_all  
 
   openfoundry_pt.default = default_permission
   projects_pt.default = default_permission
