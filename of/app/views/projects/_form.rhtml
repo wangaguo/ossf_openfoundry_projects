@@ -32,7 +32,7 @@ AAA
   def of_check_box_group(name, predefined, value)
     values = "#{value}".split(",")
     rtn = ""
-    predefined = predefined.sort
+    #predefined = predefined.sort
     predefined.each_with_index do |p, i|
       rtn += check_box_tag("#{name}[#{i}]", p, values.include?(p)) + p + "\n"
     end
