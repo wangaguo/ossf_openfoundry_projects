@@ -1,8 +1,6 @@
-
 .fieldWithErrors {
-  padding: 2px;
-  background-color: red;
-  display: table;
+ display: inline;
+ border:solid 4px red;
 }
 
 #errorExplanation {
