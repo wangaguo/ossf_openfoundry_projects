@@ -62,8 +62,8 @@ class CreateTables < ActiveRecord::Migration
       t.integer "maturity"
       t.string  "license"
       t.string  "contentlicense"
-      t.string  "platform"
-      t.string  "programminglanguage"
+      t.string  "platform",            :limit => 80
+      t.string  "programminglanguage", :limit => 60
       t.string  "intendedaudience"
       t.string  "redirecturl"
       t.integer "vcs"
