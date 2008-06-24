@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
                  }, { :analyzer => GENERIC_ANALYZER } )
                  
   # disable ferret search if not verified        
-  def ferret_enabled?(is_bluk_index = false)
+  def ferret_enabled?(is_bulk_index = false)
     (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
   end
 
