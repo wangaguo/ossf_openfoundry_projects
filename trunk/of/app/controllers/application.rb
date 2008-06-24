@@ -10,8 +10,8 @@ require 'cgi_session_activerecord_store_hack'
 #require 'action_controller_cgi_request_hack'
 
 class ApplicationController < ActionController::Base
-  around_filter :set_timezone
   around_filter :touch_session
+  around_filter :set_timezone
 
   #for permission table
   include OpenFoundry::PermissionTable
@@ -238,15 +238,18 @@ THECODE
     begin
       pass =
       if @project
-        fpermit?(PERMISSION_TABLE[controller_name][action_name], @project.id)
+        fpermit?(PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym], @project.id)
       else
-        fpermit?(PERMISSION_TABLE[controller_name][action_name], 0)
+        fpermit?(PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym], 0)
       end
     rescue
       pass = false
     ensure
-      flash[:error] = _('Permission Denied') unless pass
-      #redirect_to '/'
+      unless(pass)
+        flash[:error] = _('you have no permission')
+        
+        redirect_to request.referer
+      end
     end
     pass
   end

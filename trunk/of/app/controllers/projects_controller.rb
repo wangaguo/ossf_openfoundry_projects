@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access]
   before_filter :set_project, :only => [:show, :edit, :update, :roles_edit, :role_users, :role_edit, :role_update, :role_new, :role_create, :role_destroy, :viewvc, :vcs_access, :sympa]
 
+  before_filter :check_permission
   def set_project
     @project = ProjectsController::get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
   end
