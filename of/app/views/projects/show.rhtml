@@ -1,4 +1,5 @@
 <%#= render( :partial => "tabnav" ) %>   
+<% def show_with_seperator(v); v.split(",").grep(/./).join(", ") end %>
 <div id="ProjectBasic">
 
 <dl class="form-data-dl">
@@ -27,10 +28,10 @@
 <dd class="<%= cl[i] %>"><%= h @project.contentlicense %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Platform") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.platform %></dd>
+<dd class="<%= cl[i] %>"><%= h show_with_seperator(@project.platform) %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Programminglanguage") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.programminglanguage %></dd>
+<dd class="<%= cl[i] %>"><%= h show_with_seperator(@project.programminglanguage) %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Intendedaudience") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.intendedaudience %></dd>

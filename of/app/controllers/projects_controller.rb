@@ -116,7 +116,7 @@ class ProjectsController < ApplicationController
             others |= [x]
           end
         end
-        hash[k] = (choosen.compact + others).join(",")
+        hash[k] = "," + (choosen.compact + others).join(",") + ","
       end
     end
   end
