@@ -44,14 +44,14 @@ module OpenFoundry
       :new => :news_post,
       :create => :news_post,
       #:_home_news,
-      :destory,
+      :destroy => :news_delete,
       :edit => :news_edit,
-      :update => :news_edit,
-      :index,
-      :list,
-      :permit_redirect,
-      :project,
-      :show
+      :update => :news_edit
+      #:index,
+      #:list,
+      #:project,
+      #:show
+      #:permit_redirect
     },
     :releases => releases_pt = {
     }#,
