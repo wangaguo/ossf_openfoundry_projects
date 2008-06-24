@@ -323,6 +323,7 @@ msgid "Project|Vcs"
 msgstr "版本控制系統"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:44
+#, fuzzy
 msgid "Project|Vcsdescription"
 msgstr "專案描述"
 
