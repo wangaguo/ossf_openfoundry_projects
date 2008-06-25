@@ -60,7 +60,7 @@ Event.observe(window, 'load', project_leftmenu_init);
               <li><%= link_to _('release_Upload Pool'), "" %></li>
           </ul>
       </li>
-      <li><%= link_to _('project_Role Control'), :action => "roles_edit", :id =>@project%></li>
+      <li><%= link_to _('project_Role Control'), :controller => :projects, :action => "roles_edit", :id =>@project%></li>
   </ul>
   <%# end %>
 </div>
