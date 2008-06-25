@@ -139,7 +139,7 @@ class ProjectsController < ApplicationController
 
   def update
     params[:project].delete(:name)
-    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
+    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSES.values.map(&:to_s))
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
       redirect_to :action => 'show', :id => @project

@@ -25,7 +25,7 @@
 <dd class="<%= cl[i] %>"><%= h @project.maturity_to_s %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|License") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.license %></dd>
+<dd class="<%= cl[i] %>"><%= @project.license.split(",").grep(/./).sort.map {|x| Project::license_to_s(x.to_i)}.join("<br>\n") %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Contentlicense") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h @project.contentlicense %></dd>

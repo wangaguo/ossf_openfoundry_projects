@@ -6,7 +6,54 @@ class Project < ActiveRecord::Base
   dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
 
   # TODO
-  LICENSES = [ "GPL", "LGPL", "BSD" ].freeze
+
+  LICENSE_DATA = <<"EOEO"
+OSI: Academic Free License
+OSI: Affero GNU Public License
+OSI: Adaptive Public License
+OSI: Apache License, 2.0
+OSI: Artistic license 2.0
+OSI: Attribution Assurance Licenses
+OSI: New and Simplified BSD licenses
+OSI: Boost Software License (BSL1.0)
+OSI: Common Development and Distribution License (CDDL)
+OSI: Common Public Attribution License 1.0 (CPAL)
+OSI: Common Public License 1.0
+OSI: Eclipse Public License
+OSI: Educational Community License, Version 2.0
+OSI: Eiffel Forum License V2.0
+OSI: Fair License
+OSI: GNU General Public License (GPL)
+OSI: GNU General Public License version 3.0 (GPLv3)
+OSI: GNU Library or "Lesser" General Public License (LGPL)
+OSI: GNU Library or "Lesser" General Public License version 3.0 (LGPLv3)
+OSI: Historical Permission Notice and Disclaimer
+OSI: ISC License
+OSI: Lucent Public License Version 1.02
+OSI: Microsoft Public License (Ms-PL)
+OSI: Microsoft Reciprocal License (Ms-RL)
+OSI: MIT license
+OSI: Mozilla Public License 1.1 (MPL)
+OSI: NASA Open Source Agreement 1.3
+OSI: NTP License
+OSI: Open Group Test Suite License
+OSI: Open Software License
+OSI: Qt Public License (QPL)
+OSI: Simple Public License 2.0
+OSI: Sleepycat License
+OSI: University of Illinois/NCSA Open Source License
+OSI: X.Net License
+OSI: zlib/libpng license 
+公共財(Public Domain)
+專案不包含程式碼
+其他
+EOEO
+  LICENSES = {}
+  LICENSE_DATA.split("\n").each_with_index { |x, i| LICENSES[x.to_sym] = i }
+  LICENSES.freeze
+
+  #
+
   # TODO
   CONTENT_LICENSES = [ "CC", "KK" ].freeze
 
@@ -45,6 +92,9 @@ class Project < ActiveRecord::Base
   end
   def maturity_to_s
     Project.maturity_to_s(maturity)
+  end
+  def self.license_to_s(int_license)
+    _(LICENSES.index(int_license).to_s)
   end
   # Project.vcs_to_s(1)    or
   # Project.vcs_to_s(:CVS)
