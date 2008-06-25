@@ -123,13 +123,10 @@ class User < ActiveRecord::Base
   end
 
   def change_password(old_pass, new_pass, new_pass_confirm = nil)
-    if(old_pass.crypt(self.salted_password) == self.salted_password)
-      self.password = new_pass
-      self.password_confirmation = new_pass_confirm.nil? ? new_pass : new_pass_confirm
-      @new_password = true
-    else
-      self.errors.add(base, _('Old Password Incorrect')) 
-    end
+    self.old_password = old_pass
+    self.password = new_pass
+    self.password_confirmation = new_pass_confirm.nil? ? new_pass : new_pass_confirm
+    @new_password = true
   end
   
   def change_email(email, confirm = nil)
@@ -139,10 +136,16 @@ class User < ActiveRecord::Base
   end
     
   protected
-
+  
   attr_accessor :password, :password_confirmation, :email_confirmation
   attr_accessor :old_password
-
+  
+  def validate
+    if(@new_password and old_password.crypt(self.salted_password) != self.salted_password)
+      errors.add(:old_password, _('Old Password Incorrect')) 
+    end
+  end
+  
   def validate_password?
     @new_password
   end
