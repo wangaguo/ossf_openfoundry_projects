@@ -52,10 +52,22 @@ EOEO
   LICENSE_DATA.split("\n").each_with_index { |x, i| LICENSES[x.to_sym] = i }
   LICENSES.freeze
 
-  #
+  CONTENT_LICENSES_DATA = <<"EOEO"
+Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)
+Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)
+Creative Commons: Attribution Non-commercial (by-nc)
+Creative Commons: Attribution No Derivatives (by-nd)
+Creative Commons: Attribution Share Alike (by-sa)
+Creative Commons: Attribution (by)
+同程式碼
+公共財(Public Domain)
+專案僅不包含圖文內容
+其他
+EOEO
+  CONTENT_LICENSES = {}
+  CONTENT_LICENSES_DATA.split("\n").each_with_index { |x, i| CONTENT_LICENSES[x.to_sym] = i }
+  CONTENT_LICENSES.freeze
 
-  # TODO
-  CONTENT_LICENSES = [ "CC", "KK" ].freeze
 
   # see also: OpenFoundry.pm
 
@@ -95,6 +107,9 @@ EOEO
   end
   def self.license_to_s(int_license)
     _(LICENSES.index(int_license).to_s)
+  end
+  def self.contentlicense_to_s(int_contentlicense)
+    _(CONTENT_LICENSES.index(int_contentlicense).to_s)
   end
   # Project.vcs_to_s(1)    or
   # Project.vcs_to_s(:CVS)
