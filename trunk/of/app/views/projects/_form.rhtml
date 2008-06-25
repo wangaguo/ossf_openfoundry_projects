@@ -41,6 +41,13 @@ AAA
   end
 %>
 
+<%
+  choosen_licenses = @project.license.split(",").grep(/./).map(&:to_i)
+  tmp_licenses = ""
+  Project::LICENSES.values.sort.each do |i|
+    tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) + "#{Project.license_to_s(i)}<br>\n"
+  end
+%>
 <table class="form-table">
 <%=  rows(
   foo("name", true, _("Project|Name|Help")),
@@ -55,7 +62,7 @@ AAA
   foo("maturity", true, _("Project|Maturity|Help")),
     select('project', 'maturity', to_select(Project::MATURITY)),
   foo("license", true, _("Project|License|Help")),
-    select('project', 'license', Project::LICENSES),
+    tmp_licenses,
   foo("contentlicense", true, _("Project|Contentlicense|Help")),
     select('project', 'contentlicense', Project::CONTENT_LICENSES),
   foo("platform", true, _("Project|Platform|Help")),
