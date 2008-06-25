@@ -21,8 +21,8 @@
 <fieldset>
   <legend><%= _("Project|Contentlicense") %></legend>
   <ul>
-  <% Project::CONTENT_LICENSES.values.sort.each do |value| -%>
-    <li><%= link_to Project::license_to_s(value), :controller => :projects, :cat => 'license', :name => value%></li>
+  <% for item in Project::CONTENT_LICENSES -%>
+    <li><%= link_to item, :controller => :projects, :cat => 'contentlicense', :name => item %></li>
   <% end -%>
   </ul>
 </fieldset>
