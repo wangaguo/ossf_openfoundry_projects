@@ -28,7 +28,7 @@
 <dd class="<%= cl[i] %>"><%= @project.license.split(",").grep(/./).map {|x| Project::license_to_s(x.to_i)}.join("<br>\n") %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Contentlicense") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.contentlicense %></dd>
+<dd class="<%= cl[i] %>"><%= @project.contentlicense.split(",").grep(/./).map {|x| Project::contentlicense_to_s(x.to_i)}.join("<br>\n") %></dd>
 <% i = 1 - i %>
 <dt class="<%= cl[i] %>"><%= _("Project|Platform") %>:</dt>
 <dd class="<%= cl[i] %>"><%= h show_with_seperator(@project.platform) %></dd>

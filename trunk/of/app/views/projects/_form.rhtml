@@ -42,10 +42,17 @@ AAA
 %>
 
 <%
-  choosen_licenses = @project.license.split(",").grep(/./).map(&:to_i)
+  choosen_licenses = (@project.license || "").split(",").grep(/./).map(&:to_i)
   tmp_licenses = ""
   Project::LICENSES.values.sort.each do |i|
     tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) + "#{Project.license_to_s(i)}<br>\n"
+  end
+%>
+<%
+  choosen_contentlicenses = (@project.contentlicense || "").split(",").grep(/./).map(&:to_i)
+  tmp_contentlicenses = ""
+  Project::CONTENT_LICENSES.values.sort.each do |i|
+    tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) + "#{Project.contentlicense_to_s(i)}<br>\n"
   end
 %>
 <table class="form-table">
@@ -64,7 +71,7 @@ AAA
   foo("license", true, _("Project|License|Help")),
     tmp_licenses,
   foo("contentlicense", true, _("Project|Contentlicense|Help")),
-    select('project', 'contentlicense', Project::CONTENT_LICENSES),
+    tmp_contentlicenses,
   foo("platform", true, _("Project|Platform|Help")),
     of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform),
   foo("programminglanguage", true, _("Project|Programminglanguage|Help")), 

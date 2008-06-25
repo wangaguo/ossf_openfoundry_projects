@@ -122,7 +122,7 @@ class ProjectsController < ApplicationController
 
 
   def create
-    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
+    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSES.values.sort.map(&:to_s), :contentlicense => Project::CONTENT_LICENSES.values.sort.map(&:to_s))
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
@@ -139,7 +139,7 @@ class ProjectsController < ApplicationController
 
   def update
     params[:project].delete(:name)
-    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSES.values.sort.map(&:to_s))
+    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSES.values.sort.map(&:to_s), :contentlicense => Project::CONTENT_LICENSES.values.sort.map(&:to_s))
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
       redirect_to :action => 'show', :id => @project
