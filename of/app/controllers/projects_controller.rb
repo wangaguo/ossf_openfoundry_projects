@@ -105,21 +105,21 @@ class ProjectsController < ApplicationController
       k = k.to_s
       # {"-1"=>" ,  a,  b, linux,   c   ,  a ,, ", "1"=>"XXX", "2"=>"Linux", "4"=>"FreeBSD"}
       # ["a", "b", "linux", "c", "d", "XXX", "Linux", "FreeBSD"]
-      if hash[k]
-        down = predefined_values.map(&:downcase)
-        choosen = []
-        others = [] 
-        hash[k].values.map {|x| x.split(",")}.flatten.map(&:strip).grep(/./).each do |x|
-          if i = down.index(x.downcase)  
-            choosen[i] = predefined_values[i]
-          else
-            others |= [x]
-          end
+      
+      down = predefined_values.map(&:downcase)
+      choosen = []
+      others = [] 
+      (hash[k] || {}).values.map {|x| x.split(",")}.flatten.map(&:strip).grep(/./).each do |x|
+        if i = down.index(x.downcase)  
+          choosen[i] = predefined_values[i]
+        else
+          others |= [x]
         end
-        hash[k] = "," + (choosen.compact + others).join(",") + ","
       end
+      hash[k] = "," + (choosen.compact + others).join(",") + ","
     end
   end
+
 
   def create
     join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
@@ -139,7 +139,7 @@ class ProjectsController < ApplicationController
 
   def update
     params[:project].delete(:name)
-    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSES.values.map(&:to_s))
+    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSES.values.sort.map(&:to_s))
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
       redirect_to :action => 'show', :id => @project
