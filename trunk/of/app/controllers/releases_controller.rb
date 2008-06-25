@@ -2,6 +2,10 @@ class ReleasesController < ApplicationController
   find_resources :parent => 'project', 
     :child => 'release', 
     :parent_id_method => 'project_id'
+
+  #see lib/permission_table.rb
+  before_filter :check_permission
+
   def index
     list
     render :action => :list
