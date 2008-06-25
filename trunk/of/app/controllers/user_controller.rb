@@ -137,16 +137,18 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing password")
     return if generate_filled_in
     params['user'].delete('form')
-    begin
-      User.transaction do
-        @user.change_password(params['user']['password'], params['user']['password_confirmation'])
+    User.transaction do
+      @user.change_password(params['user']['old_password'], 
+                            params['user']['password'], 
+                            params['user']['password_confirmation'])
+      begin
         if @user.save
           UserNotify.deliver_change_password(@user, params['user']['password'])
           flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
         end
+      rescue
+        flash.now[:warning] = _('user_change_password_email_error')
       end
-    rescue
-      flash.now[:warning] = _('user_change_password_email_error')
     end
   end
 

@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
     super
     @new_password = false
     @new_email = false
+    @old_password = ''
   end
 
   def self.authenticate(login, pass)
@@ -121,10 +122,14 @@ class User < ActiveRecord::Base
     return generate_security_token(hours)
   end
 
-  def change_password(pass, confirm = nil)
-    self.password = pass
-    self.password_confirmation = confirm.nil? ? pass : confirm
-    @new_password = true
+  def change_password(old_pass, new_pass, new_pass_confirm = nil)
+    if(old_pass.crypt(self.salted_password) == self.salted_password)
+      self.password = new_pass
+      self.password_confirmation = new_pass_confirm.nil? ? new_pass : new_pass_confirm
+      @new_password = true
+    else
+      self.errors.add(base, _('Old Password Incorrect')) 
+    end
   end
   
   def change_email(email, confirm = nil)
@@ -136,6 +141,7 @@ class User < ActiveRecord::Base
   protected
 
   attr_accessor :password, :password_confirmation, :email_confirmation
+  attr_accessor :old_password
 
   def validate_password?
     @new_password
