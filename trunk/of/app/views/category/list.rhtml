@@ -3,8 +3,8 @@
 <fieldset>
   <legend><%= _("Project|Maturity") %></legend>
   <ul>
-  <% Project::MATURITY.each_pair do |key, value| -%>
-    <li><%= link_to Project::maturity_to_s(value), :controller => :projects, :cat => 'maturity', :name => value%></li>
+  <% Project::MATURITY.values.sort.each do |value| -%>
+    <li><%= link_to Project::maturity_to_s(value), :controller => :projects, :cat => 'license', :name => value%></li>
   <% end -%>
   </ul>
 </fieldset>
@@ -12,8 +12,8 @@
 <fieldset>
   <legend><%= _("Project|License") %></legend>
   <ul>
-  <% for item in Project::LICENSES -%>
-    <li><%= link_to item, :controller => :projects, :cat => 'license', :name => item %></li>
+  <% Project::LICENSES.values.sort.each do |value| -%>
+    <li><%= link_to Project::license_to_s(value), :controller => :projects, :cat => 'license', :name => value%></li>
   <% end -%>
   </ul>
 </fieldset>
@@ -21,8 +21,8 @@
 <fieldset>
   <legend><%= _("Project|Contentlicense") %></legend>
   <ul>
-  <% for item in Project::CONTENT_LICENSES -%>
-    <li><%= link_to item, :controller => :projects, :cat => 'contentlicense', :name => item %></li>
+  <% Project::CONTENT_LICENSES.values.sort.each do |value| -%>
+    <li><%= link_to Project::license_to_s(value), :controller => :projects, :cat => 'license', :name => value%></li>
   <% end -%>
   </ul>
 </fieldset>
@@ -44,7 +44,7 @@
   <% end -%>
   </ul>
 </fieldset>
-<div style="display:block;">
+<div style="display:none;">
 <%=@platform%><br/>
 <%=@programming_language%><br/>
 <%=@intended_audience%><br/>
