@@ -142,7 +142,7 @@ class UserController < ApplicationController
                             params['user']['password'], 
                             params['user']['password_confirmation'])
       begin
-        if @user.save
+        if @user.errors.empty? and @user.save
           UserNotify.deliver_change_password(@user, params['user']['password'])
           flash.now[:notice] = _('user_updated_password') % "#{@user.email}"
         end
