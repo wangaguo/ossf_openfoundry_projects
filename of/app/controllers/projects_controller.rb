@@ -74,7 +74,7 @@ class ProjectsController < ApplicationController
     if params[:cat] =~ /^(maturity|license|contentlicense|platform|programminglanguage)$/
       if params[:cat] != '' && params[:name] != ''
         if params[:cat] !~ /^(maturity)$/
-          name = '%' + params[:name] + '%'
+          name = '%,' + params[:name] + ',%'
         else
           name = params[:name]
         end
