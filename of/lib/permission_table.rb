@@ -54,6 +54,19 @@ module OpenFoundry
       #:permit_redirect
     },
     :releases => releases_pt = {
+      :new => :release_new,
+      :create => :release_new,
+      :addfiles => :release_new,
+      :uploadfiles => :release_new,
+      :edit => :release_edit,
+      :update => :release_edit,
+      #:index
+      #:latest
+      #:list
+      :removefile => :release_delete,
+      :delete => :release_delete
+      #:show
+      #:top
     }#,
     #:rt,
     #:kwiki,
