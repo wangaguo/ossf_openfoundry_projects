@@ -45,51 +45,15 @@ class User < ActiveRecord::Base
     end 
   end
 
-  # !use functions!
-  #def admin_of
-  #  is_admin_of_what
-  #end
-  #def member_of
-  #  is_member_of_what
-  #end
-
-  def name
-    "#{self.firstname} #{self.lastname}"
-  end
-
   attr_accessor :new_password, :new_email
+  attr_accessor :password, :password_confirmation, :email_confirmation
+  attr_accessor :old_password
   
   def initialize(attributes = nil)
     super
     @new_password = false
     @new_email = false
     @old_password = ''
-  end
-
-  def self.authenticate(login, pass)
-    u = find( :first, :conditions => ["login = ? AND verified = 1 AND status = 0", login])
-    return nil if u.nil?
-    #find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
-    find( :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
-  end
-
-  def self.authenticate_by_token(id, token, atts = {})
-    include OpenFoundry::Message
-    # 加上了用atts修改個人資料的功能 by tim
-    # Allow logins for deleted accounts, but only via this method (and
-    # not the regular authenticate call)
-    u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
-    return nil if u.nil? or u.token_expired?
-    return nil if false == u.update_expiry
-    unless atts.empty?
-      u.attributes = atts
-      u.save
-      atts['id'] = u.id
-      atts['name'] = u.login
-    else
-      send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login})
-    end
-    u
   end
 
   def token_expired?
@@ -135,13 +99,18 @@ class User < ActiveRecord::Base
     @new_email  = true
   end
     
-  protected
-  
-  attr_accessor :password, :password_confirmation, :email_confirmation
-  attr_accessor :old_password
-  
+  def validate_on_create
+    if User.exists?(User.verified_users(['login = ?', self.login]))
+      errors.add(:login, "'#{login}' has already been used")
+    end
+    if User.exists?(User.verified_users(['email = ?', self.email]))
+      errors.add(:email, "'#{email}' has already been used")
+    end
+  end
+   
   def validate
-    if(@new_password and old_password.crypt(self.salted_password) != self.salted_password)
+    if(@new_password and (not old_password.blank?) and 
+      old_password.crypt(self.salted_password) != self.salted_password)
       errors.add(:old_password, _('Old Password Incorrect')) 
     end
   end
@@ -183,15 +152,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.salted_password(salt, hashed_password)
-    hashed(salt + hashed_password)
-  end
-
   validates_presence_of :login, :on => :create
   validates_length_of :login, :within => 3..40, :on => :create
-  #validates_uniqueness_of :login, :on => :create
   
-  #validates_uniqueness_of :email, :on => :create
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates_confirmation_of :email, :if => :validate_email?
 
@@ -200,9 +163,31 @@ class User < ActiveRecord::Base
   validates_length_of :password, { :minimum => 5, :if => :validate_password? }
   validates_length_of :password, { :maximum => 40, :if => :validate_password? }
 
-#  #For "paranoid session store"
-#  has_many   :sessions,   :conditions => ["#{Session.table_name}.updated_at > ?", Session.expires_at], :dependent => :delete_all
-#
+  def self.authenticate(login, pass)
+    u = find( :first, :conditions => ["login = ? AND verified = 1 AND status = 0", login])
+    return nil if u.nil?
+    #find_first(["login = ? AND salted_password = ? AND verified = 1", login, salted_password(u.salt, hashed(pass))])
+    find( :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
+  end
+
+  def self.authenticate_by_token(id, token, atts = {})
+    include OpenFoundry::Message
+    # 加上了用atts修改個人資料的功能 by tim
+    # Allow logins for deleted accounts, but only via this method (and
+    # not the regular authenticate call)
+    u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
+    return nil if u.nil? or u.token_expired?
+    return nil if false == u.update_expiry
+    unless atts.empty?
+      u.attributes = atts
+      u.save
+      atts['id'] = u.id
+      atts['name'] = u.login
+    else
+      send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login})
+    end
+    u
+  end
 
   # User.find(:all, :conditions => User.verified_users).size
   def self.verified_users(condition = 'true')
@@ -214,16 +199,9 @@ class User < ActiveRecord::Base
       raise "wrong usage!"
     end
   end
-
-  def validate_on_create
-    if User.exists?(User.verified_users(['login = ?', self.login]))
-      errors.add(:login, "'#{login}' has already been used")
-    end
-    if User.exists?(User.verified_users(['email = ?', self.email]))
-      errors.add(:email, "'#{email}' has already been used")
-    end
-  end
-
   
+  def self.salted_password(salt, hashed_password)
+    hashed(salt + hashed_password)
+  end
 end
 
