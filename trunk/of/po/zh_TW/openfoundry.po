@@ -594,7 +594,7 @@ msgstr "您的驗證信傳送失敗"
 
 #: app/controllers/user_controller.rb:113
 msgid "user_updated_email"
-msgstr "密碼更新成功"
+msgstr "Email更新成功"
 
 #: app/controllers/user_controller.rb:115
 msgid "user_change_email_error"
