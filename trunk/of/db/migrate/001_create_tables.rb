@@ -52,22 +52,24 @@ class CreateTables < ActiveRecord::Migration
     end
 
     # see also: app/models/project.rb
+    # the limit is specified in lengh of unicode characters, not bytes
     create_table "projects", :force => true do |t|
       t.integer "icon",                :default => 0, :null => false
       t.string  "name",                :limit => 15, :null => false
       t.string  "summary",             :limit => 255
-      t.text    "rationale"
+      t.text    "rationale"            # backward compatibility
       t.text    "description"
       t.string  "contactinfo",         :limit => 255
       t.integer "maturity"
-      t.string  "license"
-      t.string  "contentlicense"
-      t.string  "platform",            :limit => 80
-      t.string  "programminglanguage", :limit => 60
-      t.string  "intendedaudience"
-      t.string  "redirecturl"
+      t.string  "license",             :limit => 50
+      t.string  "contentlicense",      :limit => 50
+      t.string  "platform",            :limit => 100
+      t.string  "programminglanguage", :limit => 100 
+      t.string  "intendedaudience"     # backward compatibility
+      t.string  "redirecturl",         :limit => 255
       t.integer "vcs"
-      t.string  "vcsdescription",      :limit => 50
+      t.string  "vcsdescription",      :limit => 100
+
       t.integer "creator"
       t.integer "status"
       t.text    "statusreason"

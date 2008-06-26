@@ -1,4 +1,15 @@
-ActiveRecord::Schema.define(:version => 6) do
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your database schema. If you need
+# to create the application database on another system, you should be using db:schema:load, not running
+# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 2) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -52,25 +63,27 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "projects", :force => true do |t|
-    t.integer "icon",                :default => 0, :null => false
-    t.string  "name"
-    t.string  "summary"
-    t.text    "rationale"
-    t.text    "description"
-    t.string  "contactinfo"
-    t.string  "maturity"
-    t.string  "license"
-    t.string  "contentlicense"
-    t.string  "platform"
-    t.string  "programminglanguage"
-    t.string  "intendedaudience"
-    t.string  "redirecturl"
-    t.string  "vcs"
-    t.string  "remotevcs"
-    t.integer "creator"
-    t.integer "status"
-    t.text    "statusreason"
-    t.integer "project_counter",     :default => 0, :null => false
+    t.integer  "icon",                               :default => 0,  :null => false
+    t.string   "name",                :limit => 15,  :default => "", :null => false
+    t.string   "summary"
+    t.text     "rationale"
+    t.text     "description"
+    t.string   "contactinfo"
+    t.integer  "maturity"
+    t.string   "license",             :limit => 50
+    t.string   "contentlicense",      :limit => 50
+    t.string   "platform",            :limit => 100
+    t.string   "programminglanguage", :limit => 100
+    t.string   "intendedaudience"
+    t.string   "redirecturl"
+    t.integer  "vcs"
+    t.string   "vcsdescription",      :limit => 100
+    t.integer  "creator"
+    t.integer  "status"
+    t.text     "statusreason"
+    t.integer  "project_counter",                    :default => 0,  :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
   create_table "releases", :force => true do |t|
@@ -111,19 +124,17 @@ ActiveRecord::Schema.define(:version => 6) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :limit => 32, :default => "", :null => false
+    t.string   "session_id", :default => "", :null => false
+    t.string   "host",       :default => "", :null => false
     t.integer  "user_id"
-    t.string   "host",       :limit => 20
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
     t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id", :unique => true
-  add_index "sessions", ["user_id"], :name => "index_sessions_on_user_id"
-  add_index "sessions", ["host"], :name => "index_sessions_on_host"
-  add_index "sessions", ["created_at"], :name => "index_sessions_on_created_at"
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+  add_index "sessions", ["user_id"], :name => "index_sessions_on_user_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -153,7 +164,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.string   "role",            :limit => 40
     t.string   "security_token",  :limit => 40
     t.datetime "token_expiry"
-    t.integer  "status",         :default => 0
+    t.integer  "status",                        :default => 0
     t.datetime "delete_after"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -161,4 +172,5 @@ ActiveRecord::Schema.define(:version => 6) do
     t.string   "language",        :limit => 5
     t.string   "timezone",        :limit => 40
   end
+
 end
