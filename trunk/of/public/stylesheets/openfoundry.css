@@ -239,6 +239,7 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 .form-table { width:95%; }
 .form-table th { font-weight:bold; height:20px; background:#EFF4FF; }
 .form-table td { border-bottom:solid 1px #DFE9FF; height:20px; }
+#user_edit .form-table th { width:150px; }
 
 .form-data-dl { width:95%; }
 .form-data-dl dt { font-weight:bold; float:left; clear:left; width:30%; line-height:20px; margin:1px; }
