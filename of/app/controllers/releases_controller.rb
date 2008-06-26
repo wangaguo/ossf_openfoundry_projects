@@ -66,7 +66,7 @@ class ReleasesController < ApplicationController
       r.project_id = params[:project_id]
       if r.save!
         flash.now[:message] = 'Create New Release Successfully!'
-        redirect_to(url_for :project_id => params[:project_id], :action => :index) 
+        redirect_to(url_for(:project_id => params[:project_id], :action => :index)) 
       else
         flash.now[:message] = 'Faild to Create New Release!'
       end
@@ -84,7 +84,7 @@ class ReleasesController < ApplicationController
       r=Release.find(params[:id])
       r.destroy unless r.nil?
     end
-    redirect_to(url_for :project_id => params[:project_id], :action => :index)
+    redirect_to(url_for(:project_id => params[:project_id], :action => :index))
   end
   
   def update
@@ -93,9 +93,9 @@ class ReleasesController < ApplicationController
       r.attributes= params[:release]
       if r.save!
         flash[:notice] = 'Edit Release Successfully!'
-        redirect_to(url_for :project_id => params[:project_id],
+        redirect_to(url_for(:project_id => params[:project_id],
           :action => :show, :id => params[:id]
-        ) 
+        )) 
       else
         flash.now[:message] = 'Faild to Update Release!'
       end
