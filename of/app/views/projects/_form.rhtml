@@ -58,14 +58,14 @@ AAA
 <table class="form-table">
 <%=  rows(
   foo("name", true, _("Project|Name|Help")),
-    text_field('project', 'name', :disabled => (is_edit == true)),
+    text_field('project', 'name', :disabled => (is_edit == true), :maxlength => 15, :style => 'width:15em'),
   foo("summary", true, _("Project|Summary|Help")),
-    text_area('project', 'summary'),
+    text_field('project', 'summary', :maxlength => 255, :size => 50),
   # rationale
   foo("description", true, _("Project|Description|Help")),
     text_area('project', 'description'),
   foo("contactinfo", true, _("Project|Contactinfo|Help")),
-    text_field('project', 'contactinfo'),
+    text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
   foo("maturity", true, _("Project|Maturity|Help")),
     select('project', 'maturity', to_select(Project::MATURITY)),
   foo("license", true, _("Project|License|Help")),
@@ -79,11 +79,11 @@ AAA
   #foo("intendedaudience", true, _("Project|Intendedaudience|Help")), 
   #  of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience),
   foo("redirecturl", true, _("Project|Redirecturl|Help")), 
-    text_field('project', 'redirecturl'),
+    text_field('project', 'redirecturl', :maxlength => 255, :size => 50),
   foo("vcs", true, _("Project|Vcs|Help")), 
     select('project', 'vcs', [:SUBVERSION, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
   foo("vcsdescription", true, _("Project|Vcsdescription|Help")), 
-    text_field('project', 'vcsdescription', :maxlength => 50)
+    text_field('project', 'vcsdescription', :maxlength => 100, :size => 50)
 )
 %>
 </table>

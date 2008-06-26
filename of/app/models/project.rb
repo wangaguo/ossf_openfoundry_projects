@@ -94,7 +94,7 @@ EOEO
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
 
   # name validation
-  NAME_REGEX = /^[a-z][0-9a-z]{2,14}$/
+  NAME_REGEX = /^[a-z][0-9a-z]{2,14}$/ # lengh = 15
   
   def self.status_to_s(int_status)
     _(STATUS.index(int_status).to_s)
@@ -163,11 +163,20 @@ EOEO
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
   validates_format_of :name, :with => NAME_REGEX, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
-  validates_length_of :platform, :maximum => 80
-  validates_length_of :programminglanguage, :maximum => 60
-  validates_length_of :vcsdescription, :maximum => 50
-  #validates_inclusion_of :license, :in => LICENSES
-  #validates_inclusion_of :contentlicense, :in => CONTENT_LICENSES
+  validates_length_of :summary, :within => 3 ..255
+  # rationale: only for backward compatibility
+  # description: text
+  validates_length_of :contactinfo, :maximum => 255
+  validates_inclusion_of :maturity, :in => MATURITY.values
+  validates_length_of :license, :maximum => 50; validates_format_of :license, :with => /,(\d+)*,/
+  validates_length_of :contentlicense, :maximum => 50; validates_format_of :contentlicense, :with => /,(\d+)*,/
+  validates_length_of :platform, :maximum => 100
+  validates_length_of :programminglanguage, :maximum => 100
+  # intendedaudience: only for backward compatibility
+  validates_length_of :redirecturl, :maximum => 255 # TODO: should be a valid url! (and no loop)
+  validates_inclusion_of :vcs, :in => VCS.values
+  validates_length_of :vcsdescription, :maximum => 100
+
   
   def admins
     has_admins
