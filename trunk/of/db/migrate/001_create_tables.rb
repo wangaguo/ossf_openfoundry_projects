@@ -63,6 +63,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer "maturity"
       t.string  "license",             :limit => 50
       t.string  "contentlicense",      :limit => 50
+      t.text    "licensingdescription"
       t.string  "platform",            :limit => 100
       t.string  "programminglanguage", :limit => 100 
       t.string  "intendedaudience"     # backward compatibility
