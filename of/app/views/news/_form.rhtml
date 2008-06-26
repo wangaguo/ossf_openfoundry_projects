@@ -22,8 +22,8 @@
 <% end %>
 
 <p><label for="news_status_1"><%=_('Status')%></label><br/>
-<%= radio_button("news", "status", "1") %><%=_('Enabled')%>
-<%= radio_button("news", "status", "0") %><%=_('Disabled')%>
+<%= radio_button("news", "status", News::STATUS[:Enabled]) %><%=_('Enabled')%>
+<%= radio_button("news", "status", News::STATUS[:Disabled]) %><%=_('Disabled')%>
 </p>
 <!--[eoform:news]-->
 
