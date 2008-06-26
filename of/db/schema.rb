@@ -63,27 +63,28 @@ ActiveRecord::Schema.define(:version => 2) do
   end
 
   create_table "projects", :force => true do |t|
-    t.integer  "icon",                               :default => 0,  :null => false
-    t.string   "name",                :limit => 15,  :default => "", :null => false
+    t.integer  "icon",                                :default => 0,  :null => false
+    t.string   "name",                 :limit => 15,  :default => "", :null => false
     t.string   "summary"
     t.text     "rationale"
     t.text     "description"
     t.string   "contactinfo"
     t.integer  "maturity"
-    t.string   "license",             :limit => 50
-    t.string   "contentlicense",      :limit => 50
-    t.string   "platform",            :limit => 100
-    t.string   "programminglanguage", :limit => 100
+    t.string   "license",              :limit => 50
+    t.string   "contentlicense",       :limit => 50
+    t.text     "licensingdescription"
+    t.string   "platform",             :limit => 100
+    t.string   "programminglanguage",  :limit => 100
     t.string   "intendedaudience"
     t.string   "redirecturl"
     t.integer  "vcs"
-    t.string   "vcsdescription",      :limit => 100
+    t.string   "vcsdescription",       :limit => 100
     t.integer  "creator"
     t.integer  "status"
     t.text     "statusreason"
-    t.integer  "project_counter",                    :default => 0,  :null => false
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.integer  "project_counter",                     :default => 0,  :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "releases", :force => true do |t|

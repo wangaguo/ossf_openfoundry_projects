@@ -25,6 +25,7 @@
   _("Project|Maturity"), (h @project.maturity_to_s),
   _("Project|License"), @project.license.split(",").grep(/./).map {|x| Project::license_to_s(x.to_i)}.join("<br>\n"),
   _("Project|Contentlicense"), @project.contentlicense.split(",").grep(/./).map {|x| Project::contentlicense_to_s(x.to_i)}.join("<br>\n"), 
+  _("Project|Licensingdescription"), (h @project.licensingdescription),
   _("Project|Platform"), (h show_with_seperator(@project.platform)),
   _("Project|Programminglanguage"), (h show_with_seperator(@project.programminglanguage)),
   _("Project|Intendedaudience"), (h @project.intendedaudience),

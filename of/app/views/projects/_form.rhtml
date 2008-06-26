@@ -72,6 +72,8 @@ AAA
     tmp_licenses,
   foo("contentlicense", true, _("Project|Contentlicense|Help")),
     tmp_contentlicenses,
+  foo("licensingdescription", true, _("Project|Licensingdescription|Help")),
+    text_area('project', 'licensingdescription'),
   foo("platform", true, _("Project|Platform|Help")),
     of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform),
   foo("programminglanguage", true, _("Project|Programminglanguage|Help")), 
