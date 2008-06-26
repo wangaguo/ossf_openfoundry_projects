@@ -8,31 +8,32 @@ class Project < ActiveRecord::Base
   # TODO
 
   LICENSE_DATA = <<"EOEO"
+公共財(Public Domain)
+專案不包含程式碼(This project contains no code)
 OSI: Academic Free License
 OSI: Affero GNU Public License
 OSI: Adaptive Public License
-OSI: Apache License, 2.0
-OSI: Artistic license 2.0
+OSI: Apache License 2.0
+OSI: Artistic License 2.0
 OSI: Attribution Assurance Licenses
-OSI: New and Simplified BSD licenses
+OSI: New and Simplified BSD Licenses
 OSI: Boost Software License (BSL1.0)
 OSI: Common Development and Distribution License (CDDL)
 OSI: Common Public Attribution License 1.0 (CPAL)
 OSI: Common Public License 1.0
 OSI: Eclipse Public License
-OSI: Educational Community License, Version 2.0
-OSI: Eiffel Forum License V2.0
+OSI: Educational Community License 2.0
+OSI: Eiffel Forum License 2.0
 OSI: Fair License
 OSI: GNU General Public License (GPL)
-OSI: GNU General Public License version 3.0 (GPLv3)
+OSI: GNU General Public License 3.0 (GPLv3)
 OSI: GNU Library or "Lesser" General Public License (LGPL)
-OSI: GNU Library or "Lesser" General Public License version 3.0 (LGPLv3)
-OSI: Historical Permission Notice and Disclaimer
+OSI: GNU Library or "Lesser" General Public License 3.0 (LGPLv3)
 OSI: ISC License
-OSI: Lucent Public License Version 1.02
+OSI: Lucent Public License 1.02
 OSI: Microsoft Public License (Ms-PL)
 OSI: Microsoft Reciprocal License (Ms-RL)
-OSI: MIT license
+OSI: MIT License
 OSI: Mozilla Public License 1.1 (MPL)
 OSI: NASA Open Source Agreement 1.3
 OSI: NTP License
@@ -43,26 +44,25 @@ OSI: Simple Public License 2.0
 OSI: Sleepycat License
 OSI: University of Illinois/NCSA Open Source License
 OSI: X.Net License
-OSI: zlib/libpng license 
-公共財(Public Domain)
-專案不包含程式碼
-其他
+OSI: zlib/libpng License 
+其他(Other licenses)
 EOEO
   LICENSES = {}
   LICENSE_DATA.split("\n").each_with_index { |x, i| LICENSES[x.to_sym] = i }
   LICENSES.freeze
 
   CONTENT_LICENSES_DATA = <<"EOEO"
+GNU Free Documentation License
 Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)
 Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)
 Creative Commons: Attribution Non-commercial (by-nc)
 Creative Commons: Attribution No Derivatives (by-nd)
 Creative Commons: Attribution Share Alike (by-sa)
 Creative Commons: Attribution (by)
-同程式碼
+同程式碼(Same license as code)
 公共財(Public Domain)
-專案僅不包含圖文內容
-其他
+專案不包含圖文內容(Project contains only code)
+其他(Other licenses)
 EOEO
   CONTENT_LICENSES = {}
   CONTENT_LICENSES_DATA.split("\n").each_with_index { |x, i| CONTENT_LICENSES[x.to_sym] = i }
