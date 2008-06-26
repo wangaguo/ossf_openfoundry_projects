@@ -75,6 +75,7 @@ class NewsController < ApplicationController
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
     @news.tags = params[:news][:tags]
+    @news.status = params[:news][:status]
     if params[:project_id].nil? 
       project_id = 0
     else
@@ -104,6 +105,7 @@ class NewsController < ApplicationController
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
     @news.tags = params[:news][:tags]
+    @news.status = params[:news][:status]
     if(params[:news][:updated_at] != "")
       News.record_timestamps = false
       @news.updated_at = local_to_utc(params[:news][:updated_at].to_datetime)
