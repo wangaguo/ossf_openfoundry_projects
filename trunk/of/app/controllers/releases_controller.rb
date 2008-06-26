@@ -42,16 +42,22 @@ class ReleasesController < ApplicationController
   end
 
   def latest
-    releases = Release.find(:all, :order => "created_at desc", :limit => 100).paginate(:page => params[:page], :per_page => 10)
+    releases = Release.find(:all, :order => "created_at desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
     if(params[:page].nil?)
       params[:page] = 1
     end
     @page = params[:page].to_i
     if releases.out_of_bounds?
-      releases = Release.paginate(:page => 1, :per_page => 10)
+      releases = Release.paginate(:page => 1, :per_page => 100)
       @page = 1
     end
     render(:partial => 'top_download_list', :layout => true, :locals => { :releases => releases, :page => @page })
+  end
+  
+  def download
+    @project_id = params[:project_id]
+    @releases = Release.find :all,
+      :conditions => "project_id = #{params[:project_id]}"
   end
   
   def create
@@ -169,9 +175,11 @@ class ReleasesController < ApplicationController
       #move file from upload to downlad area
       project_name = Project.find(params[:project_id]).name
       release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.name}"
-      Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
-      `cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
-
+      #Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
+      #`cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
+      files.each do |file|
+        `/home/openfoundry/bin/move_upload_files #{project_name} #{file.path} #{release_tag_path}`
+      end
       redirect_to url_for(:project_id => params[:project_id], 
         :action => :uploadfiles, :id => r.id, :layout =>'false')
     #else
