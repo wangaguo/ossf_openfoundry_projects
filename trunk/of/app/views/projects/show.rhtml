@@ -2,55 +2,38 @@
 <% def show_with_seperator(v); v.split(",").grep(/./).join(", ") end %>
 <div id="ProjectBasic">
 
-<dl class="form-data-dl">
-<% cl = ["odd", "even"]; i = 0; %>
-
-<%# rationale %>
-<dt class="<%= cl[i] %>"><%= _("Project|Name") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.name %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Summary") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.summary %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Description") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.description %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|HOMEPAGE") %>:</dt>
-<dd class="<%= cl[i] %>"><%= url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Contactinfo") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.contactinfo %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Maturity") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.maturity_to_s %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|License") %>:</dt>
-<dd class="<%= cl[i] %>"><%= @project.license.split(",").grep(/./).map {|x| Project::license_to_s(x.to_i)}.join("<br>\n") %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Contentlicense") %>:</dt>
-<dd class="<%= cl[i] %>"><%= @project.contentlicense.split(",").grep(/./).map {|x| Project::contentlicense_to_s(x.to_i)}.join("<br>\n") %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Platform") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h show_with_seperator(@project.platform) %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Programminglanguage") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h show_with_seperator(@project.programminglanguage) %></dd>
-<% i = 1 - i %>
-<%# <dt class="<%%= cl[i] %%>"><%%= _("Project|Intendedaudience") %%>:</dt> %>
-<%# <dd class="<%%= cl[i] %%>"><%%= h @project.intendedaudience %%></dd> %>
-<%# i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Vcs") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.vcs_to_s %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Vcsdescription") %>:</dt>
-<dd class="<%= cl[i] %>"><%= h @project.vcsdescription %></dd>
-<% i = 1 - i %>
-<dt class="<%= cl[i] %>"><%= _("Project|Creator") %>:</dt>
-<dd class="<%= cl[i] %>"><%= u = User.find(@project.creator); u.login + " " +  user_portrait_link(u) %></dd>
-<% i = 1 - i %>
-
-</dl>
-
+<%
+  def rows(*data)
+    i = 0
+    rtn = ""
+    while ( ! data.empty? )
+      h = data.shift
+      d = data.shift
+      rtn += %Q!<tr class="#{["odd", "even"][i = 1 - i]}"><td>#{h}</td><td>#{d}</td></tr>!
+    end
+    rtn
+  end
+%>
+ 
+<table class="list-table">
+<%= rows(
+  _("Project|Name"), (h @project.name),
+  _("Project|Summary"), (h @project.summary),
+  _("Project|Description"), (h @project.description),
+  _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url),
+  _("Project|Contactinfo"), (h @project.contactinfo),
+  _("Project|Maturity"), (h @project.maturity_to_s),
+  _("Project|License"), @project.license.split(",").grep(/./).map {|x| Project::license_to_s(x.to_i)}.join("<br>\n"),
+  _("Project|Contentlicense"), @project.contentlicense.split(",").grep(/./).map {|x| Project::contentlicense_to_s(x.to_i)}.join("<br>\n"), 
+  _("Project|Platform"), (h show_with_seperator(@project.platform)),
+  _("Project|Programminglanguage"), (h show_with_seperator(@project.programminglanguage)),
+  _("Project|Intendedaudience"), (h @project.intendedaudience),
+  _("Project|Vcs"), (h @project.vcs_to_s),
+  _("Project|Vcsdescription"), (h @project.vcsdescription),
+  _("Project|Creator"), (u = User.find(@project.creator); u.login + " " +  user_portrait_link(u))
+  )
+%>
+</table>
 
 
 
