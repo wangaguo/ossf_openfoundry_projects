@@ -3,7 +3,7 @@ class Function < ActiveRecord::Base
   
   def self.function_permit(function_name, authorizable_id, authorizable_type)
     #if site admin, allow it anyway
-    return true if current_user.has_role "site_admin"
+    return true if current_user.has_role? "site_admin"
     #if the permission is allow_all, allow it whoever 
     return true if function_name.to_s == 'allow_all'
 
