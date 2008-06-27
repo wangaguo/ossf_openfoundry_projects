@@ -1,7 +1,6 @@
 <h1>Release#show</h1>
 <div id="ReleaseBasic">
-  <%= link_to '[back to list]', releases_url (
-    :project_id => @project_id )
+  <%= link_to '[back to list]', releases_url( :project_id => @project_id )
   %>
   <%= arranged('RaleaseItem', @release, {:fields_per_column => 3})%>
   <%= link_to '[edit]', edit_release_url(
