@@ -52,14 +52,22 @@ EOEO
   dummy_fix_me = _("Public Domain"), _("This project contains no code"), _("Other licenses")
   LICENSES = Hash[ * LICENSE_DATA.flatten ].freeze
   LICENSE_DISPLAY_KEYS = LICENSE_DATA.map(&:first).map(&:to_i).freeze
-  def self.license_display_str(i_or_s)
+  def self.license_to_s(i_or_s)
     _(LICENSES[i_or_s.to_i])
   end
-  def self.licenses_display_array(licenses_with_delimiter)
-    licenses_with_delimiter.split(",").grep(/./).map {|x| self.license_display_str(x)}
+  # ",5,1," => [ [1, "xx"], [5, "oo"] ]
+  def self.licenses_to_s(licenses_with_delimiter)
+    rtn = []
+    choosen = (licenses_with_delimiter || "").split(",").grep(/./).map(&:to_i)
+    Project::LICENSE_DISPLAY_KEYS.each do |i|
+      if choosen.include?(i)
+        rtn << [i, license_to_s(i)]
+      end
+    end
+    rtn
   end
-  def licenses_display_array
-    Project.licenses_display_array(self.license)
+  def licenses_to_s
+    Project.licenses_to_s(self.license)
   end
 
 
@@ -84,15 +92,22 @@ EOEO
   dummy_fix_me = _("Public Domain"), _("Same license as code"), _("Project contains only code"), _("Other licenses")
   CONTENT_LICENSES = Hash[ * CONTENT_LICENSE_DATA.flatten ].freeze
   CONTENT_LICENSE_DISPLAY_KEYS = CONTENT_LICENSE_DATA.map(&:first).map(&:to_i).freeze
-  def self.content_license_display_str(i_or_s)
+  def self.content_license_to_s(i_or_s)
     _(CONTENT_LICENSES[i_or_s.to_i])
   end
-  def self.content_licenses_display_array(licenses_with_delimiter)
-    choosen = licenses_with_delimiter.split(",").grep(/./).map(&:to_i)
-    CONTENT_LICENSE_DISPLAY_KEYS.select {|x| choosen.include?(x)}.map { |x| content_license_display_str(x) }
+  # ",5,1," => [ [1, "xx"], [5, "oo"] ]
+  def self.content_licenses_to_s(licenses_with_delimiter)
+    rtn = []
+    choosen = (licenses_with_delimiter || "").split(",").grep(/./).map(&:to_i)
+    Project::CONTENT_LICENSE_DISPLAY_KEYS.each do |i|
+      if choosen.include?(i)
+        rtn << [i, content_license_to_s(i)]
+      end
+    end
+    rtn
   end
-  def content_licenses_display_array
-    Project.content_licenses_display_array(self.contentlicense)
+  def content_licenses_to_s
+    Project.content_licenses_to_s(self.contentlicense)
   end
 
 
@@ -131,12 +146,6 @@ EOEO
   end
   def maturity_to_s
     Project.maturity_to_s(maturity)
-  end
-  def self.license_to_s(int_license)
-    _(LICENSES.index(int_license).to_s)
-  end
-  def self.contentlicense_to_s(int_contentlicense)
-    _(CONTENT_LICENSES.index(int_contentlicense).to_s)
   end
   # Project.vcs_to_s(1)    or
   # Project.vcs_to_s(:CVS)
