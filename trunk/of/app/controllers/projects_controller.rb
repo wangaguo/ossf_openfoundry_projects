@@ -6,9 +6,9 @@ class ProjectsController < ApplicationController
 
   before_filter :check_permission
   def set_project
-    @project = ProjectsController::get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
+    @project = get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
   end
-  def self.get_project_by_id_or_name(id_or_name)
+  def get_project_by_id_or_name(id_or_name)
     rtn = nil
     case id_or_name
     when /^\d+$/
