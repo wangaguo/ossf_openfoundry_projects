@@ -1,5 +1,18 @@
 class News < ActiveRecord::Base
   STATUS = {:Enabled => 1, :Disabled => 0}
+  #add fulltext indexed SEARCH
+  acts_as_ferret({
+                  :fields => { 
+                              :subject => { :boost => 1.5,
+                                          :store => :yes,
+                                          :index => :yes },
+                              :description => { :store => :yes,
+                                             :index => :yes }                                                         
+                            },
+                  :single_index => true,
+                  :default_field => [:subject, :description]
+                 },{ :analyzer => GENERIC_ANALYZER })
+  
   
   validates_length_of :subject, :within => 3..100, :too_long => _("Length range is ") + "3-100", :too_short => _("Length range is ") + "3-100"
   validates_length_of :description, :within => 3..4000, :too_long => _("Length range is ") + "3-4000", :too_short => _("Length range is ") + "3-4000"
