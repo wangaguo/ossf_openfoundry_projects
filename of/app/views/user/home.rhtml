@@ -36,4 +36,12 @@
     <%= link_to p.name, project_path(p.id) %>
     <% end %>
   </dd>
+  <% if @my%>
+    <dt>
+    <%= _('Signup Date') %>:
+    </dt>
+    <dd>
+    <%= @created_at %>
+    </dd>
+  <% end %>
 </dl>
