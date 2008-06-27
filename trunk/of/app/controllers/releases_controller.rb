@@ -1,7 +1,7 @@
 class ReleasesController < ApplicationController
-  find_resources :parent => 'project', 
+  find_resources(:parent => 'project', 
     :child => 'release', 
-    :parent_id_method => 'project_id'
+    :parent_id_method => 'project_id')
 
   #see lib/permission_table.rb
   before_filter :check_permission
@@ -174,7 +174,7 @@ class ReleasesController < ApplicationController
      
       #move file from upload to downlad area
       project_name = Project.find(params[:project_id]).name
-      release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.name}"
+      release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.version}"
       #Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
       #`cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
       files.each do |file|
