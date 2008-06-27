@@ -68,7 +68,7 @@ AAA
   # rationale
   foo("description", true, _("Project|Description|Help")),
     text_area('project', 'description'),
-  foo("contactinfo", true, _("Project|Contactinfo|Help")),
+  foo("contactinfo", false, _("Project|Contactinfo|Help")),
     text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
   foo("maturity", true, _("Project|Maturity|Help")),
     select('project', 'maturity', to_select(Project::MATURITY)),
@@ -76,7 +76,7 @@ AAA
     tmp_licenses,
   foo("contentlicense", true, _("Project|Contentlicense|Help")),
     tmp_contentlicenses,
-  foo("licensingdescription", true, _("Project|Licensingdescription|Help")),
+  foo("licensingdescription", false, _("Project|Licensingdescription|Help")),
     text_area('project', 'licensingdescription'),
   foo("platform", true, _("Project|Platform|Help")),
     of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform),
@@ -84,11 +84,11 @@ AAA
     of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage),
   #foo("intendedaudience", true, _("Project|Intendedaudience|Help")), 
   #  of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience),
-  foo("redirecturl", true, _("Project|Redirecturl|Help")), 
+  foo("redirecturl", false, _("Project|Redirecturl|Help")), 
     text_field('project', 'redirecturl', :maxlength => 255, :size => 50),
   foo("vcs", true, _("Project|Vcs|Help")), 
     select('project', 'vcs', [:SUBVERSION, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
-  foo("vcsdescription", true, _("Project|Vcsdescription|Help")), 
+  foo("vcsdescription", false, _("Project|Vcsdescription|Help")), 
     text_field('project', 'vcsdescription', :maxlength => 100, :size => 50)
 )
 %>
