@@ -312,6 +312,25 @@ EOEO
     end
   end
 
+  def validate
+    ls = license.split(",").grep(/./).map(&:to_i)
+    if ls.include?(0) and ls != [0] 
+      errors.add(:license, _("If this project contains no code, then you may not choose other licenses."))
+    end
+    cls = contentlicense.split(",").grep(/./).map(&:to_i)
+    if cls.include?(0) and cls != [0] 
+      errors.add(:contentlicense, _("If this project contains only code, then you may not choose other content licenses."))
+    end
+    if cls.include?(-3) and cls != [-3] 
+      errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose other content licenses."))
+    end
+    if cls = [-3] and ls == [0] 
+      errors.add(:contentlicense, _("You have to choose a code license."))
+    end
+    if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
+      errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choose \"Other licenses\"."))
+    end
+  end
   
   def self.new_projects
     Project.find(:all, :conditions => Project.in_used_projects(), :order => "created_at desc", :limit => 5)
