@@ -46,7 +46,7 @@ AAA
   tmp_licenses = ""
   Project::LICENSE_DISPLAY_KEYS.each do |i|
     tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) +
-      "#{Project.license_display_str(i)}<br>\n"
+      "#{Project.license_to_s(i)}<br>\n"
   end
   tmp_licenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_licenses}</div>"
 %>
@@ -55,7 +55,7 @@ AAA
   tmp_contentlicenses = ""
   Project::CONTENT_LICENSE_DISPLAY_KEYS.each do |i|
     tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) +
-      "#{Project.content_license_display_str(i)}<br>\n"
+      "#{Project.content_license_to_s(i)}<br>\n"
   end
   tmp_contentlicenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_contentlicenses}</div>"
 %>
