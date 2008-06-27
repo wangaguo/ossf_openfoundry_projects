@@ -24,6 +24,8 @@ em { color:red; font-weight:bold; font-style:normal; }
 .odd { }
 .even { background-color:#EFF4FF; }
 * :focus { color:#2332AE; }
+td { padding:3px; }
+th { padding:3px; }
 
 /* For Layout */
 body { 
@@ -248,7 +250,7 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 /* For List Table */
 .list-table { border-collapse:collapse; width:99%; margin:2px; }
 .list-table th { background-color:#DEE7FF; }
-.list-table td { border-bottom:solid 1px grey; }
+.list-table td { border-bottom:solid 1px #DFE9FF; }
 
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
