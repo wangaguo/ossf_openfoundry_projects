@@ -6,6 +6,22 @@ class User < ActiveRecord::Base
   composed_of :tz, :class_name => 'TimeZone', :mapping => %w( timezone timezone )
   acts_as_authorized_user
 
+  #add fulltext indexed SEARCH
+  acts_as_ferret({
+                 :fields => {:login => {:boost => 1.5,:store => :yes}#, 
+                             #:firstname => {:boost => 0.8,:store => :yes}, 
+                             #:lastname => {:boost => 0.8,:store => :yes}, 
+                             #:name => {:boost => 0.8,:store => :yes} 
+                            },
+                 :single_index => true,
+                 :default_field => [:login, :firstname, :lastname, :name]
+                 }, { :analyzer => GENERIC_ANALYZER } )
+                 
+  # disable ferret search if not verified        
+  def ferret_enabled?(is_bulk_index = false)
+    (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
+  end
+
   #add tags
   acts_as_taggable
   # use tag_XXX prefix to set tags 
