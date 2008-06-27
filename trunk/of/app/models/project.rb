@@ -197,7 +197,7 @@ EOEO
   validates_inclusion_of :maturity, :in => MATURITY.values
   validates_length_of :license, :maximum => 50; validates_format_of :license, :with => /,(-?\d+)*,/
   validates_length_of :contentlicense, :maximum => 50; validates_format_of :contentlicense, :with => /,(-?\d+)*,/
-  validates_format_of :licensingdescription, :maximum => 1000
+  validates_length_of :licensingdescription, :maximum => 1000
   validates_length_of :platform, :maximum => 100
   validates_length_of :programminglanguage, :maximum => 100
   # intendedaudience: only for backward compatibility
