@@ -2,9 +2,9 @@
   <legend><%= _('User Privacy')%></legend>
   <%= f.hidden_field 'form', :value => 'change_privacy' %>
   <table class='form-table'>
-    <%= f.label :t_conceal_email, _('User|Conceal Email')%>
+    <%= f.label :t_conceal_email, _('User|Conceal Email'), :help => _('User|Conceal_Email|Help')%>
     <%= f.check_box 't_conceal_email'%>
-    <%= f.label :t_conceal_intro, _('User|Conceal Login Status')%>
+    <%= f.label :t_conceal_login, _('User|Conceal Login Status'), :help => _('User|Conceal_Login|Help')%>
     <%= f.check_box 't_conceal_login'%>
   </table>
     <%= submit_tag _('User|Change Privacy'), "class" => "button" if submit%>

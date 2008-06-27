@@ -3,9 +3,9 @@
   <%= f.hidden_field 'form', :value => 'change_email' %>
 
   <table class='form-table'>
-    <%= f.label :email, _('User|Email')+':' , :must => true%>
+    <%= f.label :email, _('User|Email')+':' , :must => true, :help => _('User|Email|help')%>
     <%= f.text_field "email", :size => 30 %>
-    <%= f.label :email_confirmation, _('User|Email Confirmation')+':', :must => true%>
+    <%= f.label :email_confirmation, _('User|Email Confirmation')+':', :must => true, :help => _('User|Email_Confirm|help')%>
     <%= f.text_field "email_confirmation", :size => 30 %>
   </table>
     <%= submit_tag _('User|Change Email'), "class" => "button" if submit%>
