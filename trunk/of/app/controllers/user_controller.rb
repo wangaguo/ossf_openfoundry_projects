@@ -257,6 +257,7 @@ class UserController < ApplicationController
 
   def welcome
     user? # side-effect ... what the ..
+    redirect_to :action => :home
   end
 
   protected
