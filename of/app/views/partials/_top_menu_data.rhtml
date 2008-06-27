@@ -1,0 +1,66 @@
+<script>
+var menudata=
+  [
+    {id: '<%=_('menu_OpenFoundry')%>', url:'/',
+      submenu:[
+      {id:'<%=_('menu_Home')%>', url:'/'},
+      {id:'<%=_('OpenFoundry News')%>', url:'/news'},
+      {id:'<%=_('menu_About OSSF')%>', url:'http://www.openfoundry.org/About-OSSF.html'},
+      {id:'<%=_('menu_Newsletter')%>', url:'http://www.openfoundry.org/Newsletter.html'}
+      ]
+    },
+    {id:'<%=_('menu_Project')%>', url:'/projects',
+      submenu:[
+        {id:'<%=_('Project Category')%>', url:'/category'},
+        {id:'<%=_('menu_Overview')%>', url:'/projects'},
+        {id:'<%=_('Project News')%>', url:'/news/project'},
+        {id:'<%=_('New Releases')%>', url:'/releases/latest'},
+        {id:'<%=_('New Projects')%>', url:'/projects?sortdesc=listing-created_at'},
+        {id:'<%=_('Top Downloads')%>', url:'/releases/top'},
+        {id:'<%=_('Jobs')%>', url:'m1s1ur2'},
+        {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'},
+        {id:'<%=_('Create Project')%>', url:'/projects/new'}
+      ]
+    },
+    {id:'<%=_('menu_My Account')%>', url:'/user/home',
+      submenu:[
+        {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
+        {id:'<%=_('menu_Password')%>', url:'/user/change_password'},
+        {id:'<%=_('menu_My Pages')%>', url:'/user/home'},
+        {id:'<%=_('menu_My Projects')%>', url:'m1s1ur2'},
+        {id:'<%=_('menu_My Tickets')%>', url:'',
+          submenu:[
+            {id:'<%=_('Owner')%>', url:'/rt/owner'},
+            {id:'<%=_('Creator')%>', url:'/rt/creator'},
+            {id:'<%=_('Requestor')%>', url:'/rt/requestor'},
+            {id:'<%=_('LastUpdatedBy')%>', url:'/rt/lastupdatedby'}
+          ]
+        },
+        {id:'<%=_('Create Project')%>', url:'/projects/new'}
+      ]
+    },
+    {id:'<%=_('menu_License Wizard')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
+      submenu:[
+        {id:'<%=_('License Wizard')%> v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
+        {id:'<%=_('License Wizard')%> v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
+        {id:'<%=_('Direction')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
+      ]  
+    },
+    {id:'<%=_('menu_Help')%>', url:'http://rt.openfoundry.org/Foundry/Help/',
+      submenu:[
+        {id:'關於本手冊', url:'http://rt.openfoundry.org/Foundry/Help/'},
+        {id:'專案管理平台介紹', url:'http://rt.openfoundry.org/Foundry/Help/1-02.html'},
+        {id:'一般使用者功能', url:'http://rt.openfoundry.org/Foundry/Help/2-01.html'},
+        {id:'專案管理者功能', url:'http://rt.openfoundry.org/Foundry/Help/3-01.html'},
+        {id:'專案管理服務平台功能', url:'http://rt.openfoundry.org/Foundry/Help/vcs/OpenFoundry%20_.html'},
+        {id:'<%=_('Download PDF')%>', url:'http://rt.openfoundry.org/Foundry/Help/ossf.pdf'}
+      ]  
+    },
+    {id:'<%=_('menu_Contact Us')%>', url:'m3url',
+      submenu:[
+        {id:'<%=_('TODO: 聯絡方式')%>', url:'m1s1ur2'},
+        {id:'<%=_('Bug Report')%>', url:'m1s1ur2'}
+      ]
+    }
+  ];
+</script>
