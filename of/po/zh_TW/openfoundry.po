@@ -386,9 +386,8 @@ msgid "Project|Project counter"
 msgstr "專案下載次數"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Created at"
-msgstr "專案建立者"
+msgstr "建立日期"
 
 #: app/models/project.rb:-
 #, fuzzy

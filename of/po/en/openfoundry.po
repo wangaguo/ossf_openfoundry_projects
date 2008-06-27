@@ -386,9 +386,8 @@ msgid "Project|Project counter"
 msgstr "Summary"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Created at"
-msgstr "Summary"
+msgstr "Created at"
 
 #: app/models/project.rb:-
 #, fuzzy
