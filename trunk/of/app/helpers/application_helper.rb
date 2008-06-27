@@ -232,6 +232,11 @@ module ApplicationHelper
   class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::TagHelper
+
+    def help_icon(tooltip)
+      '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
+    end
+    
     def label(method, text = nil, options = {})
       help = options[:help]
       must = @object.class.columns_hash[method.to_s]
