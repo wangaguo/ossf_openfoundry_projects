@@ -3,6 +3,39 @@ require 'base64'
 class UserController < ApplicationController
   require_dependency  'user'
   before_filter :login_required, :except => [:login, :signup, :forgot_password, :welcome]
+  
+  def my_projects
+    reset_sortable_columns
+    add_to_sortable_columns('listing', Project, 'summary', 'summary') 
+    add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
+    add_to_sortable_columns('listing', Project, 'project_counter', 'project_counter')
+    
+    # params[:cat] => 'maturity' / 'platform' ...
+    # params[:name] => 'beta' / 'windows' ...
+    query = "1"
+    if params[:cat] =~ /^(maturity|license|contentlicense|platform|programminglanguage)$/
+      if params[:cat] != '' && params[:name] != ''
+        if params[:cat] !~ /^(maturity)$/
+          name = '%,' + params[:name] + ',%'
+        else
+          name = params[:name]
+        end
+        query = [params[:cat] + ' like ?', name]
+      end
+    end
+    
+    @my_projects = nil
+    [params[:page], 1].each do |page|
+      projects = Project.paginate(:page => page, :per_page => 10, 
+                                :conditions => Project.in_used_projects(query),
+                                :order => sortable_order('listing', :model => Project, 
+                                :field => 'summary', :sort_direction => :asc) )
+      break if not projects.out_of_bounds?
+    end
+    #render(:partial => 'list', :layout => 'application', :locals => { :projects => projects })
+
+    @projects = Project.find_by_sql("select distinct(P.*) from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} order by P.id")
+  end
 
   def home
     # given uid to show other user's home
@@ -21,6 +54,7 @@ class UserController < ApplicationController
 
     if user
       @name = user.login
+      @icon = user.icon
       @conceal_email = user.t_conceal_email
       session['email_image'] = user.email unless @conceal_email
       @created_at = user.created_at
