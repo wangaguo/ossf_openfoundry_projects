@@ -15,8 +15,8 @@ class Project < ActiveRecord::Base
 1 OSI: Academic Free License
 2 OSI: Affero GNU Public License
 3 OSI: Adaptive Public License
-4 OSI: Apache License 2.0 4
-5 OSI: Artistic License 2.0 5
+4 OSI: Apache License 2.0
+5 OSI: Artistic License 2.0
 6 OSI: Attribution Assurance Licenses
 7 OSI: New and Simplified BSD Licenses
 8 OSI: Boost Software License (BSL1.0)
@@ -190,14 +190,14 @@ EOEO
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
   validates_format_of :name, :with => NAME_REGEX, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
-  validates_length_of :summary, :within => 3 ..255
+  validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
-  # description: text
+  validates_length_of :description, :within => 3 .. 4000
   validates_length_of :contactinfo, :maximum => 255
   validates_inclusion_of :maturity, :in => MATURITY.values
   validates_length_of :license, :maximum => 50; validates_format_of :license, :with => /,(-?\d+)*,/
   validates_length_of :contentlicense, :maximum => 50; validates_format_of :contentlicense, :with => /,(-?\d+)*,/
-  # licensingdescription: text
+  validates_format_of :licensingdescription, :maximum => 1000
   validates_length_of :platform, :maximum => 100
   validates_length_of :programminglanguage, :maximum => 100
   # intendedaudience: only for backward compatibility
