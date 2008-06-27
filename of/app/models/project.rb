@@ -5,68 +5,93 @@ class Project < ActiveRecord::Base
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
   dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
 
-  # TODO
 
-  LICENSE_DATA = <<"EOEO"
-公共財(Public Domain)
-專案不包含程式碼(This project contains no code)
-OSI: Academic Free License
-OSI: Affero GNU Public License
-OSI: Adaptive Public License
-OSI: Apache License 2.0
-OSI: Artistic License 2.0
-OSI: Attribution Assurance Licenses
-OSI: New and Simplified BSD Licenses
-OSI: Boost Software License (BSL1.0)
-OSI: Common Development and Distribution License (CDDL)
-OSI: Common Public Attribution License 1.0 (CPAL)
-OSI: Common Public License 1.0
-OSI: Eclipse Public License
-OSI: Educational Community License 2.0
-OSI: Eiffel Forum License 2.0
-OSI: Fair License
-OSI: GNU General Public License (GPL)
-OSI: GNU General Public License 3.0 (GPLv3)
-OSI: GNU Library or "Lesser" General Public License (LGPL)
-OSI: GNU Library or "Lesser" General Public License 3.0 (LGPLv3)
-OSI: ISC License
-OSI: Lucent Public License 1.02
-OSI: Microsoft Public License (Ms-PL)
-OSI: Microsoft Reciprocal License (Ms-RL)
-OSI: MIT License
-OSI: Mozilla Public License 1.1 (MPL)
-OSI: NASA Open Source Agreement 1.3
-OSI: NTP License
-OSI: Open Group Test Suite License
-OSI: Open Software License
-OSI: Qt Public License (QPL)
-OSI: Simple Public License 2.0
-OSI: Sleepycat License
-OSI: University of Illinois/NCSA Open Source License
-OSI: X.Net License
-OSI: zlib/libpng License 
-其他(Other licenses)
+  # [ [1, "OSI: Academic Free License"],
+  #   [2, "OSI: Affero GNU Public License"] ]
+  # having mutiple spaces is ok
+  LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
+-2 公共財(Public Domain)
+0  專案不包含程式碼(This project contains no code)
+1 OSI: Academic Free License
+2 OSI: Affero GNU Public License
+3 OSI: Adaptive Public License
+4 OSI: Apache License 2.0 4
+5 OSI: Artistic License 2.0 5
+6 OSI: Attribution Assurance Licenses
+7 OSI: New and Simplified BSD Licenses
+8 OSI: Boost Software License (BSL1.0)
+9 OSI: Common Development and Distribution License (CDDL)
+10 OSI: Common Public Attribution License 1.0 (CPAL)
+11 OSI: Common Public License 1.0
+12 OSI: Eclipse Public License
+13 OSI: Educational Community License 2.0
+14 OSI: Eiffel Forum License 2.0
+15 OSI: Fair License
+16 OSI: GNU General Public License (GPL)
+17 OSI: GNU General Public License 3.0 (GPLv3)
+18 OSI: GNU Library or "Lesser" General Public License (LGPL)
+19 OSI: GNU Library or "Lesser" General Public License 3.0 (LGPLv3)
+20 OSI: ISC License
+21 OSI: Lucent Public License 1.02
+22 OSI: Microsoft Public License (Ms-PL)
+23 OSI: Microsoft Reciprocal License (Ms-RL)
+24 OSI: MIT License
+25 OSI: Mozilla Public License 1.1 (MPL)
+26 OSI: NASA Open Source Agreement 1.3
+27 OSI: NTP License
+28 OSI: Open Group Test Suite License
+29 OSI: Open Software License
+30 OSI: Qt Public License (QPL)
+31 OSI: Simple Public License 2.0
+32 OSI: Sleepycat License
+33 OSI: University of Illinois/NCSA Open Source License
+34 OSI: X.Net License
+35 OSI: zlib/libpng License
+-1 其他(Other licenses)
 EOEO
-  LICENSES = {}
-  LICENSE_DATA.split("\n").each_with_index { |x, i| LICENSES[x.to_sym] = i }
-  LICENSES.freeze
+  LICENSES = Hash[ * LICENSE_DATA.flatten ].freeze
+  LICENSE_DISPLAY_KEYS = LICENSE_DATA.map(&:first).map(&:to_i).freeze
+  def self.license_display_str(i_or_s)
+    _(LICENSES[i_or_s.to_i])
+  end
+  def self.licenses_display_array(licenses_with_delimiter)
+    licenses_with_delimiter.split(",").grep(/./).map {|x| self.license_display_str(x)}
+  end
+  def licenses_display_array
+    Project.licenses_display_array(self.license)
+  end
 
-  CONTENT_LICENSES_DATA = <<"EOEO"
-GNU Free Documentation License
-Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)
-Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)
-Creative Commons: Attribution Non-commercial (by-nc)
-Creative Commons: Attribution No Derivatives (by-nd)
-Creative Commons: Attribution Share Alike (by-sa)
-Creative Commons: Attribution (by)
-同程式碼(Same license as code)
-公共財(Public Domain)
-專案不包含圖文內容(Project contains only code)
-其他(Other licenses)
+
+
+
+  # [ [1, "CC"],
+  #   [2, "GFDL"] ]
+  # having mutiple spaces is ok
+  CONTENT_LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
+-2 公共財(Public Domain)
+-3 同程式碼(Same license as code)
+0 專案不包含圖文內容(Project contains only code)
+1 GNU Free Documentation License
+2 Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)
+3 Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)
+4 Creative Commons: Attribution Non-commercial (by-nc)
+5 Creative Commons: Attribution No Derivatives (by-nd)
+6 Creative Commons: Attribution Share Alike (by-sa)
+7 Creative Commons: Attribution (by)
+-1 其他(Other licenses)
 EOEO
-  CONTENT_LICENSES = {}
-  CONTENT_LICENSES_DATA.split("\n").each_with_index { |x, i| CONTENT_LICENSES[x.to_sym] = i }
-  CONTENT_LICENSES.freeze
+  CONTENT_LICENSES = Hash[ * CONTENT_LICENSE_DATA.flatten ].freeze
+  CONTENT_LICENSE_DISPLAY_KEYS = CONTENT_LICENSE_DATA.map(&:first).map(&:to_i).freeze
+  def self.content_license_display_str(i_or_s)
+    _(CONTENT_LICENSES[i_or_s.to_i])
+  end
+  def self.content_licenses_display_array(licenses_with_delimiter)
+    choosen = licenses_with_delimiter.split(",").grep(/./).map(&:to_i)
+    CONTENT_LICENSE_DISPLAY_KEYS.select {|x| choosen.include?(x)}.map { |x| content_license_display_str(x) }
+  end
+  def content_licenses_display_array
+    Project.content_licenses_display_array(self.contentlicense)
+  end
 
 
   # see also: OpenFoundry.pm
@@ -168,8 +193,8 @@ EOEO
   # description: text
   validates_length_of :contactinfo, :maximum => 255
   validates_inclusion_of :maturity, :in => MATURITY.values
-  validates_length_of :license, :maximum => 50; validates_format_of :license, :with => /,(\d+)*,/
-  validates_length_of :contentlicense, :maximum => 50; validates_format_of :contentlicense, :with => /,(\d+)*,/
+  validates_length_of :license, :maximum => 50; validates_format_of :license, :with => /,(-?\d+)*,/
+  validates_length_of :contentlicense, :maximum => 50; validates_format_of :contentlicense, :with => /,(-?\d+)*,/
   # licensingdescription: text
   validates_length_of :platform, :maximum => 100
   validates_length_of :programminglanguage, :maximum => 100
