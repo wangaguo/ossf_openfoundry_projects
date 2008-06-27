@@ -10,8 +10,8 @@ class Project < ActiveRecord::Base
   #   [2, "OSI: Affero GNU Public License"] ]
   # having mutiple spaces is ok
   LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
--2 公共財(Public Domain)
-0  專案不包含程式碼(This project contains no code)
+-2 Public Domain
+0 This project contains no code
 1 OSI: Academic Free License
 2 OSI: Affero GNU Public License
 3 OSI: Adaptive Public License
@@ -47,8 +47,9 @@ class Project < ActiveRecord::Base
 33 OSI: University of Illinois/NCSA Open Source License
 34 OSI: X.Net License
 35 OSI: zlib/libpng License
--1 其他(Other licenses)
+-1 Other licenses
 EOEO
+  dummy_fix_me = _("Public Domain"), _("This project contains no code"), _("Other licenses")
   LICENSES = Hash[ * LICENSE_DATA.flatten ].freeze
   LICENSE_DISPLAY_KEYS = LICENSE_DATA.map(&:first).map(&:to_i).freeze
   def self.license_display_str(i_or_s)
@@ -68,9 +69,9 @@ EOEO
   #   [2, "GFDL"] ]
   # having mutiple spaces is ok
   CONTENT_LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
--2 公共財(Public Domain)
--3 同程式碼(Same license as code)
-0 專案不包含圖文內容(Project contains only code)
+-2 Public Domain
+-3 Same license as code
+0 Project contains only code
 1 GNU Free Documentation License
 2 Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)
 3 Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)
@@ -78,8 +79,9 @@ EOEO
 5 Creative Commons: Attribution No Derivatives (by-nd)
 6 Creative Commons: Attribution Share Alike (by-sa)
 7 Creative Commons: Attribution (by)
--1 其他(Other licenses)
+-1 Other licenses
 EOEO
+  dummy_fix_me = _("Public Domain"), _("Same license as code"), _("Project contains only code"), _("Other licenses")
   CONTENT_LICENSES = Hash[ * CONTENT_LICENSE_DATA.flatten ].freeze
   CONTENT_LICENSE_DISPLAY_KEYS = CONTENT_LICENSE_DATA.map(&:first).map(&:to_i).freeze
   def self.content_license_display_str(i_or_s)

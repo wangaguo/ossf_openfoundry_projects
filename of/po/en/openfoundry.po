@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-06-26 08:34-0000\n"
+"POT-Creation-Date: 2008-06-27 06:54-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,8 @@ msgid "Project Releases"
 msgstr ""
 
 #: app/helpers/application_helper.rb:64 app/controllers/news_controller.rb:34
-#: app/views/layouts/application.rhtml:31 app/views/openfoundry/index.rhtml:55
+#: app/views/partials/_top_menu_data.rhtml:16
+#: app/views/openfoundry/index.rhtml:55
 msgid "Project News"
 msgstr ""
 
@@ -142,7 +143,7 @@ msgstr "Language"
 msgid "User|Timezone"
 msgstr "Time Zone"
 
-#: app/models/user.rb:145
+#: app/models/user.rb:114
 msgid "Old Password Incorrect"
 msgstr ""
 
@@ -349,7 +350,7 @@ msgid "Project|Platform"
 msgstr "Platform"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:30
-#: app/views/category/list.rhtml:40
+#: app/views/category/list.rhtml:43
 msgid "Project|Programminglanguage"
 msgstr "Programming Language"
 
@@ -385,7 +386,7 @@ msgstr "Status Reason"
 msgid "Project|Project counter"
 msgstr "Summary"
 
-#: app/models/project.rb:-
+#: app/models/project.rb:- app/views/projects/show.rhtml:35
 msgid "Project|Created at"
 msgstr "Created at"
 
@@ -422,43 +423,64 @@ msgstr ""
 msgid "STANDARD"
 msgstr ""
 
-#: app/models/project.rb:76
+#: app/models/project.rb:52 app/models/project.rb:84
+msgid "Public Domain"
+msgstr ""
+
+#: app/models/project.rb:52
+msgid "This project contains no code"
+msgstr ""
+
+#: app/models/project.rb:52 app/models/project.rb:84
+msgid "Other licenses"
+msgstr ""
+
+#: app/models/project.rb:84
+msgid "Same license as code"
+msgstr ""
+
+#: app/models/project.rb:84
+#, fuzzy
+msgid "Project contains only code"
+msgstr "Contact Information"
+
+#: app/models/project.rb:103
 msgid "NONE"
 msgstr ""
 
-#: app/models/project.rb:76
+#: app/models/project.rb:103
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:76
+#: app/models/project.rb:103
 msgid "SUBVERSION"
 msgstr ""
 
-#: app/models/project.rb:76
+#: app/models/project.rb:103
 msgid "REMOTE"
 msgstr ""
 
-#: app/models/project.rb:120
+#: app/models/project.rb:147
 msgid "TODO: 使用 CVS 版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:122
+#: app/models/project.rb:149
 msgid "TODO: 使用 Subversion 版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:124
+#: app/models/project.rb:151
 msgid "TODO: 使用其他站台的版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:126
+#: app/models/project.rb:153
 msgid "TODO: 不使用版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:128
+#: app/models/project.rb:155
 msgid "TODO: 系統錯誤, 請通知站台管理員"
 msgstr ""
 
-#: app/models/project.rb:165
+#: app/models/project.rb:192
 msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
 msgstr ""
 
@@ -546,20 +568,21 @@ msgstr ""
 msgid "News|Updated at"
 msgstr ""
 
-#: app/models/news.rb:4 app/models/news.rb:5
+#: app/models/news.rb:17 app/models/news.rb:18
 msgid "Length range is "
 msgstr ""
 
-#: app/models/news.rb:6
+#: app/models/news.rb:19
 msgid "Not a valid value"
 msgstr ""
 
-#: app/models/news.rb:7
+#: app/models/news.rb:20
 msgid "Not a valid date time"
 msgstr ""
 
 #: app/controllers/news_controller.rb:38
-#: app/views/layouts/application.rhtml:22 app/views/openfoundry/index.rhtml:61
+#: app/views/partials/_top_menu_data.rhtml:7
+#: app/views/openfoundry/index.rhtml:61
 #, fuzzy
 msgid "OpenFoundry News"
 msgstr "OpenFoundry News"
@@ -582,71 +605,71 @@ msgstr ""
 msgid "Delete Successful"
 msgstr ""
 
-#: app/controllers/user_controller.rb:52
+#: app/controllers/user_controller.rb:57
 msgid "user_login_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:64
+#: app/controllers/user_controller.rb:69
 msgid "user_login_failed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:84
+#: app/controllers/user_controller.rb:89
 msgid "user_signup_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:89
+#: app/controllers/user_controller.rb:94
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:113
+#: app/controllers/user_controller.rb:118
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:115
+#: app/controllers/user_controller.rb:120
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:147
+#: app/controllers/user_controller.rb:152
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:150
+#: app/controllers/user_controller.rb:155
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:158
+#: app/controllers/user_controller.rb:163
 msgid "user_forgot_password_logged_in"
 msgstr ""
 
-#: app/controllers/user_controller.rb:168
+#: app/controllers/user_controller.rb:173
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:170
+#: app/controllers/user_controller.rb:175
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:178
+#: app/controllers/user_controller.rb:183
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:186
+#: app/controllers/user_controller.rb:191
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:216
+#: app/controllers/user_controller.rb:221
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:241
+#: app/controllers/user_controller.rb:246
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:250
+#: app/controllers/user_controller.rb:255
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:265
+#: app/controllers/user_controller.rb:271
 msgid "user_delete_finished"
 msgstr ""
 
@@ -689,11 +712,11 @@ msgstr ""
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:144
+#: app/controllers/projects_controller.rb:145
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:267
+#: app/controllers/projects_controller.rb:268
 #: app/views/partials/_project_menu.rhtml:35
 msgid "Subversion/CVS Access"
 msgstr ""
@@ -703,7 +726,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:53 app/views/news/list.rhtml:25
+#: app/views/projects/show.rhtml:54 app/views/news/list.rhtml:25
 #: app/views/news/show.rhtml:15
 msgid "Edit"
 msgstr ""
@@ -871,151 +894,148 @@ msgstr ""
 msgid "submit"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:19
-#: app/views/layouts/application.rhtml:102
+#: app/views/partials/_top_menu_data.rhtml:4
+#: app/views/layouts/application.rhtml:36
 msgid "menu_OpenFoundry"
 msgstr "OpenFoundry"
 
-#: app/views/layouts/application.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:6
 msgid "menu_Home"
 msgstr "Home"
 
-#: app/views/layouts/application.rhtml:23
+#: app/views/partials/_top_menu_data.rhtml:8
 msgid "menu_About OSSF"
 msgstr "About OSSF"
 
-#: app/views/layouts/application.rhtml:24
+#: app/views/partials/_top_menu_data.rhtml:9
 msgid "menu_Newsletter"
 msgstr "Newsletter"
 
-#: app/views/layouts/application.rhtml:27
-#: app/views/layouts/application.rhtml:103
+#: app/views/partials/_top_menu_data.rhtml:12
+#: app/views/layouts/application.rhtml:37
 msgid "menu_Project"
 msgstr "Project"
 
-#: app/views/layouts/application.rhtml:29 app/views/category/list.rhtml:1
+#: app/views/partials/_top_menu_data.rhtml:14 app/views/category/list.rhtml:1
 #, fuzzy
 msgid "Project Category"
 msgstr "Creator"
 
-#: app/views/layouts/application.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:15
 msgid "menu_Overview"
 msgstr "Overview"
 
-#: app/views/layouts/application.rhtml:32
+#: app/views/partials/_top_menu_data.rhtml:17
 #, fuzzy
 msgid "New Releases"
 msgstr "Release"
 
-#: app/views/layouts/application.rhtml:33
+#: app/views/partials/_top_menu_data.rhtml:18
 #: app/views/projects/_new_projects.rhtml:1
 #, fuzzy
 msgid "New Projects"
 msgstr "New Project"
 
-#: app/views/layouts/application.rhtml:34
+#: app/views/partials/_top_menu_data.rhtml:19
 msgid "Top Downloads"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:35
+#: app/views/partials/_top_menu_data.rhtml:20
 msgid "Jobs"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:36
+#: app/views/partials/_top_menu_data.rhtml:21
 msgid "menu_WebHosting"
 msgstr "WebHosting"
 
-#: app/views/layouts/application.rhtml:37
-#: app/views/layouts/application.rhtml:54
+#: app/views/partials/_top_menu_data.rhtml:22
+#: app/views/partials/_top_menu_data.rhtml:39
 #, fuzzy
 msgid "Create Project"
 msgstr "New Project"
 
-#: app/views/layouts/application.rhtml:40
-#: app/views/layouts/application.rhtml:104
+#: app/views/partials/_top_menu_data.rhtml:25
+#: app/views/layouts/application.rhtml:38
 msgid "menu_My Account"
 msgstr "My Account"
 
-#: app/views/layouts/application.rhtml:42
+#: app/views/partials/_top_menu_data.rhtml:27
 msgid "menu_Preference"
 msgstr "Preference"
 
-#: app/views/layouts/application.rhtml:43
+#: app/views/partials/_top_menu_data.rhtml:28
 msgid "menu_Password"
 msgstr "Password"
 
-#: app/views/layouts/application.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_My Pages"
 msgstr "My Pages"
 
-#: app/views/layouts/application.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:30
 msgid "menu_My Projects"
 msgstr "My Projects"
 
-#: app/views/layouts/application.rhtml:46
+#: app/views/partials/_top_menu_data.rhtml:31
 msgid "menu_My Tickets"
 msgstr "My Tickets"
 
-#: app/views/layouts/application.rhtml:48
+#: app/views/partials/_top_menu_data.rhtml:33
 msgid "Owner"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:49
+#: app/views/partials/_top_menu_data.rhtml:34
 #, fuzzy
 msgid "Creator"
 msgstr "Creator"
 
-#: app/views/layouts/application.rhtml:50
+#: app/views/partials/_top_menu_data.rhtml:35
 msgid "Requestor"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:51
+#: app/views/partials/_top_menu_data.rhtml:36
 msgid "LastUpdatedBy"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:57
-#: app/views/layouts/application.rhtml:105
+#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/layouts/application.rhtml:39
 msgid "menu_License Wizard"
 msgstr "License Wizard"
 
-#: app/views/layouts/application.rhtml:59
-#: app/views/layouts/application.rhtml:60
+#: app/views/partials/_top_menu_data.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:45
 #, fuzzy
 msgid "License Wizard"
 msgstr "License Wizard"
 
-#: app/views/layouts/application.rhtml:61
+#: app/views/partials/_top_menu_data.rhtml:46
 #, fuzzy
 msgid "Direction"
 msgstr "Summary"
 
-#: app/views/layouts/application.rhtml:64
-#: app/views/layouts/application.rhtml:106
+#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/layouts/application.rhtml:40
 msgid "menu_Help"
 msgstr "Help"
 
-#: app/views/layouts/application.rhtml:71
+#: app/views/partials/_top_menu_data.rhtml:56
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:74
-#: app/views/layouts/application.rhtml:107
+#: app/views/partials/_top_menu_data.rhtml:59
+#: app/views/partials/_top_menu_data.rhtml:61
+#: app/views/layouts/application.rhtml:41
 msgid "menu_Contact Us"
 msgstr "Contact Us"
 
-#: app/views/layouts/application.rhtml:76
-msgid "TODO: 聯絡方式"
-msgstr ""
-
-#: app/views/layouts/application.rhtml:77
+#: app/views/partials/_top_menu_data.rhtml:62
 msgid "Bug Report"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:136 app/views/user/edit.rhtml:11
+#: app/views/layouts/application.rhtml:70 app/views/user/edit.rhtml:11
 msgid "Change Icon"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:154
+#: app/views/layouts/application.rhtml:88
 msgid "Steering Organization"
 msgstr ""
 
@@ -1132,12 +1152,12 @@ msgstr ""
 msgid "Project|HOMEPAGE"
 msgstr "Project Homepage"
 
-#: app/views/projects/show.rhtml:42
+#: app/views/projects/show.rhtml:43
 #, fuzzy
 msgid "Project Participants"
 msgstr "License"
 
-#: app/views/projects/show.rhtml:54
+#: app/views/projects/show.rhtml:55
 msgid "Back"
 msgstr ""
 
@@ -1145,65 +1165,65 @@ msgstr ""
 msgid "Others"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:60
+#: app/views/projects/_form.rhtml:64
 #, fuzzy
 msgid "Project|Name|Help"
 msgstr "Project name"
 
-#: app/views/projects/_form.rhtml:62
+#: app/views/projects/_form.rhtml:66
 #, fuzzy
 msgid "Project|Summary|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:65
+#: app/views/projects/_form.rhtml:69
 #, fuzzy
 msgid "Project|Description|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:67
+#: app/views/projects/_form.rhtml:71
 #, fuzzy
 msgid "Project|Contactinfo|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:69
+#: app/views/projects/_form.rhtml:73
 #, fuzzy
 msgid "Project|Maturity|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:71
+#: app/views/projects/_form.rhtml:75
 #, fuzzy
 msgid "Project|License|Help"
 msgstr "Icon"
 
-#: app/views/projects/_form.rhtml:73
+#: app/views/projects/_form.rhtml:77
 msgid "Project|Contentlicense|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:75
+#: app/views/projects/_form.rhtml:79
 #, fuzzy
 msgid "Project|Licensingdescription|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:77
+#: app/views/projects/_form.rhtml:81
 #, fuzzy
 msgid "Project|Platform|Help"
 msgstr "Project name"
 
-#: app/views/projects/_form.rhtml:79
+#: app/views/projects/_form.rhtml:83
 msgid "Project|Programminglanguage|Help"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:83
+#: app/views/projects/_form.rhtml:87
 #, fuzzy
 msgid "Project|Redirecturl|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:85
+#: app/views/projects/_form.rhtml:89
 #, fuzzy
 msgid "Project|Vcs|Help"
 msgstr "Icon"
 
-#: app/views/projects/_form.rhtml:87
+#: app/views/projects/_form.rhtml:91
 #, fuzzy
 msgid "Project|Vcsdescription|Help"
 msgstr "Summary"
@@ -1352,12 +1372,27 @@ msgstr "Change Password"
 msgid "User|Old Password"
 msgstr "Password"
 
+#: app/views/user/_password.rhtml:7
+#, fuzzy
+msgid "User|Old_password|help"
+msgstr "Password"
+
 #: app/views/user/_password.rhtml:10
 msgid "User|Password"
 msgstr "Password"
 
+#: app/views/user/_password.rhtml:10
+#, fuzzy
+msgid "User|Password|help"
+msgstr "Password"
+
 #: app/views/user/_password.rhtml:12
 msgid "User|Password Confirmation"
+msgstr "Password Again"
+
+#: app/views/user/_password.rhtml:12
+#, fuzzy
+msgid "User|Password_Confirm|help"
 msgstr "Password Again"
 
 #: app/views/user/_password.rhtml:15 app/views/user/change_password.rhtml:10
@@ -1377,6 +1412,18 @@ msgstr ""
 #, fuzzy
 msgid "User Info"
 msgstr "Icon"
+
+#: app/views/user/_edit.rhtml:5
+#, fuzzy
+msgid "User|Login|Help"
+msgstr "Login"
+
+#: app/views/user/_edit.rhtml:7 app/views/user/_edit.rhtml:9
+#: app/views/user/_edit.rhtml:11 app/views/user/_edit.rhtml:12
+#: app/views/user/_edit.rhtml:13
+#, fuzzy
+msgid "User|firstname|help"
+msgstr "First Name"
 
 #: app/views/user/_edit.rhtml:13
 msgid "User|TimeZone"
@@ -1405,8 +1452,18 @@ msgstr "Sign up"
 msgid "Change User Email"
 msgstr "Change Email"
 
+#: app/views/user/_email.rhtml:6
+#, fuzzy
+msgid "User|Email|help"
+msgstr "Email Address"
+
 #: app/views/user/_email.rhtml:8
 msgid "User|Email Confirmation"
+msgstr "Email Confirmation"
+
+#: app/views/user/_email.rhtml:8
+#, fuzzy
+msgid "User|Email_Confirm|help"
 msgstr "Email Confirmation"
 
 #: app/views/user/_email.rhtml:11
@@ -1425,6 +1482,10 @@ msgstr ""
 #, fuzzy
 msgid "My Projects"
 msgstr "My Projects"
+
+#: app/views/user/home.rhtml:41
+msgid "Signup Date"
+msgstr ""
 
 #: app/views/user/login.rhtml:1
 msgid "Login to OpenFoundry"
@@ -1460,9 +1521,19 @@ msgstr "Change Email"
 msgid "User|Conceal Email"
 msgstr "Change Email"
 
+#: app/views/user/_privacy.rhtml:5
+#, fuzzy
+msgid "User|Conceal_Email|Help"
+msgstr "Change Email"
+
 #: app/views/user/_privacy.rhtml:7
 #, fuzzy
 msgid "User|Conceal Login Status"
+msgstr "Status"
+
+#: app/views/user/_privacy.rhtml:7
+#, fuzzy
+msgid "User|Conceal_Login|Help"
 msgstr "Status"
 
 #: app/views/user/_privacy.rhtml:10
