@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
-  
+
   # Sample of regular route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
+
   map.connect '', :controller => 'openfoundry'
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
   map.resources :projects,
@@ -28,8 +29,10 @@ ActionController::Routing::Routes.draw do |map|
   #for project releases
   map.resources :releases,
     :path_prefix => '/projects/:project_id',
+    :collection => 'download',
     :member => { :uploadfiles => :any, :delete => :post, 
-                 :addfiles => :post, :removefile => :post },
+                 :addfiles => :post, :removefile => :post,
+                 :download => :any },
     :singular => :release
   map.resources :kwiki,
                 :singular => 'kwiki1',
@@ -53,22 +56,20 @@ ActionController::Routing::Routes.draw do |map|
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'
   map.connect ':controller/service.wsdl', :action => 'wsdl'
-  
+   map.download '/projects/:project_id/download',
+    :controller => 'releases',
+    :action => 'download'  
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
-  
-  map.download 'releases/top',
-    :controller => 'releases',
-    :action => 'top'
-   # :requirements => {:file_name => /.+/, :release_name => /.+/}
-  
+
+
   #for download area~
-  map.download 'download_path/:project_name/:release_name/:file_name',
+  map.download 'download_path/:project_name/:release_version/:file_name',
     :controller => 'openfoundry',
     :action => 'download',
-    :requirements => {:file_name => /.+/, :release_name => /.+/}
-#  require "pp"
+    :requirements => {:file_name => /.+/, :release_version => /.+/}
+  #  require "pp"
 #  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
 
 end
