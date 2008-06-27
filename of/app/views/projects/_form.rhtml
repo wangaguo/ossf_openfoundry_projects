@@ -48,6 +48,7 @@ AAA
     tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) +
       "#{Project.license_display_str(i)}<br>\n"
   end
+  tmp_licenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_licenses}</div>"
 %>
 <%
   choosen_contentlicenses = (@project.contentlicense || "").split(",").grep(/./).map(&:to_i)
@@ -56,6 +57,7 @@ AAA
     tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) +
       "#{Project.content_license_display_str(i)}<br>\n"
   end
+  tmp_contentlicenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_contentlicenses}</div>"
 %>
 <table class="form-table">
 <%=  rows(
