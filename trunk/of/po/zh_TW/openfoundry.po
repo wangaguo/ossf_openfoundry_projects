@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-06-27 06:54-0000\n"
+"POT-Creation-Date: 2008-06-28 00:54-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -423,7 +423,7 @@ msgstr "TODO: 成熟(Mature)"
 msgid "STANDARD"
 msgstr "TODO: 標準(Standard)"
 
-#: app/models/project.rb:52 app/models/project.rb:84
+#: app/models/project.rb:52 app/models/project.rb:92
 msgid "Public Domain"
 msgstr "公共財(Public Domain)"
 
@@ -431,56 +431,91 @@ msgstr "公共財(Public Domain)"
 msgid "This project contains no code"
 msgstr "專案不包含程式碼"
 
-#: app/models/project.rb:52 app/models/project.rb:84
+#: app/models/project.rb:52 app/models/project.rb:92
 msgid "Other licenses"
 msgstr "其他"
 
-#: app/models/project.rb:84
+#: app/models/project.rb:92
 msgid "Same license as code"
 msgstr "同程式碼"
 
-#: app/models/project.rb:84
+#: app/models/project.rb:92
 msgid "Project contains only code"
 msgstr "專案不包含圖文內容"
 
-#: app/models/project.rb:103
+#: app/models/project.rb:118
 msgid "NONE"
 msgstr ""
 
-#: app/models/project.rb:103
+#: app/models/project.rb:118
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:103
+#: app/models/project.rb:118
 msgid "SUBVERSION"
 msgstr ""
 
-#: app/models/project.rb:103
+#: app/models/project.rb:118
 msgid "REMOTE"
 msgstr ""
 
-#: app/models/project.rb:147
+#: app/models/project.rb:156
 msgid "TODO: 使用 CVS 版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:149
+#: app/models/project.rb:158
 msgid "TODO: 使用 Subversion 版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:151
+#: app/models/project.rb:160
 msgid "TODO: 使用其他站台的版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:153
+#: app/models/project.rb:162
 msgid "TODO: 不使用版本控制系統"
 msgstr ""
 
-#: app/models/project.rb:155
+#: app/models/project.rb:164
 msgid "TODO: 系統錯誤, 請通知站台管理員"
 msgstr ""
 
-#: app/models/project.rb:192
+#: app/models/project.rb:203
 msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
+msgstr ""
+
+#: app/models/project.rb:209
+msgid "You have choosen too many licenses."
+msgstr ""
+
+#: app/models/project.rb:211
+msgid "You have choosen too many content licenses."
+msgstr ""
+
+#: app/models/project.rb:231
+msgid ""
+"If this project contains no code, then you may not choose any other license."
+msgstr ""
+
+#: app/models/project.rb:235
+msgid ""
+"If this project contains only code, then you may not choose any other "
+"content license."
+msgstr ""
+
+#: app/models/project.rb:238
+msgid ""
+"If the content license is the same with the code license, then you may not "
+"choose any other content license."
+msgstr ""
+
+#: app/models/project.rb:241
+msgid "You have to choose a code license."
+msgstr ""
+
+#: app/models/project.rb:244
+msgid ""
+"You have to fill in the \"Licensing Description\" if you choosed \"Other "
+"licenses\"."
 msgstr ""
 
 #: app/models/fileentity.rb:-
@@ -605,71 +640,71 @@ msgstr ""
 msgid "Delete Successful"
 msgstr "刪除帳號"
 
-#: app/controllers/user_controller.rb:57
+#: app/controllers/user_controller.rb:92
 msgid "user_login_succeeded"
 msgstr "登入成功"
 
-#: app/controllers/user_controller.rb:69
+#: app/controllers/user_controller.rb:104
 msgid "user_login_failed"
 msgstr "登入失敗"
 
-#: app/controllers/user_controller.rb:89
+#: app/controllers/user_controller.rb:124
 msgid "user_signup_succeeded"
 msgstr "註冊成功"
 
-#: app/controllers/user_controller.rb:94
+#: app/controllers/user_controller.rb:129
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:118
+#: app/controllers/user_controller.rb:153
 msgid "user_updated_email"
 msgstr "Email更新成功"
 
-#: app/controllers/user_controller.rb:120
+#: app/controllers/user_controller.rb:155
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:152
+#: app/controllers/user_controller.rb:187
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:155
+#: app/controllers/user_controller.rb:190
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:163
+#: app/controllers/user_controller.rb:198
 msgid "user_forgot_password_logged_in"
 msgstr "您已經登入, 請直接更改密碼"
 
-#: app/controllers/user_controller.rb:173
+#: app/controllers/user_controller.rb:208
 msgid "user_enter_valid_email_address"
 msgstr "Email Address不正確"
 
-#: app/controllers/user_controller.rb:175
+#: app/controllers/user_controller.rb:210
 msgid "user_email_address_not_found"
 msgstr "查無此Email Address"
 
-#: app/controllers/user_controller.rb:183
+#: app/controllers/user_controller.rb:218
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:191
+#: app/controllers/user_controller.rb:226
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:221
+#: app/controllers/user_controller.rb:256
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:246
+#: app/controllers/user_controller.rb:281
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:255
+#: app/controllers/user_controller.rb:290
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:271
+#: app/controllers/user_controller.rb:306
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
@@ -1035,6 +1070,7 @@ msgid "Bug Report"
 msgstr ""
 
 #: app/views/layouts/application.rhtml:70 app/views/user/edit.rhtml:11
+#: app/views/user/home.rhtml:9
 msgid "Change Icon"
 msgstr "更換圖像"
 
@@ -1078,6 +1114,7 @@ msgstr "釋出時間"
 
 #: app/views/releases/_top_download_list.rhtml:10
 #: app/views/projects/_list.rhtml:10 app/views/projects/_list.rhtml:29
+#: app/views/user/my_projects.rhtml:10 app/views/user/my_projects.rhtml:29
 #, fuzzy
 msgid "Download"
 msgstr "下載pdf格式"
@@ -1111,27 +1148,27 @@ msgstr "統計資訊"
 msgid "Listing projects"
 msgstr "專案一覽"
 
-#: app/views/projects/_list.rhtml:7
+#: app/views/projects/_list.rhtml:7 app/views/user/my_projects.rhtml:7
 #, fuzzy
 msgid "Project Summary"
 msgstr "專案摘要"
 
-#: app/views/projects/_list.rhtml:8
+#: app/views/projects/_list.rhtml:8 app/views/user/my_projects.rhtml:8
 #, fuzzy
 msgid "Created At"
 msgstr "建立時間"
 
-#: app/views/projects/_list.rhtml:9
+#: app/views/projects/_list.rhtml:9 app/views/user/my_projects.rhtml:9
 #, fuzzy
 msgid "Latest File"
 msgstr "專案釋出"
 
-#: app/views/projects/_list.rhtml:25
+#: app/views/projects/_list.rhtml:25 app/views/user/my_projects.rhtml:25
 #, fuzzy
 msgid "Project Logo"
 msgstr "專案"
 
-#: app/views/projects/_list.rhtml:37
+#: app/views/projects/_list.rhtml:37 app/views/user/my_projects.rhtml:37
 msgid "New project"
 msgstr "註冊專案"
 
@@ -1479,19 +1516,24 @@ msgstr "Email確認"
 msgid "User|Change Email"
 msgstr "更改Email"
 
-#: app/views/user/home.rhtml:4
+#: app/views/user/home.rhtml:2
+#, fuzzy
+msgid "User Icon"
+msgstr "圖像"
+
+#: app/views/user/home.rhtml:19
 msgid "My Partners"
 msgstr "我的伙伴"
 
-#: app/views/user/home.rhtml:17
+#: app/views/user/home.rhtml:32
 msgid "My Email"
 msgstr ""
 
-#: app/views/user/home.rhtml:28
+#: app/views/user/home.rhtml:43 app/views/user/my_projects.rhtml:2
 msgid "My Projects"
 msgstr "我參與的專案"
 
-#: app/views/user/home.rhtml:41
+#: app/views/user/home.rhtml:56
 #, fuzzy
 msgid "Signup Date"
 msgstr "註冊"
