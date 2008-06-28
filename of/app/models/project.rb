@@ -10,8 +10,8 @@ class Project < ActiveRecord::Base
   #   [2, "OSI: Affero GNU Public License"] ]
   # having mutiple spaces is ok
   LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
--2 Public Domain
 0 This project contains no code
+-2 Public Domain
 1 OSI: Academic Free License
 2 OSI: Affero GNU Public License
 3 OSI: Adaptive Public License
@@ -77,9 +77,9 @@ EOEO
   #   [2, "GFDL"] ]
   # having mutiple spaces is ok
   CONTENT_LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
--2 Public Domain
--3 Same license as code
 0 Project contains only code
+-3 Same license as code
+-2 Public Domain
 1 GNU Free Documentation License
 2 Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)
 3 Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)
@@ -192,6 +192,8 @@ EOEO
   
   #model relationships
   has_many :releases
+
+
   # field validations...
   # see also: http://rt.openfoundry.org/Edit/Queues/CustomField/?Queue=4
   #
@@ -204,8 +206,10 @@ EOEO
   validates_length_of :description, :within => 3 .. 4000
   validates_length_of :contactinfo, :maximum => 255
   validates_inclusion_of :maturity, :in => MATURITY.values
-  validates_length_of :license, :maximum => 50; validates_format_of :license, :with => /,(-?\d+)*,/
-  validates_length_of :contentlicense, :maximum => 50; validates_format_of :contentlicense, :with => /,(-?\d+)*,/
+  validates_length_of :license, :maximum => 50, :message => _('You have choosen too many licenses.')
+    validates_format_of :license, :with => /,(-?\d+)*,/
+  validates_length_of :contentlicense, :maximum => 50, :message => _('You have choosen too many content licenses.')
+    validates_format_of :contentlicense, :with => /,(-?\d+)*,/
   validates_length_of :licensingdescription, :maximum => 1000
   validates_length_of :platform, :maximum => 100
   validates_length_of :programminglanguage, :maximum => 100
@@ -214,7 +218,34 @@ EOEO
   validates_inclusion_of :vcs, :in => VCS.values
   validates_length_of :vcsdescription, :maximum => 100
 
+  # Project.new(:name => 'openfoundry').valid?
+  def validate_on_create
+    if Project.exists?(Project.in_used_projects(['name = ?', name]))
+      errors.add(:name, _("'#{name}' has already been taken"))
+    end
+  end
+
+  def validate
+    ls = license.split(",").grep(/./).map(&:to_i)
+    if ls.include?(0) and ls != [0] 
+      errors.add(:license, _("If this project contains no code, then you may not choose any other license."))
+    end
+    cls = contentlicense.split(",").grep(/./).map(&:to_i)
+    if cls.include?(0) and cls != [0] 
+      errors.add(:contentlicense, _("If this project contains only code, then you may not choose any other content license."))
+    end
+    if cls.include?(-3) and cls != [-3] 
+      errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose any other content license."))
+    end
+    if cls = [-3] and ls == [0] 
+      errors.add(:contentlicense, _("You have to choose a code license."))
+    end
+    if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
+      errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"."))
+    end
+  end
   
+
   def admins
     has_admins
   end
@@ -305,33 +336,6 @@ EOEO
     end
   end
 
-  # Project.new(:name => 'openfoundry').valid?
-  def validate_on_create
-    if Project.exists?(Project.in_used_projects(['name = ?', name]))
-      errors.add(:name, _("'#{name}' has already been taken"))
-    end
-  end
-
-  def validate
-    ls = license.split(",").grep(/./).map(&:to_i)
-    if ls.include?(0) and ls != [0] 
-      errors.add(:license, _("If this project contains no code, then you may not choose other licenses."))
-    end
-    cls = contentlicense.split(",").grep(/./).map(&:to_i)
-    if cls.include?(0) and cls != [0] 
-      errors.add(:contentlicense, _("If this project contains only code, then you may not choose other content licenses."))
-    end
-    if cls.include?(-3) and cls != [-3] 
-      errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose other content licenses."))
-    end
-    if cls = [-3] and ls == [0] 
-      errors.add(:contentlicense, _("You have to choose a code license."))
-    end
-    if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
-      errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choose \"Other licenses\"."))
-    end
-  end
-  
   def self.new_projects
     Project.find(:all, :conditions => Project.in_used_projects(), :order => "created_at desc", :limit => 5)
   end
