@@ -55,11 +55,16 @@ AAA
   tmp_contentlicenses = ""
   Project::CONTENT_LICENSE_DISPLAY_KEYS.each do |i|
     txt = Project.content_license_to_s(i)
-    if chars = txt.match(/Creative.*\(([a-z-]+)\)/)
-      txt += " "
-      chars[1].split("-").each do |x|
-        txt += "<img src=\"/images/cc/#{x}_standard.gif\" width=\"16\">"
-      end
+    case i
+    when 2: ["by", "nc", "nd"]
+    when 3: ["by", "nc", "sa"]
+    when 4: ["by", "nc"      ]
+    when 5: ["by",       "nd"]
+    when 6: ["by",       "sa"]
+    when 7: ["by"            ]
+    else []
+    end.each do |x|
+      txt += " <img src=\"/images/cc/#{x}_standard.gif\" width=\"16\">"
     end
     tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) +
       "#{txt}<br>\n"

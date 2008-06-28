@@ -49,6 +49,7 @@ class Project < ActiveRecord::Base
 35 OSI: zlib/libpng License
 -1 Other licenses
 EOEO
+  # referenced by: project validation
   dummy_fix_me = _("Public Domain"), _("This project contains no code"), _("Other licenses")
   LICENSES = Hash[ * LICENSE_DATA.flatten ].freeze
   LICENSE_DISPLAY_KEYS = LICENSE_DATA.map(&:first).map(&:to_i).freeze
@@ -89,6 +90,7 @@ EOEO
 7 Creative Commons: Attribution (by)
 -1 Other licenses
 EOEO
+  # referenced by: project validation / _form
   dummy_fix_me = _("Public Domain"), _("Same license as code"), _("Project contains only code"), _("Other licenses")
   CONTENT_LICENSES = Hash[ * CONTENT_LICENSE_DATA.flatten ].freeze
   CONTENT_LICENSE_DISPLAY_KEYS = CONTENT_LICENSE_DATA.map(&:first).map(&:to_i).freeze
