@@ -54,8 +54,15 @@ AAA
   choosen_contentlicenses = (@project.contentlicense || "").split(",").grep(/./).map(&:to_i)
   tmp_contentlicenses = ""
   Project::CONTENT_LICENSE_DISPLAY_KEYS.each do |i|
+    txt = Project.content_license_to_s(i)
+    if chars = txt.match(/Creative.*\(([a-z-]+)\)/)
+      txt += " "
+      chars[1].split("-").each do |x|
+        txt += "<img src=\"/images/cc/#{x}_standard.gif\" width=\"16\">"
+      end
+    end
     tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) +
-      "#{Project.content_license_to_s(i)}<br>\n"
+      "#{txt}<br>\n"
   end
   tmp_contentlicenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_contentlicenses}</div>"
 %>
