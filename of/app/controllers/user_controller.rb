@@ -26,15 +26,20 @@ class UserController < ApplicationController
     
     @my_projects = nil
     [params[:page], 1].each do |page|
-      projects = Project.paginate(:page => page, :per_page => 10, 
-                                :conditions => Project.in_used_projects(query),
+      @my_projects = Project.paginate_by_sql("
+                 select distinct(P.id),P.icon,P.name,P.summary,P.description,
+                                       P.created_at,P.updated_at,P.project_counter
+                 from projects P join roles R join roles_users RU 
+                 where P.id = R.authorizable_id and R.authorizable_type = 'Project' and 
+                       (P.status = 2 or P.status = 3) and                      
+                       R.id = RU.role_id and RU.user_id = #{current_user.id} order by P.id", 
+                                :page => page, :per_page => 10, 
                                 :order => sortable_order('listing', :model => Project, 
-                                :field => 'summary', :sort_direction => :asc) )
-      break if not projects.out_of_bounds?
+                                                      :field => 'summary', 
+                                                      :sort_direction => :asc) 
+                                            )
+      break if not @my_projects.out_of_bounds?
     end
-    #render(:partial => 'list', :layout => 'application', :locals => { :projects => projects })
-
-    @projects = Project.find_by_sql("select distinct(P.*) from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} order by P.id")
   end
 
   def home
