@@ -56,6 +56,7 @@ class ReleasesController < ApplicationController
   
   def download
     @project_id = params[:project_id]
+    @project_name = Project.find(params[:project_id]).name
     @releases = Release.find :all,
       :conditions => "project_id = #{params[:project_id]}"
   end
