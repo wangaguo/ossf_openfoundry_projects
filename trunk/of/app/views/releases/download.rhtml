@@ -3,7 +3,7 @@
   <table class=list-table>
   <% @releases.each do |release|%>
     <tr>
-      <th style="text-align: left"><B><%= h(release.name) + " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %></B></th>
+      <th style="text-align: left"><B><%= h(release.version) + " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %></B></th>
     </tr>
     <% @files = release.fileentity %>
     <% @files.each do |file| %>
