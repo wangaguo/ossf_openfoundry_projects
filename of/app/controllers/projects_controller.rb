@@ -6,9 +6,9 @@ class ProjectsController < ApplicationController
 
   before_filter :check_permission
   def set_project
-    @project = get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
+    @project = ProjectsController.get_project_by_id_or_name(params[:id], self) { |id| redirect_to :id => id }
   end
-  def get_project_by_id_or_name(id_or_name)
+  def self.get_project_by_id_or_name(id_or_name, controller)
     rtn = nil
     case id_or_name
     when /^\d+$/
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
         yield rtn.id
       end
     end
-    redirect_to "/" if not rtn
+    controller.send(:redirect_to, "/") if not rtn # ....
     rtn
   end
 
