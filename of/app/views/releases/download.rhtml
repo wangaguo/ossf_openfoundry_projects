@@ -1,0 +1,56 @@
+<div id="ReleaseBasic">
+  <h1>Release#list</h1>
+  <table class=list-table>
+  <% @releases.each do |release|%>
+    <tr>
+      <th style="text-align: left"><B><%= h(release.name) + " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %></B></th>
+    </tr>
+    <% @files = release.fileentity %>
+    <% @files.each do |file| %>
+    <tr>
+      <td><h2><%= link_to h(file.name), download_url(:project_name => @project_name, 
+					       :release_version => release.version,
+					       :file_name => file.path ) %></h2>
+      <%= "#{number_to_human_size(file.size)}, " + _("TODO:下載次數 ") + file.file_counter.to_s %><br>
+        <%= h(file.description) %>
+      </td>
+    </tr>
+    <% end %>
+  <% end %>
+  </table>
+   
+<!--
+  <p> <%= viewports_manager(:update => "ReleaseBasic"  ,
+      :url => {:project_id => @project_id,
+        :controller => :releases,
+        :method => :get,
+        :layout => 'false'}
+  ) %> </p> 
+  <%= link_to '[new]', 
+    :project_id => @project_id,
+    :action => :new
+  %>
+  <br/>
+  <% @releases.each do |release|%>
+    <%= arranged('ReleaseItem',release, {})%>
+    <%= link_to '[show]', release_url(
+      :project_id => @project_id,
+      :id => release
+    )
+    %>
+    <%= link_to '[edit]', edit_release_url(
+      :project_id => @project_id,
+      :id => release
+    )
+    %>
+    <%= link_to '[delete]', delete_release_url(
+      {
+        :project_id => @project_id, 
+        :id => release
+      }), 
+      :confirm => 'Delete?', 
+      :method => :post
+    %>
+  <% end %>
+-->
+</div>
