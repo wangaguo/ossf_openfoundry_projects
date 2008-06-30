@@ -203,6 +203,7 @@ EOEO
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
   validates_format_of :name, :with => NAME_REGEX, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
+    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => _("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
   validates_length_of :description, :within => 3 .. 4000
