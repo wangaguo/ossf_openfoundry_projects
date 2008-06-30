@@ -20,6 +20,9 @@ class RtController < ApplicationController
   end
 
   def rt_init
+    if login? == false
+      flash[:warning] = _("You have not logged in; please log in or register from the links in the top-left corner. If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved. ")
+    end
     @rt_url = OPENFOUNDRY_RT_URL
     @base_url = @rt_url + "/Search/Results.html?Order=DESC&OrderBy=LastUpdated&Query="
     if(@project != nil)
