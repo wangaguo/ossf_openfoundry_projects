@@ -12,8 +12,8 @@
 <fieldset>
   <legend><%= _("Project|License") %></legend>
   <ul>
-  <% Project::LICENSES.values.select{|x|@license[x.to_s]}.sort.each do |value| -%>
-    <li><%= link_to "#{Project::license_to_s(value)} (#{@license[value.to_s]})", :controller => :projects, :cat => 'license', :name => value %></li>
+  <% normalize_values(Project::LICENSE_DISPLAY_KEYS.map(&:to_s), @license.keys)[0].each do |value| -%>
+    <li><%= link_to "#{Project::license_to_s(value)} (#{@license[value]})", :controller => :projects, :cat => 'license', :name => value %></li>
   <% end -%>
   </ul>
 </fieldset>
@@ -21,8 +21,8 @@
 <fieldset>
   <legend><%= _("Project|Contentlicense") %></legend>
   <ul>
-  <% Project::CONTENT_LICENSES.values.select{|x|@content_license[x.to_s]}.sort.each do |value| -%>
-    <li><%= link_to "#{Project::contentlicense_to_s(value)} (#{@content_license[value.to_s]})", :controller => :projects, :cat => 'contentlicense', :name => value %></li>
+  <% normalize_values(Project::CONTENT_LICENSE_DISPLAY_KEYS.map(&:to_s), @content_license.keys)[0].each do |value| -%>
+    <li><%= link_to "#{Project::content_license_to_s(value)} (#{@content_license[value]})", :controller => :projects, :cat => 'contentlicense', :name => value %></li>
   <% end -%>
   </ul>
 </fieldset>
