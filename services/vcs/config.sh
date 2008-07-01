@@ -53,7 +53,7 @@ replace "${OPENFOUNDRY_PM_CHECKOUT}/OpenFoundry.pm" /usr/local/lib/perl5/site_pe
 # export conf to env
 envs=`perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
 if [ "$?" = "0" ]; then
-	eval $envs
+	eval "$envs"
 else
 	echo "Please check your config file"
 	exit 1
