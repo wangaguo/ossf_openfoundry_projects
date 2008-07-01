@@ -34,3 +34,31 @@ module OpenFoundry
 end
 
 ActiveRecord::Base.send(:include, OpenFoundry::Message)
+
+
+# (a, b) = normalize_values(%w[Ruby Perl JavaScript], %w[c Javascript perl]) {|x| x.downcase }
+# pp a
+# pp b
+# (a, b) = normalize_values(%w[-2 0 1 -1], %w[-1 0 1 BSD])
+# pp a
+# pp b
+#
+# ["Perl", "JavaScript"]
+# ["c"]
+# ["0", "1", "-1"]
+# ["BSD"]
+#
+def normalize_values(predefined_values, values, &cast_for_cmp)
+  cast_for_cmp ||= lambda {|x| x }
+  casted_pvs = predefined_values.map(&cast_for_cmp)
+  indexes = []
+  others = []
+  values.each do |v|
+    if idx = casted_pvs.index(cast_for_cmp.call(v))
+      indexes[idx] = idx
+    else
+      others |= [v]
+    end
+  end
+  [ predefined_values.values_at(* indexes.compact), others]
+end
