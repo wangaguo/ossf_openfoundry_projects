@@ -50,6 +50,40 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "created_at",                                  :null => false
       t.datetime "updated_at",                                  :null => false
     end
+    
+    create_table "jobs", :force => true do |t|
+      t.string   "subject",     :limit => 255,  :default => "", :null => false
+      t.string   "description", :limit => 4000, :default => "", :null => false
+      t.string   "Requirement", :limit => 255,  :default => "", :null => false
+      t.integer  "project_id",                  :default => 0,  :null => false
+      t.integer  "status",                      :default => 1,  :null => false
+      t.integer  "creator",                     :default => 0,  :null => false
+      t.datetime "created_at",                                  :null => false
+      t.datetime "updated_at",                                  :null => false
+    end
+    
+    create_table "citations", :force => true do |t|
+      t.string   "primary_authors",  :limit => 255,  :default => "", :null => false
+      t.string   "project_title",    :limit => 255,  :default => "", :null => false
+      t.string   "license",          :limit => 255,  :default => "", :null => false
+      t.string   "url",              :limit => 255,  :default => "", :null => false
+      t.string   "release_date",     :limit => 255,  :default => "", :null => false
+      t.string   "release_version",  :limit => 255,  :default => "", :null => false
+      t.integer  "project_id",                       :default => 0,  :null => false
+      t.integer  "status",                           :default => 1,  :null => false
+      t.integer  "creator",                          :default => 0,  :null => false
+      t.datetime "created_at",                                       :null => false
+      t.datetime "updated_at",                                       :null => false
+    end
+    
+    create_table "references", :force => true do |t|
+      t.string   "Source",     :limit => 4000,  :default => "", :null => false
+      t.integer  "project_id",                  :default => 0,  :null => false
+      t.integer  "status",                      :default => 1,  :null => false
+      t.integer  "creator",                     :default => 0,  :null => false
+      t.datetime "created_at",                                  :null => false
+      t.datetime "updated_at",                                  :null => false
+    end
 
     # see also: app/models/project.rb
     # the limit is specified in lengh of unicode characters, not bytes
