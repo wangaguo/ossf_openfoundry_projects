@@ -329,9 +329,14 @@ EOEO
   # Project.find(:first, :conditions => Project.in_used_projects("name = 'openfoundry'"))
   # Project.find(:first, :conditions => Project.in_used_projects())
   # Project.exists?(Project.in_used_projects(['name = ?', name]))
-  def self.in_used_projects(condition = 'true')
+  def self.in_used_projects(condition = 'true', options={})
     if condition.is_a?(String)
-      "(#{condition}) and (status = #{Project::STATUS[:READY]} or status = #{Project::STATUS[:SUSPENDED]})"
+      unless options[:alias]
+        "(#{condition}) and (status = #{Project::STATUS[:READY]} or status = #{Project::STATUS[:SUSPENDED]})"
+      else
+        a = options[:alias]
+        "(#{condition}) and (#{a}.status = #{Project::STATUS[:READY]} or #{a}.status = #{Project::STATUS[:SUSPENDED]})"
+      end
     elsif condition.is_a?(Array)
       [ in_used_projects(condition[0]), *condition[1 .. -1] ]
     else
