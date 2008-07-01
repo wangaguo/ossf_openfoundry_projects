@@ -22,11 +22,12 @@ foreach my $p (@{$of->getProjects()})
 {
 	my $name = $p->{name};
 	my $vcs = $p->{vcs};
+	print "name: $name vcs: $vcs\n";
 	if ($vcs eq OpenFoundry::VCS_CVS) {
 		my $dir = "$conf{CVSROOT}/$name"; 
 		next if -d $dir;
 
-		print "Createing cvs directory in $dir\n";
+		print "Creating cvs directory in $dir\n";
 
 		mkdir $dir;
 		chown $conf{CVS_OWNER}, $conf{CVS_GROUP}, $dir;
