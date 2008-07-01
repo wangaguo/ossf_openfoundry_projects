@@ -99,30 +99,17 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  # join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS)
-  def join_with_separator(hash, keys_and_predefined_values)
-    keys_and_predefined_values.each_pair do |k, predefined_values|
-      k = k.to_s
-      # {"-1"=>" ,  a,  b, linux,   c   ,  a ,, ", "1"=>"XXX", "2"=>"Linux", "4"=>"FreeBSD"}
-      # ["a", "b", "linux", "c", "d", "XXX", "Linux", "FreeBSD"]
-      
-      down = predefined_values.map(&:downcase)
-      choosen = []
-      others = [] 
-      (hash[k] || {}).values.map {|x| x.split(",")}.flatten.map(&:strip).grep(/./).each do |x|
-        if i = down.index(x.downcase)  
-          choosen[i] = predefined_values[i]
-        else
-          others |= [x]
-        end
-      end
-      hash[k] = "," + (choosen.compact + others).join(",") + ","
-    end
+  def join_with_separator()
+    h = params["project"]
+    h["programminglanguage"] = "," + normalize_values(Project::PROGRAMMING_LANGUAGES, split_strip_compact_array((h["programminglanguage"] || {}).values)) {|x| x.downcase }.flatten.join(",") + ","
+    h["platform"] = "," + normalize_values(Project::PLATFORMS, split_strip_compact_array((h["platform"] || {}).values)) {|x| x.downcase }.flatten.join(",") + ","
+    h["license"] = "," + normalize_values(Project::LICENSE_DISPLAY_KEYS.map(&:to_s), split_strip_compact_array((h["license"] || {}).values))[0].join(",") + ","
+    h["contentlicense"] = "," + normalize_values(Project::CONTENT_LICENSE_DISPLAY_KEYS.map(&:to_s), split_strip_compact_array((h["contentlicense"] || {}).values))[0].join(",") + ","
   end
 
 
   def create
-    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSE_DISPLAY_KEYS.map(&:to_s), :contentlicense => Project::CONTENT_LICENSE_DISPLAY_KEYS.map(&:to_s))
+    join_with_separator
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
@@ -139,7 +126,7 @@ class ProjectsController < ApplicationController
 
   def update
     params[:project].delete(:name)
-    join_with_separator(params[:project], :programminglanguage => Project::PROGRAMMING_LANGUAGES, :platform => Project::PLATFORMS, :license => Project::LICENSE_DISPLAY_KEYS.map(&:to_s), :contentlicense => Project::CONTENT_LICENSE_DISPLAY_KEYS.map(&:to_s))
+    join_with_separator
 
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')

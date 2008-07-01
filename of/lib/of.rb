@@ -62,3 +62,15 @@ def normalize_values(predefined_values, values, &cast_for_cmp)
   end
   [ predefined_values.values_at(* indexes.compact), others]
 end
+# >>  split_strip_compact(",,,,3 ,4, 5,")
+# => ["3", "4", "5"]
+def split_strip_compact(values_str, delimiter = ",")
+  return [] if not values_str
+  values_str.split(delimiter).map(&:strip).reject(&:blank?)
+end
+# >> split_strip_compact_array([",,,,3 ,4, 5,", "aa   , bb"])
+# => ["3", "4", "5", "aa", "bb"]
+def split_strip_compact_array(values_str_array, delimiter = ",")
+  return [] if not values_str_array
+  values_str_array.inject([]) {|s,x| s + split_strip_compact(x, delimiter)}
+end
