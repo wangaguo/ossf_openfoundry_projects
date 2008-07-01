@@ -94,11 +94,11 @@ class UserController < ApplicationController
       # For "paranoid session store"
       #self.app_user=session['user']
 
-      if params['remember_me']
-        # TODO: is this always the case ??
-        output_cookies = request.cgi.instance_eval('@output_cookies')
-        output_cookies[0].expires = Time.now() + OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
-      end
+#      if params['remember_me']
+#        # TODO: is this always the case ??
+#        output_cookies = request.cgi.instance_eval('@output_cookies')
+#        output_cookies[0].expires = Time.now() + OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
+#      end
     else
       @login = params['user']['login']
       flash.now[:message] = _('user_login_failed')
