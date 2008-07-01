@@ -56,7 +56,7 @@
     <%= _('Signup Date') %>:
     </dt>
     <dd>
-    <%= @created_at %>
+    <%= tz_datetime(@created_at) %>
     </dd>
   <% end %>
 </dl>
