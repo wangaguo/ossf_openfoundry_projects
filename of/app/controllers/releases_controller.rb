@@ -175,7 +175,6 @@ class ReleasesController < ApplicationController
       flash[:notice] = 'Your files have been added to Release!'
      
       #move file from upload to downlad area
-      project_name = Project.find(params[:project_id]).name
       release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.version}"
       #Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
       #`cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
