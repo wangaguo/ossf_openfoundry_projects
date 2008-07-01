@@ -8,7 +8,7 @@ class OpenfoundryController < ApplicationController
   RECORD_LOOKUP_TABLE = {'User' => 'user', 'Project' => 'projects',
                          'News' => 'news', 'Release' => 'releases', 
                          'Fileentity' => 'fileentity' }
-
+  
   def index
   end
 
@@ -58,6 +58,46 @@ class OpenfoundryController < ApplicationController
     end
     render :text => "#{@name} #{@role} #{@email}" , :layout => false
   end
+  
+  def foundry_sync
+    # default empty password is not allowed
+    if params[:secret] != OPENFOUNDRY_JSON_DUMP_PASSWORD || OPENFOUNDRY_JSON_DUMP_PASSWORD == ''
+      sleep 10
+      render :text => "access denied", :layout => false
+      return
+    end
+    
+    service = params[:service] || :rt
+    action = params[:action] || :view
+    function_name = "#{service}_#{action}"
+    
+    sql_tmp = "select distinct(U.id) u_id,P.id p_id  from 
+                                  users U, projects P, roles_users RU, roles R, functions F , roles_functions RF 
+                     where ((F.name = '#{function_name}' and F.id = RF.function_id and R.id = RF.role_id)
+                                     or R.name='admin') and 
+                                  R.authorizable_id = P.id and 
+                                  R.authorizable_type = 'Project' and 
+                                  R.authorizable_id = P.id and 
+                                  RU.role_id = R.id and 
+                                  RU.user_id = U.id and 
+                                  #{User.verified_users('true',:alias => 'U')} and 
+                                  #{Project.in_used_projects('true',:alias => 'P')}"
+    
+    projects = Project.find(:all, :conditions => Project.in_used_projects())
+    users = User.find(:all, :conditions => User.verified_users())
+    relations = User.find_by_sql(sql_tmp)
+    data = {
+      :projects => projects.map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
+      :users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email, :password => u.salted_password } },
+      :relations => relations.collect{|r| [r.p_id, r.u_id]}
+#        {
+#        :admin => projects.inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
+#        :member => projects.inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
+#      }
+    }
+    render :text => sql_tmp, :layout => false
+  end
+  
   def foundry_dump # TODO: optimize !!!!
     #if !params[:secret] || params[:secret].crypt("$1$foobar") != "$1$foobar$jghwt7tiDrPE99XAhdtUe0"
     # default empty password is not allowed
@@ -137,10 +177,10 @@ class OpenfoundryController < ApplicationController
     @lookup = RECORD_LOOKUP_TABLE
   end
   
-  def tag #for displaying taggalbe objects~
-    tag_name=params[:id]	
-    @tagged_object=User.find_tagged_with(tag_name)
-  end
+#  def tag #for displaying taggalbe objects~
+#    tag_name=params[:id]	
+#    @tagged_object=User.find_tagged_with(tag_name)
+#  end
   
   def download
     #render :text => params[:file_name]
