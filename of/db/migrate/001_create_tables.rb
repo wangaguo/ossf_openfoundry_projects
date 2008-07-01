@@ -84,6 +84,35 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "created_at",                                  :null => false
       t.datetime "updated_at",                                  :null => false
     end
+    
+    create_table "events", :force => true do |t|
+      t.string   "subject",    :limit => 255,  :default => "", :null => false
+      t.string   "starts",     :limit => 255,  :default => "", :null => false
+      t.string   "due",        :limit => 255,  :default => "", :null => false
+      t.integer  "Owner",                      :default => 0,  :null => false
+      t.string   "version",    :limit => 255,  :default => "", :null => false
+      t.integer  "project_id",                 :default => 0,  :null => false
+      t.integer  "creator",                    :default => 0,  :null => false
+      t.datetime "created_at",                                 :null => false
+      t.datetime "updated_at",                                 :null => false
+    end
+
+    create_table "downloaders", :force => true do |t|
+      t.string   "name",       :limit => 255,  :default => "", :null => false
+      t.string   "email",      :limit => 255,  :default => "", :null => false
+      t.string   "purpose",    :limit => 255,  :default => "", :null => false
+      t.string   "homepage",   :limit => 255,  :default => "", :null => false
+      t.string   "citation",   :limit => 255,  :default => "", :null => false
+      t.string   "contact",    :limit => 255,  :default => "", :null => false
+      t.string   "occupation", :limit => 255,  :default => "", :null => false
+      t.string   "age",        :limit => 255,  :default => "", :null => false
+      t.string   "interests",  :limit => 255,  :default => "", :null => false
+      t.string   "skills",     :limit => 255,  :default => "", :null => false
+      t.integer  "project_id",                 :default => 0,  :null => false
+      t.integer  "creator",                    :default => 0,  :null => false
+      t.datetime "created_at",                                 :null => false
+      t.datetime "updated_at",                                 :null => false
+    end
 
     # see also: app/models/project.rb
     # the limit is specified in lengh of unicode characters, not bytes
