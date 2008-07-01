@@ -190,9 +190,14 @@ class User < ActiveRecord::Base
   end
 
   # User.find(:all, :conditions => User.verified_users).size
-  def self.verified_users(condition = 'true')
+  def self.verified_users(condition = 'true', options = {})
     if condition.is_a?(String)
-      "(#{condition}) and (verified = 1)"
+      unless options[:alias]
+        "(#{condition}) and (verified = 1)"
+      else
+        a = options[:alias]
+        "(#{condition}) and (#{a}.verified = 1)"
+      end
     elsif condition.is_a?(Array)
       [ verified_users(condition[0]), *condition[1 .. -1] ]
     else
