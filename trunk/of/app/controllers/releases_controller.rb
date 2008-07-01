@@ -168,7 +168,8 @@ class ReleasesController < ApplicationController
     #if request.post?
       r = Release.find params[:id]
       return if r.nil?
-      files = params[:uploadfiles].collect { |path| make_file_entity path }
+      project_name = Project.find(params[:project_id]).name
+      files = params[:uploadfiles].collect { |path| make_file_entity(path, File.size("#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/#{path}")) }
       r.fileentity << files
       r.save
       flash[:notice] = 'Your files have been added to Release!'
@@ -204,14 +205,12 @@ class ReleasesController < ApplicationController
   private
   
   #建立檔案的database entry, 會連結到外部ftp hook
-  def make_file_entity(path)
+  def make_file_entity(path, size)
     unless ( ret=Fileentity.find_by_path(path) ).nil?
       ret
     else
       #TODO collect meta info for FILE, move FILE
-      Fileentity.create( :attributes => {:path => path} )
-      
-      
+      Fileentity.create( :attributes => {:path => path, :size => size} )
     end
   end
 
