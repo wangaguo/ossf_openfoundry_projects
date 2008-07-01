@@ -96,7 +96,6 @@ require 'acts_as_ferret'
 # for search in UTF-8
 UTF8_ANALYSIS_REGEX = /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
 GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
-require 'lib/search_setting.rb'
 
 
 # share session cookie for sub-doamins (SSO)
