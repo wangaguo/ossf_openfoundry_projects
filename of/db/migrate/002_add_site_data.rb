@@ -1,5 +1,8 @@
 class AddSiteData < ActiveRecord::Migration
-  def self.up   
+  def self.up  
+    #--------------
+    #建立權限
+    #--------------        
     #Project
     desc = ['Modify Project Information', 'Add/Remove Project Members']
     %w(info member).each_with_index do |name, i|
@@ -34,6 +37,13 @@ class AddSiteData < ActiveRecord::Migration
         :description => desc[i]
     end
     
+    #Issue Tracker
+    desc = ['Create New Ticket', 'View Ticket Details', 'Assign Ticket']
+    %w(new edit assign).each_with_index do |name, i|
+      Function.create :name => "rt_#{name}", :module => 'rt', 
+        :description => desc[i]
+    end
+    
     #forums
     desc = ['Post Messages', 'View List Details', 'Access Message Archives']
     %w(post view archive).each_with_index do |name, i|
@@ -50,6 +60,36 @@ class AddSiteData < ActiveRecord::Migration
     
     #FTP
     Function.create :name => 'ftp_login', :module => 'ftp', :description => 'Ftp Access'
+    #--------------
+    #建立User 
+    #--------------
+    User.create :login => 'root', :email => 'contact@openfoundry.org',:verified => 0
+    User.create :login => 'guest', :email => 'contact@openfoundry.org',:verified => 0
+
+    #--------------
+    #建立Project
+    #--------------
+    index = 1000
+    %w(openfoundry testsvn testsympa testrt testftp testweb testcvs sandbox test).each do |summary|
+      Project.create( :id => index,
+                      :name => summary, 
+                      :summary => "#{summary}",
+                      :rationale => "#{summary}",
+                      :description => "",
+                      :contactinfo => "contact@#{summary}.openfoundry.org",
+                      :maturity => "under construltion",
+                      :license => "BSD",
+                      :contentlicense => "GPL",
+                      :platform => "FreeBSD",
+                      :programminglanguage => "ruby",
+                      :intendedaudience => "end user",
+                      :creator => 1,
+                      :status => 3,
+                      :vcs => "svn",
+                      :icon => 5
+      )
+      index+=1
+    end
   end
 
   def self.down
