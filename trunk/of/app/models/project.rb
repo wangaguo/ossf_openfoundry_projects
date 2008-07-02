@@ -222,29 +222,58 @@ EOEO
   validates_length_of :vcsdescription, :maximum => 100
 
   # Project.new(:name => 'openfoundry').valid?
-  def validate_on_create
-    if Project.exists?(Project.in_used_projects(['name = ?', name]))
-      errors.add(:name, _("'#{name}' has already been taken"))
-    end
-  end
+  ### also invoked by approve()
+  ##def validate_on_create
+  ##  if Project.exists?(Project.in_used_projects(['name = ?', name]))
+  ##    errors.add(:name, _("'#{name}' has already been taken"))
+  ##  end
+  ##end
 
   def validate
-    ls = license.split(",").grep(/./).map(&:to_i)
+    if new_record?
+      if Project.exists?(Project.in_used_projects(['name = ?', name]))
+        errors.add(:name, _("'#{name}' has already been taken"))
+      end
+    else
+      # for "approve"
+      if Project.exists?(Project.in_used_projects(['name = ? and id <> ?', name, id]))
+        errors.add(:name, _("'#{name}' has already been taken"))
+      end
+    end
+
+    ls = "#{license}".split(",").grep(/./).map(&:to_i)
+    if ls.length == 0
+      errors.add(:license, _("Please choose at least one code license."))
+    end
     if ls.include?(0) and ls != [0] 
       errors.add(:license, _("If this project contains no code, then you may not choose any other license."))
     end
-    cls = contentlicense.split(",").grep(/./).map(&:to_i)
+
+    cls = "#{contentlicense}".split(",").grep(/./).map(&:to_i)
+    if cls.length == 0
+      errors.add(:license, _("Please choose at least one content license."))
+    end
     if cls.include?(0) and cls != [0] 
       errors.add(:contentlicense, _("If this project contains only code, then you may not choose any other content license."))
     end
     if cls.include?(-3) and cls != [-3] 
       errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose any other content license."))
     end
+
     if cls = [-3] and ls == [0] 
       errors.add(:contentlicense, _("You have to choose a code license."))
     end
+
     if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
       errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"."))
+    end
+
+    if "#{platform}".split(",").grep(/./).length == 0
+      errors.add(:platform, _("Please choose at least one platform."))
+    end
+
+    if "#{programminglanguage}".split(",").grep(/./).length == 0
+      errors.add(:programminglanguage, _("Please choose at least one programming language."))
     end
   end
   
@@ -281,8 +310,10 @@ EOEO
   # reason: string
   def approve(reason)
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
-    self.status = Project::STATUS[:READY]
-    self.statusreason = reason
+
+    if not update_attributes(:status => Project::STATUS[:READY], :statusreason => reason)
+      return false
+    end
 
     # add default roles: Admin/Member
     ['Admin', 'Member'].each do |role_name|
@@ -293,7 +324,6 @@ EOEO
       end.save
     end
 
-    save
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
