@@ -10,7 +10,7 @@
     <%= fckeditor_textarea( "news", "description", :height => 400 ) %> 
 </div>
 <% else %>
-<p><label for="news_descr">_('Description')</label><br/>
+<p><label for="news_descr"><%_('Description')%></label><br/>
 <%= text_area("news", "description", "cols" => 40, "rows" => 10) %></p>
 <% end %>
 
