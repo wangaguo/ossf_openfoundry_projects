@@ -67,21 +67,21 @@ class OpenfoundryController < ApplicationController
       return
     end
     
-    service = params[:service] || :rt
-    action = params[:action] || :view
-    function_name = "#{service}_#{action}"
+    service = params[:service] || :wiki
+    permission = params[:permission] || :edit
+    function_name = "#{service}_#{permission}"
     
-    sql_tmp = "select distinct(U.id) u_id,P.id p_id  from 
-                                  users U, projects P, roles_users RU, roles R, functions F , roles_functions RF 
-                     where ((F.name = '#{function_name}' and F.id = RF.function_id and R.id = RF.role_id)
-                                     or R.name='admin') and 
-                                  R.authorizable_id = P.id and 
-                                  R.authorizable_type = 'Project' and 
-                                  R.authorizable_id = P.id and 
-                                  RU.role_id = R.id and 
-                                  RU.user_id = U.id and 
-                                  #{User.verified_users('true',:alias => 'U')} and 
-                                  #{Project.in_used_projects('true',:alias => 'P')}"
+    sql_tmp = "select distinctrow U.id u_id,P.id p_id  from 
+              users U, projects P, roles_users RU, roles R, functions F , roles_functions RF 
+            where ((F.name = '#{function_name}' and F.id = RF.function_id and R.id = RF.role_id)
+                 or R.name='admin') and 
+              R.authorizable_id = P.id and 
+              R.authorizable_type = 'Project' and 
+              R.authorizable_id = P.id and 
+              RU.role_id = R.id and 
+              RU.user_id = U.id and 
+              #{User.verified_users('true',:alias => 'U')} and 
+              #{Project.in_used_projects('true',:alias => 'P')}"
     
     projects = Project.find(:all, :conditions => Project.in_used_projects())
     users = User.find(:all, :conditions => User.verified_users())
@@ -90,12 +90,8 @@ class OpenfoundryController < ApplicationController
       :projects => projects.map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
       :users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email, :password => u.salted_password } },
       :relations => relations.collect{|r| [r.p_id, r.u_id]}
-#        {
-#        :admin => projects.inject([]) { |all, p| all + p.admins().map { |u| [p.id, u.id] } },
-#        :member => projects.inject([]) { |all, p| all + p.members().map { |u| [p.id, u.id] } }
-#      }
     }
-    render :text => sql_tmp, :layout => false
+    render :text => data.to_json, :layout => false
   end
   
   def foundry_dump # TODO: optimize !!!!
