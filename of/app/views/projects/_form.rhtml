@@ -39,6 +39,10 @@ AAA
     rtn += "<br/>" + _("Others") + " "
     rtn += text_field_tag("#{name}[-1]", (values - predefined).join(", "), :size => 50)
   end
+
+  def err(obj, field, str)
+    obj.errors.on(field) ? "<div class=\"fieldWithErrors\">#{str}</div>" : str
+  end
 %>
 
 <%
@@ -85,15 +89,15 @@ AAA
   foo("maturity", true, _("Project|Maturity|Help")),
     select('project', 'maturity', to_select(Project::MATURITY)),
   foo("license", true, _("Project|License|Help")),
-    tmp_licenses,
+    err(@project, :license, tmp_licenses),
   foo("contentlicense", true, _("Project|Contentlicense|Help")),
-    tmp_contentlicenses,
+    err(@project, :contentlicense, tmp_contentlicenses),
   foo("licensingdescription", false, _("Project|Licensingdescription|Help")),
     text_area('project', 'licensingdescription'),
   foo("platform", true, _("Project|Platform|Help")),
-    of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform),
+    err(@project, :platform, of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform)),
   foo("programminglanguage", true, _("Project|Programminglanguage|Help")), 
-    of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage),
+    err(@project, :programminglanguage, of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage)),
   #foo("intendedaudience", true, _("Project|Intendedaudience|Help")), 
   #  of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience),
   foo("redirecturl", false, _("Project|Redirecturl|Help")), 
