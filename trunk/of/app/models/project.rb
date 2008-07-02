@@ -251,7 +251,7 @@ EOEO
 
     cls = "#{contentlicense}".split(",").grep(/./).map(&:to_i)
     if cls.length == 0
-      errors.add(:license, _("Please choose at least one content license."))
+      errors.add(:contentlicense, _("Please choose at least one content license."))
     end
     if cls.include?(0) and cls != [0] 
       errors.add(:contentlicense, _("If this project contains only code, then you may not choose any other content license."))
@@ -260,7 +260,7 @@ EOEO
       errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose any other content license."))
     end
 
-    if cls = [-3] and ls == [0] 
+    if cls == [-3] and ls == [0] 
       errors.add(:contentlicense, _("You have to choose a code license."))
     end
 
@@ -268,11 +268,11 @@ EOEO
       errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"."))
     end
 
-    if "#{platform}".split(",").grep(/./).length == 0
+    if "#{platform}".split(",").grep(/./).empty?
       errors.add(:platform, _("Please choose at least one platform."))
     end
 
-    if "#{programminglanguage}".split(",").grep(/./).length == 0
+    if "#{programminglanguage}".split(",").grep(/./).empty?
       errors.add(:programminglanguage, _("Please choose at least one programming language."))
     end
   end
