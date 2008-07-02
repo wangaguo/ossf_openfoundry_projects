@@ -16,7 +16,7 @@
   <tr class="<%= class_name %>">
     <td><img src="<%= url_for(:controller => :images,:action => "image", :id => Project.find(release.project_id).icon,:size => 16) %>"/></td>
     <td><%= (i+=1).to_s %></td>
-    <td><%= link_to h(release.project.summary + " " + release.version), "/projects/#{release.project_id}/releases/#{release.id}" %></td>
+    <td><%= link_to h(release.project.summary + " " + release.version), download1_path(:project_id => release.project_id) + "##{release.version}" %></td>
     <td><%= release.created_at.strftime("%Y/%m/%d %H:%M") %></td>
     <td><%= release.release_counter %></td>
   </tr>

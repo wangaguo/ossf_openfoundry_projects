@@ -3,7 +3,7 @@
   <table class=list-table>
   <% @releases.each do |release|%>
     <tr>
-      <th style="text-align: left"><B><%= h(release.version) + " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %></B></th>
+      <th style="text-align: left"><B><%= "<a name=\"#{h(release.version)}\"></a>" + h(release.version) + " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %></B></th>
     </tr>
     <% @files = release.fileentity %>
     <% @files.each do |file| %>
@@ -18,39 +18,4 @@
     <% end %>
   <% end %>
   </table>
-   
-<!--
-  <p> <%= viewports_manager(:update => "ReleaseBasic"  ,
-      :url => {:project_id => @project_id,
-        :controller => :releases,
-        :method => :get,
-        :layout => 'false'}
-  ) %> </p> 
-  <%= link_to '[new]', 
-    :project_id => @project_id,
-    :action => :new
-  %>
-  <br/>
-  <% @releases.each do |release|%>
-    <%= arranged('ReleaseItem',release, {})%>
-    <%= link_to '[show]', release_url(
-      :project_id => @project_id,
-      :id => release
-    )
-    %>
-    <%= link_to '[edit]', edit_release_url(
-      :project_id => @project_id,
-      :id => release
-    )
-    %>
-    <%= link_to '[delete]', delete_release_url(
-      {
-        :project_id => @project_id, 
-        :id => release
-      }), 
-      :confirm => 'Delete?', 
-      :method => :post
-    %>
-  <% end %>
--->
 </div>
