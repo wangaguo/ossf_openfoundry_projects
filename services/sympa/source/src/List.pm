@@ -11393,3 +11393,189 @@ sub get_lists {
 
 ## Packages must return true.
 1;
+package OpenFoundry::Sympa;
+use lib '/usr/local/lib/sympa';
+use List;
+use Conf;
+use Data::Dumper;
+
+sub deleteDuplicateEmailAddresses
+{
+	my @sql;
+	my $of = OpenFoundry->init();
+	my $users = $of->getUsers;
+
+	&List::db_connect();
+	my $dbh = &List::db_get_handler();
+	
+	foreach my $user (@{$users}){
+		my $email_true=$user->{'email'};
+		my $email_false=$user->{'name'}."\@users.openfoundry.org";
+		#push @sql,"update ignore user_table set email_user = '".$user->{'Emailaddress'}."' where email_user = '".$user->{'Name'}."\@users.openfoundry.org'\n";
+
+		#push @sql,"update user_table set email_user = '".$user->{'Emailaddress'}."' where email_user = '".$user->{'Name'}."\@users.openfoundry.org';\n";
+
+		#push @sql,"update subscriber_table set user_subscriber = '".$user->{'Emailaddress'}."' where user_subscriber = '".$user->{'Name'}."\@users.openfoundry.org';\n";
+	 	{	
+		my $sql="select count(*) AS c from user_table where email_user in (?, ?) having c>1;";
+
+		my $lists=$dbh->selectcol_arrayref($sql, {}, $email_true, $email_false);	
+		#print $user->{'Name'}, " ", Dumper($lists) if @$lists;
+		if(@$lists)
+		{
+			my $delsql = "delete from user_table where email_user = ? ";
+			print  $email_true," ", $email_false, "\n";
+			$dbh->do($delsql, {}, $email_false);
+				
+		}
+		$dbh->do("update user_table set email_user = ? where email_user= ?", {}, $email_true, $email_false);
+
+
+		}
+
+		if(0)
+		{
+		my $sql="select a from (select list_subscriber a , count(*) AS c from subscriber_table where user_subscriber in (?, ?) group by a having c>1) as dummy;";
+
+		my $lists=$dbh->selectcol_arrayref($sql, {}, $email_true, $email_false);
+		print $user->{'name'}, " ", Dumper($lists) if @$lists;
+		foreach my $list (@$lists)
+		{
+			my $delsql = "delete from subscriber_table where list_subscriber = ? and user_subscriber = ?";
+			print $list, " ", $email_false, "\n";
+			$dbh->do($delsql, {}, $list, $email_false);
+		}
+
+
+		$dbh->do("update subscriber_table set user_subscriber = ? where user_subscriber = ?", {}, $email_true, $email_false);
+	
+		}
+	}
+	List::db_disconnect();
+}
+# only invoked by "sympa.pl --sync_with_foundry"
+sub syncWithFoundry
+{
+	my $table = "foundry_owner";
+	my $table_tmp = "foundry_owner_tmp";
+
+	my $of = OpenFoundry->init();
+
+	# admin
+	my $relations = $of->getRelations();
+        &List::db_connect();
+	my $dbh = &List::db_get_handler();
+	print "dbh : $dbh \n";
+
+	print "Creating tables: '$table' '$table_tmp'\n";
+	$dbh->do("create table $table (email varchar(100), project_name varchar(20))");
+	$dbh->do("create table $table_tmp (email varchar(100), project_name varchar(20))");
+
+	
+	#clear the 'owner_include' table
+	my $sql="truncate $table_tmp";
+	unless($dbh->do($sql)){
+		print "SQL error-> $sql, $dbh->errstr\n";
+	}
+
+	#insert new entries into tmp table
+	my $sth = $dbh->prepare("insert into $table_tmp values (?, ?)");
+	foreach my $pu (@{$relations->{'admin'}})
+	{
+		my ($projectId, $userId) = @$pu;
+		my $u=$of->getUserById($userId);
+		my $p=$of->getProjectById($projectId);
+		#die "why??" if (not $u or not $p);
+		$sth->execute($u->{'email'}, $p->{'name'});
+	}	
+
+
+	#
+	# compute the projects having diff
+	#
+	$sql = <<"END_OF_SQL";
+select aa.project_name from $table aa
+left  join $table_tmp bb on aa.email = bb.email and aa.project_name = bb.project_name
+where bb.email is null
+union
+select bb.project_name from $table aa
+right join $table_tmp bb on aa.email = bb.email and aa.project_name = bb.project_name
+where aa.email is null
+END_OF_SQL
+	#print "the SQL: $sql\n";
+	my $projects = $dbh->selectcol_arrayref($sql);
+	print "projects need to be updated: ", Dumper($projects);
+
+
+	#
+	# RENAME $table_tmp to $table and REMOVE $table
+	#
+	$sql="drop table $table";
+	$dbh->do($sql);
+	$sql="alter table $table_tmp rename to $table";
+	$dbh->do($sql);
+
+
+	#update owner, editor in List::new
+	List::get_lists_by_prefix(undef, undef, $projects);
+
+	return 1;
+}
+
+###### END of the OpenFoundry::Sympa package ######
+
+package List;
+use Data::Dumper;
+sub get_lists_by_prefix {
+	#print STDERR "the prefix = ".Dumper(\@_)."\n";
+	return get_lists_by_regex($_[0],$_[1],"^(?:".join( "|",@{$_[2]}).")-");
+}
+sub get_lists_by_regex {
+    my $robot_context = shift || '*';
+    my $options = shift;
+
+my $regex = shift;
+print STDERR "get_lists_by_prefix: regex = $regex\n";
+$regex = qr/$regex/;
+
+    my(@lists, $l,@robots);
+    do_log('debug2', 'List::get_lists(%s)',$robot_context);
+
+    if ($robot_context eq '*') {
+	@robots = &get_robots ;
+    }else{
+	push @robots, $robot_context ;
+    }
+
+    
+    foreach my $robot (@robots) {
+    
+	my $robot_dir =  $Conf{'home'}.'/'.$robot ;
+	$robot_dir = $Conf{'home'}  unless ((-d $robot_dir) || ($robot ne $Conf{'host'}));
+	
+	unless (-d $robot_dir) {
+	    do_log('err',"unknown robot $robot, Unable to open $robot_dir");
+	    return undef ;
+	}
+	
+	unless (opendir(DIR, $robot_dir)) {
+	    do_log('err',"Unable to open $robot_dir");
+	    return undef;
+	}
+	foreach my $l (sort readdir(DIR)) {
+next if not $l =~ $regex;
+	    next if (($l =~ /^\./o) || (! -d "$robot_dir/$l") || (! -f "$robot_dir/$l/config"));
+
+	    my $list = new List ($l, $robot, $options);
+
+	    next unless (defined $list);
+
+	    push @lists, $list;
+	    
+	}
+	closedir DIR;
+    }
+    return \@lists;
+}
+
+###### END of the List(ext) package ######
