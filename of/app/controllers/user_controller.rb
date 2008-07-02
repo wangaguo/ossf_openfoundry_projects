@@ -41,6 +41,10 @@ class UserController < ApplicationController
       break if not @my_projects.out_of_bounds?
     end
   end
+  
+  def index
+    redirect_to :action => :home
+  end
 
   def home
     # given uid to show other user's home
