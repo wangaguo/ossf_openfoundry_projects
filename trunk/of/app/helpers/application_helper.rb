@@ -44,6 +44,7 @@ module ApplicationHelper
     levels = url[0].split('/') #break up url into different levels
     #if not 'home' page, give a 'home' link
     html << addcrumb( _('Home') , '/') unless levels.empty? 
+    level_name=""
     level_class=nil
     level_title='name'
     levels.each_with_index do |level, index|
@@ -65,6 +66,8 @@ module ApplicationHelper
           when 'rt'
             level_name, level_class, level_title = 
               _('Issue Tracker'), "rt", 'subject'
+          else
+            level_name = _("#{level.humanize.capitalize}") 
           end
         elsif level =~ /\d/
           if(["rt"].include?(level_class)==false)
