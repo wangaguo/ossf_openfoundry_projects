@@ -11391,8 +11391,6 @@ sub get_lists {
 
 ###### END of the Robot package ######
 
-## Packages must return true.
-1;
 package OpenFoundry::Sympa;
 use lib '/usr/local/lib/sympa';
 use List;
@@ -11579,3 +11577,6 @@ next if not $l =~ $regex;
 }
 
 ###### END of the List(ext) package ######
+
+## Packages must return true.
+1;
