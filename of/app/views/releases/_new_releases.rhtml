@@ -2,7 +2,7 @@
     <ul>
   <% for release in newReleasesList %>
     <li>
-      <%= link_to h(release.name), "/projects/#{release.project_id}/releases/#{release.id}" %>
+      <%= link_to h(release.project.summary + " " + release.version), download1_path(:project_id => release.project_id) + "##{release.version}" %>
     </li>
   <% end %>
     </ul>
