@@ -10,7 +10,7 @@
     </a>
     <%= render :partial => 'images/edit', :locals => 
     {:image_id => @icon, :id => current_user.id,
-      :type => 'User', :back_to => url_for(:controller => :user, :action => :edit) }%>
+      :type => 'User', :back_to => url_for(:controller => :user, :action => :home) }%>
   <% end %>
 </fieldset>
 <dl>
