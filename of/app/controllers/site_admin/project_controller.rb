@@ -57,9 +57,14 @@ class SiteAdmin::ProjectController < SiteAdmin
   def change_status
     @project = Project.find(params[:id])
     raise "wrong params[:invoke]: #{params[:invoke]}" if not ['approve', 'reject', 'suspend', 'resume'].include?(params[:invoke])
-    @project.send(params[:invoke], params[:statusreason])
-    flash[:notice] = 'status changed!'
-    redirect_to :action => 'show', :id => @project.id
+    if @project.send(params[:invoke], params[:statusreason])
+      flash[:notice] = 'status changed!'
+      redirect_to :action => 'show', :id => @project.id
+    else
+      @bad_project = @project   # bad project only for showing error messages
+      @project = Project.find(params[:id])
+      render :action => 'change_status_form'
+    end
   end
 
 #  def approve
