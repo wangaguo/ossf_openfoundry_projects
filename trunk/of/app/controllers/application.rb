@@ -153,12 +153,13 @@ class ApplicationController < ActionController::Base
   #  obj.destroy and obj = nil if obj.host == request.remote_ip unless obj.nil?
   #end
 
-  def self.find_resources(options = {:parent => '', :child => '', :parent_id_method => '', :child_rename => ''})
+  def self.find_resources(options = { :parent => '', :child => '', :parent_id_method => '', :child_rename => '', :parent_conditions =>  '' })
     child = options[:child].to_s.downcase
     parent = options[:parent].to_s.downcase
     parent_class_name = options[:parent].to_s.camelize
     child_class_name = options[:child].to_s.camelize
     parent_id_method = options[:parent_id_method].to_s
+    parent_conditions = (options[:parent_conditions] || "Project.in_used_projects()").to_s
     if(options[:child_rename].to_s != '')
       child = options[:child_rename].to_s.downcase
     end
@@ -175,12 +176,12 @@ class ApplicationController < ActionController::Base
             if params[:#{parent}_id] != @#{child}.#{parent_id_method}.to_s
               redirect_to :#{parent}_id => @#{child}.#{parent_id_method}, :id => @#{child}.id
             else
-              @#{parent} = #{parent_class_name}.find(@#{child}.#{parent_id_method})
+              @#{parent} = #{parent_class_name}.find(@#{child}.#{parent_id_method}, :conditions => #{parent_conditions})
             end
           end
         rescue
           begin
-            @#{parent} = #{parent_class_name}.find(params[:#{parent}_id])
+            @#{parent} = #{parent_class_name}.find(params[:#{parent}_id], :conditions => #{parent_conditions})
             redirect_to :#{parent}_id => @#{parent}.id, :id => nil, :action => 'index'
           rescue
             redirect_to '/' # TODO: root ?
