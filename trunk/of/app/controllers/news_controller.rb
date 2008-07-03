@@ -1,8 +1,6 @@
 class NewsController < ApplicationController 
   find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid'
   before_filter :controller_load
-
-  #see lib/permission_table.rb
   before_filter :check_permission
 
   def controller_load
@@ -38,10 +36,10 @@ class NewsController < ApplicationController
       layout_name = "module"
       conditions = "catid=" + params[:project_id]
     end
-    if permit?("site_admin") || (@project != nil && permit?("admin of :project"))
+    if fpermit?("news", params[:project_id])
       sqlStatus = ''
     else
-      sqlStatus = ' and status = "1"'
+      sqlStatus = ' and status = "' + News::Status[:Enabled] + '"'
     end
     reset_sortable_columns
     add_to_sortable_columns('listing', News, 'subject', 'subject') 
