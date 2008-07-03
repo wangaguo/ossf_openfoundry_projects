@@ -1,0 +1,34 @@
+<h1><%=@head%></h1>
+<div class="sort">
+<%= _("Sort by")%>
+<%= link_to _('Subject'),  sort_param('listing', Job, 'subject', 'subject') %> |
+<%= link_to _('Last Updated'),  sort_param('listing', Job, 'updated_at', 'updated_at') %>
+</div>
+<ul>
+  <%for data_item in @data_items %>
+  <li>
+    <%= link_to h(data_item.subject), job_path(:id => data_item.id, :project_id => data_item.project_id) %>
+    <%=data_item.updated_at.strftime("(%Y/%m/%d)")%>
+    <p><%=h data_item.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;(<%=link_to (_('Read More'), :controller => "jobs", :action => "show", :id => data_item.id ) %>)</p>
+    <% if @has_permit -%>
+    <p>
+      <label><%=_('Status')%>:</label>
+      <% if data_item.status == 1 %>
+        <%=_('Enabled')%>
+      <% else %>
+	      <%=_('Disabled')%>
+      <% end %>
+      <%= link_to _('Edit'), :action => 'edit', :id => data_item %>
+      <%= link_to _('Delete'), { :action => 'destroy', :id => data_item }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
+    </p>
+    <% end %>
+  </li>
+  <% end %>
+</ul>
+  
+<%= will_paginate @data_items %>
+
+<br />
+<% if @has_permit -%>
+<%= link_to _('Add Job'), :action => 'new' %>
+<% end %>

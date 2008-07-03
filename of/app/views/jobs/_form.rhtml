@@ -1,0 +1,27 @@
+<%= error_messages_for 'data_item', :object_name => 'job' %>
+
+<table class='form-table'>
+  <tr>
+    <th><label for="data_item_subject"><%=_('Subject')%></label><%=required_icon%></th>
+    <td><%= text_field 'data_item', 'subject' %></td>
+  </tr>
+  <tr>
+    <th><label for="data_item_description"><%=_('Description')%></label><%=required_icon%></th>
+    <td><%= text_area("data_item", "description") %></td>
+  </tr>
+  <tr>
+    <th><label for="data_item_requirement"><%=_('Requirement')%></label></th>
+    <td><%= text_area("data_item", "requirement") %></td>
+  </tr>
+  <tr>
+    <th><label for="data_item_due"><%=_('Due Date')%></label><%=required_icon%></th>
+    <td><%= text_field 'data_item', 'due' %></td>
+  </tr>
+  <tr>
+    <th><label for="data_item_status"><%=_('Status')%></label></th>
+    <td>
+      <%= radio_button("data_item", "status", Job::STATUS[:Enabled]) %><%=_('Enabled')%>
+      <%= radio_button("data_item", "status", Job::STATUS[:Disabled]) %><%=_('Disabled')%>
+    </td>
+  </tr>
+</table>
