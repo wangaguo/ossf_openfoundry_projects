@@ -17,8 +17,7 @@ class News < ActiveRecord::Base
   validates_length_of :subject, :within => 3..100, :too_long => _("Length range is ") + "3-100", :too_short => _("Length range is ") + "3-100"
   validates_length_of :description, :within => 3..4000, :too_long => _("Length range is ") + "3-4000", :too_short => _("Length range is ") + "3-4000"
   validates_inclusion_of :status, :in => STATUS.values, :message => _("Not a valid value")
-  validates_date_time :updated_at, :message => _("Not a valid date time"), :allow_nil => true
-  
+  validates_exclusion_of :updated_at, :in => [nil], :message => _("is an invalid datetime")
   def self.home_news
     News.find(:all, :conditions => ['catid="0" and status = "1"'], :order => "updated_at desc", :limit => 5)
   end

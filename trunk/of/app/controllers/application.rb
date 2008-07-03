@@ -209,11 +209,17 @@ THECODE
   helper_method :fpermit?
   
   def utc_to_local(time)
-    TzTime.zone.adjust(time)
+    if !time.nil? && time === DateTime
+      TzTime.zone.adjust(time)
+    end
   end
   
   def local_to_utc(time)
-    TzTime.zone.unadjust(time)
+    if !time.nil? && time === DateTime
+      TzTime.zone.unadjust(time)
+    else
+      time
+    end
   end
   
   #Overwrite sort_param to include url params
