@@ -54,7 +54,8 @@ class CreateTables < ActiveRecord::Migration
     create_table "jobs", :force => true do |t|
       t.string   "subject",     :limit => 255,  :default => "", :null => false
       t.string   "description", :limit => 4000, :default => "", :null => false
-      t.string   "Requirement", :limit => 255,  :default => "", :null => false
+      t.string   "requirement", :limit => 255,  :default => "", :null => false
+      t.datetime "due",                                         :null => true
       t.integer  "project_id",                  :default => 0,  :null => false
       t.integer  "status",                      :default => 1,  :null => false
       t.integer  "creator",                     :default => 0,  :null => false
@@ -67,7 +68,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "project_title",    :limit => 255,  :default => "", :null => false
       t.string   "license",          :limit => 255,  :default => "", :null => false
       t.string   "url",              :limit => 255,  :default => "", :null => false
-      t.string   "release_date",     :limit => 255,  :default => "", :null => false
+      t.datetime "release_date",                                     :null => true
       t.string   "release_version",  :limit => 255,  :default => "", :null => false
       t.integer  "project_id",                       :default => 0,  :null => false
       t.integer  "status",                           :default => 1,  :null => false
@@ -77,7 +78,7 @@ class CreateTables < ActiveRecord::Migration
     end
     
     create_table "references", :force => true do |t|
-      t.string   "Source",     :limit => 4000,  :default => "", :null => false
+      t.string   "source",     :limit => 4000,  :default => "", :null => false
       t.integer  "project_id",                  :default => 0,  :null => false
       t.integer  "status",                      :default => 1,  :null => false
       t.integer  "creator",                     :default => 0,  :null => false
@@ -87,8 +88,8 @@ class CreateTables < ActiveRecord::Migration
     
     create_table "events", :force => true do |t|
       t.string   "subject",    :limit => 255,  :default => "", :null => false
-      t.string   "starts",     :limit => 255,  :default => "", :null => false
-      t.string   "due",        :limit => 255,  :default => "", :null => false
+      t.datetime "starts",                                     :null => true
+      t.datetime "due",                                        :null => true
       t.integer  "Owner",                      :default => 0,  :null => false
       t.string   "version",    :limit => 255,  :default => "", :null => false
       t.integer  "project_id",                 :default => 0,  :null => false
