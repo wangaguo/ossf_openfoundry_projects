@@ -14,7 +14,7 @@
     <%end%>
     <%=news.updated_at.strftime("(%Y/%m/%d)")%>
     <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;(<%=link_to (_('Read More'), :controller => "news", :action => "show", :id => news.id ) %>)</p>
-    <% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
+    <% if has_permit = fpermit?("news", params[:project_id]) -%>
     <p>
       <label><%=_('Status')%>:</label>
       <% if news.status == 1 %>
@@ -33,6 +33,6 @@
 <%= will_paginate @news %>
 
 <br />
-<% if permit?("site_admin") || (@project != nil && permit?("admin of :project")) -%>
+<% if has_permit -%>
 <%= link_to _('Add News'), :action => 'new' %>
 <% end %>
