@@ -11,7 +11,8 @@ class Function < ActiveRecord::Base
     return true if Role.count_by_sql("select U.id from roles R, roles_users RU, users U 
         where U.id = RU.user_id and R.id = RU.role_id and R.name = 'Admin' and
               R.authorizable_id = '#{authorizable_id}' and 
-              R.authorizable_type = 'Project'                      
+              R.authorizable_type = 'Project' and
+              U.login = '#{current_user.login}'                    
         ") > 0
     
     #else check every permission carefully!
