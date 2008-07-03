@@ -12,13 +12,16 @@ class ProjectsController < ApplicationController
     rtn = nil
     case id_or_name
     when /^\d+$/
-      rtn = Project.find_by_id(id_or_name)
+      rtn = Project.find_by_id(id_or_name, :conditions => Project.in_used_projects())
     when Project::NAME_REGEX
-      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ?", id_or_name])
+      if rtn = Project.find(:first, :select => 'id', :conditions => Project.in_used_projects(["name = ?", id_or_name]))
         yield rtn.id
       end
     end
-    controller.send(:redirect_to, "/") if not rtn # ....
+    if not rtn
+      controller.send(:flash)[:warning] = "Project '#{id_or_name}' does not exist, or it has be deactivated."
+      controller.send(:redirect_to, "/")
+    end
     rtn
   end
 
