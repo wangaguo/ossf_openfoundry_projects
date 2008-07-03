@@ -63,6 +63,9 @@ module ApplicationHelper
           when 'news'
             level_name, level_class, level_title = 
               _('Project News'), News, 'subject'
+          when 'jobs'
+            level_name, level_class, level_title = 
+              _('Help Wanted'), Job, 'subject'
           when 'rt'
             level_name, level_class, level_title = 
               _('Issue Tracker'), "rt", 'subject'
@@ -222,6 +225,10 @@ module ApplicationHelper
     '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
   end
   
+  def required_icon
+    '<em class="required"><img src="/images/icon/star.gif"></em>'
+  end
+
   def tz_date(time_at)
     time = TzTime.zone.adjust(time_at.utc)
     time.strftime("%Y-%m-%d")
