@@ -39,7 +39,7 @@ class NewsController < ApplicationController
     if fpermit?("news", params[:project_id])
       sqlStatus = ''
     else
-      sqlStatus = ' and status = "' + News::Status[:Enabled] + '"'
+      sqlStatus = ' and status = "' + News::STATUS[:Enabled].to_s + '"'
     end
     reset_sortable_columns
     add_to_sortable_columns('listing', News, 'subject', 'subject') 
