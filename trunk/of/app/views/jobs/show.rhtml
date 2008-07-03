@@ -1,0 +1,25 @@
+<h1><%=@data_item.subject%></h1>
+<p class="date"><%=_('Last Updated')%>:&nbsp;<%=tz_datetime(@data_item.updated_at)%></p>
+<table class='form-table'>
+  <tr>
+    <th><%= _('Job|description') %></th>
+    <td><%= h(@data_item.description).gsub("\n", '<br/>') %></td>
+  </tr>
+  <tr>
+    <th><%= _('Job|requirement') %></th>
+    <td><%= h(@data_item.requirement).gsub("\n", '<br/>') %></td>
+  </tr>
+  <tr>
+    <th><%= _('Job|due') %></th>
+    <td><%= tz_date(@data_item.due) %></td>
+  </tr>
+</table>
+
+<% if fpermit?("job", params["project_id"]) -%>
+<p>
+  <%= link_to _('Edit'), :action => 'edit', :id => @data_item %>
+  <%= link_to _('Delete'), { :action => 'destroy', :id => @data_item }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
+</p>
+<% end %>
+
+<%= link_to _('todo回列表'), :action => 'index', :project_id => params[:project_id] %>
