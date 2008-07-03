@@ -53,6 +53,13 @@ module OpenFoundry
       #:show
       #:permit_redirect
     },
+    :jobs => jobs_pt = {
+      :new => :job,
+      :create => :job,
+      :destroy => :job,
+      :edit => :job,
+      :update => :job
+    },
     :releases => releases_pt = {
       :new => :release,
       :create => :release,
