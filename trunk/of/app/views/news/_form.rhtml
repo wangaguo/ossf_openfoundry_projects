@@ -21,7 +21,7 @@
 <%= text_field 'news', 'updated_at' %></p>
 <% end %>
 
-<p><label for="news_status_1"><%=_('Status')%></label><br/>
+<p><label for="news_status"><%=_('Status')%></label><br/>
 <%= radio_button("news", "status", News::STATUS[:Enabled]) %><%=_('Enabled')%>
 <%= radio_button("news", "status", News::STATUS[:Disabled]) %><%=_('Disabled')%>
 </p>
