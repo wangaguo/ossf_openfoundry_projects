@@ -8,7 +8,7 @@ class Function < ActiveRecord::Base
     return true if function_name.to_s == 'allow_all'
 
     #if user the the admin of this project, allow it anyway
-    return true if Role.count_by_sql("select id from roles R, roles_users RU, users U 
+    return true if Role.count_by_sql("select U.id from roles R, roles_users RU, users U 
         where U.id = RU.user_id and R.id = RU.role_id and R.name = 'Admin' and
               R.authorizable_id = '#{authorizable_id}' and 
               R.authorizable_type = 'Project'                      
