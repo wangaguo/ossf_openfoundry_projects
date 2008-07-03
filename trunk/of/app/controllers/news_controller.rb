@@ -1,16 +1,11 @@
 class NewsController < ApplicationController 
   find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid'
-  before_filter :permit_redirect
+  before_filter :controller_load
 
   #see lib/permission_table.rb
   before_filter :check_permission
 
-  def permit_redirect
-    if ["new", "create", "edit", "update", "destroy"].include? action_name
-      unless permit?("site_admin") || (@project != nil && permit?("admin of :project"))
-        redirect_to :action => 'index'
-      end
-    end
+  def controller_load
   end
   
   def index
