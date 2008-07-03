@@ -153,12 +153,15 @@ class ApplicationController < ActionController::Base
   #  obj.destroy and obj = nil if obj.host == request.remote_ip unless obj.nil?
   #end
 
-  def self.find_resources(options = {:parent => '', :child => '', :parent_id_method => ''})
+  def self.find_resources(options = {:parent => '', :child => '', :parent_id_method => '', :child_rename => ''})
     child = options[:child].to_s.downcase
     parent = options[:parent].to_s.downcase
     parent_class_name = options[:parent].to_s.camelize
     child_class_name = options[:child].to_s.camelize
     parent_id_method = options[:parent_id_method].to_s
+    if(options[:child_rename].to_s != '')
+      child = options[:child_rename].to_s.downcase
+    end
     code = <<"THECODE"
     def find_resources_before_filter
       if params[:id] != nil
