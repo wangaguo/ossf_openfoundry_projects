@@ -9,57 +9,53 @@ class AddSiteData < ActiveRecord::Migration
       Function.create :name => "project_#{name}", :module => 'Project', 
         :description => desc[i]
     end
-    desc = ['Create a New Role', 'Edit Role Permissions', 'Delete Roles']
+    desc = ['Edit Role Permissions']
     #Role
-    %w(new edit delete).each_with_index do |name, i|
+    %w(edit).each_with_index do |name, i|
       Function.create :name => "role_#{name}", :module => 'Role', 
         :description => desc[i]
     end
     
     #Relesae
-    desc = ['Add new Release', 'Edit Releases', 'Delete Release', 'View Release Details']
-    %w(new edit delete view).each_with_index do |name, i|
-      Function.create :name => "release_#{name}", :module => 'Release', 
-        :description => desc[i]
-    end
+    desc = ['Manage Releases']
+      Function.create :name => "release", :module => 'Release', 
+        :description => desc[0]
     
     #News
-    desc = ['Post new Release', 'Edit News', 'Delete News', 'View News Details']
-    %w(post edit delete view).each_with_index do |name, i|
-      Function.create :name => "news_#{name}", :module => 'News', 
-        :description => desc[i]
-    end
+    desc = ['Manage News']
+      Function.create :name => "news", :module => 'News', 
+        :description => desc[0]
     
-    #Wiki
-    desc = ['Add Wiki Page', 'Edit Wiki Pages', 'Delete Wiki Page', 'View Page Details']
-    %w(new edit delete view).each_with_index do |name, i|
-      Function.create :name => "wiki_#{name}", :module => 'Wiki', 
+    #Kwiki
+    desc = ['Manage Kwiki Pages']
+    %w(manage).each_with_index do |name, i|
+      Function.create :name => "kwiki_#{name}", :module => 'Wiki', 
         :description => desc[i]
     end
     
     #Issue Tracker
-    desc = ['Create New Ticket', 'View Ticket Details', 'Assign Ticket']
-    %w(new edit assign).each_with_index do |name, i|
-      Function.create :name => "rt_#{name}", :module => 'rt', 
+    desc = ['Set As Tracker Admin', 'Set As Tracker CC']
+    %w(admin member).each_with_index do |name, i|
+      Function.create :name => "rt_#{name}", :module => 'Tracker', 
         :description => desc[i]
     end
     
-    #forums
-    desc = ['Post Messages', 'View List Details', 'Access Message Archives']
-    %w(post view archive).each_with_index do |name, i|
-      Function.create :name => "forums_#{name}", :module => 'Forums', 
+    #Sympa
+    desc = ['Manage Sympa Mailing Lists']
+    %w(manage).each_with_index do |name, i|
+      Function.create :name => "sympa_#{name}", :module => 'Forums', 
         :description => desc[i]
     end
     
     #VCS
-    desc = ['SVN import', 'CVS import', 'SVN commit', 'CVS commit']
-    %w(svn_import cvs_import svn_ci cvs_ci).each_with_index do |name, i|
+    desc = ['Commit Changes']
+    %w(commit).each_with_index do |name, i|
       Function.create :name => "vcs_#{name}", :module => 'Vcs', 
         :description => desc[i]
     end
     
     #FTP
-    Function.create :name => 'ftp_login', :module => 'ftp', :description => 'Ftp Access'
+    Function.create :name => 'ftp_access', :module => 'Ftp', :description => 'Ftp Access'
     #--------------
     #建立User 
     #--------------

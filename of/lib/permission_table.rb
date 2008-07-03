@@ -20,11 +20,11 @@ module OpenFoundry
       #:index,
       #:list,
       #:destory,
-      :role_new => :role_new,
-      :role_create => :role_new,
+      :role_new => :role_edit,
+      :role_create => :role_edit,
       :role_edit => :role_edit,
       :role_update => :role_edit,
-      :role_destory => :role_delete,
+      :role_destory => :role_edit,
       #:set_project,
       #:set_project_id,
       :roles_edit => :project_member,
@@ -41,12 +41,12 @@ module OpenFoundry
     :user => user_pt = {
     },
     :news => news_pt = {
-      :new => :news_post,
-      :create => :news_post,
+      :new => :news,
+      :create => :news,
       #:_home_news,
-      :destroy => :news_delete,
-      :edit => :news_edit,
-      :update => :news_edit
+      :destroy => :news,
+      :edit => :news,
+      :update => :news
       #:index,
       #:list,
       #:project,
@@ -54,17 +54,17 @@ module OpenFoundry
       #:permit_redirect
     },
     :releases => releases_pt = {
-      :new => :release_new,
-      :create => :release_new,
-      :addfiles => :release_new,
-      :uploadfiles => :release_new,
-      :edit => :release_edit,
-      :update => :release_edit,
+      :new => :release,
+      :create => :release,
+      :addfiles => :release,
+      :uploadfiles => :release,
+      :edit => :release,
+      :update => :release,
       #:index
       #:latest
       #:list
-      :removefile => :release_delete,
-      :delete => :release_delete
+      :removefile => :release,
+      :delete => :release
       #:show
       #:top
     }#,
