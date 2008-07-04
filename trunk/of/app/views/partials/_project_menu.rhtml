@@ -11,11 +11,10 @@ Event.observe(window, 'load', project_leftmenu_init);
           <ul>
               <li><%= link_to _('project_Summary'), project_path(:id => project.id) %></li>
               <li><%= link_to _('project_Website'), "http://#{project.name}.openfoundry.org" %></li>
-              <li><%= _('project_Members') %></li>
               <li><%= _('Citations') %></li>
               <li><%= _('References') %></li>
               <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
-              <li><%= _('Help Wanted') %></li>
+              <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
           </ul>
       </li>
       <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id), :class => 'subimg' %>
@@ -43,23 +42,16 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('project_Info'), edit_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _('project_Summary'), edit_project_path(:id => project.id) %></li>
-              <li><%= link_to _('project_Website'), "#{project.name}" %></li>
               <li><%= _('Citations') %></li>
               <li><%= _('References') %></li>
               <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
-              <li><%= _('Help Wanted') %></li>
+              <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
           </ul>
       </li>
       <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
       <li><%= link_to _('Kwiki'), kwiki_path(:project_id => project.id) %></li>
-      <li><%= _('Subversion') %></li>
-      <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
-      <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id), :class => 'subimg' %>
-          <ul>
-              <li><%= link_to _('release_Versions'), releases_path(:project_id => project.id) %></li>
-              <li><%= link_to _('release_Upload Pool'), "" %></li>
-          </ul>
-      </li>
+      <li><%= link_to _('Mailing List'), sympa_project_path(:id => project.id) %></li>
+      <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id) %></li>
       <li><%= link_to _('project_Role Control'), :controller => :projects, :action => "roles_edit", :id =>@project%></li>
   </ul>
   <%# end %>
