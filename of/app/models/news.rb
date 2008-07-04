@@ -26,7 +26,7 @@ class News < ActiveRecord::Base
   
   def self.ProjectNews
     News.find(:all, :joins => :project, 
-              :conditions => ["catid<>0 and news.status = #{News::STATUS[:Enabled]} and #{Project.in_used_projects("true", :alias => "projects")}"], 
+              :conditions => ["catid<>0 and news.status = #{News::STATUS[:Enabled]} and #{Project.in_used_projects(:alias => 'projects')}"], 
               :order => "news.updated_at desc", :limit => 5
               )
   end
