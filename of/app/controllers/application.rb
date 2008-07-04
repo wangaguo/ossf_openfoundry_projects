@@ -245,18 +245,19 @@ THECODE
   def check_permission
     #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
     pass = false
+    function_name = PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym]
     begin
       pass =
       if @project
-        fpermit?(PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym], @project.id)
+        fpermit?(function_name, @project.id)
       else
-        fpermit?(PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym], 0)
+        fpermit?(function_name, 0)
       end
     rescue
       pass = false
     ensure
       unless(pass)
-        flash[:error] = _('you have no permission')
+        flash[:warning] = _('you have no permission')+" [#{function_name}]!"
         
         redirect_to request.referer
       end
