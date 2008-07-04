@@ -1,12 +1,9 @@
 <div id="search_result">
   <h1><%= _('Search Result') %></h1>
-  <% form_tag '/openfoundry/search', :method => :get do -%>
-    <%= text_field_tag 'query',@query, :size => 45 %>
-    <%= submit_tag _('search'), :class => 'button' %>
-  <% end -%>
-  <h1><%= _('Search Hits') %>: <%= @results.total_hits %></h1>
-  
-  <%#= render(:partial => 'projects/list', :layout => false, :locals => { :project_pages => project_pages, :projects => @result[1] }) %>
+  <div id="search">
+    <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => false}%>	
+  </div>
+  <%if @reault%>
   <table class='form-table'>
     <% @results.each do |record| %>
       <tr>
@@ -14,4 +11,7 @@
       </tr>
     <% end %>
   </table>
+  <%else%>
+no record!
+  <%end%>
 </div>
