@@ -26,7 +26,7 @@ class NewsController < ApplicationController
     if @is_all_projects_news == true
       @head = _('Project News')
       layout_name = "application"
-      conditions = "news.catid<>0 and " + Project.in_used_projects("true", :alias => "projects")
+      conditions = "news.catid<>0 and #{Project.in_used_projects("true", :alias => "projects")}"
       joins = :project
     elsif params[:project_id].nil? 
       @head = _('OpenFoundry News')

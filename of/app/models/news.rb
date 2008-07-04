@@ -1,4 +1,6 @@
 class News < ActiveRecord::Base
+  belongs_to :project, :foreign_key => "catid"
+  
   STATUS = {:Enabled => 1, :Disabled => 0}
   #add fulltext indexed SEARCH
   acts_as_ferret({
@@ -19,11 +21,14 @@ class News < ActiveRecord::Base
   validates_inclusion_of :status, :in => STATUS.values, :message => _("Not a valid value")
   validates_exclusion_of :updated_at, :in => [nil], :message => _("is an invalid datetime")
   def self.home_news
-    News.find(:all, :conditions => ['catid="0" and status = "1"'], :order => "updated_at desc", :limit => 5)
+    News.find(:all, :conditions => ["catid=0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 5)
   end
   
   def self.ProjectNews
-    News.find(:all, :conditions => ['catid<>"0" and status = "1"'], :order => "updated_at desc", :limit => 5)
+    News.find(:all, :joins => :project, 
+              :conditions => ["catid<>0 and news.status = #{News::STATUS[:Enabled]} and #{Project.in_used_projects("true", :alias => "projects")}"], 
+              :order => "news.updated_at desc", :limit => 5
+              )
   end
   
 end
