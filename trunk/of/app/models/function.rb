@@ -29,7 +29,7 @@ class Function < ActiveRecord::Base
         "roles.authorizable_id = projects.id and " +
         "#{Project.in_used_projects('true', :alias => 'projects')} and " +
         "users.login = '#{current_user.login}' and " + 
-        "#{User.verified_users('true', :alias => 'user')} and " +
+        "#{User.verified_users('true', :alias => 'users')} and " +
         "functions.name = '#{function_name}'"))
       return true
     else
