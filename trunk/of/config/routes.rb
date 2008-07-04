@@ -74,5 +74,6 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => {:file_name => /.+/, :release_version => /.+/}
   #  require "pp"
 #  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
-
+#看controller的named_routes
+#ActionController::Routing::Routes.named_routes.routes.each {|name, route| puts "%20s: %s" % [name, route] if name.to_s.include? "news"}; nil
 end
