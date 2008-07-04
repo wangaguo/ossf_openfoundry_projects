@@ -25,7 +25,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :news,
                 :singular => 'news1',
                 :collection => {:project => :get},
-                :name_prefix => 'site_'  
+                :name_prefix => 'site_'
+  map.resources :jobs,
+                :path_prefix => '/projects/:project_id'
   #for project releases
   map.resources :releases,
     :path_prefix => '/projects/:project_id',
