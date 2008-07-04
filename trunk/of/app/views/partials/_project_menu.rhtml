@@ -39,7 +39,7 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
   </ul>
   <%# if permit?("admin of :project") -%>
-  <ul id="project_admin_menu">
+  <ul id="project_admin_menu" style="display:none;">
       <li><%= link_to _('project_Info'), edit_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _('project_Summary'), edit_project_path(:id => project.id) %></li>
