@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     when /^\d+$/
       rtn = Project.find_by_id(id_or_name, :conditions => Project.in_used_projects())
     when Project::NAME_REGEX
-      if rtn = Project.find(:first, :select => 'id', :conditions => Project.in_used_projects(["name = ?", id_or_name]))
+      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ? and #{Project.in_used_projects}", id_or_name])
         yield rtn.id
       end
     end
@@ -73,7 +73,7 @@ class ProjectsController < ApplicationController
     
     # params[:cat] => 'maturity' / 'platform' ...
     # params[:name] => 'beta' / 'windows' ...
-    query = "1"
+    query = Project.in_used_projects
     if params[:cat] =~ /^(maturity|license|contentlicense|platform|programminglanguage)$/
       if params[:cat] != '' && params[:name] != ''
         if params[:cat] !~ /^(maturity)$/
@@ -81,13 +81,13 @@ class ProjectsController < ApplicationController
         else
           name = params[:name]
         end
-        query = [params[:cat] + ' like ?', name]
+        query = [params[:cat] + " like ? and #{Project.in_used_projects}", name]
       end
     end
     
     projects = nil
     [params[:page], 1].each do |page|
-      projects = Project.paginate(:page => page, :per_page => 10, :conditions => Project.in_used_projects(query),
+      projects = Project.paginate(:page => page, :per_page => 10, :conditions => query,
                                 :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
       break if not projects.out_of_bounds?
     end

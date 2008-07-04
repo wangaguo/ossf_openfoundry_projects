@@ -14,7 +14,7 @@ class Function < ActiveRecord::Base
               R.authorizable_id = '#{authorizable_id}' and 
               R.authorizable_type = 'Project' and 
               R.authorizable_id  = P.id and 
-              #{Project.in_used_projects('true', :alias => 'P')} and 
+              #{Project.in_used_projects(:alias => 'P')} and 
               U.login = '#{current_user.login}' and 
               #{User.verified_users('true', :alias => 'U')}                      
         ") > 0
@@ -27,7 +27,7 @@ class Function < ActiveRecord::Base
         "roles.authorizable_type = '#{authorizable_type}' and " + 
         "roles.authorizable_id = '#{authorizable_id}' and " +
         "roles.authorizable_id = projects.id and " +
-        "#{Project.in_used_projects('true', :alias => 'projects')} and " +
+        "#{Project.in_used_projects(:alias => 'projects')} and " +
         "users.login = '#{current_user.login}' and " + 
         "#{User.verified_users('true', :alias => 'users')} and " +
         "functions.name = '#{function_name}'"))

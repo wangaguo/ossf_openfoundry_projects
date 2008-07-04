@@ -81,7 +81,7 @@ class OpenfoundryController < ApplicationController
               RU.role_id = R.id and 
               RU.user_id = U.id and 
               #{User.verified_users('true',:alias => 'U')} and 
-              #{Project.in_used_projects('true',:alias => 'P')}"
+              #{Project.in_used_projects(:alias => 'P')}"
     
     projects = Project.find(:all, :conditions => Project.in_used_projects())
     users = User.find(:all, :conditions => User.verified_users())

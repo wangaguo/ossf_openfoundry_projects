@@ -29,7 +29,7 @@ class ReleasesController < ApplicationController
   end
 
   def top
-    releases = Release.find(:all, :include => [:project], :conditions => Project.in_used_projects('true', :alias => "projects"), :order => "release_counter desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
+    releases = Release.find(:all, :include => [:project], :conditions => Project.in_used_projects(:alias => "projects"), :order => "release_counter desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
     if(params[:page].nil?)
       params[:page] = 1
     end
@@ -42,7 +42,7 @@ class ReleasesController < ApplicationController
   end
 
   def latest
-    releases = Release.find(:all, :include => [:project], :conditions => Project.in_used_projects('true', :alias => "projects"), :order => "releases.created_at desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
+    releases = Release.find(:all, :include => [:project], :conditions => Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
     if(params[:page].nil?)
       params[:page] = 1
     end

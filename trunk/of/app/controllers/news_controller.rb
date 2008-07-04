@@ -1,6 +1,8 @@
 class NewsController < ApplicationController 
-  find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid'
-  before_filter :controller_load
+  find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid', :parent_conditions => 'fpermit?("site_admin", nil) ? "true" : nil '
+  #before_filter :permit_redirect
+
+  #see lib/permission_table.rb
   before_filter :check_permission
 
   def controller_load
@@ -26,7 +28,7 @@ class NewsController < ApplicationController
     if @is_all_projects_news == true
       @head = _('Project News')
       layout_name = "application"
-      conditions = "news.catid<>0 and #{Project.in_used_projects("true", :alias => "projects")}"
+      conditions = "news.catid<>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
     elsif params[:project_id].nil? 
       @head = _('OpenFoundry News')

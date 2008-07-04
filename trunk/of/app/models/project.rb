@@ -230,16 +230,9 @@ EOEO
   ##end
 
   def validate
-    if new_record?
-      if Project.exists?(Project.in_used_projects(['name = ?', name]))
-        errors.add(:name, _("'#{name}' has already been taken"))
-      end
-    else
-      # for "approve"
-      if Project.exists?(Project.in_used_projects(['name = ? and id <> ?', name, id]))
-        errors.add(:name, _("'#{name}' has already been taken"))
-      end
-    end
+    cond = ["name = ? and #{Project.approved_projects}", name]
+    cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
+    errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
 
     ls = "#{license}".split(",").grep(/./).map(&:to_i)
     if ls.length == 0
@@ -355,23 +348,21 @@ EOEO
     # TODO: notify by email
   end
 
-  # Project.find(:first, :conditions => Project.in_used_projects(['name = ?', 'openfoundry']))
-  # Project.find(:first, :conditions => Project.in_used_projects("name = 'openfoundry'"))
-  # Project.find(:first, :conditions => Project.in_used_projects())
-  # Project.exists?(Project.in_used_projects(['name = ?', name]))
-  def self.in_used_projects(condition = 'true', options={})
-    if condition.is_a?(String)
-      unless options[:alias]
-        "(#{condition}) and (status = #{Project::STATUS[:READY]} or status = #{Project::STATUS[:SUSPENDED]})"
-      else
-        a = options[:alias]
-        "(#{condition}) and (#{a}.status = #{Project::STATUS[:READY]} or #{a}.status = #{Project::STATUS[:SUSPENDED]})"
-      end
-    elsif condition.is_a?(Array)
-      [ in_used_projects(condition[0]), *condition[1 .. -1] ]
-    else
-      raise "wrong usage!"
-    end
+  # Project.find(:first, :conditions => ["name = ? and #{Project.in_used_projects}", 'openfoundry'])
+  #                                     ["name = ? and (status = 2)", "openfoundry"]
+  # Project.find(:first, :conditions => "name = 'openfoundry' and #{Project.in_used_projects}")
+  #                                     "name = 'openfoundry' and (status = 2)"
+  # Project.find(:first, :conditions => Project.in_used_projects)
+  #                                     "(status = 2)"
+  # Project.in_used_projects(:alias => "projects")
+  #                                     "(projects.status = 2)"
+  def self.in_used_projects(options = {})
+    a = options[:alias] ? options[:alias] + "." : ""
+    "(#{a}status = #{Project::STATUS[:READY]})"
+  end
+  def self.approved_projects(options = {})
+    a = options[:alias] ? options[:alias] + "." : ""
+    "(#{a}status = #{Project::STATUS[:READY]} or #{a}status = #{Project::STATUS[:SUSPENDED]})"
   end
 
   def self.new_projects
