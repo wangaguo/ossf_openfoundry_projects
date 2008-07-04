@@ -34,6 +34,7 @@ ActionController::Routing::Routes.draw do |map|
     :collection => 'download',
     :member => { :uploadfiles => :any, :delete => :post, 
                  :addfiles => :post, :removefile => :post,
+                 :editfile => :post, :updatefile => :post,
                  :download => :any },
     :singular => :release
   map.resources :kwiki,

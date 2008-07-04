@@ -29,7 +29,7 @@ class ReleasesController < ApplicationController
   end
 
   def top
-    releases = Release.find(:all, :order => "release_counter desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
+    releases = Release.find(:all, :include => [:project], :conditions => Project.in_used_projects('true', :alias => "projects"), :order => "release_counter desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
     if(params[:page].nil?)
       params[:page] = 1
     end
@@ -42,7 +42,7 @@ class ReleasesController < ApplicationController
   end
 
   def latest
-    releases = Release.find(:all, :order => "created_at desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
+    releases = Release.find(:all, :include => [:project], :conditions => Project.in_used_projects('true', :alias => "projects"), :order => "releases.created_at desc", :limit => 100).paginate(:page => params[:page], :per_page => 100)
     if(params[:page].nil?)
       params[:page] = 1
     end
@@ -200,7 +200,27 @@ class ReleasesController < ApplicationController
     redirect_to url_for(:project_id => params[:project_id], 
       :action => :uploadfiles, :id => r.id, :layout =>'false')
   end
-  
+
+  #用link_to_remote呼叫 編輯檔案
+  def editfile
+    r = Release.find params[:id]
+    return if r.nil?
+    @file = Fileentity.find params[:editfile_id]
+    render :partial => 'file_edit', :layout => false, :local => @file
+  end
+
+  def updatefile
+    file = Fileentity.find params[:updatefile_id]
+    file.name = params[:name]
+    file.description = params[:description]
+    file.meta = params[:meta]
+    file.save
+    flash[:notice] = 'Your files have been updated from Release!'
+    
+    redirect_to url_for(:project_id => params[:project_id], 
+      :action => :uploadfiles, :id => params[:id], :layout =>'false')
+  end
+
   private
   
   #建立檔案的database entry, 會連結到外部ftp hook

@@ -19,9 +19,9 @@ class Release < ActiveRecord::Base
   end
 
   def self.top_download
-    Release.find(:all, :include => [:project], :order => "release_counter desc", :limit => 5)
+    Release.find(:all, :include => [:project], :conditions => Project.in_used_projects('true', :alias => "projects"), :order => "release_counter desc", :limit => 5)
   end
   def self.new_releases
-    Release.find(:all, :include => [:project], :order => "releases.created_at desc", :limit => 5)
+    Release.find(:all, :include => [:project], :conditions => Project.in_used_projects('true', :alias => "projects"), :order => "releases.created_at desc", :limit => 5)
   end
 end

@@ -193,7 +193,11 @@ module ApplicationHelper
             html << "</td>\n"
           else
             html << "<th> #{obj.human_name} : </th>\n" if options[:with_label]
-            html << "<td> #{record.send(obj.name)} </td>\n"
+            value = record.send(obj.name)
+            if options[:display_filter] and options[:display_filter][obj.name.to_sym]
+              value = send(options[:display_filter][obj.name.to_sym], value)
+            end
+            html << "<td> #{value} </td>\n"
           end
         end
       end
