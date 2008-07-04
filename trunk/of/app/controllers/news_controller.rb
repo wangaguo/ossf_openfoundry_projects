@@ -26,7 +26,8 @@ class NewsController < ApplicationController
     if @is_all_projects_news == true
       @head = _('Project News')
       layout_name = "application"
-      conditions = "catid<>0"
+      conditions = "news.catid<>0 and " + Project.in_used_projects("true", :alias => "projects")
+      joins = :project
     elsif params[:project_id].nil? 
       @head = _('OpenFoundry News')
       layout_name = "application"
@@ -34,18 +35,20 @@ class NewsController < ApplicationController
     else
       @module_name = _('project_News')
       layout_name = "module"
-      conditions = "catid=" + params[:project_id]
+      conditions = ["catid=?", params[:project_id]]
     end
     if fpermit?("news", params[:project_id])
       sqlStatus = ''
     else
-      sqlStatus = ' and status = "' + News::STATUS[:Enabled].to_s + '"'
+      sqlStatus = " and news.status = #{News::STATUS[:Enabled]}"
     end
     reset_sortable_columns
     add_to_sortable_columns('listing', News, 'subject', 'subject') 
     add_to_sortable_columns('listing', News, 'updated_at', 'updated_at') 
     @news = News.paginate(:page => params[:page], :per_page => 10, :conditions => [conditions + sqlStatus],
-                          :order => sortable_order('listing', :model => News, :field => 'updated_at', :sort_direction => :desc) )
+                          :order => sortable_order('listing', :model => News, :field => 'updated_at', :sort_direction => :desc),
+                          :joins => joins
+                          )
     render :layout => layout_name, :template => 'news/list'
   end
   
