@@ -271,8 +271,7 @@ THECODE
       pass = false
     ensure
       unless(pass)
-        flash[:error] = _('you have no permission')
-        
+        flash[:warning] = _('you have no permission')+" [#{function_name}]!" 
         redirect_to request.referer
       end
     end
