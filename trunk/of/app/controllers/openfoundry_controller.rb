@@ -171,7 +171,7 @@ class OpenfoundryController < ApplicationController
     @options[:per_page] = params[:per_page] || 10
     @options[:page] = params[:page] || 1
     @options[:models] = :all
-    @results = User.find_with_ferret(@query, @options)
+    @results = User.find_with_ferret(@query, @options) if @query
     @lookup = RECORD_LOOKUP_TABLE
   end
   
