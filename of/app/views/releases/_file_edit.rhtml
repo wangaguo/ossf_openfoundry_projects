@@ -1,0 +1,25 @@
+<p class=ReleaseBasic>
+  <% form_remote_tag :update => "uploadfiles_view", :url => updatefile_release_url( { 
+        :updatefile_id => @file.id  }) do |f| -%>
+<table class=FileItem >
+<tr>
+<th> <%=  Fileentity.columns_hash['path'].human_name -%> : </th>
+<td> <%= @file.path %> </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['description'].human_name -%> : </th>
+<td> <%= text_field_tag 'description', @file.description ,{:size => 20 } %>  </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
+<td> <%= @file.size %> </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['meta'].human_name -%> : </th>
+<td> <%= text_field_tag 'meta', @file.meta ,{:size => 20 } %> </td>
+</tr>
+
+</table> <!-- "FileItem"-->
+    <%= submit_tag "Update" %> 
+  <% end %>
+</p>

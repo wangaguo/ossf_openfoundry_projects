@@ -3,13 +3,23 @@
     <h1> <%= flash.now[:message]%> </h1>
     <% end -%>
     <h1>Release#Select Files</h1>
+    <fieldset>
     <%= arranged('ReleaseShow',@release,{}) %>
+    </fieldset>
+    <fieldset>
     <h1>Files: </h1>
     <% if @release.fileentity.empty? -%>
       <h3>No File in Release</h3>
     <%end%>
-    <% @release.fileentity.each do |f|%>
-        <%= arranged('FileItem', f, {:fields_per_column => 6})%>
+    <% @release.fileentity.each_with_index do |f, i|%>
+    <div id=<%= "editfiles_view#{i}" %>>
+        <%= arranged('FileItem', f, {:fields_per_column => 1, :display_filter => {:size => :number_to_human_size}})%>
+        <%= link_to_remote '[edit]',:url => editfile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :editfile_id => f.id
+          }), :update => "editfiles_view#{i}"
+        %>
         <%= link_to_remote '[remove]',:url => removefile_release_url({
             :project_id => @project.id,
             :id => @release.id,
@@ -20,9 +30,11 @@
 					       :release_version => @release.version,
 					       :file_name => f.path )
         %>
+    </div>
+    <hr>
     <%end%>
-    <br/>
-  
+    </fieldset>
+    <fieldset>
     <% form_remote_tag :update => "uploadfiles_view", :url => addfiles_release_url( { 
         :project_id => @project.id, 
         :id => @release.id  }) do -%>
@@ -73,7 +85,7 @@
         <%end -%>
       </div>
   
-      <br/>
+      </fieldset>
   
     <% end -%>
   </div>
