@@ -158,41 +158,56 @@ class ApplicationController < ActionController::Base
     parent = options[:parent].to_s.downcase
     parent_class_name = options[:parent].to_s.camelize
     child_class_name = options[:child].to_s.camelize
-    parent_id_method = options[:parent_id_method].to_s
+    parent_id_method = options[:parent_id_method].to_s || "#{parent}_id"
     parent_conditions = (options[:parent_conditions] || "Project.in_used_projects()").to_s
     if(options[:child_rename].to_s != '')
       child = options[:child_rename].to_s.downcase
     end
     code = <<"THECODE"
     def find_resources_before_filter
-      if params[:id] != nil
-        begin
-          @#{child} = #{child_class_name}.find(params[:id])
-          if @#{child}.#{parent_id_method}.nil? || @#{child}.#{parent_id_method} < 1
-            if (params[:#{parent}_id] != nil)
-              redirect_to :#{parent}_id => nil
+      cid = params[:id]
+      pid_param = params[:#{parent}_id]
+      if cid
+        if @#{child} = #{child_class_name}.find_by_id(cid)
+          pid_child = @#{child}.#{parent_id_method}   # int
+          if pid_child.nil? || pid_child < 1          # lost parent or belongs to site(for news)
+            if (pid_param != nil)                     # from url
+              flash[:warning] = _("The resource #{child}(\#{cid}) should has no #{parent}.")
+              redirect_to :#{parent}_id => nil        # /projects/xx/news/3 => /news/3
+            else
+              # do nothing.  /news/3 is ok.
             end
           else
-            if params[:#{parent}_id] != @#{child}.#{parent_id_method}.to_s
-              redirect_to :#{parent}_id => @#{child}.#{parent_id_method}, :id => @#{child}.id
-            else
-              @#{parent} = #{parent_class_name}.find(@#{child}.#{parent_id_method}, :conditions => #{parent_conditions})
+            if pid_param != pid_child.to_s            # mismatch !
+              flash[:warning] = _("The resource #{child}(\#{cid}) should belong to this #{parent}(\#{pid_child}).")
+              redirect_to :#{parent}_id => pid_child, :id => @#{child}.id
+            else                                      # good
+              if not @#{parent} = #{parent_class_name}.find_by_id(pid_child, :conditions => #{parent_conditions})
+                flash[:warning] = "#{parent} '\#{pid_child}' does not exist, or it has be deactivated."
+                redirect_to '/'
+              else
+                # ok !
+              end
             end
           end
-        rescue
-          begin
-            @#{parent} = #{parent_class_name}.find(params[:#{parent}_id], :conditions => #{parent_conditions})
-            redirect_to :#{parent}_id => @#{parent}.id, :id => nil, :action => 'index'
-          rescue
+        else
+          flash[:warning] = _("The resource #{child}(\#{cid}) does not exist.")
+          # try to fall back to the index page of parent indicated by param
+          if @#{parent} = #{parent_class_name}.find_by_id(pid_param, :conditions => #{parent_conditions})
+            redirect_to :#{parent}_id => pid_param, :id => nil, :action => 'index'
+          else
             redirect_to '/' # TODO: root ?
           end
         end
-      elsif params[:#{parent}_id] != nil
-        begin
-          @#{parent} = #{parent_class_name}.find(params[:#{parent}_id])
-        rescue
+      elsif pid_param # example: /projects/100/news
+        if not @#{parent} = #{parent_class_name}.find_by_id(pid_child, :conditions => #{parent_conditions})
+          flash[:warning] = _("The resource #{parent}(\#{pid_child}) does not exist.")
           redirect_to '/' # TODO: root ?
+        else
+          # do nothing. ok.
         end
+      else
+        # do nothing.  /news is ok.
       end
     end
     before_filter :find_resources_before_filter
@@ -245,19 +260,18 @@ THECODE
   def check_permission
     #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
     pass = false
-    function_name = PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym]
     begin
       pass =
       if @project
-        fpermit?(function_name, @project.id)
+        fpermit?(PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym], @project.id)
       else
-        fpermit?(function_name, 0)
+        fpermit?(PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym], 0)
       end
     rescue
       pass = false
     ensure
       unless(pass)
-        flash[:warning] = _('you have no permission')+" [#{function_name}]!"
+        flash[:error] = _('you have no permission')
         
         redirect_to request.referer
       end
