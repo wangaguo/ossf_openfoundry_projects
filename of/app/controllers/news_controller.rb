@@ -1,8 +1,6 @@
 class NewsController < ApplicationController 
   find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid', :parent_conditions => 'fpermit?("site_admin", nil) ? "true" : nil '
-  #before_filter :permit_redirect
-
-  #see lib/permission_table.rb
+  before_filter :controller_load
   before_filter :check_permission
 
   def controller_load
