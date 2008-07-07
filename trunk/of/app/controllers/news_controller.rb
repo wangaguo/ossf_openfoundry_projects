@@ -35,7 +35,7 @@ class NewsController < ApplicationController
     else
       @module_name = _('project_News')
       layout_name = "module"
-      conditions = ["catid=?", params[:project_id]]
+      conditions = "catid=#{params[:project_id]}"
     end
     if fpermit?("news", params[:project_id])
       sqlStatus = ''
@@ -45,7 +45,7 @@ class NewsController < ApplicationController
     reset_sortable_columns
     add_to_sortable_columns('listing', News, 'subject', 'subject') 
     add_to_sortable_columns('listing', News, 'updated_at', 'updated_at') 
-    @news = News.paginate(:page => params[:page], :per_page => 10, :conditions => [conditions + sqlStatus],
+    @news = News.paginate(:page => params[:page], :per_page => 10, :conditions => conditions + sqlStatus,
                           :order => sortable_order('listing', :model => News, :field => 'updated_at', :sort_direction => :desc),
                           :joins => joins
                           )
