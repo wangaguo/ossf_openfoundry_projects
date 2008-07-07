@@ -1,5 +1,26 @@
 class Function < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => 'roles_functions'
+
+  # Function.functions(:authorizable_id => 1018, :user_id => 1000025)
+  # =>  ["project_info", "project_member", ... "vcs_commit", "ftp_access"]
+  def self.functions(options = { :authorizable_type => '', :authorizable_id => '', :user_id => ''})
+    at = options[:authorizable_type] || 'Project'
+    ai = options[:authorizable_id]
+    ui = options[:user_id]
+    raise "bad parameter!" if at !~ /^\w+$/ or (not Fixnum === ai) or (not Fixnum === ui)
+
+    sql = "select F.name from functions F, 
+           roles_functions RF, roles R,
+           roles_users RU, users U
+           where
+           RF.function_id = F.id and RF.role_id = R.id and
+           RU.role_id = R.id and RU.user_id = U.id and
+           R.authorizable_type = '%s' and R.authorizable_id = %d and
+           U.id = %d 
+          " % [at, ai, ui]
+    #puts "sql: #{sql}"
+    ActiveRecord::Base.connection.select_values(sql)
+  end
   
   def self.function_permit(function_name, authorizable_id, authorizable_type)
     #if site admin, allow it anyway
