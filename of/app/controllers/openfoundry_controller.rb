@@ -85,7 +85,7 @@ class OpenfoundryController < ApplicationController
     
     projects = Project.find(:all, :conditions => Project.in_used_projects())
     users = User.find(:all, :conditions => User.verified_users())
-    relations = User.find_by_sql(sql_tmp, function_name)
+    relations = User.find_by_sql([sql_tmp, function_name])
     data = {
       :projects => projects.map { |p| { :id => p.id, :summary => p.summary ,
                                         :name => p.name, :vcs => p.vcs } },
