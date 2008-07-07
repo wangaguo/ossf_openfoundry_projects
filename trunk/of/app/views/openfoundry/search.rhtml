@@ -1,9 +1,9 @@
 <div id="search_result">
   <h1><%= _('Search Result') %></h1>
   <div id="search">
-    <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => false}%>	
+    <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => true}%>	
   </div>
-  <%if @reault%>
+  <%if @results%>
   <table class='form-table'>
     <% @results.each do |record| %>
       <tr>

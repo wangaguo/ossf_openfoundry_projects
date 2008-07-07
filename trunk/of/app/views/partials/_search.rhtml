@@ -1,75 +1,61 @@
 <% adv ||= false %>
 <% form_tag '/openfoundry/search', :method => :get do -%>
-  <%= text_field_tag( (if adv;'query_adv';else'query';end),@query, :size => size, :disabled => adv) %>
+  <%= text_field_tag( (if adv;'query_adv';else'query';end),@query, :size => size ) %>
   <%= submit_tag _('search'), :class => 'button' %>
   <%if adv%>
+  <a href="#" onclick="Effect.toggle('search_chk','appear');Effect.toggle('search_inc','appear'); return false">
+    <%=_('Advensed Options')%>
+  </a>
     <script>
         s_check = s_and = s_or = s_not = ''; 
         function update_query(){
             q = s_check+' '+s_and +' '+ s_or +' '+ s_not;
-            q.replace(/^\s+|\s+$/,'').replace(/\s+/g,' ');
+            q = q.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
             document.getElementById('query_adv').value = q;
         }    
-        function update_check_query(){
-            chks=document.getElementById('query_chk_class').childNodes;
-            a_check=[];
-            for(var i=0;i<chks.length;i++){
-                if(chks[i].checked)
-                    a_check.push(chks[i].value)
-            } 
-            s_check = a_check.join(' model:');
-            if(s_check != ''){
-                s_check = 'model:' + s_check;
-            }
-            update_query();
-        }
         function update_and_query(){
-            s_and = document.getElementById('query_include_and').value.replace(/^\s+|\s+$/,'').replace(/\s+/g,' ');
+            s_and = document.getElementById('query_include_and').value.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
             update_query();
         }
         function update_or_query(){
-            s_or = document.getElementById('query_include_or').value.replace(/^\s+|\s+$/,'').replace(/\s+/g,' ').split(' ').join(' OR ');
-            if(s_or != ''){
-                if(s_and != '')    
-                    s_or = 'OR '+s_or
-            }
+            s_or = document.getElementById('query_include_or').value.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ').split(' ').join(' OR ');
             update_query();
         }
         function update_not_query(){
-            s_not = document.getElementById('query_exclude').value.replace(/^\s+|\s+$/,'').replace(/\s+/g,' ').split(' ').join(' -');
+            s_not = document.getElementById('query_exclude').value.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ').split(' ').join(' -');
             if(s_not != ''){
-                if(s_or != '')    
                     s_not = '-' + s_not
             }
             update_query();
         }
-    </script> 
-    <div id="adv_search">
-      <fieldset>
-        <legend><%= _('Advensed Search Options') %></legend>
+      </script>
+      <div id='search_chk' style="display:none;">
         <fieldset>
           <legend><%= _('Search in Class') %></legend>
           <div id='query_chk_class'>
-            <% %w(user project news release fileentity ticket revision category mailarchive).each_with_index do |model_class,i| %>
-              <%= check_box_tag model_class, model_class, false, :name => "chk_#{model_class}", :onchange => 'update_check_query()' %> 
+            <% %w(User Project News Release Fileentity Ticket Revision Category Mailarchive).each_with_index do |model_class,i| %>
+              <%= check_box_tag model_class, true, false, :name => "chk[#{model_class}]"%> 
               <%= _(model_class) %>
               <%= if i%6 == 5 ;"<br/>"; end %>
             <% end %>
           </div>
         </fieldset>
+      </div>
+      <%end%>
+    <%end%>
+    <%if adv%>
+      <div id='search_inc'  style="display:none;">
         <fieldset>
           <legend><%= _('Search Include ALL of the List') %></legend>
-          <%= text_field_tag 'query_include_and','', :size => size, :onchange => 'update_and_query()' %>
+          <%= text_field_tag 'query_include_and','', :size => size, :onchange => 'update_and_query();return false' %>
         </fieldset>
         <fieldset>
           <legend><%= _('Search Include ANY of the List') %></legend>
-          <%= text_field_tag 'query_include_or','', :size => size, :onchange => 'update_or_query()' %>
+          <%= text_field_tag 'query_include_or','', :size => size, :onchange => 'update_or_query();return false' %>
         </fieldset>
         <fieldset>
           <legend><%= _('Search Exclude ANY of the List') %></legend>
-          <%= text_field_tag 'query_exclude','', :size => size, :onchange => 'update_not_query()' %>
+          <%= text_field_tag 'query_exclude','', :size => size, :onchange => 'update_not_query();return false' %>
         </fieldset>
-      </fieldset>
-    </div>
+      </div>
   <%end%>
-<% end -%>

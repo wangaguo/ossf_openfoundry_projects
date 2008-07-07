@@ -166,11 +166,17 @@ class OpenfoundryController < ApplicationController
   end
   
   def search #for search!!! TODO: catalog and optimize?
-    @query = params[:query]#.split(' ').join(' OR ')
+    @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
     @options = {}
     @options[:per_page] = params[:per_page] || 10
     @options[:page] = params[:page] || 1
-    @options[:models] = :all
+    @options[:models] = 
+      if params[:chk]
+        params[:chk].keys.map{|k| Object.const_get(k)}
+      else
+        :all
+      end
+
     @results = User.find_with_ferret(@query, @options) if @query
     @lookup = RECORD_LOOKUP_TABLE
   end
