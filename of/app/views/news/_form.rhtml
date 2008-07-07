@@ -4,7 +4,7 @@
 <p><label for="news_subject"><%=_('Subject')%></label><br/>
 <%= text_field 'news', 'subject' %></p>
 
-<% if permit?("site_admin") -%>
+<% if fpermit?("site_admin", nil) -%>
 <%= javascript_include_tag 'fckeditor/fckeditor.js' %>
 <div id="<%= fckeditor_div_id('news', 'description') %>">
     <%= fckeditor_textarea( "news", "description", :height => 400 ) %> 
@@ -14,7 +14,7 @@
 <%= text_area("news", "description", "cols" => 40, "rows" => 10) %></p>
 <% end %>
 
-<% if permit?("site_admin") -%>
+<% if fpermit?("site_admin", nil) -%>
 <p><label for="news_tags"><%=_('Tags')%></label><br/>
 <%= text_field 'news', 'tags' %></p>
 <p><label for="news_updated_at"><%=_('Last Updated')%></label><br/>
