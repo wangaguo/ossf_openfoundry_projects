@@ -6,8 +6,12 @@
   <ul>
   <% for function in @functions %>
   <li>
-    <%=check_box_tag "functions[#{function.id}]", function.id, @role_functions.member?(function)%>
-    <%=function.description%></li>
+    <% if @role.name.upcase == "ADMIN" -%>
+    <%=  check_box_tag "functions[#{function.id}]", function.id, true, :disabled => true %>
+    <% else -%>
+    <%=  check_box_tag "functions[#{function.id}]", function.id, @role_functions.member?(function) %>
+    <% end -%>
+    <%= function.description%></li>
   <% end %>
   </ul>
   

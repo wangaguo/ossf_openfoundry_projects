@@ -199,7 +199,7 @@ class ProjectsController < ApplicationController
       if !(@role.name.upcase == "ADMIN" || @role.name.upcase == "MEMBER")
         @role.name = params[:name]
       end
-      if @role.save
+      if (@role.name.upcase != "ADMIN" && @role.save)
         @role.functions.delete_all
         if !params[:functions].nil?
           for function_id in params[:functions].keys
