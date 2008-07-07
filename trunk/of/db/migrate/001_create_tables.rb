@@ -226,14 +226,14 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at"
       t.datetime "logged_in_at"
       t.string   "language",        :limit => 5
-      t.string   "timezone",        :limit => 40
+      t.string   "timezone",        :limit => 40, :default => "Taipei"
     end
   end
 
   def self.down
     %w(users projects tags taggings categories
 sessions roles roles_users roles_functions functions
-releases news fileentities images).each do |table_name|
+releases news jobs citations references events downloaders fileentities images).each do |table_name|
       drop_table table_name
     end
   end
