@@ -33,7 +33,7 @@
         <fieldset>
           <legend><%= _('Search in Class') %></legend>
           <div id='query_chk_class'>
-            <% %w(User Project News Release Fileentity Ticket Revision Category Mailarchive).each_with_index do |model_class,i| %>
+            <% %w(User Project News Release Fileentity).each_with_index do |model_class,i| %>
               <%= check_box_tag model_class, true, false, :name => "chk[#{model_class}]"%> 
               <%= _(model_class) %>
               <%= if i%6 == 5 ;"<br/>"; end %>
