@@ -14,7 +14,7 @@ class NewsController < ApplicationController
     render :partial => "home_news", :locals => {:newsList => News.home_news}
   end
   
-  def project
+  def project_news
     @is_all_projects_news = true
     list
   end
@@ -33,7 +33,7 @@ class NewsController < ApplicationController
       layout_name = "application"
       conditions = "catid=0"
     else
-      @module_name = _('project_News')
+      @module_name = _('News')
       layout_name = "module"
       conditions = "catid=#{params[:project_id]}"
     end
