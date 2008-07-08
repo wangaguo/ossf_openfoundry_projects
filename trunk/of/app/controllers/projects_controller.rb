@@ -244,7 +244,7 @@ class ProjectsController < ApplicationController
         page.alert "Admin and Member cant's be delete."
         page.visual_effect :highlight, 'role_new'
       end
-  else
+    else
       role.destroy
       render :update do |page|
 #       page[:role_new].replace_html "sdlfkj" :partial => "role_new"
