@@ -1,0 +1,32 @@
+<h1><%=@head%></h1>
+<div class="sort">
+<%= _("Sort by")%>
+<%= link_to _('Last Updated'),  sort_param('listing', Reference, 'updated_at', 'updated_at') %>
+</div>
+<ul>
+  <%for data_item in @data_items %>
+  <li>
+    <%= link_to h(data_item.source[0..150]) + "...", reference_path(:id => data_item.id, :project_id => data_item.project_id) %>
+    <%=data_item.updated_at.strftime("(%Y/%m/%d)")%>
+    <% if fpermit?("reference", params[:project_id]) -%>
+    <p>
+      <label><%=_('Status')%>:</label>
+      <% if data_item.status == 1 %>
+        <%=_('Enabled')%>
+      <% else %>
+	      <%=_('Disabled')%>
+      <% end %>
+      <%= link_to _('Edit'), :action => 'edit', :id => data_item %>
+      <%= link_to _('Delete'), { :action => 'destroy', :id => data_item }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
+    </p>
+    <% end %>
+  </li>
+  <% end %>
+</ul>
+  
+<%= will_paginate @data_items %>
+
+<br />
+<% if fpermit?("reference", params[:project_id]) -%>
+<%= link_to _('Add Reference'), :action => 'new' %>
+<% end %>
