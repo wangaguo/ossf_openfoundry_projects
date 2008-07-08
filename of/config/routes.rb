@@ -14,6 +14,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '', :controller => 'openfoundry'
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
+  map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
+  map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
   map.resources :projects,
                 :collection => { :applied => :get, :tableizer => :get },
                 :member => { :sympa => :get, :viewvc => :get, :role_users => :any, :roles_edit => :any, :role_update => :any, :role_new => :any, :role_create => :any, :vcs_access => :any }
@@ -24,7 +26,6 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => '/projects/:project_id'
   map.resources :news,
                 :singular => 'news1',
-                :collection => {:project => :get},
                 :name_prefix => 'site_'
   map.resources :jobs,
                 :path_prefix => '/projects/:project_id'
