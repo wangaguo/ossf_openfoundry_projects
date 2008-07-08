@@ -60,6 +60,20 @@ module OpenFoundry
       :edit => :job,
       :update => :job
     },
+    :citations => citations_pt = {
+      :new => :citation,
+      :create => :citation,
+      :destroy => :citation,
+      :edit => :citation,
+      :update => :citation
+    },
+    :references => references_pt = {
+      :new => :reference,
+      :create => :reference,
+      :destroy => :reference,
+      :edit => :reference,
+      :update => :reference
+    },
     :releases => releases_pt = {
       :new => :release,
       :create => :release,
@@ -86,6 +100,9 @@ module OpenFoundry
   projects_pt.default = default_permission
   user_pt.default = default_permission
   news_pt.default = default_permission
+  jobs_pt.default = default_permission
+  citations_pt.default = default_permission
+  references_pt.default = default_permission
   releases_pt.default = default_permission
 
   default_pt = {}
