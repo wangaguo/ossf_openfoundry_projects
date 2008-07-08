@@ -29,6 +29,10 @@ ActionController::Routing::Routes.draw do |map|
                 :name_prefix => 'site_'
   map.resources :jobs,
                 :path_prefix => '/projects/:project_id'
+  map.resources :citations,
+                :path_prefix => '/projects/:project_id'
+  map.resources :references,
+                :path_prefix => '/projects/:project_id'
   #for project releases
   map.resources :releases,
     :path_prefix => '/projects/:project_id',
