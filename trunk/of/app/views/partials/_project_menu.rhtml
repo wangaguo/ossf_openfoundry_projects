@@ -11,8 +11,8 @@ Event.observe(window, 'load', project_leftmenu_init);
           <ul>
               <li><%= link_to _('project_Summary'), project_path(:id => project.id) %></li>
               <li><%= link_to _('project_Website'), "http://#{project.name}.openfoundry.org" %></li>
-              <li><%= _('Citations') %></li>
-              <li><%= _('References') %></li>
+              <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+              <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
               <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
               <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
           </ul>
@@ -42,8 +42,8 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('project_Info'), edit_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _('project_Summary'), edit_project_path(:id => project.id) %></li>
-              <li><%= _('Citations') %></li>
-              <li><%= _('References') %></li>
+              <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+              <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
               <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
               <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
           </ul>
