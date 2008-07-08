@@ -37,7 +37,7 @@ class Function < ActiveRecord::Base
               R.authorizable_id  = P.id and 
               #{Project.in_used_projects(:alias => 'P')} and 
               U.login = '#{current_user.login}' and 
-              #{User.verified_users('true', :alias => 'U')}                      
+              #{User.verified_users(:alias => 'U')}                      
         ") > 0
     
     #else check every permission carefully!
@@ -50,7 +50,7 @@ class Function < ActiveRecord::Base
         "roles.authorizable_id = projects.id and " +
         "#{Project.in_used_projects(:alias => 'projects')} and " +
         "users.login = '#{current_user.login}' and " + 
-        "#{User.verified_users('true', :alias => 'users')} and " +
+        "#{User.verified_users(:alias => 'users')} and " +
         "functions.name = '#{function_name}'"))
       return true
     else
