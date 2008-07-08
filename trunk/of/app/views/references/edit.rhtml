@@ -1,0 +1,9 @@
+<h1></h1>
+
+<% form_for(:job, :url => {:action => "update"}, :html => { :method => :put }) do |f| %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+
+<%= link_to _('todo詳全文'), :action => 'show', :id => @data_item %> |
+<%= link_to _('todo回列表'), :action => 'index' %>
