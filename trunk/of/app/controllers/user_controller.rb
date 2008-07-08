@@ -299,8 +299,12 @@ class UserController < ApplicationController
   end
 
   def welcome
-    user? # side-effect ... what the ..
-    redirect_to :action => :home
+    if user? # side-effect ... what the ..
+      redirect_to :action => :home
+    else
+      flash[:error] = _('Sorry, it could be the fellowing reason: User Login Name / Email already be used, Token Expired or Token Not Existed')
+      redirect_to '/user/signup'
+    end
   end
 
   protected
