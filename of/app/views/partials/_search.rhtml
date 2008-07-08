@@ -57,5 +57,19 @@
           <legend><%= _('Search Exclude ANY of the List') %></legend>
           <%= text_field_tag 'query_exclude','', :size => size, :onchange => 'update_not_query();return false' %>
         </fieldset>
+<fieldset>
+<legend><%=_('Search by Google')%></legend>
+<form method="get" action="http://www.google.com/search">
+
+<input type="text"   name="q" size="31"
+ maxlength="255" value="" />
+<input type="submit" value="Google Search" />
+<input type="radio"  name="sitesearch" value="" />
+ The Web
+<input type="radio"  name="sitesearch"
+ value="of.openfoundry.org" checked /> of.openfoundry.org <br />
+
+</form>
+</fieldset>
       </div>
   <%end%>
