@@ -47,7 +47,9 @@ module Authorization
           role = get_role( role_name, authorizable_obj )
           if role
             self.roles.delete( role )
-            role.destroy if role.users.empty?
+            if(role_name.upcase != "ADMIN" && role_name.upcase != "MEMBER")
+              role.destroy if (role.users.empty?)
+            end
           end
         end
 
