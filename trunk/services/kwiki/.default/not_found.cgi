@@ -12,7 +12,7 @@ use Data::Dumper;
 
 my $projectKwikiBaseDir = "/usr/local/kwiki";
 
-my $urlPrefix = "/Kwiki";
+my $urlPrefix = "/kwiki";
 # See: http://rt.openfoundry.org/Edit/Queues/CustomField/index.html?Queue=4&Begin=0&CF=9
 my $projectIdPattern = '[a-z][0-9a-z]{2,14}';
 
