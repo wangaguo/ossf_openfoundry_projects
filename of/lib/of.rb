@@ -74,3 +74,29 @@ def split_strip_compact_array(values_str_array, delimiter = ",")
   return [] if not values_str_array
   values_str_array.inject([]) {|s,x| s + split_strip_compact(x, delimiter)}
 end
+
+def left_slice(data, max_length)
+  data_chars = data.chars
+  l = 0
+  i = 0
+  while l < max_length && data_chars[i] != nil #i <= title_chars.length-1
+    l += data_chars[i] > 255 ? 2 : 1
+    if l <= max_length
+      i = i + 1
+    end
+  end
+  data_chars[0 .. i - 1]
+end
+
+def right_slice(data, max_length)
+  data_chars = data.chars
+  l = 0
+  i = -1
+  while l < max_length && data_chars[i] != nil
+    l += data_chars[i] > 255 ? 2 : 1
+    if l <= max_length
+      i = i - 1
+    end
+  end
+  data_chars[i+1 .. -1]
+end
