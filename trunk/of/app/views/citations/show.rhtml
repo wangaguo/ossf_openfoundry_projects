@@ -1,0 +1,23 @@
+<h1><%=@data_item.project_title%></h1>
+<p class="date"><%=_('Last Updated')%>:&nbsp;<%=tz_datetime(@data_item.updated_at)%></p>
+<dl>
+  <dt><label><%= _('Citation|Primary authors') %></label></dt>
+  <dd><%= h(@data_item.primary_authors) %></dd>
+  <dt><label><%= _('Citation|License') %></label></dt>
+  <dd><%= h(@data_item.license) %></dd>
+  <dt><label><%= _('Citation|Url') %></label></dt>
+  <dd><%= h(@data_item.url) %></dd>
+  <dt><label><%= _('Citation|Release date') %></label></dt>
+  <dd><%= h(@data_item.release_date) %></dd>
+  <dt><label><%= _('Citation|Release version') %></label></dt>
+  <dd><%= h(@data_item.release_version) %></dd>
+</dl>
+
+<% if fpermit?("citation", params["project_id"]) -%>
+<p>
+  <%= link_to _('Edit'), :action => 'edit', :id => @data_item %>
+  <%= link_to _('Delete'), { :action => 'destroy', :id => @data_item }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
+</p>
+<% end %>
+
+<%= link_to _('todo回列表'), :action => 'index', :project_id => params[:project_id] %>
