@@ -12,19 +12,35 @@ class JobsController < ApplicationController
     list
   end
 
+  def project_jobs
+    @is_all_projects = true
+    list
+  end
+  
   def list
-    conditions = "project_id=" + params[:project_id]
-    if @has_permit = fpermit?("job", params[:project_id])
-      sqlStatus = ''
+    if params[:project_id].nil? 
+      @head = _('Project Help Wanted')
+      layout_name = "application"
+      conditions = "jobs.project_id>0 and #{Project.in_used_projects(:alias => 'projects')}"
+      joins = :project
     else
-      sqlStatus = ' and status = "' + Job::STATUS[:Enabled].to_s + '"'
+      @module_name = _('Help Wanted')
+      layout_name = "module"
+      conditions = "project_id=#{params[:project_id]}"
+    end
+
+    if fpermit?("job", params[:project_id])
+      sqlStatus = ""
+    else
+      sqlStatus = " and jobs.status = #{Job::STATUS[:Enabled]}"
     end
     reset_sortable_columns
     add_to_sortable_columns('listing', Job, 'subject', 'subject') 
     add_to_sortable_columns('listing', Job, 'updated_at', 'updated_at') 
     @data_items = Job.paginate(:page => params[:page], :per_page => 10, :conditions => [conditions + sqlStatus],
-                          :order => sortable_order('listing', :model => Job, :field => 'updated_at', :sort_direction => :desc) )
-    render :template => 'jobs/list'
+                          :order => sortable_order('listing', :model => Job, :field => 'updated_at', :sort_direction => :desc),
+                          :joins => joins)
+    render :layout => layout_name, :template => 'jobs/list'
   end
   
   def show
