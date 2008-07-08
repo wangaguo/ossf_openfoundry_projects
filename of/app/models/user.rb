@@ -98,21 +98,20 @@ class User < ActiveRecord::Base
     self.email_confirmation = confirm.nil? ? email : confirm
     @new_email  = true
   end
-    
-  def validate_on_create
-    if User.exists?(User.verified_users(['login = ?', self.login]))
-      errors.add(:login, "'#{login}' has already been used")
-    end
-    if User.exists?(User.verified_users(['email = ?', self.email]))
-      errors.add(:email, "'#{email}' has already been used")
-    end
-  end
-   
+      
   def validate
+    #for change_password by valid user
     if(@new_password and (not old_password.blank?) and 
       old_password.crypt(self.salted_password) != self.salted_password)
       errors.add(:old_password, _('Old Password Incorrect')) 
     end
+    #for username and email check
+    cond = ["login = ? and #{User.verified_users}", login]
+    cond = [cond[0] + " and id <> ?", cond[1], id] unless new_record?
+    errors.add(:login, "'#{login}' has already been used") if User.exists?(cond)
+    cond = ["email = ? and #{User.verified_users}", email]
+    cond = [cond[0] + " and id <> ?", cond[1], id] unless new_record?
+    errors.add(:email, "'#{email}' has already been used") if User.exists?(cond)
   end
   
   def validate_password?
@@ -128,6 +127,7 @@ class User < ActiveRecord::Base
   end
 
   after_save '@new_password = false'
+  after_save '@new_email = false'
   after_validation :crypt_password
   def crypt_password
     if @new_password
@@ -178,31 +178,22 @@ class User < ActiveRecord::Base
     u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
     return nil if u.nil? or u.token_expired?
     return nil if false == u.update_expiry
-    unless atts.empty?
+    unless atts.empty?#update atts
       u.attributes = atts
       u.save
       atts['id'] = u.id
       atts['name'] = u.login
-    else
+    else#registing email
       send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login})
     end
     u
   end
 
   # User.find(:all, :conditions => User.verified_users).size
-  def self.verified_users(condition = 'true', options = {})
-    if condition.is_a?(String)
-      unless options[:alias]
-        "(#{condition}) and (verified = 1)"
-      else
-        a = options[:alias]
-        "(#{condition}) and (#{a}.verified = 1)"
-      end
-    elsif condition.is_a?(Array)
-      [ verified_users(condition[0]), *condition[1 .. -1] ]
-    else
-      raise "wrong usage!"
-    end
+  def self.verified_users(options = {})
+    a = options[:alias]
+    if a;a += '.';end        
+    "(#{a}verified = 1)"    
   end
   
   def self.salted_password(salt, hashed_password)
