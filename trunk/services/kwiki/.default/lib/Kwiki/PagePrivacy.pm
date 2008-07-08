@@ -33,7 +33,7 @@ sub linked_page_formatter {
     return '<pre>' . $self->html_escape($page->content) . '</pre>';
 }
 
-my $get_foundry_role = sub { $ENV{FOUNDRY_ROLE} };
+#my $get_foundry_role = sub { $ENV{FOUNDRY_ROLE} };
 
 sub is_readable {
     my $page = $self;
@@ -41,10 +41,11 @@ sub is_readable {
     return unless $hook->returned_true;
     $self = $self->hub->page_privacy;
     my $privacy = $self->page_privacy($page);
-my $role = $get_foundry_role->();
-my $result = ($role =~ /^(Admin|Member)$/) || ($privacy =~ /^(public|protected)$/);
-#print STDERR "is_readable: role: ##$role##, privacy: ##$privacy##, result: ##$result##\n";
+
+my $result = $::HAS_KWIKI_MANAGE || ($privacy =~ /^(public|protected)$/);
+print STDERR "is_readable(): HAS_KWIKI_MANAGE: $::HAS_KWIKI_MANAGE  privacy: $privacy  result: $result\n";
 return $result;
+
 #    return 1 unless $privacy eq 'private';
 #    $self->privacy_group eq $self->page_group($page);
 }
@@ -55,10 +56,11 @@ sub is_writable {
     return unless $hook->returned_true;
     $self = $self->hub->page_privacy;
     my $privacy = $self->page_privacy($page);
-my $role = $get_foundry_role->();
-my $result = ($role =~ /^(Admin|Member)$/) || ($privacy eq 'public');
-#print STDERR "is_writable: role: ##$role##, privacy: ##$privacy##, result: ##$result##\n";
+
+my $result = $::HAS_KWIKI_MANAGE || ($privacy eq 'public');
+print STDERR "is_writable(): HAS_KWIKI_MANAGE: $::HAS_KWIKI_MANAGE  privacy: $privacy  result: $result\n";
 return $result;
+
 #    return 1 if $privacy eq 'public';
 #    $self->privacy_group eq $self->page_group($page);
 }
@@ -85,10 +87,10 @@ sub page_privacy_set {
 }
 
 sub page_privacy_selectable {
-my $role = $get_foundry_role->();
-my $result = ($role =~ /^(Admin|Member)$/);
-#print STDERR "page_privacy_selectable: role: ##$role##, result: ##$result##\n";
+my $result = $::HAS_KWIKI_MANAGE;
+print STDERR "page_privacy_selectable(): HAS_KWIKI_MANAGE: $::HAS_KWIKI_MANAGE  result: $result\n";
 return $result;
+
 #    my $group = $self->privacy_group
 #      or return;
 #    my $page_group = $self->page_group
