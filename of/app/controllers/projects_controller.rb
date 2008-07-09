@@ -2,11 +2,13 @@ class ProjectsController < ApplicationController
   layout 'module'
   before_filter :set_project_id
   before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access]
-  before_filter :set_project, :only => [:show, :edit, :update, :roles_edit, :role_users, :role_edit, :role_update, :role_new, :role_create, :role_destroy, :viewvc, :vcs_access, :sympa]
+  before_filter :set_project
 
   before_filter :check_permission
   def set_project
-    @project = ProjectsController.get_project_by_id_or_name(params[:id], self) { |id| redirect_to :id => id }
+    if params[:id]
+      @project = ProjectsController.get_project_by_id_or_name(params[:id], self) { |id| redirect_to :id => id }
+    end
   end
   def self.get_project_by_id_or_name(id_or_name, controller)
     rtn = nil
@@ -116,7 +118,6 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
-      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => @project.id, 'name' => @project.summary, 'summary' => @project.description})
       redirect_to :action => 'applied'
     else
       render :action => 'new'
