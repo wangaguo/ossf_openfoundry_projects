@@ -86,28 +86,30 @@ class UserController < ApplicationController
 
   def login
     begin redirect_to :action => :home, :controller => :user ;return end if login?
+    if params['open_id_complete'] and session['user'] = open_id_authentication(nil)
+      flash[:message] = _('OpenID Login Succeeded')
+      redirect_back_or_default :action => :home
+      return
+    elsif params['use_openid']
+      open_id_authentication(params['user']['identity_url'])
+      return
+    end
     return if generate_blank
     #For "paranoid session store"
     #rebuild_session
-
-    if params['use_openid']
-      session['user'] = open_id_authentication(params['user']['identity_url'])
-    else  
-      session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
-    end
-
+    
     @user = User.new(params['user'])
-    if session['user']
+    if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
       flash[:message] = _('user_login_succeeded')
       redirect_back_or_default :action => :home
       # For "paranoid session store"
       #self.app_user=session['user']
-
-#      if params['remember_me']
-#        # TODO: is this always the case ??
-#        output_cookies = request.cgi.instance_eval('@output_cookies')
-#        output_cookies[0].expires = Time.now() + OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
-#      end
+      
+      #      if params['remember_me']
+      #        # TODO: is this always the case ??
+      #        output_cookies = request.cgi.instance_eval('@output_cookies')
+      #        output_cookies[0].expires = Time.now() + OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
+      #      end
     else
       @login = params['user']['login']
       flash.now[:message] = _('user_login_failed')
@@ -383,6 +385,14 @@ class UserController < ApplicationController
     end
     return false
   end
+  
+  def openid_authentication
+    if params[:open_id_complete].nil?
+      open_id_authentication(params['user']['identity_url'])
+    else
+      redirect_to :action => :login
+    end
+  end
 
   def open_id_authentication(identity_url)
     # Pass optional :required and :optional keys to specify what sreg fields you want.
@@ -390,7 +400,8 @@ class UserController < ApplicationController
     user = nil
     authenticate_with_open_id(identity_url, 
         :required => [:nickname, :email],
-        :optional => [:fullname] ) do |result, identity_url, registration|
+        :optional => [:fullname]
+         ) do |result, identity_url, registration|
       if result.unsuccessful?
         flash[:error] = result.message
       else 
