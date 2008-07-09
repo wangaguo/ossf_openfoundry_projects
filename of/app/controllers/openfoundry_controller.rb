@@ -22,7 +22,7 @@ class OpenfoundryController < ApplicationController
   end
   private :get_session_by_id
 
-  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump]
+  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump, :foundry_sync, :authentication_authorization_II]
   def get_user_by_session_id
     s = get_session_by_id(params['session_id'])
     u = current_user(s) 
@@ -57,6 +57,25 @@ class OpenfoundryController < ApplicationController
       @email = "guest@users.openfoundry.org"
     end
     render :text => "#{@name} #{@role} #{@email}" , :layout => false
+  end
+
+  # http://of.openfoundry.org/openfoundry/authentication_authorization_II?SID=2702bb3cee31729e29ab61eb8dbce8d9&projectname=openfoundry
+  def authentication_authorization_II
+    #TODO: filter localhost
+    #self.class.layout(nil)
+    session_id, project_name = params[:SID], params[:projectname]
+    rtn = {}
+    begin 
+      the_session_data = get_session_by_id(session_id)
+      user = the_session_data['user']
+      project_id = Project.find_by_name(project_name, :select => "id").id
+      function_names = Function.functions(:authorizable_id => project_id, :user_id => user.id)
+
+      rtn = { :name => user.login, :email => user.email, :function_names => function_names }
+    rescue
+      rtn = { :name => "guest", :email => "guest@users.openfoundry.org" , :function_names => [] }
+    end
+    render :text => rtn.to_json, :layout => false
   end
   
   def foundry_sync
