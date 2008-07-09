@@ -84,15 +84,20 @@ class UserController < ApplicationController
     end
   end
 
-
   def login
     begin redirect_to :action => :home, :controller => :user ;return end if login?
     return if generate_blank
     #For "paranoid session store"
     #rebuild_session
 
+    if params['use_openid']
+      session['user'] = open_id_authentication(params['user']['identity_url'])
+    else  
+      session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
+    end
+
     @user = User.new(params['user'])
-    if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
+    if session['user']
       flash[:message] = _('user_login_succeeded')
       redirect_back_or_default :action => :home
       # For "paranoid session store"
@@ -378,4 +383,42 @@ class UserController < ApplicationController
     end
     return false
   end
+
+  def open_id_authentication(identity_url)
+    # Pass optional :required and :optional keys to specify what sreg fields you want.
+    # Be sure to yield registration, a third argument in the #authenticate_with_open_id block.
+    user = nil
+    authenticate_with_open_id(identity_url, 
+        :required => [:nickname, :email],
+        :optional => [:fullname] ) do |result, identity_url, registration|
+      if result.unsuccessful?
+        flash[:error] = result.message
+      else 
+        user = User.find_or_create_by_identity_url(identity_url)
+        assign_registration_attributes!(user, registration)
+
+        unless user.save
+          flash[:message] = _("Your OpenID profile registration failed") +': '+
+            user.errors.full_messages.to_sentence
+          user = nil
+        end
+      end
+      end
+    return user
+  end
+  
+  # registration is a hash containing the valid sreg keys given above
+  # use this to map them to fields of your user model
+  def assign_registration_attributes!(user, registration)
+    model_to_registration_mapping.each do |model_attribute, registration_attribute|
+      unless registration[registration_attribute].blank?
+        user.send("#{model_attribute}=", registration[registration_attribute])
+      end
+    end
+  end
+
+  def model_to_registration_mapping
+    { :login => 'nickname', :email => 'email', :firstname => 'fullname'}
+  end
+
 end
