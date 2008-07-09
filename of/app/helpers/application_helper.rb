@@ -90,7 +90,7 @@ module ApplicationHelper
         if index == levels.size-1 #|| 
             #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
           #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
-          html << addcrumb(level_name) unless (level.to_i > 0 or level_name.nil?) 
+          html << addcrumb(level_name) unless (level_name.nil?) 
         else
           link='/'+levels[1..index].join('/')
           html << addcrumb(level_name,link)
