@@ -320,6 +320,7 @@ EOEO
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
+    ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => @project.id, 'name' => @project.summary, 'summary' => @project.description})
     Release::build_path(self.name, self.id)
     ProjectNotify.deliver_approved(self)
   end
