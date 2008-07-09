@@ -215,6 +215,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "email",           :limit => 60, :default => "", :null => false
       t.string   "firstname",       :limit => 40
       t.string   "lastname",        :limit => 40
+      t.string   "identity_url",    :limit => 255
       t.string   "salt",            :limit => 40, :default => "", :null => false
       t.integer  "verified",                      :default => 0
       t.string   "role",            :limit => 40
@@ -228,12 +229,30 @@ class CreateTables < ActiveRecord::Migration
       t.string   "language",        :limit => 5
       t.string   "timezone",        :limit => 40, :default => "Taipei"
     end
+    add_index "users", ["login", "salted_password"], :name => "index_users_on_login_pass"
+    add_index "users", ["identity_url"], :name => "index_users_on_identity_url"
+
+    #for openid support, see vender/plugins/...openid.../README
+    create_table :open_id_authentication_associations, :force => true do |t|
+      t.integer :issued, :lifetime
+      t.string :handle, :assoc_type
+      t.binary :server_url, :secret
+    end
+
+    create_table :open_id_authentication_nonces, :force => true do |t|
+      t.integer :timestamp, :null => false
+      t.string :server_url, :null => true
+      t.string :salt, :null => false
+    end
   end
 
   def self.down
     %w(users projects tags taggings categories
-sessions roles roles_users roles_functions functions
-releases news jobs citations references events downloaders fileentities images).each do |table_name|
+    sessions roles roles_users roles_functions functions
+    releases news jobs citations references events 
+    downloaders fileentities images 
+    open_id_authentication_associations 
+    open_id_authentication_nonces ).each do |table_name|
       drop_table table_name
     end
   end
