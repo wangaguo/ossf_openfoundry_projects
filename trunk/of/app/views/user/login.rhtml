@@ -1,6 +1,6 @@
 <h1><%= _("Login to OpenFoundry") %></h1>
+<% form_tag '/user/login' do -%>
 <table id="LoginForm" class="form-table" title="Login Form" summary="Login Form" >
-  <% form_tag '/user/login' do -%>
   <tr>
     <th>
       <label for="user_login"><%= _("Login ID") %>:</label>
@@ -34,6 +34,28 @@
       <%= link_to _('Forgot my password'), :action => 'forgot_password' %>
     </td>
   </tr>
-  <% end -%>
 </table>
+<% end -%>
+<% form_tag '/user/login' do -%>
+<table id="OpenIDLoginnForm" class="form-table" title="OpenID Login Form" summary="OpenID Login Form" >
+  <tr>
+    <th>
+      <label for="user_login">
+        <%= _('OpenID Login') %>:
+      </label>
+    </th>
+    <td>
+      <%= text_field("user", "identity_url", :size => 50) %> 
+      <input type="hidden" id="use_openid" name="use_openid" value="1" />
+    </td>
+  </tr>
+  <tr>
+    <th>
+    </th>
+    <td>
+      <%= submit_tag _("OpenID Login") %>
+    </td>
+  </tr>
+</table>
+<% end -%>
                                                                                 
