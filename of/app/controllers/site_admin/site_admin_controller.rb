@@ -1,10 +1,9 @@
 require 'of'
 class SiteAdmin::SiteAdminController < SiteAdmin
+  include OpenFoundry::Message
   def index
   end
   def resend
-    include OpenFoundry::Message
-   
     User.find(:all, :conditions => User.verified_users()).each do |u|
       send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
     end
