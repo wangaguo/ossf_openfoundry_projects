@@ -102,6 +102,18 @@ msgstr "圖像"
 msgid "User|Login"
 msgstr "登入"
 
+msgid "Logout"
+msgstr "登出" 
+
+msgid "Online Users"
+msgstr "在線上的使用者"
+
+msgid "Registed Projects"
+msgstr "專案"
+
+msgid "Registed Users"
+msgstr "使用者"
+
 #: app/models/user.rb:-
 msgid "User|Salted password"
 msgstr "密碼(加密)"
@@ -1737,9 +1749,8 @@ msgid "User|Change Settings"
 msgstr "偏好設定更新"
 
 #: app/views/user/edit.rhtml:5
-#, fuzzy
 msgid "Change User Icon"
-msgstr "更換圖像"
+msgstr "更換使用者圖像"
 
 #: app/views/user/signup.rhtml:2
 msgid "User Signup"
@@ -1768,9 +1779,8 @@ msgid "User|Change Email"
 msgstr "更改電子郵件"
 
 #: app/views/user/home.rhtml:2
-#, fuzzy
 msgid "User Icon"
-msgstr "圖像"
+msgstr "使用者圖像"
 
 #: app/views/user/home.rhtml:19
 msgid "My Partners"
@@ -1778,16 +1788,15 @@ msgstr "我的伙伴"
 
 #: app/views/user/home.rhtml:32
 msgid "My Email"
-msgstr ""
+msgstr "我的電子郵件"
 
 #: app/views/user/home.rhtml:43 app/views/user/my_projects.rhtml:2
 msgid "My Projects"
 msgstr "我參與的專案"
 
 #: app/views/user/home.rhtml:56
-#, fuzzy
 msgid "Signup Date"
-msgstr "註冊"
+msgstr "註冊時間"
 
 #: app/views/user/login.rhtml:1
 msgid "Login to OpenFoundry"
@@ -1815,7 +1824,7 @@ msgstr "忘記密碼"
 
 #: app/views/user/login.rhtml:44 app/views/user/login.rhtml:56
 msgid "OpenID Login"
-msgstr ""
+msgstr "OpenID登入"
 
 #: app/views/user/_privacy.rhtml:2
 msgid "User Privacy"
