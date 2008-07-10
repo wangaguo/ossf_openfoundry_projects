@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-07-09 08:38-0000\n"
+"POT-Creation-Date: 2008-07-10 02:32-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,6 @@ msgstr ""
 #: app/controllers/references_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:15
 #: app/views/partials/_project_menu.rhtml:46
-#, fuzzy
 msgid "References"
 msgstr "偏好設定"
 
@@ -110,7 +109,7 @@ msgstr "密碼(加密)"
 #: app/models/user.rb:- app/views/user/forgot_password.rhtml:8
 #: app/views/user/_email.rhtml:6
 msgid "User|Email"
-msgstr "Email"
+msgstr "電子郵件"
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:7
 msgid "User|Firstname"
@@ -170,7 +169,7 @@ msgstr "時區"
 
 #: app/models/user.rb:-
 msgid "User|Identity url"
-msgstr ""
+msgstr "OpenID識別網址"
 
 #: app/models/user.rb:106
 msgid "Old Password Incorrect"
@@ -317,12 +316,10 @@ msgid "Session|Data"
 msgstr ""
 
 #: app/models/session.rb:-
-#, fuzzy
 msgid "Session|Created at"
 msgstr "建立時間"
 
 #: app/models/session.rb:-
-#, fuzzy
 msgid "Session|Updated at"
 msgstr "更新時間"
 
@@ -420,7 +417,6 @@ msgid "Project|Created at"
 msgstr "建立日期"
 
 #: app/models/project.rb:-
-#, fuzzy
 msgid "Project|Updated at"
 msgstr "上次修改時間"
 
@@ -672,12 +668,10 @@ msgid "job"
 msgstr ""
 
 #: app/models/job.rb:-
-#, fuzzy
 msgid "Job|Subject"
 msgstr "標題"
 
 #: app/models/job.rb:-
-#, fuzzy
 msgid "Job|Description"
 msgstr "描述"
 
@@ -851,97 +845,85 @@ msgstr ""
 msgid "Delete Successful"
 msgstr "刪除帳號"
 
-#: app/controllers/user_controller.rb:101
+#: app/controllers/user_controller.rb:90
+msgid "OpenID Login Succeeded"
+msgstr "OpenID登入成功"
+
+#: app/controllers/user_controller.rb:103
 msgid "user_login_succeeded"
 msgstr "登入成功"
 
-#: app/controllers/user_controller.rb:113
+#: app/controllers/user_controller.rb:115
 msgid "user_login_failed"
 msgstr "登入失敗"
 
-#: app/controllers/user_controller.rb:133
+#: app/controllers/user_controller.rb:135
 msgid "user_signup_succeeded"
 msgstr "註冊成功"
 
-#: app/controllers/user_controller.rb:138
+#: app/controllers/user_controller.rb:140
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:162
-msgid "user_updated_email"
-msgstr "Email更新成功"
-
 #: app/controllers/user_controller.rb:164
+msgid "user_updated_email"
+msgstr "電子郵件更新成功"
+
+#: app/controllers/user_controller.rb:166
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:196
+#: app/controllers/user_controller.rb:198
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:199
+#: app/controllers/user_controller.rb:201
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:207
+#: app/controllers/user_controller.rb:209
 msgid "user_forgot_password_logged_in"
 msgstr "您已經登入, 請直接更改密碼"
 
-#: app/controllers/user_controller.rb:217
-msgid "user_enter_valid_email_address"
-msgstr "Email Address不正確"
-
 #: app/controllers/user_controller.rb:219
-msgid "user_email_address_not_found"
-msgstr "查無此Email Address"
+msgid "user_enter_valid_email_address"
+msgstr "電子郵件位址不正確"
 
-#: app/controllers/user_controller.rb:227
+#: app/controllers/user_controller.rb:221
+msgid "user_email_address_not_found"
+msgstr "查無此電子郵件位址"
+
+#: app/controllers/user_controller.rb:229
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:235
+#: app/controllers/user_controller.rb:237
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:265
+#: app/controllers/user_controller.rb:267
 msgid "Update User Privacy Setting Successed"
-msgstr ""
+msgstr "使有者隱私權已更新"
 
-#: app/controllers/user_controller.rb:290
+#: app/controllers/user_controller.rb:292
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:299
+#: app/controllers/user_controller.rb:301
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:310
+#: app/controllers/user_controller.rb:312
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
-msgstr ""
+msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:319
+#: app/controllers/user_controller.rb:321
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:396
-msgid "Sorry, the OpenID server couldn't be found"
-msgstr ""
-
-#: app/controllers/user_controller.rb:398
-msgid "Sorry, but this does not appear to be a valid OpenID"
-msgstr ""
-
-#: app/controllers/user_controller.rb:400
-msgid "OpenID verification was canceled"
-msgstr ""
-
-#: app/controllers/user_controller.rb:402
-msgid "Sorry, the OpenID verification failed"
-msgstr ""
-
-#: app/controllers/user_controller.rb:408
+#: app/controllers/user_controller.rb:404
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -1048,27 +1030,27 @@ msgstr "搜尋"
 
 #: app/views/partials/_search.rhtml:7
 msgid "Advensed Options"
-msgstr ""
+msgstr "進階搜尋"
 
 #: app/views/partials/_search.rhtml:34
 msgid "Search in Class"
-msgstr ""
+msgstr "搜尋類型"
 
 #: app/views/partials/_search.rhtml:49
 msgid "Search Include ALL of the List"
-msgstr ""
+msgstr "包含全部內容(空白隔開)"
 
 #: app/views/partials/_search.rhtml:53
 msgid "Search Include ANY of the List"
-msgstr ""
+msgstr "包含任一內容(空白隔開)"
 
 #: app/views/partials/_search.rhtml:57
 msgid "Search Exclude ANY of the List"
-msgstr ""
+msgstr "不包含任一內容(空白隔開)"
 
 #: app/views/partials/_search.rhtml:61
 msgid "Search by Google"
-msgstr ""
+msgstr "Google搜尋"
 
 #: app/views/partials/_login.rhtml:6
 msgid "Welcome"
@@ -1169,19 +1151,19 @@ msgstr "成員管理"
 
 #: app/views/partials/_toua.rhtml:2
 msgid "Term of Use Agreement"
-msgstr ""
+msgstr "使用條款"
 
 #: app/views/partials/_toua.rhtml:10
 msgid "I Agree"
-msgstr ""
+msgstr "我同意"
 
 #: app/views/partials/_toua.rhtml:13
 msgid "I Do Not Agree"
-msgstr ""
+msgstr "不同意"
 
 #: app/views/partials/_toua.rhtml:15
 msgid "submit"
-msgstr ""
+msgstr "送出"
 
 #: app/views/partials/_top_menu_data.rhtml:4
 #: app/views/layouts/application.rhtml:36
@@ -1234,7 +1216,7 @@ msgid "menu_WebHosting"
 msgstr "專案網頁空間"
 
 #: app/views/partials/_top_menu_data.rhtml:22
-#: app/views/partials/_top_menu_data.rhtml:39
+#: app/views/partials/_top_menu_data.rhtml:38
 #, fuzzy
 msgid "Create Project"
 msgstr "註冊專案"
@@ -1249,71 +1231,67 @@ msgid "menu_Preference"
 msgstr "偏好設定"
 
 #: app/views/partials/_top_menu_data.rhtml:28
-msgid "menu_Password"
-msgstr "修改密碼"
-
-#: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_My Pages"
 msgstr "我的首頁"
 
-#: app/views/partials/_top_menu_data.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_My Projects"
 msgstr "我參與的專案"
 
-#: app/views/partials/_top_menu_data.rhtml:31
+#: app/views/partials/_top_menu_data.rhtml:30
 msgid "menu_My Tickets"
 msgstr "我的代辦事項"
 
-#: app/views/partials/_top_menu_data.rhtml:33
+#: app/views/partials/_top_menu_data.rhtml:32
 msgid "Owner"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:34
+#: app/views/partials/_top_menu_data.rhtml:33
 #, fuzzy
 msgid "Creator"
 msgstr "建立者"
 
-#: app/views/partials/_top_menu_data.rhtml:35
+#: app/views/partials/_top_menu_data.rhtml:34
 msgid "Requestor"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:36
+#: app/views/partials/_top_menu_data.rhtml:35
 #, fuzzy
 msgid "LastUpdatedBy"
 msgstr "更新時間"
 
-#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/partials/_top_menu_data.rhtml:41
 #: app/views/layouts/application.rhtml:39
 msgid "menu_License Wizard"
 msgstr "授權指引/精靈"
 
+#: app/views/partials/_top_menu_data.rhtml:43
 #: app/views/partials/_top_menu_data.rhtml:44
-#: app/views/partials/_top_menu_data.rhtml:45
 #, fuzzy
 msgid "License Wizard"
 msgstr "授權指引/精靈"
 
-#: app/views/partials/_top_menu_data.rhtml:46
+#: app/views/partials/_top_menu_data.rhtml:45
 #, fuzzy
 msgid "Direction"
 msgstr "描述"
 
-#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/partials/_top_menu_data.rhtml:48
 #: app/views/layouts/application.rhtml:40
 msgid "menu_Help"
 msgstr "說明"
 
-#: app/views/partials/_top_menu_data.rhtml:56
+#: app/views/partials/_top_menu_data.rhtml:55
 msgid "Download PDF"
 msgstr "下載pdf格式"
 
-#: app/views/partials/_top_menu_data.rhtml:59
-#: app/views/partials/_top_menu_data.rhtml:61
+#: app/views/partials/_top_menu_data.rhtml:58
+#: app/views/partials/_top_menu_data.rhtml:60
 #: app/views/layouts/application.rhtml:41
 msgid "menu_Contact Us"
 msgstr "連絡我們"
 
-#: app/views/partials/_top_menu_data.rhtml:62
+#: app/views/partials/_top_menu_data.rhtml:61
 msgid "Bug Report"
 msgstr ""
 
@@ -1687,14 +1665,12 @@ msgid "logout"
 msgstr "登出"
 
 #: app/views/user/_password.rhtml:2
-#, fuzzy
 msgid "Change User Password"
-msgstr "密碼更新"
+msgstr "更改使用者密碼"
 
 #: app/views/user/_password.rhtml:7
-#, fuzzy
 msgid "User|Old Password"
-msgstr "密碼"
+msgstr "原有密碼"
 
 #: app/views/user/_password.rhtml:7
 #, fuzzy
@@ -1703,7 +1679,7 @@ msgstr "密碼"
 
 #: app/views/user/_password.rhtml:10
 msgid "User|Password"
-msgstr "密碼"
+msgstr "新密碼"
 
 #: app/views/user/_password.rhtml:10
 #, fuzzy
@@ -1712,7 +1688,7 @@ msgstr "密碼"
 
 #: app/views/user/_password.rhtml:12
 msgid "User|Password Confirmation"
-msgstr "密碼確認"
+msgstr "請再次輸入密碼"
 
 #: app/views/user/_password.rhtml:12
 #, fuzzy
@@ -1733,9 +1709,8 @@ msgid "Cancel"
 msgstr "取消"
 
 #: app/views/user/_edit.rhtml:2
-#, fuzzy
 msgid "User Info"
-msgstr "圖像"
+msgstr "使用者資訊"
 
 #: app/views/user/_edit.rhtml:5
 #, fuzzy
@@ -1771,9 +1746,8 @@ msgid "User Signup"
 msgstr "使用者註冊"
 
 #: app/views/user/_email.rhtml:2
-#, fuzzy
 msgid "Change User Email"
-msgstr "更改Email"
+msgstr "更改電子郵件"
 
 #: app/views/user/_email.rhtml:6
 #, fuzzy
@@ -1782,7 +1756,7 @@ msgstr "Email"
 
 #: app/views/user/_email.rhtml:8
 msgid "User|Email Confirmation"
-msgstr "Email確認"
+msgstr "請再次輸入電子郵件"
 
 #: app/views/user/_email.rhtml:8
 #, fuzzy
@@ -1791,7 +1765,7 @@ msgstr "Email確認"
 
 #: app/views/user/_email.rhtml:11
 msgid "User|Change Email"
-msgstr "更改Email"
+msgstr "更改電子郵件"
 
 #: app/views/user/home.rhtml:2
 #, fuzzy
@@ -1844,16 +1818,14 @@ msgid "OpenID Login"
 msgstr ""
 
 #: app/views/user/_privacy.rhtml:2
-#, fuzzy
 msgid "User Privacy"
 msgstr "使用者隱私設定"
 
 #: app/views/user/_privacy.rhtml:5
 msgid "User|Conceal Email"
-msgstr "隱藏Email"
+msgstr "隱藏電子郵件"
 
 #: app/views/user/_privacy.rhtml:5
-#, fuzzy
 msgid "User|Conceal_Email|Help"
 msgstr "隱藏Email"
 
@@ -1862,7 +1834,6 @@ msgid "User|Conceal Login Status"
 msgstr "隱藏登入狀態"
 
 #: app/views/user/_privacy.rhtml:7
-#, fuzzy
 msgid "User|Conceal_Login|Help"
 msgstr "隱藏登入狀態"
 
@@ -1904,6 +1875,9 @@ msgstr ""
 #, fuzzy
 msgid "Add Reference"
 msgstr "偏好設定"
+
+#~ msgid "menu_Password"
+#~ msgstr "修改密碼"
 
 #, fuzzy
 #~ msgid "project_Members"
