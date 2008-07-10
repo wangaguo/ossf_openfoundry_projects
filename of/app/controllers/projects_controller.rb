@@ -125,7 +125,6 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    redirect_to :action => 'index' if not current_user().has_role?("Admin", @project)
   end
 
   def update
