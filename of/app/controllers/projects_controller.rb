@@ -155,11 +155,10 @@ class ProjectsController < ApplicationController
   def delete_role
     project = Project.find params[:id]
 #    raise SandardError unless Role.valid_role? params[:role]
-
     params[params[:role].to_sym].each do |user_id|
       user = User.find user_id
-      if user and project 
-        user.has_no_role params[:role], project 
+      if user and project
+        user.has_no_role params[:role], project
       else
         raise StandardError 
       end

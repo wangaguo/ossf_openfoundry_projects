@@ -46,11 +46,15 @@ module Authorization
         def has_no_role( role_name, authorizable_obj = nil  )
           role = get_role( role_name, authorizable_obj )
           if role
-            self.roles.delete( role )
+            if(role_name.upcase == "ADMIN" && role.users.length <= 1)
+            else
+              self.roles.delete( role )
+            end
             if(role_name.upcase != "ADMIN" && role_name.upcase != "MEMBER")
               role.destroy if (role.users.empty?)
             end
           end
+          role.save
         end
 
         private
