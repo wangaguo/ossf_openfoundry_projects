@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = %q{openfoundry_dependent_gems}
   s.version = "0.1"
-  s.date = %q{2008-01-24}
+  s.date = %q{2008-07-10}
   s.summary = %q{OpenFoundry dependent gems.}
   s.email = %q{contact@openfoundry.org}
   s.homepage = %q{http://www.openfoundry.org}
@@ -60,4 +60,5 @@ Gem::Specification.new do |s|
   s.add_dependency(%q<tzinfo>, ["= 0.3.6"])
 #  s.add_dependency(%q<uuidtools>, ["= 1.0.3, 1.0.2"])
 #  s.add_dependency(%q<ZenTest>, ["= 3.8.0, 3.7.1, 3.6.1"])
+  s.add_dependency(%q<ruby-openid>, [">= 2.1.2"])
 end
