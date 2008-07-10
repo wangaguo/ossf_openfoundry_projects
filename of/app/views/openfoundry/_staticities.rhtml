@@ -1,8 +1,8 @@
 <h3><img src="/images/of/icon01.gif" align="left" /><%=_('Statistics')%></h3>
 <ul>
-  <li>專案: <%= projectCount %>項</li>
-  <li>使用者: <%= userCount %></li>
-  <li><%="#{_('Online Users')}:"%> 
+  <li><%= _('Registed Projects')%>: <%= projectCount %></li>
+  <li><%= _('Registed Users')%>: <%= userCount %></li>
+  <li><%=_('Online Users')%>: 
   <br/>
   <% online_users.each_with_index do |u,i| %>
     <%= user_portrait_link u %> 
