@@ -86,31 +86,38 @@ class OpenfoundryController < ApplicationController
       return
     end
     
-    service = params[:service] || :wiki
-    permission = params[:permission] || :manage
-    function_name = "#{service}_#{permission}"
-    
-    sql_tmp = "select distinctrow U.id u_id,P.id p_id  from 
-              users U, projects P, roles_users RU, roles R, functions F , roles_functions RF 
-            where ((F.name = ? and F.id = RF.function_id and R.id = RF.role_id)
-                 or R.name='admin') and 
-              R.authorizable_id = P.id and 
-              R.authorizable_type = 'Project' and 
-              R.authorizable_id = P.id and 
-              RU.role_id = R.id and 
-              RU.user_id = U.id and 
-              #{User.verified_users(:alias => 'U')} and 
-              #{Project.in_used_projects(:alias => 'P')}"
+    module_ = params[:module]
+    if module_ !~ /^\w+$/
+      render :text => "wrong usage"
+      return
+    end
+
+    sql= "select distinct F.name, P.id, U.id from 
+          users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
+          where 
+          F.module = '#{module_}' and
+          (R.name='admin' or (RF.role_id = R.id and RF.function_id = F.id)) and
+          R.authorizable_id = P.id and 
+          R.authorizable_type = 'Project' and 
+          RU.role_id = R.id and 
+          RU.user_id = U.id and 
+          #{User.verified_users(:alias => 'U')} and 
+          #{Project.in_used_projects(:alias => 'P')}"
+    #render :text => sql; return
     
     projects = Project.find(:all, :conditions => Project.in_used_projects())
     users = User.find(:all, :conditions => User.verified_users())
-    relations = User.find_by_sql([sql_tmp, function_name])
+    functions_rows = ActiveRecord::Base.connection.select_rows(sql);
+
+    functions = {}
+    functions_rows.each { |fname, pid, uid| functions[fname] = (functions[fname] || []) << [pid, uid] }
+
     data = {
       :projects => projects.map { |p| { :id => p.id, :summary => p.summary ,
                                         :name => p.name, :vcs => p.vcs } },
       :users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email,
                                   :password => u.salted_password } },
-      :relations => relations.collect{|r| [r.p_id, r.u_id]}
+      :functions => functions
     }
     render :text => data.to_json, :layout => false
   end
