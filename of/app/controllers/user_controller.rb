@@ -88,7 +88,7 @@ class UserController < ApplicationController
     begin redirect_to :action => :home, :controller => :user ;return end if login?
     if params['open_id_complete'] and session['user'] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
-      redirect_back_or_default :action => :home
+      redirect_back_or_default '/user/home' 
       return
     elsif params['use_openid']
       open_id_authentication(params['user']['identity_url'])
@@ -386,14 +386,6 @@ class UserController < ApplicationController
     return false
   end
   
-  def openid_authentication
-    if params[:open_id_complete].nil?
-      open_id_authentication(params['user']['identity_url'])
-    else
-      redirect_to :action => :login
-    end
-  end
-
   def open_id_authentication(identity_url)
     # Pass optional :required and :optional keys to specify what sreg fields you want.
     # Be sure to yield registration, a third argument in the #authenticate_with_open_id block.
