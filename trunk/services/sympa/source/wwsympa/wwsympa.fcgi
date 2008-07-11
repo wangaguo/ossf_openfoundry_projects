@@ -17142,7 +17142,7 @@ $in{'listname'} = $in{'projectUnixName'} . "-" . $in{'listname'};
 
 sub foundry_auth
 {
-       my $of = OpenFoundry::init();
+       my $of = OpenFoundry->init();
        my ($httpCookie, $projectname) = @_;
 
 
