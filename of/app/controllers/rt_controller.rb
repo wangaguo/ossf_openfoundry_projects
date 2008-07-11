@@ -26,7 +26,7 @@ class RtController < ApplicationController
     @rt_url = OPENFOUNDRY_RT_URL
     @base_url = @rt_url + "/Search/Results.html?Order=DESC&OrderBy=LastUpdated&Query="
     if(@project != nil)
-      @base_url += "Queue = '" + @project.name + "'"
+      @base_url += "Queue = '" + @project.id.to_s + "'"
     else
       @base_url += "id>'0'"
     end
