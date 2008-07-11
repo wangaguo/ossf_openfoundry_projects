@@ -11460,7 +11460,7 @@ sub syncWithFoundry
 	my $of = OpenFoundry->init();
 
 	# admin
-	my $relations = $of->getRelations();
+	my $functions = $of->{'functions'};
         &List::db_connect();
 	my $dbh = &List::db_get_handler();
 	print "dbh : $dbh \n";
@@ -11478,13 +11478,13 @@ sub syncWithFoundry
 
 	#insert new entries into tmp table
 	my $sth = $dbh->prepare("insert into $table_tmp values (?, ?)");
-	foreach my $pu (@{$relations->{'admin'}})
+	foreach my $pu (@{$functions})
 	{
-		my ($projectId, $userId) = @$pu;
-		my $u=$of->getUserById($userId);
-		my $p=$of->getProjectById($projectId);
+		my ($p, $u) = @$pu;
+		#my $u=$of->getUserById($userId);
+		#my $p=$of->getProjectById($projectId);
 		#die "why??" if (not $u or not $p);
-		$sth->execute($u->{'email'}, $p->{'name'});
+		$sth->execute($of->{'users'}{$u}, $p);
 	}	
 
 
