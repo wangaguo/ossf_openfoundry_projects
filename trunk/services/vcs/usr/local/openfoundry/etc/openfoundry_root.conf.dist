@@ -1,5 +1,5 @@
 {
-	"DUMP_SOURCE_URL": "http://192.168.0.20:3000/openfoundry/foundry_dump?secret=",
+	"DUMP_SOURCE_URL": "http://192.168.0.20:3000/openfoundry/foundry_sync?secret=%s&module=%s",
 	"DUMP_SECRET": "###########",
 
 
