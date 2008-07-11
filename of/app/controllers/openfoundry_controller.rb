@@ -85,11 +85,33 @@ class OpenfoundryController < ApplicationController
       render :text => "access denied", :layout => false
       return
     end
+
+    attrs = {
+              "vcs" => { "projects" => { "name" => "name",  "vcs" => "vcs" },
+                         "users" =>  { "login" => "name" , "salted_password" => "password" } }
+            }
     
     module_ = params[:module]
-    if module_ !~ /^\w+$/
-      render :text => "wrong usage"
+    if not attrs[module_]
+      render :text => "wrong module '#{module_}'"
       return
+    end
+
+    # projects will be an array of hash
+    (projects, users) = ["projects", "users"].map do |obj|
+      keys = []
+      output_names = [] # values_at(*keys)
+      attrs[module_][obj].each_pair {|k, v| keys << k; output_names << v}
+      sql = "select #{keys.join(',')} from " + case obj
+        when "projects": "projects where #{Project.in_used_projects()}"
+        when "users": "users where #{User.verified_users()}"
+      end
+      ActiveRecord::Base.connection.select_rows(sql).map do |row|
+        tmp = {}
+        output_names.each_with_index {|n, i| tmp[n] = row[i] }
+        tmp
+      end
+      # or .. Hash[*output_names.zip(row).flatten] ... benchmark ?
     end
 
     sql= "select distinct F.name, P.id, U.id from 
@@ -104,19 +126,22 @@ class OpenfoundryController < ApplicationController
           #{User.verified_users(:alias => 'U')} and 
           #{Project.in_used_projects(:alias => 'P')}"
     #render :text => sql; return
+
     
-    projects = Project.find(:all, :conditions => Project.in_used_projects())
-    users = User.find(:all, :conditions => User.verified_users())
+    #projects = Project.find(:all, :conditions => Project.in_used_projects())
+    #users = User.find(:all, :conditions => User.verified_users())
     functions_rows = ActiveRecord::Base.connection.select_rows(sql);
 
     functions = {}
     functions_rows.each { |fname, pid, uid| functions[fname] = (functions[fname] || []) << [pid, uid] }
 
     data = {
-      :projects => projects.map { |p| { :id => p.id, :summary => p.summary ,
-                                        :name => p.name, :vcs => p.vcs } },
-      :users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email,
-                                  :password => u.salted_password } },
+      #:projects => projects.map { |p| { :id => p.id, :summary => p.summary ,
+      #                                  :name => p.name, :vcs => p.vcs } },
+      :projects => projects,
+      #:users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email,
+      #                            :password => u.salted_password } },
+      :users => users,
       :functions => functions
     }
     render :text => data.to_json, :layout => false
