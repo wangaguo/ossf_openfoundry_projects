@@ -8,7 +8,7 @@ use Fatal qw(chown symlink);
 use Data::Dumper;
 
 my $of = OpenFoundry->init();
-my %conf = %{ $of->getConf() };
+my %conf = %{ $of->{"conf"} };
 
 die "cvs directory '$conf{CVSROOT}' dose not exist" if not -d $conf{CVSROOT};
 print __FILE__, ": \$conf{CVSROOT} directory: $conf{CVSROOT}\n";
@@ -18,10 +18,10 @@ die "svn directory '$conf{SVN_PARENT_PATH}' dose not exist" if not -d $conf{SVN_
 my $SVNADMIN_CMD = '/usr/local/bin/svnadmin';
 
 
-foreach my $p (@{$of->getProjects()})
+foreach my $p (@{$of->{"projects"}})
 {
-	my $name = $p->{name};
-	my $vcs = $p->{vcs};
+	my $name = $p->[0];
+	my $vcs = $p->[1];
 	print "name: $name vcs: $vcs\n";
 	if ($vcs eq OpenFoundry::VCS_CVS) {
 		my $dir = "$conf{CVSROOT}/$name"; 
@@ -45,7 +45,7 @@ foreach my $p (@{$of->getProjects()})
 		symlink '../../.default/hooks/pre-commit', "$dir/hooks/pre-commit";
 		symlink '../../.default/hooks/pre-revprop-change', "$dir/hooks/pre-revprop-change";
 	} else {
-		print "other value: $p->{name} #$vcs#\n";
+		print "other value: $name #$vcs#\n";
 	}
 }
 
