@@ -86,65 +86,37 @@ class OpenfoundryController < ApplicationController
       return
     end
 
-    attrs = {
-              "vcs" => { "projects" => { "name" => "name",  "vcs" => "vcs" },
-                         "users" =>  { "login" => "name" , "salted_password" => "password" } }
-            }
-    
-    module_ = params[:module]
-    if not attrs[module_]
+    case module_ = params[:module]
+    when "vcs"
+      projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
+      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
+      sql= "select U.login, P.name, F.name from 
+            users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
+            where 
+            F.module = 'vcs' and
+            (R.name='admin' or (RF.role_id = R.id and RF.function_id = F.id)) and
+            R.authorizable_id = P.id and 
+            R.authorizable_type = 'Project' and 
+            RU.role_id = R.id and 
+            RU.user_id = U.id and 
+            #{User.verified_users(:alias => 'U')} and 
+            #{Project.in_used_projects(:alias => 'P')}"
+      #render :text => sql; return
+      functions = {}
+      ActiveRecord::Base.connection.select_rows(sql).each do |u, p, f|
+        #functions[u][p][f] = 1
+        a = functions[u] = {} if not a = functions[u]
+        b = a[p] = {} if not b = a[p]
+        b[f] = 1
+      end
+    else
       render :text => "wrong module '#{module_}'"
       return
     end
 
-    # projects will be an array of hash
-    (projects, users) = ["projects", "users"].map do |obj|
-      keys = []
-      output_names = [] # values_at(*keys)
-      attrs[module_][obj].each_pair {|k, v| keys << k; output_names << v}
-      sql = "select #{keys.join(',')} from " + case obj
-        when "projects": "projects where #{Project.in_used_projects()}"
-        when "users": "users where #{User.verified_users()}"
-      end
-      ActiveRecord::Base.connection.select_rows(sql).map do |row|
-        tmp = {}
-        output_names.each_with_index {|n, i| tmp[n] = row[i] }
-        tmp
-      end
-      # or .. Hash[*output_names.zip(row).flatten] ... benchmark ?
-    end
-
-    sql= "select distinct F.name, P.id, U.id from 
-          users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
-          where 
-          F.module = '#{module_}' and
-          (R.name='admin' or (RF.role_id = R.id and RF.function_id = F.id)) and
-          R.authorizable_id = P.id and 
-          R.authorizable_type = 'Project' and 
-          RU.role_id = R.id and 
-          RU.user_id = U.id and 
-          #{User.verified_users(:alias => 'U')} and 
-          #{Project.in_used_projects(:alias => 'P')}"
-    #render :text => sql; return
-
-    
-    #projects = Project.find(:all, :conditions => Project.in_used_projects())
-    #users = User.find(:all, :conditions => User.verified_users())
-    functions_rows = ActiveRecord::Base.connection.select_rows(sql);
-
-    functions = {}
-    functions_rows.each { |fname, pid, uid| functions[fname] = (functions[fname] || []) << [pid, uid] }
-
-    data = {
-      #:projects => projects.map { |p| { :id => p.id, :summary => p.summary ,
-      #                                  :name => p.name, :vcs => p.vcs } },
-      :projects => projects,
-      #:users => users.map { |u| { :id => u.id, :name => u.login, :email => u.email,
-      #                            :password => u.salted_password } },
-      :users => users,
-      :functions => functions
-    }
+    data = { :projects => projects, :users => users, :functions => functions }
     render :text => data.to_json, :layout => false
+    #render :text => JSON.pretty_generate(data), :layout => false
   end
   
   def foundry_dump # TODO: optimize !!!!
