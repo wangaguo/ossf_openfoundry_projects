@@ -17,7 +17,7 @@ module OpenFoundry
     TYPES = {
       :project => 'project', 
       :user => 'user' , 
-      :relation => 'relation'}.freeze
+      :function => 'function'}.freeze
 
     module ClassMethods
       include ActiveMessaging::MessageSender
