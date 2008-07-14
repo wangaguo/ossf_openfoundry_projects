@@ -19,7 +19,10 @@ class MigrateController < ApplicationController
     projects = j["projects"]
     projects.each do |p|
       tmp += "#{p["id"]}  #{p["name"]} #{p["summary"]}" + "<br/>"
+      p2 = Project.new(p)
+      tmp += p2.pretty_inspect
     end
+
     render :text => tmp, :layout => false
   end
 
