@@ -166,20 +166,34 @@ class ReleasesController < ApplicationController
   #用link_to_remote呼叫 將檔案加入專案發佈中
   def addfiles
     #if request.post?
+    pass = true
+      unless Release.exists?(params[:id])
+        flash.now[:error] = _('Release id not found!')
+        pass = false
+      end
       r = Release.find params[:id]
-      return if r.nil?
+      unless Project.exists?(params[:project_id])
+        flash.now[:error] = _('Project id not found!')
+        pass = false
+      end
       project_name = Project.find(params[:project_id]).name
-      files = params[:uploadfiles].collect { |path| make_file_entity(path, File.size("#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/#{path}")) }
-      r.fileentity << files
-      r.save
-      flash[:notice] = 'Your files have been added to Release!'
-     
-      #move file from upload to downlad area
-      release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.version}"
-      #Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
-      #`cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
-      files.each do |file|
-        `/home/openfoundry/bin/move_upload_files #{project_name} #{file.path} #{release_tag_path}`
+      unless params[:uploadfiles]
+        flash.now[:error] = _('You doesn\'t select any files!')
+        pass = false
+      end
+      if pass
+        files = params[:uploadfiles].collect { |path| make_file_entity(path, File.size("#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/#{path}")) }
+        r.fileentity << files
+        r.save
+        flash[:notice] = _('Your files have been added to Release!')
+
+        #move file from upload to downlad area
+        release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.version}"
+        #Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
+        #`cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
+        files.each do |file|
+          `/home/openfoundry/bin/move_upload_files #{project_name} #{file.path} #{release_tag_path}`
+        end
       end
       redirect_to url_for(:project_id => params[:project_id], 
         :action => :uploadfiles, :id => r.id, :layout =>'false')
