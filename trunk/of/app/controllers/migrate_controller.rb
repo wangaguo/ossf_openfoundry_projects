@@ -15,13 +15,18 @@ class MigrateController < ApplicationController
     #pp j
     #render :text => j.pretty_inspect, :layout => false
     
+    #Project.send(:alias_method, :orig_valid?, :valid?)
     tmp = ""
     projects = j["projects"]
     projects.each do |p|
-      tmp += "#{p["id"]}  #{p["name"]} #{p["summary"]}" + "<br/>"
+      #tmp += "#{p["id"]}  #{p["name"]} #{p["summary"]}" + "<br/>"
       p2 = Project.new(p)
+      p2.id = p["id"]
+      def p2.valid?; true; end
+      p2.save!
       tmp += p2.pretty_inspect
     end
+    #Project.send(:alias_method, :valid?, :orig_valid?)
 
     render :text => tmp, :layout => false
   end
