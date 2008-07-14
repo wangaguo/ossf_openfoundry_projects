@@ -17,7 +17,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
              ( R.name = 'Admin' ) ) and
              RU.role_id = R.id and R.authorizable_type = 'Project' and
              R.authorizable_id = P.id and 
-             #{User.verified_user(:alias => 'U')} and 
+             #{User.verified_users(:alias => 'U')} and 
              #{Project.in_used_projects(:alias => 'P')} order by U.id
            ").each do |u, p, f|
              ApplicationController::send_msg(TYPES[:function],ACTIONS[:create],{'user_id' => u, 'project_id' => p, 'function_name' => f})
