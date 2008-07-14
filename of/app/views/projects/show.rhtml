@@ -1,5 +1,5 @@
 <%#= render( :partial => "tabnav" ) %>   
-<% def show_with_seperator(v); v.split(",").grep(/./).join(", ") end %>
+<% def show_with_seperator(v); "#{v}".split(",").grep(/./).join(", ") end %>
 <div id="ProjectBasic">
 
 <%
@@ -31,7 +31,7 @@
   _("Project|Intendedaudience"), (h @project.intendedaudience),
   _("Project|Vcs"), (h @project.vcs_to_s),
   _("Project|Vcsdescription"), (h @project.vcsdescription),
-  _("Project|Creator"), (u = User.find(@project.creator); u.login + " " +  user_portrait_link(u)),
+  _("Project|Creator"), ((u = User.find_by_id(@project.creator)) ? u.login + " " +  user_portrait_link(u) : ""),
   _("Project|Created at"), tz_datetime(@project.created_at)
   )
 %>
