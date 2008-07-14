@@ -26,10 +26,10 @@ class CategoryController < ApplicationController
     
     projects.each do |p|
       [p.maturity].each{|x| @maturity[x] = (@maturity[x] || 0) + 1}
-      p.license.split(",").grep(/./).each{|x| @license[x] = (@license[x] || 0) + 1}
-      p.contentlicense.split(",").grep(/./).each{|x| @content_license[x] = (@content_license[x] || 0) + 1}
-      p.platform.split(",").grep(/./).each{|x| @platform[x] = (@platform[x] || 0) + 1}
-      p.programminglanguage.split(",").grep(/./).each{|x| @programming_language[x] = (@programming_language[x] || 0) + 1}
+      "#{p.license}".split(",").grep(/./).each{|x| @license[x] = (@license[x] || 0) + 1}
+      "#{p.contentlicense}".split(",").grep(/./).each{|x| @content_license[x] = (@content_license[x] || 0) + 1}
+      "#{p.platform}".split(",").grep(/./).each{|x| @platform[x] = (@platform[x] || 0) + 1}
+      "#{p.programminglanguage}".split(",").grep(/./).each{|x| @programming_language[x] = (@programming_language[x] || 0) + 1}
     end
   end
 
