@@ -197,12 +197,12 @@ class RTUser < RTModel
     self.id = options[:id]
   end
   
-  def self.create_relation(uid, pid, type)
+  def self.create_permission(uid, pid, type)
     #p uid,pid,type
     case type
-    when 'Admin'
+    when 'rt_admin'
       type = 'AdminCc'
-    when 'Member'
+    when 'rt_member'
       type = 'Cc'
     else
       return
@@ -210,12 +210,12 @@ class RTUser < RTModel
     gid = RTGroup.find(:first, :conditions => "Type = '#{type}' and Instance = #{pid}").id
     RTGroupMember.add_user_into_group(uid, gid)
   end
-  def self.delete_relation(uid, pid, type)
+  def self.delete_permission(uid, pid, type)
     #p uid,pid,type
     case type
-    when 'Admin'
+    when 'rt_admin'
       type = 'AdminCc'
-    when 'Member'
+    when 'rt_member'
       type = 'Cc'
     else
       return
