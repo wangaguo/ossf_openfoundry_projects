@@ -51,10 +51,10 @@ def process(msg)
     RTUser.create_user_and_add_into_openfoundry_group(data['id'], data['name'])
   when ['user', 'update']
     RTUser.update_user(data['id'], data['name'], data['email'])
-  when ['roles_users', 'create']
-    RTUser.create_relation(data['user']['id'], data['project']['id'], data['role']['name'])
-  when ['roles_users', 'delete']
-    RTUser.delete_relation(data['user']['id'], data['project']['id'], data['role']['name'])
+  when ['function', 'create']
+    RTUser.create_permission(data['user_id'], data['project_id'], data['function_name'])
+  when ['function', 'delete']
+    RTUser.delete_permission(data['user_id'], data['project_id'], data['function_name'])
   else
     raise "bad input!!"
   end
@@ -64,7 +64,7 @@ end
 ###############################################
 
 
-require "config.rb" # TODO: path
+require "/usr/local/rt36/config.rb" # TODO: path
 
 ActiveRecord::Base.establish_connection(
   :adapter => DB_TYPE,
