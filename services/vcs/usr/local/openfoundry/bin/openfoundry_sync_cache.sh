@@ -1,2 +1,2 @@
 #!/bin/sh
-perl -MOpenFoundry -e 'OpenFoundry::Impl::OF::refresh("vcs")'
+perl -MOpenFoundry -e 'OpenFoundry::refresh("vcs")'
