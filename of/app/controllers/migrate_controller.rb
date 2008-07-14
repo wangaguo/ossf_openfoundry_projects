@@ -26,5 +26,15 @@ class MigrateController < ApplicationController
     render :text => tmp, :layout => false
   end
 
+  def news
+    of_data = Net::HTTP.get(URI.parse('http://rt.openfoundry.org/NoAuth/FoundryDumpForOF.html'))
+    of_data_json = JSON.parse(of_data)
+
+    of_data_json['news'].each do |item|
+      news = News.new(item)
+      news.save
+    end
+    render :text => 'done'
+  end
 end
 
