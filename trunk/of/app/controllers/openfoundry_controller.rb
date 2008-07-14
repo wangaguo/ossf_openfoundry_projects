@@ -86,6 +86,8 @@ class OpenfoundryController < ApplicationController
       return
     end
 
+    users = projects = functions = 0
+
     case module_ = params[:module]
     when "vcs"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
@@ -109,6 +111,26 @@ class OpenfoundryController < ApplicationController
         b = a[p] = {} if not b = a[p]
         b[f] = 1
       end
+    when "sympa"
+      users = {}
+      ActiveRecord::Base.connection.select_rows(
+        "select id, email from users where #{User.verified_users()}").each do |i,e|
+        users[i] = e 
+      end
+      sql= "select distinct P.name, U.id from 
+            users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
+            where 
+            (R.name='admin' or (RF.role_id = R.id and RF.function_id = F.id and 
+               F.name = 'sympa_manage')) and
+            R.authorizable_id = P.id and 
+            R.authorizable_type = 'Project' and 
+            RU.role_id = R.id and 
+            RU.user_id = U.id and 
+            #{User.verified_users(:alias => 'U')} and 
+            #{Project.in_used_projects(:alias => 'P')}"
+      #render :text => sql; return
+      functions = 
+        ActiveRecord::Base.connection.select_rows(sql)
     else
       render :text => "wrong module '#{module_}'"
       return
