@@ -1,6 +1,10 @@
 class SiteAdmin::SiteAdminController < SiteAdmin
   def index
   end
+  def aaf_rebuild
+    User.rebuild_index(User,Project,Release,News,Fileentity)
+    redirect_to :action => :index
+  end
   def resend
     User.find(:all, :conditions => User.verified_users()).each do |u|
       ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
