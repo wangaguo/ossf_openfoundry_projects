@@ -2,7 +2,7 @@ require 'base64'
 
 class UserController < ApplicationController
   require_dependency  'user'
-  before_filter :login_required, :except => [:login, :signup, :forgot_password, :welcome]
+  before_filter :login_required, :except => [:login, :signup, :forgot_password, :welcome, :username_availability_check]
   
   def my_projects
     reset_sortable_columns
@@ -84,8 +84,18 @@ class UserController < ApplicationController
     end
   end
 
+  def username_availability_check
+    username = params['username']
+    if User.exists?([ "login = ? and #{User.verified_users}", username ])
+      render :layout => false, :text => _("Username '%{username}' has already registed") % {:username => username }
+    else
+      render :layout => false, :text => _("Username '%{username}' is ready for use") % {:username => username }
+    end
+  end
+
   def login
     begin redirect_to :action => :home, :controller => :user ;return end if login?
+    # for OpenID Session
     if params['open_id_complete'] and session['user'] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
       redirect_back_or_default '/user/home' 
@@ -94,6 +104,8 @@ class UserController < ApplicationController
       open_id_authentication(params['user']['identity_url'])
       return
     end
+    # end of OpenID Session 
+    
     return if generate_blank
     #For "paranoid session store"
     #rebuild_session
@@ -120,6 +132,10 @@ class UserController < ApplicationController
     #term of use agreement
     return if toua 
     #return if generate_blank
+    unless params['user']
+      @user = User.new
+      return
+    end
     params['user'].delete('form')
     @user = User.new(params['user'])
     return unless valid_captcha?
