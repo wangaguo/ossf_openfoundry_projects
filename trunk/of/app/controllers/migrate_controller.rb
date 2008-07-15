@@ -32,7 +32,8 @@ class MigrateController < ApplicationController
   end
 
   def news
-    of_data = Net::HTTP.get(URI.parse('http://rt.openfoundry.org/NoAuth/FoundryDumpForOF.html'))
+    News.destroy_all "catid >0"
+    of_data = Net::HTTP.get(URI.parse('http://rt.openfoundry.org/NoAuth/FoundryDumpForOF.html?Model=News&pid='))
     of_data_json = JSON.parse(of_data)
 
     of_data_json['news'].each do |item|
