@@ -13,7 +13,7 @@
       <%= link_to h(news.subject), news1_path(:id => news.id, :project_id => news.catid), :class => "news_subject" %>
     <%end%>
     <%=news.updated_at.strftime("(%Y/%m/%d)")%>
-    <p><%=h news.description[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;(<%=link_to (_('Read More'), :controller => "news", :action => "show", :id => news.id ) %>)</p>
+    <p><%=h(news.description.chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;(<%=link_to(_('Read More'), :controller => "news", :action => "show", :id => news.id ) %>)</p>
     <% if fpermit?("news", params[:project_id]) -%>
     <p>
       <label><%=_('Status')%>:</label>
