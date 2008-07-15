@@ -33,6 +33,7 @@ class MigrateController < ApplicationController
 
   def news
     News.destroy_all "catid >0"
+#    select catid, count(*) from news where catid > 0 group by catid;
 #    of_data = Net::HTTP.get(URI.parse('http://rt.openfoundry.org/NoAuth/FoundryDumpForOF.html?Model=News&pid=744'))
     of_file = open("/tmp/FoundryDumpNews.data")
     of_data = of_file.read
@@ -40,26 +41,29 @@ class MigrateController < ApplicationController
     of_file.close
 
     News.record_timestamps = false
+    i = 0
+    news = {}
     of_data_json['news'].each do |item|
+      #news[item['catid']] = (news[item['catid']] || 0) +  1
       news = News.new(item)
-      news.save
+      news.save_without_validation!
     end
-    render :text => 'done'
+    render :text => "count:" + of_data_json['news'].length.to_s
   end
-  
+
   def jobs
-    Jobs.destroy_all ""
+    Job.destroy_all ""
     of_file = open("/tmp/FoundryDumpJob.data")
     of_data = of_file.read
     of_data_json = JSON.parse(of_data)
     of_file.close
 
-    News.record_timestamps = false
+    Job.record_timestamps = false
     of_data_json['jobs'].each do |item|
       job = Job.new(item)
-      job.save
+      job.save_without_validation!
     end
-    render :text => 'done'
+    render :text => "count:" + of_data_json['jobs'].length.to_s
   end
   
   def citations
@@ -69,12 +73,12 @@ class MigrateController < ApplicationController
     of_data_json = JSON.parse(of_data)
     of_file.close
 
-    News.record_timestamps = false
-    of_data_json['Citation'].each do |item|
+    Citation.record_timestamps = false
+    of_data_json['citations'].each do |item|
       citation = Citation.new(item)
-      citation.save
+      citation.save_without_validation!
     end
-    render :text => 'done'
+    render :text => "count:" + of_data_json['citations'].length.to_s
   end
 end
 
