@@ -225,15 +225,17 @@ THECODE
   helper_method :fpermit?
   
   def utc_to_local(time)
-    if !time.nil?
+    begin
       TzTime.zone.adjust(time)
+    rescue
+      time = ""
     end
   end
   
   def local_to_utc(time)
-    if !time.nil?
+    begin
       TzTime.zone.unadjust(time)
-    else
+    rescue
       time
     end
   end
