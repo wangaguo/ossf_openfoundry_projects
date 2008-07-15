@@ -33,12 +33,46 @@ class MigrateController < ApplicationController
 
   def news
     News.destroy_all "catid >0"
-    of_data = Net::HTTP.get(URI.parse('http://rt.openfoundry.org/NoAuth/FoundryDumpForOF.html?Model=News&pid='))
+#    of_data = Net::HTTP.get(URI.parse('http://rt.openfoundry.org/NoAuth/FoundryDumpForOF.html?Model=News&pid=744'))
+    of_file = open("/tmp/FoundryDumpNews.data")
+    of_data = of_file.read
     of_data_json = JSON.parse(of_data)
+    of_file.close
 
+    News.record_timestamps = false
     of_data_json['news'].each do |item|
       news = News.new(item)
       news.save
+    end
+    render :text => 'done'
+  end
+  
+  def jobs
+    Jobs.destroy_all ""
+    of_file = open("/tmp/FoundryDumpJob.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+
+    News.record_timestamps = false
+    of_data_json['jobs'].each do |item|
+      job = Job.new(item)
+      job.save
+    end
+    render :text => 'done'
+  end
+  
+  def citations
+    Citation.destroy_all ""
+    of_file = open("/tmp/FoundryDumpCitation.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+
+    News.record_timestamps = false
+    of_data_json['Citation'].each do |item|
+      citation = Citation.new(item)
+      citation.save
     end
     render :text => 'done'
   end
