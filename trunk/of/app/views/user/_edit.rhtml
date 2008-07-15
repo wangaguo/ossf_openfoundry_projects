@@ -4,6 +4,9 @@
   <table class='form-table'>
     <%= f.label :login, _('User|Login')+':', :help => _('User|Login|Help')%>
     <%= f.text_field "login", :size => 30, :disabled => !f.object.new_record? %>
+                                     <tr><td></td><td>
+                                         <div id="UsernameAvailabilityCheck"></div>
+                                     </td></tr>                                 
     <%= f.label :firstname, _('User|Firstname')+':', :help => _('User|firstname|help')%>
     <%= f.text_field :firstname %>
     <%= f.label :lastname, _('User|Lastname')+':' , :help => _('User|firstname|help')%>
