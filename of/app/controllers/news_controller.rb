@@ -83,6 +83,8 @@ class NewsController < ApplicationController
       News.record_timestamps = false
       @news.updated_at = local_to_utc(params[:news][:updated_at])
       @news.created_at = DateTime.now 
+    else
+      @news.updated_at = DateTime.now
     end
     
     if @news.save
