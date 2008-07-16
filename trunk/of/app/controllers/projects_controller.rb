@@ -227,9 +227,11 @@ class ProjectsController < ApplicationController
     @role = @project.roles.new
     if(@role.authorizable_id == @project.id)
       @role.name = params[:name]
-      @role.authorizable_type = "Project"
-      if @role.save
-        flash[:notice] = 'Role was successfully created.'
+      if(@role.name.upcase != "ADMIN" && @role.name.upcase != "MEMBER")
+        @role.authorizable_type = "Project"
+        if @role.save
+          flash[:notice] = 'Role was successfully created.'
+        end
       end
     end
     redirect_to :action => 'role_new', :id => params[:id]
