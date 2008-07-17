@@ -80,5 +80,35 @@ class MigrateController < ApplicationController
     end
     render :text => "count:" + of_data_json['citations'].length.to_s
   end
+  def index
+  end
+
+  def users
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html?secret=df893jfdughjud'
+
+    a = Net::HTTP.get(URI.parse(url))
+    #puts a
+    #
+    j = JSON.parse(a)
+    ##require "pp"
+    #pp j
+    #render :text => j.pretty_inspect, :layout => false
+    tmp = ''
+
+    users = j["users"]
+    users.each do |att|
+      u = User.new(att)
+      u.id = att["id"]
+      u.salted_password = att["password"].to_s.crypt("$1$#{rand(10000)}")
+
+      u.save_without_validation!
+      tmp += u.pretty_inspect
+    end
+
+    render :text => tmp, :layout => false
+
+  end
+
+
 end
 
