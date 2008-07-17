@@ -80,6 +80,84 @@ class MigrateController < ApplicationController
     end
     render :text => "count:" + of_data_json['citations'].length.to_s
   end
+  
+  def references
+    Reference.destroy_all ""
+    of_file = open("/tmp/FoundryDumpReference.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+
+    Reference.record_timestamps = false
+    of_data_json['references'].each do |item|
+      reference = Reference.new(item)
+      reference.save_without_validation!
+    end
+    render :text => "count:" + of_data_json['references'].length.to_s
+  end
+  
+  def events
+    Event.destroy_all ""
+    of_file = open("/tmp/FoundryDumpEvent.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+
+    Event.record_timestamps = false
+    of_data_json['events'].each do |item|
+      event = Event.new(item)
+      event.save_without_validation!
+    end
+    render :text => "count:" + of_data_json['events'].length.to_s
+  end
+  
+  def downloaders
+    Downloader.destroy_all ""
+    of_file = open("/tmp/FoundryDumpDownloader.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+
+    Downloader.record_timestamps = false
+    of_data_json['downloaders'].each do |item|
+      downloader = Downloader.new(item)
+      downloader.save_without_validation!
+    end
+    render :text => "count:" + of_data_json['downloaders'].length.to_s
+  end
+  
+  def functions
+    of_file = open("/tmp/FoundryDumpFunction.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+    html = "count:" + of_data_json['functions'].length.to_s + "<br/>"
+    of_data_json['functions'].reverse_each do |item|
+      check = 0
+      item['functions'].each_value do |value|
+        check = check + (value || 0)
+      end
+      if(check == 0)
+        of_data_json['functions'].delete(item)
+      else
+      end
+    end
+    html += "count:" + of_data_json['functions'].length.to_s + "<br/>"
+    render :text => html + of_data_json['functions'].inspect
+  end
+  
+  def releases
+    of_file = open("/tmp/FoundryDumpRelease.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+    of_data_json['releases'].each do |item|
+      
+    end
+    html = "count:" + of_data_json['releases'].length.to_s + "<br/>"
+    render :text => html + of_data_json['releases'].inspect
+  end
+
   def index
   end
 
@@ -108,7 +186,5 @@ class MigrateController < ApplicationController
     render :text => tmp, :layout => false
 
   end
-
-
 end
 
