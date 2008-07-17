@@ -6,7 +6,7 @@ class MigrateController < ApplicationController
 
     url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOF.html?secret=df893jfdughjud'
     #url = 'http://rt.openfoundry.org/NoAuth/FoundryCitationsDump.html'
-    
+
     a = Net::HTTP.get(URI.parse(url))
     #puts a
     #
@@ -14,19 +14,20 @@ class MigrateController < ApplicationController
     ##require "pp"
     #pp j
     #render :text => j.pretty_inspect, :layout => false
-    
-    #Project.send(:alias_method, :orig_valid?, :valid?)
+
     tmp = ""
     projects = j["projects"]
     projects.each do |p|
       #tmp += "#{p["id"]}  #{p["name"]} #{p["summary"]}" + "<br/>"
       p2 = Project.new(p)
+
       p2.id = p["id"]
-      def p2.valid?; true; end
-      p2.save!
+      p2.status = Project::STATUS[:READY]
+
+      #def p2.valid?; true; end
+      p2.save_without_validation!
       tmp += p2.pretty_inspect
     end
-    #Project.send(:alias_method, :valid?, :orig_valid?)
 
     render :text => tmp, :layout => false
   end
@@ -162,7 +163,7 @@ class MigrateController < ApplicationController
   end
 
   def users
-    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html?secret=df893jfdughjud'
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html?secret=jr9'
 
     a = Net::HTTP.get(URI.parse(url))
     #puts a
