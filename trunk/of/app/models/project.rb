@@ -18,7 +18,7 @@ class Project < ActiveRecord::Base
 4 OSI: Apache License 2.0
 5 OSI: Artistic License 2.0
 6 OSI: Attribution Assurance Licenses
-7 OSI: New and Simplified BSD Licenses
+7 OSI: BSD License (New and Simplified BSD License)
 8 OSI: Boost Software License (BSL1.0)
 9 OSI: Common Development and Distribution License (CDDL)
 10 OSI: Common Public Attribution License 1.0 (CPAL)
@@ -27,9 +27,9 @@ class Project < ActiveRecord::Base
 13 OSI: Educational Community License 2.0
 14 OSI: Eiffel Forum License 2.0
 15 OSI: Fair License
-16 OSI: GNU General Public License (GPL)
+16 OSI: GNU General Public License 2.0 (GPLv2)
 17 OSI: GNU General Public License 3.0 (GPLv3)
-18 OSI: GNU Library or "Lesser" General Public License (LGPL)
+18 OSI: GNU Library or "Lesser" General Public License 2.1 (LGPLv2)
 19 OSI: GNU Library or "Lesser" General Public License 3.0 (LGPLv3)
 20 OSI: ISC License
 21 OSI: Lucent Public License 1.02
