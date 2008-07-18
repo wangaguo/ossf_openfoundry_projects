@@ -4,7 +4,7 @@ require 'pp'
 class MigrateController < ApplicationController
   def projects
 
-    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOF.html?secret=df893jfdughjud'
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOF.html'
     #url = 'http://rt.openfoundry.org/NoAuth/FoundryCitationsDump.html'
 
     a = Net::HTTP.get(URI.parse(url))
@@ -174,6 +174,8 @@ class MigrateController < ApplicationController
     #render :text => j.pretty_inspect, :layout => false
     tmp = ''
 
+    tmp_store = User.record_timestamps
+    User.record_timestamps = false
     users = j["users"]
     users.each do |att|
       u = User.new(att)
@@ -183,9 +185,27 @@ class MigrateController < ApplicationController
       u.save_without_validation!
       tmp += u.pretty_inspect
     end
+    User.record_timestamps = tmp_store
 
     render :text => tmp, :layout => false
 
+  end
+
+  private
+  def migrated_project_logo_id
+    return 0 unless @pid #require project id
+    
+    tmp = Net::HTTP.get(URI.parse("http://rt.openfoundry.org/img/project_logo/#{@pid}.gif")) 
+    if tmp =~ /^GIF/ #got gif file!
+      return Image.create({
+        :name => "project_logo_#{@pid}",
+        :meta => "image/gif",
+        :commant => "migrated from old foundry",
+        :data => tmp
+      }).id
+    else
+      return 0
+    end
   end
 end
 
