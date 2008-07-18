@@ -152,11 +152,77 @@ class MigrateController < ApplicationController
     of_data = of_file.read
     of_data_json = JSON.parse(of_data)
     of_file.close
+    
+    Release.destroy_all ""
+    Fileentity.destroy_all ""
+    Release.record_timestamps = false
+    Fileentity.record_timestamps = false
+    status_map = {'released' => 1, 'preparing' => 0, 'empty' => -2, 'deleted' => -1}
+    releaseId = ''
+    release = ''
     of_data_json['releases'].each do |item|
-      
+      if(item['ticket_id'] != releaseId)
+        releaseId = item['ticket_id']
+        if(release != '')
+          release.save_without_validation!
+        end
+        release = Release.new
+        release.project_id = item['project_id']
+        release.version = item['version']
+        #release.start_date = item['start_date']
+        release.due = item['ideal_release']
+        #release.release_date = item['release_date']
+        release.status = status_map[item['status']]
+        #release.updated_by = item['r_updated_by']
+        release.updated_at = item['r_updated_at']
+        release.creator = item['r_created_by']
+        release.created_at = item['r_created_at']
+        release.save_without_validation!
+      end
+      if(item['filename'] != nil)
+        release.release_counter += (item['download'] || 0)
+        file = release.fileentity.new
+        file.meta = item['transactionId'].to_s + ',' + item['attachmentId'].to_s
+        file.description = item['description']
+        file.size = item['size']
+        file.path = item['filename']
+        file.created_at = item['f_created_at']
+        #file.updated_at = item['']
+        file.creator = item['f_created_by']
+        file.file_counter = (item['download'] || 0)
+        file.save_without_validation!
+      end
+    end
+    if(release != '')
+      release.save_without_validation!
     end
     html = "count:" + of_data_json['releases'].length.to_s + "<br/>"
-    render :text => html + of_data_json['releases'].inspect
+    render :text => html# + of_data_json['releases'].inspect
+  end
+  
+  #count release & file
+  def releases_count
+    of_file = open("/tmp/FoundryDumpRelease.data")
+    of_data = of_file.read
+    of_data_json = JSON.parse(of_data)
+    of_file.close
+    
+    releaseId = ''
+    release_count = 0
+    file_count = 0
+    of_data_json['releases'].each do |item|
+      if(item['ticket_id'] != releaseId)
+        releaseId = item['ticket_id']
+        release_count += 1
+      end
+      if(item['filename'] != nil)
+        file_count += 1
+      end
+    end
+    html = "data_count:" + of_data_json['releases'].length.to_s + "<br/>"
+    html += "release_count:" + release_count.to_s + "<br/>"
+    html += "file_count:" + file_count.to_s + "<br/>"
+    render :text => html
   end
 
   def index
