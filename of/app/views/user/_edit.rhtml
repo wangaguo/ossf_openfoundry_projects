@@ -7,13 +7,15 @@
                                      <tr><td></td><td>
                                          <div id="UsernameAvailabilityCheck"></div>
                                      </td></tr>                                 
-    <%= f.label :firstname, _('User|Firstname')+':', :help => _('User|firstname|help')%>
-    <%= f.text_field :firstname %>
-    <%= f.label :lastname, _('User|Lastname')+':' , :help => _('User|firstname|help')%>
-    <%= f.text_field "lastname" %>
-    <%= f.label :language, _('User|Language')+':', :help => _('User|firstname|help') %>
-    <%= f.language_select "user_language", @user.language, :name => "user[language]", :help => _('User|firstname|help')%>
-    <%= f.label :timezone, _('User|TimeZone')+':', :help => _('User|firstname|help')%>
+    <%= f.label :realname, _('User|Realname')+':', :help => _('User|Realname|help')%>
+    <%= f.text_field :realname %>
+    <%= f.label :homepage, _('User|Homepage')+':', :help => _('User|Homepage|help')%>
+    <%= f.text_field :homepage %>
+    <%= f.label :bio, _('User|Bio')+':', :help => _('User|Bio|help')%>
+    <%= f.text_field :bio %>
+    <%= f.label :language, _('User|Language')+':', :help => _('User|Language|help') %>
+    <%= f.language_select "user_language", @user.language, :name => "user[language]" %>
+    <%= f.label :timezone, _('User|TimeZone')+':', :help => _('User|TimeZone|help')%>
     <%= f.time_zone_select 'timezone', TimeZone.all.sort, :model => TimeZone %>
   </table>
     <%= submit_tag( new_record ? _('User|Signup') : _('User|Change Settings'), "class" => "button" ) if submit %>

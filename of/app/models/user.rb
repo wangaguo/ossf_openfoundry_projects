@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
                              #:name => {:boost => 0.8,:store => :yes} 
                             },
                  :single_index => true,
-                 :default_field => [:login, :firstname, :lastname, :name]
+                 :default_field => [:login]
                  }, { :analyzer => GENERIC_ANALYZER } )
                  
   # disable ferret search if not verified        
@@ -153,6 +153,7 @@ class User < ActiveRecord::Base
   end
 
   validates_presence_of :login, :on => :create
+  validates_format_of :login, :with => /^[a-zA-Z][0-9a-zA-Z_]{2,13}$/, :on => :create
   validates_length_of :login, :within => 3..40, :on => :create
   
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
