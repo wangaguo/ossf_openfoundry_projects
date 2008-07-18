@@ -178,9 +178,16 @@ class MigrateController < ApplicationController
     User.record_timestamps = false
     users = j["users"]
     users.each do |att|
+      privacy = att.delete :privacy
       u = User.new(att)
       u.id = att["id"]
       u.salted_password = att["password"].to_s.crypt("$1$#{rand(10000)}")
+
+      u.t_conseal_email    = true unless privacy['Email']
+      u.t_conseal_bio      = true unless privacy['Itro']
+      u.t_conseal_realname = true unless privacy['RealName']
+      u.t_conseal_homepage = true unless privacy['PersonalHomepage']
+
 
       u.save_without_validation!
       tmp += u.pretty_inspect
