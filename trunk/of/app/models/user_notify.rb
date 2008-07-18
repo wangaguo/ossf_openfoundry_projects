@@ -6,7 +6,7 @@ class UserNotify < ActionMailer::Base
     @subject += "Welcome to #{UserSystem::CONFIG[:app_name]}!"
 
     # Email body substitutions
-    @body["name"] = "#{user.firstname} #{user.lastname}"
+    @body["name"] = "#{user.realname}"
     @body["login"] = user.login
     @body["password"] = password
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
@@ -20,7 +20,7 @@ class UserNotify < ActionMailer::Base
     @subject += "Forgotten password notification"
 
     # Email body substitutions
-    @body["name"] = "#{user.firstname} #{user.lastname}"
+    @body["name"] = "#{user.realname}"
     @body["login"] = user.login
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
@@ -44,7 +44,7 @@ class UserNotify < ActionMailer::Base
     @subject += "Changed password notification"
 
     # Email body substitutions
-    @body["name"] = "#{user.firstname} #{user.lastname}"
+    @body["name"] = "#{user.realname}"
     @body["login"] = user.login
     @body["password"] = password
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
@@ -58,7 +58,7 @@ class UserNotify < ActionMailer::Base
     @subject += "Delete user notification"
 
     # Email body substitutions
-    @body["name"] = "#{user.firstname} #{user.lastname}"
+    @body["name"] = "#{user.realname}"
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
     @body["days"] = UserSystem::CONFIG[:delayed_delete_days].to_s
@@ -71,7 +71,7 @@ class UserNotify < ActionMailer::Base
     @subject += "Delete user notification"
 
     # Email body substitutions
-    @body["name"] = "#{user.firstname} #{user.lastname}"
+    @body["name"] = "#{user.realname}"
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
   end

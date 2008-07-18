@@ -263,7 +263,7 @@ class UserController < ApplicationController
       begin
         case form
         when "edit"
-          changeable_fields = ['firstname', 'lastname', 'language', 'timezone']
+          changeable_fields = ['realname', 'language', 'timezone']
           dummy = params['user'].delete_if { |k,v| not changeable_fields.include?(k) }
           @user.attributes = dummy
           @user.save
@@ -437,7 +437,7 @@ class UserController < ApplicationController
   end
 
   def model_to_registration_mapping
-    { :login => 'nickname', :email => 'email', :firstname => 'fullname'}
+    { :login => 'nickname', :email => 'email', :realname => 'fullname'}
   end
 
 end
