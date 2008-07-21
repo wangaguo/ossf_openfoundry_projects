@@ -28,7 +28,6 @@
   _("Project|Licensingdescription"), (h @project.licensingdescription),
   _("Project|Platform"), (h show_with_seperator(@project.platform)),
   _("Project|Programminglanguage"), (h show_with_seperator(@project.programminglanguage)),
-  _("Project|Intendedaudience"), (h @project.intendedaudience),
   _("Project|Vcs"), (h @project.vcs_to_s),
   _("Project|Vcsdescription"), (h @project.vcsdescription),
   _("Project|Creator"), ((u = User.find_by_id(@project.creator)) ? u.login + " " +  user_portrait_link(u) : ""),
