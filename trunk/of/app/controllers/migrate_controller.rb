@@ -229,7 +229,7 @@ class MigrateController < ApplicationController
   end
 
   def users
-    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html?secret=jr9'
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html'
 
     a = Net::HTTP.get(URI.parse(url))
     #puts a
@@ -244,16 +244,22 @@ class MigrateController < ApplicationController
     User.record_timestamps = false
     users = j["users"]
     users.each do |att|
-      privacy = att.delete :privacy
+      privacy = att.delete('privacy')
       u = User.new(att)
       u.id = att["id"]
       u.salted_password = att["password"].to_s.crypt("$1$#{rand(10000)}")
 
-      u.t_conseal_email    = true unless privacy['Email']
-      u.t_conseal_bio      = true unless privacy['Itro']
-      u.t_conseal_realname = true unless privacy['RealName']
-      u.t_conseal_homepage = true unless privacy['PersonalHomepage']
-
+      if privacy
+        u.t_conseal_email    = true unless privacy['Email']
+        u.t_conseal_bio      = true unless privacy['Itro']
+        u.t_conseal_realname = true unless privacy['RealName']
+        u.t_conseal_homepage = true unless privacy['PersonalHomepage']
+      else
+        u.t_conseal_email    = true
+        u.t_conseal_bio      = true
+        u.t_conseal_realname = true 
+        u.t_conseal_homepage = true
+      end
 
       u.save_without_validation!
       tmp += u.pretty_inspect
