@@ -43,7 +43,7 @@ else
 sub foundryIsProjectUnixName
 {
 	# TODO: config ..
-	my $url = "http://192.168.0.20:8000/openfoundry/is_project_name?projectname=%s";
+	my $url = "http://of.openfoundry.org:80/openfoundry/is_project_name?projectname=%s";
 	my $isProjectUnixName = get(sprintf($url, $_[0]));
 	chomp $isProjectUnixName;
 	return $isProjectUnixName eq '1';
