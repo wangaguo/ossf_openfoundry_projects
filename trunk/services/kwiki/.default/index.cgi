@@ -10,8 +10,8 @@ use CGI::Cookie ();
 
 
 my $SESSION_COOKIE_NAME = '_of_session_id';
-my $OF_HOST = '192.168.0.20';
-my $OF_PORT = '8000';
+my $OF_HOST = 'of.openfoundry.org';
+my $OF_PORT = '80';
 
 my $OF_SESSION_URL = "http://$OF_HOST:$OF_PORT/openfoundry/authentication_authorization_II?SID=%s&projectname=%s";
 
