@@ -244,13 +244,21 @@ module ApplicationHelper
   end
 
   def tz_date(time_at)
-    time = TzTime.zone.adjust(time_at.utc)
-    time.strftime("%Y-%m-%d")
+    begin
+      time = TzTime.zone.adjust(time_at.utc)
+      time.strftime("%Y-%m-%d")
+    rescue
+      ""
+    end
   end
   
   def tz_datetime(time_at)
-    time = TzTime.zone.adjust(time_at.utc)
-    time.strftime("%Y-%m-%d %H:%M") + ' ' + TzTime.zone.formatted_offset
+    begin
+      time = TzTime.zone.adjust(time_at.utc)
+      time.strftime("%Y-%m-%d %H:%M") + ' ' + TzTime.zone.formatted_offset
+    rescue
+      ""
+    end
   end
   
   class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
