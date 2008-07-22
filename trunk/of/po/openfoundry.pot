@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-07-18 06:43-0000\n"
+"POT-Creation-Date: 2008-07-22 08:36-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -335,11 +335,11 @@ msgstr ""
 msgid "Project|Icon"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:20
+#: app/models/project.rb:- app/views/projects/show.rhtml:23
 msgid "Project|Name"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:21
+#: app/models/project.rb:- app/views/projects/show.rhtml:24
 msgid "Project|Summary"
 msgstr ""
 
@@ -347,44 +347,44 @@ msgstr ""
 msgid "Project|Rationale"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:22
+#: app/models/project.rb:- app/views/projects/show.rhtml:25
 msgid "Project|Description"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:24
+#: app/models/project.rb:- app/views/projects/show.rhtml:27
 msgid "Project|Contactinfo"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:25
+#: app/models/project.rb:- app/views/projects/show.rhtml:28
 #: app/views/category/list.rhtml:4
 msgid "Project|Maturity"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:26
+#: app/models/project.rb:- app/views/projects/show.rhtml:29
 #: app/views/category/list.rhtml:13
 msgid "Project|License"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:27
+#: app/models/project.rb:- app/views/projects/show.rhtml:30
 #: app/views/category/list.rhtml:22
 msgid "Project|Contentlicense"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:28
+#: app/models/project.rb:- app/views/projects/show.rhtml:31
 msgid "Project|Licensingdescription"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:29
+#: app/models/project.rb:- app/views/projects/show.rhtml:32
 #: app/views/category/list.rhtml:31
 msgid "Project|Platform"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:30
+#: app/models/project.rb:- app/views/projects/show.rhtml:33
 #: app/views/category/list.rhtml:43
 msgid "Project|Programminglanguage"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:31
+#: app/models/project.rb:-
 msgid "Project|Intendedaudience"
 msgstr ""
 
@@ -392,15 +392,15 @@ msgstr ""
 msgid "Project|Redirecturl"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:32
+#: app/models/project.rb:- app/views/projects/show.rhtml:34
 msgid "Project|Vcs"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:33
+#: app/models/project.rb:- app/views/projects/show.rhtml:35
 msgid "Project|Vcsdescription"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:34
+#: app/models/project.rb:- app/views/projects/show.rhtml:36
 msgid "Project|Creator"
 msgstr ""
 
@@ -416,7 +416,7 @@ msgstr ""
 msgid "Project|Project counter"
 msgstr ""
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:35
+#: app/models/project.rb:- app/views/projects/show.rhtml:37
 msgid "Project|Created at"
 msgstr ""
 
@@ -1134,7 +1134,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:54 app/views/news/list.rhtml:26
+#: app/views/projects/show.rhtml:51 app/views/news/list.rhtml:26
 #: app/views/news/list.rhtml:28 app/views/news/show.rhtml:15
 #: app/views/jobs/list.rhtml:21 app/views/jobs/show.rhtml:14
 #: app/views/citations/list.rhtml:20 app/views/citations/show.rhtml:18
@@ -1277,7 +1277,7 @@ msgid "project_Role Control"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:2
-msgid "Term of Use Agreement"
+msgid "Terms of Use Agreement"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:10
@@ -1538,15 +1538,15 @@ msgid ""
 "approving."
 msgstr ""
 
-#: app/views/projects/show.rhtml:23
+#: app/views/projects/show.rhtml:26
 msgid "Project|HOMEPAGE"
 msgstr ""
 
-#: app/views/projects/show.rhtml:43
+#: app/views/projects/show.rhtml:45
 msgid "Project Participants"
 msgstr ""
 
-#: app/views/projects/show.rhtml:55
+#: app/views/projects/show.rhtml:52
 msgid "Back"
 msgstr ""
 
