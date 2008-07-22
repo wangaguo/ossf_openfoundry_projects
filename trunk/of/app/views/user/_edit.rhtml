@@ -12,7 +12,7 @@
     <%= f.label :homepage, _('User|Homepage')+':', :help => _('User|Homepage|help')%>
     <%= f.text_field :homepage %>
     <%= f.label :bio, _('User|Bio')+':', :help => _('User|Bio|help')%>
-    <%= f.text_field :bio %>
+    <%= f.text_area :bio, :size => '25x25' %>
     <%= f.label :language, _('User|Language')+':', :help => _('User|Language|help') %>
     <%= f.language_select "user_language", @user.language, :name => "user[language]" %>
     <%= f.label :timezone, _('User|TimeZone')+':', :help => _('User|TimeZone|help')%>
