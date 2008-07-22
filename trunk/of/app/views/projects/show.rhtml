@@ -9,12 +9,15 @@
     while ( ! data.empty? )
       h = data.shift
       d = data.shift
-      rtn += %Q!<tr class="#{["odd", "even"][i = 1 - i]}"><td>#{h}</td><td>#{d}</td></tr>!
+      rtn += %Q!<tr class="#{["odd", "even"][i = 1 - i]}"><td class="td-left">#{h}</td><td class="td-right">#{d}</td></tr>\n!
     end
     rtn
   end
 %>
- 
+<style type="text/css">
+  .td-left { width: 20% }
+  .td-right { width: 80% }
+</style>
 <table class="list-table">
 <%= rows(
   _("Project|Name"), (h @project.name),
