@@ -30,9 +30,9 @@ class User < ActiveRecord::Base
     if /^t_(.*)=$/ =~ method_name.to_s
       act = ''
       case args.shift
-      when '1','true'
+      when '1','true',true
         act = 'add'
-      when '0','false'
+      when '0','false',false
         act = 'remove'
       else
         raise ArgumentError
