@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-07-18 06:43-0000\n"
+"POT-Creation-Date: 2008-07-22 08:36-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,19 +165,16 @@ msgid "User|Identity url"
 msgstr ""
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:14
-#, fuzzy
 msgid "User|Bio"
-msgstr "Icon"
+msgstr "About Me"
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:12
-#, fuzzy
 msgid "User|Homepage"
-msgstr "Language"
+msgstr "Homepage"
 
 #: app/models/user.rb:- app/views/user/_edit.rhtml:10
-#, fuzzy
 msgid "User|Realname"
-msgstr "Last Name"
+msgstr "Realname"
 
 #: app/models/user.rb:106
 msgid "Old Password Incorrect"
@@ -341,11 +338,11 @@ msgstr ""
 msgid "Project|Icon"
 msgstr "Icon"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:20
+#: app/models/project.rb:- app/views/projects/show.rhtml:23
 msgid "Project|Name"
 msgstr "Project name"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:21
+#: app/models/project.rb:- app/views/projects/show.rhtml:24
 msgid "Project|Summary"
 msgstr "Summary"
 
@@ -353,44 +350,44 @@ msgstr "Summary"
 msgid "Project|Rationale"
 msgstr "Rationale"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:22
+#: app/models/project.rb:- app/views/projects/show.rhtml:25
 msgid "Project|Description"
 msgstr "Description"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:24
+#: app/models/project.rb:- app/views/projects/show.rhtml:27
 msgid "Project|Contactinfo"
 msgstr "Contact Information"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:25
+#: app/models/project.rb:- app/views/projects/show.rhtml:28
 #: app/views/category/list.rhtml:4
 msgid "Project|Maturity"
 msgstr "Maturity"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:26
+#: app/models/project.rb:- app/views/projects/show.rhtml:29
 #: app/views/category/list.rhtml:13
 msgid "Project|License"
 msgstr "Code License"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:27
+#: app/models/project.rb:- app/views/projects/show.rhtml:30
 #: app/views/category/list.rhtml:22
 msgid "Project|Contentlicense"
 msgstr "Content License"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:28
+#: app/models/project.rb:- app/views/projects/show.rhtml:31
 msgid "Project|Licensingdescription"
 msgstr "Licensing Description"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:29
+#: app/models/project.rb:- app/views/projects/show.rhtml:32
 #: app/views/category/list.rhtml:31
 msgid "Project|Platform"
 msgstr "Platform"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:30
+#: app/models/project.rb:- app/views/projects/show.rhtml:33
 #: app/views/category/list.rhtml:43
 msgid "Project|Programminglanguage"
 msgstr "Programming Language"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:31
+#: app/models/project.rb:-
 msgid "Project|Intendedaudience"
 msgstr "Intended Audience"
 
@@ -398,15 +395,15 @@ msgstr "Intended Audience"
 msgid "Project|Redirecturl"
 msgstr "Redirect URL"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:32
+#: app/models/project.rb:- app/views/projects/show.rhtml:34
 msgid "Project|Vcs"
 msgstr "Version Control System"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:33
+#: app/models/project.rb:- app/views/projects/show.rhtml:35
 msgid "Project|Vcsdescription"
 msgstr "Version Control System Description "
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:34
+#: app/models/project.rb:- app/views/projects/show.rhtml:36
 msgid "Project|Creator"
 msgstr "Creator"
 
@@ -422,7 +419,7 @@ msgstr "Status Reason"
 msgid "Project|Project counter"
 msgstr "Summary"
 
-#: app/models/project.rb:- app/views/projects/show.rhtml:35
+#: app/models/project.rb:- app/views/projects/show.rhtml:37
 msgid "Project|Created at"
 msgstr "Created at"
 
@@ -1182,7 +1179,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:54 app/views/news/list.rhtml:26
+#: app/views/projects/show.rhtml:51 app/views/news/list.rhtml:26
 #: app/views/news/list.rhtml:28 app/views/news/show.rhtml:15
 #: app/views/jobs/list.rhtml:21 app/views/jobs/show.rhtml:14
 #: app/views/citations/list.rhtml:20 app/views/citations/show.rhtml:18
@@ -1327,7 +1324,7 @@ msgid "project_Role Control"
 msgstr "Role Control"
 
 #: app/views/partials/_toua.rhtml:2
-msgid "Term of Use Agreement"
+msgid "Terms of Use Agreement"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:10
@@ -1603,16 +1600,16 @@ msgid ""
 "approving."
 msgstr ""
 
-#: app/views/projects/show.rhtml:23
+#: app/views/projects/show.rhtml:26
 msgid "Project|HOMEPAGE"
 msgstr "Project Homepage"
 
-#: app/views/projects/show.rhtml:43
+#: app/views/projects/show.rhtml:45
 #, fuzzy
 msgid "Project Participants"
 msgstr "License"
 
-#: app/views/projects/show.rhtml:55
+#: app/views/projects/show.rhtml:52
 msgid "Back"
 msgstr ""
 
@@ -1860,32 +1857,28 @@ msgid "Change User Password"
 msgstr "Change Password"
 
 #: app/views/user/_password.rhtml:7
-#, fuzzy
 msgid "User|Old Password"
-msgstr "Password"
+msgstr "Old Password"
 
 #: app/views/user/_password.rhtml:7
-#, fuzzy
 msgid "User|Old_password|help"
-msgstr "Password"
+msgstr "Old Password"
 
 #: app/views/user/_password.rhtml:10
 msgid "User|Password"
-msgstr "Password"
+msgstr "New Password"
 
 #: app/views/user/_password.rhtml:10
-#, fuzzy
 msgid "User|Password|help"
-msgstr "Password"
+msgstr "New Password"
 
 #: app/views/user/_password.rhtml:12
 msgid "User|Password Confirmation"
-msgstr "Password Again"
+msgstr "Re-enter New Password"
 
 #: app/views/user/_password.rhtml:12
-#, fuzzy
 msgid "User|Password_Confirm|help"
-msgstr "Password Again"
+msgstr "Re-enter New Password"
 
 #: app/views/user/_password.rhtml:15 app/views/user/change_password.rhtml:10
 msgid "User|Change Password"
@@ -1958,30 +1951,26 @@ msgid "User Signup"
 msgstr "Sign up"
 
 #: app/views/user/_email.rhtml:2
-#, fuzzy
 msgid "Change User Email"
 msgstr "Change Email"
 
 #: app/views/user/_email.rhtml:6
-#, fuzzy
 msgid "User|Email|help"
 msgstr "Email Address"
 
 #: app/views/user/_email.rhtml:8
 msgid "User|Email Confirmation"
-msgstr "Email Confirmation"
+msgstr "Re-enter Email"
 
 #: app/views/user/_email.rhtml:8
-#, fuzzy
 msgid "User|Email_Confirm|help"
-msgstr "Email Confirmation"
+msgstr "Re-enter Email"
 
 #: app/views/user/_email.rhtml:11
 msgid "User|Change Email"
 msgstr "Change Email"
 
 #: app/views/user/home.rhtml:2
-#, fuzzy
 msgid "User Icon"
 msgstr "Icon"
 
@@ -2036,59 +2025,48 @@ msgid "User Privacy"
 msgstr "Change Email"
 
 #: app/views/user/_privacy.rhtml:5
-#, fuzzy
 msgid "User|Conceal Realname"
-msgstr "Created at"
+msgstr "Hide Realname"
 
 #: app/views/user/_privacy.rhtml:5
-#, fuzzy
 msgid "User|Conceal_Realname|Help"
-msgstr "Change Email"
+msgstr "Hide Realname"
 
 #: app/views/user/_privacy.rhtml:7
-#, fuzzy
 msgid "User|Conceal Email"
-msgstr "Change Email"
+msgstr "Hide Email"
 
 #: app/views/user/_privacy.rhtml:7
-#, fuzzy
 msgid "User|Conceal_Email|Help"
-msgstr "Change Email"
+msgstr "Hide Email"
 
 #: app/views/user/_privacy.rhtml:9
-#, fuzzy
 msgid "User|Conceal Homepage"
-msgstr "Created at"
+msgstr "Hide Homepage"
 
 #: app/views/user/_privacy.rhtml:9
-#, fuzzy
 msgid "User|Conceal_Homepage|Help"
-msgstr "Change Email"
+msgstr "Hide Homepage"
 
 #: app/views/user/_privacy.rhtml:11
-#, fuzzy
 msgid "User|Conceal Bio"
-msgstr "Change Email"
+msgstr "Hide About Me"
 
 #: app/views/user/_privacy.rhtml:11
-#, fuzzy
 msgid "User|Conceal_Bio|Help"
-msgstr "Change Email"
+msgstr "Hide About Me"
 
 #: app/views/user/_privacy.rhtml:13
-#, fuzzy
 msgid "User|Conceal Login Status"
-msgstr "Status"
+msgstr "Hide Login Status"
 
 #: app/views/user/_privacy.rhtml:13
-#, fuzzy
 msgid "User|Conceal_Login|Help"
-msgstr "Status"
+msgstr "Hide Login Status"
 
 #: app/views/user/_privacy.rhtml:16
-#, fuzzy
 msgid "User|Change Privacy"
-msgstr "Change Email"
+msgstr "Change Privacy"
 
 #: app/views/jobs/list.rhtml:33 app/views/jobs/new.rhtml:1
 msgid "Add Job"
