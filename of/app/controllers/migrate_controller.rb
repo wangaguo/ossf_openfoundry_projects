@@ -4,7 +4,7 @@ require 'pp'
 class MigrateController < ApplicationController
   def projects
 
-    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOF.html'
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOF.html?secret=984jfuet8kiedsi3kimkt'
     #url = 'http://rt.openfoundry.org/NoAuth/FoundryCitationsDump.html'
 
     a = Net::HTTP.get(URI.parse(url))
@@ -17,12 +17,20 @@ class MigrateController < ApplicationController
 
     tmp = ""
     projects = j["projects"]
+    Project.record_timestamps = false
     projects.each do |p|
       #tmp += "#{p["id"]}  #{p["name"]} #{p["summary"]}" + "<br/>"
+
+      p.delete("intendedaudience")
+      p.delete("topic")
+      p.delete("topicsuggestion")
+
       p2 = Project.new(p)
 
       p2.id = p["id"]
       p2.status = Project::STATUS[:READY]
+      p2.icon = migrated_project_logo_id(p2.id)
+
 
       #def p2.valid?; true; end
       p2.save_without_validation!
