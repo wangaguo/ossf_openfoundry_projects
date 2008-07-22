@@ -37,7 +37,7 @@ class CreateTables < ActiveRecord::Migration
       t.string "name",    :default => "upload_img", :null => false
       t.string "meta"
       t.string "comment"
-      t.binary "data"
+      t.binary "data",  :size => 2**24
     end
 
     create_table "news", :force => true do |t|
@@ -213,8 +213,9 @@ class CreateTables < ActiveRecord::Migration
       t.string   "login",           :limit => 80, :default => "", :null => false
       t.string   "salted_password", :limit => 40, :default => "", :null => false
       t.string   "email",           :limit => 60, :default => "", :null => false
-      t.string   "firstname",       :limit => 40
-      t.string   "lastname",        :limit => 40
+      t.string   "realname",        :limit => 40
+      t.string   "homepage",        :limit => 255
+      t.string   "bio",             :limit => 1023
       t.string   "identity_url",    :limit => 255
       t.string   "salt",            :limit => 40, :default => "", :null => false
       t.integer  "verified",                      :default => 0
