@@ -40,14 +40,9 @@
 
 <fieldset style="clear:both;">
 <legend><%= _("Project Participants") %>:</legend>
-  <dl>
 <% for p in @participents-%>
-    <dt><%= p.login%>:</dt>
-    <dd>
-    <%=user_portrait_link(p)%>
-    </dd>
+  <%=user_portrait_link(p, :with_login => true)%>
 <% end -%>
-  </dl>
 </fieldset>
 
 <%= (link_to _('Edit'), :action => 'edit', :id => @project )+'|' if fpermit?("project_info", @project.id) %> 
