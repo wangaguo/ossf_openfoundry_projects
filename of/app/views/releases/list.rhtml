@@ -1,6 +1,6 @@
 <div id="ReleaseBasic">
   <h1>Release#list</h1>
-  <p> <%= viewports_manager(:update => "ReleaseBasic",
+  <!--<p> <%= viewports_manager(:update => "ReleaseBasic",
       :url => {:project_id => @project_id,
         :controller => :releases,
         :method => :get,
@@ -10,7 +10,7 @@
     :project_id => @project_id,
     :action => :new
   %>
-  <br/>
+  <br/>-->
   <% @releases.each do |release|%>
     <%= arranged('ReleaseItem',release, {})%>
     <%= link_to '[show]', release_url(
