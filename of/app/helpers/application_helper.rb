@@ -50,7 +50,10 @@ module ApplicationHelper
     levels.each_with_index do |level, index|
       unless level.blank?
         if level =~ /[a-z]+/
-          case level
+          case level  
+          when 'releases'
+            level_name, level_class, level_title = 
+                          _('releases'), Release, 'version'
           when 'user'
             level_name, level_class, level_title = 
               _('user'), User, 'login'
@@ -282,6 +285,10 @@ module ApplicationHelper
     end
     
     def text_field(method, options = {})
+      "<td>#{super(method, options )}</td></tr>"
+    end
+
+    def text_area(method, options = {})
       "<td>#{super(method, options )}</td></tr>"
     end
     
