@@ -143,7 +143,7 @@ class ImagesController < ApplicationController
           old_id = obj.icon
           obj.icon=@image.id
           obj.save!
-          if(Image.exists?(old_id))
+          if(Image.exists?(old_id) and !site_reserved_image_id.include?(old_id))
             Image.find(old_id).destroy
           end
         end
@@ -161,6 +161,11 @@ class ImagesController < ApplicationController
   end
   
   private  
+
+  def site_reserved_image_id
+    (1..100).to_a + [Image::IMAGE_UNKNOWN_ID]
+  end
+
   def generate_captcha_code(count=3)
     code=''
     seeds = ('A'..'Z').to_a
