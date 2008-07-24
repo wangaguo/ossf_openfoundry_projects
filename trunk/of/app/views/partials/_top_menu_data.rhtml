@@ -11,21 +11,20 @@ var menudata=
     },
     {id:'<%=_('menu_Projects')%>', url:'/projects',
       submenu:[
-        {id:'<%=_('Project Category')%>', url:'/category'},
-        {id:'<%=_('menu_Overview')%>', url:'/projects'},
-        {id:'<%=_('Project News')%>', url:'/projects/news'},
-        {id:'<%=_('New Releases')%>', url:'/releases/latest'},
-        {id:'<%=_('New Projects')%>', url:'/projects?sortdesc=listing-created_at'},
-        {id:'<%=_('Top Downloads')%>', url:'/releases/top'},
-        {id:'<%=_('Help Wanted')%>', url:'/projects/jobs'},
-        {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'},
-        {id:'<%=_('Create Project')%>', url:'/projects/new'}
+        {id:'<%=_('menu_Statistic Navigator')%>', url:'/category'},
+        {id:'<%=_('menu_Project Listing')%>', url:'/projects'},
+        {id:'<%=_('menu_Project News')%>', url:'/projects/news'},
+        {id:'<%=_('menu_Latest Releases')%>', url:'/releases/latest'},
+        {id:'<%=_('menu_New Projects')%>', url:'/projects?sortdesc=listing-created_at'},
+        {id:'<%=_('menu_Top Downloads')%>', url:'/releases/top'},
+        {id:'<%=_('menu_Help Wanted')%>', url:'/projects/jobs'},
+        {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'}
       ]
     },
     {id:'<%=_('menu_My Account')%>', url:'/user/home',
       submenu:[
         {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
-        {id:'<%=_('menu_My Pages')%>', url:'/user/home'},
+        {id:'<%=_('menu_Personal Homepage')%>', url:'/user/home'},
         {id:'<%=_('menu_My Projects')%>', url:'/user/my_projects'},
         {id:'<%=_('menu_My Tickets')%>', url:'',
           submenu:[
@@ -42,16 +41,16 @@ var menudata=
       submenu:[
         {id:'<%=_('License Wizard')%> v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
         {id:'<%=_('License Wizard')%> v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
-        {id:'<%=_('Direction')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
+        {id:'<%=_('menu_Manual')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
       ]  
     },
     {id:'<%=_('menu_Help')%>', url:'http://rt.openfoundry.org/Foundry/Help/',
       submenu:[
-        {id:'關於本手冊', url:'http://rt.openfoundry.org/Foundry/Help/'},
-        {id:'專案管理平台介紹', url:'http://rt.openfoundry.org/Foundry/Help/1-02.html'},
-        {id:'一般使用者功能', url:'http://rt.openfoundry.org/Foundry/Help/2-01.html'},
-        {id:'專案管理者功能', url:'http://rt.openfoundry.org/Foundry/Help/3-01.html'},
-        {id:'專案管理服務平台功能', url:'http://rt.openfoundry.org/Foundry/Help/vcs/OpenFoundry%20_.html'},
+        {id:'<%=_('menu_About this Manual')%>', url:'http://rt.openfoundry.org/Foundry/Help/'},
+        {id:'<%=_('menu_OpenFoundry Overview')%>', url:'http://rt.openfoundry.org/Foundry/Help/1-02.html'},
+        {id:'<%=_('menu_End User Guide')%>', url:'http://rt.openfoundry.org/Foundry/Help/2-01.html'},
+        {id:'<%=_('menu_Project Manager Guide')%>', url:'http://rt.openfoundry.org/Foundry/Help/3-01.html'},
+        {id:'<%=_('menu_OpenFoundry Features')%>', url:'http://rt.openfoundry.org/Foundry/Help/vcs/OpenFoundry%20_.html'},
         {id:'<%=_('Download PDF')%>', url:'http://rt.openfoundry.org/Foundry/Help/ossf.pdf'}
       ]  
     },
