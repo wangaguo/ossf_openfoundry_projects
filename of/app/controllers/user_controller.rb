@@ -263,7 +263,7 @@ class UserController < ApplicationController
       begin
         case form
         when "edit"
-          changeable_fields = ['realname', 'language', 'timezone']
+          changeable_fields = ['realname', 'language', 'timezone','homepage','bio']
           dummy = params['user'].delete_if { |k,v| not changeable_fields.include?(k) }
           @user.attributes = dummy
           @user.save
