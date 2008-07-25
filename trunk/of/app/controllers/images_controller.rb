@@ -1,30 +1,45 @@
-require 'RMagick'
-
 class ImagesController < ApplicationController
   before_filter :login_required, :except => [:image, :code_image, :show,
     :reload_code_image, ]
   
   def image
+    #get valid imag_id
+    id = params[:id] || 0
     begin
-      image = Image.find(params[:id])
-    rescue 
-      image = Image.find(Image::IMAGE_UNKNOWN_ID)
-    ensure
-     unless image.nil?
-        size = params[:size]
-        if !size.nil? and size.to_i > 0
-          size = size.to_i
-        else
-          size = 128
-        end
-        tmp = Magick::Image.from_blob(image.data)[0]
-        tmp.resize!(size,size)
-        send_data(tmp.to_blob,
-          :filename => image.name,
-          :type => image.meta,
-          :disposition => "inline") 
-      end      
+      id = Image::IMAGE_UNKNOWN_ID unless Image.exists?(id)
+    rescue
+      id = Image::IMAGE_UNKNOWN_ID
     end
+    #get valid image size
+    size = params[:size] || '128'
+    begin
+      size = size.to_i
+    rescue
+      size = 128
+    end
+
+    image_cache_file = "#{Image::IMAGE_CACHES_DIR}/#{id}_#{size}"
+    meta = Image.find(id).meta
+    unless File.exists?(image_cache_file)
+      image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
+      `convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}`
+
+      #begin
+      #  image = Image.find(id)
+      #rescue 
+      #  image = Image.find(Image::IMAGE_UNKNOWN_ID)
+      #ensure
+      #  tmp = Magick::Image.from_blob(image.data)[0]
+      #  tmp.resize!(size,size)
+      #  #tmp.write(image_cache_file)
+      #  File.open(image_cache_file,"w+").write(tmp.to_blob)
+      #  #send_data(tmp.to_blob,
+      #  #  :filename => image.name,
+      #  #  :type => image.meta,
+      #  #  :disposition => "inline") 
+      #end
+    end
+    send_file(image_cache_file, :type => meta, :disposition => "inline") 
   end
   
   def reload_code_image
@@ -138,6 +153,8 @@ class ImagesController < ApplicationController
         Image.transaction do
           @image = Image.new(params[:images])
           @image.save!
+          
+          @image.save_to_file
           type = Object.const_get(params[:type])
           obj = type.find(params[:id])
           old_id = obj.icon
