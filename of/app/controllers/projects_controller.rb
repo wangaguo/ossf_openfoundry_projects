@@ -200,13 +200,36 @@ class ProjectsController < ApplicationController
         @role.name = params[:name]
       end
       if (@role.name.upcase != "ADMIN" && @role.save)
-        @role.functions.delete_all
-        if !params[:functions].nil?
-          for function_id in params[:functions].keys
-            @role.functions << Function.find(function_id)
+        updated = params[:functions] || {}
+        unless( updated.keys == @role.functions.map{|f| f.id} )
+          after = updated.keys.collect{|id| Function.find(id)}
+          before = @role.functions
+          added = after - before
+          removed = before - after
+          @role.functions.delete_all
+          @role.functions = after
+          @role.save
+
+          #send message for everyone in that role
+          project_id = @role.authorizable_id
+          @role.users.each do |u|
+            removed.each do |f|
+              ApplicationController::send_msg('function','remove',
+                                              {:function_name => f.name, 
+                                                :user_id => u.id,
+                                                :project_id => project_id
+                                              })
+            end
+            added.each do |f|
+              ApplicationController::send_msg('function','create',
+                                              {:function_name => f.name, 
+                                                :user_id => u.id,
+                                                :project_id => project_id
+                                              })
+            end
           end
         end
-        flash[:notice] = 'Role was successfully updated.'
+        flash[:notice] = _('Role was successfully updated.')
       end
       #@role.name = params[:name]
     end
