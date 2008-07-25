@@ -1,5 +1,4 @@
-<div title="user signup" class="form">
-  <h1><%=  _("User Signup")%></h1>
+<div id="user_signup" title="user signup" class="form">
   <%#= head_helper :error => true %>
   <%= error_messages_for :user %>
     <% form_for @user, :url => {:action => :signup}, :builder => ApplicationHelper::TwoColumnFormBuilder do |f|-%>

@@ -9,7 +9,7 @@
     <br/>
     <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">
       <%=_('Change Icon')%>
-    </a>
+    </a> 
     <%= render :partial => 'images/edit', :locals => 
     {:image_id => @user.icon, :id => @user.id,
       :type => 'User', :back_to => url_for(:controller => :user, :action => :edit) }%>
