@@ -351,16 +351,16 @@ class UserController < ApplicationController
   def toua
     case request.method
     when :get
-      session[:eula] = :show
+      session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
         :locals => {:submit_to => '/user/signup', 
-                    :file_path => "#{RAILS_ROOT}/public/term_of_use_agreement.#{GetText.locale.to_s}.txt"}
+                    :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
       return true
     when :post
-      if( session[:eula] == :show )
+      if( session[:toua] == :show )
         if( params['agree'] == '1' )
           # eula check ok, normal process
-          session[:eula] = :pass
+          session[:toua] = :pass
           @user = User.new
           render
           return true
@@ -369,7 +369,7 @@ class UserController < ApplicationController
           redirect_to '/'
           return true
         end
-      elsif( session[:eula] == :pass )
+      elsif( session[:toua] == :pass )
         #normal process post method!
         return false
       else
