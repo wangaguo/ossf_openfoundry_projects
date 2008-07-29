@@ -53,16 +53,13 @@ module ApplicationHelper
           case level  
           when 'releases'
             level_name, level_class, level_title = 
-                          _('releases'), Release, 'version'
+              _('Project Releases'), Release, 'version'
           when 'user'
             level_name, level_class, level_title = 
               _('user'), User, 'login'
           when 'projects'
             level_name, level_class, level_title = 
               _('Project Listing'), Project, 'name'
-          when 'releases'
-            level_name, level_class, level_title = 
-              _('Project Releases'), Release, 'name'
           when 'news'
             level_name, level_class, level_title = 
               _('Project News'), News, 'subject'
@@ -264,6 +261,12 @@ module ApplicationHelper
     end
   end
   
+  def users_for_select(users, options={})
+    users.collect!{ |user| "<option value=\"#{user.id}\">
+      #{user.login}
+      </option>" }.join('\n')
+  end
+
   class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::TagHelper
