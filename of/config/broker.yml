@@ -55,6 +55,9 @@ test:
 production:
     adapter: stomp
     reliable: true
+    login: "openfoundry"
+    passcode: "openfoundry"
+    host: 192.168.0.10 
     # properties below are all defaults for this adapter
     # login: ""
     # passcode: ""
