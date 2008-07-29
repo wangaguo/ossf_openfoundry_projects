@@ -9,13 +9,16 @@ class ImagesController < ApplicationController
     cache_name =~ /^([0-9]+)_([0-9]+)$/
     #get valid imag_id
     id = $1 || 0
+    #get valid image size
+    size = $2 || '128'
+    if cache_name =~ /^[0-9]+$/
+      id = cache_name
+    end
     begin
       id = Image::IMAGE_UNKNOWN_ID unless Image.exists?(id)
     rescue
       id = Image::IMAGE_UNKNOWN_ID
     end
-    #get valid image size
-    size = $2 || '128'
 
     image_cache_file = "#{Image::IMAGE_CACHES_DIR}/#{cache_name}"
     meta = Image.find(id).meta
