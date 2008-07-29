@@ -1,26 +1,23 @@
 require 'digest/md5'
 
 class ImagesController < ApplicationController
-  before_filter :login_required, :except => [:image, :code_image, :show,
+  before_filter :login_required, :except => [:cached_image, :code_image, :show,
     :reload_code_image, ]
   
-  def image
+  def cached_image
+    cache_name = params[:id]
+    cache_name =~ /^([0-9]+)_([0-9]+)$/
     #get valid imag_id
-    id = params[:id] || 0
+    id = $1 || 0
     begin
       id = Image::IMAGE_UNKNOWN_ID unless Image.exists?(id)
     rescue
       id = Image::IMAGE_UNKNOWN_ID
     end
     #get valid image size
-    size = params[:size] || '128'
-    begin
-      size = size.to_i
-    rescue
-      size = 128
-    end
+    size = $2 || '128'
 
-    image_cache_file = "#{Image::IMAGE_CACHES_DIR}/#{id}_#{size}"
+    image_cache_file = "#{Image::IMAGE_CACHES_DIR}/#{cache_name}"
     meta = Image.find(id).meta
     unless File.exists?(image_cache_file)
       image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
@@ -50,13 +47,12 @@ class ImagesController < ApplicationController
   end
 
   def email_image
-    #tmp dir
-    dir = RAILS_ROOT + "/tmp/email/"
     #if file exist, no regeneration
     email = session['email_image']
-    filename = Digest::MD5.hexdigest(email)
-    
-    unless File.exist?([dir,filename,".jpg"].join)
+    filename = "#{Image::IMAGE_EMAIL_DIR}/#{Digest::MD5.hexdigest(email)}"
+   
+
+    unless File.exist?(filename)
       command = 'convert'
       
       #image params
@@ -71,11 +67,12 @@ class ImagesController < ApplicationController
       #set test color
       text_fg = "\"rgba(#{rand(128)},#{rand(128)},#{rand(128)},100)\""
       #text command
-      command << "  -font #{font} -pointsize #{text_size} -fill #{text_fg} -draw \"text 0,#{text_size/4*3} '#{email}'\""
+      command << " -font #{font} -pointsize #{text_size} -fill #{text_fg} -draw \"text 0,#{text_size/4*3} '#{email}'\""
       
-      @output = `#{command} -trim #{dir}#{filename}.jpg`
+      `#{command} -trim jpeg:#{filename}`
+
     end
-    send_file([dir,filename,".jpg"].join, :type => 'image/jpeg', :disposition => 'inline')
+    send_file(filename, :type => 'image/jpeg', :disposition => 'inline')
     
   end
  
