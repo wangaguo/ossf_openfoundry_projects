@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class ImagesController < ApplicationController
   before_filter :login_required, :except => [:image, :code_image, :show,
     :reload_code_image, ]
@@ -52,7 +54,7 @@ class ImagesController < ApplicationController
     dir = RAILS_ROOT + "/tmp/email/"
     #if file exist, no regeneration
     email = session['email_image']
-    filename = email.hash
+    filename = Digest::MD5.hexdigest(email)
     
     unless File.exist?([dir,filename,".jpg"].join)
       command = 'convert'
