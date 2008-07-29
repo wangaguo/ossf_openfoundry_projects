@@ -1,4 +1,5 @@
 require 'base64'
+require 'digest/md5'
 
 class UserController < ApplicationController
   require_dependency  'user'
@@ -66,6 +67,7 @@ class UserController < ApplicationController
       @icon = user.icon
       @conceal_email = user.t_conceal_email
       session['email_image'] = user.email unless @conceal_email
+      @email_md5 = Digest::MD5.hexdigest(user.email)
       @created_at = user.created_at
       #@status = user. unless user.t_conseal_status
 
@@ -102,6 +104,7 @@ class UserController < ApplicationController
       return
     elsif params['use_openid']
       open_id_authentication(params['user']['identity_url'])
+      flash[:message] = _('user_login_failed')
       return
     end
     # end of OpenID Session 

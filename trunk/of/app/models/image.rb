@@ -1,7 +1,8 @@
 class Image < ActiveRecord::Base
   IMAGE_UNKNOWN_ID = 65535
-  IMAGE_CACHES_DIR = "#{RAILS_ROOT}/tmp/image_caches"
+  IMAGE_CACHES_DIR = "#{RAILS_ROOT}/public/images/cached_image"
   IMAGE_DATA_DIR = "#{RAILS_ROOT}/tmp/image_data"
+  IMAGE_EMAIL_DIR = "#{RAILS_ROOT}/public/images/email_image"
 
   validates_format_of :meta, :with => /^image/,
     :message => _("Image|Picture only")

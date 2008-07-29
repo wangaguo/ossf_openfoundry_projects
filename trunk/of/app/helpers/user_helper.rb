@@ -3,8 +3,8 @@ module UserHelper
   def user_portrait_link(user, options={:with_login => false})
     "<span class=\"user_portrait\"><a href=\"/user/home/#{user.id}\">
      #{options[:with_login] ? user.login : '' }
-     <img src=\"#{url_for(:controller => :images, :action => "image", 
-                         :id => user.icon, :size => options[:size]||32)}\" 
+     <img src=\"#{url_for(:controller => :images, :action => "cached_image", 
+                         :id => "#{user.icon}_#{options[:size]||32}")}\" 
          title=\"#{user.login}\" align=#{options[:align]||:middle} />
     </a></span>"
   end
