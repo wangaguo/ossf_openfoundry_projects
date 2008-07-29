@@ -1,6 +1,6 @@
 <!--search hit-->
 <td>
-  <img src="<%= url_for(:controller => :images,:action => "image", :id => record.icon, :size => 32) %>"/>
+  <img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{record.icon}_32") %>"/>
 </td>
 <td>
   <a href="<%= project_url(:id => record.id) %>"><%= h record.name %></a>

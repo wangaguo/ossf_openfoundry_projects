@@ -22,7 +22,7 @@
   <tr class="item_b <%=class_name%>">
     <td colspan="3">
       <a href="<%= project_url(project.id) %>">
-        <img src="<%= url_for(:controller => :images,:action => "image", :id => project.icon, :size => 64) %>" align="left" alt="<%= _('Project Logo') %>" title="<%= h(project.summary) %>"/>
+        <img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{project.icon}_64") %>" align="left" alt="<%= _('Project Logo') %>" title="<%= h(project.summary) %>"/>
       </a>
       <%= h project.description.chars[0..150] + "..." %><br/>
     </td>
