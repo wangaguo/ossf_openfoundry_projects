@@ -10,8 +10,8 @@
 <% form_tag :action => 'delete_role', :id => @project do %>
   <label for="<%=@role.name%>[]"><%= @role.name %>:</label><br/>
   <%= hidden_field_tag 'role', @role.name %>
-  <%= select_tag @role.name + "[]", options_for_select(
-    @users.collect {|p| [p.login,  p.id]}), { :multiple => true, :size => 5 } %> 
+  <%= select_tag @role.name + "[]", users_for_select(
+    @users), { :multiple => true, :size => 5 } %> 
   <%= submit_tag _('Role|Delete') %>
   <br/>
 <% end %>

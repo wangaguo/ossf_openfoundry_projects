@@ -63,7 +63,7 @@
     <%if params["project_id"] != nil%>
       <div class="project_logo_border">
         <div id='project_logo'>
-        <img src="<%= url_for(:controller => :images, :action => "image", :id => @project.icon) %>"/>
+        <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>"/>
         </div>
         <span><br/>  
           <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
