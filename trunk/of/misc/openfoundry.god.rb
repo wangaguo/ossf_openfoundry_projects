@@ -27,7 +27,7 @@ ADDRESS = '127.0.0.1'
       -P #{RAILS_ROOT}/tmp/pids/mongrel.#{port}.pid  -d"
     w.start_grace = 10.seconds
     w.restart_grace = 10.seconds
-    w.pid_file = File.join(RAILS_ROOT, "log/mongrel.#{port}.pid")
+    w.pid_file = File.join(RAILS_ROOT, "tmp/pids/mongrel.#{port}.pid")
     
     w.behavior(:clean_pid_file)
     
@@ -42,18 +42,22 @@ ADDRESS = '127.0.0.1'
     w.transition([:start, :restart], :up) do |on|
       on.condition(:process_running) do |c|
         c.running = true
+        c.notify = 'tim'
       end
       
       # failsafe
       on.condition(:tries) do |c|
         c.times = 5
         c.transition = :start
+        c.notify = 'tim'
       end
     end
 
     # start if process is not running
     w.transition(:up, :start) do |on|
-      on.condition(:process_exits)
+      on.condition(:process_exits) do |c|
+        c.notify = 'ossf-dev'
+      end
     end
     
     # restart if memory or cpu is too high
@@ -62,12 +66,14 @@ ADDRESS = '127.0.0.1'
         c.interval = 20
         c.above = 300.megabytes
         c.times = [3, 5]
+        c.notify = 'ossf-dev'
       end
       
       on.condition(:cpu_usage) do |c|
         c.interval = 10
         c.above = 70.percent
         c.times = [3, 5]
+        c.notify = 'ossf-dev'
       end
     end
     
@@ -81,7 +87,42 @@ ADDRESS = '127.0.0.1'
         c.retry_in = 10.minutes
         c.retry_times = 5
         c.retry_within = 2.hours
+
+        c.notify = 'tim'
       end
     end
   end
 end
+
+God::Contacts::Email.message_settings = {
+  :from => 'monitor@openfoundry.org'
+}
+
+God::Contacts::Email.server_settings = {
+  :address => "localhost",
+  :port => 25,
+  :domain => "openfoundry.org",
+  :authentication => :plain
+}
+
+God.contact(:email) do |c|
+  c.name = 'tim'
+  c.email = 'tim@iis.sinica.edu.tw'
+  c.group = 'ossf-dev'
+end
+God.contact(:email) do |c|
+  c.name = 'lours'
+  c.email = 'lcamel@iis.sinica.edu.tw'
+  c.group = 'ossf-dev'
+end
+God.contact(:email) do |c|
+  c.name = 'aguo'
+  c.email = 'wangaguo@iis.sinica.edu.tw'
+  c.group = 'ossf-dev'
+end
+God.contact(:email) do |c|
+  c.name = 'thkuo'
+  c.email = 'thkuo@iis.sinica.edu.tw'
+  c.group = 'ossf-dev'
+end
+
