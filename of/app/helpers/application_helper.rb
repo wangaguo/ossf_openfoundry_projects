@@ -236,7 +236,7 @@ module ApplicationHelper
   end
   
   def help_icon(tooltip)
-    '<a class="help"><img src="/images/icon/help.gif"/><span>' + tooltip + '</span></a>'
+    '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
   end
   
   def required_icon
@@ -272,7 +272,7 @@ module ApplicationHelper
     include ActionView::Helpers::TagHelper
 
     def help_icon(tooltip)
-      '<a class="help"><img src="/images/icon/help.gif"/><span>' + tooltip + '</span></a>'
+      '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
     end
     
     def label(method, text = nil, options = {})
