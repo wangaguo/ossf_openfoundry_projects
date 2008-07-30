@@ -264,25 +264,25 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 .flasherror
 {
   background-color: #FFCFD8;
-  background-image: url(/images/icon/error.png);
+  background-image: url(/images/icon/error.gif);
   border-color: #EEBEC7;
 }
 .flashwarning
 {
   background-color: #FFEE9F;
-  background-image: url(/images/icon/warning.png);
+  background-image: url(/images/icon/warning.gif);
   border-color: #EEDD8E;
 }
 .flashnotice
 {
   background-color: #D1EAEF;
-  background-image: url(/images/icon/notice.png);
+  background-image: url(/images/icon/notice.gif);
   border-color: #C0D9DE;
 }
 .flashmessage
 {
   background-color: #E3EFB3;
-  background-image: url(/images/icon/message.png);
+  background-image: url(/images/icon/message.gif);
   border-color: #D2DEA2;
 }
 
