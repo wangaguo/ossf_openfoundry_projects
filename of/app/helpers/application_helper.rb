@@ -219,7 +219,7 @@ module ApplicationHelper
   end
   
   def calendar_for(field_id)
-    image_tag("calendar.png", {:id => "#{field_id}_trigger",:class => "calendar-trigger"}) +
+    image_tag("calendar.gif", {:id => "#{field_id}_trigger",:class => "calendar-trigger"}) +
       javascript_tag("Calendar.setup({inputField : '#{field_id}', ifFormat : '%Y-%m-%d', button : '#{field_id}_trigger' });")
   end
   
@@ -236,7 +236,7 @@ module ApplicationHelper
   end
   
   def help_icon(tooltip)
-    '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
+    '<a class="help"><img src="/images/icon/help.gif"/><span>' + tooltip + '</span></a>'
   end
   
   def required_icon
@@ -272,7 +272,7 @@ module ApplicationHelper
     include ActionView::Helpers::TagHelper
 
     def help_icon(tooltip)
-      '<a class="help"><img src="/images/icon/help.png"/><span>' + tooltip + '</span></a>'
+      '<a class="help"><img src="/images/icon/help.gif"/><span>' + tooltip + '</span></a>'
     end
     
     def label(method, text = nil, options = {})
