@@ -111,29 +111,25 @@ body {
   list-style-image:none;
   list-style-position:outside;
   list-style-type:none;
-	padding:0px;
-  margin:0px;
+  padding:0;
+  margin:0;
   width:100%;
   background-color:transparent;
-}
-#project_left_menu ul{
-  padding-left:0px;
 }
 #project_left_menu li {
   position:relative;
   display:block;
-  padding:0 0 0 20px;
+  padding:0;
   line-height:1.5em;
   margin-bottom:3px;
   border-bottom:dotted 1px #ccc;
+  width:100%;
 }
 #project_left_menu li ul {
   display:none;
   left:100.1%;
   position:absolute;
-  top:0pt;
-  margin-left:0px !important;/*FF*/
-  margin-left:-74px;/*IE6*/
+  top:0;
   background-color:#DAE3F9;
 }
 #project_left_menu li:hover { background-color:#DAE3F9; }
