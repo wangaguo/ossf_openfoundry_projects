@@ -3,8 +3,34 @@ require 'digest/md5'
 
 class UserController < ApplicationController
   require_dependency  'user'
-  before_filter :login_required, :except => [:login, :signup, :forgot_password, :welcome, :username_availability_check]
-  
+  before_filter :set_user_id, :except => [:login, :signup, :forgot_password, :welcome, :username_availability_check]
+  before_filter :login_required, :except => [:login, :home, :signup, :forgot_password, :welcome, :username_availability_check]
+
+  def set_user_id
+    if params['user']
+      id = nil
+      case params['user']
+      when /^\d+$/ 
+        id = params['user'] if User.exists?(params['user'])
+      when User::LOGIN_REGEX 
+        obj = User.find(:first, :select => :id, 
+                       :conditions => ["login = ? and #{User.verified_users}", params['user'] ])
+        id = obj.id if obj
+      end
+      if id
+        redirect_to "/user/home/#{id}" 
+      else
+        flash[:warning] = 
+          _("User %{user} doesn't exist or be activated") % {:user => params['user']}
+        redirect_to "/"
+      end
+      return
+    end
+    if params['id']
+
+    end
+  end
+
   def my_projects
     reset_sortable_columns
     add_to_sortable_columns('listing', Project, 'summary', 'summary') 
@@ -223,22 +249,23 @@ class UserController < ApplicationController
   end
 
   def forgot_password
-    # Always redirect if logged in
+    user = nil
+    # Try to send email if logged in
     if user?
-      flash[:message] = _('user_forgot_password_logged_in')
-      redirect_to :action => 'change_password'
-      return
-    end
-
-    # Render on :get and render
-    return if generate_blank
-
-    # Handle the :post
-    if params['user']['email'].empty?
-      flash.now[:message] = _('user_enter_valid_email_address')
-    elsif (user = User.find_by_email(params['user']['email'])).nil?
-      flash.now[:message] = _('user_email_address_not_found') % "#{params['user']['email']}"
+      user = current_user
+    # Render on :get 
     else
+      return if generate_blank
+      # Handle the :post
+      if params['user']['email'].empty?
+        flash.now[:message] = _('user_enter_valid_email_address')
+      elsif (user = User.find_by_email(params['user']['email'])).nil?
+        flash.now[:message] = _('user_email_address_not_found') % "#{params['user']['email']}"
+      end
+    end
+    
+    #send mail for user
+    if user
       begin
         User.transaction do
           key = user.generate_security_token
@@ -246,11 +273,14 @@ class UserController < ApplicationController
           url += "?user=#{user.id}&key=#{key}"
           UserNotify.deliver_forgot_password(user, url)
           flash[:notice] = _('user_forgotten_password_emailed') % "#{params['user']['email']}"
+          # use tag to notify forgot password
+          user.t_forgot_password = true
+          user.save
           unless user?
             redirect_to :action => 'login'
             return
           end
-          redirect_back_or_default :action => 'welcome'
+          redirect_back_or_default :action => 'home'
         end
       rescue
         flash.now[:message] = _('user_forgotten_password_email_error') % "#{params['user']['email']}"
