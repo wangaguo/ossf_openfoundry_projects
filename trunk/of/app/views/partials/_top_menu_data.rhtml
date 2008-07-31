@@ -21,7 +21,7 @@ var menudata=
         {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'}
       ]
     },
-<% if current_user.login == true %>
+<% if current_user.login != 'guest' %>
     {id:'<%=_('menu_My Account')%>', url:'/user/home',
       submenu:[
         {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
