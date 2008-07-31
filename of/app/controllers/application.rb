@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   init_gettext "openfoundry"
 
   helper :user
+  helper :projects
   require_dependency 'user'
 
 #  before_filter :configure_charsets
