@@ -2,10 +2,15 @@ class ReleasesController < ApplicationController
   find_resources(:parent => 'project', 
     :child => 'release', 
     :parent_id_method => 'project_id')
-
+  layout 'module'
   #see lib/permission_table.rb
   before_filter :check_permission
+  before_filter :default_module_name
 
+  def default_module_name
+    @module_name = _("Release")
+  end
+  
   def index
     list
     render :action => :list
@@ -13,9 +18,11 @@ class ReleasesController < ApplicationController
   
   #show all releases with given project id
   def show
-     @project_id = params[:project_id]
-     @release = Release.find(params[:id])
-     @files = @release.fileentity
+     #@project_id = params[:project_id]
+     #@release = Release.find(params[:id])
+     #@files = @release.fileentity
+    uploadfiles
+    render :action => :uploadfiles
   end
   
   #list all release for a given :project_id
@@ -55,6 +62,7 @@ class ReleasesController < ApplicationController
   end
   
   def download
+    @module_name = _("Downloads")
     @project_id = params[:project_id]
     @project_name = Project.find(params[:project_id]).name
     @releases = Release.find :all,
@@ -111,6 +119,7 @@ class ReleasesController < ApplicationController
     if request.get?
       @release = Release.find(params[:id])
       @project_id = params[:project_id]
+      @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
     end
   end
   
