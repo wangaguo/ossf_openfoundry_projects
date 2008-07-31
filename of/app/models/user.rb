@@ -152,11 +152,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  LOGIN_REGEX = /^[a-zA-Z][0-9a-zA-Z_]{2,13}$/ #14
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i  
   validates_presence_of :login, :on => :create
-  validates_format_of :login, :with => /^[a-zA-Z][0-9a-zA-Z_]{2,13}$/, :on => :create
+  validates_format_of :login, :with => LOGIN_REGEX, :on => :create
   validates_length_of :login, :within => 3..14, :on => :create
   
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+  validates_format_of :email, :with => EMAIL_REGEX
   validates_confirmation_of :email, :if => :validate_email?
 
   validates_presence_of :password, :if => :validate_password?
