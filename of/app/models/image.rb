@@ -1,5 +1,6 @@
 class Image < ActiveRecord::Base
   IMAGE_UNKNOWN_ID = 65535
+  IMAGE_DEFAULT_SIZE = 128
   IMAGE_CACHES_DIR = "#{RAILS_ROOT}/public/images/cached_image"
   IMAGE_DATA_DIR = "#{RAILS_ROOT}/tmp/image_data"
   IMAGE_EMAIL_DIR = "#{RAILS_ROOT}/public/images/email_image"

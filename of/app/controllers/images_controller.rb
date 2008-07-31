@@ -4,16 +4,27 @@ class ImagesController < ApplicationController
   before_filter :login_required, :except => [:cached_image, :code_image, :show,
     :reload_code_image, ]
   
+  session :off, :only => [:cached_image, :code_image, :show, :reload_code_image]
+
   def cached_image
     cache_name = params[:id]
-    cache_name =~ /^([0-9]+)_([0-9]+)$/
-    #get valid imag_id
-    id = $1 || 0
-    #get valid image size
-    size = $2 || '128'
-    if cache_name =~ /^[0-9]+$/
-      id = cache_name
+    id = Image::IMAGE_UNKNOWN_ID
+    size = Image::IMAGE_DEFAULT_SIZE
+    # match valid id and size
+    cache_name =~ /^([u|p]?)(\d+)(?:_(\d+))?$/
+    size = $3 if $3
+    if $1 == ''
+      #got image id
+      id = $2
+    else
+      # user icon
+      id = User.find($2).icon if User.exists?($2) if $1 == 'u'
+      # project icon
+      id = Project.find($2).icon if Project.exists?($2) if $1 =='p'
+      redirect_to :id => "#{id}_#{size}"
+      return
     end
+
     begin
       id = Image::IMAGE_UNKNOWN_ID unless Image.exists?(id)
     rescue
@@ -163,6 +174,7 @@ class ImagesController < ApplicationController
           obj.icon=@image.id
           obj.save!
           if(Image.exists?(old_id) and !site_reserved_image_id.include?(old_id))
+            #TODO delete cache
             Image.find(old_id).destroy
           end
         end
@@ -182,6 +194,7 @@ class ImagesController < ApplicationController
   private  
 
   def site_reserved_image_id
+    #TODO optimize
     (1..100).to_a + [Image::IMAGE_UNKNOWN_ID]
   end
 
