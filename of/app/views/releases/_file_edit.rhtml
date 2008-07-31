@@ -14,10 +14,6 @@
 <th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
 <td> <%= @file.size %> </td>
 </tr>
-<tr>
-<th> <%=  Fileentity.columns_hash['meta'].human_name -%> : </th>
-<td> <%= text_field_tag 'meta', @file.meta ,{:size => 20 } %> </td>
-</tr>
 
 </table> <!-- "FileItem"-->
     <%= submit_tag "Update" %> 

@@ -1,7 +1,7 @@
 class Release < ActiveRecord::Base
   belongs_to :project
   has_many :fileentity
-  
+
   #add fulltext indexed SEARCH
   acts_as_ferret({ :fields => { 
                               :name => { :boost => 1.5,
@@ -13,7 +13,10 @@ class Release < ActiveRecord::Base
                  :single_index => true,
                  :default_field => [:name, :description]
                  },{ :analyzer => GENERIC_ANALYZER })
-  
+  STATUS = { :PREPARING => 0, :RELEASED => 1}.freeze
+  def self.status_to_s(int_status)
+    _(STATUS.index(int_status).to_s)
+  end
   def self.build_path(project_name, gid)
     `/home/openfoundry/bin/create_dir #{gid} #{project_name}`
   end

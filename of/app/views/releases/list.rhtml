@@ -12,7 +12,18 @@
   %>
   <br/>-->
   <% @releases.each do |release|%>
-    <%= arranged('ReleaseItem',release, {})%>
+    <!--<%= arranged('ReleaseItem',release, {})%>-->
+    <table class=ReleaseNew >
+<tr><th><em class='require'>*</em><%= Release.columns_hash['version'].human_name  -%> : </th>
+<td><%= release.version %></td>
+</tr>
+<tr><th><%= Release.columns_hash['due'].human_name  -%> : </th>
+<td><%= release.due %></td>
+</tr>
+<tr><th><em class='require'>*</em><%= Release.columns_hash['status'].human_name  -%> : </th>
+  <td><%= Release.status_to_s(release.status) %></td>
+</tr>
+</table>
     <%= link_to '[show]', release_url(
       :project_id => @project_id,
       :id => release

@@ -4,7 +4,19 @@
     <% end -%>
     <h1>Release#Select Files</h1>
     <fieldset>
-    <%= arranged('ReleaseShow',@release,{}) %>
+    <!-- <%= arranged('ReleaseShow',@release,{}) %> -->
+    <table class=ReleaseShow >
+<tr><th> <%= Release.columns_hash['version'].human_name  -%> : </th>
+<td> <%= h(@release.version) %> </td>
+</tr>
+<tr><th> <%= Release.columns_hash['due'].human_name  -%> : </th>
+
+<td> <%= h(@release.due) %> </td>
+</tr>
+<tr><th> <%= Release.columns_hash['status'].human_name  -%> : </th>
+<td> <%= h(Release.status_to_s(@release.status)) %> </td>
+</tr>
+</table>
     </fieldset>
     <fieldset>
     <h1>Files: </h1>
@@ -13,7 +25,20 @@
     <%end%>
     <% @release.fileentity.each_with_index do |f, i|%>
     <div id=<%= "editfiles_view#{i}" %>>
-        <%= arranged('FileItem', f, {:fields_per_column => 1, :display_filter => {:size => :number_to_human_size}})%>
+<table class=FileItem >
+<tr>
+<th> <%=  Fileentity.columns_hash['path'].human_name -%> : </th>
+<td> <%= h(f.path) %> </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['description'].human_name -%> : </th>
+<td> <%= h(f.description) %>  </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
+<td> <%= number_to_human_size(f.size) %> </td>
+</tr>
+</table>
         <%= link_to_remote '[edit]',:url => editfile_release_url({
             :project_id => @project.id,
             :id => @release.id,
