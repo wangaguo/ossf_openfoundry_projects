@@ -71,7 +71,8 @@
 
 /*���e�� this is either the dingbat that indicates there is a submenu, or a spacer gif in it's place. We give it extra margin to create some space between the text and the dingbat */
 .transMenu .item img {
-	margin-left:40px;
+	/*margin-left:40px;*/
+  vertical-align:middle;
 	}
 
 
