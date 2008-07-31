@@ -276,7 +276,7 @@ module ApplicationHelper
     end
     
     def label(method, text = nil, options = {})
-      help = options[:help]
+      help = options.delete :help
       must = @object.class.columns_hash[method.to_s]
       must = (must and not must.null)||options[:must] ? '<em class="required"><img src="/images/icon/star.gif" /></em>' : nil
       
