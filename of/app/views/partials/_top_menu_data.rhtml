@@ -21,6 +21,7 @@ var menudata=
         {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'}
       ]
     },
+<% if current_user.login == true %>
     {id:'<%=_('menu_My Account')%>', url:'/user/home',
       submenu:[
         {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
@@ -37,6 +38,7 @@ var menudata=
         {id:'<img src="/images/icon/star.gif"/><%=_('Create Project')%>', url:'/projects/new'}
       ]
     },
+<% end %>
     {id:'<%=_('menu_License Wizard')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
       submenu:[
         {id:'<%=_('License Wizard')%> v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
