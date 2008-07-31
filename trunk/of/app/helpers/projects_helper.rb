@@ -14,4 +14,12 @@ module ProjectsHelper
     end
     rtn
   end
+  def project_logo_link(project, options={:with_name => false})
+    "<span class=\"project_logo\"><a href=\"/projects/#{project.id}\">
+     #{options[:with_name] ? project.name : '' }
+     <img src=\"#{url_for(:controller => :images, :action => "cached_image", 
+                         :id => "#{project.icon}_#{options[:size]||32}")}\" 
+         title=\"#{project.name}\" align=#{options[:align]||:middle} />
+    </a></span>"
+  end
 end

@@ -47,8 +47,7 @@
   </dt>
   <dd>
     <% @projects.each do |p| %>
-      <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => "#{p.icon}_32") %>"/>
-    <%= link_to p.name, project_path(p.id) %>
+      <%= project_logo_link(p, {:with_name => true}) %>
     <% end %>
   </dd>
   <% if @my%>
