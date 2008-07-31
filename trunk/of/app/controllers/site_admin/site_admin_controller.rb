@@ -6,13 +6,13 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     redirect_to :action => :index
   end
   def resend
-    User.find(:all, :conditions => User.verified_users()).each do |u|
-      ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
-    end
+    #User.find(:all, :conditions => User.verified_users()).each do |u|
+    #  ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
+    #end
   
-    Project.find(:all, :conditions => Project.in_used_projects()).each do |p|
-      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.summary, 'summary' => p.description}) 
-    end
+    #Project.find(:all, :conditions => Project.in_used_projects()).each do |p|
+    #  ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.summary, 'summary' => p.description}) 
+    #end
     
     ActiveRecord::Base.connection.select_rows(
     "select distinct U.id, P.id, F.name from users U, roles_users RU, roles_functions RF, functions F, roles R, projects P where
