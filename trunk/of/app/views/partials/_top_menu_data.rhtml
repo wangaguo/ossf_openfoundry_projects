@@ -1,12 +1,15 @@
 <script>
+function wo(url) {
+  return 'javascript:var a = window.open("' + url + '")';
+}
 var menudata=
   [
     {id: '<%=_('menu_OpenFoundry')%>', url:'/',
       submenu:[
       {id:'<%=_('menu_Home')%>', url:'/'},
       {id:'<%=_('OpenFoundry News')%>', url:'/news'},
-      {id:'<%=_('menu_About OSSF')%>', url:'http://www.openfoundry.org/About-OSSF.html'},
-      {id:'<%=_('menu_Newsletter')%>', url:'http://www.openfoundry.org/Newsletter.html'}
+      {id:'<%=_('menu_About OSSF')%>', url:wo('http://www.openfoundry.org')},
+      {id:'<%=_('menu_Newsletter')%>', url:wo('http://www.openfoundry.org/Newsletter.html')}
       ]
     },
     {id:'<%=_('menu_Projects')%>', url:'/projects',
@@ -41,9 +44,9 @@ var menudata=
 <% end %>
     {id:'<%=_('menu_License Wizard')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
       submenu:[
-        {id:'<%=_('License Wizard')%> v2.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi'},
-        {id:'<%=_('License Wizard')%> v3.2', url:'http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm'},
-        {id:'<%=_('menu_Manual')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269'}
+        {id:'<%=_('License Wizard')%> v2.2', url:wo("<%=_('menu_LW_22_link')%>")},
+        {id:'<%=_('License Wizard')%> v3.2', url:wo("<%=_('menu_LW_32_link')%>")},
+        {id:'<%=_('menu_Manual')%>', url:wo("<%=_('menu_LW_manual_link')%>")}
       ]  
     },
 //    {id:'<%=_('menu_Help')%>', url:'http://rt.openfoundry.org/Foundry/Help/',
