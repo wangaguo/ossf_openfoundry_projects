@@ -189,6 +189,18 @@ EOEO
                  :default_field => [:name, :summary, :description]
                  },{ :analyzer => GENERIC_ANALYZER })
 
+  def should_be_indexed?
+    self.status == Project::STATUS[:READY]
+  end
+  def ferret_enabled?(is_bulk_index = false)
+    should_be_indexed? && #super(is_bulk_index) # TODO: super will cause recursive call..
+      (@ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?))
+  end
+  def destroy_ferret_index_when_not_ready
+    ferret_destroy if not should_be_indexed?
+  end
+  after_save :destroy_ferret_index_when_not_ready
+    
   #add tags
   acts_as_taggable
   
