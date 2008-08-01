@@ -15,10 +15,10 @@ var menudata=
         {id:'<%=_('menu_Project Listing')%>', url:'/projects'},
         {id:'<%=_('menu_Project News')%>', url:'/projects/news'},
         {id:'<%=_('menu_Latest Releases')%>', url:'/releases/latest'},
-        {id:'<%=_('menu_New Projects')%>', url:'/projects?sortdesc=listing-created_at'},
         {id:'<%=_('menu_Top Downloads')%>', url:'/releases/top'},
         {id:'<%=_('menu_Help Wanted')%>', url:'/projects/jobs'},
-        {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'}
+        {id:'<%=_('menu_WebHosting')%>', url:'http://webhosting.openfoundry.org/'},
+        {id:'<img src="/images/icon/star.gif"/><%=_('Create Project')%>', url:'/projects/new'}
       ]
     },
 <% if current_user.login != 'guest' %>
