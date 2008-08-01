@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-07-25 04:00-0000\n"
+"POT-Creation-Date: 2008-08-01 03:19-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,9 +21,8 @@ msgid "Home"
 msgstr "首頁"
 
 #: app/helpers/application_helper.rb:56
-#, fuzzy
-msgid "releases"
-msgstr "規畫釋出"
+msgid "Project Releases"
+msgstr "專案釋出"
 
 #: app/helpers/application_helper.rb:59 app/models/user.rb:-
 msgid "user"
@@ -34,23 +33,19 @@ msgstr "使用者"
 msgid "Project Listing"
 msgstr "專案一覽"
 
-#: app/helpers/application_helper.rb:65
-msgid "Project Releases"
-msgstr "專案釋出"
-
-#: app/helpers/application_helper.rb:68 app/controllers/news_controller.rb:27
+#: app/helpers/application_helper.rb:65 app/controllers/news_controller.rb:27
 #: app/views/openfoundry/index.rhtml:55
 msgid "Project News"
 msgstr "專案新聞"
 
-#: app/helpers/application_helper.rb:71 app/controllers/jobs_controller.rb:8
+#: app/helpers/application_helper.rb:68 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:17
 #: app/views/partials/_project_menu.rhtml:48
 msgid "Help Wanted"
 msgstr ""
 
-#: app/helpers/application_helper.rb:74
+#: app/helpers/application_helper.rb:71
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:14
@@ -58,7 +53,7 @@ msgstr ""
 msgid "Citations"
 msgstr ""
 
-#: app/helpers/application_helper.rb:77
+#: app/helpers/application_helper.rb:74
 #: app/controllers/references_controller.rb:8
 #: app/controllers/references_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:15
@@ -66,7 +61,7 @@ msgstr ""
 msgid "References"
 msgstr "偏好設定"
 
-#: app/helpers/application_helper.rb:80
+#: app/helpers/application_helper.rb:77
 msgid "Issue Tracker"
 msgstr "事件追蹤"
 
@@ -277,6 +272,10 @@ msgstr "註解"
 
 #: app/models/image.rb:-
 msgid "Image|Data"
+msgstr ""
+
+#: app/models/image.rb:9
+msgid "Image|Picture only"
 msgstr ""
 
 #: app/models/function.rb:-
@@ -1006,130 +1005,142 @@ msgstr ""
 msgid "Delete Successful"
 msgstr "刪除帳號"
 
-#: app/controllers/user_controller.rb:90
+#: app/controllers/user_controller.rb:24
+msgid "User %{user} doesn't exist or be activated"
+msgstr ""
+
+#: app/controllers/user_controller.rb:118
 msgid "Username '%{username}' has already registed"
 msgstr "使用者名稱'%{usename}'已經註冊過了"
 
-#: app/controllers/user_controller.rb:92
+#: app/controllers/user_controller.rb:120
 msgid "Username '%{username}' is ready for use"
 msgstr "使用者名稱'%{username}'可以使用"
 
-#: app/controllers/user_controller.rb:100
+#: app/controllers/user_controller.rb:128
 msgid "OpenID Login Succeeded"
 msgstr "OpenID登入成功"
 
-#: app/controllers/user_controller.rb:115
-msgid "user_login_succeeded"
-msgstr "登入成功"
-
-#: app/controllers/user_controller.rb:127
+#: app/controllers/user_controller.rb:133
+#: app/controllers/user_controller.rb:156
 msgid "user_login_failed"
 msgstr "登入失敗"
 
-#: app/controllers/user_controller.rb:151
+#: app/controllers/user_controller.rb:144
+msgid "user_login_succeeded"
+msgstr "登入成功"
+
+#: app/controllers/user_controller.rb:180
 msgid "user_signup_succeeded"
 msgstr "註冊成功, 請到您的所填入的電子郵件信箱回覆驗證信"
 
-#: app/controllers/user_controller.rb:156
+#: app/controllers/user_controller.rb:185
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:180
+#: app/controllers/user_controller.rb:209
 msgid "user_updated_email"
 msgstr "電子郵件更新成功"
 
-#: app/controllers/user_controller.rb:182
+#: app/controllers/user_controller.rb:211
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:214
+#: app/controllers/user_controller.rb:243
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:217
+#: app/controllers/user_controller.rb:246
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:225
-msgid "user_forgot_password_logged_in"
-msgstr "您已經登入, 請直接更改密碼"
-
-#: app/controllers/user_controller.rb:235
+#: app/controllers/user_controller.rb:261
 msgid "user_enter_valid_email_address"
 msgstr "電子郵件位址不正確"
 
-#: app/controllers/user_controller.rb:237
+#: app/controllers/user_controller.rb:263
 msgid "user_email_address_not_found"
 msgstr "查無此電子郵件位址"
 
-#: app/controllers/user_controller.rb:245
+#: app/controllers/user_controller.rb:275
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:253
+#: app/controllers/user_controller.rb:286
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:283
+#: app/controllers/user_controller.rb:316
 msgid "Update User Privacy Setting Successed"
 msgstr "使有者隱私權已更新"
 
-#: app/controllers/user_controller.rb:308
+#: app/controllers/user_controller.rb:341
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:317
+#: app/controllers/user_controller.rb:350
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:328
+#: app/controllers/user_controller.rb:361
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:337
+#: app/controllers/user_controller.rb:370
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:420
+#: app/controllers/user_controller.rb:454
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
-#: app/controllers/application.rb:81
+#: app/controllers/application.rb:82
 msgid "&laquo; Previous"
 msgstr "上一頁"
 
-#: app/controllers/application.rb:82
+#: app/controllers/application.rb:83
 msgid "Next &raquo;"
 msgstr "下一頁"
 
-#: app/controllers/application.rb:254 app/controllers/application.rb:257
+#: app/controllers/application.rb:255 app/controllers/application.rb:258
 msgid "captcha mismatch"
 msgstr "驗證碼錯誤"
 
-#: app/controllers/application.rb:277 app/controllers/images_controller.rb:154
+#: app/controllers/application.rb:278 app/controllers/images_controller.rb:186
 msgid "you have no permission"
 msgstr "您沒有足夠權限"
 
-#: app/controllers/releases_controller.rb:171
+#: app/controllers/releases_controller.rb:11
+#, fuzzy
+msgid "Release"
+msgstr "規畫釋出"
+
+#: app/controllers/releases_controller.rb:65
+#: app/views/partials/_project_menu.rhtml:38
+#, fuzzy
+msgid "Downloads"
+msgstr "下載pdf格式"
+
+#: app/controllers/releases_controller.rb:180
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:176
+#: app/controllers/releases_controller.rb:185
 #, fuzzy
 msgid "Project id not found!"
 msgstr "註冊原因"
 
-#: app/controllers/releases_controller.rb:181
+#: app/controllers/releases_controller.rb:190
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:188
+#: app/controllers/releases_controller.rb:197
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/images_controller.rb:151
+#: app/controllers/images_controller.rb:183
 msgid "image_upload_error"
 msgstr "圖像上傳錯誤"
 
@@ -1250,12 +1261,8 @@ msgid "Login"
 msgstr "登入"
 
 #: app/views/partials/_login.rhtml:17
-msgid "Signup"
+msgid "Sign Up"
 msgstr "註冊"
-
-#: app/views/partials/_login.rhtml:19
-msgid "Forgot Password"
-msgstr "忘記密碼"
 
 #: app/views/partials/_project_menu.rhtml:5
 msgid "project_Menu"
@@ -1325,11 +1332,6 @@ msgstr "SVN"
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:38
-#, fuzzy
-msgid "Downloads"
-msgstr "下載pdf格式"
-
 #: app/views/partials/_project_menu.rhtml:54
 msgid "release_Releases"
 msgstr "規畫釋出"
@@ -1357,7 +1359,7 @@ msgstr "送出"
 #: app/views/partials/_top_menu_data.rhtml:4
 #: app/views/layouts/application.rhtml:36
 msgid "menu_OpenFoundry"
-msgstr "自由軟體鑄造場"
+msgstr "OpenFoundry"
 
 #: app/views/partials/_top_menu_data.rhtml:6
 msgid "menu_Home"
@@ -1393,121 +1395,117 @@ msgid "menu_Latest Releases"
 msgstr "最新釋出專案"
 
 #: app/views/partials/_top_menu_data.rhtml:18
-msgid "menu_New Projects"
-msgstr "註冊專案"
-
-#: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Top Downloads"
 msgstr "下載排行"
 
-#: app/views/partials/_top_menu_data.rhtml:20
+#: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Help Wanted"
 msgstr "協助專案"
 
-#: app/views/partials/_top_menu_data.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_WebHosting"
 msgstr "專案網頁空間"
 
-#: app/views/partials/_top_menu_data.rhtml:24
-#: app/views/layouts/application.rhtml:38
-msgid "menu_My Account"
-msgstr "帳號"
-
-#: app/views/partials/_top_menu_data.rhtml:26
-msgid "menu_Preference"
-msgstr "偏好設定"
-
-#: app/views/partials/_top_menu_data.rhtml:27
-msgid "menu_Personal Homepage"
-msgstr "我的首頁"
-
-#: app/views/partials/_top_menu_data.rhtml:28
-msgid "menu_My Projects"
-msgstr "我參與的專案"
-
-#: app/views/partials/_top_menu_data.rhtml:29
-msgid "menu_My Tickets"
-msgstr "我的待辦事項"
-
-#: app/views/partials/_top_menu_data.rhtml:31
-msgid "Owner"
-msgstr "所有者"
-
-#: app/views/partials/_top_menu_data.rhtml:32
-msgid "Creator"
-msgstr "建立者"
-
-#: app/views/partials/_top_menu_data.rhtml:33
-msgid "Requestor"
-msgstr "請求者"
-
-#: app/views/partials/_top_menu_data.rhtml:34
-msgid "LastUpdatedBy"
-msgstr "最近更動"
-
-#: app/views/partials/_top_menu_data.rhtml:37
+#: app/views/partials/_top_menu_data.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:38
 msgid "Create Project"
 msgstr "建立專案"
 
-#: app/views/partials/_top_menu_data.rhtml:40
-#: app/views/layouts/application.rhtml:39
+#: app/views/partials/_top_menu_data.rhtml:25
+msgid "menu_My Account"
+msgstr "帳號"
+
+#: app/views/partials/_top_menu_data.rhtml:27
+msgid "menu_Preference"
+msgstr "偏好設定"
+
+#: app/views/partials/_top_menu_data.rhtml:28
+msgid "menu_Personal Homepage"
+msgstr "我的首頁"
+
+#: app/views/partials/_top_menu_data.rhtml:29
+msgid "menu_My Projects"
+msgstr "我參與的專案"
+
+#: app/views/partials/_top_menu_data.rhtml:30
+msgid "menu_My Tickets"
+msgstr "我的待辦事項"
+
+#: app/views/partials/_top_menu_data.rhtml:32
+msgid "Owner"
+msgstr "所有者"
+
+#: app/views/partials/_top_menu_data.rhtml:33
+msgid "Creator"
+msgstr "建立者"
+
+#: app/views/partials/_top_menu_data.rhtml:34
+msgid "Requestor"
+msgstr "請求者"
+
+#: app/views/partials/_top_menu_data.rhtml:35
+msgid "LastUpdatedBy"
+msgstr "最近更動"
+
+#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/layouts/application.rhtml:38
 msgid "menu_License Wizard"
 msgstr "授權指引/精靈"
 
-#: app/views/partials/_top_menu_data.rhtml:42
-#: app/views/partials/_top_menu_data.rhtml:43
+#: app/views/partials/_top_menu_data.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:45
 msgid "License Wizard"
 msgstr "授權指引/精靈"
 
-#: app/views/partials/_top_menu_data.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:46
 msgid "menu_Manual"
 msgstr "說明"
 
-#: app/views/partials/_top_menu_data.rhtml:47
-#: app/views/layouts/application.rhtml:40
+#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/layouts/application.rhtml:39
 msgid "menu_Help"
 msgstr "說明"
 
-#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/partials/_top_menu_data.rhtml:51
 msgid "menu_About this Manual"
 msgstr "關於本說明"
 
-#: app/views/partials/_top_menu_data.rhtml:50
+#: app/views/partials/_top_menu_data.rhtml:52
 msgid "menu_OpenFoundry Overview"
 msgstr "專案管理平台介紹"
 
-#: app/views/partials/_top_menu_data.rhtml:51
+#: app/views/partials/_top_menu_data.rhtml:53
 msgid "menu_End User Guide"
 msgstr "一般使用者功能"
 
-#: app/views/partials/_top_menu_data.rhtml:52
+#: app/views/partials/_top_menu_data.rhtml:54
 msgid "menu_Project Manager Guide"
 msgstr "專案管理者功能"
 
-#: app/views/partials/_top_menu_data.rhtml:53
+#: app/views/partials/_top_menu_data.rhtml:55
 msgid "menu_OpenFoundry Features"
 msgstr "專案管理服務平台功能"
 
-#: app/views/partials/_top_menu_data.rhtml:54
+#: app/views/partials/_top_menu_data.rhtml:56
 msgid "Download PDF"
 msgstr "下載pdf格式"
 
-#: app/views/partials/_top_menu_data.rhtml:57
 #: app/views/partials/_top_menu_data.rhtml:59
-#: app/views/layouts/application.rhtml:41
+#: app/views/partials/_top_menu_data.rhtml:61
+#: app/views/layouts/application.rhtml:40
 msgid "menu_Contact Us"
 msgstr "連絡我們"
 
-#: app/views/partials/_top_menu_data.rhtml:60
+#: app/views/partials/_top_menu_data.rhtml:62
 msgid "Bug Report"
 msgstr "問題回報"
 
-#: app/views/layouts/application.rhtml:70 app/views/user/edit.rhtml:11
+#: app/views/layouts/application.rhtml:69 app/views/user/edit.rhtml:11
 #: app/views/user/home.rhtml:9
 msgid "Change Icon"
 msgstr "更換圖像"
 
-#: app/views/layouts/application.rhtml:88
+#: app/views/layouts/application.rhtml:87
 msgid "Steering Organization"
 msgstr "指導單位"
 
@@ -1557,7 +1555,7 @@ msgstr "下載pdf格式"
 msgid "Latest Releases"
 msgstr "專案釋出"
 
-#: app/views/releases/download.rhtml:14
+#: app/views/releases/download.rhtml:13
 msgid "TODO:下載次數 "
 msgstr ""
 
@@ -1954,7 +1952,7 @@ msgstr "使用者資訊"
 
 #: app/views/user/_edit.rhtml:5
 msgid "User|Login|Help"
-msgstr "帳號名稱需為3~14個英數字含底線, 且為英文字開頭"
+msgstr "帳號名稱需為3~14個英數字含底線, 且為英文字開頭. 註冊之後不能變更."
 
 #: app/views/user/_edit.rhtml:10
 msgid "User|Realname|help"
@@ -2024,7 +2022,7 @@ msgstr "我的電子郵件"
 msgid "My Projects"
 msgstr "我參與的專案"
 
-#: app/views/user/home.rhtml:56
+#: app/views/user/home.rhtml:55
 msgid "Signup Date"
 msgstr "註冊時間"
 
@@ -2139,6 +2137,35 @@ msgstr ""
 msgid "Add Reference"
 msgstr "偏好設定"
 
+#: lib/user_system.rb:68
+msgid "You have to login OpenFoundry first."
+msgstr ""
+
+#~ msgid "user_forgot_password_logged_in"
+#~ msgstr "您已經登入, 請直接更改密碼"
+
+#~ msgid "Forgot Password"
+#~ msgstr "忘記密碼"
+
+#~ msgid "menu_New Projects"
+#~ msgstr "註冊專案"
+
+#, fuzzy
+#~ msgid "Wiki"
+#~ msgstr "WIKI"
+
+#, fuzzy
+#~ msgid "Project Management"
+#~ msgstr "專案代號"
+
+#, fuzzy
+#~ msgid "Webhosting"
+#~ msgstr "專案網頁空間"
+
+#, fuzzy
+#~ msgid "releases"
+#~ msgstr "規畫釋出"
+
 #~ msgid "User|Password_Confirm|help"
 #~ msgstr "請再次輸入密碼"
 
@@ -2199,18 +2226,11 @@ msgstr "偏好設定"
 #~ msgid "Project|Remotevcs|Help"
 #~ msgstr "站外版本庫"
 
-#~ msgid "User|Conceal Self-Introduction"
-#~ msgstr "隱藏自我介紹"
-
 #~ msgid "Project UNIX Name"
 #~ msgstr "專案"
 
 #~ msgid "Summary"
 #~ msgstr "專案說明"
-
-#, fuzzy
-#~ msgid "Project Name"
-#~ msgstr "專案代號"
 
 #, fuzzy
 #~ msgid "Rationale"
