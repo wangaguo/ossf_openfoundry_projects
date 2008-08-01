@@ -70,7 +70,6 @@ class NewsController < ApplicationController
     @news = News.new
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
-    @news.tags = params[:news][:tags]
     @news.status = params[:news][:status]
     if params[:project_id].nil? 
       project_id = 0
@@ -79,12 +78,11 @@ class NewsController < ApplicationController
     end
     @news.catid = project_id
     
-    if(params[:news][:updated_at] != "")
+    if(params[:news][:updated_at] != "" && params[:news][:updated_at] != nil)
+      @news.tags = params[:news][:tags]
       News.record_timestamps = false
       @news.updated_at = local_to_utc(params[:news][:updated_at])
       @news.created_at = DateTime.now 
-    else
-      @news.updated_at = DateTime.now
     end
     
     if @news.save
@@ -102,9 +100,9 @@ class NewsController < ApplicationController
   def update
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
-    @news.tags = params[:news][:tags]
     @news.status = params[:news][:status]
-    if(params[:news][:updated_at] != "")
+    if(params[:news][:updated_at] != "" && params[:news][:updated_at] != nil)
+      @news.tags = params[:news][:tags]
       News.record_timestamps = false
       @news.updated_at = local_to_utc(params[:news][:updated_at])
     end
