@@ -304,3 +304,7 @@ a.help:hover span
   text-align: center;
   padding:5px;
 }
+
+.project_logo { margin-right: 4px;}
+.project_logo img { margin-bottom: 2px;}
+.user_portrait img { margin-bottom: 2px;}
