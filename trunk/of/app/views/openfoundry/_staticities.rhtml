@@ -6,7 +6,7 @@
   <br/>
   <% online_users.each_with_index do |u,i| %>
     <%= user_portrait_link u %> 
-    <% unless i%5 %>
+    <% if i%5 == 4 %>
       <br/>
     <%end%>
   <%end%>
