@@ -8,19 +8,34 @@ class ImagesController < ApplicationController
 
   def cached_image
     cache_name = params[:id]
+    need_redirect = false
     id = Image::IMAGE_UNKNOWN_ID
     size = Image::IMAGE_DEFAULT_SIZE
     # match valid id and size
     cache_name =~ /^([u|p]?)(\d+)(?:_(\d+))?$/
-    size = $3 if $3
+    # normalize size  
+    if $3
+      size = $3.to_i
+      unless (10..128).member? size
+        # size exceed limitation
+        size = (size < 10? 10:128)
+        need_redirect = true
+      end
+    end
+    # user/project icon?
     if $1 == ''
       #got image id
-      id = $2
+      id = $2.to_i
     else
       # user icon
       id = User.find($2).icon if User.exists?($2) if $1 == 'u'
       # project icon
       id = Project.find($2).icon if Project.exists?($2) if $1 =='p'
+      need_redirect = true
+    end
+
+    # redirect image url because of u/p id or bad size or cache_name mismatch
+    if need_redirect or "#{id}_#{size}" != cache_name
       redirect_to :id => "#{id}_#{size}"
       return
     end
@@ -37,20 +52,6 @@ class ImagesController < ApplicationController
       image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
       `convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}`
 
-      #begin
-      #  image = Image.find(id)
-      #rescue 
-      #  image = Image.find(Image::IMAGE_UNKNOWN_ID)
-      #ensure
-      #  tmp = Magick::Image.from_blob(image.data)[0]
-      #  tmp.resize!(size,size)
-      #  #tmp.write(image_cache_file)
-      #  File.open(image_cache_file,"w+").write(tmp.to_blob)
-      #  #send_data(tmp.to_blob,
-      #  #  :filename => image.name,
-      #  #  :type => image.meta,
-      #  #  :disposition => "inline") 
-      #end
     end
     send_file(image_cache_file, :type => meta, :disposition => "inline") 
   end
