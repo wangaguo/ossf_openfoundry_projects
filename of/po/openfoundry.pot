@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-01 03:19-0000\n"
+"POT-Creation-Date: 2008-08-01 09:14-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -510,62 +510,62 @@ msgstr ""
 msgid "TODO: 系統錯誤, 請通知站台管理員"
 msgstr ""
 
-#: app/models/project.rb:205
+#: app/models/project.rb:217
 msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
 msgstr ""
 
-#: app/models/project.rb:206
+#: app/models/project.rb:218
 msgid "This name is reserved by the system."
 msgstr ""
 
-#: app/models/project.rb:212
+#: app/models/project.rb:224
 msgid "You have choosen too many licenses."
 msgstr ""
 
-#: app/models/project.rb:214
+#: app/models/project.rb:226
 msgid "You have choosen too many content licenses."
 msgstr ""
 
-#: app/models/project.rb:239
+#: app/models/project.rb:251
 msgid "Please choose at least one code license."
 msgstr ""
 
-#: app/models/project.rb:242
+#: app/models/project.rb:254
 msgid ""
 "If this project contains no code, then you may not choose any other license."
 msgstr ""
 
-#: app/models/project.rb:247
+#: app/models/project.rb:259
 msgid "Please choose at least one content license."
 msgstr ""
 
-#: app/models/project.rb:250
+#: app/models/project.rb:262
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
 msgstr ""
 
-#: app/models/project.rb:253
+#: app/models/project.rb:265
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
 msgstr ""
 
-#: app/models/project.rb:257
+#: app/models/project.rb:269
 msgid "You have to choose a code license."
 msgstr ""
 
-#: app/models/project.rb:261
+#: app/models/project.rb:273
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
 msgstr ""
 
-#: app/models/project.rb:265
+#: app/models/project.rb:277
 msgid "Please choose at least one platform."
 msgstr ""
 
-#: app/models/project.rb:269
+#: app/models/project.rb:281
 msgid "Please choose at least one programming language."
 msgstr ""
 
@@ -657,19 +657,19 @@ msgstr ""
 msgid "News|Updated by"
 msgstr ""
 
-#: app/models/news.rb:19 app/models/news.rb:20 app/models/job.rb:5
+#: app/models/news.rb:30 app/models/news.rb:31 app/models/job.rb:5
 #: app/models/job.rb:6 app/models/citation.rb:5 app/models/citation.rb:6
 #: app/models/citation.rb:7 app/models/citation.rb:8 app/models/citation.rb:9
 #: app/models/reference.rb:5
 msgid "Length range is "
 msgstr ""
 
-#: app/models/news.rb:21 app/models/job.rb:7 app/models/citation.rb:10
+#: app/models/news.rb:32 app/models/job.rb:7 app/models/citation.rb:10
 #: app/models/reference.rb:6
 msgid "Not a valid value"
 msgstr ""
 
-#: app/models/news.rb:22
+#: app/models/news.rb:33
 msgid "is an invalid datetime"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgid "Downloader|File"
 msgstr ""
 
 #: app/controllers/news_controller.rb:32
-#: app/views/partials/_top_menu_data.rhtml:7
+#: app/views/partials/_top_menu_data.rhtml:10
 #: app/views/openfoundry/index.rhtml:61
 msgid "OpenFoundry News"
 msgstr ""
@@ -937,21 +937,21 @@ msgstr ""
 msgid "project_News"
 msgstr ""
 
-#: app/controllers/news_controller.rb:91
+#: app/controllers/news_controller.rb:89
 #: app/controllers/citations_controller.rb:66
 #: app/controllers/jobs_controller.rb:63
 #: app/controllers/references_controller.rb:59
 msgid "Add Successful"
 msgstr ""
 
-#: app/controllers/news_controller.rb:113
+#: app/controllers/news_controller.rb:111
 #: app/controllers/citations_controller.rb:87
 #: app/controllers/jobs_controller.rb:81
 #: app/controllers/references_controller.rb:74
 msgid "Edit Successful"
 msgstr ""
 
-#: app/controllers/news_controller.rb:122
+#: app/controllers/news_controller.rb:120
 #: app/controllers/citations_controller.rb:96
 #: app/controllers/jobs_controller.rb:90
 #: app/controllers/references_controller.rb:83
@@ -1300,147 +1300,159 @@ msgstr ""
 msgid "submit"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:4
+#: app/views/partials/_top_menu_data.rhtml:7
 #: app/views/layouts/application.rhtml:36
 msgid "menu_OpenFoundry"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:6
+#: app/views/partials/_top_menu_data.rhtml:9
 msgid "menu_Home"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:8
+#: app/views/partials/_top_menu_data.rhtml:11
 msgid "menu_About OSSF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:9
+#: app/views/partials/_top_menu_data.rhtml:12
 msgid "menu_Newsletter"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:12
+#: app/views/partials/_top_menu_data.rhtml:15
 #: app/views/layouts/application.rhtml:37
 msgid "menu_Projects"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:14
+#: app/views/partials/_top_menu_data.rhtml:17
 msgid "menu_Statistic Navigator"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:15
+#: app/views/partials/_top_menu_data.rhtml:18
 msgid "menu_Project Listing"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:16
+#: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Project News"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:17
+#: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_Latest Releases"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:18
+#: app/views/partials/_top_menu_data.rhtml:21
 msgid "menu_Top Downloads"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:19
+#: app/views/partials/_top_menu_data.rhtml:22
 msgid "menu_Help Wanted"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:20
+#: app/views/partials/_top_menu_data.rhtml:23
 msgid "menu_WebHosting"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:21
-#: app/views/partials/_top_menu_data.rhtml:38
+#: app/views/partials/_top_menu_data.rhtml:24
+#: app/views/partials/_top_menu_data.rhtml:41
 msgid "Create Project"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:25
+#: app/views/partials/_top_menu_data.rhtml:28
 msgid "menu_My Account"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:27
+#: app/views/partials/_top_menu_data.rhtml:30
 msgid "menu_Preference"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:28
+#: app/views/partials/_top_menu_data.rhtml:31
 msgid "menu_Personal Homepage"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:29
+#: app/views/partials/_top_menu_data.rhtml:32
 msgid "menu_My Projects"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:33
 msgid "menu_My Tickets"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:32
+#: app/views/partials/_top_menu_data.rhtml:35
 msgid "Owner"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:33
+#: app/views/partials/_top_menu_data.rhtml:36
 msgid "Creator"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:34
+#: app/views/partials/_top_menu_data.rhtml:37
 msgid "Requestor"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:35
+#: app/views/partials/_top_menu_data.rhtml:38
 msgid "LastUpdatedBy"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/partials/_top_menu_data.rhtml:45
 #: app/views/layouts/application.rhtml:38
 msgid "menu_License Wizard"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:44
-#: app/views/partials/_top_menu_data.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:47
+#: app/views/partials/_top_menu_data.rhtml:48
 msgid "License Wizard"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:46
+#: app/views/partials/_top_menu_data.rhtml:47
+msgid "menu_LW_22_link"
+msgstr ""
+
+#: app/views/partials/_top_menu_data.rhtml:48
+msgid "menu_LW_32_link"
+msgstr ""
+
+#: app/views/partials/_top_menu_data.rhtml:49
 msgid "menu_Manual"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:49
+msgid "menu_LW_manual_link"
+msgstr ""
+
+#: app/views/partials/_top_menu_data.rhtml:52
 #: app/views/layouts/application.rhtml:39
 msgid "menu_Help"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:51
+#: app/views/partials/_top_menu_data.rhtml:54
 msgid "menu_About this Manual"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:52
+#: app/views/partials/_top_menu_data.rhtml:55
 msgid "menu_OpenFoundry Overview"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:53
+#: app/views/partials/_top_menu_data.rhtml:56
 msgid "menu_End User Guide"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:54
+#: app/views/partials/_top_menu_data.rhtml:57
 msgid "menu_Project Manager Guide"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:55
+#: app/views/partials/_top_menu_data.rhtml:58
 msgid "menu_OpenFoundry Features"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:56
+#: app/views/partials/_top_menu_data.rhtml:59
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:59
-#: app/views/partials/_top_menu_data.rhtml:61
+#: app/views/partials/_top_menu_data.rhtml:62
+#: app/views/partials/_top_menu_data.rhtml:64
 #: app/views/layouts/application.rhtml:40
 msgid "menu_Contact Us"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:62
+#: app/views/partials/_top_menu_data.rhtml:65
 msgid "Bug Report"
 msgstr ""
 
