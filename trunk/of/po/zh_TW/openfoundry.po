@@ -1753,7 +1753,7 @@ msgstr "活躍專案"
 
 #: app/views/projects/_new_projects.rhtml:1
 msgid "New Projects"
-msgstr "註冊專案"
+msgstr "新進專案"
 
 #: app/views/projects/vcs_access.rhtml:5
 #, fuzzy
