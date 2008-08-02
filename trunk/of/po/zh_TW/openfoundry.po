@@ -429,31 +429,31 @@ msgstr "上次修改時間"
 
 #: app/models/project.rb:6
 msgid "IDEA"
-msgstr "TODO: 概念(Idea)"
+msgstr "概念 (Idea)"
 
 #: app/models/project.rb:6
 msgid "PREALPHA"
-msgstr "TODO: 雛形(Pre-Alpha)"
+msgstr "雛形 (Pre-Alpha)"
 
 #: app/models/project.rb:6
 msgid "ALPHA"
-msgstr "TODO: 測試(Alpha)"
+msgstr "測試 (Alpha)"
 
 #: app/models/project.rb:6
 msgid "BETA"
-msgstr "TODO: 試用(Beta)"
+msgstr "試用 (Beta)"
 
 #: app/models/project.rb:6
 msgid "RELEASED"
-msgstr "TODO: 釋出(Released)"
+msgstr "釋出 (Released)"
 
 #: app/models/project.rb:6
 msgid "MATURE"
-msgstr "TODO: 成熟(Mature)"
+msgstr "成熟 (Mature)"
 
 #: app/models/project.rb:6
 msgid "STANDARD"
-msgstr "TODO: 標準(Standard)"
+msgstr "標準 (Standard)"
 
 #: app/models/project.rb:53 app/models/project.rb:94
 msgid "Public Domain"
