@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-02 07:13-0000\n"
+"POT-Creation-Date: 2008-08-02 08:21-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1154,27 +1154,27 @@ msgstr ""
 msgid "search"
 msgstr ""
 
-#: app/views/partials/_search.rhtml:7
+#: app/views/partials/_search.rhtml:8
 msgid "Advensed Options"
 msgstr ""
 
-#: app/views/partials/_search.rhtml:34
+#: app/views/partials/_search.rhtml:35
 msgid "Search in Class"
 msgstr ""
 
-#: app/views/partials/_search.rhtml:49
+#: app/views/partials/_search.rhtml:50
 msgid "Search Include ALL of the List"
 msgstr ""
 
-#: app/views/partials/_search.rhtml:53
+#: app/views/partials/_search.rhtml:54
 msgid "Search Include ANY of the List"
 msgstr ""
 
-#: app/views/partials/_search.rhtml:57
+#: app/views/partials/_search.rhtml:58
 msgid "Search Exclude ANY of the List"
 msgstr ""
 
-#: app/views/partials/_search.rhtml:61
+#: app/views/partials/_search.rhtml:62
 msgid "Search by Google"
 msgstr ""
 
@@ -1289,6 +1289,10 @@ msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:11
 msgid "menu_About OSSF"
+msgstr ""
+
+#: app/views/partials/_top_menu_data.rhtml:11
+msgid "menu_About_OSSF_link"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:12
