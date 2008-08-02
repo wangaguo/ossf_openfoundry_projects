@@ -117,7 +117,7 @@ EOEO
 
   # single selection
   VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :REMOTE => -1 }.freeze
-  dummy_fix_me = _("NONE"), _("CVS"), _("SUBVERSION"), _("REMOTE")
+  # i18n at vcs_to_s
 
   # mutiple selection + other (string,string,...)
   PLATFORMS = [ "Windows", "FreeBSD", "Linux", "Java Environment", ".NET Environment", "MacOSX", "MacOS Classic" ].freeze
@@ -155,15 +155,15 @@ EOEO
     i = (Symbol === vcs) ? VCS[vcs] : vcs.to_i
     case i
     when VCS[:CVS]
-      _("TODO: 使用 CVS 版本控制系統")
+      _("CVS")
     when VCS[:SUBVERSION]
-      _("TODO: 使用 Subversion 版本控制系統")
+      _("Subversion")
     when VCS[:REMOTE]
-      _("TODO: 使用其他站台的版本控制系統")
+      _("This project uses a version control system at other site.")
     when VCS[:NONE]
-      _("TODO: 不使用版本控制系統")
+      _("This project does not use any version control system.")
     else
-      _("TODO: 系統錯誤, 請通知站台管理員")
+      _("System Error. Please contact the site administrator.")
     end
   end
   def vcs_to_s

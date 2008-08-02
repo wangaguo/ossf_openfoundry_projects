@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-01 09:14-0000\n"
+"POT-Creation-Date: 2008-08-02 06:33-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -474,40 +474,24 @@ msgstr ""
 msgid "Project contains only code"
 msgstr ""
 
-#: app/models/project.rb:120
-msgid "NONE"
-msgstr ""
-
-#: app/models/project.rb:120
+#: app/models/project.rb:158
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:120
-msgid "SUBVERSION"
-msgstr ""
-
-#: app/models/project.rb:120
-msgid "REMOTE"
-msgstr ""
-
-#: app/models/project.rb:158
-msgid "TODO: 使用 CVS 版本控制系統"
-msgstr ""
-
-#: app/models/project.rb:160
-msgid "TODO: 使用 Subversion 版本控制系統"
+#: app/models/project.rb:160 app/views/projects/_tabnav.rhtml:6
+msgid "Subversion"
 msgstr ""
 
 #: app/models/project.rb:162
-msgid "TODO: 使用其他站台的版本控制系統"
+msgid "This project uses a version control system at other site."
 msgstr ""
 
 #: app/models/project.rb:164
-msgid "TODO: 不使用版本控制系統"
+msgid "This project does not use any version control system."
 msgstr ""
 
 #: app/models/project.rb:166
-msgid "TODO: 系統錯誤, 請通知站台管理員"
+msgid "System Error. Please contact the site administrator."
 msgstr ""
 
 #: app/models/project.rb:217
@@ -1113,6 +1097,7 @@ msgid "Mailing List"
 msgstr ""
 
 #: app/controllers/projects_controller.rb:47
+#: app/views/partials/_project_menu.rhtml:31
 msgid "Version Control"
 msgstr ""
 
@@ -1262,18 +1247,16 @@ msgid "tracker_Enhancement"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:30
-#: app/views/partials/_project_menu.rhtml:52
-#: app/views/projects/_tabnav.rhtml:4
-msgid "Kwiki"
-msgstr ""
-
-#: app/views/partials/_project_menu.rhtml:31
-#: app/views/projects/_tabnav.rhtml:6
-msgid "Subversion"
+msgid "Wiki"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:33
 msgid "ViewVC"
+msgstr ""
+
+#: app/views/partials/_project_menu.rhtml:52
+#: app/views/projects/_tabnav.rhtml:4
+msgid "Kwiki"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:54
