@@ -3,7 +3,8 @@
   <%= text_field_tag( (if adv;'query_adv';else'query';end),@query, :size => size ) %>
   <%= submit_tag _('search'), :class => 'button' %>
   <%if adv%>
-  <a href="#" onclick="Effect.toggle('search_chk','appear');Effect.toggle('search_inc','appear'); return false">
+    <a href="#" onclick="Effect.toggle('search_chk','appear');Effect.toggle('search_inc','appear');
+     document.getElementById('query_adv').value=''; return false">
     <%=_('Advensed Options')%>
   </a>
     <script>
