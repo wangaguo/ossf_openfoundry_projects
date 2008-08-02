@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-02 08:21-0000\n"
+"POT-Creation-Date: 2008-08-02 08:44-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -986,92 +986,96 @@ msgstr "刪除帳號"
 
 #: app/controllers/user_controller.rb:24
 msgid "User %{user} doesn't exist or be activated"
-msgstr ""
+msgstr "使用者 %{user} 不存在或是停用"
 
 #: app/controllers/user_controller.rb:118
-msgid "Username '%{username}' has already registed"
-msgstr "使用者名稱'%{usename}'已經註冊過了"
+msgid "Username '%{username}' is invalid"
+msgstr "使用者名稱'%{username}'無效"
 
-#: app/controllers/user_controller.rb:120
+#: app/controllers/user_controller.rb:123
+msgid "Username '%{username}' has already registed"
+msgstr "使用者名稱'%{username}'已經註冊過了"
+
+#: app/controllers/user_controller.rb:125
 msgid "Username '%{username}' is ready for use"
 msgstr "使用者名稱'%{username}'可以使用"
 
-#: app/controllers/user_controller.rb:128
+#: app/controllers/user_controller.rb:133
 msgid "OpenID Login Succeeded"
 msgstr "OpenID登入成功"
 
-#: app/controllers/user_controller.rb:133
-#: app/controllers/user_controller.rb:156
+#: app/controllers/user_controller.rb:138
+#: app/controllers/user_controller.rb:161
 msgid "user_login_failed"
 msgstr "登入失敗"
 
-#: app/controllers/user_controller.rb:144
+#: app/controllers/user_controller.rb:149
 msgid "user_login_succeeded"
 msgstr "登入成功"
 
-#: app/controllers/user_controller.rb:180
+#: app/controllers/user_controller.rb:185
 msgid "user_signup_succeeded"
 msgstr "註冊成功, 請到您的所填入的電子郵件信箱回覆驗證信"
 
-#: app/controllers/user_controller.rb:185
+#: app/controllers/user_controller.rb:190
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:209
+#: app/controllers/user_controller.rb:214
 msgid "user_updated_email"
 msgstr "電子郵件更新成功"
 
-#: app/controllers/user_controller.rb:211
+#: app/controllers/user_controller.rb:216
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:243
+#: app/controllers/user_controller.rb:248
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:246
+#: app/controllers/user_controller.rb:251
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:261
+#: app/controllers/user_controller.rb:266
 msgid "user_enter_valid_email_address"
 msgstr "電子郵件位址不正確"
 
-#: app/controllers/user_controller.rb:263
+#: app/controllers/user_controller.rb:268
 msgid "user_email_address_not_found"
 msgstr "查無此電子郵件位址"
 
-#: app/controllers/user_controller.rb:275
+#: app/controllers/user_controller.rb:280
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:286
+#: app/controllers/user_controller.rb:291
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:316
+#: app/controllers/user_controller.rb:321
 msgid "Update User Privacy Setting Successed"
 msgstr "使有者隱私權已更新"
 
-#: app/controllers/user_controller.rb:341
+#: app/controllers/user_controller.rb:346
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:350
+#: app/controllers/user_controller.rb:355
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:361
+#: app/controllers/user_controller.rb:366
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:370
+#: app/controllers/user_controller.rb:375
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:454
+#: app/controllers/user_controller.rb:459
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -1399,7 +1403,7 @@ msgid "menu_My Account"
 msgstr "帳號"
 
 #: app/views/partials/_top_menu_data.rhtml:30
-msgid "menu_Preference"
+msgid "menu_Preferences"
 msgstr "偏好設定"
 
 #: app/views/partials/_top_menu_data.rhtml:31

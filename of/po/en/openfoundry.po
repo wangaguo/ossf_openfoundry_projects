@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-02 08:21-0000\n"
+"POT-Creation-Date: 2008-08-02 08:44-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -982,89 +982,93 @@ msgid "User %{user} doesn't exist or be activated"
 msgstr ""
 
 #: app/controllers/user_controller.rb:118
+msgid "Username '%{username}' is invalid"
+msgstr ""
+
+#: app/controllers/user_controller.rb:123
 msgid "Username '%{username}' has already registed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:120
+#: app/controllers/user_controller.rb:125
 msgid "Username '%{username}' is ready for use"
 msgstr ""
 
-#: app/controllers/user_controller.rb:128
+#: app/controllers/user_controller.rb:133
 msgid "OpenID Login Succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:133
-#: app/controllers/user_controller.rb:156
+#: app/controllers/user_controller.rb:138
+#: app/controllers/user_controller.rb:161
 msgid "user_login_failed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:144
+#: app/controllers/user_controller.rb:149
 msgid "user_login_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:180
+#: app/controllers/user_controller.rb:185
 msgid "user_signup_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:185
+#: app/controllers/user_controller.rb:190
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:209
+#: app/controllers/user_controller.rb:214
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:211
+#: app/controllers/user_controller.rb:216
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:243
+#: app/controllers/user_controller.rb:248
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:246
+#: app/controllers/user_controller.rb:251
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:261
+#: app/controllers/user_controller.rb:266
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:263
+#: app/controllers/user_controller.rb:268
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:275
+#: app/controllers/user_controller.rb:280
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:286
+#: app/controllers/user_controller.rb:291
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:316
+#: app/controllers/user_controller.rb:321
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:341
+#: app/controllers/user_controller.rb:346
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:350
+#: app/controllers/user_controller.rb:355
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:361
+#: app/controllers/user_controller.rb:366
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:370
+#: app/controllers/user_controller.rb:375
 msgid "user_delete_finished"
 msgstr ""
 
-#: app/controllers/user_controller.rb:454
+#: app/controllers/user_controller.rb:459
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -1391,7 +1395,8 @@ msgid "menu_My Account"
 msgstr "My Account"
 
 #: app/views/partials/_top_menu_data.rhtml:30
-msgid "menu_Preference"
+#, fuzzy
+msgid "menu_Preferences"
 msgstr "Preference"
 
 #: app/views/partials/_top_menu_data.rhtml:31
