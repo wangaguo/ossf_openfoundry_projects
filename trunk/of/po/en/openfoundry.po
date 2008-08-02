@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-02 06:33-0000\n"
+"POT-Creation-Date: 2008-08-02 07:13-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -361,17 +361,14 @@ msgid "Project|Contactinfo"
 msgstr "Contact Information"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:28
-#: app/views/category/list.rhtml:4
 msgid "Project|Maturity"
 msgstr "Maturity"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:29
-#: app/views/category/list.rhtml:13
 msgid "Project|License"
 msgstr "Code License"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:30
-#: app/views/category/list.rhtml:22
 msgid "Project|Contentlicense"
 msgstr "Content License"
 
@@ -380,12 +377,10 @@ msgid "Project|Licensingdescription"
 msgstr "Licensing Description"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:32
-#: app/views/category/list.rhtml:31
 msgid "Project|Platform"
 msgstr "Platform"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:33
-#: app/views/category/list.rhtml:43
 msgid "Project|Programminglanguage"
 msgstr "Programming Language"
 
@@ -1884,6 +1879,26 @@ msgstr ""
 #: app/views/category/list.rhtml:1
 msgid "Statistic Navigator"
 msgstr ""
+
+#: app/views/category/list.rhtml:4
+msgid "By Project|Maturity"
+msgstr "By Maturity"
+
+#: app/views/category/list.rhtml:13
+msgid "By Project|License"
+msgstr "By Code License"
+
+#: app/views/category/list.rhtml:22
+msgid "By Project|Contentlicense"
+msgstr "By Content License"
+
+#: app/views/category/list.rhtml:31
+msgid "By Project|Platform"
+msgstr "By Platform"
+
+#: app/views/category/list.rhtml:43
+msgid "By Project|Programminglanguage"
+msgstr "By Programming Language"
 
 #: app/views/user/welcome.rhtml:5
 msgid "home"
