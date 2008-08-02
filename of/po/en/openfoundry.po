@@ -432,31 +432,31 @@ msgstr "Summary"
 
 #: app/models/project.rb:6
 msgid "IDEA"
-msgstr ""
+msgstr "Idea"
 
 #: app/models/project.rb:6
 msgid "PREALPHA"
-msgstr ""
+msgstr "Pre-Alpha"
 
 #: app/models/project.rb:6
 msgid "ALPHA"
-msgstr ""
+msgstr "Alpha"
 
 #: app/models/project.rb:6
 msgid "BETA"
-msgstr ""
+msgstr "Beta"
 
 #: app/models/project.rb:6
 msgid "RELEASED"
-msgstr ""
+msgstr "Released"
 
 #: app/models/project.rb:6
 msgid "MATURE"
-msgstr ""
+msgstr "Mature"
 
 #: app/models/project.rb:6
 msgid "STANDARD"
-msgstr ""
+msgstr "Standard"
 
 #: app/models/project.rb:53 app/models/project.rb:94
 msgid "Public Domain"
