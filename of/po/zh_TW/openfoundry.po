@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-02 06:33-0000\n"
+"POT-Creation-Date: 2008-08-02 07:13-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -359,17 +359,14 @@ msgid "Project|Contactinfo"
 msgstr "連絡方式"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:28
-#: app/views/category/list.rhtml:4
 msgid "Project|Maturity"
 msgstr "專案成熟度"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:29
-#: app/views/category/list.rhtml:13
 msgid "Project|License"
 msgstr "程式碼授權"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:30
-#: app/views/category/list.rhtml:22
 msgid "Project|Contentlicense"
 msgstr "圖文授權"
 
@@ -378,12 +375,10 @@ msgid "Project|Licensingdescription"
 msgstr "授權說明"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:32
-#: app/views/category/list.rhtml:31
 msgid "Project|Platform"
 msgstr "作業環境"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:33
-#: app/views/category/list.rhtml:43
 msgid "Project|Programminglanguage"
 msgstr "程式語言"
 
@@ -1898,6 +1893,26 @@ msgstr ""
 #: app/views/category/list.rhtml:1
 msgid "Statistic Navigator"
 msgstr "專案列表"
+
+#: app/views/category/list.rhtml:4
+msgid "By Project|Maturity"
+msgstr "依專案成熟度分類"
+
+#: app/views/category/list.rhtml:13
+msgid "By Project|License"
+msgstr "依程式碼授權分類"
+
+#: app/views/category/list.rhtml:22
+msgid "By Project|Contentlicense"
+msgstr "依圖文授權分類"
+
+#: app/views/category/list.rhtml:31
+msgid "By Project|Platform"
+msgstr "依作業環境分類"
+
+#: app/views/category/list.rhtml:43
+msgid "By Project|Programminglanguage"
+msgstr "依程式語言分類"
 
 #: app/views/user/welcome.rhtml:5
 msgid "home"
