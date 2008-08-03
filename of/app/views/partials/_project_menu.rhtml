@@ -1,9 +1,15 @@
 <script>
 Event.observe(window, 'load', project_leftmenu_init);
 </script>
+<%
+  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+%>
+<%#="ABCD" + functions.to_s%>
 <ul id="menu_tab">
   <li onclick="project_leftmenu_onclick(1)" id="project_menu_tab"><%=_('project_Menu')%></li>
+  <% if functions.length > 0 -%>
   <li onclick="project_leftmenu_onclick(2)" id="project_admin_menu_tab"><%=_('project_Admin')%></li>
+  <% end %>
 </ul>
 <div id="project_left_menu" style="clear:both;">
   <ul id="project_menu">
@@ -27,8 +33,8 @@ Event.observe(window, 'load', project_leftmenu_init);
               <li><%= link_to _('tracker_Enhancement'), rt1_path(:project_id => project.id, :id => 'enhancement') %></li>
           </ul>
       </li>
-      <li><%= link_to _('Kwiki'), kwiki_path(:project_id => project.id) %></li>
-      <li><%= link_to _('Subversion'), viewvc_project_path(:id => project.id), :class => 'subimg' %>
+      <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+      <li><%= link_to _('Version Control'), viewvc_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
               <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
               <li><%= link_to _('Subversion/CVS Access'), vcs_access_project_path(:id => project.id) %></li>
@@ -37,22 +43,44 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
       <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
   </ul>
-  <%# if permit?("admin of :project") -%>
+  <% if functions.length > 0 -%>
   <ul id="project_admin_menu" style="display:none;">
+    <% if functions.grep(/project_info|citation|reference|news|job/).length > 0 -%>
       <li><%= link_to _('project_Info'), edit_project_path(:id => project.id), :class => 'subimg' %>
-          <ul>
-              <li><%= link_to _('project_Summary'), edit_project_path(:id => project.id) %></li>
-              <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
-              <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
-              <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
-              <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
-          </ul>
+        <ul>
+          <% if functions.include?('project_info') -%>
+            <li><%= link_to _('project_Summary'), edit_project_path(:id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('citation') -%>
+            <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('reference') -%>
+            <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('news') -%>
+            <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('job') -%>
+            <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+          <% end -%>
+        </ul>
       </li>
+    <% end -%>
+    <% if functions.include?('rt_admin') -%>
       <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('kwiki_manage') -%>
       <li><%= link_to _('Kwiki'), kwiki_path(:project_id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('sympa_manage') -%>
       <li><%= link_to _('Mailing List'), sympa_project_path(:id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('release') -%>
       <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('project_member') || functions.include?('role_edit')  -%>
       <li><%= link_to _('project_Role Control'), :controller => :projects, :action => "roles_edit", :id =>@project%></li>
+    <% end -%>
   </ul>
-  <%# end %>
+  <% end %>
 </div>
