@@ -130,7 +130,7 @@ class ReleasesController < ApplicationController
     Release::build_path(project_name, params[:project_id])
     
     if pattern.nil?
-      pattern = "#{project_name}"
+      pattern = "#{project_name}/upload"
     end
     
     #upload root, can't go upper
@@ -140,9 +140,9 @@ class ReleasesController < ApplicationController
     
     #protect system...from hacking
     if !File.exist?(path) or #illegal?
-      !(File.expand_path(path) =~ /^#{root}\/#{project_name}/) #go upper?
+      !(File.expand_path(path) =~ /^#{root}\/#{project_name}\/upload/) #go upper?
       #sorry, back to upload home
-      pattern = "#{project_name}"
+      pattern = "#{project_name}/upload"
       path = File.join(root, pattern) 
     end
     
@@ -191,7 +191,7 @@ class ReleasesController < ApplicationController
         pass = false
       end
       if pass
-        files = params[:uploadfiles].collect { |path| make_file_entity(path, File.size("#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/#{path}")) }
+        files = params[:uploadfiles].collect { |path| make_file_entity(path, File.size("#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/upload/#{path}")) }
         r.fileentity << files
         r.save
         flash[:notice] = _('Your files have been added to Release!')

@@ -3,7 +3,6 @@
     <h1> <%= flash.now[:message]%> </h1>
     <% end -%>
     <fieldset>
-    <!-- <%= arranged('ReleaseShow',@release,{}) %> -->
     <table class=ReleaseShow >
 <tr><th> <%= Release.columns_hash['version'].human_name  -%> : </th>
 <td> <%= h(@release.version) %> </td>
