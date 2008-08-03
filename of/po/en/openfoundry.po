@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-03 16:26-0000\n"
+"POT-Creation-Date: 2008-08-03 18:17-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 #: app/helpers/application_helper.rb:71 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:23
-#: app/views/partials/_project_menu.rhtml:64
+#: app/views/partials/_project_menu.rhtml:66
 msgid "Help Wanted"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:20
-#: app/views/partials/_project_menu.rhtml:55
+#: app/views/partials/_project_menu.rhtml:57
 msgid "Citations"
 msgstr ""
 
@@ -61,7 +61,7 @@ msgstr ""
 #: app/controllers/references_controller.rb:8
 #: app/controllers/references_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:21
-#: app/views/partials/_project_menu.rhtml:58
+#: app/views/partials/_project_menu.rhtml:60
 #, fuzzy
 msgid "References"
 msgstr "Preference"
@@ -500,7 +500,7 @@ msgid "System Error. Please contact the site administrator."
 msgstr ""
 
 #: app/models/project.rb:217
-msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
+msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
 #: app/models/project.rb:218
@@ -957,7 +957,7 @@ msgstr ""
 
 #: app/controllers/news_controller.rb:59
 #: app/views/partials/_project_menu.rhtml:22
-#: app/views/partials/_project_menu.rhtml:61
+#: app/views/partials/_project_menu.rhtml:63
 msgid "project_News"
 msgstr "News"
 
@@ -1099,7 +1099,7 @@ msgid "Release"
 msgstr "Release"
 
 #: app/controllers/releases_controller.rb:65
-#: app/views/partials/_project_menu.rhtml:44
+#: app/views/partials/_project_menu.rhtml:46
 msgid "Downloads"
 msgstr ""
 
@@ -1138,8 +1138,8 @@ msgid "Basic Information"
 msgstr "Icon"
 
 #: app/controllers/projects_controller.rb:38
-#: app/views/partials/_project_menu.rhtml:43
-#: app/views/partials/_project_menu.rhtml:76
+#: app/views/partials/_project_menu.rhtml:45
+#: app/views/partials/_project_menu.rhtml:78
 msgid "Mailing List"
 msgstr ""
 
@@ -1253,12 +1253,12 @@ msgid "project_menu_Admin"
 msgstr "Admin"
 
 #: app/views/partials/_project_menu.rhtml:16
-#: app/views/partials/_project_menu.rhtml:49
+#: app/views/partials/_project_menu.rhtml:51
 msgid "project_Info"
 msgstr "Project Info"
 
 #: app/views/partials/_project_menu.rhtml:18
-#: app/views/partials/_project_menu.rhtml:52
+#: app/views/partials/_project_menu.rhtml:54
 msgid "project_Basic_Information"
 msgstr "Basic Information"
 
@@ -1267,7 +1267,7 @@ msgid "project_Homepage"
 msgstr "Project Homepage"
 
 #: app/views/partials/_project_menu.rhtml:26
-#: app/views/partials/_project_menu.rhtml:70
+#: app/views/partials/_project_menu.rhtml:72
 msgid "project_Tracker"
 msgstr "Tracker"
 
@@ -1296,23 +1296,23 @@ msgid "tracker_Enhancement"
 msgstr "Enhancement"
 
 #: app/views/partials/_project_menu.rhtml:36
-#: app/views/partials/_project_menu.rhtml:73
+#: app/views/partials/_project_menu.rhtml:75
 msgid "Wiki"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:39
+#: app/views/partials/_project_menu.rhtml:40
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:40
+#: app/views/partials/_project_menu.rhtml:42
 msgid "How to Access"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:79
+#: app/views/partials/_project_menu.rhtml:81
 msgid "release_Releases"
 msgstr "Release"
 
-#: app/views/partials/_project_menu.rhtml:82
+#: app/views/partials/_project_menu.rhtml:84
 msgid "project_Role Control"
 msgstr "Role Control"
 

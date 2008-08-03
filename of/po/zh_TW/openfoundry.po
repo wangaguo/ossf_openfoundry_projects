@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-03 16:26-0000\n"
+"POT-Creation-Date: 2008-08-03 18:17-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr "專案新聞"
 #: app/helpers/application_helper.rb:71 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:23
-#: app/views/partials/_project_menu.rhtml:64
+#: app/views/partials/_project_menu.rhtml:66
 msgid "Help Wanted"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:20
-#: app/views/partials/_project_menu.rhtml:55
+#: app/views/partials/_project_menu.rhtml:57
 msgid "Citations"
 msgstr "引用資訊"
 
@@ -60,7 +60,7 @@ msgstr "引用資訊"
 #: app/controllers/references_controller.rb:8
 #: app/controllers/references_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:21
-#: app/views/partials/_project_menu.rhtml:58
+#: app/views/partials/_project_menu.rhtml:60
 msgid "References"
 msgstr "參考文獻"
 
@@ -494,63 +494,63 @@ msgid "System Error. Please contact the site administrator."
 msgstr "系統錯誤, 請通知站台管理員."
 
 #: app/models/project.rb:217
-msgid "TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字"
+msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
 #: app/models/project.rb:218
 msgid "This name is reserved by the system."
-msgstr ""
+msgstr "抱歉, 此名字已被系統保留"
 
 #: app/models/project.rb:224
 msgid "You have choosen too many licenses."
-msgstr ""
+msgstr "您選擇了太多種程式碼授權方式"
 
 #: app/models/project.rb:226
 msgid "You have choosen too many content licenses."
-msgstr ""
+msgstr "您選擇了太多種圖文授權方式"
 
 #: app/models/project.rb:251
 msgid "Please choose at least one code license."
-msgstr ""
+msgstr "請選擇至少一種程式碼授權方式"
 
 #: app/models/project.rb:254
 msgid ""
 "If this project contains no code, then you may not choose any other license."
-msgstr ""
+msgstr "此專案若不包含程式碼, 請不用選取其他程式碼授權方式"
 
 #: app/models/project.rb:259
 msgid "Please choose at least one content license."
-msgstr ""
+msgstr "請選擇至少一種圖文授權方式"
 
 #: app/models/project.rb:262
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
-msgstr ""
+msgstr "此專案若只有程式碼, 請不用選取圖文授權方式"
 
 #: app/models/project.rb:265
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
-msgstr ""
+msgstr "圖文授權方式若與程式碼授權方式相同, 請不用選擇其他圖文授權方式"
 
 #: app/models/project.rb:269
 msgid "You have to choose a code license."
-msgstr ""
+msgstr "請選擇程式碼授權方式"
 
 #: app/models/project.rb:273
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
-msgstr ""
+msgstr "若您選擇了\"其他\"授權方式, 則請填寫\"授權說明\""
 
 #: app/models/project.rb:277
 msgid "Please choose at least one platform."
-msgstr ""
+msgstr "請選擇至少一種作業環境"
 
 #: app/models/project.rb:281
 msgid "Please choose at least one programming language."
-msgstr ""
+msgstr "請選擇至少一種程式語言"
 
 #: app/models/fileentity.rb:-
 msgid "fileentity"
@@ -961,7 +961,7 @@ msgstr "新聞"
 
 #: app/controllers/news_controller.rb:59
 #: app/views/partials/_project_menu.rhtml:22
-#: app/views/partials/_project_menu.rhtml:61
+#: app/views/partials/_project_menu.rhtml:63
 msgid "project_News"
 msgstr "專案新聞"
 
@@ -1104,7 +1104,7 @@ msgid "Release"
 msgstr "規畫釋出"
 
 #: app/controllers/releases_controller.rb:65
-#: app/views/partials/_project_menu.rhtml:44
+#: app/views/partials/_project_menu.rhtml:46
 #, fuzzy
 msgid "Downloads"
 msgstr "下載pdf格式"
@@ -1143,8 +1143,8 @@ msgid "Basic Information"
 msgstr "基本資料"
 
 #: app/controllers/projects_controller.rb:38
-#: app/views/partials/_project_menu.rhtml:43
-#: app/views/partials/_project_menu.rhtml:76
+#: app/views/partials/_project_menu.rhtml:45
+#: app/views/partials/_project_menu.rhtml:78
 msgid "Mailing List"
 msgstr "通訊論壇"
 
@@ -1257,12 +1257,12 @@ msgid "project_menu_Admin"
 msgstr "管理專案"
 
 #: app/views/partials/_project_menu.rhtml:16
-#: app/views/partials/_project_menu.rhtml:49
+#: app/views/partials/_project_menu.rhtml:51
 msgid "project_Info"
 msgstr "專案資訊"
 
 #: app/views/partials/_project_menu.rhtml:18
-#: app/views/partials/_project_menu.rhtml:52
+#: app/views/partials/_project_menu.rhtml:54
 msgid "project_Basic_Information"
 msgstr "基本資料"
 
@@ -1271,7 +1271,7 @@ msgid "project_Homepage"
 msgstr "專案首頁"
 
 #: app/views/partials/_project_menu.rhtml:26
-#: app/views/partials/_project_menu.rhtml:70
+#: app/views/partials/_project_menu.rhtml:72
 msgid "project_Tracker"
 msgstr "待辦事項"
 
@@ -1300,23 +1300,23 @@ msgid "tracker_Enhancement"
 msgstr "改進"
 
 #: app/views/partials/_project_menu.rhtml:36
-#: app/views/partials/_project_menu.rhtml:73
+#: app/views/partials/_project_menu.rhtml:75
 msgid "Wiki"
 msgstr "共同筆記"
 
-#: app/views/partials/_project_menu.rhtml:39
+#: app/views/partials/_project_menu.rhtml:40
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:40
+#: app/views/partials/_project_menu.rhtml:42
 msgid "How to Access"
 msgstr "存取方式"
 
-#: app/views/partials/_project_menu.rhtml:79
+#: app/views/partials/_project_menu.rhtml:81
 msgid "release_Releases"
 msgstr "規畫釋出"
 
-#: app/views/partials/_project_menu.rhtml:82
+#: app/views/partials/_project_menu.rhtml:84
 msgid "project_Role Control"
 msgstr "成員管理"
 
@@ -1638,9 +1638,8 @@ msgid "Project|HOMEPAGE"
 msgstr "專案首頁"
 
 #: app/views/projects/show.rhtml:45
-#, fuzzy
 msgid "Project Participants"
-msgstr "程式碼授權"
+msgstr "專案參與者"
 
 #: app/views/projects/show.rhtml:52
 msgid "Back"
@@ -1648,7 +1647,7 @@ msgstr "回上一頁"
 
 #: app/views/projects/_form.rhtml:39
 msgid "Others"
-msgstr ""
+msgstr "其他"
 
 #: app/views/projects/_form.rhtml:70
 #, fuzzy
