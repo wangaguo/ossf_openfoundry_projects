@@ -60,6 +60,9 @@ module ApplicationHelper
           when 'projects'
             level_name, level_class, level_title = 
               _('Project Listing'), Project, 'name'
+          when 'category'
+            level_name, level_class, level_title = 
+              _('Project Category'), Project, 'name'
           when 'news'
             level_name, level_class, level_title = 
               _('Project News'), News, 'subject'

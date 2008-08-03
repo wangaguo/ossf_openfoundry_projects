@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-02 08:44-0000\n"
+"POT-Creation-Date: 2008-08-03 03:14-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,10 +28,9 @@ msgstr "專案釋出"
 msgid "user"
 msgstr "使用者"
 
-#: app/helpers/application_helper.rb:62
-#, fuzzy
+#: app/helpers/application_helper.rb:62 app/views/projects/_list.rhtml:2
 msgid "Project Listing"
-msgstr "專案一覽"
+msgstr "專案列表"
 
 #: app/helpers/application_helper.rb:65 app/controllers/news_controller.rb:27
 #: app/views/openfoundry/index.rhtml:55
@@ -274,7 +273,7 @@ msgstr "註解"
 msgid "Image|Data"
 msgstr ""
 
-#: app/models/image.rb:9
+#: app/models/image.rb:10
 msgid "Image|Picture only"
 msgstr ""
 
@@ -638,14 +637,14 @@ msgstr "更新時間"
 msgid "News|Updated by"
 msgstr "更新時間"
 
-#: app/models/news.rb:30 app/models/news.rb:31 app/models/job.rb:5
-#: app/models/job.rb:6 app/models/citation.rb:5 app/models/citation.rb:6
+#: app/models/news.rb:30 app/models/news.rb:31 app/models/job.rb:32
+#: app/models/job.rb:33 app/models/citation.rb:5 app/models/citation.rb:6
 #: app/models/citation.rb:7 app/models/citation.rb:8 app/models/citation.rb:9
 #: app/models/reference.rb:5
 msgid "Length range is "
 msgstr ""
 
-#: app/models/news.rb:32 app/models/job.rb:7 app/models/citation.rb:10
+#: app/models/news.rb:32 app/models/job.rb:34 app/models/citation.rb:10
 #: app/models/reference.rb:6
 msgid "Not a valid value"
 msgstr ""
@@ -1091,7 +1090,7 @@ msgstr "下一頁"
 msgid "captcha mismatch"
 msgstr "驗證碼錯誤"
 
-#: app/controllers/application.rb:278 app/controllers/images_controller.rb:186
+#: app/controllers/application.rb:278 app/controllers/images_controller.rb:191
 msgid "you have no permission"
 msgstr "您沒有足夠權限"
 
@@ -1123,7 +1122,7 @@ msgstr ""
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/images_controller.rb:183
+#: app/controllers/images_controller.rb:188
 msgid "image_upload_error"
 msgstr "圖像上傳錯誤"
 
@@ -1137,7 +1136,7 @@ msgstr ""
 
 #: app/controllers/projects_controller.rb:34
 #, fuzzy
-msgid "Project Infomation"
+msgid "Basic Information"
 msgstr "註冊原因"
 
 #: app/controllers/projects_controller.rb:38
@@ -1366,12 +1365,12 @@ msgid "menu_Projects"
 msgstr "所有專案"
 
 #: app/views/partials/_top_menu_data.rhtml:17
-msgid "menu_Statistic Navigator"
+msgid "menu_Project Listing"
 msgstr "專案列表"
 
 #: app/views/partials/_top_menu_data.rhtml:18
-msgid "menu_Project Listing"
-msgstr "所有專案"
+msgid "menu_Project Category"
+msgstr "專案分類"
 
 #: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Project News"
@@ -1403,12 +1402,13 @@ msgid "menu_My Account"
 msgstr "帳號"
 
 #: app/views/partials/_top_menu_data.rhtml:30
-msgid "menu_Preferences"
-msgstr "偏好設定"
-
-#: app/views/partials/_top_menu_data.rhtml:31
 msgid "menu_Personal Homepage"
 msgstr "我的首頁"
+
+#: app/views/partials/_top_menu_data.rhtml:31
+#, fuzzy
+msgid "menu_Preference"
+msgstr "偏好設定"
 
 #: app/views/partials/_top_menu_data.rhtml:32
 msgid "menu_My Projects"
@@ -1587,10 +1587,6 @@ msgstr "使用者"
 #: app/views/openfoundry/_staticities.rhtml:5
 msgid "Online Users"
 msgstr "在線上的使用者"
-
-#: app/views/projects/_list.rhtml:2
-msgid "Listing projects"
-msgstr "專案一覽"
 
 #: app/views/projects/_list.rhtml:7 app/views/user/my_projects.rhtml:7
 #, fuzzy
@@ -1899,8 +1895,8 @@ msgid "Rebuild Ferret Index"
 msgstr ""
 
 #: app/views/category/list.rhtml:1
-msgid "Statistic Navigator"
-msgstr "專案列表"
+msgid "Project Category"
+msgstr "專案分類"
 
 #: app/views/category/list.rhtml:4
 msgid "By Project|Maturity"
@@ -2162,6 +2158,15 @@ msgstr "偏好設定"
 msgid "You have to login OpenFoundry first."
 msgstr ""
 
+#~ msgid "Listing projects"
+#~ msgstr "專案一覽"
+
+#~ msgid "Statistic Navigator"
+#~ msgstr "專案列表"
+
+#~ msgid "menu_Statistic Navigator"
+#~ msgstr "專案列表"
+
 #~ msgid "user_forgot_password_logged_in"
 #~ msgstr "您已經登入, 請直接更改密碼"
 
@@ -2191,10 +2196,6 @@ msgstr ""
 
 #~ msgid "User|Email_Confirm|help"
 #~ msgstr "請再次輸入電子郵件"
-
-#, fuzzy
-#~ msgid "Project Category"
-#~ msgstr "專案建立者"
 
 #~ msgid "menu_Overview"
 #~ msgstr "專案一覽"
