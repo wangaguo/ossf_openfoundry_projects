@@ -6,7 +6,7 @@ function SetLang(lang)
   langHref = location.search.replace(/[&|?]lang=[^&]*/,'').replace(/^[&|?]*/,'');
   if(langHref == "") langHref += "?";
   else langHref = "?" + langHref + "&";
-  location.href =  location.href.replace(/\?.*/,'') + langHref + "lang=" + lang + location.hash;
+  location.href =  location.protocol + "//" + location.host + location.pathname + langHref + "lang=" + lang + location.hash;
 }
 
 function submenuSwitch(item)
