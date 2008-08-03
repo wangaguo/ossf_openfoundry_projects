@@ -214,7 +214,7 @@ EOEO
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => NAME_REGEX, :message => _('TODO: 以英數字組成, 英文字母開頭, 長度不超過15個字')
+  validates_format_of :name, :with => NAME_REGEX, :message => _('由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字')
     validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => _("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
@@ -266,7 +266,7 @@ EOEO
     end
 
     if cls == [-3] and ls == [0] 
-      errors.add(:contentlicense, _("You have to choose a code license."))
+      errors.add(:contentlicense, _("You have to choose a code license.")) # TODO: better wording
     end
 
     if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
