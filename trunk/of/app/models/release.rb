@@ -31,7 +31,8 @@ class Release < ActiveRecord::Base
     _(STATUS.index(int_status).to_s)
   end
   def self.build_path(project_name, gid)
-    `/home/openfoundry/bin/create_dir #{gid} #{project_name}`
+    gid = gid.to_i unless Integer===gid
+    `/home/openfoundry/bin/create_dir #{gid+10000000} #{project_name}`
   end
 
   def self.top_download
