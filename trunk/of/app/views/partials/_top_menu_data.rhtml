@@ -1,7 +1,4 @@
 <script>
-function wo(url) {
-  return 'javascript:var a = window.open("' + url + '")';
-}
 var menudata=
   [
     {id: '<%=_('menu_OpenFoundry')%>', url:'/',
@@ -42,7 +39,7 @@ var menudata=
       ]
     },
 <% end %>
-    {id:'<%=_('menu_License Wizard')%>', url:'http://www.openfoundry.org/index.php?option=com_content&task=view&id=134&Itemid=269',
+    {id:'<%=_('menu_License Wizard')%>', url:wo("<%=_('menu_LW_manual_link')%>"),
       submenu:[
         {id:'<%=_('License Wizard')%> v2.2', url:wo("<%=_('menu_LW_22_link')%>")},
         {id:'<%=_('License Wizard')%> v3.2', url:wo("<%=_('menu_LW_32_link')%>")},

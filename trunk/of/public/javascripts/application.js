@@ -148,3 +148,6 @@ function SetHeader()
 
 Event.observe(window, 'load', SetHeader);
 
+function wo(url) {
+  return "javascript:var a = window.open('" + url + "')";
+}
