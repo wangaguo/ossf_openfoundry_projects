@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-03 03:14-0000\n"
+"POT-Creation-Date: 2008-08-03 16:26-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,35 +32,39 @@ msgstr "使用者"
 msgid "Project Listing"
 msgstr "專案列表"
 
-#: app/helpers/application_helper.rb:65 app/controllers/news_controller.rb:27
+#: app/helpers/application_helper.rb:65 app/views/category/list.rhtml:1
+msgid "Project Category"
+msgstr "專案分類"
+
+#: app/helpers/application_helper.rb:68 app/controllers/news_controller.rb:27
 #: app/views/openfoundry/index.rhtml:55
 msgid "Project News"
 msgstr "專案新聞"
 
-#: app/helpers/application_helper.rb:68 app/controllers/jobs_controller.rb:8
+#: app/helpers/application_helper.rb:71 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:17
-#: app/views/partials/_project_menu.rhtml:48
+#: app/views/partials/_project_menu.rhtml:23
+#: app/views/partials/_project_menu.rhtml:64
 msgid "Help Wanted"
 msgstr ""
 
-#: app/helpers/application_helper.rb:71
+#: app/helpers/application_helper.rb:74
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:14
-#: app/views/partials/_project_menu.rhtml:45
+#: app/views/partials/_project_menu.rhtml:20
+#: app/views/partials/_project_menu.rhtml:55
 msgid "Citations"
-msgstr ""
-
-#: app/helpers/application_helper.rb:74
-#: app/controllers/references_controller.rb:8
-#: app/controllers/references_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:15
-#: app/views/partials/_project_menu.rhtml:46
-msgid "References"
-msgstr "偏好設定"
+msgstr "引用資訊"
 
 #: app/helpers/application_helper.rb:77
+#: app/controllers/references_controller.rb:8
+#: app/controllers/references_controller.rb:27
+#: app/views/partials/_project_menu.rhtml:21
+#: app/views/partials/_project_menu.rhtml:58
+msgid "References"
+msgstr "參考文獻"
+
+#: app/helpers/application_helper.rb:80
 msgid "Issue Tracker"
 msgstr "事件追蹤"
 
@@ -945,7 +949,7 @@ msgid "Downloader|File"
 msgstr "下載pdf格式"
 
 #: app/controllers/news_controller.rb:32
-#: app/views/partials/_top_menu_data.rhtml:10
+#: app/views/partials/_top_menu_data.rhtml:7
 #: app/views/openfoundry/index.rhtml:61
 msgid "OpenFoundry News"
 msgstr "OpenFoundry新聞"
@@ -956,8 +960,8 @@ msgid "News"
 msgstr "新聞"
 
 #: app/controllers/news_controller.rb:59
-#: app/views/partials/_project_menu.rhtml:16
-#: app/views/partials/_project_menu.rhtml:47
+#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:61
 msgid "project_News"
 msgstr "專案新聞"
 
@@ -1100,7 +1104,7 @@ msgid "Release"
 msgstr "規畫釋出"
 
 #: app/controllers/releases_controller.rb:65
-#: app/views/partials/_project_menu.rhtml:38
+#: app/views/partials/_project_menu.rhtml:44
 #, fuzzy
 msgid "Downloads"
 msgstr "下載pdf格式"
@@ -1135,18 +1139,17 @@ msgid ""
 msgstr ""
 
 #: app/controllers/projects_controller.rb:34
-#, fuzzy
 msgid "Basic Information"
-msgstr "註冊原因"
+msgstr "基本資料"
 
 #: app/controllers/projects_controller.rb:38
-#: app/views/partials/_project_menu.rhtml:37
-#: app/views/partials/_project_menu.rhtml:53
+#: app/views/partials/_project_menu.rhtml:43
+#: app/views/partials/_project_menu.rhtml:76
 msgid "Mailing List"
 msgstr "通訊論壇"
 
 #: app/controllers/projects_controller.rb:47
-#: app/views/partials/_project_menu.rhtml:31
+#: app/views/partials/_project_menu.rhtml:37
 msgid "Version Control"
 msgstr "版本控制"
 
@@ -1163,10 +1166,8 @@ msgid "Role was successfully updated."
 msgstr ""
 
 #: app/controllers/projects_controller.rb:283
-#: app/views/partials/_project_menu.rhtml:34
-#, fuzzy
-msgid "Subversion/CVS Access"
-msgstr "SVN"
+msgid "Version Control System: How to Access"
+msgstr "版本控制系統: 存取方式"
 
 #: app/controllers/citations_controller.rb:22
 #, fuzzy
@@ -1247,78 +1248,75 @@ msgstr "登入"
 msgid "Sign Up"
 msgstr "註冊"
 
-#: app/views/partials/_project_menu.rhtml:5
-msgid "project_Menu"
-msgstr "專案摘要"
+#: app/views/partials/_project_menu.rhtml:9
+msgid "project_menu_View"
+msgstr "檢視專案"
 
-#: app/views/partials/_project_menu.rhtml:6
-msgid "project_Admin"
-msgstr "專案管理"
+#: app/views/partials/_project_menu.rhtml:11
+msgid "project_menu_Admin"
+msgstr "管理專案"
 
-#: app/views/partials/_project_menu.rhtml:10
-#: app/views/partials/_project_menu.rhtml:42
+#: app/views/partials/_project_menu.rhtml:16
+#: app/views/partials/_project_menu.rhtml:49
 msgid "project_Info"
 msgstr "專案資訊"
 
-#: app/views/partials/_project_menu.rhtml:12
-#: app/views/partials/_project_menu.rhtml:44
-#, fuzzy
-msgid "project_Summary"
-msgstr "專案名稱"
+#: app/views/partials/_project_menu.rhtml:18
+#: app/views/partials/_project_menu.rhtml:52
+msgid "project_Basic_Information"
+msgstr "基本資料"
 
-#: app/views/partials/_project_menu.rhtml:13
-#, fuzzy
-msgid "project_Website"
-msgstr "專案新聞"
+#: app/views/partials/_project_menu.rhtml:19
+msgid "project_Homepage"
+msgstr "專案首頁"
 
-#: app/views/partials/_project_menu.rhtml:20
-#: app/views/partials/_project_menu.rhtml:51
+#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:70
 msgid "project_Tracker"
 msgstr "待辦事項"
 
-#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:28
 msgid "tracker_Overview"
 msgstr "綜覽"
 
-#: app/views/partials/_project_menu.rhtml:23
+#: app/views/partials/_project_menu.rhtml:29
 msgid "tracker_Defect"
 msgstr "瑕疵"
 
-#: app/views/partials/_project_menu.rhtml:24
+#: app/views/partials/_project_menu.rhtml:30
 msgid "tracker_Patch"
 msgstr "修正檔"
 
-#: app/views/partials/_project_menu.rhtml:25
+#: app/views/partials/_project_menu.rhtml:31
 msgid "tracker_Task"
 msgstr "工作事項"
 
-#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:32
 msgid "tracker_Feature"
 msgstr "新功能"
 
-#: app/views/partials/_project_menu.rhtml:27
+#: app/views/partials/_project_menu.rhtml:33
 msgid "tracker_Enhancement"
 msgstr "改進"
 
-#: app/views/partials/_project_menu.rhtml:30
-#, fuzzy
+#: app/views/partials/_project_menu.rhtml:36
+#: app/views/partials/_project_menu.rhtml:73
 msgid "Wiki"
-msgstr "WIKI"
+msgstr "共同筆記"
 
-#: app/views/partials/_project_menu.rhtml:33
+#: app/views/partials/_project_menu.rhtml:39
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:52
-#: app/views/projects/_tabnav.rhtml:4
-msgid "Kwiki"
-msgstr "WIKI"
+#: app/views/partials/_project_menu.rhtml:40
+msgid "How to Access"
+msgstr "存取方式"
 
-#: app/views/partials/_project_menu.rhtml:54
+#: app/views/partials/_project_menu.rhtml:79
 msgid "release_Releases"
 msgstr "規畫釋出"
 
-#: app/views/partials/_project_menu.rhtml:55
+#: app/views/partials/_project_menu.rhtml:82
 msgid "project_Role Control"
 msgstr "成員管理"
 
@@ -1338,166 +1336,167 @@ msgstr "不同意"
 msgid "submit"
 msgstr "送出"
 
-#: app/views/partials/_top_menu_data.rhtml:7
+#: app/views/partials/_top_menu_data.rhtml:4
 #: app/views/layouts/application.rhtml:36
 msgid "menu_OpenFoundry"
 msgstr "OpenFoundry"
 
-#: app/views/partials/_top_menu_data.rhtml:9
+#: app/views/partials/_top_menu_data.rhtml:6
 msgid "menu_Home"
 msgstr "首頁"
 
-#: app/views/partials/_top_menu_data.rhtml:11
+#: app/views/partials/_top_menu_data.rhtml:8
 msgid "menu_About OSSF"
 msgstr "關於OSSF"
 
-#: app/views/partials/_top_menu_data.rhtml:11
+#: app/views/partials/_top_menu_data.rhtml:8
 msgid "menu_About_OSSF_link"
 msgstr "http://www.openfoundry.org/About-OSSF.html"
 
-#: app/views/partials/_top_menu_data.rhtml:12
+#: app/views/partials/_top_menu_data.rhtml:9
 msgid "menu_Newsletter"
 msgstr "自由軟體鑄造場電子報"
 
-#: app/views/partials/_top_menu_data.rhtml:15
+#: app/views/partials/_top_menu_data.rhtml:12
 #: app/views/layouts/application.rhtml:37
 msgid "menu_Projects"
 msgstr "所有專案"
 
-#: app/views/partials/_top_menu_data.rhtml:17
+#: app/views/partials/_top_menu_data.rhtml:14
 msgid "menu_Project Listing"
 msgstr "專案列表"
 
-#: app/views/partials/_top_menu_data.rhtml:18
+#: app/views/partials/_top_menu_data.rhtml:15
 msgid "menu_Project Category"
 msgstr "專案分類"
 
-#: app/views/partials/_top_menu_data.rhtml:19
+#: app/views/partials/_top_menu_data.rhtml:16
 msgid "menu_Project News"
 msgstr "專案新聞"
 
-#: app/views/partials/_top_menu_data.rhtml:20
+#: app/views/partials/_top_menu_data.rhtml:17
 msgid "menu_Latest Releases"
 msgstr "最新釋出專案"
 
-#: app/views/partials/_top_menu_data.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:18
 msgid "menu_Top Downloads"
 msgstr "下載排行"
 
-#: app/views/partials/_top_menu_data.rhtml:22
+#: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Help Wanted"
 msgstr "協助專案"
 
-#: app/views/partials/_top_menu_data.rhtml:23
+#: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_WebHosting"
 msgstr "專案網頁空間"
 
-#: app/views/partials/_top_menu_data.rhtml:24
-#: app/views/partials/_top_menu_data.rhtml:41
+#: app/views/partials/_top_menu_data.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:38
 msgid "Create Project"
 msgstr "建立專案"
 
-#: app/views/partials/_top_menu_data.rhtml:28
+#: app/views/partials/_top_menu_data.rhtml:25
 msgid "menu_My Account"
 msgstr "帳號"
 
-#: app/views/partials/_top_menu_data.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:27
 msgid "menu_Personal Homepage"
 msgstr "我的首頁"
 
-#: app/views/partials/_top_menu_data.rhtml:31
+#: app/views/partials/_top_menu_data.rhtml:28
 #, fuzzy
 msgid "menu_Preference"
 msgstr "偏好設定"
 
-#: app/views/partials/_top_menu_data.rhtml:32
+#: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_My Projects"
 msgstr "我參與的專案"
 
-#: app/views/partials/_top_menu_data.rhtml:33
+#: app/views/partials/_top_menu_data.rhtml:30
 msgid "menu_My Tickets"
 msgstr "我的待辦事項"
 
-#: app/views/partials/_top_menu_data.rhtml:35
+#: app/views/partials/_top_menu_data.rhtml:32
 msgid "Owner"
 msgstr "所有者"
 
-#: app/views/partials/_top_menu_data.rhtml:36
+#: app/views/partials/_top_menu_data.rhtml:33
 msgid "Creator"
 msgstr "建立者"
 
-#: app/views/partials/_top_menu_data.rhtml:37
+#: app/views/partials/_top_menu_data.rhtml:34
 msgid "Requestor"
 msgstr "請求者"
 
-#: app/views/partials/_top_menu_data.rhtml:38
+#: app/views/partials/_top_menu_data.rhtml:35
 msgid "LastUpdatedBy"
 msgstr "最近更動"
 
-#: app/views/partials/_top_menu_data.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:42
 #: app/views/layouts/application.rhtml:38
 msgid "menu_License Wizard"
 msgstr "授權指引/精靈"
 
-#: app/views/partials/_top_menu_data.rhtml:47
-#: app/views/partials/_top_menu_data.rhtml:48
-msgid "License Wizard"
-msgstr "授權指引/精靈"
-
-#: app/views/partials/_top_menu_data.rhtml:47
-msgid "menu_LW_22_link"
-msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi"
-
-#: app/views/partials/_top_menu_data.rhtml:48
-msgid "menu_LW_32_link"
-msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm"
-
-#: app/views/partials/_top_menu_data.rhtml:49
-msgid "menu_Manual"
-msgstr "說明"
-
-#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/partials/_top_menu_data.rhtml:46
 msgid "menu_LW_manual_link"
 msgstr ""
 "http://www.openfoundry.org/index.php?"
 "option=com_content&task=view&id=134&Itemid=269"
 
-#: app/views/partials/_top_menu_data.rhtml:52
+#: app/views/partials/_top_menu_data.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:45
+msgid "License Wizard"
+msgstr "授權指引/精靈"
+
+#: app/views/partials/_top_menu_data.rhtml:44
+msgid "menu_LW_22_link"
+msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard2/LicenseWizard.cgi"
+
+#: app/views/partials/_top_menu_data.rhtml:45
+msgid "menu_LW_32_link"
+msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm"
+
+#: app/views/partials/_top_menu_data.rhtml:46
+msgid "menu_Manual"
+msgstr "說明"
+
+#: app/views/partials/_top_menu_data.rhtml:49
 #: app/views/layouts/application.rhtml:39
 msgid "menu_Help"
 msgstr "說明"
 
-#: app/views/partials/_top_menu_data.rhtml:54
+#: app/views/partials/_top_menu_data.rhtml:51
 msgid "menu_About this Manual"
 msgstr "關於本說明"
 
-#: app/views/partials/_top_menu_data.rhtml:55
+#: app/views/partials/_top_menu_data.rhtml:52
 msgid "menu_OpenFoundry Overview"
 msgstr "專案管理平台介紹"
 
-#: app/views/partials/_top_menu_data.rhtml:56
+#: app/views/partials/_top_menu_data.rhtml:53
 msgid "menu_End User Guide"
 msgstr "一般使用者功能"
 
-#: app/views/partials/_top_menu_data.rhtml:57
+#: app/views/partials/_top_menu_data.rhtml:54
 msgid "menu_Project Manager Guide"
 msgstr "專案管理者功能"
 
-#: app/views/partials/_top_menu_data.rhtml:58
+#: app/views/partials/_top_menu_data.rhtml:55
 msgid "menu_OpenFoundry Features"
 msgstr "專案管理服務平台功能"
 
-#: app/views/partials/_top_menu_data.rhtml:59
+#: app/views/partials/_top_menu_data.rhtml:56
 msgid "Download PDF"
 msgstr "下載pdf格式"
 
-#: app/views/partials/_top_menu_data.rhtml:62
-#: app/views/partials/_top_menu_data.rhtml:64
+#: app/views/partials/_top_menu_data.rhtml:59
+#: app/views/partials/_top_menu_data.rhtml:61
 #: app/views/layouts/application.rhtml:40
 msgid "menu_Contact Us"
 msgstr "連絡我們"
 
-#: app/views/partials/_top_menu_data.rhtml:65
+#: app/views/partials/_top_menu_data.rhtml:62
 msgid "Bug Report"
 msgstr "問題回報"
 
@@ -1619,6 +1618,10 @@ msgstr ""
 #: app/views/projects/_tabnav.rhtml:3
 msgid "Project Basic"
 msgstr "專案"
+
+#: app/views/projects/_tabnav.rhtml:4
+msgid "Kwiki"
+msgstr "WIKI"
 
 #: app/views/projects/_tabnav.rhtml:5
 msgid "Sympa"
@@ -1894,10 +1897,6 @@ msgstr ""
 msgid "Rebuild Ferret Index"
 msgstr ""
 
-#: app/views/category/list.rhtml:1
-msgid "Project Category"
-msgstr "專案分類"
-
 #: app/views/category/list.rhtml:4
 msgid "By Project|Maturity"
 msgstr "依專案成熟度分類"
@@ -2157,6 +2156,14 @@ msgstr "偏好設定"
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Subversion/CVS Access"
+#~ msgstr "SVN"
+
+#, fuzzy
+#~ msgid "project_Summary"
+#~ msgstr "專案名稱"
 
 #~ msgid "Listing projects"
 #~ msgstr "專案一覽"
