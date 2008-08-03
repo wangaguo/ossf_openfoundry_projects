@@ -14,8 +14,8 @@ var menudata=
     },
     {id:'<%=_('menu_Projects')%>', url:'/projects',
       submenu:[
-        {id:'<%=_('menu_Statistic Navigator')%>', url:'/category'},
         {id:'<%=_('menu_Project Listing')%>', url:'/projects'},
+        {id:'<%=_('menu_Project Category')%>', url:'/category'},
         {id:'<%=_('menu_Project News')%>', url:'/projects/news'},
         {id:'<%=_('menu_Latest Releases')%>', url:'/releases/latest'},
         {id:'<%=_('menu_Top Downloads')%>', url:'/releases/top'},
@@ -27,8 +27,8 @@ var menudata=
 <% if current_user.login != 'guest' %>
     {id:'<%=_('menu_My Account')%>', url:'/user/home',
       submenu:[
-        {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
         {id:'<%=_('menu_Personal Homepage')%>', url:'/user/home'},
+        {id:'<%=_('menu_Preference')%>', url:'/user/edit'},
         {id:'<%=_('menu_My Projects')%>', url:'/user/my_projects'},
         {id:'<%=_('menu_My Tickets')%>', url:'',
           submenu:[
