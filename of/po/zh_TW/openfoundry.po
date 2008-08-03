@@ -1148,7 +1148,7 @@ msgstr "通訊論壇"
 #: app/controllers/projects_controller.rb:47
 #: app/views/partials/_project_menu.rhtml:31
 msgid "Version Control"
-msgstr ""
+msgstr "版本控制"
 
 #: app/controllers/projects_controller.rb:57
 msgid "System error. Please contact the site administrator."
@@ -1156,7 +1156,7 @@ msgstr ""
 
 #: app/controllers/projects_controller.rb:136
 msgid "Project was successfully updated."
-msgstr ""
+msgstr "專案已更新"
 
 #: app/controllers/projects_controller.rb:232
 msgid "Role was successfully updated."
