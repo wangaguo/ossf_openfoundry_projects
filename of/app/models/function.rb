@@ -9,7 +9,20 @@ class Function < ActiveRecord::Base
     ui = options[:user_id]
     raise "bad parameter!" if at !~ /^\w+$/ or (not Fixnum === ai) or (not Fixnum === ui)
 
-    sql = "select F.name from functions F, 
+    #if user is the admin of this project, return all functions
+    if Role.count_by_sql(
+      "select U.id from roles R, roles_users RU, users U, projects P
+        where U.id = RU.user_id and R.id = RU.role_id and R.name = 'Admin' and
+              R.authorizable_id = '#{ai}' and
+              R.authorizable_type = 'Project' and
+              R.authorizable_id  = P.id and
+              #{Project.in_used_projects(:alias => 'P')} and
+              U.id = '#{ui}' and
+              #{User.verified_users(:alias => 'U')}
+        ") > 0
+      sql = "select F.name from functions F"
+    else
+      sql = "select F.name from functions F, 
            roles_functions RF, roles R,
            roles_users RU, users U
            where
@@ -18,6 +31,7 @@ class Function < ActiveRecord::Base
            R.authorizable_type = '%s' and R.authorizable_id = %d and
            U.id = %d 
           " % [at, ai, ui]
+    end
     #puts "sql: #{sql}"
     ActiveRecord::Base.connection.select_values(sql)
   end
