@@ -127,7 +127,7 @@ body {
 }
 #project_left_menu li ul {
   display:none;
-  left:100.1%;
+  left:100%;
   position:absolute;
   top:0;
   background-color:#DAE3F9;
