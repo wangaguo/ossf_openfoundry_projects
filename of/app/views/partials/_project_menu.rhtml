@@ -36,7 +36,9 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
       <li><%= link_to _('Version Control'), viewvc_project_path(:id => project.id), :class => 'subimg' %>
           <ul>
+              <% if project.vcs == Project::VCS[:CVS] or project.vcs == Project::VCS[:SUBVERSION] %>
               <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
+              <% end %>
               <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
           </ul>
       </li>
