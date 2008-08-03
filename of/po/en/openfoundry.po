@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-03 03:14-0000\n"
+"POT-Creation-Date: 2008-08-03 16:26-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,36 +32,41 @@ msgstr ""
 msgid "Project Listing"
 msgstr "Project Listing"
 
-#: app/helpers/application_helper.rb:65 app/controllers/news_controller.rb:27
+#: app/helpers/application_helper.rb:65 app/views/category/list.rhtml:1
+#, fuzzy
+msgid "Project Category"
+msgstr "Project Category"
+
+#: app/helpers/application_helper.rb:68 app/controllers/news_controller.rb:27
 #: app/views/openfoundry/index.rhtml:55
 msgid "Project News"
 msgstr ""
 
-#: app/helpers/application_helper.rb:68 app/controllers/jobs_controller.rb:8
+#: app/helpers/application_helper.rb:71 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:17
-#: app/views/partials/_project_menu.rhtml:48
+#: app/views/partials/_project_menu.rhtml:23
+#: app/views/partials/_project_menu.rhtml:64
 msgid "Help Wanted"
 msgstr ""
 
-#: app/helpers/application_helper.rb:71
+#: app/helpers/application_helper.rb:74
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:14
-#: app/views/partials/_project_menu.rhtml:45
+#: app/views/partials/_project_menu.rhtml:20
+#: app/views/partials/_project_menu.rhtml:55
 msgid "Citations"
 msgstr ""
 
-#: app/helpers/application_helper.rb:74
+#: app/helpers/application_helper.rb:77
 #: app/controllers/references_controller.rb:8
 #: app/controllers/references_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:15
-#: app/views/partials/_project_menu.rhtml:46
+#: app/views/partials/_project_menu.rhtml:21
+#: app/views/partials/_project_menu.rhtml:58
 #, fuzzy
 msgid "References"
 msgstr "Preference"
 
-#: app/helpers/application_helper.rb:77
+#: app/helpers/application_helper.rb:80
 msgid "Issue Tracker"
 msgstr ""
 
@@ -939,7 +944,7 @@ msgid "Downloader|File"
 msgstr ""
 
 #: app/controllers/news_controller.rb:32
-#: app/views/partials/_top_menu_data.rhtml:10
+#: app/views/partials/_top_menu_data.rhtml:7
 #: app/views/openfoundry/index.rhtml:61
 #, fuzzy
 msgid "OpenFoundry News"
@@ -951,8 +956,8 @@ msgid "News"
 msgstr ""
 
 #: app/controllers/news_controller.rb:59
-#: app/views/partials/_project_menu.rhtml:16
-#: app/views/partials/_project_menu.rhtml:47
+#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:61
 msgid "project_News"
 msgstr "News"
 
@@ -1094,7 +1099,7 @@ msgid "Release"
 msgstr "Release"
 
 #: app/controllers/releases_controller.rb:65
-#: app/views/partials/_project_menu.rhtml:38
+#: app/views/partials/_project_menu.rhtml:44
 msgid "Downloads"
 msgstr ""
 
@@ -1133,13 +1138,13 @@ msgid "Basic Information"
 msgstr "Icon"
 
 #: app/controllers/projects_controller.rb:38
-#: app/views/partials/_project_menu.rhtml:37
-#: app/views/partials/_project_menu.rhtml:53
+#: app/views/partials/_project_menu.rhtml:43
+#: app/views/partials/_project_menu.rhtml:76
 msgid "Mailing List"
 msgstr ""
 
 #: app/controllers/projects_controller.rb:47
-#: app/views/partials/_project_menu.rhtml:31
+#: app/views/partials/_project_menu.rhtml:37
 msgid "Version Control"
 msgstr ""
 
@@ -1156,8 +1161,7 @@ msgid "Role was successfully updated."
 msgstr ""
 
 #: app/controllers/projects_controller.rb:283
-#: app/views/partials/_project_menu.rhtml:34
-msgid "Subversion/CVS Access"
+msgid "Version Control System: How to Access"
 msgstr ""
 
 #: app/controllers/citations_controller.rb:22
@@ -1240,77 +1244,75 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:5
-msgid "project_Menu"
-msgstr "Menu"
+#: app/views/partials/_project_menu.rhtml:9
+msgid "project_menu_View"
+msgstr "View"
 
-#: app/views/partials/_project_menu.rhtml:6
-msgid "project_Admin"
+#: app/views/partials/_project_menu.rhtml:11
+msgid "project_menu_Admin"
 msgstr "Admin"
 
-#: app/views/partials/_project_menu.rhtml:10
-#: app/views/partials/_project_menu.rhtml:42
+#: app/views/partials/_project_menu.rhtml:16
+#: app/views/partials/_project_menu.rhtml:49
 msgid "project_Info"
-msgstr "Info"
+msgstr "Project Info"
 
-#: app/views/partials/_project_menu.rhtml:12
-#: app/views/partials/_project_menu.rhtml:44
-#, fuzzy
-msgid "project_Summary"
-msgstr "Summary"
+#: app/views/partials/_project_menu.rhtml:18
+#: app/views/partials/_project_menu.rhtml:52
+msgid "project_Basic_Information"
+msgstr "Basic Information"
 
-#: app/views/partials/_project_menu.rhtml:13
-#, fuzzy
-msgid "project_Website"
-msgstr "News"
+#: app/views/partials/_project_menu.rhtml:19
+msgid "project_Homepage"
+msgstr "Project Homepage"
 
-#: app/views/partials/_project_menu.rhtml:20
-#: app/views/partials/_project_menu.rhtml:51
+#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:70
 msgid "project_Tracker"
 msgstr "Tracker"
 
-#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:28
 msgid "tracker_Overview"
 msgstr "Overview"
 
-#: app/views/partials/_project_menu.rhtml:23
+#: app/views/partials/_project_menu.rhtml:29
 msgid "tracker_Defect"
 msgstr "Defect"
 
-#: app/views/partials/_project_menu.rhtml:24
+#: app/views/partials/_project_menu.rhtml:30
 msgid "tracker_Patch"
 msgstr "Patch"
 
-#: app/views/partials/_project_menu.rhtml:25
+#: app/views/partials/_project_menu.rhtml:31
 msgid "tracker_Task"
 msgstr "Task"
 
-#: app/views/partials/_project_menu.rhtml:26
+#: app/views/partials/_project_menu.rhtml:32
 msgid "tracker_Feature"
 msgstr "Feature"
 
-#: app/views/partials/_project_menu.rhtml:27
+#: app/views/partials/_project_menu.rhtml:33
 msgid "tracker_Enhancement"
 msgstr "Enhancement"
 
-#: app/views/partials/_project_menu.rhtml:30
+#: app/views/partials/_project_menu.rhtml:36
+#: app/views/partials/_project_menu.rhtml:73
 msgid "Wiki"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:33
+#: app/views/partials/_project_menu.rhtml:39
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:52
-#: app/views/projects/_tabnav.rhtml:4
-msgid "Kwiki"
+#: app/views/partials/_project_menu.rhtml:40
+msgid "How to Access"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:54
+#: app/views/partials/_project_menu.rhtml:79
 msgid "release_Releases"
 msgstr "Release"
 
-#: app/views/partials/_project_menu.rhtml:55
+#: app/views/partials/_project_menu.rhtml:82
 msgid "project_Role Control"
 msgstr "Role Control"
 
@@ -1330,166 +1332,167 @@ msgstr ""
 msgid "submit"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:7
+#: app/views/partials/_top_menu_data.rhtml:4
 #: app/views/layouts/application.rhtml:36
 msgid "menu_OpenFoundry"
 msgstr "OpenFoundry"
 
-#: app/views/partials/_top_menu_data.rhtml:9
+#: app/views/partials/_top_menu_data.rhtml:6
 msgid "menu_Home"
 msgstr "Home"
 
-#: app/views/partials/_top_menu_data.rhtml:11
+#: app/views/partials/_top_menu_data.rhtml:8
 msgid "menu_About OSSF"
 msgstr "About OSSF"
 
-#: app/views/partials/_top_menu_data.rhtml:11
+#: app/views/partials/_top_menu_data.rhtml:8
 msgid "menu_About_OSSF_link"
 msgstr "http://www.openfoundry.org/en/About-OSSF.html"
 
-#: app/views/partials/_top_menu_data.rhtml:12
+#: app/views/partials/_top_menu_data.rhtml:9
 msgid "menu_Newsletter"
 msgstr "Newsletter"
 
-#: app/views/partials/_top_menu_data.rhtml:15
+#: app/views/partials/_top_menu_data.rhtml:12
 #: app/views/layouts/application.rhtml:37
 msgid "menu_Projects"
 msgstr "Projects"
 
-#: app/views/partials/_top_menu_data.rhtml:17
+#: app/views/partials/_top_menu_data.rhtml:14
 msgid "menu_Project Listing"
 msgstr "Project Listing"
 
-#: app/views/partials/_top_menu_data.rhtml:18
+#: app/views/partials/_top_menu_data.rhtml:15
 msgid "menu_Project Category"
 msgstr "Project Category"
 
-#: app/views/partials/_top_menu_data.rhtml:19
+#: app/views/partials/_top_menu_data.rhtml:16
 msgid "menu_Project News"
 msgstr "Project News"
 
-#: app/views/partials/_top_menu_data.rhtml:20
+#: app/views/partials/_top_menu_data.rhtml:17
 msgid "menu_Latest Releases"
 msgstr "Latest Release"
 
-#: app/views/partials/_top_menu_data.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:18
 msgid "menu_Top Downloads"
 msgstr "Top Downloads"
 
-#: app/views/partials/_top_menu_data.rhtml:22
+#: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Help Wanted"
 msgstr "Help Wanted"
 
-#: app/views/partials/_top_menu_data.rhtml:23
+#: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_WebHosting"
 msgstr "WebHosting"
 
-#: app/views/partials/_top_menu_data.rhtml:24
-#: app/views/partials/_top_menu_data.rhtml:41
+#: app/views/partials/_top_menu_data.rhtml:21
+#: app/views/partials/_top_menu_data.rhtml:38
 #, fuzzy
 msgid "Create Project"
 msgstr "New Project"
 
-#: app/views/partials/_top_menu_data.rhtml:28
+#: app/views/partials/_top_menu_data.rhtml:25
 msgid "menu_My Account"
 msgstr "My Account"
 
-#: app/views/partials/_top_menu_data.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:27
 msgid "menu_Personal Homepage"
 msgstr "Personal Homepage"
 
-#: app/views/partials/_top_menu_data.rhtml:31
+#: app/views/partials/_top_menu_data.rhtml:28
 #, fuzzy
 msgid "menu_Preference"
 msgstr "Preference"
 
-#: app/views/partials/_top_menu_data.rhtml:32
+#: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_My Projects"
 msgstr "My Projects"
 
-#: app/views/partials/_top_menu_data.rhtml:33
+#: app/views/partials/_top_menu_data.rhtml:30
 msgid "menu_My Tickets"
 msgstr "My Tickets"
 
-#: app/views/partials/_top_menu_data.rhtml:35
+#: app/views/partials/_top_menu_data.rhtml:32
 msgid "Owner"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:36
+#: app/views/partials/_top_menu_data.rhtml:33
 #, fuzzy
 msgid "Creator"
 msgstr "Creator"
 
-#: app/views/partials/_top_menu_data.rhtml:37
+#: app/views/partials/_top_menu_data.rhtml:34
 msgid "Requestor"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:38
+#: app/views/partials/_top_menu_data.rhtml:35
 msgid "LastUpdatedBy"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:42
 #: app/views/layouts/application.rhtml:38
 msgid "menu_License Wizard"
 msgstr "License Wizard"
 
-#: app/views/partials/_top_menu_data.rhtml:47
-#: app/views/partials/_top_menu_data.rhtml:48
+#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/partials/_top_menu_data.rhtml:46
+msgid "menu_LW_manual_link"
+msgstr "http://www.openfoundry.org/en/LicenseWizard/LicenseWizard.html"
+
+#: app/views/partials/_top_menu_data.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:45
 msgid "License Wizard"
 msgstr "License Wizard"
 
-#: app/views/partials/_top_menu_data.rhtml:47
+#: app/views/partials/_top_menu_data.rhtml:44
 msgid "menu_LW_22_link"
 msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard2EN/LicenseWizard.cgi"
 
-#: app/views/partials/_top_menu_data.rhtml:48
+#: app/views/partials/_top_menu_data.rhtml:45
 msgid "menu_LW_32_link"
 msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm?en"
 
-#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/partials/_top_menu_data.rhtml:46
 msgid "menu_Manual"
 msgstr "Manual"
 
 #: app/views/partials/_top_menu_data.rhtml:49
-msgid "menu_LW_manual_link"
-msgstr "http://www.openfoundry.org/en/LicenseWizard/LicenseWizard.html"
-
-#: app/views/partials/_top_menu_data.rhtml:52
 #: app/views/layouts/application.rhtml:39
 msgid "menu_Help"
 msgstr "Help"
 
-#: app/views/partials/_top_menu_data.rhtml:54
+#: app/views/partials/_top_menu_data.rhtml:51
 msgid "menu_About this Manual"
 msgstr "About this Manual"
 
-#: app/views/partials/_top_menu_data.rhtml:55
+#: app/views/partials/_top_menu_data.rhtml:52
 msgid "menu_OpenFoundry Overview"
 msgstr "OpenFoundry Overview"
 
-#: app/views/partials/_top_menu_data.rhtml:56
+#: app/views/partials/_top_menu_data.rhtml:53
 msgid "menu_End User Guide"
 msgstr "End User Guide"
 
-#: app/views/partials/_top_menu_data.rhtml:57
+#: app/views/partials/_top_menu_data.rhtml:54
 msgid "menu_Project Manager Guide"
 msgstr "Project Manager Guide"
 
-#: app/views/partials/_top_menu_data.rhtml:58
+#: app/views/partials/_top_menu_data.rhtml:55
 msgid "menu_OpenFoundry Features"
 msgstr "OpenFoundry Features"
 
-#: app/views/partials/_top_menu_data.rhtml:59
+#: app/views/partials/_top_menu_data.rhtml:56
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:62
-#: app/views/partials/_top_menu_data.rhtml:64
+#: app/views/partials/_top_menu_data.rhtml:59
+#: app/views/partials/_top_menu_data.rhtml:61
 #: app/views/layouts/application.rhtml:40
 msgid "menu_Contact Us"
 msgstr "Contact Us"
 
-#: app/views/partials/_top_menu_data.rhtml:65
+#: app/views/partials/_top_menu_data.rhtml:62
 msgid "Bug Report"
 msgstr ""
 
@@ -1609,6 +1612,10 @@ msgstr ""
 
 #: app/views/projects/_tabnav.rhtml:3
 msgid "Project Basic"
+msgstr ""
+
+#: app/views/projects/_tabnav.rhtml:4
+msgid "Kwiki"
 msgstr ""
 
 #: app/views/projects/_tabnav.rhtml:5
@@ -1880,11 +1887,6 @@ msgstr ""
 #: app/views/site_admin/site_admin/index.rhtml:14
 msgid "Rebuild Ferret Index"
 msgstr ""
-
-#: app/views/category/list.rhtml:1
-#, fuzzy
-msgid "Project Category"
-msgstr "Project Category"
 
 #: app/views/category/list.rhtml:4
 msgid "By Project|Maturity"
@@ -2161,6 +2163,10 @@ msgstr "Preference"
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr ""
+
+#, fuzzy
+#~ msgid "project_Summary"
+#~ msgstr "Summary"
 
 #~ msgid "menu_Statistic Navigator"
 #~ msgstr "Statistic Navigator"

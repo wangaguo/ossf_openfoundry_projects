@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
   
   def set_project_id
     params[:project_id] = params[:id]
-    @module_name = _('Project Infomation')
+    @module_name = _('Basic Information')
   end
   
   def sympa
@@ -280,7 +280,7 @@ class ProjectsController < ApplicationController
   end
   
   def vcs_access
-    @module_name = _('Subversion/CVS Access')
+    @module_name = _('Version Control System: How to Access')
     @vcs = @project.vcs
     @src = ""
     @vcs_desc = @project.vcsdescription
