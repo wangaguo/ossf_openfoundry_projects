@@ -103,3 +103,4 @@ GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, tru
 ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
 
 #require "lib/memory.rb"
+#require "lib/mongrel_size_limit.rb"
