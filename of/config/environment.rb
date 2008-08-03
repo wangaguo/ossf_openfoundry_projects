@@ -101,3 +101,5 @@ GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, tru
 # share session cookie for sub-doamins (SSO)
 # TODO: substitide domain name in the installing process
 ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
+
+#require "lib/memory.rb"
