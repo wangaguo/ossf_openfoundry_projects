@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-04 11:39-0000\n"
+"POT-Creation-Date: 2008-08-04 12:32-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,6 +69,10 @@ msgstr "Preference"
 #: app/helpers/application_helper.rb:80
 msgid "Issue Tracker"
 msgstr ""
+
+#: app/helpers/application_helper.rb:246
+msgid "required_icon"
+msgstr "Required"
 
 #: app/models/category.rb:-
 msgid "category"
@@ -1123,7 +1127,7 @@ msgstr ""
 msgid "captcha mismatch"
 msgstr ""
 
-#: app/controllers/application.rb:278 app/controllers/images_controller.rb:191
+#: app/controllers/application.rb:278 app/controllers/images_controller.rb:193
 msgid "you have no permission"
 msgstr ""
 
@@ -1154,7 +1158,7 @@ msgstr ""
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/images_controller.rb:188
+#: app/controllers/images_controller.rb:190
 msgid "image_upload_error"
 msgstr "There is an error while upload image"
 

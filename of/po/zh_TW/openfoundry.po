@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-04 11:39-0000\n"
+"POT-Creation-Date: 2008-08-04 12:32-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,6 +67,10 @@ msgstr "參考文獻"
 #: app/helpers/application_helper.rb:80
 msgid "Issue Tracker"
 msgstr "事件追蹤"
+
+#: app/helpers/application_helper.rb:246
+msgid "required_icon"
+msgstr "必填"
 
 #: app/models/category.rb:-
 msgid "category"
@@ -1128,7 +1132,7 @@ msgstr "下一頁"
 msgid "captcha mismatch"
 msgstr "驗證碼錯誤"
 
-#: app/controllers/application.rb:278 app/controllers/images_controller.rb:191
+#: app/controllers/application.rb:278 app/controllers/images_controller.rb:193
 msgid "you have no permission"
 msgstr "您沒有足夠權限"
 
@@ -1160,7 +1164,7 @@ msgstr ""
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/images_controller.rb:188
+#: app/controllers/images_controller.rb:190
 msgid "image_upload_error"
 msgstr "圖像上傳錯誤"
 
@@ -1696,7 +1700,9 @@ msgstr "其他"
 
 #: app/views/projects/_form.rhtml:70
 msgid "Project|Name|Help"
-msgstr "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字. 建立後不能修改."
+msgstr ""
+"由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字. 建立後不"
+"能修改."
 
 #: app/views/projects/_form.rhtml:72
 msgid "Project|Summary|Help"
@@ -1744,7 +1750,9 @@ msgstr "版本控制系統"
 
 #: app/views/projects/_form.rhtml:97
 msgid "Project|Vcsdescription|Help"
-msgstr "提供版本控制系統的額外資訊, 特別當專案使用其他站台的版本控制系統時, 最好能提示使用者."
+msgstr ""
+"提供版本控制系統的額外資訊, 特別當專案使用其他站台的版本控制系統時, 最好能提"
+"示使用者."
 
 #: app/views/projects/role_users.rhtml:3
 msgid "Role|Set as "
