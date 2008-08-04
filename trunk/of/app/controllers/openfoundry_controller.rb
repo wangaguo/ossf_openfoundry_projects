@@ -96,7 +96,7 @@ class OpenfoundryController < ApplicationController
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
             F.module = 'vcs' and
-            (R.name='admin' or (RF.role_id = R.id and RF.function_id = F.id)) and
+            RF.role_id = R.id and RF.function_id = F.id and
             R.authorizable_id = P.id and 
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
@@ -105,7 +105,7 @@ class OpenfoundryController < ApplicationController
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
-      ActiveRecord::Base.connection.select_rows(sql).each do |u, p, f|
+      ActiveRecord::Base.connection.execute(sql).each do |u, p, f|
         #functions[u][p][f] = 1
         a = functions[u] = {} if not a = functions[u]
         b = a[p] = {} if not b = a[p]
