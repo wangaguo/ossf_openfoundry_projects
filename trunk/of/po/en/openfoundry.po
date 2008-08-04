@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-04 08:53-0000\n"
+"POT-Creation-Date: 2008-08-04 11:39-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,11 +241,11 @@ msgstr ""
 msgid "Release|Updated by"
 msgstr "Summary"
 
-#: app/models/release.rb:16
+#: app/models/release.rb:18
 msgid "PREPARING"
 msgstr "Preparing"
 
-#: app/models/release.rb:17 app/models/project.rb:6
+#: app/models/release.rb:19 app/models/project.rb:6
 msgid "RELEASED"
 msgstr "Released"
 
@@ -1137,20 +1137,20 @@ msgstr "Release"
 msgid "Downloads"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:181
+#: app/controllers/releases_controller.rb:183
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:186
+#: app/controllers/releases_controller.rb:188
 #, fuzzy
 msgid "Project id not found!"
 msgstr "Icon"
 
-#: app/controllers/releases_controller.rb:191
+#: app/controllers/releases_controller.rb:193
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:198
+#: app/controllers/releases_controller.rb:200
 msgid "Your files have been added to Release!"
 msgstr ""
 
@@ -1343,15 +1343,14 @@ msgid "How to Access"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:81
-#: app/views/partials/_project_menu.rhtml:82
 msgid "release_Releases"
 msgstr "Release"
 
-#: app/views/partials/_project_menu.rhtml:84
+#: app/views/partials/_project_menu.rhtml:83
 msgid "release_New"
 msgstr "New Release"
 
-#: app/views/partials/_project_menu.rhtml:89
+#: app/views/partials/_project_menu.rhtml:88
 msgid "project_Role Control"
 msgstr "Role Control"
 
@@ -1440,9 +1439,8 @@ msgid "menu_Personal Homepage"
 msgstr "Personal Homepage"
 
 #: app/views/partials/_top_menu_data.rhtml:28
-#, fuzzy
-msgid "menu_Preference"
-msgstr "Preference"
+msgid "menu_Preferences"
+msgstr "Preferences"
 
 #: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_My Projects"
@@ -1553,7 +1551,7 @@ msgstr ""
 msgid "Update"
 msgstr "Summary"
 
-#: app/views/releases/new.rhtml:23
+#: app/views/releases/new.rhtml:19
 #, fuzzy
 msgid "Create"
 msgstr "Creator"
