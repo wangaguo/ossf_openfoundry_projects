@@ -243,7 +243,8 @@ module ApplicationHelper
   end
   
   def required_icon
-    '<em class="required"><img src="/images/icon/star.gif"></em>'
+    t = _("required_icon")
+    %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
   end
 
   def tz_date(time_at)
