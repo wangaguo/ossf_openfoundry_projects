@@ -5,7 +5,6 @@ class ImagesController < ApplicationController
     :reload_code_image, ]
   
   session :off, :only => [:cached_image, :code_image, :show, :reload_code_image]
-
   def cached_image
     cache_name = params[:id]
     need_redirect = false
@@ -162,6 +161,12 @@ class ImagesController < ApplicationController
       allow = fpermit?("project_info", params[:id])
     end
    
+    if params[:images]['image'].size > Image::IMAGE_UPLOAD_SIZE_LIMIT
+      flash[:message] = _("Image size is too big( > #{Image::IMAGE_UPLOAD_SIZE_LIMIT} )")
+      redirect_to params[:back_to]
+      return
+    end
+
     if allow
       begin
         Image.transaction do
