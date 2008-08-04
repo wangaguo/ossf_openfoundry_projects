@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-03 18:17-0000\n"
+"POT-Creation-Date: 2008-08-04 08:53-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,6 +98,11 @@ msgstr ""
 msgid "Category|Updated at"
 msgstr ""
 
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Updated by"
+msgstr "Summary"
+
 #: app/models/user.rb:-
 msgid "User|Icon"
 msgstr "Icon"
@@ -114,6 +119,22 @@ msgstr ""
 #: app/views/user/_email.rhtml:4 app/views/user/_email.rhtml:12
 msgid "User|Email"
 msgstr "Email Address"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:10
+msgid "User|Realname"
+msgstr "Realname"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:12
+msgid "User|Homepage"
+msgstr "Homepage"
+
+#: app/models/user.rb:- app/views/user/_edit.rhtml:14
+msgid "User|Bio"
+msgstr "About Me"
+
+#: app/models/user.rb:-
+msgid "User|Identity url"
+msgstr ""
 
 #: app/models/user.rb:-
 msgid "User|Salt"
@@ -162,22 +183,6 @@ msgstr "Language"
 #: app/models/user.rb:-
 msgid "User|Timezone"
 msgstr "Time Zone"
-
-#: app/models/user.rb:-
-msgid "User|Identity url"
-msgstr ""
-
-#: app/models/user.rb:- app/views/user/_edit.rhtml:14
-msgid "User|Bio"
-msgstr "About Me"
-
-#: app/models/user.rb:- app/views/user/_edit.rhtml:12
-msgid "User|Homepage"
-msgstr "Homepage"
-
-#: app/models/user.rb:- app/views/user/_edit.rhtml:10
-msgid "User|Realname"
-msgstr "Realname"
 
 #: app/models/user.rb:106
 msgid "Old Password Incorrect"
@@ -231,6 +236,19 @@ msgstr ""
 msgid "Release|Release counter"
 msgstr ""
 
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Updated by"
+msgstr "Summary"
+
+#: app/models/release.rb:16
+msgid "PREPARING"
+msgstr "Preparing"
+
+#: app/models/release.rb:17 app/models/project.rb:6
+msgid "RELEASED"
+msgstr "Released"
+
 #: app/models/role.rb:-
 msgid "role"
 msgstr ""
@@ -258,6 +276,11 @@ msgstr ""
 #: app/models/role.rb:-
 msgid "Role|Creator"
 msgstr ""
+
+#: app/models/role.rb:-
+#, fuzzy
+msgid "Role|Updated by"
+msgstr "Summary"
 
 #: app/models/image.rb:-
 msgid "image"
@@ -306,6 +329,11 @@ msgstr ""
 #: app/models/function.rb:-
 msgid "Function|Updated at"
 msgstr ""
+
+#: app/models/function.rb:-
+#, fuzzy
+msgid "Function|Updated by"
+msgstr "Summary"
 
 #: app/models/session.rb:-
 msgid "session"
@@ -430,6 +458,11 @@ msgstr "Created at"
 msgid "Project|Updated at"
 msgstr "Summary"
 
+#: app/models/project.rb:-
+#, fuzzy
+msgid "Project|Updated by"
+msgstr "Summary"
+
 #: app/models/project.rb:6
 msgid "IDEA"
 msgstr "Idea"
@@ -445,10 +478,6 @@ msgstr "Alpha"
 #: app/models/project.rb:6
 msgid "BETA"
 msgstr "Beta"
-
-#: app/models/project.rb:6
-msgid "RELEASED"
-msgstr "Released"
 
 #: app/models/project.rb:6
 msgid "MATURE"
@@ -597,6 +626,11 @@ msgstr ""
 #: app/models/fileentity.rb:-
 msgid "Fileentity|Updated at"
 msgstr ""
+
+#: app/models/fileentity.rb:-
+#, fuzzy
+msgid "Fileentity|Updated by"
+msgstr "Summary"
 
 #: app/models/fileentity.rb:-
 msgid "Fileentity|Creator"
@@ -961,21 +995,21 @@ msgstr ""
 msgid "project_News"
 msgstr "News"
 
-#: app/controllers/news_controller.rb:89
+#: app/controllers/news_controller.rb:91
 #: app/controllers/citations_controller.rb:66
 #: app/controllers/jobs_controller.rb:63
 #: app/controllers/references_controller.rb:59
 msgid "Add Successful"
 msgstr ""
 
-#: app/controllers/news_controller.rb:111
+#: app/controllers/news_controller.rb:115
 #: app/controllers/citations_controller.rb:87
 #: app/controllers/jobs_controller.rb:81
 #: app/controllers/references_controller.rb:74
 msgid "Edit Successful"
 msgstr ""
 
-#: app/controllers/news_controller.rb:120
+#: app/controllers/news_controller.rb:124
 #: app/controllers/citations_controller.rb:96
 #: app/controllers/jobs_controller.rb:90
 #: app/controllers/references_controller.rb:83
@@ -1103,20 +1137,20 @@ msgstr "Release"
 msgid "Downloads"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:180
+#: app/controllers/releases_controller.rb:181
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:185
+#: app/controllers/releases_controller.rb:186
 #, fuzzy
 msgid "Project id not found!"
 msgstr "Icon"
 
-#: app/controllers/releases_controller.rb:190
+#: app/controllers/releases_controller.rb:191
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:197
+#: app/controllers/releases_controller.rb:198
 msgid "Your files have been added to Release!"
 msgstr ""
 
@@ -1309,10 +1343,15 @@ msgid "How to Access"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:81
+#: app/views/partials/_project_menu.rhtml:82
 msgid "release_Releases"
 msgstr "Release"
 
 #: app/views/partials/_project_menu.rhtml:84
+msgid "release_New"
+msgstr "New Release"
+
+#: app/views/partials/_project_menu.rhtml:89
 msgid "project_Role Control"
 msgstr "Role Control"
 
@@ -1508,6 +1547,16 @@ msgstr ""
 #: app/views/layouts/admin.rhtml:6
 msgid "OpenFoundry"
 msgstr ""
+
+#: app/views/releases/edit.rhtml:19
+#, fuzzy
+msgid "Update"
+msgstr "Summary"
+
+#: app/views/releases/new.rhtml:23
+#, fuzzy
+msgid "Create"
+msgstr "Creator"
 
 #: app/views/releases/_most_popular.rhtml:1
 msgid "Top Download"
