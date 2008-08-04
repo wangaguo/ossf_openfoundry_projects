@@ -241,11 +241,11 @@ msgstr "更新時間"
 
 #: app/models/release.rb:18
 msgid "PREPARING"
-msgstr "準備中 (Preparing)"
+msgstr "準備中(Preparing)"
 
 #: app/models/release.rb:19 app/models/project.rb:6
 msgid "RELEASED"
-msgstr "釋出 (Released)"
+msgstr "釋出(Released)"
 
 #: app/models/role.rb:-
 msgid "role"
@@ -464,23 +464,23 @@ msgstr "概念 (Idea)"
 
 #: app/models/project.rb:6
 msgid "PREALPHA"
-msgstr "雛形 (Pre-Alpha)"
+msgstr "雛形(Pre-Alpha)"
 
 #: app/models/project.rb:6
 msgid "ALPHA"
-msgstr "測試 (Alpha)"
+msgstr "測試(Alpha)"
 
 #: app/models/project.rb:6
 msgid "BETA"
-msgstr "試用 (Beta)"
+msgstr "試用(Beta)"
 
 #: app/models/project.rb:6
 msgid "MATURE"
-msgstr "成熟 (Mature)"
+msgstr "成熟(Mature)"
 
 #: app/models/project.rb:6
 msgid "STANDARD"
-msgstr "標準 (Standard)"
+msgstr "標準(Standard)"
 
 #: app/models/project.rb:53 app/models/project.rb:94
 msgid "Public Domain"
