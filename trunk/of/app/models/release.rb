@@ -1,6 +1,8 @@
 class Release < ActiveRecord::Base
   belongs_to :project
   has_many :fileentity
+  
+  validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,16}$/
 
   #add fulltext indexed SEARCH
   acts_as_ferret({ :fields => { 
@@ -13,6 +15,8 @@ class Release < ActiveRecord::Base
                  :single_index => true,
                  :default_field => [:name, :description]
                  },{ :analyzer => GENERIC_ANALYZER })
+  N_('PREPARING')
+  N_('RELEASED')
   STATUS = { :PREPARING => 0, :RELEASED => 1}.freeze
   
   def should_be_indexed?
