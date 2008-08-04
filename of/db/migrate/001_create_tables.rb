@@ -7,6 +7,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "description"
       t.datetime "created_at",  :null => false
       t.datetime "updated_at"
+      t.integer  "updated_by"
     end
 
     create_table "fileentities", :force => true do |t|
@@ -19,6 +20,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "meta"
       t.datetime "created_at"
       t.datetime "updated_at"
+      t.integer  "updated_by"
       t.integer  "creator"
       t.integer  "file_counter", :default => 0,  :null => false
     end
@@ -31,6 +33,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "description", :limit => 100
       t.datetime "created_at"
       t.datetime "updated_at"
+      t.integer  "updated_by"
     end
 
     create_table "images", :force => true do |t|
@@ -49,6 +52,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator",                     :default => 0,  :null => false
       t.datetime "created_at",                                  :null => false
       t.datetime "updated_at",                                  :null => false
+      t.integer  "updated_by"
     end
     
     create_table "jobs", :force => true do |t|
@@ -61,6 +65,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator",                     :default => 0,  :null => false
       t.datetime "created_at",                                  :null => false
       t.datetime "updated_at",                                  :null => false
+      t.integer  "updated_by"
     end
     
     create_table "citations", :force => true do |t|
@@ -75,6 +80,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator",                          :default => 0,  :null => false
       t.datetime "created_at",                                       :null => false
       t.datetime "updated_at",                                       :null => false
+      t.integer  "updated_by"
     end
     
     create_table "references", :force => true do |t|
@@ -84,6 +90,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator",                     :default => 0,  :null => false
       t.datetime "created_at",                                  :null => false
       t.datetime "updated_at",                                  :null => false
+      t.integer  "updated_by"
     end
     
     create_table "events", :force => true do |t|
@@ -96,6 +103,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator",                    :default => 0,  :null => false
       t.datetime "created_at",                                 :null => false
       t.datetime "updated_at",                                 :null => false
+      t.integer  "updated_by"
     end
 
     create_table "downloaders", :force => true do |t|
@@ -113,6 +121,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator",                    :default => 0,  :null => false
       t.datetime "created_at",                                 :null => false
       t.datetime "updated_at",                                 :null => false
+      t.integer  "updated_by"
     end
 
     # see also: app/models/project.rb
@@ -141,6 +150,7 @@ class CreateTables < ActiveRecord::Migration
       t.integer "project_counter",     :default => 0, :null => false
       t.datetime "created_at",                        :null => false
       t.datetime "updated_at",                        :null => false
+      t.integer  "updated_by"
     end
 
     create_table "releases", :force => true do |t|
@@ -155,6 +165,7 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at"
       t.integer  "creator"
       t.integer  "release_counter", :default => 0,  :null => false
+      t.integer  "updated_by"
     end
 
     create_table "roles", :force => true do |t|
@@ -164,6 +175,7 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
       t.integer  "creator"
+      t.integer  "updated_by"
     end
 
     create_table "roles_functions", :id => false, :force => true do |t|
