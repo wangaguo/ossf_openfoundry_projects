@@ -19,8 +19,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :projects,
                 :collection => { :applied => :get, :tableizer => :get },
                 :member => { :sympa => :get, :viewvc => :get, :role_users => :any, :roles_edit => :any, :role_update => :any, :role_new => :any, :role_create => :any, :vcs_access => :any }
-  map.resources :users, 
-                :controller => :user                
+  #map.resources :users, 
+  #              :controller => :user                
   map.resources :news,
                 :singular => 'news1',
                 :path_prefix => '/projects/:project_id'
@@ -71,6 +71,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
 
+
+  #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 
+  map.connect '~:user', :controller => 'user', :action => 'home'
 
   #for download area~
   map.download 'download_path/:project_name/:release_version/:file_name',
