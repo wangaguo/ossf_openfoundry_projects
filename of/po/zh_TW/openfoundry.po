@@ -460,7 +460,7 @@ msgstr "上次修改時間"
 
 #: app/models/project.rb:6
 msgid "IDEA"
-msgstr "概念 (Idea)"
+msgstr "概念(Idea)"
 
 #: app/models/project.rb:6
 msgid "PREALPHA"
@@ -1695,69 +1695,56 @@ msgid "Others"
 msgstr "其他"
 
 #: app/views/projects/_form.rhtml:70
-#, fuzzy
 msgid "Project|Name|Help"
-msgstr "專案代號"
+msgstr "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字. 建立後不能修改."
 
 #: app/views/projects/_form.rhtml:72
-#, fuzzy
 msgid "Project|Summary|Help"
-msgstr "專案摘要"
+msgstr "專案的簡短介紹文字, 長度為 3 至 255 個字."
 
 #: app/views/projects/_form.rhtml:75
-#, fuzzy
 msgid "Project|Description|Help"
-msgstr "專案描述"
+msgstr "較長的專案描述文字, 長度為 3 至 4000 個字."
 
 #: app/views/projects/_form.rhtml:77
-#, fuzzy
 msgid "Project|Contactinfo|Help"
-msgstr "連絡方式"
+msgstr "與本專案開發者的連絡方式, 最長至 255 個字."
 
 #: app/views/projects/_form.rhtml:79
-#, fuzzy
 msgid "Project|Maturity|Help"
 msgstr "專案成熟度"
 
 #: app/views/projects/_form.rhtml:81
-#, fuzzy
 msgid "Project|License|Help"
-msgstr "程式碼授權"
+msgstr "程式碼授權方式, 可複選."
 
 #: app/views/projects/_form.rhtml:83
-#, fuzzy
 msgid "Project|Contentlicense|Help"
-msgstr "圖文授權"
+msgstr "圖文授權方式, 可複選."
 
 #: app/views/projects/_form.rhtml:85
-#, fuzzy
 msgid "Project|Licensingdescription|Help"
-msgstr "專案描述"
+msgstr "可在此欄位更詳盡地描述授權方式, 最長 1000 個字."
 
 #: app/views/projects/_form.rhtml:87
-#, fuzzy
 msgid "Project|Platform|Help"
-msgstr "作業環境"
+msgstr "作業環境, 可複選."
 
 #: app/views/projects/_form.rhtml:89
-#, fuzzy
 msgid "Project|Programminglanguage|Help"
 msgstr "程式語言"
 
 #: app/views/projects/_form.rhtml:93
-#, fuzzy
 msgid "Project|Redirecturl|Help"
-msgstr "首頁轉址"
+msgstr "可將 http://[projectname].openfoundry.org 導向指定的網址"
 
 #: app/views/projects/_form.rhtml:95
-#, fuzzy
 msgid "Project|Vcs|Help"
 msgstr "版本控制系統"
 
 #: app/views/projects/_form.rhtml:97
-#, fuzzy
 msgid "Project|Vcsdescription|Help"
-msgstr "專案描述"
+msgstr "提供版本控制系統的額外資訊, 特別當專案使用其他站台的版本控制系統時, 最好能提示使用者."
 
 #: app/views/projects/role_users.rhtml:3
 msgid "Role|Set as "
