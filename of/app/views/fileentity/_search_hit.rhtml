@@ -1,10 +1,8 @@
 <!--search hit-->
-<td>
-  <%= h record.name%>
+<td colspan=2>
+  <%= link_to h(record.description), download1_path(:project_id => record.release.project_id) + "##{record.release.version}" %>
 </td>
 <td>
-</td>
-<td>
-  <%= h record.description %>
+  <%= link_to h(record.release.project.summary), project_path(:id => record.release.project_id) %>
 </td>
 <!--search hit end-->
