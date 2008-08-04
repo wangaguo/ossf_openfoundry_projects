@@ -114,8 +114,13 @@ class UserController < ApplicationController
 
   def username_availability_check
     username = params['username']
+    unless username =~ User::LOGIN_REGEX
+      render :layout => false, :text => _("Username '%{username}' is invalid") % {:username => username }
+      return
+    end
     if User.exists?([ "login = ? and #{User.verified_users}", username ])
-      render :layout => false, :text => _("Username '%{username}' has already registed") % {:username => username }
+      render :layout => false, :text => 
+      ( _("Username '%{username}' has already registed") % {:username => username } )
     else
       render :layout => false, :text => _("Username '%{username}' is ready for use") % {:username => username }
     end
@@ -447,12 +452,14 @@ class UserController < ApplicationController
         flash[:error] = result.message
       else 
         user = User.find_or_create_by_identity_url(identity_url)
-        assign_registration_attributes!(user, registration)
+        if user.new_record?
+          assign_registration_attributes!(user, registration)
 
-        unless user.save
-          flash[:message] = _("Your OpenID profile registration failed") +': '+
-            user.errors.full_messages.to_sentence
-          user = nil
+          unless user.save
+            flash[:message] = _("Your OpenID profile registration failed") +': '+
+              user.errors.full_messages.to_sentence
+            user = nil
+          end
         end
       end
       end
