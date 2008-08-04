@@ -379,7 +379,7 @@ msgstr "Icon"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:23
 msgid "Project|Name"
-msgstr "Project name"
+msgstr "Project Name"
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:24
 msgid "Project|Summary"
