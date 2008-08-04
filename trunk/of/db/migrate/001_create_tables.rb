@@ -97,7 +97,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "subject",    :limit => 255,  :default => "", :null => false
       t.datetime "starts",                                     :null => true
       t.datetime "due",                                        :null => true
-      t.integer  "Owner",                      :default => 0,  :null => false
+      t.integer  "owner",                      :default => 0,  :null => false
       t.string   "version",    :limit => 255,  :default => "", :null => false
       t.integer  "project_id",                 :default => 0,  :null => false
       t.integer  "creator",                    :default => 0,  :null => false
@@ -117,6 +117,7 @@ class CreateTables < ActiveRecord::Migration
       t.string   "age",        :limit => 255,  :default => "", :null => false
       t.string   "interests",  :limit => 255,  :default => "", :null => false
       t.string   "skills",     :limit => 255,  :default => "", :null => false
+      t.string   "file",       :limit => 155,  :default => "", :null => false
       t.integer  "project_id",                 :default => 0,  :null => false
       t.integer  "creator",                    :default => 0,  :null => false
       t.datetime "created_at",                                 :null => false
