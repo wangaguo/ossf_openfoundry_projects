@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-04 08:53-0000\n"
+"POT-Creation-Date: 2008-08-04 11:39-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -239,11 +239,11 @@ msgstr "下載次數"
 msgid "Release|Updated by"
 msgstr "更新時間"
 
-#: app/models/release.rb:16
+#: app/models/release.rb:18
 msgid "PREPARING"
 msgstr "準備中 (Preparing)"
 
-#: app/models/release.rb:17 app/models/project.rb:6
+#: app/models/release.rb:19 app/models/project.rb:6
 msgid "RELEASED"
 msgstr "釋出 (Released)"
 
@@ -1143,20 +1143,20 @@ msgstr "規畫釋出"
 msgid "Downloads"
 msgstr "下載pdf格式"
 
-#: app/controllers/releases_controller.rb:181
+#: app/controllers/releases_controller.rb:183
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:186
+#: app/controllers/releases_controller.rb:188
 #, fuzzy
 msgid "Project id not found!"
 msgstr "註冊原因"
 
-#: app/controllers/releases_controller.rb:191
+#: app/controllers/releases_controller.rb:193
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:198
+#: app/controllers/releases_controller.rb:200
 msgid "Your files have been added to Release!"
 msgstr ""
 
@@ -1347,15 +1347,14 @@ msgid "How to Access"
 msgstr "存取方式"
 
 #: app/views/partials/_project_menu.rhtml:81
-#: app/views/partials/_project_menu.rhtml:82
 msgid "release_Releases"
 msgstr "規畫釋出"
 
-#: app/views/partials/_project_menu.rhtml:84
+#: app/views/partials/_project_menu.rhtml:83
 msgid "release_New"
 msgstr "新增版本"
 
-#: app/views/partials/_project_menu.rhtml:89
+#: app/views/partials/_project_menu.rhtml:88
 msgid "project_Role Control"
 msgstr "成員管理"
 
@@ -1443,8 +1442,7 @@ msgid "menu_Personal Homepage"
 msgstr "我的首頁"
 
 #: app/views/partials/_top_menu_data.rhtml:28
-#, fuzzy
-msgid "menu_Preference"
+msgid "menu_Preferences"
 msgstr "偏好設定"
 
 #: app/views/partials/_top_menu_data.rhtml:29
@@ -1556,7 +1554,7 @@ msgstr "自由軟體鑄造場"
 msgid "Update"
 msgstr "更新"
 
-#: app/views/releases/new.rhtml:23
+#: app/views/releases/new.rhtml:19
 msgid "Create"
 msgstr "建立"
 
