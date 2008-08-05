@@ -83,6 +83,8 @@ class NewsController < ApplicationController
       News.record_timestamps = false
       @news.updated_at = local_to_utc(params[:news][:updated_at])
       @news.created_at = DateTime.now 
+    else
+      @news.updated_at = DateTime.now
     end
     
     if @news.save
@@ -94,7 +96,7 @@ class NewsController < ApplicationController
   end
   
   def edit
-    @news.updated_at = utc_to_local(@news.updated_at).strftime("%Y-%m-%d %H:%M")
+    @news.updated_at = utc_to_local(@news.updated_at).strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
   end
   
   def update
@@ -105,6 +107,8 @@ class NewsController < ApplicationController
       @news.tags = params[:news][:tags]
       News.record_timestamps = false
       @news.updated_at = local_to_utc(params[:news][:updated_at])
+    else
+      @news.updated_at = DateTime.now
     end
 
     if @news.save
