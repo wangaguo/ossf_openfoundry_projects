@@ -7,21 +7,21 @@ class UserController < ApplicationController
   before_filter :login_required, :except => [:login, :home, :signup, :forgot_password, :welcome, :username_availability_check]
 
   def set_user_id
-    if params['user']
+    if params['user_alias']
       id = nil
-      case params['user']
+      case params['user_alias']
       when /^\d+$/ 
-        id = params['user'] if User.exists?(params['user'])
+        id = params['user_alias'] if User.exists?(params['user_alias'])
       when User::LOGIN_REGEX 
         obj = User.find(:first, :select => :id, 
-                       :conditions => ["login = ? and #{User.verified_users}", params['user'] ])
+                       :conditions => ["login = ? and #{User.verified_users}", params['user_alias'] ])
         id = obj.id if obj
       end
       if id
         redirect_to "/user/home/#{id}" 
       else
         flash[:warning] = 
-          _("User %{user} doesn't exist or be activated") % {:user => params['user']}
+          _("User %{user} doesn't exist or be activated") % {:user => params['user_alias']}
         redirect_to "/"
       end
       return
