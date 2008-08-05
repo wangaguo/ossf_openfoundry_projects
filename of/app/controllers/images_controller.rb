@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
   before_filter :login_required, :except => [:cached_image, :code_image, :show,
     :reload_code_image, ]
   
-  session :off, :only => [:cached_image, :code_image, :show, :reload_code_image]
+  session :off, :only => [:cached_image, :show, :reload_code_image]
   def cached_image
     cache_name = params[:id]
     need_redirect = false
@@ -49,7 +49,9 @@ class ImagesController < ApplicationController
     meta = Image.find(id).meta
     unless File.exists?(image_cache_file)
       image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
-      `convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}`
+      unless `convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}` == 0
+        logger.info("image convert error. cmd: 'convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}'")
+      end
 
     end
     send_file(image_cache_file, :type => meta, :disposition => "inline") 
