@@ -78,7 +78,11 @@ Event.observe(window, 'load', project_leftmenu_init);
       <li><%= link_to _('Mailing List'), sympa_project_path(:id => project.id) %></li>
     <% end -%>
     <% if functions.include?('release') -%>
-      <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id) %></li>
+      <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id), :class => 'subimg' %>
+        <ul>
+          <li><%= link_to _('release_New'), new_release_url(:project_id => project.id) %></li>
+        </ul>
+      </li>
     <% end -%>
     <% if functions.include?('project_member') || functions.include?('role_edit')  -%>
       <li><%= link_to _('project_Role Control'), :controller => :projects, :action => "roles_edit", :id =>@project%></li>

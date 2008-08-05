@@ -10,7 +10,7 @@
       <td><h2><%= link_to h(file.path), download_url(:project_name => @project_name, 
 					       :release_version => release.version,
 					       :file_name => file.path ) %></h2>
-      <%= "#{number_to_human_size(file.size)}, " + _("TODO:下載次數 ") + file.file_counter.to_s %><br>
+      <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits ") + file.file_counter.to_s %><br>
         <%= h(file.description) %>
       </td>
     </tr>
