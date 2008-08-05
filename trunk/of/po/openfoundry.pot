@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-04 12:32-0000\n"
+"POT-Creation-Date: 2008-08-05 03:11-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Issue Tracker"
 msgstr ""
 
-#: app/helpers/application_helper.rb:246
+#: app/helpers/application_helper.rb:246 app/helpers/application_helper.rb:279
 msgid "required_icon"
 msgstr ""
 
@@ -1144,11 +1144,15 @@ msgstr ""
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:232
+#: app/controllers/projects_controller.rb:154
+msgid "Invalid User!"
+msgstr ""
+
+#: app/controllers/projects_controller.rb:236
 msgid "Role was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:283
+#: app/controllers/projects_controller.rb:287
 msgid "Version Control System: How to Access"
 msgstr ""
 
@@ -1169,8 +1173,8 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:51 app/views/news/list.rhtml:26
-#: app/views/news/list.rhtml:28 app/views/news/show.rhtml:15
+#: app/views/projects/show.rhtml:51 app/views/news/list.rhtml:34
+#: app/views/news/list.rhtml:36 app/views/news/show.rhtml:15
 #: app/views/jobs/list.rhtml:21 app/views/jobs/show.rhtml:14
 #: app/views/citations/list.rhtml:20 app/views/citations/show.rhtml:18
 #: app/views/references/list.rhtml:19 app/views/references/show.rhtml:10
@@ -1541,7 +1545,7 @@ msgid "Latest Releases"
 msgstr ""
 
 #: app/views/releases/download.rhtml:13
-msgid "TODO:下載次數 "
+msgid "Downloads Hits "
 msgstr ""
 
 #: app/views/images/_edit.rhtml:8
@@ -1768,46 +1772,47 @@ msgstr ""
 msgid "Last Updated"
 msgstr ""
 
-#: app/views/news/list.rhtml:16 app/views/jobs/list.rhtml:12
+#: app/views/news/list.rhtml:19 app/views/news/list.rhtml:21
+#: app/views/jobs/list.rhtml:12
 msgid "Read More"
 msgstr ""
 
-#: app/views/news/list.rhtml:19 app/views/news/_form.rhtml:24
+#: app/views/news/list.rhtml:27 app/views/news/_form.rhtml:24
 #: app/views/jobs/list.rhtml:15 app/views/jobs/_form.rhtml:21
 #: app/views/citations/list.rhtml:14 app/views/citations/_form.rhtml:29
 #: app/views/references/list.rhtml:13 app/views/references/_form.rhtml:9
 msgid "Status"
 msgstr ""
 
-#: app/views/news/list.rhtml:21 app/views/news/_form.rhtml:25
+#: app/views/news/list.rhtml:29 app/views/news/_form.rhtml:25
 #: app/views/jobs/list.rhtml:17 app/views/jobs/_form.rhtml:23
 #: app/views/citations/list.rhtml:16 app/views/citations/_form.rhtml:31
 #: app/views/references/list.rhtml:15 app/views/references/_form.rhtml:11
 msgid "Enabled"
 msgstr ""
 
-#: app/views/news/list.rhtml:23 app/views/news/_form.rhtml:26
+#: app/views/news/list.rhtml:31 app/views/news/_form.rhtml:26
 #: app/views/jobs/list.rhtml:19 app/views/jobs/_form.rhtml:24
 #: app/views/citations/list.rhtml:18 app/views/citations/_form.rhtml:32
 #: app/views/references/list.rhtml:17 app/views/references/_form.rhtml:12
 msgid "Disabled"
 msgstr ""
 
-#: app/views/news/list.rhtml:30 app/views/news/show.rhtml:16
+#: app/views/news/list.rhtml:38 app/views/news/show.rhtml:16
 #: app/views/jobs/list.rhtml:22 app/views/jobs/show.rhtml:15
 #: app/views/citations/list.rhtml:21 app/views/citations/show.rhtml:19
 #: app/views/references/list.rhtml:20 app/views/references/show.rhtml:11
 msgid "Delete"
 msgstr ""
 
-#: app/views/news/list.rhtml:30 app/views/news/show.rhtml:16
+#: app/views/news/list.rhtml:38 app/views/news/show.rhtml:16
 #: app/views/jobs/list.rhtml:22 app/views/jobs/show.rhtml:15
 #: app/views/citations/list.rhtml:21 app/views/citations/show.rhtml:19
 #: app/views/references/list.rhtml:20 app/views/references/show.rhtml:11
-msgid "todo確定要刪除嗎?"
+msgid "Are you sure?"
 msgstr ""
 
-#: app/views/news/list.rhtml:41 app/views/news/new.rhtml:1
+#: app/views/news/list.rhtml:49 app/views/news/new.rhtml:1
 msgid "Add News"
 msgstr ""
 
@@ -1816,10 +1821,12 @@ msgid "Tags"
 msgstr ""
 
 #: app/views/news/show.rhtml:20 app/views/news/edit.rhtml:9
-#: app/views/jobs/show.rhtml:19 app/views/jobs/edit.rhtml:9
+#: app/views/news/new.rhtml:8 app/views/jobs/show.rhtml:19
+#: app/views/jobs/edit.rhtml:9 app/views/jobs/new.rhtml:8
 #: app/views/citations/show.rhtml:23 app/views/citations/edit.rhtml:9
-#: app/views/references/show.rhtml:15 app/views/references/edit.rhtml:9
-msgid "todo回列表"
+#: app/views/citations/new.rhtml:8 app/views/references/show.rhtml:15
+#: app/views/references/edit.rhtml:9 app/views/references/new.rhtml:8
+msgid "List"
 msgstr ""
 
 #: app/views/news/_form.rhtml:13 app/views/jobs/_form.rhtml:9
@@ -1835,12 +1842,7 @@ msgstr ""
 
 #: app/views/news/edit.rhtml:8 app/views/jobs/edit.rhtml:8
 #: app/views/citations/edit.rhtml:8 app/views/references/edit.rhtml:8
-msgid "todo詳全文"
-msgstr ""
-
-#: app/views/news/new.rhtml:8 app/views/jobs/new.rhtml:8
-#: app/views/citations/new.rhtml:8 app/views/references/new.rhtml:8
-msgid "todo列表"
+msgid "View"
 msgstr ""
 
 #: app/views/site_admin/site_admin/index.rhtml:4
@@ -2026,10 +2028,6 @@ msgstr ""
 
 #: app/views/user/login.rhtml:34
 msgid "Forgot my password"
-msgstr ""
-
-#: app/views/user/login.rhtml:44 app/views/user/login.rhtml:56
-msgid "OpenID Login"
 msgstr ""
 
 #: app/views/user/_privacy.rhtml:2
