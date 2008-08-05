@@ -1574,7 +1574,7 @@ msgstr "下載排行"
 #: app/views/projects/_new_projects.rhtml:9 app/views/news/_home_news.rhtml:15
 #: app/views/news/_listn.rhtml:8
 msgid "More..."
-msgstr "閱讀完整文章"
+msgstr "更多..."
 
 #: app/views/releases/_top_download_list.rhtml:2
 #, fuzzy
