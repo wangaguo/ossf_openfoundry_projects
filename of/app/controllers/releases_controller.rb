@@ -73,11 +73,13 @@ class ReleasesController < ApplicationController
     if request.post?
       r=Release.new(:attributes => params[:release] )
       r.project_id = params[:project_id]
-      if r.save!
+      if r.save
         flash.now[:message] = 'Create New Release Successfully!'
         redirect_to(url_for(:project_id => params[:project_id], :action => :index)) 
       else
-        flash.now[:message] = 'Faild to Create New Release!'
+        #flash[:message] = 'Faild to Create New Release!'
+        flash[:warning] = 'Invalid version format!'
+        redirect_to(new_release_url(:project_id => params[:project_id], :action => :new)) 
       end
     end
   end
@@ -85,6 +87,7 @@ class ReleasesController < ApplicationController
   def new
     if request.get?
       @release = Release.new
+      @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
     end
   end
 
