@@ -381,4 +381,19 @@ EOEO
   def self.new_projects
     Project.find(:all, :conditions => Project.in_used_projects(), :order => "created_at desc", :limit => 5)
   end
+
+  def self.assign_default_role
+    %w(Admin Member).each do |name|
+      Project.find(:all, :conditions => Project.in_used_projects).map do |p|
+        r=nil
+        unless r = Role.find_by_name(name, :conditions => "authorizable_id = #{p.id}")
+          r = Role.create({:name => name, 
+                          :authorizable_id => p.id, 
+                          :authorizable_type => 'Project'})
+        end
+        Role.set_default_privileges_for r
+        r.id
+      end
+    end
+  end
 end
