@@ -12,8 +12,8 @@
 <% if fpermit?("job", params["project_id"]) -%>
 <p>
   <%= link_to _('Edit'), :action => 'edit', :id => @data_item %>
-  <%= link_to _('Delete'), { :action => 'destroy', :id => @data_item }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
+  <%= link_to _('Delete'), { :action => 'destroy', :id => @data_item }, :confirm => _('Are you sure?'), :method => :delete %>
 </p>
 <% end %>
 
-<%= link_to _('todo回列表'), :action => 'index', :project_id => params[:project_id] %>
+<%= link_to _('List'), :action => 'index', :project_id => params[:project_id] %>

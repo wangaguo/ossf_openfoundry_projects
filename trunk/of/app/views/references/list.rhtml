@@ -17,7 +17,7 @@
 	      <%=_('Disabled')%>
       <% end %>
       <%= link_to _('Edit'), :action => 'edit', :id => data_item %>
-      <%= link_to _('Delete'), { :action => 'destroy', :id => data_item }, :confirm => _('todo確定要刪除嗎?'), :method => :delete %>
+      <%= link_to _('Delete'), { :action => 'destroy', :id => data_item }, :confirm => _('Are you sure?'), :method => :delete %>
     </p>
     <% end %>
   </li>
