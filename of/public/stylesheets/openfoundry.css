@@ -66,6 +66,7 @@ body {
 
 /* For HomePage */
 
+.more { margin-left:8px; font-weight:bold; }
 /*
 #Login { background:url(/images/of/login_bg.gif) repeat-x; padding:5px; width:215px; }
 #Login h3 { background-image:url(/images/of/login_01.gif); height:25px; padding:12px 0px 0px 35px; margin:-5px; color:white;  }
