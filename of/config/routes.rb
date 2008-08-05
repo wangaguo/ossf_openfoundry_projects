@@ -73,7 +73,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
   #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 
-  map.connect '~:user', :controller => 'user', :action => 'home'
+  map.connect '~:user_alias', :controller => 'user', :action => 'home'
 
   #for download area~
   map.download 'download_path/:project_name/:release_version/:file_name',
