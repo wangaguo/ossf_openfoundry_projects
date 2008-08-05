@@ -120,8 +120,8 @@ class OpenfoundryController < ApplicationController
       sql= "select distinct P.name, U.id from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
-            (R.name='admin' or (RF.role_id = R.id and RF.function_id = F.id and 
-               F.name = 'sympa_manage')) and
+            (RF.role_id = R.id and RF.function_id = F.id and 
+               F.name = 'sympa_manage') and
             R.authorizable_id = P.id and 
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
