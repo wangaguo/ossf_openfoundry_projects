@@ -12,7 +12,9 @@ class Role < ActiveRecord::Base
     when 'admin'
       role.functions << Function.find(:all)
     when 'member'
-      role.functions.clear
+      role.functions << Function.find(13) #vcs_commit
+      role.functions << Function.find(9) #kwiki_manage
+      role.functions << Function.find(11) #rt_member
     end
   end
 end
