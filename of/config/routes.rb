@@ -17,8 +17,8 @@ ActionController::Routing::Routes.draw do |map|
   map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
   map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
   map.resources :projects,
-                :collection => { :applied => :get, :tableizer => :get },
-                :member => { :sympa => :get, :viewvc => :get, :role_users => :any, :roles_edit => :any, :role_update => :any, :role_new => :any, :role_create => :any, :vcs_access => :any }
+                :collection => { :applied => :get, :tableizer => :get, :test_action => :any },
+                :member => { :sympa => :get, :viewvc => :get, :role_users => :any, :roles_edit => :any, :role_update => :any, :role_new => :any, :role_create => :any, :vcs_access => :any, :test_action => :any }
   #map.resources :users, 
   #              :controller => :user                
   map.resources :news,
