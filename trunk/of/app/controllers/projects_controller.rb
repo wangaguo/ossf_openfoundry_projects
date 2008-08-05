@@ -147,8 +147,12 @@ class ProjectsController < ApplicationController
 
   def set_role
     project = Project.find params[:id]
+    begin
     user = User.find_by_login params[:user], :conditions => User.verified_users
     project.set_role(params[:role], user)
+      rescue
+      flash[:warning] = _("Invalid User!")
+    end
     redirect_to :action => 'roles_edit', :id => params[:id]
   end
 
