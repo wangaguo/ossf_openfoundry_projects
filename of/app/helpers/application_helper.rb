@@ -275,6 +275,10 @@ module ApplicationHelper
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::TagHelper
 
+    def required_icon
+      t = _("required_icon")
+      %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
+    end
     def help_icon(tooltip)
       '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
     end
@@ -282,7 +286,7 @@ module ApplicationHelper
     def label(method, text = nil, options = {})
       help = options.delete :help
       must = @object.class.columns_hash[method.to_s]
-      must = (must and not must.null)||options[:must] ? '<em class="required"><img src="/images/icon/star.gif" /></em>' : nil
+      must = (must and not must.null)||options[:must] ?  required_icon : nil
       
       "<tr><th>#{super(method, text, options )} #{must} #{help_icon(help) if help}</th>"
     end
