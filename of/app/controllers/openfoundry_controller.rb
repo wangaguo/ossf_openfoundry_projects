@@ -235,9 +235,9 @@ class OpenfoundryController < ApplicationController
     #render :text => params[:file_name]
     download_project = Project.find_by_name(params[:project_name], :conditions => "#{Project.in_used_projects}")
     if download_project
-      download_release = Release.find(:first, :conditions => "project_id = '#{download_project.id}' AND version = '#{params[:release_version]}' AND status = 1")
+      download_release = Release.find(:first, :conditions => ["project_id = ? AND version = ? AND status = 1", download_project.id, params[:release_version]])
       if download_release
-        download_file = Fileentity.find(:first, :conditions => "release_id = '#{download_release.id}' AND path = '#{params[:file_name]}'")
+        download_file = Fileentity.find(:first, :conditions => ["release_id = ? AND path = ?", download_release.id, params[:file_name]])
         if download_file
           ActiveRecord::Base.connection.execute("update projects set project_counter = project_counter + 1 where id=#{download_project.id};")
           ActiveRecord::Base.connection.execute("update releases set release_counter = release_counter + 1 where id=#{download_release.id};")
