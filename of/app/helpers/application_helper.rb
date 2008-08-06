@@ -78,6 +78,15 @@ module ApplicationHelper
           when 'rt'
             level_name, level_class, level_title = 
               _('Issue Tracker'), "rt", 'subject'
+          when 'download'
+            level_name, level_class, level_title = 
+              _('Downloads'), nil, nil
+          when 'top'
+            level_name, level_class, level_title = 
+              _('Top Downloads'), nil, nil
+          when 'latest'
+            level_name, level_class, level_title = 
+              _('Latest Releases'), nil, nil
           else
             level_name = _("#{level.humanize.capitalize}") 
           end
