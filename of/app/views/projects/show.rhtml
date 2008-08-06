@@ -60,7 +60,7 @@
     keys.each do |r|
   %>
     <%= r %>:
-    <% for p in p_by_role[r].sort{|a,b| a.login.casecmp(b.login)} -%>
+    <% for p in (p_by_role[r] || []).sort{|a,b| a.login.casecmp(b.login)} -%>
       <%=user_portrait_link(p, :with_login => true)%>
     <% end -%>
     <br/>
