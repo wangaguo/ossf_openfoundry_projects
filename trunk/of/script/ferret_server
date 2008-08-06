@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 begin
-  require File.join(File.dirname(__FILE__), '../vendor/plugins/acts_as_ferret/lib/server_manager')
+  require File.join(File.dirname(__FILE__), '../vendor/plugins/acts_as_ferret/script/ferret_start')
 rescue LoadError
   # try the gem
   require 'rubygems'
