@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-06 06:19-0000\n"
+"POT-Creation-Date: 2008-08-06 10:31-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1448,7 +1448,7 @@ msgid "menu_WebHosting"
 msgstr "專案網頁空間"
 
 #: app/views/partials/_top_menu_data.rhtml:21
-#: app/views/partials/_top_menu_data.rhtml:38
+#: app/views/partials/_top_menu_data.rhtml:38 app/views/projects/new.rhtml:2
 msgid "Create Project"
 msgstr "建立專案"
 
@@ -1565,6 +1565,34 @@ msgstr "更換圖像"
 msgid "Steering Organization"
 msgstr "指導單位"
 
+#: app/views/layouts/rt.rhtml:6
+msgid "rt_issue_tracker"
+msgstr "待辦事項"
+
+#: app/views/layouts/rt.rhtml:10
+msgid "rt_overview"
+msgstr "綜覽"
+
+#: app/views/layouts/rt.rhtml:11
+msgid "rt_defect"
+msgstr "瑕疵"
+
+#: app/views/layouts/rt.rhtml:12
+msgid "rt_patch"
+msgstr "修正檔"
+
+#: app/views/layouts/rt.rhtml:13
+msgid "rt_task"
+msgstr "工作事項"
+
+#: app/views/layouts/rt.rhtml:14
+msgid "rt_feature"
+msgstr "新功能"
+
+#: app/views/layouts/rt.rhtml:15
+msgid "rt_enhancement"
+msgstr "改進"
+
 #: app/views/layouts/admin.rhtml:6
 msgid "OpenFoundry"
 msgstr "自由軟體鑄造場"
@@ -1573,7 +1601,7 @@ msgstr "自由軟體鑄造場"
 msgid "Update"
 msgstr "更新"
 
-#: app/views/releases/new.rhtml:19
+#: app/views/releases/new.rhtml:19 app/views/projects/new.rhtml:6
 msgid "Create"
 msgstr "建立"
 
@@ -1692,11 +1720,11 @@ msgstr "您註冊的專案已提交, 將會在72小時之內核定"
 msgid "Project|HOMEPAGE"
 msgstr "專案首頁"
 
-#: app/views/projects/show.rhtml:50 app/views/projects/test_action.rhtml:17
+#: app/views/projects/show.rhtml:50
 msgid "Project Participants"
 msgstr "專案參與者"
 
-#: app/views/projects/show.rhtml:57 app/views/projects/test_action.rhtml:24
+#: app/views/projects/show.rhtml:57
 msgid "Project Participants (grouped by role)"
 msgstr "專案參與者(依角色分類)"
 
