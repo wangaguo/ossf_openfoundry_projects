@@ -41,12 +41,32 @@
 
 
 
+<%
+  p_by_login = @participents.group_by { |p| p.login }
+  p_by_role = @participents.group_by { |p| p.role_name }
+%>
+
 <fieldset style="clear:both;">
-<legend><%= _("Project Participants") %>:</legend>
-<% for p in @participents-%>
-  <%=user_portrait_link(p, :with_login => true)%>
-<% end -%>
+  <legend><%= _("Project Participants") %>:</legend>
+  <% p_by_login.keys.sort{|a,b| a.casecmp(b)}.each do |login| -%>
+    <%= user_portrait_link(p_by_login[login][0], :with_login => true) %>
+  <% end -%>
 </fieldset>
+
+<fieldset style="clear:both;">
+  <legend><%= _("Project Participants (grouped by role)") %>:</legend>
+  <%
+    keys = ['Admin', 'Member'] | (p_by_role.keys.sort - ['Admin', 'Member'])
+    keys.each do |r|
+  %>
+    <%= r %>:
+    <% for p in p_by_role[r].sort{|a,b| a.login.casecmp(b.login)} -%>
+      <%=user_portrait_link(p, :with_login => true)%>
+    <% end -%>
+    <br/>
+  <% end -%>
+</fieldset>
+
 
 <%= (link_to _('Edit'), :action => 'edit', :id => @project )+'|' if fpermit?("project_info", @project.id) %> 
 <%= link_to _('Back'), :action => 'index' %>
