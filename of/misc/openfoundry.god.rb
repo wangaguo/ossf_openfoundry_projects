@@ -15,14 +15,16 @@ GROUP = 'openfoundry'
 ADDRESS = '127.0.0.1'
 
 #7998,7999 for internal use, like foundry_sync, sso
-#8000-8004 for production 
+#8000-8005 for production 
 #9000      for ferret index server
-7998.upto(8004) do |port|
+7998.upto(8005) do |port|
   God.watch do |w|
-    if port > 7999
-      w.group = "openfoundry"
-    else
+    if port < 8000
       w.group = "openfoundry-sync"
+    elsif port%2 == 0 
+      w.group = "openfoundry-even"
+    else
+      w.group = "openfoundry-odd"
     end
 
     w.name = "openfoundry-mongrel-#{port}"
