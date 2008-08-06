@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-05 03:11-0000\n"
+"POT-Creation-Date: 2008-08-06 06:12-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,24 @@ msgstr ""
 msgid "Issue Tracker"
 msgstr ""
 
-#: app/helpers/application_helper.rb:246 app/helpers/application_helper.rb:279
+#: app/helpers/application_helper.rb:83
+#: app/controllers/releases_controller.rb:67
+#: app/views/partials/_project_menu.rhtml:46
+msgid "Downloads"
+msgstr ""
+
+#: app/helpers/application_helper.rb:86
+#: app/controllers/releases_controller.rb:39
+msgid "Top Downloads"
+msgstr ""
+
+#: app/helpers/application_helper.rb:89
+#: app/controllers/releases_controller.rb:53
+#: app/views/releases/_new_releases.rhtml:1
+msgid "Latest Releases"
+msgstr ""
+
+#: app/helpers/application_helper.rb:255 app/helpers/application_helper.rb:288
 msgid "required_icon"
 msgstr ""
 
@@ -1088,24 +1105,19 @@ msgstr ""
 msgid "Release"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:65
-#: app/views/partials/_project_menu.rhtml:46
-msgid "Downloads"
-msgstr ""
-
-#: app/controllers/releases_controller.rb:183
+#: app/controllers/releases_controller.rb:185
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:188
+#: app/controllers/releases_controller.rb:190
 msgid "Project id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:193
+#: app/controllers/releases_controller.rb:195
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:200
+#: app/controllers/releases_controller.rb:202
 msgid "Your files have been added to Release!"
 msgstr ""
 
@@ -1140,19 +1152,19 @@ msgstr ""
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:136
+#: app/controllers/projects_controller.rb:145
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:154
+#: app/controllers/projects_controller.rb:163
 msgid "Invalid User!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:236
+#: app/controllers/projects_controller.rb:245
 msgid "Role was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:287
+#: app/controllers/projects_controller.rb:296
 msgid "Version Control System: How to Access"
 msgstr ""
 
@@ -1173,7 +1185,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:51 app/views/news/list.rhtml:34
+#: app/views/projects/show.rhtml:78 app/views/news/list.rhtml:34
 #: app/views/news/list.rhtml:36 app/views/news/show.rhtml:15
 #: app/views/jobs/list.rhtml:21 app/views/jobs/show.rhtml:14
 #: app/views/citations/list.rhtml:20 app/views/citations/show.rhtml:18
@@ -1221,15 +1233,15 @@ msgstr ""
 msgid "Search by Google"
 msgstr ""
 
-#: app/views/partials/_login.rhtml:6
-msgid "Welcome"
+#: app/views/partials/_login.rhtml:8
+msgid "Logout"
 msgstr ""
 
-#: app/views/partials/_login.rhtml:15 app/views/user/login.rhtml:32
+#: app/views/partials/_login.rhtml:13 app/views/user/login.rhtml:32
 msgid "Login"
 msgstr ""
 
-#: app/views/partials/_login.rhtml:17
+#: app/views/partials/_login.rhtml:15
 msgid "Sign Up"
 msgstr ""
 
@@ -1519,7 +1531,7 @@ msgid "More..."
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:2
-msgid "Listing releases"
+msgid "Release Listing"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:7
@@ -1527,7 +1539,7 @@ msgid "Rank"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:8
-msgid "Release UNIX Name"
+msgid "Release Name"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:9
@@ -1538,10 +1550,6 @@ msgstr ""
 #: app/views/projects/_list.rhtml:10 app/views/projects/_list.rhtml:29
 #: app/views/user/my_projects.rhtml:10 app/views/user/my_projects.rhtml:29
 msgid "Download"
-msgstr ""
-
-#: app/views/releases/_new_releases.rhtml:1
-msgid "Latest Releases"
 msgstr ""
 
 #: app/views/releases/download.rhtml:13
@@ -1622,11 +1630,15 @@ msgstr ""
 msgid "Project|HOMEPAGE"
 msgstr ""
 
-#: app/views/projects/show.rhtml:45
+#: app/views/projects/show.rhtml:50 app/views/projects/test_action.rhtml:17
 msgid "Project Participants"
 msgstr ""
 
-#: app/views/projects/show.rhtml:52
+#: app/views/projects/show.rhtml:57 app/views/projects/test_action.rhtml:24
+msgid "Project Participants (grouped by role)"
+msgstr ""
+
+#: app/views/projects/show.rhtml:79
 msgid "Back"
 msgstr ""
 
