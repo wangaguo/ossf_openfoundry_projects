@@ -209,7 +209,7 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
 /* module */
 #of_module { width:750px; height:2000px;}
 #module_nav { display:table; padding:0 0 0 0px; margin:0px 0 0 0px; width:100%; background:url(/images/project_navbar_l.gif) no-repeat;}
-#module_nav #module_nav_center { margin:0 0 0 8px; background:url(/images/project_navbar_c.gif); }
+#module_nav #module_nav_center { margin:0 0 0 6px; background:url(/images/project_navbar_c.gif); }
 #module_nav #module_nav_right { background:url(/images/project_navbar_r.gif) no-repeat right; line-height:23px; height:32px; }
 #module_nav h3 { background:url(/images/project_navbar_arrow.gif) no-repeat; padding-left:30px; float:left; }
 #module_nav #module_nav_tab { float:right; text-align:right; margin-top:7px; }
