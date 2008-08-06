@@ -1,6 +1,5 @@
 .fieldWithErrors {
- display: inline;
- border:solid 4px red;
+ border: dashed 1px red;
 }
 
 #errorExplanation {
