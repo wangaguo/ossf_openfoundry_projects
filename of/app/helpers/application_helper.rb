@@ -83,7 +83,7 @@ module ApplicationHelper
           end
         elsif level =~ /\d/
           if(["rt"].include?(level_class)==false)
-            level_name_char = level_class.find(level).send(level_title).chars
+            level_name_char = h(level_class.find(level).send(level_title).chars)
             level_name = left_slice(level_name_char, 20)
             if level_name_char.length > level_name.length
               level_name += "..."
