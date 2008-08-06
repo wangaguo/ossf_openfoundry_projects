@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-06 06:12-0000\n"
+"POT-Creation-Date: 2008-08-06 06:19-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1240,7 +1240,7 @@ msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:78 app/views/news/list.rhtml:34
+#: app/views/projects/show.rhtml:71 app/views/news/list.rhtml:34
 #: app/views/news/list.rhtml:36 app/views/news/show.rhtml:15
 #: app/views/jobs/list.rhtml:21 app/views/jobs/show.rhtml:14
 #: app/views/citations/list.rhtml:20 app/views/citations/show.rhtml:18
@@ -1707,7 +1707,7 @@ msgstr "License"
 msgid "Project Participants (grouped by role)"
 msgstr "License"
 
-#: app/views/projects/show.rhtml:79
+#: app/views/projects/show.rhtml:72
 msgid "Back"
 msgstr ""
 
