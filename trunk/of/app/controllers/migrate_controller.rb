@@ -134,7 +134,18 @@ class MigrateController < ApplicationController
     end
     render :text => "count:" + of_data_json['downloaders'].length.to_s
   end
-  
+ 
+  FUNCTION_MIGRATE_MAP = {
+    'Upload' => [14,4],#['ftp_access', 'release'],
+    'Members' => 2,#'project_member', 
+    'Jobs' => 6,#'jobs',
+    'Citations' => 7,#'citation',
+    'Forum' => 12,#'sympa_manage',
+    'News' => 5,#'news',
+    'References' => 8,#'reference',
+    'Basics' => 1#'project_info'
+  }
+
   def functions
     of_file = open("/tmp/FoundryDumpFunction.data")
     of_data = of_file.read
@@ -149,10 +160,27 @@ class MigrateController < ApplicationController
       if(check == 0)
         of_data_json['functions'].delete(item)
       else
+        r = Role.new({:name => 'Customized Role', 
+                        :authorizable_type => 'Project',
+                        :authorizable_id => item['project_id']
+
+        })
+        r.users << User.find(item['name'])
+        item['functions'].delete_if{|k,v| v.nil? }.each { |k,v| 
+          next if k == 'CustomField'
+          if Array === FUNCTION_MIGRATE_MAP[k]
+            html += "#{FUNCTION_MIGRATE_MAP[k]},#{k}#######<br/>"
+            r.functions << FUNCTION_MIGRATE_MAP[k].map{|n| Function.find(n)}
+          else
+            html += "#{FUNCTION_MIGRATE_MAP[k]}, #{k}#######<br/>"
+            r.functions << Function.find(FUNCTION_MIGRATE_MAP[k])
+          end
+        }
+        r.save
       end
     end
     html += "count:" + of_data_json['functions'].length.to_s + "<br/>"
-    render :text => html + of_data_json['functions'].inspect
+    render :text => html #+ of_data_json['functions'].inspect
   end
   
   def releases
@@ -237,7 +265,7 @@ class MigrateController < ApplicationController
   end
 
   def users
-    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html'
+    url = 'http://rt.openfoundry.org/NoAuth/FoundryDumpJsonForMigrationToOFUser.html?secret=unlkDJOIEMu7fh20ujuenks84857jdSJGIEWN00UDH'
 
     a = Net::HTTP.get(URI.parse(url))
     #puts a
@@ -246,53 +274,121 @@ class MigrateController < ApplicationController
     ##require "pp"
     #pp j
     #render :text => j.pretty_inspect, :layout => false
-    tmp = ''
+    #tmp = ''
 
-    tmp_store = User.record_timestamps
-    User.record_timestamps = false
-    users = j["users"]
-    users.each do |att|
-      privacy = att.delete('privacy')
-      u = User.new(att)
-      u.id = att["id"]
-      u.salted_password = att["password"].to_s.crypt("$1$#{rand(10000)}")
+    #tmp_store = User.record_timestamps
+    #User.record_timestamps = false
+    #users = j["users"]
+    #users.each do |att|
+    #  privacy = att.delete('privacy')
+    #  #u = User.new(att)
+    #  u = User.find_by_login(att['login'])
+    #  u.language =
+    #  if att['language'] == 'zh-tw'
+    #    'zh_TW' 
+    #  else
+    #    'en'
+    #  end
+    #  #u.id = att["id"]
+    #  #u.icon = migrated_user_logo_id(att['id'], att['login'])
+    #  #u.salted_password = att["password"].to_s.crypt("$1$#{rand(10000)}")
+    #  #u.timezone = 'Taipei'
+    #  #u.verified = 1
+    #  #if privacy
+    #  #  u.t_conseal_email    = true unless privacy['Email']
+    #  #  u.t_conseal_bio      = true unless privacy['Itro']
+    #  #  u.t_conseal_realname = true unless privacy['RealName']
+    #  #  u.t_conseal_homepage = true unless privacy['PersonalHomepage']
+    #  #else
+    #  #  u.t_conseal_email    = true
+    #  #  u.t_conseal_bio      = true
+    #  #  u.t_conseal_realname = true 
+    #  #  u.t_conseal_homepage = true
+    #  #end
 
-      if privacy
-        u.t_conseal_email    = true unless privacy['Email']
-        u.t_conseal_bio      = true unless privacy['Itro']
-        u.t_conseal_realname = true unless privacy['RealName']
-        u.t_conseal_homepage = true unless privacy['PersonalHomepage']
-      else
-        u.t_conseal_email    = true
-        u.t_conseal_bio      = true
-        u.t_conseal_realname = true 
-        u.t_conseal_homepage = true
-      end
-
-      u.save_without_validation!
-      tmp += u.pretty_inspect
+    #  u.save_without_validation!
+    #  #tmp += u.pretty_inspect
+    #end
+    #User.record_timestamps = tmp_store
+    
+    #migrate relations:{'admin': [[pid,uid]...],'member':...}
+    relations = j["relations"]
+    insert_sql = "insert into roles_users(user_id,role_id) values "
+    insert_values_array = []
+    relations['admin'].each do |pair|
+      pid, uid = pair[0], pair[1]
+      r=Role.find_or_create_by_name_and_authorizable_type_and_authorizable_id(
+        :name => 'Admin', :authorizable_type => 'Project', :authorizable_id => pid)
+      r.functions << Function.find(:all)
+      r.save!
+      project_role_id = r.id
+      insert_values_array << "('#{uid}','#{project_role_id}')" 
     end
-    User.record_timestamps = tmp_store
-
-    render :text => tmp, :layout => false
-
+    relations['member'].each do |pair|
+      pid, uid = pair[0], pair[1]
+      project_role_id = Role.find_or_create_by_name_and_authorizable_type_and_authorizable_id(
+        :name => 'Member', :authorizable_type => 'Project', :authorizable_id => pid).id
+      insert_values_array << "('#{uid}','#{project_role_id}')" 
+    end
+    Role.connection.execute(insert_sql + insert_values_array.join(','))
+    #render :text => tmp, :layout => false
+    
   end
 
   private
-  def migrated_project_logo_id
-    return 0 unless @pid #require project id
-    
-    tmp = Net::HTTP.get(URI.parse("http://rt.openfoundry.org/img/project_logo/#{@pid}.gif")) 
-    if tmp =~ /^GIF/ #got gif file!
+  def migrated_user_logo_id(id,login_name)
+    begin
+      f = File.new("tmp/user_icon/#{login_name}.icon")   
       return Image.create({
-        :name => "project_logo_#{@pid}",
-        :meta => "image/gif",
-        :commant => "migrated from old foundry",
+        :name => "user_logo_#{id}",
+        :meta => `file -i -b tmp/user_icon/#{login_name}.icon`.strip!,
+        :comment => "migrated from old foundry",
+        :data => f.read
+      }).id
+    rescue
+    ensure
+      f.close if f
+    end
+    
+    return 0 
+    #filename = icon[2].gsub(/([^a-zA-Z0-9_.-]+)/n) do
+    #  '%' + $1.unpack('H2' * $1.size).join('%').upcase
+    #end
+
+    #contenttype = icon[3].to_s.gsub('\/','/')
+
+    #tmp = Net::HTTP.get(URI.parse(
+    #"http://rt.openfoundry.org/Work/Tickets/Attachment/#{icon[0]}/#{icon[1]}/#{filename}"))
+    #return Image.create({
+    #  :name => "user_logo_#{id}",
+    #  :meta => contenttype,
+    #  :comment => "migrated from old foundry",
+    #  :data => tmp
+    #}).id
+  end
+  
+  def migrated_project_logo_id(pid)
+    return 0 unless pid #require project id
+    
+    #tmp = Net::HTTP.get(URI.parse("http://rt.openfoundry.org/img/project_logo/#{pid}.gif")) 
+    tmp = ""
+    begin
+      f = File.new("/tmp/project_logo/#{pid}.gif")
+      tmp = f.read
+
+      s = `file /tmp/project_logo/#{pid}.gif`
+      s = s.match(/(\w+)\simage/)[1]
+      return Image.create({
+        :name => "project_logo_#{pid}",
+        :meta => "image/#{s}",
+        :comment => "migrated from old foundry",
         :data => tmp
       }).id
-    else
-      return 0
-    end
+    rescue
+        f.close if f
+    end 
+
+    return 0
   end
 end
 
