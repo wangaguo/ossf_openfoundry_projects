@@ -1,9 +1,9 @@
 <div id="ProjectNew">
-<h1>New project</h1>
+<h1><%=_("Create Project")%></h1>
 
 <% form_tag :action => 'create' do %>
   <%= render :partial => 'form', :locals => { :is_edit => false } %>
-  <%= submit_tag "Create" %>
+  <%= submit_tag _("Create") %>
 <% end %>
 
 </div>
