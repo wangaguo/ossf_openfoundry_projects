@@ -181,6 +181,9 @@ class ImagesController < ApplicationController
           old_id = obj.icon
           obj.icon=@image.id
           obj.save!
+          if params[:type] =='User' and session['user']
+            session['user'].reload
+          end
           if(Image.exists?(old_id) and !site_reserved_image_id.include?(old_id))
             #TODO delete cache
             Image.find(old_id).destroy
