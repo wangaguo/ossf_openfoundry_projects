@@ -1,6 +1,8 @@
 class Image < ActiveRecord::Base
   IMAGE_UPLOAD_SIZE_LIMIT = 3.megabyte
   IMAGE_UNKNOWN_ID = 1
+  IMAGE_DEFAULT_USER_ICON = 1
+  IMAGE_DEFAULT_PROJECT_ICON = 2
   IMAGE_DEFAULT_SIZE = 128
   IMAGE_CACHES_DIR = "#{RAILS_ROOT}/public/images/cached_image"
   IMAGE_DATA_DIR = "#{RAILS_ROOT}/tmp/image_data"
