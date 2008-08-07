@@ -66,13 +66,13 @@
       <h3>Current Dir: <%= @current_dir %> </h3>
       <input name=current_dir type="hidden" value=<%= @current_dir %> />
              <p>
-      <%= link_to_remote "[upper dir]", :url => {
+      <!--<%= link_to_remote "[upper dir]", :url => {
         :contrller => 'release', :action => 'uploadfiles',
         :move => "#{@current_dir}/..",
         :layout => 'false'},
-      :update => "uploadfiles_view" %>
+      :update => "uploadfiles_view" %>-->
   
-      <%=submit_tag 'Add File'%>
+      <%=submit_tag 'Add File'%> [<%= link_to _("How to Upload？"), "http://webhosting.openfoundry.org/how_to_upload.html", {:target => '_blank'} %>]
       </p>
   
       <div id=Uploaddirs>
