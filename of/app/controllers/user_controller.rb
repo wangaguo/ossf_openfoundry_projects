@@ -175,6 +175,7 @@ class UserController < ApplicationController
     return unless valid_captcha?
     begin
       User.transaction() do
+        @user.icon = Image::IMAGE_DEFAULT_USER_ICON
         @user.new_password = true
         @user.new_email = true
         if @user.save
