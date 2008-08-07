@@ -304,6 +304,7 @@ EOEO
   def self.apply(data, creator)
     data[:creator] = creator.id
     data[:status] = Project::STATUS[:APPLYING]
+    data[:icon] = Image::IMAGE_DEFAULT_PROJECT_ICON
 
     returning Project.create(data) do |project|
       if project.errors.empty?
