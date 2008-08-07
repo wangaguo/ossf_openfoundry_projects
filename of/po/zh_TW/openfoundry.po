@@ -46,7 +46,7 @@ msgstr "專案新聞"
 #: app/views/partials/_project_menu.rhtml:23
 #: app/views/partials/_project_menu.rhtml:66
 msgid "Help Wanted"
-msgstr ""
+msgstr "尋求支援"
 
 #: app/helpers/application_helper.rb:74
 #: app/controllers/citations_controller.rb:8
@@ -1229,7 +1229,7 @@ msgstr "註冊原因"
 
 #: app/controllers/jobs_controller.rb:22
 msgid "Project Help Wanted"
-msgstr "協助專案"
+msgstr "尋求支援"
 
 #: app/controllers/references_controller.rb:22
 #, fuzzy
@@ -1441,7 +1441,7 @@ msgstr "下載排行"
 
 #: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Help Wanted"
-msgstr "協助專案"
+msgstr "尋求支援"
 
 #: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_WebHosting"
