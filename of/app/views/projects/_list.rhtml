@@ -16,7 +16,7 @@
   <tr class="item_h <%=class_name%>">
     <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h(project.summary) %></a></td>
     <td align="center"><%= h tz_date(project.created_at) %></td>
-    <td align="center"><%= h tz_date(project.updated_at) %></td>
+    <td align="center">&nbsp;</td>
     <td align="center"><%= h project.project_counter %></td>
   </tr>
   <tr class="item_b <%=class_name%>">
@@ -24,7 +24,7 @@
       <a href="<%= url_for(:action => 'show', :id => project.id) %>">
         <img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{project.icon}_64") %>" align="left" alt="<%= _('Project Logo') %>" title="<%= h(project.summary) %>"/>
       </a>
-      <%= h "#{project.description}".chars[0..150] + "..." %><br/>
+      <%= h "#{project.description}".chars[0..150] + "#{'...' if project.description.chars.length > 150 }" %><br/>
     </td>
     <td align="center"><%= link_to _('Download'), download1_path(:project_id => project.id) %></td>
   </tr>
