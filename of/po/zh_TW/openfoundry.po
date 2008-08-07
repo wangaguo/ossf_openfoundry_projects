@@ -1950,7 +1950,7 @@ msgstr "描述"
 #: app/views/citations/edit.rhtml:5 app/views/citations/new.rhtml:5
 #: app/views/references/edit.rhtml:5 app/views/references/new.rhtml:5
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: app/views/news/edit.rhtml:8 app/views/jobs/edit.rhtml:8
 #: app/views/citations/edit.rhtml:8 app/views/references/edit.rhtml:8
