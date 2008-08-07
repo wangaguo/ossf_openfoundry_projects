@@ -89,7 +89,7 @@ OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
 #
 # important password! leak it may leak all your user data!!
 #
-OPENFOUNDRY_JSON_DUMP_PASSWORD = 'it_is_a_good_day_to_die'
+OPENFOUNDRY_JSON_DUMP_PASSWORD ||= 'it_is_a_good_day_to_die'
 
 # add fulltext indexed SEARCH
 require 'acts_as_ferret'
