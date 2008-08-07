@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-06 06:19-0000\n"
+"POT-Creation-Date: 2008-08-06 10:31-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1392,7 +1392,7 @@ msgid "menu_WebHosting"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:21
-#: app/views/partials/_top_menu_data.rhtml:38
+#: app/views/partials/_top_menu_data.rhtml:38 app/views/projects/new.rhtml:2
 msgid "Create Project"
 msgstr ""
 
@@ -1507,6 +1507,34 @@ msgstr ""
 msgid "Steering Organization"
 msgstr ""
 
+#: app/views/layouts/rt.rhtml:6
+msgid "rt_issue_tracker"
+msgstr ""
+
+#: app/views/layouts/rt.rhtml:10
+msgid "rt_overview"
+msgstr ""
+
+#: app/views/layouts/rt.rhtml:11
+msgid "rt_defect"
+msgstr ""
+
+#: app/views/layouts/rt.rhtml:12
+msgid "rt_patch"
+msgstr ""
+
+#: app/views/layouts/rt.rhtml:13
+msgid "rt_task"
+msgstr ""
+
+#: app/views/layouts/rt.rhtml:14
+msgid "rt_feature"
+msgstr ""
+
+#: app/views/layouts/rt.rhtml:15
+msgid "rt_enhancement"
+msgstr ""
+
 #: app/views/layouts/admin.rhtml:6
 msgid "OpenFoundry"
 msgstr ""
@@ -1515,7 +1543,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: app/views/releases/new.rhtml:19
+#: app/views/releases/new.rhtml:19 app/views/projects/new.rhtml:6
 msgid "Create"
 msgstr ""
 
@@ -1630,11 +1658,11 @@ msgstr ""
 msgid "Project|HOMEPAGE"
 msgstr ""
 
-#: app/views/projects/show.rhtml:50 app/views/projects/test_action.rhtml:17
+#: app/views/projects/show.rhtml:50
 msgid "Project Participants"
 msgstr ""
 
-#: app/views/projects/show.rhtml:57 app/views/projects/test_action.rhtml:24
+#: app/views/projects/show.rhtml:57
 msgid "Project Participants (grouped by role)"
 msgstr ""
 
