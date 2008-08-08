@@ -17,9 +17,16 @@
 Set($rtname, 'OSSF');
 Set($Organization, $rtname);
 Set($TicketBaseURI, "fsck.com-rt://$RT::rtname/ticket/");
-Set($WebURL, "http://of.openfoundry.org/rt/");
 
-#Set($LogToFile      , 'debug');
+
+Set($WebPath , "/rt");
+Set($WebPort , 80);
+Set($WebBaseURL , "http://of.openfoundry.org:$WebPort");
+Set($WebURL , $WebBaseURL . $WebPath . "/");
+
+
+
+Set($LogToFile      , 'debug');
 #Set($LogDir, '/tmp');
 Set($OpenFoundry_SSO, 1);
 Set($OpenFoundry_SSO_Cookie, '_of_session_id');
@@ -33,7 +40,8 @@ Set($DatabaseRTHost, '192.168.0.30');
 #
 # In most cases, you should leave $WebPath set to '' (an empty value).
 
-Set($WebPath , "/rt");
+#Set($WebPath , "/rt");
 #Set($WebBaseURL, "http://rt.of.openfoundry.org");
+
 
 1;
