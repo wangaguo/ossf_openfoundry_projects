@@ -47,7 +47,7 @@ class RTQueue < RTModel
   end
 
   def self.create_queue(id,name,desc)
-    RTQueue.new(:id => id, :Name => name, :Description => desc).save
+    RTQueue.new(:id => id, :Name => name, :Description => desc).save!
     %w(Owner Cc AdminCc Requestor).each do |type|
       gid = RTPrincipal.create_group(
         :Domain => "RT::Queue-Role",
@@ -61,7 +61,7 @@ class RTQueue < RTModel
 
   # TODO: generate sql update statement directly
   def self.update_queue(id, desc)
-    RTQueue.update(id, :Description => desc, :LastUpdated => Time.now)
+    RTQueue.update!(id, :Description => desc, :LastUpdated => Time.now)
   end
 end
 
@@ -71,9 +71,9 @@ class RTGroupMember < RTModel
   def self.add_user_into_group(uid, gid)
     cache_id = RTCachedGroupMember.find(:first, :conditions => "MemberId = #{gid}").id
 
-    RTGroupMember.new(:GroupId => gid, :MemberId => uid).save
+    RTGroupMember.new(:GroupId => gid, :MemberId => uid).save!
     RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :ImmediateParentId => gid).via
-    RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :Via => cache_id, :ImmediateParentId => gid).save
+    RTCachedGroupMember.new(:GroupId => gid, :MemberId => uid, :Via => cache_id, :ImmediateParentId => gid).save!
   end
 end
 
@@ -83,9 +83,9 @@ class RTCachedGroupMember < RTModel
     super(options)
   end
   def via
-    self.save
+    self.save!
     self.Via = self.id
-    self.save
+    self.save!
   end
 
 end
@@ -126,24 +126,24 @@ class RTPrincipal < RTModel
   def self.create_user(options) # set id / name here!
     p = RTPrincipal.new(:PrincipalType => 'User', :ObjectId => options[:id], :Disabled => (options[:Disabled] || 0))
     p.id = options[:id]
-    p.save
+    p.save!
 
     options.delete(:Disabled)
 
     u = RTUser.new(options)
-    u.save
+    u.save!
     u
   end
   def self.create_group(options) # don't set id here!
     p = RTPrincipal.new(:PrincipalType => 'Group', :Disabled => (options[:Disabled] || 0))
-    p.save
+    p.save!
     p.ObjectId = p.id
-    p.save
+    p.save!
 
     options.delete(:Disabled)
 
     g = RTGroup.new(options.merge(:id => p.id))
-    g.save
+    g.save!
     g
   end
    
@@ -233,16 +233,16 @@ class RTUser < RTModel
 
     equiv_gid = RTPrincipal.create_group(RTGroup.equiv_group_options(id)).id
     
-    RTGroupMember.new(:GroupId => equiv_gid, :MemberId => id).save
-    RTGroupMember.new(:GroupId => 3, :MemberId => id).save
-    RTGroupMember.new(:GroupId => 4, :MemberId => id).save
+    RTGroupMember.new(:GroupId => equiv_gid, :MemberId => id).save!
+    RTGroupMember.new(:GroupId => 3, :MemberId => id).save!
+    RTGroupMember.new(:GroupId => 4, :MemberId => id).save!
     
     RTCachedGroupMember.new(:GroupId => equiv_gid, :MemberId => equiv_gid,  :ImmediateParentId => equiv_gid).via
     RTCachedGroupMember.new(:GroupId => equiv_gid, :MemberId => id,  :ImmediateParentId => equiv_gid).via
     RTCachedGroupMember.new(:GroupId => 3, :MemberId => id,  :ImmediateParentId => 3).via
-    RTCachedGroupMember.new(:GroupId => 3, :MemberId => id, :Via => 3, :ImmediateParentId => 3).save
+    RTCachedGroupMember.new(:GroupId => 3, :MemberId => id, :Via => 3, :ImmediateParentId => 3).save!
     RTCachedGroupMember.new(:GroupId => 4, :MemberId => id,  :ImmediateParentId => 4).via
-    RTCachedGroupMember.new(:GroupId => 4, :MemberId => id, :Via => 4, :ImmediateParentId => 4).save
+    RTCachedGroupMember.new(:GroupId => 4, :MemberId => id, :Via => 4, :ImmediateParentId => 4).save!
   end
 
   def self.create_user_and_add_into_openfoundry_group(id, name)
@@ -254,7 +254,7 @@ class RTUser < RTModel
 
   # TODO: generate sql update statement directly
   def self.update_user(id, name, email)
-    RTUser.update(id, :EmailAddress => email, :LastUpdated => Time.now)
+    RTUser.update!(id, :EmailAddress => email, :LastUpdated => Time.now)
   end
 end
 

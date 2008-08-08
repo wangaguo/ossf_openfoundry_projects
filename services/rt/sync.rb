@@ -34,9 +34,9 @@ def process(msg)
   #puts "============================="
   #puts msg
   m = YAML::load(msg)
-  #puts "============================="
-  #puts m.inspect
-  #puts "============================="
+  puts "process: #{Time.now} ============================="
+  puts m.inspect
+  puts "============================="
 
   type = m['type']
   action = m['action']
@@ -84,10 +84,19 @@ begin
   conn.subscribe MQ_THE_TOPIC, { :ack =>"client", "activemq.subscriptionName" => MQ_SUBSCRIPTION_NAME}
   while true
     msg = conn.receive # blocking
-    process(msg.body)
-    conn.ack msg.headers["message-id"]
+    begin
+      ActiveRecord::Base.transaction do
+        process(msg.body)
+      end
+    rescue
+      puts "error============================="
+      puts msg.body.inspect
+      puts "error============================="
+    ensure
+      conn.ack msg.headers["message-id"]
+    end
   end
-eusure
+ensure
   conn.disconnect # useless!
   puts "bye"
 end
