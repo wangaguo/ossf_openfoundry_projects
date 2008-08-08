@@ -272,7 +272,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
+ Ticket <URL: {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 
 {$Transaction->Content()}
@@ -294,7 +294,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
+ Ticket <URL: {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 {$Transaction->Content()}
 '
@@ -312,7 +312,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
+ Ticket <URL: {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 {$Transaction->Content()}
 '
@@ -332,7 +332,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
+ Ticket <URL: {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 This is a comment.  It is not sent to the Requestor(s):
 
 {$Transaction->Content()}
@@ -352,7 +352,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
+ Ticket <URL: {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 
 {$Transaction->Content()}
 '
@@ -372,7 +372,7 @@ Transaction: {$Transaction->Description}
        Owner: {$Ticket->OwnerObj->Name}
   Requestors: {$Ticket->RequestorAddresses}
       Status: {$Ticket->Status}
- Ticket <URL: {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
+ Ticket <URL: {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id} >
 According to our records, your request has been resolved. If you have any
 further questions or concerns, please respond to this message.
 '
@@ -388,7 +388,7 @@ Greetings,
 There is a new item pending your approval: "{$Ticket->Subject()}", 
 a summary of which appears below.
 
-Please visit {$RT::WebURL}projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id}
+Please visit {$RT::WebBaseURL}/projects/{$Ticket->QueueObj->Id}/rt/{$Ticket->id}
 to approve or reject this ticket, or {$RT::WebURL}Approvals/ to
 batch-process all your pending approvals.
 
