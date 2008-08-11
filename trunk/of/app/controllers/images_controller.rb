@@ -49,7 +49,8 @@ class ImagesController < ApplicationController
     meta = Image.find(id).meta
     unless File.exists?(image_cache_file)
       image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
-      unless `convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}` == 0
+      ico = if(meta =~ /icon/); 'ico:' ;else '' ;end
+      unless `convert #{ico}#{image_data}'[#{size}x#{size}]' #{image_cache_file}` == 0
         logger.info("image convert error. cmd: 'convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}'")
       end
 
