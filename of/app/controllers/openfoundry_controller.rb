@@ -235,25 +235,31 @@ class OpenfoundryController < ApplicationController
     #render :text => params[:file_name]
     download_project = Project.find_by_name(params[:project_name], :conditions => "#{Project.in_used_projects}")
     if download_project
-      download_release = Release.find(:first, :conditions => ["project_id = ? AND version = ? AND status = 1", download_project.id, params[:release_version]])
+      is_release_admin = fpermit?("release", download_project.id) ? 1 : 0;
+      download_release = Release.find(:first, :conditions => ["project_id = ? AND version = ? AND (status = 1 or ?)", download_project.id, params[:release_version], is_release_admin])
       if download_release
         download_file = Fileentity.find(:first, :conditions => ["release_id = ? AND path = ?", download_release.id, params[:file_name]])
         if download_file
-          ActiveRecord::Base.connection.execute("update projects set project_counter = project_counter + 1 where id=#{download_project.id};")
-          ActiveRecord::Base.connection.execute("update releases set release_counter = release_counter + 1 where id=#{download_release.id};")
-          ActiveRecord::Base.connection.execute("update fileentities set file_counter = file_counter + 1 where id=#{download_file.id};")
-          #render :text => "#{download_project.name} #{download_project.project_counter}\n
-          #                #{download_release.version} #{download_release.release_counter}\n
-          #                #{download_file.name} #{download_file.path} #{download_file.file_counter}"
+          if not is_release_admin # admins don't count!
+            ActiveRecord::Base.connection.execute("update projects set project_counter = project_counter + 1 where id=#{download_project.id};")
+            ActiveRecord::Base.connection.execute("update releases set release_counter = release_counter + 1 where id=#{download_release.id};")
+            ActiveRecord::Base.connection.execute("update fileentities set file_counter = file_counter + 1 where id=#{download_file.id};")
+            #render :text => "#{download_project.name} #{download_project.project_counter}\n
+            #                #{download_release.version} #{download_release.release_counter}\n
+            #                #{download_file.name} #{download_file.path} #{download_file.file_counter}"
+          end
           redirect_to "http://of.openfoundry.org/download/#{params[:project_name]}/#{params[:release_version]}/#{params[:file_name]}"
         else
-          render :text => 'no this file!'
+          render :text => _('The file "%{filename}" you are requesting does not exist.') %
+            {:filename => CGI.escapeHTML(params[:file_name])}
         end
       else
-        render :text => 'no this release!'
+        render :text => _('The release "%{release}" you are requesting does not exist.') %
+          {:release => CGI.escapeHTML(params[:release_version])}
       end
     else
-      render :text => 'no this project!'
+      render :text => _('The project "%{project}" you are requesting does not exist.') %
+        {:project => CGI.escapeHTML(params[:project_name])}
     end
     #redirect_to params[:project_name]
   end
