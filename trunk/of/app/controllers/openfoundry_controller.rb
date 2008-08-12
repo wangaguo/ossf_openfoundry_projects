@@ -240,7 +240,7 @@ class OpenfoundryController < ApplicationController
       if download_release
         download_file = Fileentity.find(:first, :conditions => ["release_id = ? AND path = ?", download_release.id, params[:file_name]])
         if download_file
-          if not is_release_admin # admins don't count!
+          if is_release_admin != 1 # admins don't count!
             ActiveRecord::Base.connection.execute("update projects set project_counter = project_counter + 1 where id=#{download_project.id};")
             ActiveRecord::Base.connection.execute("update releases set release_counter = release_counter + 1 where id=#{download_release.id};")
             ActiveRecord::Base.connection.execute("update fileentities set file_counter = file_counter + 1 where id=#{download_file.id};")
