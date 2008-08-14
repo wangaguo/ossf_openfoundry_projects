@@ -1,4 +1,25 @@
 ActionController::Routing::Routes.draw do |map|
+
+  # 
+  # for migrating from rt.openfoundry.org
+  #
+  ActionController::Routing::RouteSet.class_eval "def extract_request_environment(request)
+    { :method => request.method, :host => request.host }
+  end"
+  rt_route = ActionController::Routing::Route.new
+  def rt_route.recognize(path, env = {})
+    #warn "recognize ....... #{path}"
+    #warn env.inspect
+    #warn self.methods.join("  ")
+    if env[:host] == 'rt.openfoundry.org'
+      warn "rt.openfoundry.org!!!!!"
+      { :controller => 'openfoundry', :action => 'redirect_rt_openfoundry_org' }
+    end
+  end
+  map.instance_eval("@set").routes << rt_route
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
