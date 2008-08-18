@@ -1,0 +1,8 @@
+<!--search hit-->
+<td>
+  <%= link_to h(record.subject), job_path(:id => record.id, :project_id => record.project_id) %>
+</td>
+<td>
+  <%= content_tag 'label', record.description%>
+</td>
+<!--search hit end-->
