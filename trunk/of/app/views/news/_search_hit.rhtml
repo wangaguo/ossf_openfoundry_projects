@@ -1,9 +1,13 @@
 <!--search hit-->
 <td>
-  <%= content_tag 'label', record.subject%>
+  <% if record.catid == 0 %>
+  <%= link_to h(record.subject), site_news1_path(:id => record.id) %>
+  <% else %>
+    <%= link_to h(record.subject), news1_path(:id => record.id, :project_id => record.catid) %>
+  <% end %>
 </td>
 <td>
-  <%= content_tag 'label', record.highlight(@query, {:field => 'description' 
-                                                     }) %>
+  <%= content_tag 'label', record.description%>
+  <%#= content_tag 'label', record.highlight(@query, {:field => 'description'}) %>
 </td>
 <!--search hit end-->
