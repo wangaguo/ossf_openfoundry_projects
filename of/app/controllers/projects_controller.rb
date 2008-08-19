@@ -154,34 +154,97 @@ class ProjectsController < ApplicationController
     redirect_to :action => 'index'
   end
 
-  def set_role
-    project = Project.find params[:id]
-    begin
-    user = User.find_by_login params[:user], :conditions => User.verified_users
-    project.set_role(params[:role], user)
-      rescue
-      flash[:warning] = _("Invalid User!")
+  def member_change
+    params['u'] =~ /role_(\d+)_user_(\d+)/
+    drag_role_id = $1
+    user_id = $2
+    params['r'] =~ /role_(\d+)/
+    drop_role_id = $1
+    if u=User.find(user_id)
+      if r=Role.find(drop_role_id)
+        if drag_role_id.to_i !=0 and old_r=Role.find(drag_role_id)
+          if drag_role_id == drop_role_id #fom A to A => nothing happen
+            flash.now[:warning] = 
+            _('No Operation...')
+          else
+            u.roles.delete(old_r)
+            u.roles << r unless u.roles.include? r
+            u.save
+            flash.now[:notice] = 
+              _('Move User "%{user}" from Group "%{old_role}" to Group "%{role}"') % 
+            {:user => u.login, :old_role => old_r.name, :role => r.name}
+          end
+        else
+          u.roles << r unless u.roles.include? r
+          u.save
+          flash.now[:notice] = 
+            _('Add User "%{user}" into Group "%{role}"') % 
+          {:user => u.login, :role => r.name} 
+        end
+      else
+        flash.now[:warn] = 
+          _('Group "%{role}" doesn\'t exist!') % 
+        {:role => r.name}
+      end
+    else
+      flash.now[:warn] = 
+        _('User "%{user}" doesn\'t exist!') % 
+      {:user => u.login}
     end
-    redirect_to :action => 'roles_edit', :id => params[:id]
+    member_edit
+    render :action => :member_edit, :layout => 'module_with_flash'
+    #    project = Project.find params[:id]
+    #    begin
+    #    user = User.find_by_login params[:user], :conditions => User.verified_users
+    #    project.set_role(params[:role], user)
+    #      rescue
+    #      flash[:warning] = _("Invalid User!")
+    #    end
+    #    redirect_to :action => 'roles_edit', :id => params[:id]
   end
 
-  def delete_role
-    project = Project.find params[:id]
-#    raise SandardError unless Role.valid_role? params[:role]
-    params[params[:role].to_sym].each do |user_id|
-      user = User.find user_id
-      if user and project
-        user.has_no_role params[:role], project
+  def member_delete 
+    params['u'] =~ /role_(\d+)_user_(\d+)/
+    role_id = $1
+    if role_id.to_i < 1 #drag 'new user' 
+      flash.now[:warning] = 
+          _('You can\'t delete User belongs to This Group!')
+    else 
+      user_id = $2
+      if u=User.find(user_id)
+        if r=Role.find(role_id)
+          u.roles.delete(r)
+          u.save
+          flash.now[:notice] = 
+            _('Remove User "%{user}" from Group "%{role}"') % 
+          {:user => u.login, :role => r.name}
+        else
+          flash.now[:warn] = 
+            _('Group "%{role}" doesn\'t exist!') % 
+          {:role => r.name}
+        end
       else
-        raise StandardError 
+        flash.now[:warn] = 
+          _('User "%{user}" doesn\'t exist!') % 
+        {:user => u.login}
       end
     end
-    
-    redirect_to :action => 'roles_edit', :id => params[:id]
+    member_edit
+    render :action => :member_edit, :layout => 'module_with_flash'
+#    params[params[:role].to_sym].each do |user_id|
+#      user = User.find user_id
+#      if user and project
+#        user.has_no_role params[:role], project
+#      else
+#        raise StandardError 
+#      end
+#    end
   end
 
-  def roles_edit
+  def member_edit
+    @module_name = _('project_Member Control')
     @roles = @project.roles
+    @users_map = @roles.collect{|r| r.users}
   end
   
   def role_users
@@ -192,6 +255,13 @@ class ProjectsController < ApplicationController
     render :layout => false 
   end
   
+  def permission_edit
+    @module_name = _('project_Permission Control')
+    @roles = @project.roles.reject{|r| !(r.editable? )}
+    @functions_map = @roles.collect{|r| r.functions.collect{|f| f.id } }
+    @all_functions = Function.find :all
+  end  
+    
   def role_edit
     @role = Role.find(params[:role])
     @role_functions = @role.functions
@@ -206,26 +276,26 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def role_update
-    @role = Role.find(params[:role])
-    if(@role.authorizable_id == @project.id)
-      if !(@role.name.upcase == "ADMIN" || @role.name.upcase == "MEMBER")
-        @role.name = params[:name]
+  def group_update
+    if Role.exists? params[:role] and role = Role.find(params[:role])
+    if(role.authorizable_id == @project.id)
+      if !(role.name.upcase == "ADMIN" || role.name.upcase == "MEMBER")
+        role.name = params[:name]
       end
-      if (@role.name.upcase != "ADMIN" && @role.save)
+      if (role.name.upcase != "ADMIN" && role.save)
         updated = params[:functions] || {}
-        unless( updated.keys == @role.functions.map{|f| f.id} )
+        unless( updated.keys == role.functions.map{|f| f.id} )
           after = updated.keys.collect{|id| Function.find(id)}
-          before = @role.functions
+          before = role.functions
           added = after - before
           removed = before - after
-          @role.functions.delete_all
-          @role.functions = after
-          @role.save
+          role.functions.delete_all
+          role.functions = after
+          role.save
 
           #send message for everyone in that role
-          project_id = @role.authorizable_id
-          @role.users.each do |u|
+          project_id = role.authorizable_id
+          role.users.each do |u|
             removed.each do |f|
               ApplicationController::send_msg('function','remove',
                                               {:function_name => f.name, 
@@ -242,54 +312,63 @@ class ProjectsController < ApplicationController
             end
           end
         end
-        flash[:notice] = _('Role was successfully updated.')
+        flash.now[:notice] = _('Permission was successfully updated.')
       end
       #@role.name = params[:name]
+    end
     end
     #page.reload
 #    page[:greeting].update "Greetings, " + params[:name]
 #    page[:greeting].visual_effect :grow
 #    page.select("form").first.reset
     #send_msg(TYPES[:project], ACTIONS[:create], "hello world")
-
-    redirect_to :action => 'role_new', :id => params[:id]
+    permission_edit
+    render :action => 'permission_edit', :layout => 'module_with_flash'
   end
-  
-  def role_new
-    @roles = @project.roles
-    render :partial => 'role_new', :layout => false
-  end
-  
-  def role_create
-    @role = @project.roles.new
-    if(@role.authorizable_id == @project.id)
-      @role.name = params[:name]
-      if(@role.name.upcase != "ADMIN" && @role.name.upcase != "MEMBER")
-        @role.authorizable_type = "Project"
-        if @role.save
-          flash[:notice] = 'Role was successfully created.'
+   
+  def group_create
+    role = @project.roles.new
+    if(role.authorizable_id == @project.id)
+      role.name = params[:name]
+      if(role.name.upcase != "ADMIN" && role.name.upcase != "MEMBER")
+        role.authorizable_type = "Project"
+        if role.save
+          flash.now[:notice] = _('Role "%{name}" was successfully created.') %
+            {:name => role.name}
         end
       end
     end
-    redirect_to :action => 'role_new', :id => params[:id]
+    permission_edit
+    render :action => 'permission_edit', :layout => 'module_with_flash'
   end
 
-  def role_destroy
-    @roles = @project.roles
-    role = Role.find(params[:role])
+  def group_delete
+    if Role.exists?(params[:role]) and role = Role.find(params[:role])
     if(role.name.upcase == "ADMIN" || role.name.upcase == "MEMBER")
-      render :update do |page|
-        page.alert "Admin and Member cant's be delete."
-        page.visual_effect :highlight, 'role_new'
-      end
+      flash.now[:warning] = _('Admin and Member can\'t be deleted.')
+#      render :update do |page|
+#        page.alert "Admin and Member cant's be delete."
+#        page.visual_effect :highlight, 'role_new'
+#      end
     else
+      @project.roles.delete role
       role.destroy
-      render :update do |page|
-#       page[:role_new].replace_html "sdlfkj" :partial => "role_new"
-        page[:role_new].reload
-      end  
-#      redirect_to :action => 'role_new', :id => params[:id]
+      flash.now[:notice] = _('Role "%{name}" was successfully deleted.') %
+            {:name => role.name}
+#      render :update do |page|
+#        page[:role_new].reload
+#      end  
     end
+    else
+      flash.now[:error] = _('Role id not found!')
+    end
+    permission_edit
+    render :action => 'permission_edit', :layout => 'module_with_flash'
+  end
+   
+  def feed
+    @projects = Project.find(:all, :conditions => Project.in_used_projects(), :limit => 10, :order => "created_at DESC")
+    render :layout => false
   end
   
   def vcs_access

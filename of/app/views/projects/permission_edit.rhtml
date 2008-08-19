@@ -1,0 +1,52 @@
+<div id="ProjectPermissionEdit">  
+  <fieldset>
+    <legend><%= _('Groups List') %></legend>
+    
+    <div id="Group_edit">
+      
+      <% form_remote_tag :update => "MainContent",
+        :url => {:action => 'group_create', :id => @project} do  %>
+       <%= _('Create new Group') %> :
+        <%= text_field_tag 'name', '' ,{:size => 20 } %> 
+        <%= submit_tag _('New') %>
+      <% end %>
+       <p>
+      <%= _('Admin has ALL Permissions by default') %>!
+      </p>
+      <% @roles.each_with_index do |role, i| %>
+        <div class='ProjectPermissionSelection' style="float:left"> 
+          <% form_remote_tag :update => "MainContent", :url => { :action => 'group_update', :id => @project } do %>
+          <fieldset>
+            <legend>
+            <%= text_field_tag 'name', role.name, {:size => 20,
+            :disabled => !(role.deletable?)} %> 
+            </legend>
+            <%= hidden_field_tag 'role', role.id %>
+            <ul>
+              <% @all_functions.each do |function| %>
+                <li>
+                  <% if role.editable? -%>
+                    <%=  check_box_tag "functions[#{function.id}]", function.id,
+                      @functions_map[i].member?(function.id) %>
+                  <% else -%>
+                    <%=  check_box_tag "functions[#{function.id}]", function.id,
+                      true, :disabled => true %>
+                  <% end -%>
+                  <%= function.description%></li>
+                <% end %>
+            </ul>
+        
+            <%= submit_tag _('Update') if role.editable? %>
+            <%= " <input type=reset value=\"#{_('Reset')}\">" if role.editable? %>
+            <%= link_to_remote _("Delete"), :update => 'MainContent',
+              :url => { :action => 'group_delete', :id => @project.id,
+              :role => role.id },
+              :condition => "confirm('#{_('Are you sure')}?')" if role.deletable? %>
+        </fieldset>
+          <% end %>
+        </div>
+      <% end %>
+      
+    </div>
+  </fieldset>
+</div>
