@@ -368,6 +368,21 @@ class UserController < ApplicationController
       redirect_to '/user/signup'
     end
   end
+  
+  def search #search for user, use in 'Project Add Member'
+    name = params['username']
+    limit = params['limit'] || 21
+    users = unless name.blank?
+      User.find_by_sql(
+        ["select id,icon,login,realname,email from users where 
+                          #{User.verified_users} and login like  ? limit ?","%#{name}%" ,limit])
+    else
+      []
+    end
+    render(:partial => 'search_hit_member',
+      :locals => {:users => users},
+      :layout => false) 
+  end
 
   protected
 
