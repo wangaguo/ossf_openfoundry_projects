@@ -310,3 +310,18 @@ a.help:hover span
 .project_logo img { margin-bottom: 2px;}
 .user_portrait { margin-right: 4px;}
 .user_portrait img { margin-bottom: 2px;}
+
+.ProjectRoleDrop_active {border:1px solid #0ff;}
+.ProjectRoleDropDelete {
+border:1px dashed #888888;
+color:#CCCCCC;
+font-weight:bold;
+height:25px;
+margin-top:8px;
+padding:8px;
+text-align:center;
+width:500px;
+}
+.ProjectRoleDropDelete_active {background-color:#cff;}
+.RolesUsersSelection {border: 1px dashed #bbbbbb}
+}
