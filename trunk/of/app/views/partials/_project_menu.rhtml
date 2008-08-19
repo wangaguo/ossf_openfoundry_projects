@@ -84,8 +84,11 @@ Event.observe(window, 'load', project_leftmenu_init);
         </ul>
       </li>
     <% end -%>
-    <% if functions.include?('project_member') || functions.include?('role_edit')  -%>
-      <li><%= link_to _('project_Role Control'), :controller => :projects, :action => "roles_edit", :id =>@project%></li>
+    <% if functions.include?('project_member') -%>
+      <li><%= link_to _('project_Member Control'), :controller => :projects, :action => "member_edit", :id =>@project%></li>
+    <% end -%>
+    <% if functions.include?('role_edit') -%>
+      <li><%= link_to _('project_Permission Control'), :controller => :projects, :action => "permission_edit", :id =>@project%></li>
     <% end -%>
   </ul>
   <% end %>
