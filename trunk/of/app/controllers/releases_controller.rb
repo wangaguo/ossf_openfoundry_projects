@@ -89,6 +89,7 @@ class ReleasesController < ApplicationController
   def new
     if request.get?
       @release = Release.new
+      @release.status = 0
       @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
     end
   end
