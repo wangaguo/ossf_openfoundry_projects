@@ -30,7 +30,8 @@ module Authorization
         end
         
         def has_role( role_name, authorizable_obj = nil )
-          role = get_role( role_name, authorizable_obj )
+          role = role_name if Role === role_name
+          role ||= get_role( role_name, authorizable_obj )
           if role.nil?
             if authorizable_obj.is_a? Class
               role = Role.create( :name => role_name, :authorizable_type => authorizable_obj.to_s )
@@ -44,17 +45,17 @@ module Authorization
         end
         
         def has_no_role( role_name, authorizable_obj = nil  )
-          @role = get_role( role_name, authorizable_obj )
-          if @role
-            if(role_name.upcase == "ADMIN" && @role.users.length <= 1)
+          role = role_name if Role === role_name
+          role ||= get_role( role_name, authorizable_obj )
+          if role
+            if(role_name.upcase == "ADMIN" && role.users.length <= 1)
             else
-              self.roles.delete( @role )
+              self.roles.delete( role )
             end
-            if(role_name.upcase != "ADMIN" && role_name.upcase != "MEMBER")
-              @role.destroy if (@role.users.empty?)
-            end
+            #if(role_name.upcase != "ADMIN" && role_name.upcase != "MEMBER")
+            #  role.destroy if (role.users.empty?)
+            #end
           end
-          @role.save
         end
 
         private
