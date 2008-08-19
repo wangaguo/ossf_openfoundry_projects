@@ -188,6 +188,7 @@ class User < ActiveRecord::Base
       atts['name'] = u.login
     else#registing email
       send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login})
+      u.ferret_create
     end
     u
   end
