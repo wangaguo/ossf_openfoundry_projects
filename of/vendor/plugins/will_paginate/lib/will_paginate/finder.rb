@@ -92,13 +92,13 @@ module WillPaginate
         total_entries ||= (Array === args.first and args.first.size)
         
         # paginate finders are really just find_* with limit and offset
-        finder = method.to_s.sub /^paginate/, 'find'
+        finder = method.to_s.sub( /^paginate/, 'find')
 
         # :all is implicit
         if finder == 'find'
           args.unshift(:all) if args.empty?
         elsif finder.index('find_by_') == 0
-          finder.sub! /^find/, 'find_all'
+          finder.sub!( /^find/, 'find_all')
         end
 
         WillPaginate::Collection.create(page, per_page, total_entries) do |pager|
@@ -116,7 +116,7 @@ module WillPaginate
           excludees << :select # only exclude the select param if it doesn't begin with DISTINCT
         end
         # count expects (almost) the same options as find
-        count_options = options.except *excludees
+        count_options = options.except(*excludees)
 
         # merge the hash found in :count
         # this allows you to specify :select, :order, or anything else just for the count query
