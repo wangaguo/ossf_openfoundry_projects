@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action]
   before_filter :set_project
 
   before_filter :check_permission
@@ -308,5 +308,7 @@ class ProjectsController < ApplicationController
   end
   def the_rest
     render :text => 'ohoh'
+  end
+  def test_action
   end
 end
