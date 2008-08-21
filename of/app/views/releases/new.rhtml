@@ -1,6 +1,6 @@
 <h1>Project New Release</h1>
 <p class=ReleaseBasic>
-  <% form_for :release, @release, :url => {:action => :create} do |f|%>
+<% form_for :release, @release, :url => {:project_id => @project.id, :action => :create} do |f|%>
     <table class=ReleaseNew >
 <tr><th><em class='require'>*</em><%= Release.columns_hash['version'].human_name  -%> : </th>
 <td><%= text_field(:release, :version, :size => 20) %></td>
