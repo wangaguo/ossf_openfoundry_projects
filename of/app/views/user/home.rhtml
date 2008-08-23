@@ -22,9 +22,12 @@
   <% end %>:
   </dt>
   <dd>
-  <% @partners.each do |p| %>
-    <%=user_portrait_link(p)%>
-  <% end %>
+    <div style="width:70%;">
+      <% @partners.each do |p| %>
+        <%=user_portrait_link(p, :float => 'left')%>
+      <% end %>
+      <br clear="all"/>
+    </div>
   </dd>
 <% unless(@conceal_email)%>
   <dt>
