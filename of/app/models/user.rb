@@ -8,10 +8,10 @@ class User < ActiveRecord::Base
 
   #add fulltext indexed SEARCH
   acts_as_ferret({
-                 :fields => {:login => {:boost => 1.5,:store => :yes}#, 
+                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
                              #:firstname => {:boost => 0.8,:store => :yes}, 
                              #:lastname => {:boost => 0.8,:store => :yes}, 
-                             #:name => {:boost => 0.8,:store => :yes} 
+                             :name => {:boost => 0.8,:store => :yes} 
                             },
                  :single_index => true,
                  :default_field => [:login]
@@ -20,6 +20,14 @@ class User < ActiveRecord::Base
   # disable ferret search if not verified        
   def ferret_enabled?(is_bulk_index = false)
     (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
+  end
+
+  def name
+    if self.t_conceal_realname
+      ''
+    else
+      self.realname
+    end
   end
 
   #add tags
