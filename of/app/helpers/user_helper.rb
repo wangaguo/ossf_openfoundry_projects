@@ -1,12 +1,19 @@
 module UserHelper
 
-  def user_portrait_link(user, options={:with_login => false})
-    "<span class=\"user_portrait\"><a href=\"/user/home/#{user.id}\">
-     #{options[:with_login] ? user.login : '' }
+  def user_portrait_link(user, options={:with_login => false, :float => nil})
+    "<div class=\"user_portrait\" title=\"#{user.login}\" 
+    style=\"#{options[:float] ? "float:#{options[:float]};" : ''} 
+    display:inline;
+    height:#{options[:with_login] ? '55' : '32' }px; 
+    width:#{options[:with_login] ? '60' : '32' }px; 
+    border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; 
+    white-space:normal; word-break:break-all; overflow:hidden;\">
+    <a href=\"/user/home/#{user.id}\">
      <img src=\"#{url_for(:controller => :images, :action => "cached_image", 
                          :id => "#{user.icon}_#{options[:size]||32}")}\" 
-         title=\"#{user.login}\" align=#{options[:align]||:middle} />
-    </a></span>"
+                         align=#{options[:align]||:middle} />
+     #{options[:with_login] ? "<br/> #{user.login}" : '' }
+    </a></div>"
   end
 
 
