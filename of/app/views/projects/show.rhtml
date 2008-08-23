@@ -49,7 +49,7 @@
 <fieldset style="clear:both;">
   <legend><%= _("Project Participants") %>:</legend>
   <% p_by_login.keys.sort{|a,b| a.casecmp(b)}.each do |login| -%>
-    <%= user_portrait_link(p_by_login[login][0], :with_login => true) %>
+    <%= user_portrait_link(p_by_login[login][0], :with_login => true, :float => 'left') %>
   <% end -%>
 </fieldset>
 
@@ -61,9 +61,9 @@
   %>
     <%= r %>:
     <% for p in (p_by_role[r] || []).sort{|a,b| a.login.casecmp(b.login)} -%>
-      <%=user_portrait_link(p, :with_login => true)%>
+      <%=user_portrait_link(p, :with_login => true, :float => 'left')%>
     <% end -%>
-    <br/>
+    <br clear="all"/>
   <% end -%>
 </fieldset>
 
