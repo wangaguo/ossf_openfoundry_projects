@@ -5,9 +5,14 @@ require 'user_system'
 require 'of'
 require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
+require 'gettext/rails'
 
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
+
+# share session cookie for sub-doamins (SSO)
+# TODO: substitide domain name in the installing process
+ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".ofdev.openfoundry.org"
 
 class ApplicationController < ActionController::Base
   around_filter :touch_session
@@ -53,7 +58,8 @@ class ApplicationController < ActionController::Base
     #
     # TODO: fall back ?
     # puts "#################### set_locale_for_gettext!: lang: ###{lang}##"
-    return if lang == ""
+    #return if lang == ""
+    lang = "zh_TW" if lang == ""
     set_locale(lang, true)
     cookies["lang"] = lang # or set it in the 'after' filter ?
   end
