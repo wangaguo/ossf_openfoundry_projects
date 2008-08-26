@@ -22,7 +22,7 @@ class OpenfoundryController < ApplicationController
   end
   private :get_session_by_id
 
-  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump, :foundry_sync, :authentication_authorization_II]
+  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump, :foundry_sync, :authentication_authorization_II, :redirect_rt_openfoundry_org]
   def get_user_by_session_id
     s = get_session_by_id(params['session_id'])
     u = current_user(s) 
@@ -262,5 +262,11 @@ class OpenfoundryController < ApplicationController
         {:project => CGI.escapeHTML(params[:project_name])}
     end
     #redirect_to params[:project_name]
+  end
+
+  def redirect_rt_openfoundry_org
+    #render :text => request.request_uri
+    #flash[:notice] = _('The site rt.openfoundry.org has been moved here.')
+    redirect_to 'http://of.openfoundry.org/', :status => 307
   end
 end
