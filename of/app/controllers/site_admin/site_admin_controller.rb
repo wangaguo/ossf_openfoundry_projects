@@ -1,10 +1,24 @@
 class SiteAdmin::SiteAdminController < SiteAdmin
+  layout 'application'
   def index
+    cookies['HeaderOnOff'] = 'OFF'
   end
   def aaf_rebuild
     User.rebuild_index(User,Project,Release,News,Fileentity)
     redirect_to :action => :index
   end
+
+  def rescue_user
+    User.find(:all, :conditions => User.verified_users() + " and id > 200000").each do |u|
+      ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
+    end
+  end
+  def rescue_project
+    Project.find(:all, :conditions => Project.in_used_projects() + " and id >= 964").each do |p|
+      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.summary, 'summary' => p.description}) 
+    end
+  end
+
   def resend
     #User.find(:all, :conditions => User.verified_users()).each do |u|
     #  ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
