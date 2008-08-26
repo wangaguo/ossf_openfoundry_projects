@@ -68,7 +68,7 @@ class ReleasesController < ApplicationController
     @project_id = params[:project_id]
     @project_name = Project.find(params[:project_id]).name
     @releases = Release.find :all,
-      :conditions => "project_id = #{params[:project_id]} AND status = 1"
+      :conditions => "project_id = #{params[:project_id]} AND status = 1", :order => "created_at desc" 
   end
   
   def create
