@@ -62,5 +62,14 @@ var menudata=
         {id:'<%=_('Bug Report')%>', url:'/projects/1/rt'}
       ]
     }
+   <% if current_user.has_role? 'site_admin' %>
+    ,{id:'<%=_('menu_Site Admin')%>', url:'/site_admin',
+      submenu:[
+        {id:'<%= _('Approve Projects')%>', url:''},
+        {id:'<%= _('Translations')%>', url:''},
+        {id:'<%= _('Module Menagements')%>', url:''}
+      ]
+    }
+   <% end %> 
   ];
 </script>

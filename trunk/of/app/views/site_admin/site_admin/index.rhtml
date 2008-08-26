@@ -1,3 +1,21 @@
+<h1><%=_('App Information')%></h1>
+<h3>my PID: <%= $$ %></h3>
+<p>
+Ruby Version: <%= `ruby -v`%>
+<br/>
+Rails Version: <%= Rails.version %>
+<br/>
+Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
+<br/>
+Actived Plugins: <%= Rails.configuration.plugins%>
+<br/>
+Timezone: <%= Rails.configuration.time_zone%>
+</p>
+
+<h1><%=_('Client Information')%></h1>
+<p>
+Agent: <%= request.user_agent%>
+</p>
 <h3>網站管理</h3>
 <%= link_to _("Project"), :controller => "project" %>
 <%= link_to _("News"), :controller => "news" %>
