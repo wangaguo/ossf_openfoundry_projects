@@ -16,7 +16,7 @@
       :update => 'ProjectMemberNew',
       :with => :username
   %>
-    <div id='ProjectMemberNew' style='height:126px;'>
+    <div id='ProjectMemberNew' style='height:186px;'>
     </div>
     <% drop_class = "ProjectRoleDropDelete" %>
     <% drop_id = "RemoveThisMember" %>
@@ -25,7 +25,7 @@
     </div>
     <%= drop_receiving_element drop_id,
       :onDrop => "function(drag_element, drop_element, event){
-    if (confirm(\"#{escape_javascript(_('This will remove User form this Group, are you  sure?'))}\"))
+    if (confirm(\"#{escape_javascript(_('This will remove User form this Group, are you sure?'))}\"))
     {#{remote_function(:update => 'MainContent',
     :url => {:controller => :projects,
     :action => :member_delete,
