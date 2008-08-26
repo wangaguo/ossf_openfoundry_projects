@@ -1199,7 +1199,6 @@ msgid "you have no permission"
 msgstr "您沒有足夠權限"
 
 #: app/controllers/releases_controller.rb:11
-#, fuzzy
 msgid "Release"
 msgstr "規畫釋出"
 
@@ -1278,30 +1277,29 @@ msgstr ""
 
 #: app/controllers/projects_controller.rb:174
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
-msgstr ""
+msgstr "將使用者\"%{user}\"從群組\"%{old_role}\"移到\"%{role}\""
 
 #: app/controllers/projects_controller.rb:181
 msgid "Add User \"%{user}\" into Group \"%{role}\""
-msgstr ""
+msgstr "加入使用者\"%{user}\"到群組\"%{role}\""
 
 #: app/controllers/projects_controller.rb:186
 #: app/controllers/projects_controller.rb:223
 msgid "Group \"%{role}\" doesn't exist!"
-msgstr ""
+msgstr "群組\"%{role}\"不存在!"
 
 #: app/controllers/projects_controller.rb:191
 #: app/controllers/projects_controller.rb:228
-#, fuzzy
 msgid "User \"%{user}\" doesn't exist!"
 msgstr "使用者 %{user} 不存在或是停用"
 
 #: app/controllers/projects_controller.rb:211
 msgid "You can't delete User belongs to This Group!"
-msgstr ""
+msgstr "無法移除該使用者!"
 
 #: app/controllers/projects_controller.rb:219
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
-msgstr ""
+msgstr "從群組\"%{role}\"移除使用者\"%{user}\""
 
 #: app/controllers/projects_controller.rb:245
 #: app/views/partials/_project_menu.rhtml:88
@@ -2575,7 +2573,7 @@ msgstr "建立新群組"
 
 #: app/views/projects/permission_edit.rhtml:14
 msgid "Admin has ALL Permissions by default"
-msgstr "Admin群組以已擁有所有權限"
+msgstr "Admin群組已擁有所有權限"
 
 #: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:38
 #: app/views/news/show.rhtml:16 app/views/jobs/list.rhtml:22
