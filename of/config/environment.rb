@@ -61,7 +61,7 @@ Rails::Initializer.run do |config|
   config.gem 'tzinfo', :version =>  ">= 0.3.6" 
   #config.gem 'ruby-openid', :version =>  ">= 2.1.2"
 
-  ENV['TZ'] = 'Taipei'
+  config.time_zone = 'Taipei' 
 
   # Add new inflection rules using the following format 
   # (all these examples are active by default):
