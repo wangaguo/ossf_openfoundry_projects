@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-08-25 05:42-0000\n"
+"POT-Creation-Date: 2008-08-27 07:58-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -210,7 +210,7 @@ msgstr "更新時間"
 msgid "PREPARING"
 msgstr "準備中(Preparing)"
 
-#: app/models/release.rb:19 app/models/project.rb:6
+#: app/models/release.rb:19 app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:37
 msgid "RELEASED"
 msgstr "釋出(Released)"
@@ -451,151 +451,151 @@ msgstr "上次修改時間"
 msgid "Project|Updated by"
 msgstr "上次修改時間"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:318
 msgid "IDEA"
 msgstr "概念(Idea)"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:104
 msgid "PREALPHA"
 msgstr "雛形(Pre-Alpha)"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:238
 msgid "ALPHA"
 msgstr "測試(Alpha)"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:121
 msgid "BETA"
 msgstr "試用(Beta)"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:77
 msgid "MATURE"
 msgstr "成熟(Mature)"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:7
 #: app/views/projects/test_action_i18n______________.rhtml:203
 msgid "STANDARD"
 msgstr "標準(Standard)"
 
-#: app/models/project.rb:53 app/models/project.rb:94
+#: app/models/project.rb:54 app/models/project.rb:95
 #: app/views/projects/test_action_i18n______________.rhtml:114
 msgid "Public Domain"
 msgstr "公共財(Public Domain)"
 
-#: app/models/project.rb:53
+#: app/models/project.rb:54
 #: app/views/projects/test_action_i18n______________.rhtml:61
 msgid "This project contains no code"
 msgstr "專案不包含程式碼"
 
-#: app/models/project.rb:53 app/models/project.rb:94
+#: app/models/project.rb:54 app/models/project.rb:95
 #: app/views/projects/test_action_i18n______________.rhtml:50
 msgid "Other licenses"
 msgstr "其他"
 
-#: app/models/project.rb:94
+#: app/models/project.rb:95
 #: app/views/projects/test_action_i18n______________.rhtml:7
 msgid "Same license as code"
 msgstr "同程式碼"
 
-#: app/models/project.rb:94
+#: app/models/project.rb:95
 #: app/views/projects/test_action_i18n______________.rhtml:170
 msgid "Project contains only code"
 msgstr "專案不包含圖文內容"
 
-#: app/models/project.rb:158
+#: app/models/project.rb:159
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:160 app/views/projects/_tabnav.rhtml:6
+#: app/models/project.rb:161 app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr ""
 
-#: app/models/project.rb:162
+#: app/models/project.rb:163
 #: app/views/projects/test_action_i18n______________.rhtml:324
 msgid "This project uses a version control system at other site."
 msgstr "使用其他站台的版本控制系統"
 
-#: app/models/project.rb:164
+#: app/models/project.rb:165
 #: app/views/projects/test_action_i18n______________.rhtml:140
 msgid "This project does not use any version control system."
 msgstr "不使用版本控制系統"
 
-#: app/models/project.rb:166
+#: app/models/project.rb:167
 #: app/views/projects/test_action_i18n______________.rhtml:87
 msgid "System Error. Please contact the site administrator."
 msgstr "系統錯誤, 請通知站台管理員."
 
-#: app/models/project.rb:217
+#: app/models/project.rb:218
 msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
-#: app/models/project.rb:218
+#: app/models/project.rb:219
 #: app/views/projects/test_action_i18n______________.rhtml:181
 msgid "This name is reserved by the system."
 msgstr "抱歉, 此名字已被系統保留"
 
-#: app/models/project.rb:224
+#: app/models/project.rb:225
 #: app/views/projects/test_action_i18n______________.rhtml:290
 msgid "You have choosen too many licenses."
 msgstr "您選擇了太多種程式碼授權方式"
 
-#: app/models/project.rb:226
+#: app/models/project.rb:227
 #: app/views/projects/test_action_i18n______________.rhtml:84
 msgid "You have choosen too many content licenses."
 msgstr "您選擇了太多種圖文授權方式"
 
-#: app/models/project.rb:251
+#: app/models/project.rb:252
 #: app/views/projects/test_action_i18n______________.rhtml:132
 msgid "Please choose at least one code license."
 msgstr "請選擇至少一種程式碼授權方式"
 
-#: app/models/project.rb:254
+#: app/models/project.rb:255
 #: app/views/projects/test_action_i18n______________.rhtml:93
 msgid ""
 "If this project contains no code, then you may not choose any other license."
 msgstr "此專案若不包含程式碼, 請不用選取其他程式碼授權方式"
 
-#: app/models/project.rb:259
+#: app/models/project.rb:260
 #: app/views/projects/test_action_i18n______________.rhtml:179
 msgid "Please choose at least one content license."
 msgstr "請選擇至少一種圖文授權方式"
 
-#: app/models/project.rb:262
+#: app/models/project.rb:263
 #: app/views/projects/test_action_i18n______________.rhtml:193
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
 msgstr "此專案若只有程式碼, 請不用選取圖文授權方式"
 
-#: app/models/project.rb:265
+#: app/models/project.rb:266
 #: app/views/projects/test_action_i18n______________.rhtml:192
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
 msgstr "圖文授權方式若與程式碼授權方式相同, 請不用選擇其他圖文授權方式"
 
-#: app/models/project.rb:269
+#: app/models/project.rb:270
 #: app/views/projects/test_action_i18n______________.rhtml:303
 msgid "You have to choose a code license."
 msgstr "請選擇程式碼授權方式"
 
-#: app/models/project.rb:273
+#: app/models/project.rb:274
 #: app/views/projects/test_action_i18n______________.rhtml:226
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
 msgstr "若您選擇了\"其他\"授權方式, 則請填寫\"授權說明\""
 
-#: app/models/project.rb:277
+#: app/models/project.rb:278
 #: app/views/projects/test_action_i18n______________.rhtml:252
 msgid "Please choose at least one platform."
 msgstr "請選擇至少一種作業環境"
 
-#: app/models/project.rb:281
+#: app/models/project.rb:282
 #: app/views/projects/test_action_i18n______________.rhtml:57
 msgid "Please choose at least one programming language."
 msgstr "請選擇至少一種程式語言"
@@ -1028,7 +1028,7 @@ msgstr "OpenFoundry新聞"
 
 #: app/controllers/news_controller.rb:36
 #: app/views/projects/test_action_i18n______________.rhtml:335
-#: app/views/site_admin/site_admin/index.rhtml:3
+#: app/views/site_admin/site_admin/index.rhtml:23
 msgid "News"
 msgstr "新聞"
 
@@ -1193,7 +1193,7 @@ msgstr "下一頁"
 msgid "captcha mismatch"
 msgstr "驗證碼錯誤"
 
-#: app/controllers/application.rb:284 app/controllers/images_controller.rb:216
+#: app/controllers/application.rb:284 app/controllers/images_controller.rb:197
 #: app/views/projects/test_action_i18n______________.rhtml:141
 msgid "you have no permission"
 msgstr "您沒有足夠權限"
@@ -1219,7 +1219,7 @@ msgstr ""
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/images_controller.rb:213
+#: app/controllers/images_controller.rb:194
 #: app/views/projects/test_action_i18n______________.rhtml:218
 msgid "image_upload_error"
 msgstr "圖像上傳錯誤"
@@ -1232,15 +1232,15 @@ msgid ""
 "developers can contact you when the issue is resolved. "
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:253
+#: app/controllers/openfoundry_controller.rb:276
 msgid "The file \"%{filename}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:257
+#: app/controllers/openfoundry_controller.rb:280
 msgid "The release \"%{release}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:261
+#: app/controllers/openfoundry_controller.rb:284
 msgid "The project \"%{project}\" you are requesting does not exist."
 msgstr ""
 
@@ -1542,7 +1542,7 @@ msgid "submit"
 msgstr "送出"
 
 #: app/views/partials/_top_menu_data.rhtml:4
-#: app/views/layouts/application.rhtml:44
+#: app/views/layouts/application.rhtml:36
 #: app/views/projects/test_action_i18n______________.rhtml:42
 msgid "menu_OpenFoundry"
 msgstr "OpenFoundry"
@@ -1568,7 +1568,7 @@ msgid "menu_Newsletter"
 msgstr "自由軟體鑄造場電子報"
 
 #: app/views/partials/_top_menu_data.rhtml:12
-#: app/views/layouts/application.rhtml:45
+#: app/views/layouts/application.rhtml:37
 #: app/views/projects/test_action_i18n______________.rhtml:120
 msgid "menu_Projects"
 msgstr "所有專案"
@@ -1660,7 +1660,7 @@ msgid "LastUpdatedBy"
 msgstr "最近更動"
 
 #: app/views/partials/_top_menu_data.rhtml:42
-#: app/views/layouts/application.rhtml:46
+#: app/views/layouts/application.rhtml:38
 #: app/views/projects/test_action_i18n______________.rhtml:266
 msgid "menu_License Wizard"
 msgstr "授權指引/精靈"
@@ -1695,7 +1695,7 @@ msgid "menu_Manual"
 msgstr "說明"
 
 #: app/views/partials/_top_menu_data.rhtml:49
-#: app/views/layouts/application.rhtml:47
+#: app/views/layouts/application.rhtml:39
 #: app/views/projects/test_action_i18n______________.rhtml:267
 msgid "menu_Help"
 msgstr "說明"
@@ -1732,7 +1732,7 @@ msgstr "下載pdf格式"
 
 #: app/views/partials/_top_menu_data.rhtml:59
 #: app/views/partials/_top_menu_data.rhtml:61
-#: app/views/layouts/application.rhtml:48
+#: app/views/layouts/application.rhtml:40
 #: app/views/projects/test_action_i18n______________.rhtml:339
 msgid "menu_Contact Us"
 msgstr "連絡我們"
@@ -1742,13 +1742,32 @@ msgstr "連絡我們"
 msgid "Bug Report"
 msgstr "問題回報"
 
-#: app/views/layouts/application.rhtml:78
+#: app/views/partials/_top_menu_data.rhtml:66
+#, fuzzy
+msgid "menu_Site Admin"
+msgstr "管理專案"
+
+#: app/views/partials/_top_menu_data.rhtml:68
+#, fuzzy
+msgid "Approve Projects"
+msgstr "新進專案"
+
+#: app/views/partials/_top_menu_data.rhtml:69
+msgid "Translations"
+msgstr ""
+
+#: app/views/partials/_top_menu_data.rhtml:70
+#, fuzzy
+msgid "Module Menagements"
+msgstr "成員管理"
+
+#: app/views/layouts/application.rhtml:70
 #: app/views/projects/test_action_i18n______________.rhtml:105
 #: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:9
 msgid "Change Icon"
 msgstr "更換圖像"
 
-#: app/views/layouts/application.rhtml:96
+#: app/views/layouts/application.rhtml:88
 #: app/views/projects/test_action_i18n______________.rhtml:239
 msgid "Steering Organization"
 msgstr "指導單位"
@@ -1794,8 +1813,8 @@ msgid "OpenFoundry"
 msgstr "自由軟體鑄造場"
 
 #: app/views/releases/edit.rhtml:19
-#: app/views/projects/test_action_i18n______________.rhtml:293
 #: app/views/projects/permission_edit.rhtml:39
+#: app/views/projects/test_action_i18n______________.rhtml:293
 msgid "Update"
 msgstr "更新"
 
@@ -2150,6 +2169,26 @@ msgstr ""
 msgid "This project is not using any version control system."
 msgstr ""
 
+#: app/views/projects/permission_edit.rhtml:3
+msgid "Groups List"
+msgstr "群組列表"
+
+#: app/views/projects/permission_edit.rhtml:9
+msgid "Create new Group"
+msgstr "建立新群組"
+
+#: app/views/projects/permission_edit.rhtml:14
+msgid "Admin has ALL Permissions by default"
+msgstr "Admin群組已擁有所有權限"
+
+#: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:38
+#: app/views/news/show.rhtml:16 app/views/jobs/list.rhtml:22
+#: app/views/jobs/show.rhtml:15 app/views/citations/list.rhtml:21
+#: app/views/citations/show.rhtml:19 app/views/references/list.rhtml:20
+#: app/views/references/show.rhtml:11
+msgid "Delete"
+msgstr "刪除"
+
 #: app/views/projects/test_action_i18n______________.rhtml:3
 msgid "User|Delete after"
 msgstr "將要刪除"
@@ -2237,7 +2276,7 @@ msgid "home"
 msgstr "首頁"
 
 #: app/views/projects/test_action_i18n______________.rhtml:72
-#: app/views/site_admin/site_admin/index.rhtml:4
+#: app/views/site_admin/site_admin/index.rhtml:24
 msgid "User"
 msgstr "使用者"
 
@@ -2319,7 +2358,7 @@ msgid "User|Conceal Realname|Help"
 msgstr "不顯示真實姓名在使用者頁面"
 
 #: app/views/projects/test_action_i18n______________.rhtml:157
-#: app/views/site_admin/site_admin/index.rhtml:2
+#: app/views/site_admin/site_admin/index.rhtml:22
 msgid "Project"
 msgstr "專案"
 
@@ -2563,26 +2602,6 @@ msgstr "首頁轉址"
 msgid "Register for an account"
 msgstr "註冊帳號"
 
-#: app/views/projects/permission_edit.rhtml:3
-msgid "Groups List"
-msgstr "群組列表"
-
-#: app/views/projects/permission_edit.rhtml:9
-msgid "Create new Group"
-msgstr "建立新群組"
-
-#: app/views/projects/permission_edit.rhtml:14
-msgid "Admin has ALL Permissions by default"
-msgstr "Admin群組已擁有所有權限"
-
-#: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:38
-#: app/views/news/show.rhtml:16 app/views/jobs/list.rhtml:22
-#: app/views/jobs/show.rhtml:15 app/views/citations/list.rhtml:21
-#: app/views/citations/show.rhtml:19 app/views/references/list.rhtml:20
-#: app/views/references/show.rhtml:11
-msgid "Delete"
-msgstr "刪除"
-
 #: app/views/news/list.rhtml:3 app/views/jobs/list.rhtml:3
 #: app/views/citations/list.rhtml:3 app/views/references/list.rhtml:3
 msgid "Sort by"
@@ -2637,11 +2656,21 @@ msgstr "描述"
 msgid "View"
 msgstr ""
 
-#: app/views/site_admin/site_admin/index.rhtml:7
+#: app/views/site_admin/site_admin/index.rhtml:1
+#, fuzzy
+msgid "App Information"
+msgstr "基本資料"
+
+#: app/views/site_admin/site_admin/index.rhtml:15
+#, fuzzy
+msgid "Client Information"
+msgstr "基本資料"
+
+#: app/views/site_admin/site_admin/index.rhtml:27
 msgid "Resend Stomp msg for ALL MODELS"
 msgstr ""
 
-#: app/views/site_admin/site_admin/index.rhtml:11
+#: app/views/site_admin/site_admin/index.rhtml:31
 msgid "Rebuild Ferret Index"
 msgstr ""
 
