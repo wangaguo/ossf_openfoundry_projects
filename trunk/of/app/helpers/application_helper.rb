@@ -258,7 +258,7 @@ module ApplicationHelper
 
   def tz_date(time_at)
     begin
-      time = TzTime.zone.adjust(time_at.utc)
+      time = Time.zone.utc_to_local(time_at.utc)
       time.strftime("%Y-%m-%d")
     rescue
       ""
@@ -267,8 +267,8 @@ module ApplicationHelper
   
   def tz_datetime(time_at)
     begin
-      time = TzTime.zone.adjust(time_at.utc)
-      time.strftime("%Y-%m-%d %H:%M") + ' ' + TzTime.zone.formatted_offset
+      time = Time.zone.utc_to_local(time_at.utc)
+      time.strftime("%Y-%m-%d %H:%M") + ' ' + Time.zone.formatted_offset
     rescue
       ""
     end

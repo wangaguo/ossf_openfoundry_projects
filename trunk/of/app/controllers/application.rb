@@ -12,11 +12,11 @@ require 'gettext/rails'
 
 # share session cookie for sub-doamins (SSO)
 # TODO: substitide domain name in the installing process
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".ofdev.openfoundry.org"
+ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
 
 class ApplicationController < ActionController::Base
   around_filter :touch_session
-  around_filter :set_timezone
+  before_filter :set_time_zone
 
   #for permission table
   include OpenFoundry::PermissionTable
@@ -233,7 +233,7 @@ THECODE
   
   def utc_to_local(time)
     begin
-      TzTime.zone.adjust(time)
+      Time.zone.utc_to_local(time)
     rescue
       time = ""
     end
@@ -241,7 +241,7 @@ THECODE
   
   def local_to_utc(time)
     begin
-      TzTime.zone.unadjust(time)
+      Time.zone.local_to_utc(time)
     rescue
       time
     end
@@ -299,14 +299,10 @@ THECODE
       yield
       session[:host] = request.remote_ip
     end
-    
-    def set_timezone
+
+    def set_time_zone
       if !current_user.timezone.nil?
-        TzTime.zone = current_user.tz
-      else
-        TzTime.zone = TimeZone.new(ENV['TZ'])
+        Time.zone = current_user.timezone
       end
-      yield
-      TzTime.reset!
     end
 end
