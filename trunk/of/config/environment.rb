@@ -81,21 +81,6 @@ Rails::Initializer.run do |config|
 
   #ActionMailer::Base.delivery_method = :sendmail
 
-  # For Project Upload
-  OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
-
-  # TODO: better naming
-  OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
-  OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
-  OPENFOUNDRY_VIEWVC_URL =  'http://of.openfoundry.org/viewvc/'
-  OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
-  OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
-  OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
-  OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
-  #
-  # important password! leak it may leak all your user data!!
-  #
-  OPENFOUNDRY_JSON_DUMP_PASSWORD = 'it_is_a_good_day_to_die'
 
   config.after_initialize {
     # add fulltext indexed SEARCH
@@ -110,6 +95,22 @@ Rails::Initializer.run do |config|
     #require "lib/memory.rb"
     #require "lib/mongrel_size_limit.rb"
     #require 'bleak_house' if ENV['BLEAK_HOUSE']
+    
+    # For Project Upload
+    OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
+
+    # TODO: better naming
+    OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
+    OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
+    OPENFOUNDRY_VIEWVC_URL =  'http://of.openfoundry.org/viewvc/'
+    OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
+    OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
+    OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
+    OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
+    #
+    # important password! leak it may leak all your user data!!
+    #
+    #OPENFOUNDRY_JSON_DUMP_PASSWORD = 
   }
 
 end
