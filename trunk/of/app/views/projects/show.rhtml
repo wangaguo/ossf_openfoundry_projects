@@ -60,9 +60,11 @@
     keys.each do |r|
   %>
     <%= r %>:
+    <div>
     <% for p in (p_by_role[r] || []).sort{|a,b| a.login.casecmp(b.login)} -%>
       <%=user_portrait_link(p, :with_login => true, :float => 'left')%>
     <% end -%>
+    </div>
     <br clear="all"/>
   <% end -%>
 </fieldset>
