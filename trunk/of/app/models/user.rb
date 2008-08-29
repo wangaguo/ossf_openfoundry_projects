@@ -194,8 +194,9 @@ class User < ActiveRecord::Base
       u.save
       atts['id'] = u.id
       atts['name'] = u.login
+      send_msg(TYPES[:user],ACTIONS[:update],{'id' => id, 'name' => u.login, 'email' => u.email})
     else#registing email
-      send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login})
+      send_msg(TYPES[:user],ACTIONS[:create],{'id' => id, 'name' => u.login, 'email' => u.email})
       u.ferret_create
     end
     u
