@@ -1,11 +1,11 @@
 <h1><%=@data_item.subject%></h1>
 <p class="date"><%=_('Last Updated')%>:&nbsp;<%=tz_datetime(@data_item.updated_at)%></p>
 <dl>
-  <dt><label><%= _('Job|description') %></label></dt>
+  <dt><label><%= _('Job|Description') %></label></dt>
   <dd><%= h(@data_item.description).gsub("\n", '<br/>') %></dd>
-  <dt><label><%= _('Job|requirement') %></label></dt>
+  <dt><label><%= _('Job|Requirement') %></label></dt>
   <dd><%= h(@data_item.requirement).gsub("\n", '<br/>') %></dd>
-  <dt><label><%= _('Job|due') %></label></dt>
+  <dt><label><%= _('Job|Due') %></label></dt>
   <dd><%= tz_date(@data_item.due) %></dd>
 </dl>
 
