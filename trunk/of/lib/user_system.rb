@@ -87,7 +87,7 @@ module UserSystem
 
   def user?
     # First, is the user already authenticated?
-    return true if not session['user'].nil?
+    return true if session['user'] and (not params['s'])
 
     # If not, is the user being authenticated by a token?
     return false if not params['user']
