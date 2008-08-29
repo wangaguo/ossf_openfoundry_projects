@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>OpenFoundry -- <%= controller.action_name %><%= " __#{$$}__" if params[:debug]%></title>
+  <title>OpenFoundry -- <%= controller.action_name %><%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
   <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
   <%= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
   <%= javascript_include_tag "prototype", "effects", "application", "transmenu" %>
@@ -13,14 +13,6 @@
   <%= javascript_include_tag 'calendar/calendar-setup' %>
   <%= stylesheet_link_tag 'calendar' %>
   <%= render :partial => 'partials/top_menu_data' %>
-  <script type="text/javascript">
-  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-  var pageTracker = _gat._getTracker("UA-5220412-1");
-  pageTracker._trackPageview();
-  </script>
 </head>
 
 <body >
