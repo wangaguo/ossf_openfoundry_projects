@@ -14,6 +14,8 @@ Timezone: <%= Rails.configuration.time_zone%>
 
 <h1><%=_('Client Information')%></h1>
 <p>
+IP: <%= request.remote_ip%>
+<br/>
 Agent: <%= request.user_agent%>
 </p>
 <h3>網站管理</h3>
@@ -22,11 +24,11 @@ Agent: <%= request.user_agent%>
 <%= link_to _("User"), :controller => "user" %>
 
 <h3>BE CAREFUL! for data sync only...</h3>
-<%= link_to _("Resend Stomp msg for ALL MODELS"), :action => :resend %>
+<%= link_to _("Resend Stomp msg for ALL MODELS"), {:action => :resend }, {:confirm => 'really?'} %>
 
 <h3>Rebuild ferret index...</h3>
 
-<%= link_to _("Rebuild Ferret Index"), :action => :aaf_rebuild %>
+<%= link_to _("Rebuild Ferret Index"), {:action => :aaf_rebuild }, {:confirm => 'really?'} %>
 
 <h3>監控與分析</h3>
 <a href="https://www.google.com/analytics/reporting/?scid=5220412">Google Analytic</a>
