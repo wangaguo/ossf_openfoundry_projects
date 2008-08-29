@@ -742,11 +742,11 @@ msgstr "描述"
 
 #: app/models/job.rb:-
 msgid "Job|Requirement"
-msgstr ""
+msgstr "技能需求"
 
 #: app/models/job.rb:-
 msgid "Job|Due"
-msgstr ""
+msgstr "有效日期"
 
 #: app/models/job.rb:-
 #, fuzzy
@@ -2630,7 +2630,7 @@ msgstr "請再確認一次"
 
 #: app/views/news/list.rhtml:49 app/views/news/new.rhtml:1
 msgid "Add News"
-msgstr ""
+msgstr "新增新聞"
 
 #: app/views/news/show.rhtml:13 app/views/news/_form.rhtml:18
 msgid "Tags"
@@ -2642,9 +2642,8 @@ msgstr ""
 #: app/views/citations/show.rhtml:23 app/views/citations/edit.rhtml:9
 #: app/views/citations/new.rhtml:8 app/views/references/show.rhtml:15
 #: app/views/references/edit.rhtml:9 app/views/references/new.rhtml:8
-#, fuzzy
 msgid "List"
-msgstr "專案一覽"
+msgstr "列表"
 
 #: app/views/news/_form.rhtml:13 app/views/jobs/_form.rhtml:9
 #, fuzzy
@@ -2654,7 +2653,7 @@ msgstr "描述"
 #: app/views/news/edit.rhtml:8 app/views/jobs/edit.rhtml:8
 #: app/views/citations/edit.rhtml:8 app/views/references/edit.rhtml:8
 msgid "View"
-msgstr ""
+msgstr "檢視"
 
 #: app/views/site_admin/site_admin/index.rhtml:1
 #, fuzzy
@@ -2676,42 +2675,19 @@ msgstr ""
 
 #: app/views/jobs/list.rhtml:33 app/views/jobs/new.rhtml:1
 msgid "Add Job"
-msgstr ""
-
-#: app/views/jobs/show.rhtml:4
-#, fuzzy
-msgid "Job|description"
-msgstr "描述"
-
-#: app/views/jobs/show.rhtml:6
-msgid "Job|requirement"
-msgstr ""
-
-#: app/views/jobs/show.rhtml:8
-msgid "Job|due"
-msgstr ""
-
-#: app/views/jobs/_form.rhtml:13
-msgid "Requirement"
-msgstr ""
-
-#: app/views/jobs/_form.rhtml:17
-#, fuzzy
-msgid "Due Date"
-msgstr "註冊"
+msgstr "新增尋求支援"
 
 #: app/views/citations/list.rhtml:32 app/views/citations/new.rhtml:1
 msgid "Add Citation"
-msgstr ""
+msgstr "新增引用資訊"
 
 #: app/views/references/list.rhtml:31 app/views/references/new.rhtml:1
-#, fuzzy
 msgid "Add Reference"
-msgstr "偏好設定"
+msgstr "新增參考文獻"
 
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
-msgstr ""
+msgstr "你必需先登入OpenFoundry"
 
 #, fuzzy
 #~ msgid "Editing Project Roles"
