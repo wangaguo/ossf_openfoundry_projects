@@ -3,29 +3,29 @@
 # This is the actual config file used to keep the mongrels of
 # of.openfoundry.org running.
 
-RUBY = "/home/openfoundry/ruby/ruby/bin/ruby"
-MONGREL_RAILS = "/home/openfoundry/ruby/ruby/bin/mongrel_rails"
-RAILS_ROOT = "/home/openfoundry/of"
-ENVIRONMENT = "production"
-#ENVIRONMENT = "development"
+  RUBY = "/home/openfoundry/ruby/ruby/bin/ruby"
+  MONGREL_RAILS = "/home/openfoundry/ruby/ruby/bin/mongrel_rails"
+  RAILS_ROOT = "/home/openfoundry/of"
+  ENVIRONMENT = "production"
+  #ENVIRONMENT = "development"
 
-USER = 'openfoundry'
-GROUP = 'openfoundry'
+  USER = 'openfoundry'
+  GROUP = 'openfoundry'
 
-ADDRESS = '127.0.0.1'
+  ADDRESS = '127.0.0.1'
 
-#7998,7999 for internal use, like foundry_sync, sso
+#7996,7997 for sso
+#7998,7999 for foundry_sync
 #8000-8005 for production 
 #9000      for ferret index server
-7998.upto(8005) do |port|
+7996.upto(8005) do |port|
   God.watch do |w|
-    if port < 8000
-      w.group = "openfoundry-sync"
-    elsif port%2 == 0 
-      w.group = "openfoundry-even"
+    w.group = case port
+    when 7996..7997 : "openfoundry-sso"
+    when 7998..7999 : "openfoundry-sync"
     else
-      w.group = "openfoundry-odd"
-    end
+      port % 2 == 0 ? "openfoundry-even" : "openfoundry-odd"
+    end 
 
     w.name = "openfoundry-mongrel-#{port}"
     w.interval = 30.seconds # default      
@@ -212,4 +212,5 @@ God.contact(:email) do |c|
   c.email = 'thkuo@iis.sinica.edu.tw'
   c.group = 'ossf-dev'
 end
+
 
