@@ -50,8 +50,9 @@
   </dt>
   <dd>
     <% @projects.each do |p| %>
-      <%= project_logo_link(p, {:with_name => true}) %>
+      <%= project_logo_link(p, {:with_name => true, :float => 'left'}) %>
     <% end %>
+    <br clear="all"/>
   </dd>
   <% if @my%>
     <dt>
