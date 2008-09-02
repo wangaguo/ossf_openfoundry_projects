@@ -228,8 +228,8 @@ class RTUser < RTModel
     RTGroupMember.delete_all("GroupId = #{gid} and MemberId = #{uid}")
   end
 
-  def self.create_user(id, name)
-    RTPrincipal.create_user(:id => id, :Name => name)
+  def self.create_user(id, name, email)
+    RTPrincipal.create_user(:id => id, :Name => name, :EmailAddress => email)
 
     equiv_gid = RTPrincipal.create_group(RTGroup.equiv_group_options(id)).id
     
@@ -245,8 +245,8 @@ class RTUser < RTModel
     RTCachedGroupMember.new(:GroupId => 4, :MemberId => id, :Via => 4, :ImmediateParentId => 4).save!
   end
 
-  def self.create_user_and_add_into_openfoundry_group(id, name)
-    create_user(id, name)
+  def self.create_user_and_add_into_openfoundry_group(id, name, email)
+    create_user(id, name, email)
     # add into the 'openfoundry' group (except 'guest')
     openfoundry_gid = RTGroup.find(:first, :conditions => "Name = 'OpenFoundry' and Domain = 'UserDefined'").id
     RTGroupMember.add_user_into_group(id, openfoundry_gid)
@@ -254,7 +254,7 @@ class RTUser < RTModel
 
   # TODO: generate sql update statement directly
   def self.update_user(id, name, email)
-    RTUser.update!(id, :EmailAddress => email, :LastUpdated => Time.now)
+    RTUser.update(id, :EmailAddress => email, :LastUpdated => Time.now).save
   end
 end
 
