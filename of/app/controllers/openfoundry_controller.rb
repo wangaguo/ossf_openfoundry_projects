@@ -265,8 +265,64 @@ class OpenfoundryController < ApplicationController
   end
 
   def redirect_rt_openfoundry_org
-    #render :text => request.request_uri
-    #flash[:notice] = _('The site rt.openfoundry.org has been moved here.')
-    redirect_to 'http://of.openfoundry.org/', :status => 307
+    #/foundry
+    #/foundry/[user|project|download|trove|help]
+    #/foundry/project/[forum|source|downlaod|wiki]
+    #/foundry/project/download/attachement
+    #/viewvc
+    path = request.env['PATH_INFO']
+    q = nil
+    controller = :openfoundry
+    action = nil
+    case path
+    when /^\/foundry(.*)$/i
+      case $1
+      when /\/project(.*)/i
+        controller = :projects
+        q=params['queue']
+        case $1
+        when /\/tracker(.*)/i
+          action = :rt
+        when /\/download(.*)/i
+          case $1
+          when /\/Attachment\/(\d+)\/(\d+)\/(.*)/i
+            f = Fileentity.find_by_meta("$1,$2")
+            if f
+              redirect_to "http://of.openfoundry.org/download_path
+                                                      #{f.release.project.name}/#{f.release.version}/
+                                                        #{f.path}"
+            else
+              redirect_to "http://of.openfoundry.org/releases/top"
+              return
+            end
+          end
+          action = :download
+        when /\/wiki(.*)/i
+          action = :kwiki
+        when /\/forum(.*)/i
+          action = :sympa
+        when /\/source(.*)/i
+          action = :viewvc
+        end
+        redirect_to "http://of.openfoundry.org/#{controller}/#{q}/#{action}"
+      when /\/download(.*)/i
+        case $1
+        when /\/(\d+)\/(\d+)\/(.*)/
+          f = Fileentity.find_by_meta("$1,$2")
+          if f
+            redirect_to "http://of.openfoundry.org/download_path
+                                                    #{f.release.project.name}/#{f.release.version}/
+                                                      #{f.path}"
+          else
+            redirect_to "http://of.openfoundry.org/releases/top"            
+          end
+        else
+          redirect_to "http://of.openfoundry.org/releases/top"
+        end
+      end   
+    when /\/viewvc/i
+    else
+      redirect_to 'http://of.openfoundry.org/', :status => 307
+    end
   end
 end
