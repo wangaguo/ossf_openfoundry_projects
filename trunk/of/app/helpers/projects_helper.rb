@@ -14,12 +14,19 @@ module ProjectsHelper
     end
     rtn
   end
-  def project_logo_link(project, options={:with_name => false})
-    "<span class=\"project_logo\"><a href=\"/projects/#{project.id}\">
-     #{options[:with_name] ? project.name : '' }
-     <img src=\"#{url_for(:controller => :images, :action => "cached_image", 
-                         :id => "#{project.icon}_#{options[:size]||32}")}\" 
-         title=\"#{project.name}\" align=#{options[:align]||:middle} />
-    </a></span>"
+
+  def project_logo_link(project, options={:with_name => false, :float => nil})
+    "<div class=\"project_logo\" title=\"#{project.name}\"
+    style=\"#{options[:float] ? "float:#{options[:float]};" : 'display:inline;'}
+    height:#{options[:with_name] ? '55' : '32' }px;
+    width:#{options[:with_name] ? '75' : '32' }px;
+    border:dotted 1px #eee; text-align:center; vertical-align:text-bottom;
+    white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px;\">
+    <a href=\"/projects/#{project.id}\">
+    <img src=\"#{url_for(:controller => :images, :action => "cached_image",
+                             :id => "#{project.icon}_#{options[:size]||32}")}\"
+             title=\"#{project.name}\" align=#{options[:align]||:middle} />
+     #{options[:with_name] ? "<br/> #{project.name}" : '' }
+    </a></div>"
   end
 end
