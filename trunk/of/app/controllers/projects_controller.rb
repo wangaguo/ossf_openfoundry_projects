@@ -155,6 +155,7 @@ class ProjectsController < ApplicationController
   end
 
   def member_change
+    flag_changed = false
     params['u'] =~ /role_(\d+)_user_(\d+)/
     drag_role_id = $1
     user_id = $2
@@ -162,21 +163,55 @@ class ProjectsController < ApplicationController
     drop_role_id = $1
     if u=User.find(user_id)
       if r=Role.find(drop_role_id)
+        #remember functions before
         if drag_role_id.to_i !=0 and old_r=Role.find(drag_role_id)
           if drag_role_id == drop_role_id #fom A to A => nothing happen
             flash.now[:warning] = 
             _('No Operation...')
-          else
+          elsif r.authorizable_id == old_r.authorizable_id
+            before = u.functions_for(r.authorizable_id)
             u.roles.delete(old_r)
             u.roles << r unless u.roles.include? r
             u.save
+            flag_changed = true
+            after = u.functions_for(r.authorizable_id)
+            added = after - before
+            removed = before - after
+            added.each do |f|
+              ApplicationController::send_msg('function','create',
+                                              {:function_name => f.name, 
+                                                :user_id => u.id,
+                                                :project_id => r.authorizable_id
+                                              })
+            end
+            removed.each do |f|
+              ApplicationController::send_msg('function','remove',
+                                              {:function_name => f.name, 
+                                                :user_id => u.id,
+                                                :project_id => r.authorizable_id
+                                              })
+            end
             flash.now[:notice] = 
               _('Move User "%{user}" from Group "%{old_role}" to Group "%{role}"') % 
             {:user => u.login, :old_role => old_r.name, :role => r.name}
+          else
+            flash.now[:warning] = 
+              _('You can\'t move User between Groups that belong to different Projects.')
           end
         else
+          before  = u.functions_for(r.authorizable_id)
           u.roles << r unless u.roles.include? r
           u.save
+          flag_changed = true
+          after = u.functions_for(r.authorizable_id)
+          added = after - before
+          added.each do |f|
+            ApplicationController::send_msg('function','create',
+                                            {:function_name => f.name, 
+                                              :user_id => u.id,
+                                              :project_id => r.authorizable_id
+                                            })
+          end
           flash.now[:notice] = 
             _('Add User "%{user}" into Group "%{role}"') % 
           {:user => u.login, :role => r.name} 
@@ -191,7 +226,7 @@ class ProjectsController < ApplicationController
         _('User "%{user}" doesn\'t exist!') % 
       {:user => u.login}
     end
-    member_edit
+    member_edit if flag_changed
     render :action => :member_edit, :layout => 'module_with_flash'
     #    project = Project.find params[:id]
     #    begin
@@ -203,7 +238,8 @@ class ProjectsController < ApplicationController
     #    redirect_to :action => 'roles_edit', :id => params[:id]
   end
 
-  def member_delete 
+  def member_delete
+    flag_changed = false
     params['u'] =~ /role_(\d+)_user_(\d+)/
     role_id = $1
     if role_id.to_i < 1 #drag 'new user' 
@@ -213,8 +249,22 @@ class ProjectsController < ApplicationController
       user_id = $2
       if u=User.find(user_id)
         if r=Role.find(role_id)
+          #remember functions before
+          before = u.functions_for(r.authorizable_id)
           u.roles.delete(r)
           u.save
+          after = u.functions_for(r.authorizable_id)
+          removed = before -after
+          flag_changed = true
+          after = u.functions_for(r.authorizable_id)
+          removed = before - after
+          removed.each do |f|
+            ApplicationController::send_msg('function','remove',
+                                            {:function_name => f.name, 
+                                              :user_id => u.id,
+                                              :project_id => r.authorizable_id
+                                            })
+          end
           flash.now[:notice] = 
             _('Remove User "%{user}" from Group "%{role}"') % 
           {:user => u.login, :role => r.name}
@@ -229,7 +279,7 @@ class ProjectsController < ApplicationController
         {:user => u.login}
       end
     end
-    member_edit
+    member_edit if flag_changed
     render :action => :member_edit, :layout => 'module_with_flash'
 #    params[params[:role].to_sym].each do |user_id|
 #      user = User.find user_id
