@@ -7,7 +7,8 @@ require 'base64'
 class OpenfoundryController < ApplicationController
   RECORD_LOOKUP_TABLE = {'User' => 'user', 'Project' => 'projects',
                          'News' => 'news', 'Release' => 'releases', 
-                         'Fileentity' => 'fileentity' }
+                         'Fileentity' => 'fileentity', 'Job' => 'jobs',
+                         'Reference' => 'references', 'Citation' => 'citations' }
   
   def index
   end
@@ -22,9 +23,19 @@ class OpenfoundryController < ApplicationController
   end
   private :get_session_by_id
 
-  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump, :foundry_sync, :authentication_authorization_II, :redirect_rt_openfoundry_org]
+  def get_session_by_id2(session_id)
+    begin
+      return {} if session_id !~ /^[0-9a-f]*$/ 
+      rows = ActiveRecord::Base.connection.select_rows("select data from sessions where session_id = '#{session_id}'")
+      return Marshal.load(Base64.decode64(rows[0][0]))
+    rescue
+      {}
+    end
+  end
+
+  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump, :foundry_sync, :authentication_authorization_II, :redirect_rt_openfoundry_org, :akak]
   def get_user_by_session_id
-    s = get_session_by_id(params['session_id'])
+    s = get_session_by_id2(params['session_id'])
     u = current_user(s) 
     render :text => "#{u.id} #{u.login}",
       :content_type => 'text/plain'
@@ -92,7 +103,7 @@ class OpenfoundryController < ApplicationController
     when "vcs"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
       users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
-      sql= "select U.login, P.name, F.name from 
+      sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
             F.module = 'vcs' and
@@ -110,6 +121,28 @@ class OpenfoundryController < ApplicationController
         a = functions[u] = {} if not a = functions[u]
         b = a[p] = {} if not b = a[p]
         b[f] = 1
+      end
+    when "rt"
+      projects = ActiveRecord::Base.connection.select_rows("select id, name, summary from projects where #{Project.in_used_projects()}")
+      users = ActiveRecord::Base.connection.select_rows("select id, login, email from users where #{User.verified_users()}")
+      sql= "select distinct U.id, P.id, F.name from 
+            users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
+            where 
+            F.module = 'Tracker' and
+            RF.role_id = R.id and RF.function_id = F.id and
+            R.authorizable_id = P.id and 
+            R.authorizable_type = 'Project' and 
+            RU.role_id = R.id and 
+            RU.user_id = U.id and 
+            #{User.verified_users(:alias => 'U')} and 
+            #{Project.in_used_projects(:alias => 'P')}"
+      #render :text => sql; return
+      functions = {}
+      ActiveRecord::Base.connection.execute(sql).each do |u, p, f|
+        #functions[p][f] = [u...]
+        a = functions[p] = {} if not a = functions[p]
+        b = a[f] = [] if not b = a[f]
+        b.push u
       end
     when "sympa"
       users = {}
@@ -286,15 +319,13 @@ class OpenfoundryController < ApplicationController
         when /\/download(.*)/i
           case $1
           when /\/Attachment\/(\d+)\/(\d+)\/(.*)/i
-            f = Fileentity.find_by_meta("$1,$2")
+            f = Fileentity.find_by_meta("#{$1},#{$2}")
             if f
-              redirect_to "http://of.openfoundry.org/download_path
-                                                      #{f.release.project.name}/#{f.release.version}/
-                                                        #{f.path}"
+              redirect_to "http://of.openfoundry.org/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
             else
               redirect_to "http://of.openfoundry.org/releases/top"
-              return
             end
+            return
           end
           action = :download
         when /\/wiki(.*)/i
@@ -308,11 +339,10 @@ class OpenfoundryController < ApplicationController
       when /\/download(.*)/i
         case $1
         when /\/(\d+)\/(\d+)\/(.*)/
-          f = Fileentity.find_by_meta("$1,$2")
+          f = Fileentity.find_by_meta("#{$1},#{$2}")
+          logger.info("")
           if f
-            redirect_to "http://of.openfoundry.org/download_path
-                                                    #{f.release.project.name}/#{f.release.version}/
-                                                      #{f.path}"
+            redirect_to "http://of.openfoundry.org/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
           else
             redirect_to "http://of.openfoundry.org/releases/top"            
           end
