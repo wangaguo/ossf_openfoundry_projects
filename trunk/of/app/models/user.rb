@@ -21,7 +21,19 @@ class User < ActiveRecord::Base
   def ferret_enabled?(is_bulk_index = false)
     (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
   end
-
+   
+  def functions_for(authorizable_id, authorizable_type = 'Project')
+    rtn = []
+    roles.each do |r|
+      next unless( r.authorizable_id == authorizable_id and 
+          r.authorizable_type == authorizable_type )
+      r.functions.each do |f|
+        rtn << f unless rtn.member?(f)
+      end
+    end
+    rtn
+  end
+  
   def name
     if self.t_conceal_realname
       ''
