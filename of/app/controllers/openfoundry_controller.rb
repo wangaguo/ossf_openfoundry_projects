@@ -312,7 +312,7 @@ class OpenfoundryController < ApplicationController
       case $1
       when /\/project(.*)/i
         controller = :projects
-        q=params['queue']
+        q=params['queue']||params['Queue']||1
         case $1
         when /\/tracker(.*)/i
           action = :rt
