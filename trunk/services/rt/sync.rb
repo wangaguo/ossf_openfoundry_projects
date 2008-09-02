@@ -48,7 +48,7 @@ def process(msg)
   when ['project', 'update']
     RTQueue.update_queue(data['id'], data['summary'])
   when ['user', 'create']
-    RTUser.create_user_and_add_into_openfoundry_group(data['id'], data['name'])
+    RTUser.create_user_and_add_into_openfoundry_group(data['id'], data['name'], data['email'])
   when ['user', 'update']
     RTUser.update_user(data['id'], data['name'], data['email'])
   when ['function', 'create']
@@ -84,13 +84,24 @@ begin
   conn.subscribe MQ_THE_TOPIC, { :ack =>"client", "activemq.subscriptionName" => MQ_SUBSCRIPTION_NAME}
   while true
     msg = conn.receive # blocking
+    unless ActiveRecord::Base.connection.active?
+        ActiveRecord::Base.connection.reconnect!
+        puts "Database Reconnected!"
+        unless ActiveRecord::Base.connection.active?
+          puts "FAILED - Database not available"
+          break
+        end
+    end
+
     begin
       ActiveRecord::Base.transaction do
         process(msg.body)
       end
-    rescue
+    rescue Object => e
       puts "error============================="
       puts msg.body.inspect
+      puts "error============================="
+      puts e.inspect
       puts "error============================="
     ensure
       conn.ack msg.headers["message-id"]
