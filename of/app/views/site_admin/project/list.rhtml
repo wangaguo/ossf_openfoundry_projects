@@ -1,12 +1,18 @@
 <h1>Listing projects</h1>
-
-<table>
+<style type="text/css">
+#project_list {border-collapse:collapse;}
+#project_list, #project_list th, #project_list td  {border:solid 1px black;}
+</style>
+<%
+project_columns = ["icon","name","summary","rationale","description","creator","status","statusreason","contactinfo","maturity","license","contentlicense","licensingdescription","platform","programminglanguage","intendedaudience","redirecturl","vcs","vcsdescription","project_counter","created_at","updated_at","updated_by"]
+%>
+<table id="project_list">
   <tr>
     <th></th>
     <th></th>
     <th></th>
-    <% for column in Project.content_columns %>
-      <th><%= column.human_name %></th>
+    <% for column in project_columns %>
+      <th><%= _(column) %></th>
     <% end %>
   
   
@@ -22,8 +28,17 @@
             <%= link_to 'Change status', :action => 'change_status_form', :id => project.id %>
         <% end %>
       </td>
-      <% for column in Project.content_columns %>
-        <td><%=h project.send(column.name) %><%= "(#{Project.status_to_s(project.status)})" if column.name == 'status'%></td>
+      <% for column in project_columns %>
+        <td>
+          <%if column == 'creator'%>
+            <a href="/user/home/<%=project.send(column)%>"><%=project.send(column)%></a>
+          <%elsif column == 'description'%>
+            <span title="<%=project.send(column)%>"><%=project.send(column).chars[0..30]%></a>
+          <%else%>
+          <%=h project.send(column) %>
+          <%end%>
+          <%= "(#{Project.status_to_s(project.status)})" if column == 'status'%>
+        </td>
       <% end %>
   
       
