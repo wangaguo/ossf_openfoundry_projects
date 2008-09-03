@@ -48,7 +48,7 @@ body {
 * html #LeftWidget { left:0; /* RC fullwidth */ }/*IE fix*/
 
 #SiteMap {font-weight:bold; border-bottom:solid 2px #F3F3F9; margin-bottom:3px; height:25px; }
-#Login { float:left; text-indent:5px; line-height:25px }
+#Login { float:left; text-indent:5px; line-height:25px; width:230px; overflow:hidden; }
 #BreadCrumbs { padding-left:227px; }
 #BreadCrumbs a { color:#aaa; }
 
@@ -74,7 +74,7 @@ body {
 */
 
 #HomeLeft h3, #HomeRight h3 { background-image:url(/images/of/icon_bg01.gif); color:#39379C; line-height:33px; width:214px; font-weight:normal; }
-#HomeLeft ul, #HomeRight ul, #Home ul { margin:5px 0 15px 0px; width:80%}
+#HomeLeft ul, #HomeRight ul, #Home ul { margin:5px 0 15px 0px; width:90%; }
 #Home { border-right:solid 1px #F3F3F9; border-left:solid 1px #F3F3F9; }
 #Home h3 { background-image:url(/images/of/main_title_bg01.gif); color:#686868; line-height:38px; font-weight:normal; }
 
