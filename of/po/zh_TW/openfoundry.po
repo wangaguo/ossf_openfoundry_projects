@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-09-04 06:55-0000\n"
+"POT-Creation-Date: 2008-09-04 08:53-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -306,67 +306,6 @@ msgstr "上次修改時間"
 #, fuzzy
 msgid "Function|Updated by"
 msgstr "上次修改時間"
-
-#: app/models/function.rb:74
-msgid "Permission|Modify Project Information"
-msgstr ""
-
-#: app/models/function.rb:75
-msgid "Permission|Add/Remove Project Members"
-msgstr ""
-
-#: app/models/function.rb:76
-msgid "Permission|Edit Role Permissions"
-msgstr ""
-
-#: app/models/function.rb:77
-#, fuzzy
-msgid "Permission|Manage Releases"
-msgstr "專案釋出"
-
-#: app/models/function.rb:78
-msgid "Permission|Manage News"
-msgstr ""
-
-#: app/models/function.rb:79
-#, fuzzy
-msgid "Permission|Manage Help Wanted"
-msgstr "尋求支援"
-
-#: app/models/function.rb:80
-#, fuzzy
-msgid "Permission|Manage Citations"
-msgstr "註冊原因"
-
-#: app/models/function.rb:81
-#, fuzzy
-msgid "Permission|Manage References"
-msgstr "專案釋出"
-
-#: app/models/function.rb:82
-msgid "Permission|Manage Kwiki Pages"
-msgstr ""
-
-#: app/models/function.rb:83
-msgid "Permission|Set As Tracker Admin"
-msgstr ""
-
-#: app/models/function.rb:84
-msgid "Permission|Set As Tracker CC"
-msgstr ""
-
-#: app/models/function.rb:85
-msgid "Permission|Manage Sympa Mailing Lists"
-msgstr ""
-
-#: app/models/function.rb:86
-msgid "Permission|Commit Changes"
-msgstr ""
-
-#: app/models/function.rb:87
-#, fuzzy
-msgid "Permission|Ftp Access"
-msgstr "SVN"
 
 #: app/models/session.rb:-
 msgid "session"
@@ -1093,7 +1032,7 @@ msgstr "OpenFoundry新聞"
 
 #: app/controllers/news_controller.rb:36
 #: app/views/projects/test_action_i18n______________.rhtml:335
-#: app/views/site_admin/site_admin/index.rhtml:23
+#: app/views/site_admin/site_admin/index.rhtml:31
 msgid "News"
 msgstr "新聞"
 
@@ -1152,7 +1091,7 @@ msgid "OpenID Login Succeeded"
 msgstr "OpenID登入成功"
 
 #: app/controllers/user_controller.rb:138
-#: app/controllers/user_controller.rb:161
+#: app/controllers/user_controller.rb:160
 #: app/views/projects/test_action_i18n______________.rhtml:91
 msgid "user_login_failed"
 msgstr "登入失敗"
@@ -1162,84 +1101,84 @@ msgstr "登入失敗"
 msgid "user_login_succeeded"
 msgstr "登入成功"
 
-#: app/controllers/user_controller.rb:186
+#: app/controllers/user_controller.rb:185
 #: app/views/projects/test_action_i18n______________.rhtml:172
 msgid "user_signup_succeeded"
 msgstr "註冊成功, 請到您的所填入的電子郵件信箱回覆驗證信"
 
-#: app/controllers/user_controller.rb:191
+#: app/controllers/user_controller.rb:190
 #: app/views/projects/test_action_i18n______________.rhtml:235
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:215
+#: app/controllers/user_controller.rb:214
 #: app/views/projects/test_action_i18n______________.rhtml:124
 msgid "user_updated_email"
 msgstr "電子郵件更新成功"
 
-#: app/controllers/user_controller.rb:217
+#: app/controllers/user_controller.rb:216
 #: app/views/projects/test_action_i18n______________.rhtml:271
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:249
+#: app/controllers/user_controller.rb:248
 #: app/views/projects/test_action_i18n______________.rhtml:96
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:252
+#: app/controllers/user_controller.rb:251
 #: app/views/projects/test_action_i18n______________.rhtml:134
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:267
+#: app/controllers/user_controller.rb:266
 #: app/views/projects/test_action_i18n______________.rhtml:34
 msgid "user_enter_valid_email_address"
 msgstr "電子郵件位址不正確"
 
-#: app/controllers/user_controller.rb:269
+#: app/controllers/user_controller.rb:268
 #: app/views/projects/test_action_i18n______________.rhtml:108
 msgid "user_email_address_not_found"
 msgstr "查無此電子郵件位址"
 
-#: app/controllers/user_controller.rb:281
+#: app/controllers/user_controller.rb:280
 #: app/views/projects/test_action_i18n______________.rhtml:319
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:292
+#: app/controllers/user_controller.rb:291
 #: app/views/projects/test_action_i18n______________.rhtml:166
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:322
+#: app/controllers/user_controller.rb:321
 #: app/views/projects/test_action_i18n______________.rhtml:115
 msgid "Update User Privacy Setting Successed"
 msgstr "使有者隱私權已更新"
 
-#: app/controllers/user_controller.rb:347
+#: app/controllers/user_controller.rb:346
 #: app/views/projects/test_action_i18n______________.rhtml:278
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:356
+#: app/controllers/user_controller.rb:355
 #: app/views/projects/test_action_i18n______________.rhtml:285
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:367
+#: app/controllers/user_controller.rb:366
 #: app/views/projects/test_action_i18n______________.rhtml:180
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:391
+#: app/controllers/user_controller.rb:390
 #: app/views/projects/test_action_i18n______________.rhtml:167
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:475
+#: app/controllers/user_controller.rb:474
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -1267,21 +1206,33 @@ msgstr "您沒有足夠權限"
 msgid "Release"
 msgstr "規畫釋出"
 
-#: app/controllers/releases_controller.rb:209
+#: app/controllers/releases_controller.rb:189
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:214
+#: app/controllers/releases_controller.rb:197
+msgid "Bad project name: #{project_name}"
+msgstr ""
+
+#: app/controllers/releases_controller.rb:201
 #, fuzzy
 msgid "Project id not found!"
 msgstr "註冊原因"
 
-#: app/controllers/releases_controller.rb:219
+#: app/controllers/releases_controller.rb:206
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:226
+#: app/controllers/releases_controller.rb:212
+msgid "Bad version: #{r.version}"
+msgstr ""
+
+#: app/controllers/releases_controller.rb:237
 msgid "Your files have been added to Release!"
+msgstr ""
+
+#: app/controllers/releases_controller.rb:239
+msgid "No file has been added!"
 msgstr ""
 
 #: app/controllers/images_controller.rb:194
@@ -1493,7 +1444,7 @@ msgstr "登出"
 
 #: app/views/partials/_login.rhtml:13
 #: app/views/projects/test_action_i18n______________.rhtml:276
-#: app/views/user/login.rhtml:32
+#: app/views/user/login.rhtml:33
 msgid "Login"
 msgstr "登入"
 
@@ -1831,7 +1782,7 @@ msgstr "成員管理"
 
 #: app/views/layouts/application.rhtml:70
 #: app/views/projects/test_action_i18n______________.rhtml:105
-#: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:9
+#: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:10
 msgid "Change Icon"
 msgstr "更換圖像"
 
@@ -1881,16 +1832,16 @@ msgid "OpenFoundry"
 msgstr "自由軟體鑄造場"
 
 #: app/views/releases/edit.rhtml:19
-#: app/views/projects/test_action_i18n______________.rhtml:293
 #: app/views/projects/permission_edit.rhtml:39
+#: app/views/projects/test_action_i18n______________.rhtml:293
 msgid "Update"
 msgstr "更新"
 
-#: app/views/releases/uploadfiles.rhtml:83
+#: app/views/releases/uploadfiles.rhtml:75
 msgid "How to Upload？"
 msgstr ""
 
-#: app/views/releases/uploadfiles.rhtml:115
+#: app/views/releases/uploadfiles.rhtml:107
 #, fuzzy
 msgid "File not found"
 msgstr "註冊原因"
@@ -1961,33 +1912,21 @@ msgid "Search Result"
 msgstr "搜尋結果"
 
 #: app/views/openfoundry/_staticities.rhtml:1
-#: app/views/openfoundry/_logana.rhtml:1
-#: app/views/openfoundry/_staticiticsNewPage.rhtml:1
-#: app/views/openfoundry/_loganaNewPage.rhtml:1
 #: app/views/projects/test_action_i18n______________.rhtml:223
 msgid "Statistics"
 msgstr "統計資訊"
 
 #: app/views/openfoundry/_staticities.rhtml:3
-#: app/views/openfoundry/_logana.rhtml:4
-#: app/views/openfoundry/_staticiticsNewPage.rhtml:5
-#: app/views/openfoundry/_loganaNewPage.rhtml:4
 #: app/views/projects/test_action_i18n______________.rhtml:148
 msgid "Registed Projects"
 msgstr "專案"
 
 #: app/views/openfoundry/_staticities.rhtml:4
-#: app/views/openfoundry/_logana.rhtml:5
-#: app/views/openfoundry/_staticiticsNewPage.rhtml:6
-#: app/views/openfoundry/_loganaNewPage.rhtml:5
 #: app/views/projects/test_action_i18n______________.rhtml:19
 msgid "Registed Users"
 msgstr "使用者"
 
 #: app/views/openfoundry/_staticities.rhtml:5
-#: app/views/openfoundry/_logana.rhtml:6
-#: app/views/openfoundry/_staticiticsNewPage.rhtml:7
-#: app/views/openfoundry/_loganaNewPage.rhtml:6
 #: app/views/projects/test_action_i18n______________.rhtml:20
 msgid "Online Users"
 msgstr "在線上的使用者"
@@ -2037,11 +1976,11 @@ msgid "Sympa"
 msgstr "通訊論壇"
 
 #: app/views/projects/applied.rhtml:1
-#: app/views/projects/test_action_i18n______________.rhtml:67
 msgid ""
 "Your project creating request has been submitted. Please wait 72 hours for "
-"approving."
-msgstr "您註冊的專案已提交, 將會在72小時之內核定"
+"approving. We will notify you by email. <br/> If you have any questions, "
+"please contact us at %{email} ."
+msgstr "您註冊的專案將會在 72 小時內核定, 屆時將以 email 通知您. 如有任何問題, 請與我們連絡: %{email} ."
 
 #: app/views/projects/show.rhtml:23
 #: app/views/projects/test_action_i18n______________.rhtml:144
@@ -2249,6 +2188,26 @@ msgstr ""
 msgid "This project is not using any version control system."
 msgstr ""
 
+#: app/views/projects/permission_edit.rhtml:3
+msgid "Groups List"
+msgstr "群組列表"
+
+#: app/views/projects/permission_edit.rhtml:9
+msgid "Create new Group"
+msgstr "建立新群組"
+
+#: app/views/projects/permission_edit.rhtml:14
+msgid "Admin has ALL Permissions by default"
+msgstr "Admin群組已擁有所有權限"
+
+#: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:38
+#: app/views/news/show.rhtml:16 app/views/jobs/list.rhtml:22
+#: app/views/jobs/show.rhtml:15 app/views/citations/list.rhtml:21
+#: app/views/citations/show.rhtml:19 app/views/references/list.rhtml:20
+#: app/views/references/show.rhtml:11
+msgid "Delete"
+msgstr "刪除"
+
 #: app/views/projects/test_action_i18n______________.rhtml:3
 msgid "User|Delete after"
 msgstr "將要刪除"
@@ -2258,7 +2217,7 @@ msgid "User|Created at"
 msgstr "建立時間"
 
 #: app/views/projects/test_action_i18n______________.rhtml:15
-#: app/views/user/home.rhtml:19
+#: app/views/user/home.rhtml:20
 msgid "My Partners"
 msgstr "我的伙伴"
 
@@ -2335,8 +2294,14 @@ msgstr "更新時間"
 msgid "home"
 msgstr "首頁"
 
+#: app/views/projects/test_action_i18n______________.rhtml:67
+msgid ""
+"Your project creating request has been submitted. Please wait 72 hours for "
+"approving."
+msgstr "您註冊的專案已提交, 將會在72小時之內核定"
+
 #: app/views/projects/test_action_i18n______________.rhtml:72
-#: app/views/site_admin/site_admin/index.rhtml:24
+#: app/views/site_admin/site_admin/index.rhtml:32
 msgid "User"
 msgstr "使用者"
 
@@ -2371,7 +2336,7 @@ msgid "User|Password"
 msgstr "新密碼"
 
 #: app/views/projects/test_action_i18n______________.rhtml:100
-#: app/views/user/home.rhtml:59
+#: app/views/user/home.rhtml:60
 msgid "Signup Date"
 msgstr "註冊時間"
 
@@ -2384,7 +2349,7 @@ msgid "Status"
 msgstr "狀態"
 
 #: app/views/projects/test_action_i18n______________.rhtml:110
-#: app/views/user/login.rhtml:14
+#: app/views/user/login.rhtml:15
 msgid "Password"
 msgstr "密碼"
 
@@ -2418,7 +2383,7 @@ msgid "User|Conceal Realname|Help"
 msgstr "不顯示真實姓名在使用者頁面"
 
 #: app/views/projects/test_action_i18n______________.rhtml:157
-#: app/views/site_admin/site_admin/index.rhtml:22
+#: app/views/site_admin/site_admin/index.rhtml:30
 msgid "Project"
 msgstr "專案"
 
@@ -2449,12 +2414,12 @@ msgid "User|Conceal Login Status"
 msgstr "隱藏登入狀態"
 
 #: app/views/projects/test_action_i18n______________.rhtml:183
-#: app/views/user/home.rhtml:2
+#: app/views/user/home.rhtml:3
 msgid "User Icon"
 msgstr "使用者圖像"
 
 #: app/views/projects/test_action_i18n______________.rhtml:191
-#: app/views/user/login.rhtml:24
+#: app/views/user/login.rhtml:25
 msgid "Remember me on this computer"
 msgstr "記住我的登入資訊"
 
@@ -2498,7 +2463,7 @@ msgid "User|Conceal Homepage|Help"
 msgstr "不顯示個人首頁在使用者頁面"
 
 #: app/views/projects/test_action_i18n______________.rhtml:221
-#: app/views/user/home.rhtml:35
+#: app/views/user/home.rhtml:36
 msgid "My Email"
 msgstr "我的電子郵件"
 
@@ -2512,7 +2477,7 @@ msgid "User|Salt"
 msgstr "密碼(token)"
 
 #: app/views/projects/test_action_i18n______________.rhtml:231
-#: app/views/user/login.rhtml:6
+#: app/views/user/login.rhtml:7
 msgid "Login ID"
 msgstr "帳號"
 
@@ -2605,7 +2570,7 @@ msgid "User|Password Confirmation"
 msgstr "請再次輸入密碼"
 
 #: app/views/projects/test_action_i18n______________.rhtml:305
-#: app/views/user/login.rhtml:34
+#: app/views/user/login.rhtml:35
 msgid "Forgot my password"
 msgstr "忘記密碼"
 
@@ -2620,7 +2585,7 @@ msgid "User|Conceal Realname"
 msgstr "隱藏真實姓名"
 
 #: app/views/projects/test_action_i18n______________.rhtml:317
-#: app/views/user/home.rhtml:46 app/views/user/my_projects.rhtml:2
+#: app/views/user/home.rhtml:47 app/views/user/my_projects.rhtml:2
 msgid "My Projects"
 msgstr "我參與的專案"
 
@@ -2658,29 +2623,9 @@ msgid "Project|Redirecturl"
 msgstr "首頁轉址"
 
 #: app/views/projects/test_action_i18n______________.rhtml:346
-#: app/views/user/login.rhtml:33
+#: app/views/user/login.rhtml:34
 msgid "Register for an account"
 msgstr "註冊帳號"
-
-#: app/views/projects/permission_edit.rhtml:3
-msgid "Groups List"
-msgstr "群組列表"
-
-#: app/views/projects/permission_edit.rhtml:9
-msgid "Create new Group"
-msgstr "建立新群組"
-
-#: app/views/projects/permission_edit.rhtml:14
-msgid "Admin has ALL Permissions by default"
-msgstr "Admin群組已擁有所有權限"
-
-#: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:38
-#: app/views/news/show.rhtml:16 app/views/jobs/list.rhtml:22
-#: app/views/jobs/show.rhtml:15 app/views/citations/list.rhtml:21
-#: app/views/citations/show.rhtml:19 app/views/references/list.rhtml:20
-#: app/views/references/show.rhtml:11
-msgid "Delete"
-msgstr "刪除"
 
 #: app/views/news/list.rhtml:3 app/views/jobs/list.rhtml:3
 #: app/views/citations/list.rhtml:3 app/views/references/list.rhtml:3
@@ -2739,16 +2684,16 @@ msgstr "檢視"
 msgid "App Information"
 msgstr "基本資料"
 
-#: app/views/site_admin/site_admin/index.rhtml:15
+#: app/views/site_admin/site_admin/index.rhtml:17
 #, fuzzy
 msgid "Client Information"
 msgstr "基本資料"
 
-#: app/views/site_admin/site_admin/index.rhtml:27
+#: app/views/site_admin/site_admin/index.rhtml:35
 msgid "Resend Stomp msg for ALL MODELS"
 msgstr ""
 
-#: app/views/site_admin/site_admin/index.rhtml:31
+#: app/views/site_admin/site_admin/index.rhtml:39
 msgid "Rebuild Ferret Index"
 msgstr ""
 
@@ -2767,6 +2712,26 @@ msgstr "新增參考文獻"
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr "你必需先登入OpenFoundry"
+
+#, fuzzy
+#~ msgid "Permission|Manage Releases"
+#~ msgstr "專案釋出"
+
+#, fuzzy
+#~ msgid "Permission|Manage Help Wanted"
+#~ msgstr "尋求支援"
+
+#, fuzzy
+#~ msgid "Permission|Manage Citations"
+#~ msgstr "註冊原因"
+
+#, fuzzy
+#~ msgid "Permission|Manage References"
+#~ msgstr "專案釋出"
+
+#, fuzzy
+#~ msgid "Permission|Ftp Access"
+#~ msgstr "SVN"
 
 #, fuzzy
 #~ msgid "Editing Project Roles"
