@@ -76,7 +76,7 @@ class ReleasesController < ApplicationController
       r=Release.new(:attributes => params[:release] )
       r.project_id = params[:project_id]
       if r.save
-        flash.now[:message] = 'Create New Release Successfully!'
+        flash[:message] = 'Create New Release Successfully!'
         redirect_to(url_for(:project_id => params[:project_id], :action => :index)) 
       else
         #flash[:message] = 'Faild to Create New Release!'
@@ -180,41 +180,68 @@ class ReleasesController < ApplicationController
   
   #用link_to_remote呼叫 將檔案加入專案發佈中
   def addfiles
-    #if request.post?
-    pass = true
-      unless Release.exists?(params[:id])
-        flash.now[:error] = _('Release id not found!')
-        pass = false
-      end
-      r = Release.find params[:id]
-      unless Project.exists?(params[:project_id])
-        flash.now[:error] = _('Project id not found!')
-        pass = false
-      end
-      project_name = Project.find(params[:project_id]).name
-      unless params[:uploadfiles]
-        flash.now[:error] = _('You doesn\'t select any files!')
-        pass = false
-      end
-      if pass
-        files = params[:uploadfiles].collect { |path| make_file_entity(path, File.size("#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/upload/#{path}")) }
-        r.fileentity << files
-        r.save
-        flash[:notice] = _('Your files have been added to Release!')
+    def bad_file(x)
+      x == ".." or x =~ /\//
+    end
 
-        #move file from upload to downlad area
-        release_tag_path = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.version}"
-        #Dir.mkdir(release_tag_path) unless File.exist?(release_tag_path)
-        #`cd #{Project::PROJECT_UPLOAD_PATH}/#{project_name};mv #{files.collect{|f| f.path}.join(' ')} #{release_tag_path}`
-        files.each do |file|
-          `/home/openfoundry/bin/move_upload_files #{project_name} #{file.path} #{release_tag_path}`
+    pass = true
+    if not r = Release.find_by_id(params[:id])
+      flash[:error] = _('Release id not found!')
+      pass = false
+    end
+    
+    if project = Project.find_by_id(params[:project_id])
+      project_name = project.name
+      # paranoid ...
+      if bad_file(project_name)
+        flash[:error] = _('Bad project name: #{project_name}')
+        pass = false
+      end
+    else
+      flash[:error] = _('Project id not found!')
+      pass = false
+    end
+
+    if not params[:uploadfiles]
+      flash[:error] = _('You doesn\'t select any files!')
+      pass = false
+    end
+
+    # paranoid ...
+    if bad_file(r.version)
+      flash[:error] = _('Bad version: #{r.version}')
+      pass = false
+    end
+
+    if pass
+      dest_dir = "#{Project::PROJECT_DOWNLOAD_PATH}/#{project_name}/#{r.version}"
+
+      added = false
+
+      # uploadfiles contains only file name (basename)
+      params[:uploadfiles].each do |basename|
+        next if bad_file(basename)
+
+        src_path = "#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/upload/#{basename}"
+        next if not File.exist?(src_path)
+
+        r.fileentity << make_file_entity(basename, File.size(src_path))
+        
+        if system("/home/openfoundry/bin/move_upload_files2", src_path, dest_dir) == 0
+          added = true
         end
       end
-      redirect_to url_for(:project_id => params[:project_id], 
-        :action => :uploadfiles, :id => r.id, :layout =>'false')
-    #else
-      #TODO wrong argument!
-    #end
+
+      if added 
+        r.save
+        flash[:notice] = _('Your files have been added to Release!')
+      else
+        flash[:error] = _('No file has been added!')
+      end
+    end
+
+    redirect_to url_for(:project_id => params[:project_id], 
+      :action => :uploadfiles, :id => r.id, :layout =>'false')
   end
   
   #用link_to_remote呼叫 將檔案從專案發佈中移除(非刪除)
