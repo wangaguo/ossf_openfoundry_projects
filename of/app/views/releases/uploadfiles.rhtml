@@ -96,8 +96,8 @@
           <select name=uploadfiles[] id=release_file_selection multiple size=10>
       
             <% @uploadfiles.sort.each do |file| -%>
-              <option id=release_file>  
-                <%= file %>
+              <option id=release_file value="<%= h(file) -%>">  
+                <%= h(file) %>
               </option>
       
             <% end -%>  
