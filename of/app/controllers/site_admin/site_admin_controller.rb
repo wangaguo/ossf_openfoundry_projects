@@ -3,6 +3,10 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   def index
     cookies['HeaderOnOff'] = 'OFF'
   end
+  def gettext_cache_switch
+    GetText.cached = !GetText.cached? 
+    render :text => "switch to #{GetText.cached?} @ #{Time.now}"
+  end
   def aaf_rebuild
     User.rebuild_index(User,Project,Release,News,Fileentity)
     redirect_to :action => :index
