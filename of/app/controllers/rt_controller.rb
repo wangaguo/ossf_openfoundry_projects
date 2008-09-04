@@ -24,7 +24,7 @@ class RtController < ApplicationController
       flash[:warning] = _("You have not logged in; please log in or register from the links in the top-left corner. If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved. ")
     end
     @rt_url = OPENFOUNDRY_RT_URL
-    @base_url = @rt_url + "/Search/Results.html?Order=DESC&OrderBy=LastUpdated&Query="
+    @base_url = @rt_url + "Search/Results.html?Order=DESC&OrderBy=LastUpdated&Query="
     if(@project != nil)
       @base_url += "Queue = '" + @project.id.to_s + "'"
     else
@@ -32,7 +32,7 @@ class RtController < ApplicationController
     end
     if(params[:id] != nil)
       if((params[:id] =~ /^\d*$/) == 0)
-        @show_url = @rt_url + "/Ticket/Display.html?id=" + params[:id]
+        @show_url = @rt_url + "Ticket/Display.html?id=" + params[:id]
       else
         if(params[:id] == 'owner')
           @base_url += " AND Owner='" + current_user.login + "'"
