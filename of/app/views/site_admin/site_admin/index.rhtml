@@ -5,6 +5,8 @@ Ruby Version: <%= `ruby -v`%>
 <br/>
 Rails Version: <%= Rails.version %>
 <br/>
+Rails Environment: <%= Rails.env.inspect %>
+<br/>
 Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
 <br/>
 Actived Plugins: <%= Rails.configuration.plugins%>
@@ -19,6 +21,12 @@ IP: <%= request.remote_ip%>
 Agent: <%= request.user_agent%>
 </p>
 <h3>網站管理</h3>
+<%= link_to_remote "Gettext Cache Switch", :url => { :action => :gettext_cache_switch },
+  :update => 'GettextReloadReturn' %>
+  <div id=GettextReloadReturn>
+    Currently Gettext Cached is <%=GetText.cached?%>
+  </div>
+<br/>
 <%= link_to _("Project"), :controller => "project" %>
 <%= link_to _("News"), :controller => "news" %>
 <%= link_to _("User"), :controller => "user" %>
