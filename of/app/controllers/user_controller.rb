@@ -81,10 +81,10 @@ class UserController < ApplicationController
     #logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
     
     if params['id']
-      user = User.find params['id']
-      @my = ( session['user'] and (user.id == session['user'].id) )
+      user = User.find_by_id params['id']
+      @my = ( current_user and (user.id == current_user.id) )
     else
-      user = session['user']
+      user = current_user
       @my =true
     end
 
@@ -193,12 +193,18 @@ class UserController < ApplicationController
   end  
    
   def logout
-    session['user'] = nil
-    #For "paranoid session store"
-    #kill_login_key
-    #rebuild_session
+    #logout while su as somebody, and back to site_admin page
+    if session['effective_user']
+      session['effective_user'] = nil
+      redirect_to '/site_admin'
+    else #normal user logout~
+      session['user'] = nil
+      #For "paranoid session store"
+      #kill_login_key
+      #rebuild_session
 
-    redirect_to :action => 'login'
+      redirect_to :action => 'login'
+    end
   end
 
   def change_email
@@ -446,7 +452,7 @@ class UserController < ApplicationController
 
   # Generate a template user for certain actions on get
   def generate_filled_in
-    @user = session['user']
+    @user = current_user
     @user.reload
     case request.method
     when :get
