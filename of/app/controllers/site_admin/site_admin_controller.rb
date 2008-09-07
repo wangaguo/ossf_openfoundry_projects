@@ -1,5 +1,26 @@
 class SiteAdmin::SiteAdminController < SiteAdmin
   layout 'application'
+
+  def switch_user_search #search for user, use in 'Project Add Member'
+    name = params['username']
+    limit = params['limit'] || 21
+    users = unless name.blank?
+      User.find_by_sql(
+        ["select id,icon,login,realname,email from users where 
+                          #{User.verified_users} and login like  ? limit ?","%#{name}%" ,limit])
+    else
+      []
+    end
+    render(:partial => 'search_hit_member',
+      :locals => {:users => users},
+      :layout => false)
+  end
+   
+  def switch_user
+    session['effective_user'] = User.find_by_id(params[:id])
+    redirect_to '/user/home'
+  end
+
   def index
     cookies['HeaderOnOff'] = 'OFF'
   end
