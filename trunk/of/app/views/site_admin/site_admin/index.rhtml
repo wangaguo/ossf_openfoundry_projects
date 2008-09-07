@@ -30,7 +30,17 @@ Agent: <%= request.user_agent%>
 <%= link_to _("Project"), :controller => "project" %>
 <%= link_to _("News"), :controller => "news" %>
 <%= link_to _("User"), :controller => "user" %>
-
+<h3>切換使用者</h3>
+<input id="switch_user_search" size="25" type="text">
+  <%= observe_field "switch_user_search",
+      :url =>"/site_admin/site_admin/switch_user_search",
+      :frequency => 0.5,
+      :update => 'ProjectMemberNew',
+      :with => :username
+  %>
+    <div id='ProjectMemberNew' style='height:186px;'>
+    </div>
+<br/>
 <h3>BE CAREFUL! for data sync only...</h3>
 <%= link_to _("Resend Stomp msg for ALL MODELS"), {:action => :resend }, {:confirm => 'really?'} %>
 
