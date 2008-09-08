@@ -1689,9 +1689,7 @@ msgstr "授權指引/精靈"
 #: app/views/partials/_top_menu_data.rhtml:46
 #: app/views/projects/test_action_i18n______________.rhtml:83
 msgid "menu_LW_manual_link"
-msgstr ""
-"http://www.openfoundry.org/index.php?"
-"option=com_content&task=view&id=134&Itemid=269"
+msgstr "http://www.openfoundry.org/LicenseWizard.html"
 
 #: app/views/partials/_top_menu_data.rhtml:44
 #: app/views/partials/_top_menu_data.rhtml:45
