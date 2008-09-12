@@ -80,6 +80,7 @@ Event.observe(window, 'load', project_leftmenu_init);
     <% if functions.include?('release') -%>
       <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id), :class => 'subimg' %>
         <ul>
+          <li><%= link_to _('release_Edit'), releases_path(:project_id => project.id) %></li>
           <li><%= link_to _('release_New'), new_release_url(:project_id => project.id) %></li>
         </ul>
       </li>

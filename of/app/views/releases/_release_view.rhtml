@@ -1,0 +1,25 @@
+    <div id="editrelease_view">
+    <table class=ReleaseShow >
+<tr><th> <%= Release.columns_hash['version'].human_name  -%> : </th>
+<td> <%= h(@release.version) %> </td>
+</tr>
+<tr><th> <%= Release.columns_hash['due'].human_name  -%> : </th>
+
+<td> <%= h(@release.due) %> </td>
+</tr>
+<tr><th> <%= Release.columns_hash['status'].human_name  -%> : </th>
+<td> <%= h(Release.status_to_s(@release.status)) %> </td>
+</tr>
+</table>
+        <%= link_to_remote '[edit]',:url => editrelease_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+          }), :update => "editrelease_view"
+        %>
+        <%= link_to_remote '[remove]',:url => removefile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :removerelease_id => @release.id
+          }), :update => "editrelease_view"
+        %>
+    </div>

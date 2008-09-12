@@ -51,6 +51,9 @@ ActionController::Routing::Routes.draw do |map|
     :member => { :uploadfiles => :any, :delete => :post, 
                  :addfiles => :post, :removefile => :post,
                  :editfile => :post, :updatefile => :post,
+                 :editrelease => :post, :updaterelease => :post,
+                 :viewrelease => :post, :viewfile => :post,
+                 :reload => :post,
                  :download => :any },
     :singular => :release
   map.resources :kwiki,
