@@ -334,6 +334,14 @@ EOEO
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
     ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => self.id, 'name' => self.summary, 'summary' => self.description})
+    # send admin function creation msg
+    Function.find(:all).each do |f|
+      ApplicationController::send_msg('function','create',
+                        {:function_name => f.name, 
+                          :user_id => self.creator,
+                          :project_id => self.id 
+                        })
+    end
     Release::build_path(self.name, self.id)
     ProjectNotify.deliver_approved(self)
   end
