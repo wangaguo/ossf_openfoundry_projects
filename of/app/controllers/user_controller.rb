@@ -157,8 +157,7 @@ class UserController < ApplicationController
       #        output_cookies[0].expires = Time.now() + OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
       #      end
     else
-      @login = params['user']['login']
-      flash.now[:message] = _('user_login_failed')
+      flash[:message] = _('user_login_failed')  
     end
   end
 
