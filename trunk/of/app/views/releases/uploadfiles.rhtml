@@ -3,6 +3,7 @@
     <h1> <%= flash.now[:message]%> </h1>
     <% end -%>
     <fieldset>
+    <div id="editrelease_view">
     <table class=ReleaseShow >
 <tr><th> <%= Release.columns_hash['version'].human_name  -%> : </th>
 <td> <%= h(@release.version) %> </td>
@@ -15,6 +16,18 @@
 <td> <%= h(Release.status_to_s(@release.status)) %> </td>
 </tr>
 </table>
+        <%= link_to_remote '[edit]',:url => editrelease_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+          }), :update => "editrelease_view"
+        %>
+        <%= link_to_remote '[remove]',:url => removefile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :removerelease_id => @release.id
+          }), :update => "editrelease_view"
+        %>
+    </div>
     </fieldset>
     <fieldset>
     <h1>Files: </h1>
@@ -40,7 +53,8 @@
         <%= link_to_remote '[edit]',:url => editfile_release_url({
             :project_id => @project.id,
             :id => @release.id,
-            :editfile_id => f.id
+            :editfile_id => f.id,
+            :div_id => "editfiles_view#{i}",
           }), :update => "editfiles_view#{i}"
         %>
         <%= link_to_remote '[remove]',:url => removefile_release_url({
@@ -65,33 +79,14 @@
       <h2>Project Upload Reposity</h2>
       <h3>Current Dir: <%= @current_dir %> </h3>
       <input name=current_dir type="hidden" value=<%= @current_dir %> />
-             <p>
-      <!--<%= link_to_remote "[upper dir]", :url => {
-        :contrller => 'release', :action => 'uploadfiles',
-        :move => "#{@current_dir}/..",
-        :layout => 'false'},
-      :update => "uploadfiles_view" %>-->
   
-      <%=submit_tag 'Add File'%> [<%= link_to _("How to Upload？"), "http://webhosting.openfoundry.org/how_to_upload.html", {:target => '_blank'} %>]
-      </p>
-  
-      <div id=Uploaddirs>
-    
-        <% @uploaddirs.sort.each do |dir| -%>
-          <li>
-            <%= link_to_remote dir, 
-            :url => {
-              :project_id => @project.id,
-              :id => @release.id,
-              :move => "#{@current_dir}/#{dir}",
-              :layout => 'false'},
-            :update => "uploadfiles_view" -%>
-          </li>
-        <% end -%>
-    
-      </div>
-  
-      <div id=Uploadfile_selection>
+      <%= submit_to_remote 'reload_button', _('Reload'), :url => reload_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+           }), :update => "uploadfiles_view" %>
+      <%=submit_tag _('Add File') %> [<%= link_to _("How to Upload？"), "http://webhosting.openfoundry.org/how_to_upload.html", {:target => '_blank'} %>]
+     <br/>
+        <div id=Uploadfile_selection>
         <% unless @uploadfiles.empty? -%>
           <select name=uploadfiles[] id=release_file_selection multiple size=10>
       
@@ -104,7 +99,7 @@
       
           </select>
         <% else -%>
-          <h5><%=_('File not found')%>! </h5>
+          <h5><%=  _('File_not_found') %></h5>
         <%end -%>
       </div>
   

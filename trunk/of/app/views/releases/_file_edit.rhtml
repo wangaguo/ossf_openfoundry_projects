@@ -1,4 +1,4 @@
-<p class=ReleaseBasic>
+<div id="<%= params[:div_id] %>">
   <% form_remote_tag :update => "uploadfiles_view", :url => updatefile_release_url( { 
         :updatefile_id => @file.id  }) do |f| -%>
 <table class=FileItem >
@@ -12,10 +12,15 @@
 </tr>
 <tr>
 <th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
-<td> <%= @file.size %> </td>
+<td> <%= number_to_human_size(@file.size) %> </td>
 </tr>
 
 </table> <!-- "FileItem"-->
-    <%= submit_tag "Update" %> 
+    <%= submit_tag _("Update") %> <%= submit_to_remote 'cancel_button', _('Cancel'), :url => viewfile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :div_id =>  params[:div_id],
+            :editfile_id => @file.id
+          }), :update => params[:div_id] %>
   <% end %>
-</p>
+</div>

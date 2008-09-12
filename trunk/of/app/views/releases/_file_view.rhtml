@@ -1,0 +1,33 @@
+    <div id=<%= params[:div_id] %>>
+<table class=FileItem >
+<tr>
+<th> <%=  Fileentity.columns_hash['path'].human_name -%> : </th>
+<td> <%= h(@file.path) %> </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['description'].human_name -%> : </th>
+<td> <%= h(@file.description) %>  </td>
+</tr>
+<tr>
+<th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
+<td> <%= number_to_human_size(@file.size) %> </td>
+</tr>
+</table>
+        <%= link_to_remote '[edit]',:url => editfile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :editfile_id => @file.id,
+            :div_id => params[:div_id],
+          }), :update => params[:div_id]
+        %>
+        <%= link_to_remote '[remove]',:url => removefile_release_url({
+            :project_id => @project.id,
+            :id => @release.id,
+            :removefile_id => @file.id
+          }), :update => "uploadfiles_view"
+        %>
+	<%= link_to '[download]', download_url(:project_name => @project.name, 
+					       :release_version => @release.version,
+					       :file_name => @file.path )
+        %>
+    </div>

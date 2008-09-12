@@ -25,11 +25,19 @@ class ReleasesController < ApplicationController
     render :action => :uploadfiles
   end
   
+  def reload
+     #@project_id = params[:project_id]
+     #@release = Release.find(params[:id])
+     #@files = @release.fileentity
+    uploadfiles
+    render :action => :uploadfiles, :layout=> false
+  end
+  
   #list all release for a given :project_id
   def list
     @project_id = params[:project_id]
     @releases = Release.find :all,
-      :conditions => "project_id = #{params[:project_id]}"
+      :conditions => "project_id = #{params[:project_id]}", :order => 'due desc'
     if params[:layout] == 'false'
       render :layout => false   
     end
@@ -102,15 +110,16 @@ class ReleasesController < ApplicationController
     redirect_to(url_for(:project_id => params[:project_id], :action => :index))
   end
   
-  def update
+  def updaterelease
     #if request.post?
-      r=Release.find params[:id]
-      r.attributes= params[:release]
-      if r.save!
+      @release =Release.find_by_id params[:id]
+      @release.attributes= params[:release]
+      if @release.save!
         flash[:notice] = 'Edit Release Successfully!'
-        redirect_to(url_for(:project_id => params[:project_id],
-          :action => :show, :id => params[:id]
-        )) 
+  #      redirect_to(url_for(:project_id => params[:project_id],
+  #        :action => :show, :id => params[:id]
+  #      )) 
+        render :partial => 'release_view', :layout => false
       else
         flash.now[:message] = 'Faild to Update Release!'
       end
@@ -119,14 +128,6 @@ class ReleasesController < ApplicationController
 #    redirect_to(url_for :project_id => params[:project_id],
 #      :action => :edit, :id => params[:id]
 #    ) 
-  end
-  
-  def edit
-    if request.get?
-      @release = Release.find(params[:id])
-      @project_id = params[:project_id]
-      @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
-    end
   end
   
   def uploadfiles
@@ -257,12 +258,33 @@ class ReleasesController < ApplicationController
       :action => :uploadfiles, :id => r.id, :layout =>'false')
   end
 
+  def editrelease
+    @release = Release.find(params[:id])
+    @project_id = params[:project_id]
+    @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
+    render :partial => 'release_edit', :layout => false
+  end
+
+  def viewrelease
+    @release = Release.find_by_id(params[:id])
+    @project_id = params[:project_id]
+    @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
+    render :partial => 'release_view', :layout => false
+  end
+
   #用link_to_remote呼叫 編輯檔案
   def editfile
     r = Release.find params[:id]
     return if r.nil?
-    @file = Fileentity.find params[:editfile_id]
+    @file = Fileentity.find_by_id params[:editfile_id]
     render :partial => 'file_edit', :layout => false, :local => @file
+  end
+  
+  def viewfile
+    @release = Release.find_by_id(params[:id])
+    @project_id = params[:project_id]
+    @file = Fileentity.find_by_id params[:editfile_id]
+     render :partial => 'file_view', :layout => false
   end
 
   def updatefile
