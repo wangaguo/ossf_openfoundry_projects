@@ -1,6 +1,6 @@
 module UserHelper
 
-  def user_portrait_link(user, _options)
+  def user_portrait_link(user, _options = {})
     options = {
       :size => 32,
       :with_login => false,
