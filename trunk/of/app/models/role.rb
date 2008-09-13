@@ -26,4 +26,8 @@ class Role < ActiveRecord::Base
       role.functions << Function.find(11) #rt_member
     end
   end
+
+  #for ajax i18n
+  N_('This will remove User form this Group, are you sure?')
+  N_('This will add User to this Group, are you sure?')
 end
