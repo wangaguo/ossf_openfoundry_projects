@@ -79,14 +79,19 @@ module OpenFoundry
       :create => :release,
       :addfiles => :release,
       :uploadfiles => :release,
-      :edit => :release,
-      :update => :release,
+      :editfile => :release,
+      :editrelease => :release,
+      :updatefile => :release,
+      :updaterelease => :release,
+      :viewfile => :release,
+      :viewrelease => :release,
+      :reload => :release,
+      :show => :release,
       :index => :release,
       #:latest
       :list => :release,
       :removefile => :release,
       :delete => :release
-      #:show
       #:top
     }#,
     #:rt,
