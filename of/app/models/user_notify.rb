@@ -1,10 +1,10 @@
 class UserNotify < ActionMailer::Base
   def signup(user, password, url=nil)
     setup_email(user)
-
+    
     # Email header info
     @subject += "Welcome to #{UserSystem::CONFIG[:app_name]}!"
-
+     
     # Email body substitutions
     @body["name"] = "#{user.realname}"
     @body["login"] = user.login
@@ -75,13 +75,27 @@ class UserNotify < ActionMailer::Base
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
   end
-
+  
   def setup_email(user)
     @recipients = "#{user.email}"
     @from       = UserSystem::CONFIG[:email_from].to_s
     @subject    = "[#{UserSystem::CONFIG[:app_name]}] "
     @sent_on    = Time.now
-    #@headers['Content-Type'] = "text/html; charset=#{UserSystem::CONFIG[:mail_charset]}; format=flowed"
-    content_type "text/html"
+  end
+  
+  def build_user_email(assigns)
+    part("multipart/alternative") do |p|
+      UserSystem::CONFIG[:available_content_type].each do |content_type|
+      p.part:content_type => content_type,
+             :body => 
+             render_message("#{@template}.#{content_type.sub(/\//, '.')}.rhtml", assigns) 
+      end
+    end
+  end
+  
+  def render_message(method_name, body)
+    layout = method_name.match(%r{text\.html\.rhtml}) ? 'layout.text.html.rhtml' : 'layout.text.plain.rhtml'
+    body[:content_for_layout] = render(:file => method_name, :body => body)
+    ActionView::Base.new(template_root, body, self).render(:file => "#{RAILS_ROOT}/app/views/user_notify/#{layout}")
   end
 end
