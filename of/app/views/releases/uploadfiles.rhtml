@@ -63,7 +63,9 @@
             :project_id => @project.id,
             :id => @release.id,
             :removefile_id => f.id
-          }), :update => "uploadfiles_view"
+          }),
+          :confirm => 'Delete?', 
+          :update => "uploadfiles_view"
         %>
 	<%= link_to '[download]', download_url(:project_name => @project.name, 
 					       :release_version => @release.version,
@@ -86,7 +88,7 @@
             :project_id => @project.id,
             :id => @release.id,
            }), :update => "uploadfiles_view" %>
-      <%=submit_tag _('Add File') %> [<%= link_to _("How to Upload？"), "http://webhosting.openfoundry.org/how_to_upload.html", {:target => '_blank'} %>]
+      <%=submit_tag _('Add File') %> [<%= link_to _("How to Upload?"), "http://webhosting.openfoundry.org/how_to_upload.html", {:target => '_blank'} %>]
      <br/>
         <div id=Uploadfile_selection>
         <% unless @uploadfiles.empty? -%>
