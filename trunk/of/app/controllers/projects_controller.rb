@@ -86,6 +86,15 @@ class ProjectsController < ApplicationController
         end
         query = [params[:cat] + " like ? and #{Project.in_used_projects}", name]
       end
+      if params[:cat] =~ /^(maturity|license|contentlicense)$/
+        if params[:cat] =~ /^(contentlicense)$/
+          @filter_by = eval("Project::content_license_to_s(#{params[:name]})")
+        else
+          @filter_by = eval("Project::#{params[:cat]}_to_s(#{params[:name]})")
+        end
+      else
+        @filter_by = params[:name]
+      end
     end
     
     projects = nil

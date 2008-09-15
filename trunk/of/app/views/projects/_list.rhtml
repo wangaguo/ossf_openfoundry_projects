@@ -1,6 +1,5 @@
 <div id="ProjectList">
-<h1><%= _('Project Listing') %></h1>
-
+  <h1><%= _('Project Listing') %> <%= "<b>by #{@filter_by}</b>" if @filter_by %></h1>
 <%= will_paginate projects %>
 <table class="ProjectList">
   <tr>
