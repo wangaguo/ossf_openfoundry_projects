@@ -21,11 +21,13 @@
             :id => @release.id,
           }), :update => "editrelease_view"
         %>
-        <%= link_to_remote '[remove]',:url => removefile_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-            :removerelease_id => @release.id
-          }), :update => "editrelease_view"
+        <%= link_to '[delete]', delete_release_url(
+          {
+            :project_id => @project.id, 
+            :id => @release.id
+          }), 
+          :confirm => 'Delete?', 
+          :method => :post
         %>
     </div>
     </fieldset>

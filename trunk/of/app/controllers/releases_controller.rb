@@ -104,7 +104,7 @@ class ReleasesController < ApplicationController
 
   def delete
     if request.post?
-      r=Release.find(params[:id])
+      r=Release.find_by_id(params[:id])
       r.destroy unless r.nil?
     end
     redirect_to(url_for(:project_id => params[:project_id], :action => :index))
