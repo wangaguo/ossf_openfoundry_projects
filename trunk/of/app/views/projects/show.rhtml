@@ -19,7 +19,11 @@
   .td-right { width: 80% }
 </style>
 <table class="list-table">
+<%
+  tmp_nsccode = @project.tag_list.names.grep(/^NSC\d/).sort.join(", ")
+%>
 <%= rows(
+  * ([
   _("Project|Name"), (h @project.name),
   _("Project|Summary"), (h @project.summary),
   _("Project|Description"), (h @project.description),
@@ -35,7 +39,9 @@
   _("Project|Vcsdescription"), (h @project.vcsdescription),
   _("Project|Creator"), ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true) : ""),
   _("Project|Created at"), tz_datetime(@project.created_at)
-  )
+  ] +
+  (tmp_nsccode.empty?() ? [] : [ _("Project|Nsccode"), h(tmp_nsccode) ])
+  ) )
 %>
 </table>
 

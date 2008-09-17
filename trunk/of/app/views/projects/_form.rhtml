@@ -65,6 +65,9 @@ AAA
   end
   tmp_contentlicenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_contentlicenses}</div>"
 %>
+<%
+  tmp_nsccode = @project.tag_list.names.grep(/^NSC/).sort.join(", ")
+%>
 <table class="form-table">
 <%=  rows(
   foo("name", true, _("Project|Name|Help")),
@@ -97,9 +100,19 @@ AAA
     select('project', 'vcs', [:SUBVERSION, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
   foo("vcsdescription", false, _("Project|Vcsdescription|Help")), 
     text_field('project', 'vcsdescription', :maxlength => 100, :size => 50)
+
 )
 %>
 </table>
+
+<fieldset style="clear:both;">
+  <legend><%= _("For NSC projects") %>:</legend>
+  <%=
+    "<label for=\"project_nsccode\">#{_('Project|Nsccode')}</label> (comma seperated)<br/>e.g. NSC97-2218-E-123-456 #{ help_icon(_('Project|Nsccode|Help') )}" +
+    err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50))
+  %>
+</fieldset>
+
 
 <!--[eoform:project]-->
 

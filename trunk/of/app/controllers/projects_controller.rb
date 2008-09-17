@@ -150,6 +150,11 @@ class ProjectsController < ApplicationController
     params[:project].delete(:name)
     join_with_separator
 
+    # NSC !!
+    @project.tag_list = []
+    @project.tag_list.add(* params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/))
+    params[:project].delete(:nsccode)
+
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
       redirect_to :action => 'show', :id => @project
