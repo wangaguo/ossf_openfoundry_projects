@@ -23,7 +23,7 @@
         <%= link_to_remote '[remove]',:url => removefile_release_url({
             :project_id => @project.id,
             :id => @release.id,
-            :removefile_id => f.id
+            :removefile_id => @file.id
           }),
           :confirm => 'Delete?', 
           :update => "uploadfiles_view"
