@@ -34,6 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   #              :controller => :user                
   map.resources :news,
                 :singular => 'news1',
+                :collection => { :new_release => :any },
                 :path_prefix => '/projects/:project_id'
   map.resources :news,
                 :singular => 'news1',

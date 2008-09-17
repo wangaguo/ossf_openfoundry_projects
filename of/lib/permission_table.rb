@@ -42,6 +42,7 @@ module OpenFoundry
     },
     :news => news_pt = {
       :new => :news,
+      :new_release => :news,
       :create => :news,
       #:_home_news,
       :destroy => :news,
