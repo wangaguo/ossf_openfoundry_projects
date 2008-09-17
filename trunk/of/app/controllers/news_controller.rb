@@ -65,6 +65,23 @@ class NewsController < ApplicationController
   def new
     @news = News.new
   end
+
+  def new_release
+    release = Release.find_by_id(params[:release_id])
+    if !release.nil? && params[:project_id] == release.project_id.to_s
+      @news = News.new
+      @news.subject = "New release: " + release.version
+      release.fileentity.each do |file|
+        @news.description += "* #{file.path} (#{file.description})\n"
+      end
+      @news.description += "\nhttp://of.openfoundry.org/projects/#{params[:project_id]}/download"
+      @news.status = News::STATUS[:Disabled]
+      render :action => :new
+    else
+      flash[:error] = _('No this release.')
+      redirect_to(request.referer || '/')
+    end
+  end
   
   def create
     @news = News.new
