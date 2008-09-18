@@ -1,12 +1,11 @@
 <script>
-Event.observe(window, 'load', project_leftmenu_init);
+document.observe("dom:loaded", project_leftmenu_init);
 </script>
 <%
   functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
 
   is_nsc_project = @project.is_nsc_project
 %>
-<%#="ABCD" + functions.to_s%>
 <ul id="menu_tab">
   <li onclick="project_leftmenu_onclick(1)" id="project_menu_tab"><%=_('project_menu_View')%></li>
   <% if functions.length > 0 -%>
