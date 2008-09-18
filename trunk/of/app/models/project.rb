@@ -414,7 +414,7 @@ EOEO
     is_nsc_project = self.tag_list.names.any? {|t| t =~ /^NSC/}
   end
   def is_nsc_reviewer(user_login)
-    l = "#{self.name} #{user}\n" # DOS ?
+    l = "#{self.name} #{user_login}\n" # DOS ?
     File.open(NSC_REVIEWERS_FILE).each do |line|
       return true if line == l
     end
@@ -430,6 +430,9 @@ EOEO
     else
       nil
     end
+  end
+  def nsc_codes
+    tag_list.names.grep(/^NSC\d/).sort
   end
 
 end
