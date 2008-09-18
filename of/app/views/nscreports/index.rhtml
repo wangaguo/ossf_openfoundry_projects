@@ -1,3 +1,6 @@
+<%= _("Project|Nsccode") %>: <%= @project.nsc_codes.join(", ") %> <br/>
+
+<% if @nsc_role =~ /PI|REVIEWER|ADMIN/ %>
 
 <%
   reviews = []
@@ -27,3 +30,5 @@ Reviews:<br>
 
 <hr>
 <%= link_to "Upload a new document", :action => "new" %>
+
+<% end %>

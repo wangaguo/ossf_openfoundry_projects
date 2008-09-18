@@ -60,7 +60,7 @@ class NscreportsController < ApplicationController
           else
             type_ok = true
           end
-        elsif @nsc_role = "REVIEWER"
+        elsif @nsc_role == "REVIEWER"
           if type =~ /review/
             if NSC_REVIEW_OPENED
               type_ok = true
