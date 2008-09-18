@@ -3,6 +3,8 @@ Event.observe(window, 'load', project_leftmenu_init);
 </script>
 <%
   functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+
+  is_nsc_project = @project.is_nsc_project
 %>
 <%#="ABCD" + functions.to_s%>
 <ul id="menu_tab">
@@ -44,6 +46,9 @@ Event.observe(window, 'load', project_leftmenu_init);
       </li>
       <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
       <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+      <% if is_nsc_project %>
+      <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+      <% end %>
   </ul>
   <% if functions.length > 0 -%>
   <ul id="project_admin_menu" style="display:none;">
@@ -91,6 +96,9 @@ Event.observe(window, 'load', project_leftmenu_init);
     <% if functions.include?('role_edit') -%>
       <li><%= link_to _('project_Permission Control'), :controller => :projects, :action => "permission_edit", :id =>@project%></li>
     <% end -%>
+    <% if is_nsc_project %>
+    <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+    <% end %>
   </ul>
   <% end %>
 </div>
