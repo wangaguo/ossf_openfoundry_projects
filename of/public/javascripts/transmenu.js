@@ -846,14 +846,6 @@ TransMenu.renderAll2 = function() {
 	document.body.insertBefore(div, null);
 };
 
-//for IE 
-if(window.attachEvent)
-{
-	window.attachEvent("onload", init);
-}
-//for FF
-else if(window.addEventListener)
-{
-	window.addEventListener('load', init, false);
-}
+//Event.observe(window, 'load', init );
+document.observe("dom:loaded", init);
 
