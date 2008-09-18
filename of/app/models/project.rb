@@ -413,4 +413,23 @@ EOEO
   def is_nsc_project
     is_nsc_project = self.tag_list.names.any? {|t| t =~ /^NSC/}
   end
+  def is_nsc_reviewer(user_login)
+    l = "#{self.name} #{user}\n" # DOS ?
+    File.open(NSC_REVIEWERS_FILE).each do |line|
+      return true if line == l
+    end
+    return false
+  end
+  def nsc_role(user_obj)
+    if user_obj.has_role?('Admin', self)
+      "PI"
+    elsif is_nsc_reviewer(user_obj.login) # has_role?('nsc_reviewer', @project)
+      "REVIEWER"
+    elsif user_obj.login == NSC_ADMIN_ACCOUNT
+      "ADMIN"
+    else
+      nil
+    end
+  end
+
 end

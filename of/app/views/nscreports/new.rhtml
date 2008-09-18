@@ -1,10 +1,8 @@
 Please upload your reports/reviews here. <br/><br/>
 
-
-
 <% @types_write.each do |x| %>
   <% form_tag({:action => "create"}, {:multipart => true}) do %>
-    Year: <%= text_field_tag "year", "97", :readonly => true %><br/>
+    Year: <%= text_field_tag "year", NSC_CURRENT_YEAR, :readonly => true %><br/>
     Type: <%= text_field_tag "type", x, :readonly => true %><br/>
     File: <%= file_field_tag "the_file" %>
     <%= submit_tag "Upload" %>

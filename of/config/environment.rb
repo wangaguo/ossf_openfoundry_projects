@@ -111,6 +111,13 @@ Rails::Initializer.run do |config|
     # important password! leak it may leak all your user data!!
     #
     #OPENFOUNDRY_JSON_DUMP_PASSWORD = 
+
+    NSC_UPLOAD_DIR = "/usr/home/openfoundry/of/nsc_upload_dir" # don't forget to mkdir
+    NSC_REVIEWERS_FILE = "/usr/home/openfoundry/of/nsc_upload_dir/reviewers.txt" # p u mapping
+    NSC_CURRENT_YEAR = "97"
+    NSC_REVIEW_OPENED = false
+    NSC_ADMIN_ACCOUNT = "nsc_admin"
+
   }
 
 end

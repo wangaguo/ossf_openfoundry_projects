@@ -1,9 +1,4 @@
 class NscreportsController < ApplicationController
-  NSC_UPLOAD_DIR = "/usr/home/openfoundry/of/nsc_upload_dir" # don't forget to mkdir
-  CURRENT_YEAR = "97"
-  REVIEW_OPENED = false
-  NSC_ADMIN_ACCOUNT = "nsc_admin"
-
   layout 'module'
   #find_resources :parent => 'project', :child => 'job', :parent_id_method => 'project_id', :child_rename => 'data_item'
   #before_filter :controller_load
@@ -16,25 +11,22 @@ class NscreportsController < ApplicationController
     end
     return false
   end
-  before_filter :nsc_role
-  def nsc_role
+  before_filter :common
+  def common
     @project = Project.find(params[:project_id])
-    # PI / REVIEWER / ADMIN
-    if current_user.has_role?('Admin', @project)
-      @nsc_role = "PI"
+    @nsc_role = @project.nsc_role(current_user)
+    case @nsc_role
+    when "PI"
       @types_write = ["requirement", "design", "testing"]
-    #elsif current_user.has_role?('nsc_reviewer', @project)
-    elsif is_reviewer(current_user.login, @project.name)
-      @nsc_role = "REVIEWER"
+    when "REVIEWER"
       @types_write = ["requirement-review-form", "requirement-review-content", "design-review-form", "design-review-content", "testing-review-form", "testing-review-content"]
-    elsif current_user.login == NSC_ADMIN_ACCOUNT
-      @nsc_role = "ADMIN"
+    when "ADMIN"
       @types_write = []
     else
-      @nsc_role = nil
       @types_write = []
     end
   end
+
   def index
     if params[:file]
       show
@@ -42,6 +34,7 @@ class NscreportsController < ApplicationController
       @files = Dir.glob("#{NSC_UPLOAD_DIR}/#{@project.name}_*")
     end
   end
+
   def show
     file = params[:file]
     full_path = NSC_UPLOAD_DIR + "/" + file
@@ -58,7 +51,7 @@ class NscreportsController < ApplicationController
           type_ok = true
         elsif @nsc_role == "PI"
           if type =~ /review/
-            if REVIEW_OPENED
+            if NSC_REVIEW_OPENED
               type_ok = true
             else
               type_ok = false #TODO: year
@@ -69,7 +62,7 @@ class NscreportsController < ApplicationController
           end
         elsif @nsc_role = "REVIEWER"
           if type =~ /review/
-            if REVIEW_OPENED
+            if NSC_REVIEW_OPENED
               type_ok = true
             else
               if current_user.login == author
@@ -106,7 +99,7 @@ class NscreportsController < ApplicationController
   
   def create
     year = params[:year]
-    if year != CURRENT_YEAR
+    if year != NSC_CURRENT_YEAR
       render :text => "bad year"
       return
     end
