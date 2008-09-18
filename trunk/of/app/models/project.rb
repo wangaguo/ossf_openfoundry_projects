@@ -405,4 +405,12 @@ EOEO
       end
     end
   end
+
+
+  #
+  # NSC
+  #
+  def is_nsc_project
+    is_nsc_project = self.tag_list.names.any? {|t| t =~ /^NSC/}
+  end
 end
