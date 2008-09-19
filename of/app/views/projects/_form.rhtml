@@ -108,7 +108,7 @@ AAA
 <fieldset style="clear:both;">
   <legend><%= _("For NSC projects") %>:</legend>
   <%=
-    "<label for=\"project_nsccode\">#{_('Project|Nsccode')}</label> (comma seperated)<br/>e.g. NSC97-2218-E-123-456 #{ help_icon(_('Project|Nsccode|Help') )}" +
+    "<label for=\"project_nsccode\">#{_('Project|Nsccode')}</label> (#{_('comma seperated')})<br/>e.g. NSC97-2218-E-123-456 #{ help_icon(_('Project|Nsccode|Help') )}" +
     err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50))
   %>
 </fieldset>
