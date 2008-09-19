@@ -434,5 +434,9 @@ EOEO
   def nsc_codes
     tag_list.names.grep(/^NSC\d/).sort
   end
+  def nsccode=(code_array)
+    self.tag_list = []
+    self.tag_list.add(* code_array.map(&:strip).map(&:upcase).grep(/^NSC/))
+  end
 
 end
