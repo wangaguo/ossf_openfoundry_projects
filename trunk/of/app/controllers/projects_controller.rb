@@ -134,6 +134,7 @@ class ProjectsController < ApplicationController
 
   def create
     join_with_separator
+    params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
@@ -149,11 +150,7 @@ class ProjectsController < ApplicationController
   def update
     params[:project].delete(:name)
     join_with_separator
-
-    # NSC !!
-    @project.tag_list = []
-    @project.tag_list.add(* params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/))
-    params[:project].delete(:nsccode)
+    params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
 
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
