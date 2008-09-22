@@ -41,7 +41,7 @@ class NscreportsController < ApplicationController
 
     if File.basename(file) != file
       render :text => "bad file name"
-    elsif matched = file.match(/^([^_]+)_(\d+)_([^_]+)(?:_(.+))?\.(?:pdf|doc)$/)
+    elsif matched = file.match(/^([^_]+)_(\d+)_([^_]+)_(.+)\.(?:pdf|doc|zip)$/)
       (project_name, year, type, author) = matched.to_a[1..-1]
       if project_name == @project.name
         # check type (with author)
@@ -112,7 +112,7 @@ class NscreportsController < ApplicationController
 
     #render :text => params["the_file"]["datafile"].original_filename
     # ignore orignial_filename
-    ext = (type =~ /review/) ? "doc" : "pdf"
+    ext = (type =~ /review/) ? "doc" : "zip"
     filename = "#{@project.name}_#{year}_#{type}_#{current_user.login}.#{ext}";
     filepath = "#{NSC_UPLOAD_DIR}/#{filename}"
     File.open(filepath, "wb") do |f|
