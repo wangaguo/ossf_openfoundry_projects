@@ -34,9 +34,7 @@ class ProjectNotify < ActionMailer::Base
   def rejected(project, sent_at = Time.now)
     @subject    = "Your project creation request '#{project.name}' has been rejected!"
     # TODO: maybe only the creator can see the rejected project
-    @body       = { :project_url => url_for(:controller => 'projects',
-                                            :action => 'show',
-                                            :id => project.id) }
+    @body       = { :project_name => project.name }
     @recipients = User.find(project.creator).email
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
