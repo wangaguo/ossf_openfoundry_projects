@@ -85,7 +85,7 @@ class NscreportsController < ApplicationController
 
           send_file full_path # TODO: use X-Sendfile
         else
-          render :text => "error: #{err_msg}"
+          render :text => "error: #{err_msg}", :layout => true
         end
       else
         render :text => "project name not matched"
