@@ -152,8 +152,16 @@ class ProjectsController < ApplicationController
     join_with_separator
     params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
 
+    old_redirecturl = @project.redirecturl
+    old_vcs = @project.vcs
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
+      changed = []
+      changed << _("Project|Redirecturl") if @project.redirecturl != old_redirecturl
+      changed << _("Project|Vcs") if @project.vcs != old_vcs
+      if not changed.empty?
+        flash[:notice] +=  " " + _('It may take 5 minutes for %s settings to take effect.') % changed.join("/")
+      end
       redirect_to :action => 'show', :id => @project
     else
       render :action => 'edit'
