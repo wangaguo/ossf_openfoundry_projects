@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-09-24 06:33-0000\n"
+"POT-Creation-Date: 2008-09-24 09:21-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1294,77 +1294,91 @@ msgstr ""
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:156
+#: app/controllers/projects_controller.rb:158
 #: app/views/projects/test_action_i18n______________.rhtml:327
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:181
+#: app/controllers/projects_controller.rb:160
+#: app/views/projects/test_action_i18n______________.rhtml:345
+msgid "Project|Redirecturl"
+msgstr "Redirect URL"
+
+#: app/controllers/projects_controller.rb:161 app/views/projects/show.rhtml:38
+#: app/views/projects/test_action_i18n______________.rhtml:177
+msgid "Project|Vcs"
+msgstr "Version Control System"
+
+#: app/controllers/projects_controller.rb:163
+msgid "It may take 5 minutes for %s settings to take effect."
+msgstr ""
+
+#: app/controllers/projects_controller.rb:189
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:206
+#: app/controllers/projects_controller.rb:214
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:210
+#: app/controllers/projects_controller.rb:218
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:227
+#: app/controllers/projects_controller.rb:235
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:232
-#: app/controllers/projects_controller.rb:284
+#: app/controllers/projects_controller.rb:240
+#: app/controllers/projects_controller.rb:292
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:237
-#: app/controllers/projects_controller.rb:289
+#: app/controllers/projects_controller.rb:245
+#: app/controllers/projects_controller.rb:297
 msgid "User \"%{user}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:258
+#: app/controllers/projects_controller.rb:266
 msgid "You can't delete User belongs to This Group!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:280
+#: app/controllers/projects_controller.rb:288
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:306
+#: app/controllers/projects_controller.rb:314
 #: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "Member Control"
 
-#: app/controllers/projects_controller.rb:320
+#: app/controllers/projects_controller.rb:328
 #: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "Permission Control"
 
-#: app/controllers/projects_controller.rb:376
+#: app/controllers/projects_controller.rb:384
 msgid "Permission was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:397
+#: app/controllers/projects_controller.rb:405
 msgid "Role \"%{name}\" was successfully created."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:409
+#: app/controllers/projects_controller.rb:417
 msgid "Admin and Member can't be deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:417
+#: app/controllers/projects_controller.rb:425
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:424
+#: app/controllers/projects_controller.rb:432
 #, fuzzy
 msgid "Role id not found!"
 msgstr "Icon"
 
-#: app/controllers/projects_controller.rb:436
+#: app/controllers/projects_controller.rb:444
 #: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr ""
@@ -2074,11 +2088,6 @@ msgstr "Licensing Description"
 msgid "Project|Programminglanguage"
 msgstr "Programming Language"
 
-#: app/views/projects/show.rhtml:38
-#: app/views/projects/test_action_i18n______________.rhtml:177
-msgid "Project|Vcs"
-msgstr "Version Control System"
-
 #: app/views/projects/show.rhtml:39
 #: app/views/projects/test_action_i18n______________.rhtml:21
 msgid "Project|Vcsdescription"
@@ -2717,10 +2726,6 @@ msgstr "Change Password"
 #: app/views/user/_email.rhtml:12
 msgid "User|Email"
 msgstr "Email Address"
-
-#: app/views/projects/test_action_i18n______________.rhtml:345
-msgid "Project|Redirecturl"
-msgstr "Redirect URL"
 
 #: app/views/projects/test_action_i18n______________.rhtml:346
 #: app/views/user/login.rhtml:34
