@@ -107,10 +107,10 @@ AAA
 
 <fieldset style="clear:both;">
   <legend><%= _("For NSC projects") %>:</legend>
-  <%=
-    "<label for=\"project_nsccode\">#{_('Project|Nsccode')}</label> (#{_('comma seperated')})<br/>e.g. NSC97-2218-E-123-456 #{ help_icon(_('Project|Nsccode|Help') )}" +
-    err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50))
-  %>
+  <%= _("Please refer to the") %> <b><a href="http://of.openfoundry.org/help/nsc_project"><%= _("help document") %></a></b>.<br/><br/>
+  <label for=\"project_nsccode\"><%= _('Project|Nsccode') %></label> (<%= _('comma seperated') %>)<br/>
+  e.g. NSC97-2218-E-123-456
+  <%= err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50)) %>
 </fieldset>
 
 

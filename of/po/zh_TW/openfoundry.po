@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-09-17 03:41-0000\n"
+"POT-Creation-Date: 2008-09-24 06:33-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,8 +50,8 @@ msgstr "專案新聞"
 
 #: app/helpers/application_helper.rb:71 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:23
-#: app/views/partials/_project_menu.rhtml:66
+#: app/views/partials/_project_menu.rhtml:24
+#: app/views/partials/_project_menu.rhtml:70
 #: app/views/projects/test_action_i18n______________.rhtml:101
 msgid "Help Wanted"
 msgstr "尋求支援"
@@ -59,8 +59,8 @@ msgstr "尋求支援"
 #: app/helpers/application_helper.rb:74
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:20
-#: app/views/partials/_project_menu.rhtml:57
+#: app/views/partials/_project_menu.rhtml:21
+#: app/views/partials/_project_menu.rhtml:61
 #: app/views/projects/test_action_i18n______________.rhtml:292
 msgid "Citations"
 msgstr "引用資訊"
@@ -68,8 +68,8 @@ msgstr "引用資訊"
 #: app/helpers/application_helper.rb:77
 #: app/controllers/references_controller.rb:8
 #: app/controllers/references_controller.rb:27
-#: app/views/partials/_project_menu.rhtml:21
-#: app/views/partials/_project_menu.rhtml:60
+#: app/views/partials/_project_menu.rhtml:22
+#: app/views/partials/_project_menu.rhtml:64
 #: app/views/projects/test_action_i18n______________.rhtml:268
 msgid "References"
 msgstr "參考文獻"
@@ -81,7 +81,7 @@ msgstr "事件追蹤"
 
 #: app/helpers/application_helper.rb:83
 #: app/controllers/releases_controller.rb:75
-#: app/views/partials/_project_menu.rhtml:46
+#: app/views/partials/_project_menu.rhtml:47
 #: app/views/projects/test_action_i18n______________.rhtml:188
 msgid "Downloads"
 msgstr "下載區"
@@ -1045,27 +1045,32 @@ msgid "News"
 msgstr "新聞"
 
 #: app/controllers/news_controller.rb:59
-#: app/views/partials/_project_menu.rhtml:22
-#: app/views/partials/_project_menu.rhtml:63
+#: app/views/partials/_project_menu.rhtml:23
+#: app/views/partials/_project_menu.rhtml:67
 #: app/views/projects/test_action_i18n______________.rhtml:182
 msgid "project_News"
 msgstr "專案新聞"
 
-#: app/controllers/news_controller.rb:91
+#: app/controllers/news_controller.rb:81
+#, fuzzy
+msgid "No this release."
+msgstr "專案一覽"
+
+#: app/controllers/news_controller.rb:108
 #: app/controllers/citations_controller.rb:66
 #: app/controllers/jobs_controller.rb:63
 #: app/controllers/references_controller.rb:59
 msgid "Add Successful"
 msgstr ""
 
-#: app/controllers/news_controller.rb:115
+#: app/controllers/news_controller.rb:132
 #: app/controllers/citations_controller.rb:87
 #: app/controllers/jobs_controller.rb:81
 #: app/controllers/references_controller.rb:74
 msgid "Edit Successful"
 msgstr ""
 
-#: app/controllers/news_controller.rb:124
+#: app/controllers/news_controller.rb:141
 #: app/controllers/citations_controller.rb:96
 #: app/controllers/jobs_controller.rb:90
 #: app/controllers/references_controller.rb:83
@@ -1274,15 +1279,15 @@ msgid "Basic Information"
 msgstr "基本資料"
 
 #: app/controllers/projects_controller.rb:38
-#: app/views/partials/_project_menu.rhtml:45
-#: app/views/partials/_project_menu.rhtml:78
+#: app/views/partials/_project_menu.rhtml:46
+#: app/views/partials/_project_menu.rhtml:82
 #: app/views/projects/test_action_i18n______________.rhtml:288
 msgid "Mailing List"
 msgstr "通訊論壇"
 
 #: app/controllers/projects_controller.rb:47
-#: app/views/partials/_project_menu.rhtml:37
-#: app/views/partials/_top_menu_data.rhtml:68
+#: app/views/partials/_project_menu.rhtml:38
+#: app/views/partials/_top_menu_data.rhtml:69
 #: app/views/projects/test_action_i18n______________.rhtml:213
 msgid "Version Control"
 msgstr "版本控制"
@@ -1291,76 +1296,76 @@ msgstr "版本控制"
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:159
+#: app/controllers/projects_controller.rb:156
 #: app/views/projects/test_action_i18n______________.rhtml:327
 msgid "Project was successfully updated."
 msgstr "專案已更新"
 
-#: app/controllers/projects_controller.rb:184
+#: app/controllers/projects_controller.rb:181
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:209
+#: app/controllers/projects_controller.rb:206
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr "將使用者\"%{user}\"從群組\"%{old_role}\"移到\"%{role}\""
 
-#: app/controllers/projects_controller.rb:213
+#: app/controllers/projects_controller.rb:210
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:230
+#: app/controllers/projects_controller.rb:227
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr "加入使用者\"%{user}\"到群組\"%{role}\""
 
-#: app/controllers/projects_controller.rb:235
-#: app/controllers/projects_controller.rb:287
+#: app/controllers/projects_controller.rb:232
+#: app/controllers/projects_controller.rb:284
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr "群組\"%{role}\"不存在!"
 
-#: app/controllers/projects_controller.rb:240
-#: app/controllers/projects_controller.rb:292
+#: app/controllers/projects_controller.rb:237
+#: app/controllers/projects_controller.rb:289
 msgid "User \"%{user}\" doesn't exist!"
 msgstr "使用者 %{user} 不存在或是停用"
 
-#: app/controllers/projects_controller.rb:261
+#: app/controllers/projects_controller.rb:258
 msgid "You can't delete User belongs to This Group!"
 msgstr "無法移除該使用者!"
 
-#: app/controllers/projects_controller.rb:283
+#: app/controllers/projects_controller.rb:280
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr "從群組\"%{role}\"移除使用者\"%{user}\""
 
-#: app/controllers/projects_controller.rb:309
-#: app/views/partials/_project_menu.rhtml:89
+#: app/controllers/projects_controller.rb:306
+#: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "成員管理"
 
-#: app/controllers/projects_controller.rb:323
-#: app/views/partials/_project_menu.rhtml:92
+#: app/controllers/projects_controller.rb:320
+#: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "權限管理"
 
-#: app/controllers/projects_controller.rb:379
+#: app/controllers/projects_controller.rb:376
 msgid "Permission was successfully updated."
 msgstr "權限修改已更新"
 
-#: app/controllers/projects_controller.rb:400
+#: app/controllers/projects_controller.rb:397
 msgid "Role \"%{name}\" was successfully created."
 msgstr "群組\"%{name}\"已建立"
 
-#: app/controllers/projects_controller.rb:412
+#: app/controllers/projects_controller.rb:409
 msgid "Admin and Member can't be deleted."
 msgstr "Admin與Member是預設群組, 不能移除"
 
-#: app/controllers/projects_controller.rb:420
+#: app/controllers/projects_controller.rb:417
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr "群組\"%{name}\"已移除"
 
-#: app/controllers/projects_controller.rb:427
+#: app/controllers/projects_controller.rb:424
 msgid "Role id not found!"
 msgstr "查無此群組!"
 
-#: app/controllers/projects_controller.rb:439
+#: app/controllers/projects_controller.rb:436
 #: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr "版本控制系統: 存取方式"
@@ -1462,94 +1467,100 @@ msgstr "登入"
 msgid "Sign Up"
 msgstr "註冊"
 
-#: app/views/partials/_project_menu.rhtml:9
+#: app/views/partials/_project_menu.rhtml:10
 #: app/views/projects/test_action_i18n______________.rhtml:242
 msgid "project_menu_View"
 msgstr "檢視專案"
 
-#: app/views/partials/_project_menu.rhtml:11
+#: app/views/partials/_project_menu.rhtml:12
 #: app/views/projects/test_action_i18n______________.rhtml:135
 msgid "project_menu_Admin"
 msgstr "管理專案"
 
-#: app/views/partials/_project_menu.rhtml:16
-#: app/views/partials/_project_menu.rhtml:51
+#: app/views/partials/_project_menu.rhtml:17
+#: app/views/partials/_project_menu.rhtml:55
 #: app/views/projects/test_action_i18n______________.rhtml:315
 msgid "project_Info"
 msgstr "專案資訊"
 
-#: app/views/partials/_project_menu.rhtml:18
-#: app/views/partials/_project_menu.rhtml:54
+#: app/views/partials/_project_menu.rhtml:19
+#: app/views/partials/_project_menu.rhtml:58
 #: app/views/projects/test_action_i18n______________.rhtml:109
 msgid "project_Basic_Information"
 msgstr "基本資料"
 
-#: app/views/partials/_project_menu.rhtml:19
+#: app/views/partials/_project_menu.rhtml:20
 #: app/views/projects/test_action_i18n______________.rhtml:161
 msgid "project_Homepage"
 msgstr "專案首頁"
 
-#: app/views/partials/_project_menu.rhtml:26
-#: app/views/partials/_project_menu.rhtml:72
+#: app/views/partials/_project_menu.rhtml:27
+#: app/views/partials/_project_menu.rhtml:76
 #: app/views/projects/test_action_i18n______________.rhtml:337
 msgid "project_Tracker"
 msgstr "待辦事項"
 
-#: app/views/partials/_project_menu.rhtml:28
+#: app/views/partials/_project_menu.rhtml:29
 #: app/views/projects/test_action_i18n______________.rhtml:6
 msgid "tracker_Overview"
 msgstr "綜覽"
 
-#: app/views/partials/_project_menu.rhtml:29
+#: app/views/partials/_project_menu.rhtml:30
 #: app/views/projects/test_action_i18n______________.rhtml:126
 msgid "tracker_Defect"
 msgstr "瑕疵"
 
-#: app/views/partials/_project_menu.rhtml:30
+#: app/views/partials/_project_menu.rhtml:31
 #: app/views/projects/test_action_i18n______________.rhtml:205
 msgid "tracker_Patch"
 msgstr "修正檔"
 
-#: app/views/partials/_project_menu.rhtml:31
+#: app/views/partials/_project_menu.rhtml:32
 #: app/views/projects/test_action_i18n______________.rhtml:320
 msgid "tracker_Task"
 msgstr "工作事項"
 
-#: app/views/partials/_project_menu.rhtml:32
+#: app/views/partials/_project_menu.rhtml:33
 #: app/views/projects/test_action_i18n______________.rhtml:272
 msgid "tracker_Feature"
 msgstr "新功能"
 
-#: app/views/partials/_project_menu.rhtml:33
+#: app/views/partials/_project_menu.rhtml:34
 #: app/views/projects/test_action_i18n______________.rhtml:343
 msgid "tracker_Enhancement"
 msgstr "改進"
 
-#: app/views/partials/_project_menu.rhtml:36
-#: app/views/partials/_project_menu.rhtml:75
+#: app/views/partials/_project_menu.rhtml:37
+#: app/views/partials/_project_menu.rhtml:79
 #: app/views/projects/test_action_i18n______________.rhtml:73
 msgid "Wiki"
 msgstr "共同筆記"
 
-#: app/views/partials/_project_menu.rhtml:40
+#: app/views/partials/_project_menu.rhtml:41
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.rhtml:42
+#: app/views/partials/_project_menu.rhtml:43
 #: app/views/projects/test_action_i18n______________.rhtml:189
 msgid "How to Access"
 msgstr "存取方式"
 
-#: app/views/partials/_project_menu.rhtml:81
+#: app/views/partials/_project_menu.rhtml:49
+#: app/views/partials/_project_menu.rhtml:99
+#, fuzzy
+msgid "NSC project"
+msgstr "註冊專案"
+
+#: app/views/partials/_project_menu.rhtml:85
 #: app/views/projects/test_action_i18n______________.rhtml:10
 msgid "release_Releases"
 msgstr "規畫釋出"
 
-#: app/views/partials/_project_menu.rhtml:83
+#: app/views/partials/_project_menu.rhtml:87
 msgid "release_Edit"
 msgstr "版本管理"
 
-#: app/views/partials/_project_menu.rhtml:84
+#: app/views/partials/_project_menu.rhtml:88
 #: app/views/projects/test_action_i18n______________.rhtml:160
 msgid "release_New"
 msgstr "版本新增"
@@ -1781,22 +1792,27 @@ msgstr "說明"
 #: app/views/partials/_top_menu_data.rhtml:67 app/views/layouts/admin.rhtml:6
 #: app/views/projects/test_action_i18n______________.rhtml:249
 msgid "OpenFoundry"
-msgstr "自由軟體鑄造場"
+msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:72
+#: app/views/partials/_top_menu_data.rhtml:68
+#, fuzzy
+msgid "NSC Project"
+msgstr "新進專案"
+
+#: app/views/partials/_top_menu_data.rhtml:73
 msgid "menu_Site Admin"
 msgstr "站台管理"
 
-#: app/views/partials/_top_menu_data.rhtml:74
+#: app/views/partials/_top_menu_data.rhtml:75
 #, fuzzy
 msgid "Approve Projects"
 msgstr "新進專案"
 
-#: app/views/partials/_top_menu_data.rhtml:75
+#: app/views/partials/_top_menu_data.rhtml:76
 msgid "Translations"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:76
+#: app/views/partials/_top_menu_data.rhtml:77
 #, fuzzy
 msgid "Module Menagements"
 msgstr "成員管理"
@@ -2063,9 +2079,10 @@ msgstr "版本控制系統"
 msgid "Project|Vcsdescription"
 msgstr "版本控制系統描述"
 
-#: app/views/projects/show.rhtml:43
+#: app/views/projects/show.rhtml:43 app/views/projects/_form.rhtml:111
+#: app/views/nscreports/index.rhtml:1
 msgid "Project|Nsccode"
-msgstr "國科會計劃編號"
+msgstr "國科會計畫編號"
 
 #: app/views/projects/show.rhtml:56
 #: app/views/projects/test_action_i18n______________.rhtml:94
@@ -2152,9 +2169,20 @@ msgstr ""
 "示使用者."
 
 #: app/views/projects/_form.rhtml:109
-#, fuzzy
 msgid "For NSC projects"
-msgstr "註冊專案"
+msgstr "國科會專案"
+
+#: app/views/projects/_form.rhtml:110
+msgid "Please refer to the"
+msgstr "請參考"
+
+#: app/views/projects/_form.rhtml:110
+msgid "help document"
+msgstr "說明文件"
+
+#: app/views/projects/_form.rhtml:111
+msgid "comma seperated"
+msgstr "逗號分隔"
 
 #: app/views/projects/role_users.rhtml:3
 #: app/views/projects/test_action_i18n______________.rhtml:341
@@ -2780,10 +2808,6 @@ msgstr "你必需先登入OpenFoundry"
 #, fuzzy
 #~ msgid "Editing Project Roles"
 #~ msgstr "專案成員"
-
-#, fuzzy
-#~ msgid "Listing releases"
-#~ msgstr "專案一覽"
 
 #, fuzzy
 #~ msgid "Release UNIX Name"
