@@ -16,12 +16,16 @@
 <td> <%= h(Release.status_to_s(@release.status)) %> </td>
 </tr>
 </table>
-        <%= link_to_remote '[edit]',:url => editrelease_release_url({
+        <%= link_to_remote _('[edit]'),:url => editrelease_release_url({
             :project_id => @project.id,
             :id => @release.id,
           }), :update => "editrelease_view"
         %>
-        <%= link_to '[delete]', delete_release_url(
+        <%= link_to _('[news]'), new_release_news_url({
+            :release_id => @release.id,
+          })
+        %>
+        <%= link_to _('[delete]'), delete_release_url(
           {
             :project_id => @project.id, 
             :id => @release.id
