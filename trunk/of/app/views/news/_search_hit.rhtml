@@ -7,7 +7,8 @@
   <% end %>
 </td>
 <td>
-  <%= content_tag 'label', record.description%>
-  <%#= content_tag 'label', record.highlight(@query, {:field => 'description'}) %>
+  <% text =  record.highlight(@query, {:field => 'description_without_tag'}) %>
+  <% if text.empty? ;text = record.description_without_tag ;end %>
+    <%= content_tag 'label', text %> 
 </td>
 <!--search hit end-->
