@@ -8,13 +8,16 @@ class News < ActiveRecord::Base
                               :subject => { :boost => 1.5,
                                           :store => :yes,
                                           :index => :yes },
-                              :description => { :store => :yes,
+                              :description_without_tag => { :store => :yes,
                                              :index => :yes }                                                         
                             },
                   :single_index => true,
-                  :default_field => [:subject, :description]
+                  :default_field => [:subject, :description_without_tag]
                  },{ :analyzer => GENERIC_ANALYZER })
-  
+  def description_without_tag
+    description.gsub(/<[^>]*>/, '')
+  end
+
   def should_be_indexed?
     self.status == News::STATUS[:Enabled]
   end
