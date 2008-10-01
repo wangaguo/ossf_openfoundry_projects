@@ -4,7 +4,7 @@
 <p><label for="news_subject"><%=_('Subject')%></label><br/>
 <%= text_field 'news', 'subject' %></p>
 
-<% if fpermit?("site_admin", nil) -%>
+<% if fpermit?("site_admin", nil) && params[:project_id].nil? -%>
 <%= javascript_include_tag 'fckeditor/fckeditor.js' %>
 <div id="<%= fckeditor_div_id('news', 'description') %>">
     <%= fckeditor_textarea( "news", "description", :height => 400 ) %> 
