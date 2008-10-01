@@ -5,7 +5,7 @@
   <%if @news.catid == 0%>
   <%= @news.description%>
   <%else%>
-  <%=h(@news.description).gsub("\n", '<br/>') %>
+  <%= auto_link(h(@news.description).gsub("\n", '<br/>')) %>
   <%end%>
 </div>
 
