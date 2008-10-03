@@ -243,7 +243,7 @@ THECODE
   
   def local_to_utc(time)
     begin
-      Time.zone.local_to_utc(time)
+      Time.zone.local_to_utc(time.to_time)
     rescue
       time
     end

@@ -113,7 +113,7 @@ class NewsController < ApplicationController
   end
   
   def edit
-    @news.updated_at = utc_to_local(@news.updated_at).strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
+    @news.updated_at = @news.updated_at.strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
   end
   
   def update
