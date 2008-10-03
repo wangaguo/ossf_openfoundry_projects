@@ -112,7 +112,7 @@ God.watch do |w|
   w.interval = 30.seconds # default      
   w.start = command % 'start'
   w.stop = command % 'stop'
-  w.restart = command % "stop;#{RUBY} #{RAILS_ROOT}script/ferret_server -e #{ENVIRONMENT} start"
+  w.restart = command % "stop;#{RUBY} #{RAILS_ROOT}/script/ferret_server -e #{ENVIRONMENT} start"
   w.start_grace = 20.seconds
   w.restart_grace = 20.seconds
   w.pid_file = File.join(RAILS_ROOT, "log/ferret.pid")
