@@ -105,6 +105,8 @@ class ReleasesController < ApplicationController
   def delete
     if request.post?
       r=Release.find_by_id(params[:id])
+      dest_dir = "#{Project::PROJECT_DOWNLOAD_PATH}/#{r.project.name}/#{r.version}"
+      system("/home/openfoundry/bin/remove_release_files", dest_dir) unless r.nil?
       r.destroy unless r.nil?
     end
     redirect_to(url_for(:project_id => params[:project_id], :action => :index))
@@ -249,7 +251,9 @@ class ReleasesController < ApplicationController
   def removefile
     r = Release.find params[:id]
     return if r.nil?
-    file = Fileentity.find params[:removefile_id]
+    file = Fileentity.find_by_id params[:removefile_id]
+    dest_file = "#{Project::PROJECT_DOWNLOAD_PATH}/#{r.project.name}/#{r.version}/#{file.path}"
+    system("/home/openfoundry/bin/remove_release_files", dest_file) unless file.nil?
     r.fileentity.delete file
     r.save
     flash[:notice] = 'Your files have been remove from Release!'
