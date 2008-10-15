@@ -124,34 +124,35 @@ end
 #
 # User / Authentication
 #
-tempfile = Tempfile.new("svn-auth-file")
-User.each do |u|
-  tempfile.puts "#{u.login}:#{u.password}" 
+def with_temp_file(final_path, mode)
+  tempfile = Tempfile.new(File.basename(final_path))
+  yield tempfile
+  tempfile.close
+  FU.chmod mode, tempfile.path
+  FU.mv tempfile.path, final_path, :force => true
 end
-tempfile.close
-# TODO: chmod / setuid
-FU.chmod 0644, tempfile.path
-FU.mv tempfile.path, SVN_AUTH_FILE, :force => true
+
+with_temp_file(SVN_AUTH_FILE, 0644) do |tempfile|
+  User.each do |u|
+    tempfile.puts "#{u.login}:#{u.password}" 
+  end
+end
 
 #
 # Authorization / Symlinks
 #
-tempfile = Tempfile.new("svn-access-file")
-Authorization.each do |a|
-  tempfile.puts "[#{a[:project_name]}:/]"
-  a[:specified_users].each_pair do |user, right|
-    tempfile.puts "#{user} = #{right}"
+with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
+  Authorization.each do |a|
+    tempfile.puts "[#{a[:project_name]}:/]"
+    a[:specified_users].each_pair do |user, right|
+      tempfile.puts "#{user} = #{right}"
+    end
+    tempfile.puts "* = #{a[:unspecified_users]}"
+  
+    # TODO: check before write?  rm while being used?
+    repos = "#{REPOS}/#{a[:project_name]}"
+    to_link = LINK_PARENT_DIR["#{a[:anonymous]}_#{a[:unspecified_users]}"]
+    to_link.each { |lpd| FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}") }
+    (ALL_LINK_PARENT_DIR - to_link).each { |lpd| FU.rm_f("#{lpd}/#{a[:project_name]}") }
   end
-  tempfile.puts "* = #{a[:unspecified_users]}"
-
-  # TODO: check before write?  rm while being used?
-  repos = "#{REPOS}/#{a[:project_name]}"
-  to_link = LINK_PARENT_DIR["#{a[:anonymous]}_#{a[:unspecified_users]}"]
-  to_link.each { |lpd| FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}") }
-  (ALL_LINK_PARENT_DIR - to_link).each { |lpd| FU.rm_f("#{lpd}/#{a[:project_name]}") }
 end
-tempfile.close
-# TODO: chmod / setuid
-FU.chmod 0644, tempfile.path
-FU.mv tempfile.path, SVN_ACCESS_FILE, :force => true
-
