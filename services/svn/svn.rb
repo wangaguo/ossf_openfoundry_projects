@@ -41,18 +41,6 @@ class Project
   end
 end
 
-Project.each do |p|
-  name = p.name
-  repos = "#{REPOS}/#{p.name}"
-  if not File.directory?(repos)
-    puts "Creating a new repository for project '#{p.name}' at #{repos}"
-    FU.mkdir_p repos
-    system("#{SVNADMIN} create #{repos}")
-    FU.chown_R(SVN_USER, SVN_GROUP, repos)
-  end
-
-end
-
 class User
   attr_accessor :login, :password 
   def initialize(login, password)
@@ -67,15 +55,6 @@ class User
     ].each { |u| yield(u) }
   end
 end
-
-tempfile = Tempfile.new("svn-auth-file")
-User.each do |u|
-  tempfile.puts "#{u.login}:#{u.password}" 
-end
-tempfile.close
-# TODO: chmod / setuid
-FU.chmod 0644, tempfile.path
-FU.mv tempfile.path, SVN_AUTH_FILE, :force => true
 
 class Authorization
   # { 
@@ -117,11 +96,46 @@ class Authorization
         :anonymous => "r"
       },
     ].each {|a| yield(a) }
-
   end
-
 end
 
+impl_file = File.dirname(__FILE__) + "/implementation.rb"
+if File.exists?(impl_file)
+  puts "Requiring local implementation: #{impl_file}"
+  require impl_file
+end
+
+################################################################################
+
+#
+# Project / Repository
+#
+Project.each do |p|
+  name = p.name
+  repos = "#{REPOS}/#{p.name}"
+  if not File.directory?(repos)
+    puts "Creating a new repository for project '#{p.name}' at #{repos}"
+    FU.mkdir_p repos
+    system("#{SVNADMIN} create #{repos}")
+    FU.chown_R(SVN_USER, SVN_GROUP, repos)
+  end
+end
+
+#
+# User / Authentication
+#
+tempfile = Tempfile.new("svn-auth-file")
+User.each do |u|
+  tempfile.puts "#{u.login}:#{u.password}" 
+end
+tempfile.close
+# TODO: chmod / setuid
+FU.chmod 0644, tempfile.path
+FU.mv tempfile.path, SVN_AUTH_FILE, :force => true
+
+#
+# Authorization / Symlinks
+#
 tempfile = Tempfile.new("svn-access-file")
 Authorization.each do |a|
   tempfile.puts "[#{a[:project_name]}:/]"
