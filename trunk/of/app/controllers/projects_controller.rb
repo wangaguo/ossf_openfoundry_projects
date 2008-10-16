@@ -245,7 +245,7 @@ class ProjectsController < ApplicationController
         _('User "%{user}" doesn\'t exist!') % 
       {:user => u.login}
     end
-    member_edit if flag_changed
+    member_edit #if flag_changed
     render :action => :member_edit, :layout => 'module_with_flash'
     #    project = Project.find params[:id]
     #    begin
@@ -298,7 +298,7 @@ class ProjectsController < ApplicationController
         {:user => u.login}
       end
     end
-    member_edit if flag_changed
+    member_edit #if flag_changed
     render :action => :member_edit, :layout => 'module_with_flash'
 #    params[params[:role].to_sym].each do |user_id|
 #      user = User.find user_id
