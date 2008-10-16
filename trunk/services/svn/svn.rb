@@ -26,32 +26,24 @@ SVN_ACCESS_FILE = "#{ROOT}/svn-access-file"
 
 
 class Project
-  attr_accessor :name
-  def initialize(name)
-    @name = name
-  end
   def self.each
     [ 
-      Project.new("p1"),
-      Project.new("p2"),
-      Project.new("p3"),
-      Project.new("p4"),
-      Project.new("p5"),
+      "p1",
+      "p2",
+      "p3",
+      "p4",
+      "p5",
     ].each { |p| yield(p) }
   end
 end
 
 class User
-  attr_accessor :login, :password 
-  def initialize(login, password)
-    @login, @password = login, password
-  end
   def self.each
     [ 
-      User.new("ur", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."),
-      User.new("uw", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."),
-      User.new("un", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."),
-      User.new("uo", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."),
+      ["ur", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."],
+      ["uw", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."],
+      ["un", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."],
+      ["uo", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."],
     ].each { |u| yield(u) }
   end
 end
@@ -110,11 +102,10 @@ end
 #
 # Project / Repository
 #
-Project.each do |p|
-  name = p.name
-  repos = "#{REPOS}/#{p.name}"
+Project.each do |name|
+  repos = "#{REPOS}/#{name}"
   if not File.directory?(repos)
-    puts "Creating a new repository for project '#{p.name}' at #{repos}"
+    puts "Creating a new repository for project '#{name}' at #{repos}"
     FU.mkdir_p repos
     system("#{SVNADMIN} create #{repos}")
     FU.chown_R(SVN_USER, SVN_GROUP, repos)
@@ -133,8 +124,8 @@ def with_temp_file(final_path, mode)
 end
 
 with_temp_file(SVN_AUTH_FILE, 0644) do |tempfile|
-  User.each do |u|
-    tempfile.puts "#{u.login}:#{u.password}" 
+  User.each do |login, password|
+    tempfile.puts "#{login}:#{password}" 
   end
 end
 
