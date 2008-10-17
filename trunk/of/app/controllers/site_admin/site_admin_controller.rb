@@ -68,4 +68,16 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     
     redirect_to :action => :index
   end
+
+  def new_site_mail
+  end
+
+  def send_site_mail
+    users = User.find(:all, :conditions => "id in(58906, 135623) and #{User::verified_users}")
+    users.each do |user|
+      UserNotify.deliver_site_mail(user, params[:mail][:subject], params[:mail][:message])
+    end 
+    flash[:info] = _('Message sended.')
+    render :action => :new_site_mail
+  end
 end

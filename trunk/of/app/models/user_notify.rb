@@ -75,7 +75,13 @@ class UserNotify < ActionMailer::Base
     @body["url"] = url || UserSystem::CONFIG[:app_url].to_s
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
   end
-  
+ 
+  def site_mail(user, subject, message)
+    setup_email(user)
+    @subject = subject
+    @body["message"] = message
+  end
+
   def setup_email(user)
     @recipients = "#{user.email}"
     @from       = UserSystem::CONFIG[:email_from].to_s
@@ -93,7 +99,7 @@ class UserNotify < ActionMailer::Base
     end
   end
   
-  def render_message(method_name, body)
+  def rm_render_message(method_name, body)
     layout = method_name.match(%r{text\.html\.rhtml}) ? 'layout.text.html.rhtml' : 'layout.text.plain.rhtml'
     body[:content_for_layout] = render(:file => method_name, :body => body)
     ActionView::Base.new(template_root, body, self).render(:file => "#{RAILS_ROOT}/app/views/user_notify/#{layout}")

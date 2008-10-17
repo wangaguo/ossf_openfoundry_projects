@@ -1,0 +1,11 @@
+<% form_for(:mail, :url => {:action => "send_site_mail"}, :html => { :method => :put }) do |f| %>
+
+<p><label for="subject"><%=_('Subject')%></label><br/>
+<%= text_field 'mail', 'subject' %></p>
+
+<p><label for="message"><%=_('Message Content')%></label><br/>
+<%= text_area 'mail', 'message' %></p>
+
+<%= submit_tag _('Send Mail') %>
+
+<% end %>
