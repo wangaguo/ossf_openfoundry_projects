@@ -99,7 +99,7 @@ class UserNotify < ActionMailer::Base
     end
   end
   
-  def rm_render_message(method_name, body)
+  def render_message(method_name, body)
     layout = method_name.match(%r{text\.html\.rhtml}) ? 'layout.text.html.rhtml' : 'layout.text.plain.rhtml'
     body[:content_for_layout] = render(:file => method_name, :body => body)
     ActionView::Base.new(template_root, body, self).render(:file => "#{RAILS_ROOT}/app/views/user_notify/#{layout}")
