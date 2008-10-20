@@ -1,30 +1,8 @@
 require "fileutils"
 require "tempfile"
 
-SVN_USER = "www"
-SVN_GROUP = "www"
-ROOT = "/home/svn_root"
-REPOS_PARENT_DIR = "#{ROOT}/repos"
-VIEWVC_PARENT_DIR = "#{ROOT}/viewvc"
-SVN_AUTH_FILE = "#{ROOT}/svn-auth-file"
-SVN_ACCESS_FILE = "#{ROOT}/svn-access-file"
-SVNADMIN = "/usr/local/bin/svnadmin" # "/usr/bin/svnadmin" on ubuntu
+load File.dirname(__FILE__) + "/svn.conf"
 
-#
-# implementation related configuration
-#
-FU = FileUtils::Verbose
-# x_y : anonymous has right "x"
-#       other authenticated but unspecified user has right "y"
-LINK_PARENT_DIR = {
-  "_"    => [],
-  "_r"   => [],
-  "_rw"  => [],
-  "r_r"  => [ VIEWVC_PARENT_DIR ],
-  "r_rw" => [ VIEWVC_PARENT_DIR ],
-}
-
-################################################################################
 
 class Project
   def self.each
