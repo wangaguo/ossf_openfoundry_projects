@@ -70,11 +70,9 @@ class AuthorizationData
   end
 end
 
-impl_file = File.dirname(__FILE__) + "/implementation.rb"
-if File.exists?(impl_file)
-  puts "Requiring local implementation: #{impl_file}"
-  require impl_file
-end
+impl_file = (DATA_IMPLEMENTATION.include?("/") ? "" : File.dirname(__FILE__) + "/") + DATA_IMPLEMENTATION
+puts "Requiring data implementation: #{impl_file}"
+require impl_file
 
 ################################################################################
 
