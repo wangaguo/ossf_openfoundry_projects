@@ -134,7 +134,18 @@ when "sync"
     end
   end
 when "backup"
-  puts "backup!!!!"
+  #ProjectData.each do |name|
+  #  repos = "#{REPOS_PARENT_DIR}/#{name}"
+  #  backup = "#{BACKUP_PARENT_DIR}/#{name}"
+  #  :
+
+  #  if not File.directory?(repos)
+  #    puts "Creating a new repository for project '#{name}' at #{repos}"
+  #    FU.mkdir_p repos
+  #    system("#{SVNADMIN} create #{repos}")
+  #    FU.chown_R(SVN_USER, SVN_GROUP, repos)
+  #  end
+  #end
 else
   puts "usage: #{$0} sync|backup"
 end
