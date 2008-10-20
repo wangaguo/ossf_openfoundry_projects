@@ -120,10 +120,14 @@ with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
     end
     tempfile.puts "* = #{a[:unspecified_users]}"
   
-    # TODO: check before write?  rm while being used?
     repos = "#{REPOS_PARENT_DIR}/#{a[:project_name]}"
     to_link = LINK_PARENT_DIR["#{a[:anonymous]}_#{a[:unspecified_users]}"]
-    to_link.each { |lpd| FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}") }
+    to_link.each do |lpd|
+      if not File.symlink?("#{lpd}/#{a[:project_name]}")
+        FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}")
+      end
+    end
+    # TODO: rm while being used?
     (ALL_LINK_PARENT_DIR - to_link).each { |lpd| FU.rm_f("#{lpd}/#{a[:project_name]}") }
   end
 end
