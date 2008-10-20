@@ -4,7 +4,7 @@ require "tempfile"
 load File.dirname(__FILE__) + "/svn.conf"
 
 
-class Project
+class ProjectData
   def self.each
     [ 
       "p1",
@@ -16,7 +16,7 @@ class Project
   end
 end
 
-class User
+class UserData
   def self.each
     [ 
       ["ur", "$apr1$N2.HeV8e$RPzFJr3SM66NBszOWUJmi."],
@@ -27,7 +27,7 @@ class User
   end
 end
 
-class Authorization
+class AuthorizationData
   # { 
   # :project_name => "p1",
   # :specified_users => { "ur" => "r", "uw" => "rw", "un" => "", ... },
@@ -84,7 +84,7 @@ ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
 #
 # Project / Repository
 #
-Project.each do |name|
+ProjectData.each do |name|
   repos = "#{REPOS_PARENT_DIR}/#{name}"
   if not File.directory?(repos)
     puts "Creating a new repository for project '#{name}' at #{repos}"
@@ -106,7 +106,7 @@ def with_temp_file(final_path, mode)
 end
 
 with_temp_file(SVN_AUTH_FILE, 0644) do |tempfile|
-  User.each do |login, password|
+  UserData.each do |login, password|
     tempfile.puts "#{login}:#{password}" 
   end
 end
@@ -115,7 +115,7 @@ end
 # Authorization / Symlinks
 #
 with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
-  Authorization.each do |a|
+  AuthorizationData.each do |a|
     tempfile.puts "[#{a[:project_name]}:/]"
     a[:specified_users].each_pair do |user, right|
       tempfile.puts "#{user} = #{right}"
