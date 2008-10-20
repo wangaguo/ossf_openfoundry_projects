@@ -18,7 +18,7 @@ end
 class ProjectData
   def self.each()
     $data["projects"].each do |name, vcs|
-      yield name if vcs == VCS_SUBVERSION or vcs == VCS_SUBVERSION_CLOSED
+      yield name if vcs == VCS_SUBVERSION or vcs == VCS_SUBVERSION_CLOSE
     end
   end
 end
