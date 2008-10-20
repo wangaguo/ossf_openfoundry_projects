@@ -76,58 +76,65 @@ require impl_file
 
 ################################################################################
 
-ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
-(ALL_LINK_PARENT_DIR + [REPOS_PARENT_DIR, VIEWVC_PARENT_DIR]).each { |dir| FU.mkdir_p(dir) }
-
-#
-# Project / Repository
-#
-ProjectData.each do |name|
-  repos = "#{REPOS_PARENT_DIR}/#{name}"
-  if not File.directory?(repos)
-    puts "Creating a new repository for project '#{name}' at #{repos}"
-    FU.mkdir_p repos
-    system("#{SVNADMIN} create #{repos}")
-    FU.chown_R(SVN_USER, SVN_GROUP, repos)
-  end
-end
-
-#
-# User / Authentication
-#
-def with_temp_file(final_path, mode)
-  tempfile = Tempfile.new(File.basename(final_path))
-  yield tempfile
-  tempfile.close
-  FU.chmod mode, tempfile.path
-  FU.mv tempfile.path, final_path, :force => true
-end
-
-with_temp_file(SVN_AUTH_FILE, 0644) do |tempfile|
-  UserData.each do |login, password|
-    tempfile.puts "#{login}:#{password}" 
-  end
-end
-
-#
-# Authorization / Symlinks
-#
-with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
-  AuthorizationData.each do |a|
-    tempfile.puts "[#{a[:project_name]}:/]"
-    a[:specified_users].each_pair do |user, right|
-      tempfile.puts "#{user} = #{right}"
-    end
-    tempfile.puts "* = #{a[:unspecified_users]}"
+case ARGV[0]
+when "sync"
+  ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
+  (ALL_LINK_PARENT_DIR + [REPOS_PARENT_DIR, VIEWVC_PARENT_DIR]).each { |dir| FU.mkdir_p(dir) }
   
-    repos = "#{REPOS_PARENT_DIR}/#{a[:project_name]}"
-    to_link = LINK_PARENT_DIR["#{a[:anonymous]}_#{a[:unspecified_users]}"]
-    to_link.each do |lpd|
-      if not File.symlink?("#{lpd}/#{a[:project_name]}")
-        FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}")
-      end
+  #
+  # Project / Repository
+  #
+  ProjectData.each do |name|
+    repos = "#{REPOS_PARENT_DIR}/#{name}"
+    if not File.directory?(repos)
+      puts "Creating a new repository for project '#{name}' at #{repos}"
+      FU.mkdir_p repos
+      system("#{SVNADMIN} create #{repos}")
+      FU.chown_R(SVN_USER, SVN_GROUP, repos)
     end
-    # TODO: rm while being used?
-    (ALL_LINK_PARENT_DIR - to_link).each { |lpd| FU.rm_f("#{lpd}/#{a[:project_name]}") }
   end
+  
+  #
+  # User / Authentication
+  #
+  def with_temp_file(final_path, mode)
+    tempfile = Tempfile.new(File.basename(final_path))
+    yield tempfile
+    tempfile.close
+    FU.chmod mode, tempfile.path
+    FU.mv tempfile.path, final_path, :force => true
+  end
+  
+  with_temp_file(SVN_AUTH_FILE, 0644) do |tempfile|
+    UserData.each do |login, password|
+      tempfile.puts "#{login}:#{password}" 
+    end
+  end
+  
+  #
+  # Authorization / Symlinks
+  #
+  with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
+    AuthorizationData.each do |a|
+      tempfile.puts "[#{a[:project_name]}:/]"
+      a[:specified_users].each_pair do |user, right|
+        tempfile.puts "#{user} = #{right}"
+      end
+      tempfile.puts "* = #{a[:unspecified_users]}"
+    
+      repos = "#{REPOS_PARENT_DIR}/#{a[:project_name]}"
+      to_link = LINK_PARENT_DIR["#{a[:anonymous]}_#{a[:unspecified_users]}"]
+      to_link.each do |lpd|
+        if not File.symlink?("#{lpd}/#{a[:project_name]}")
+          FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}")
+        end
+      end
+      # TODO: rm while being used?
+      (ALL_LINK_PARENT_DIR - to_link).each { |lpd| FU.rm_f("#{lpd}/#{a[:project_name]}") }
+    end
+  end
+when "backup"
+  puts "backup!!!!"
+else
+  puts "usage: #{$0} sync|backup"
 end
