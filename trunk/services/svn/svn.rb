@@ -1,29 +1,30 @@
 require "fileutils"
 require "tempfile"
 
-FU = FileUtils::Verbose
 SVN_USER = "www"
 SVN_GROUP = "www"
-ROOT="/svn"
-REPOS = "#{ROOT}/repos"
+ROOT = "/home/svn_root"
+REPOS_PARENT_DIR = "#{ROOT}/repos"
+VIEWVC_PARENT_DIR = "#{ROOT}/viewvc"
+SVN_AUTH_FILE = "#{ROOT}/svn-auth-file"
+SVN_ACCESS_FILE = "#{ROOT}/svn-access-file"
 SVNADMIN = "/usr/local/bin/svnadmin" # "/usr/bin/svnadmin" on ubuntu
 
-
-
+#
+# implementation related configuration
+#
+FU = FileUtils::Verbose
 # x_y : anonymous has right "x"
 #       other authenticated but unspecified user has right "y"
 LINK_PARENT_DIR = {
   "_"    => [],
   "_r"   => [],
   "_rw"  => [],
-  "r_r"  => [ "#{ROOT}/viewvc" ],
-  "r_rw" => [ "#{ROOT}/viewvc" ],
+  "r_r"  => [ VIEWVC_PARENT_DIR ],
+  "r_rw" => [ VIEWVC_PARENT_DIR ],
 }
-ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
-ALL_LINK_PARENT_DIR.each { |dir| FU.mkdir_p(dir) }
-SVN_AUTH_FILE = "#{ROOT}/svn-auth-file"
-SVN_ACCESS_FILE = "#{ROOT}/svn-access-file"
 
+################################################################################
 
 class Project
   def self.each
@@ -99,11 +100,14 @@ end
 
 ################################################################################
 
+ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
+(ALL_LINK_PARENT_DIR + [REPOS_PARENT_DIR, VIEWVC_PARENT_DIR]).each { |dir| FU.mkdir_p(dir) }
+
 #
 # Project / Repository
 #
 Project.each do |name|
-  repos = "#{REPOS}/#{name}"
+  repos = "#{REPOS_PARENT_DIR}/#{name}"
   if not File.directory?(repos)
     puts "Creating a new repository for project '#{name}' at #{repos}"
     FU.mkdir_p repos
@@ -141,7 +145,7 @@ with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
     tempfile.puts "* = #{a[:unspecified_users]}"
   
     # TODO: check before write?  rm while being used?
-    repos = "#{REPOS}/#{a[:project_name]}"
+    repos = "#{REPOS_PARENT_DIR}/#{a[:project_name]}"
     to_link = LINK_PARENT_DIR["#{a[:anonymous]}_#{a[:unspecified_users]}"]
     to_link.each { |lpd| FU.ln_sf(repos, "#{lpd}/#{a[:project_name]}") }
     (ALL_LINK_PARENT_DIR - to_link).each { |lpd| FU.rm_f("#{lpd}/#{a[:project_name]}") }
