@@ -47,9 +47,11 @@ class ProjectsController < ApplicationController
     @module_name = _('Version Control')
     case @project.vcs
     when Project::VCS[:CVS]
-      @Path = OPENFOUNDRY_VIEWVC_URL + @project.name
+      @Path = OPENFOUNDRY_VIEWVC_CVS_URL + @project.name
     when Project::VCS[:SUBVERSION]
-      @Path = OPENFOUNDRY_VIEWVC_URL + "?root=" + @project.name
+      @Path = OPENFOUNDRY_VIEWVC_SVN_URL + "?root=" + @project.name
+    when Project::VCS[:SUBVERSION_CLOSE]
+      @Path = OPENFOUNDRY_VIEWVC_SVN_URL + "?root=" + @project.name
     when Project::VCS[:REMOTE], Project::VCS[:NONE]
       vcs_access
       render :template => 'projects/vcs_access'

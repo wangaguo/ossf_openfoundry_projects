@@ -102,7 +102,8 @@ Rails::Initializer.run do |config|
     # TODO: better naming
     OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
     OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
-    OPENFOUNDRY_VIEWVC_URL =  'http://of.openfoundry.org/viewvc/'
+    OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
+    OPENFOUNDRY_VIEWVC_CVS_URL =  'http://of.openfoundry.org/viewvc-cvs/'
     OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
     OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
     OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
