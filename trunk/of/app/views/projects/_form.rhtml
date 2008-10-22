@@ -97,7 +97,7 @@ AAA
   foo("redirecturl", false, _("Project|Redirecturl|Help")), 
     text_field('project', 'redirecturl', :maxlength => 255, :size => 50),
   foo("vcs", true, _("Project|Vcs|Help")), 
-    select('project', 'vcs', [:SUBVERSION, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
+    select('project', 'vcs', [:SUBVERSION, :SUBVERSION_CLOSE, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
   foo("vcsdescription", false, _("Project|Vcsdescription|Help")), 
     text_field('project', 'vcsdescription', :maxlength => 100, :size => 50)
 

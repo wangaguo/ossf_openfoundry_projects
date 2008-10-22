@@ -116,7 +116,7 @@ EOEO
   # see also: OpenFoundry.pm
 
   # single selection
-  VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :REMOTE => -1 }.freeze
+  VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :SUBVERSION_CLOSE => 3, :REMOTE => -1 }.freeze
   # i18n at vcs_to_s
 
   # mutiple selection + other (string,string,...)
@@ -158,6 +158,8 @@ EOEO
       _("CVS")
     when VCS[:SUBVERSION]
       _("Subversion")
+    when VCS[:SUBVERSION_CLOSE]
+      _("Subversion: members only")
     when VCS[:REMOTE]
       _("This project uses a version control system at other site.")
     when VCS[:NONE]
