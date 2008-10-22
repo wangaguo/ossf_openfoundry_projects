@@ -1,3 +1,12 @@
+STDOUT.sync = true
+
+if not ARGV[0] =~ /sync|backup/
+  puts "usage: #{$0} sync|backup"
+  exit 1
+end
+
+puts ">>>> #{Time.now}"
+
 require "fileutils"
 require "tempfile"
 
@@ -76,11 +85,19 @@ require impl_file
 
 ################################################################################
 
+ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
+(ALL_LINK_PARENT_DIR + [REPOS_PARENT_DIR, BACKUP_PARENT_DIR, VIEWVC_PARENT_DIR]).each { |dir| FU.mkdir_p(dir) }
+
 case ARGV[0]
 when "sync"
-  ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
-  (ALL_LINK_PARENT_DIR + [REPOS_PARENT_DIR, VIEWVC_PARENT_DIR]).each { |dir| FU.mkdir_p(dir) }
-  
+  def with_temp_file(final_path, mode)
+    tempfile = Tempfile.new(File.basename(final_path))
+    yield tempfile
+    tempfile.close
+    FU.chmod mode, tempfile.path
+    FU.mv tempfile.path, final_path, :force => true
+  end
+
   #
   # Project / Repository
   #
@@ -90,6 +107,9 @@ when "sync"
       puts "Creating a new repository for project '#{name}' at #{repos}"
       FU.mkdir_p repos
       system("#{SVNADMIN} create #{repos}")
+      with_temp_file("#{repos}/hooks/pre-revprop-change", 0755) do |tempfile|
+        tempfile.puts "#!/bin/sh"
+      end
       FU.chown_R(SVN_USER, SVN_GROUP, repos)
     end
   end
@@ -97,14 +117,6 @@ when "sync"
   #
   # User / Authentication
   #
-  def with_temp_file(final_path, mode)
-    tempfile = Tempfile.new(File.basename(final_path))
-    yield tempfile
-    tempfile.close
-    FU.chmod mode, tempfile.path
-    FU.mv tempfile.path, final_path, :force => true
-  end
-  
   with_temp_file(SVN_AUTH_FILE, 0644) do |tempfile|
     UserData.each do |login, password|
       tempfile.puts "#{login}:#{password}" 
@@ -134,18 +146,13 @@ when "sync"
     end
   end
 when "backup"
-  #ProjectData.each do |name|
-  #  repos = "#{REPOS_PARENT_DIR}/#{name}"
-  #  backup = "#{BACKUP_PARENT_DIR}/#{name}"
-  #  :
-
-  #  if not File.directory?(repos)
-  #    puts "Creating a new repository for project '#{name}' at #{repos}"
-  #    FU.mkdir_p repos
-  #    system("#{SVNADMIN} create #{repos}")
-  #    FU.chown_R(SVN_USER, SVN_GROUP, repos)
-  #  end
-  #end
-else
-  puts "usage: #{$0} sync|backup"
+  ProjectData.each do |name|
+    repos = "#{REPOS_PARENT_DIR}/#{name}"
+    backup = "#{BACKUP_PARENT_DIR}/#{name}"
+    puts "Backup: #{repos} => #{backup} (#{Time.now})"
+    FU.rm_rf backup
+    system("#{SVNADMIN} hotcopy #{repos} #{backup}")
+  end
 end
+
+puts "<<<< #{Time.now}"
