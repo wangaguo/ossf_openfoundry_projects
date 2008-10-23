@@ -10,6 +10,8 @@
       <br/>
       <%= render :partial => 'privacy', :locals => { :f => f, :user => @user, :submit => false} %>
       <br/>
+      <%= render :partial => 'invite', :locals => { :f => f, :user => @user} %>
+      <br/>
       <div id=generate_captcha_image>
         <%= render :partial => 'partials/captcha' %>
       </div>

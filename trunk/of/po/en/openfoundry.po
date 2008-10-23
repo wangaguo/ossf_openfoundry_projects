@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-09-24 09:21-0000\n"
+"POT-Creation-Date: 2008-10-23 09:02-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -531,87 +531,91 @@ msgid "Subversion"
 msgstr ""
 
 #: app/models/project.rb:162
+msgid "Subversion: members only"
+msgstr ""
+
+#: app/models/project.rb:164
 #: app/views/projects/test_action_i18n______________.rhtml:324
 msgid "This project uses a version control system at other site."
 msgstr ""
 
-#: app/models/project.rb:164
+#: app/models/project.rb:166
 #: app/views/projects/test_action_i18n______________.rhtml:140
 msgid "This project does not use any version control system."
 msgstr ""
 
-#: app/models/project.rb:166
+#: app/models/project.rb:168
 #: app/views/projects/test_action_i18n______________.rhtml:87
 msgid "System Error. Please contact the site administrator."
 msgstr ""
 
-#: app/models/project.rb:217
+#: app/models/project.rb:219
 msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
-#: app/models/project.rb:218
+#: app/models/project.rb:220
 #: app/views/projects/test_action_i18n______________.rhtml:181
 msgid "This name is reserved by the system."
 msgstr ""
 
-#: app/models/project.rb:224
+#: app/models/project.rb:226
 #: app/views/projects/test_action_i18n______________.rhtml:290
 msgid "You have choosen too many licenses."
 msgstr ""
 
-#: app/models/project.rb:226
+#: app/models/project.rb:228
 #: app/views/projects/test_action_i18n______________.rhtml:84
 msgid "You have choosen too many content licenses."
 msgstr ""
 
-#: app/models/project.rb:251
+#: app/models/project.rb:253
 #: app/views/projects/test_action_i18n______________.rhtml:132
 msgid "Please choose at least one code license."
 msgstr ""
 
-#: app/models/project.rb:254
+#: app/models/project.rb:256
 #: app/views/projects/test_action_i18n______________.rhtml:93
 msgid ""
 "If this project contains no code, then you may not choose any other license."
 msgstr ""
 
-#: app/models/project.rb:259
+#: app/models/project.rb:261
 #: app/views/projects/test_action_i18n______________.rhtml:179
 msgid "Please choose at least one content license."
 msgstr ""
 
-#: app/models/project.rb:262
+#: app/models/project.rb:264
 #: app/views/projects/test_action_i18n______________.rhtml:193
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
 msgstr ""
 
-#: app/models/project.rb:265
+#: app/models/project.rb:267
 #: app/views/projects/test_action_i18n______________.rhtml:192
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
 msgstr ""
 
-#: app/models/project.rb:269
+#: app/models/project.rb:271
 #: app/views/projects/test_action_i18n______________.rhtml:303
 msgid "You have to choose a code license."
 msgstr ""
 
-#: app/models/project.rb:273
+#: app/models/project.rb:275
 #: app/views/projects/test_action_i18n______________.rhtml:226
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
 msgstr ""
 
-#: app/models/project.rb:277
+#: app/models/project.rb:279
 #: app/views/projects/test_action_i18n______________.rhtml:252
 msgid "Please choose at least one platform."
 msgstr ""
 
-#: app/models/project.rb:281
+#: app/models/project.rb:283
 #: app/views/projects/test_action_i18n______________.rhtml:57
 msgid "Please choose at least one programming language."
 msgstr ""
@@ -1028,6 +1032,10 @@ msgstr ""
 msgid "Downloader|File"
 msgstr ""
 
+#: app/controllers/site_admin/site_admin_controller.rb:85
+msgid "Message sent."
+msgstr ""
+
 #: app/controllers/news_controller.rb:32
 #: app/views/partials/_top_menu_data.rhtml:7
 #: app/views/openfoundry/index.rhtml:61
@@ -1191,22 +1199,22 @@ msgstr ""
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
-#: app/controllers/application.rb:88
+#: app/controllers/application.rb:91
 #: app/views/projects/test_action_i18n______________.rhtml:64
 msgid "&laquo; Previous"
 msgstr ""
 
-#: app/controllers/application.rb:89
+#: app/controllers/application.rb:92
 #: app/views/projects/test_action_i18n______________.rhtml:53
 msgid "Next &raquo;"
 msgstr ""
 
-#: app/controllers/application.rb:263 app/controllers/application.rb:266
+#: app/controllers/application.rb:266 app/controllers/application.rb:269
 #: app/views/projects/test_action_i18n______________.rhtml:286
 msgid "captcha mismatch"
 msgstr ""
 
-#: app/controllers/application.rb:286 app/controllers/images_controller.rb:197
+#: app/controllers/application.rb:289 app/controllers/images_controller.rb:197
 #: app/views/projects/test_action_i18n______________.rhtml:141
 msgid "you have no permission"
 msgstr ""
@@ -1216,32 +1224,32 @@ msgstr ""
 msgid "Release"
 msgstr "Release"
 
-#: app/controllers/releases_controller.rb:190
+#: app/controllers/releases_controller.rb:192
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:198
+#: app/controllers/releases_controller.rb:200
 msgid "Bad project name: #{project_name}"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:202
+#: app/controllers/releases_controller.rb:204
 #, fuzzy
 msgid "Project id not found!"
 msgstr "Icon"
 
-#: app/controllers/releases_controller.rb:207
+#: app/controllers/releases_controller.rb:209
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:213
+#: app/controllers/releases_controller.rb:215
 msgid "Bad version: #{r.version}"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:238
+#: app/controllers/releases_controller.rb:240
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:240
+#: app/controllers/releases_controller.rb:242
 msgid "No file has been added!"
 msgstr ""
 
@@ -1258,15 +1266,15 @@ msgid ""
 "developers can contact you when the issue is resolved. "
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:286
+#: app/controllers/openfoundry_controller.rb:310
 msgid "The file \"%{filename}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:290
+#: app/controllers/openfoundry_controller.rb:314
 msgid "The release \"%{release}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:294
+#: app/controllers/openfoundry_controller.rb:318
 msgid "The project \"%{project}\" you are requesting does not exist."
 msgstr ""
 
@@ -1290,95 +1298,95 @@ msgstr ""
 msgid "Version Control"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:57
+#: app/controllers/projects_controller.rb:59
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:158
+#: app/controllers/projects_controller.rb:160
 #: app/views/projects/test_action_i18n______________.rhtml:327
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:160
+#: app/controllers/projects_controller.rb:162
 #: app/views/projects/test_action_i18n______________.rhtml:345
 msgid "Project|Redirecturl"
 msgstr "Redirect URL"
 
-#: app/controllers/projects_controller.rb:161 app/views/projects/show.rhtml:38
+#: app/controllers/projects_controller.rb:163 app/views/projects/show.rhtml:38
 #: app/views/projects/test_action_i18n______________.rhtml:177
 msgid "Project|Vcs"
 msgstr "Version Control System"
 
-#: app/controllers/projects_controller.rb:163
+#: app/controllers/projects_controller.rb:165
 msgid "It may take 5 minutes for %s settings to take effect."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:189
+#: app/controllers/projects_controller.rb:191
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:214
+#: app/controllers/projects_controller.rb:216
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:218
+#: app/controllers/projects_controller.rb:220
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:235
+#: app/controllers/projects_controller.rb:237
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:240
-#: app/controllers/projects_controller.rb:292
+#: app/controllers/projects_controller.rb:242
+#: app/controllers/projects_controller.rb:294
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:245
-#: app/controllers/projects_controller.rb:297
+#: app/controllers/projects_controller.rb:247
+#: app/controllers/projects_controller.rb:299
 msgid "User \"%{user}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:266
+#: app/controllers/projects_controller.rb:268
 msgid "You can't delete User belongs to This Group!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:288
+#: app/controllers/projects_controller.rb:290
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:314
+#: app/controllers/projects_controller.rb:316
 #: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "Member Control"
 
-#: app/controllers/projects_controller.rb:328
+#: app/controllers/projects_controller.rb:330
 #: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "Permission Control"
 
-#: app/controllers/projects_controller.rb:384
+#: app/controllers/projects_controller.rb:386
 msgid "Permission was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:405
+#: app/controllers/projects_controller.rb:407
 msgid "Role \"%{name}\" was successfully created."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:417
+#: app/controllers/projects_controller.rb:419
 msgid "Admin and Member can't be deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:425
+#: app/controllers/projects_controller.rb:427
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:432
+#: app/controllers/projects_controller.rb:434
 #, fuzzy
 msgid "Role id not found!"
 msgstr "Icon"
 
-#: app/controllers/projects_controller.rb:444
+#: app/controllers/projects_controller.rb:446
 #: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr ""
@@ -1407,7 +1415,7 @@ msgstr ""
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
 #: app/views/projects/show.rhtml:79
 #: app/views/projects/test_action_i18n______________.rhtml:51
-#: app/views/news/list.rhtml:34 app/views/news/list.rhtml:36
+#: app/views/news/list.rhtml:35 app/views/news/list.rhtml:37
 #: app/views/news/show.rhtml:15 app/views/jobs/list.rhtml:21
 #: app/views/jobs/show.rhtml:14 app/views/citations/list.rhtml:20
 #: app/views/citations/show.rhtml:18 app/views/references/list.rhtml:19
@@ -1600,7 +1608,7 @@ msgid "submit"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:4
-#: app/views/layouts/application.rhtml:36
+#: app/views/layouts/application.rhtml:44
 #: app/views/projects/test_action_i18n______________.rhtml:42
 msgid "menu_OpenFoundry"
 msgstr "OpenFoundry"
@@ -1626,7 +1634,7 @@ msgid "menu_Newsletter"
 msgstr "Newsletter"
 
 #: app/views/partials/_top_menu_data.rhtml:12
-#: app/views/layouts/application.rhtml:37
+#: app/views/layouts/application.rhtml:45
 #: app/views/projects/test_action_i18n______________.rhtml:120
 msgid "menu_Projects"
 msgstr "Projects"
@@ -1718,7 +1726,7 @@ msgid "LastUpdatedBy"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:42
-#: app/views/layouts/application.rhtml:38
+#: app/views/layouts/application.rhtml:46
 #: app/views/projects/test_action_i18n______________.rhtml:266
 msgid "menu_License Wizard"
 msgstr "License Wizard"
@@ -1751,7 +1759,7 @@ msgid "menu_Manual"
 msgstr "Manual"
 
 #: app/views/partials/_top_menu_data.rhtml:49
-#: app/views/layouts/application.rhtml:39
+#: app/views/layouts/application.rhtml:47
 #: app/views/projects/test_action_i18n______________.rhtml:267
 msgid "menu_Help"
 msgstr "Help"
@@ -1788,7 +1796,7 @@ msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:59
 #: app/views/partials/_top_menu_data.rhtml:61
-#: app/views/layouts/application.rhtml:40
+#: app/views/layouts/application.rhtml:48
 #: app/views/projects/test_action_i18n______________.rhtml:339
 msgid "menu_Contact Us"
 msgstr "Contact Us"
@@ -1832,13 +1840,13 @@ msgstr ""
 msgid "Module Menagements"
 msgstr "Project name"
 
-#: app/views/layouts/application.rhtml:70
+#: app/views/layouts/application.rhtml:78
 #: app/views/projects/test_action_i18n______________.rhtml:105
 #: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:10
 msgid "Change Icon"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:90
+#: app/views/layouts/application.rhtml:98
 #: app/views/projects/test_action_i18n______________.rhtml:239
 msgid "Steering Organization"
 msgstr ""
@@ -1886,19 +1894,36 @@ msgstr "Enhancement"
 msgid "Update"
 msgstr "Summary"
 
-#: app/views/releases/uploadfiles.rhtml:87
+#: app/views/releases/uploadfiles.rhtml:19
+#: app/views/releases/_release_view.rhtml:14
+msgid "[Edit]"
+msgstr ""
+
+#: app/views/releases/uploadfiles.rhtml:24
+#: app/views/releases/_release_view.rhtml:19
+#, fuzzy
+msgid "[Delete]"
+msgstr "Delete Users"
+
+#: app/views/releases/uploadfiles.rhtml:32
+#: app/views/releases/_release_view.rhtml:27
+#, fuzzy
+msgid "[Add release news]"
+msgstr "New Release"
+
+#: app/views/releases/uploadfiles.rhtml:91
 msgid "Reload"
 msgstr ""
 
-#: app/views/releases/uploadfiles.rhtml:91
+#: app/views/releases/uploadfiles.rhtml:95
 msgid "Add File"
 msgstr ""
 
-#: app/views/releases/uploadfiles.rhtml:91
+#: app/views/releases/uploadfiles.rhtml:95
 msgid "How to Upload?"
 msgstr ""
 
-#: app/views/releases/uploadfiles.rhtml:106
+#: app/views/releases/uploadfiles.rhtml:110
 msgid "File_not_found"
 msgstr ""
 "File not found! Please upload the files via FTP and click reload button to "
@@ -1919,7 +1944,7 @@ msgstr ""
 #: app/views/releases/_new_releases.rhtml:9
 #: app/views/projects/_new_projects.rhtml:9
 #: app/views/projects/test_action_i18n______________.rhtml:248
-#: app/views/news/_home_news.rhtml:15 app/views/news/_listn.rhtml:8
+#: app/views/news/_home_news.rhtml:16 app/views/news/_listn.rhtml:8
 msgid "More..."
 msgstr ""
 
@@ -1953,7 +1978,7 @@ msgstr "Project name"
 msgid "Download"
 msgstr ""
 
-#: app/views/releases/download.rhtml:13
+#: app/views/releases/download.rhtml:15
 #: app/views/projects/test_action_i18n______________.rhtml:8
 msgid "Downloads Hits "
 msgstr ""
@@ -2298,7 +2323,7 @@ msgstr "New Project"
 msgid "Admin has ALL Permissions by default"
 msgstr ""
 
-#: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:38
+#: app/views/projects/permission_edit.rhtml:41 app/views/news/list.rhtml:39
 #: app/views/news/show.rhtml:16 app/views/jobs/list.rhtml:22
 #: app/views/jobs/show.rhtml:15 app/views/citations/list.rhtml:21
 #: app/views/citations/show.rhtml:19 app/views/references/list.rhtml:20
@@ -2443,7 +2468,7 @@ msgid "Signup Date"
 msgstr ""
 
 #: app/views/projects/test_action_i18n______________.rhtml:102
-#: app/views/news/list.rhtml:27 app/views/news/_form.rhtml:24
+#: app/views/news/list.rhtml:28 app/views/news/_form.rhtml:24
 #: app/views/jobs/list.rhtml:15 app/views/jobs/_form.rhtml:21
 #: app/views/citations/list.rhtml:14 app/views/citations/_form.rhtml:29
 #: app/views/references/list.rhtml:13 app/views/references/_form.rhtml:9
@@ -2539,7 +2564,7 @@ msgid "User|Icon"
 msgstr "Icon"
 
 #: app/views/projects/test_action_i18n______________.rhtml:202
-#: app/views/news/list.rhtml:19 app/views/news/list.rhtml:21
+#: app/views/news/list.rhtml:20 app/views/news/list.rhtml:22
 #: app/views/jobs/list.rhtml:12
 msgid "Read More"
 msgstr ""
@@ -2592,6 +2617,7 @@ msgstr ""
 
 #: app/views/projects/test_action_i18n______________.rhtml:245
 #: app/views/news/list.rhtml:4 app/views/news/_form.rhtml:4
+#: app/views/site_admin/site_admin/new_site_mail.rhtml:3
 #: app/views/jobs/list.rhtml:4
 msgid "Subject"
 msgstr ""
@@ -2737,28 +2763,28 @@ msgstr ""
 msgid "Sort by"
 msgstr ""
 
-#: app/views/news/list.rhtml:29 app/views/news/_form.rhtml:25
+#: app/views/news/list.rhtml:30 app/views/news/_form.rhtml:25
 #: app/views/jobs/list.rhtml:17 app/views/jobs/_form.rhtml:23
 #: app/views/citations/list.rhtml:16 app/views/citations/_form.rhtml:31
 #: app/views/references/list.rhtml:15 app/views/references/_form.rhtml:11
 msgid "Enabled"
 msgstr ""
 
-#: app/views/news/list.rhtml:31 app/views/news/_form.rhtml:26
+#: app/views/news/list.rhtml:32 app/views/news/_form.rhtml:26
 #: app/views/jobs/list.rhtml:19 app/views/jobs/_form.rhtml:24
 #: app/views/citations/list.rhtml:18 app/views/citations/_form.rhtml:32
 #: app/views/references/list.rhtml:17 app/views/references/_form.rhtml:12
 msgid "Disabled"
 msgstr ""
 
-#: app/views/news/list.rhtml:38 app/views/news/show.rhtml:16
+#: app/views/news/list.rhtml:39 app/views/news/show.rhtml:16
 #: app/views/jobs/list.rhtml:22 app/views/jobs/show.rhtml:15
 #: app/views/citations/list.rhtml:21 app/views/citations/show.rhtml:19
 #: app/views/references/list.rhtml:20 app/views/references/show.rhtml:11
 msgid "Are you sure?"
 msgstr ""
 
-#: app/views/news/list.rhtml:49 app/views/news/new.rhtml:1
+#: app/views/news/list.rhtml:50 app/views/news/new.rhtml:1
 msgid "Add News"
 msgstr ""
 
@@ -2802,6 +2828,42 @@ msgstr ""
 #: app/views/site_admin/site_admin/index.rhtml:49
 msgid "Rebuild Ferret Index"
 msgstr ""
+
+#: app/views/site_admin/site_admin/new_site_mail.rhtml:6
+msgid "Message Content"
+msgstr ""
+
+#: app/views/site_admin/site_admin/new_site_mail.rhtml:9
+msgid "Send Mail"
+msgstr ""
+
+#: app/views/user/_invite.rhtml:2
+msgid "User Invitation"
+msgstr "Also invite you to sign up"
+
+#: app/views/user/_invite.rhtml:4
+msgid "User|Contact"
+msgstr "Adding my name in the mailing list for activity information"
+
+#: app/views/user/_invite.rhtml:4
+msgid "User|Contact|Help"
+msgstr "Adding my name in the mailing list for activity information"
+
+#: app/views/user/_invite.rhtml:6
+msgid "User|Who'sWho"
+msgstr "Join the <a href=http://whoswho.openfoundry.org target=_blank>Who's Who</a>"
+
+#: app/views/user/_invite.rhtml:6
+msgid "User|Who'sWho|Help"
+msgstr "Inviting me to join the Who's Who"
+
+#: app/views/user/_invite.rhtml:8
+msgid "User|NewsLetter"
+msgstr "<a href=http://www.openfoundry.org/Newsletter.html target=_blank>OSSF Newsletter</a> subscription (in traditional Chinese)"
+
+#: app/views/user/_invite.rhtml:8
+msgid "User|NewsLetter|Help"
+msgstr "FREE bi-weekly OSSF Newsletter subscription (in traditional Chinese)"
 
 #: app/views/jobs/list.rhtml:33 app/views/jobs/new.rhtml:1
 msgid "Add Job"
