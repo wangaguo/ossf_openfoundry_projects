@@ -24,8 +24,14 @@ def replace_template(tmpl_path)
 end
 
 
+main_config_path = File.dirname(__FILE__) + "/openfoundry_svn.conf"
+if File.exist?(main_config_path)
+  load main_config_path
+else
+  puts "Please provide #{main_config_path} (you may copy it from #{main_config_path}.tmpl then edit it)"
+  exit 1
+end
 
-load File.dirname(__FILE__) + "/svn.conf"
 
 RUBY = Config::CONFIG["bindir"] + "/" + Config::CONFIG["RUBY_INSTALL_NAME"]
 
