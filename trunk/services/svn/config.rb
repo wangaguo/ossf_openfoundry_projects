@@ -50,3 +50,4 @@ append_unless("/etc/newsyslog.conf", /openfoundry_sync.log/) do |f|
 end
 
 replace_template("apache_svn.conf.tmpl")
+replace_template("apache_viewvc.conf.tmpl")

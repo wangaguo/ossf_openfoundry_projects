@@ -4,7 +4,7 @@ NameVirtualHost *:80
     ServerName #{SVN_HOST_NAME}
   
     #RewriteOptions Inherit 
-    <Location />
+    <Location #{SVN_URL_PREFIX}>
         DAV svn
         SVNParentPath #{REPOS_PARENT_DIR}
 
