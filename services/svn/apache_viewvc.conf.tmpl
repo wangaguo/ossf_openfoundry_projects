@@ -10,10 +10,10 @@ NameVirtualHost *:80
     # Since Pound doesn't alter the host header for us,
     # we will receive the host name of the frontend site.
     #
-    ServerName of.openfoundry.org
+    ServerName #{VIEWVC_HOST_NAME}
 
-    Alias /viewvc-svn /usr/local/viewvc/bin/mod_python/viewvc.py
-    <Location /viewvc-svn>
+    Alias #{VIEWVC_URL_PREFIX} /usr/local/viewvc/bin/mod_python/viewvc.py
+    <Location #{VIEWVC_URL_PREFIX}>
         SetHandler mod_python
         PythonHandler handler
         PythonPath "['/usr/local/viewvc/lib', '/usr/local/viewvc/bin/mod_python' ] + sys.path"
