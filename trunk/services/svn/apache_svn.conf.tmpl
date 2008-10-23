@@ -1,22 +1,22 @@
 NameVirtualHost *:80
 <VirtualHost *:80>
     # external visible host name
-    ServerName svn.openfoundry.org
+    ServerName #{SVN_HOST_NAME}
   
     #RewriteOptions Inherit 
     <Location />
         DAV svn
-        SVNParentPath /home/svn/repos
+        SVNParentPath #{REPOS_PARENT_DIR}
 
         SVNPathAuthz on
-        AuthzSVNAccessFile /home/svn/openfoundry_svn/svn-access-file
+        AuthzSVNAccessFile #{SVN_ACCESS_FILE}
 
         Satisfy Any
         Require valid-user
 
         AuthType Basic
         AuthName "Subversion repository"
-        AuthUserFile /home/svn/openfoundry_svn/svn-auth-file
+        AuthUserFile #{SVN_AUTH_FILE}
     </Location>
 </VirtualHost>
 
