@@ -111,7 +111,8 @@ class OpenfoundryController < ApplicationController
             R.authorizable_id = P.id and 
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
-            RU.user_id = U.id and 
+            RU.user_id = U.id and
+            P.vcs = #{Project::VCS[:CVS]} and
             #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
@@ -120,6 +121,29 @@ class OpenfoundryController < ApplicationController
         #functions[u][p][f] = 1
         a = functions[u] = {} if not a = functions[u]
         b = a[p] = {} if not b = a[p]
+        b[f] = 1
+      end
+    when "svn"
+      projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
+      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
+      sql= "select distinct U.login, P.name, F.name from 
+            users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
+            where 
+            F.module = 'vcs' and
+            RF.role_id = R.id and RF.function_id = F.id and
+            R.authorizable_id = P.id and 
+            R.authorizable_type = 'Project' and 
+            RU.role_id = R.id and 
+            RU.user_id = U.id and 
+            (P.vcs = #{Project::VCS[:SUBVERSION]} or P.vcs = #{Project::VCS[:SUBVERSION_CLOSE]}) and
+            #{User.verified_users(:alias => 'U')} and 
+            #{Project.in_used_projects(:alias => 'P')}"
+      #render :text => sql; return
+      functions = {}
+      ActiveRecord::Base.connection.execute(sql).each do |u, p, f|
+        #functions[p][u][f] = 1
+        a = functions[p] = {} if not a = functions[p]
+        b = a[u] = {} if not b = a[u]
         b[f] = 1
       end
     when "rt"
