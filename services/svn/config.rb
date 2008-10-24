@@ -45,13 +45,13 @@ append_unless("/etc/crontab", /svn.rb/) do |f|
 "
 end
 
-append_unless("/etc/newsyslog.conf", /openfoundry_sync.log/) do |f|
+append_unless("/etc/newsyslog.conf", /openfoundry_svn/) do |f|
   f.puts "
 # 
 # openfoundry_svn
 #
-{ROOT}/sync.log           600  7     *    @T00  JC
-{ROOT}/backup.log         600  7     *    @T00  JC
+#{ROOT}/sync.log           600  7     *    @T00  JC
+#{ROOT}/backup.log         600  7     *    @T00  JC
 "
 end
 
