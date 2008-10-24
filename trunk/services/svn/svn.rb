@@ -10,7 +10,7 @@ puts ">>>> #{Time.now}"
 require "fileutils"
 require "tempfile"
 
-load File.dirname(__FILE__) + "/svn.conf"
+load File.dirname(__FILE__) + "/openfoundry_svn.conf"
 
 
 class ProjectData
