@@ -5,7 +5,7 @@ require "open-uri"
 VCS_SUBVERSION = "2"
 VCS_SUBVERSION_CLOSE = "3"
 
-load File.dirname(__FILE__) + "/openfoundry_json.conf"
+#load File.dirname(__FILE__) + "/openfoundry_json.conf"
 
 $data = open(OPENFOUNDRY_JSON_URI).read
 $data = JSON.parse($data)
