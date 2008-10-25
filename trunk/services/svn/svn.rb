@@ -95,7 +95,7 @@ when "sync"
     yield tempfile
     tempfile.close
     FU.chmod mode, tempfile.path
-    FU.mv tempfile.path, final_path, :force => true
+    FU.mv tempfile.path, final_path
   end
 
   #
