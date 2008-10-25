@@ -85,19 +85,26 @@ require impl_file
 
 ################################################################################
 
+def run_with_error_checking(cmd)
+  puts cmd
+  msg = %x[#{cmd}]
+  raise "'#{cmd}':\n#{msg}" unless $? == 0
+end
+
+def with_temp_file(final_path, mode)
+  tempfile = Tempfile.new(File.basename(final_path))
+  yield tempfile
+  tempfile.close
+  FU.chmod mode, tempfile.path
+  FU.mv tempfile.path, final_path
+end
+
+
 ALL_LINK_PARENT_DIR = LINK_PARENT_DIR.values.flatten.uniq
 (ALL_LINK_PARENT_DIR + [REPOS_PARENT_DIR, BACKUP_PARENT_DIR, VIEWVC_PARENT_DIR]).each { |dir| FU.mkdir_p(dir) }
 
 case ARGV[0]
 when "sync"
-  def with_temp_file(final_path, mode)
-    tempfile = Tempfile.new(File.basename(final_path))
-    yield tempfile
-    tempfile.close
-    FU.chmod mode, tempfile.path
-    FU.mv tempfile.path, final_path
-  end
-
   #
   # Project / Repository
   #
@@ -106,7 +113,7 @@ when "sync"
     if not File.directory?(repos)
       puts "Creating a new repository for project '#{name}' at #{repos}"
       FU.mkdir_p repos
-      system("#{SVNADMIN} create #{repos}")
+      run_with_error_checking("#{SVNADMIN} create #{repos} 2>&1")
       with_temp_file("#{repos}/hooks/pre-revprop-change", 0755) do |tempfile|
         tempfile.puts "#!/bin/sh"
       end
@@ -125,6 +132,8 @@ when "sync"
   
   #
   # Authorization / Symlinks
+  #
+  # http://svnbook.red-bean.com/en/1.5/svn.serverconfig.pathbasedauthz.html
   #
   with_temp_file(SVN_ACCESS_FILE, 0644) do |tempfile|
     AuthorizationData.each do |a|
@@ -146,12 +155,13 @@ when "sync"
     end
   end
 when "backup"
+  # http://svnbook.red-bean.com/en/1.5/svn.reposadmin.maint.html#svn.reposadmin.maint.backup
   ProjectData.each do |name|
     repos = "#{REPOS_PARENT_DIR}/#{name}"
     backup = "#{BACKUP_PARENT_DIR}/#{name}"
     puts "Backup: #{repos} => #{backup} (#{Time.now})"
     FU.rm_rf backup
-    system("#{SVNADMIN} hotcopy #{repos} #{backup}")
+    run_with_error_checking("#{SVNADMIN} hotcopy #{repos} #{backup} 2>&1")
   end
 end
 
