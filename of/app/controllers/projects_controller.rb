@@ -50,9 +50,7 @@ class ProjectsController < ApplicationController
       @Path = OPENFOUNDRY_VIEWVC_CVS_URL + @project.name
     when Project::VCS[:SUBVERSION]
       @Path = OPENFOUNDRY_VIEWVC_SVN_URL + "?root=" + @project.name
-    when Project::VCS[:SUBVERSION_CLOSE]
-      @Path = OPENFOUNDRY_VIEWVC_SVN_URL + "?root=" + @project.name
-    when Project::VCS[:REMOTE], Project::VCS[:NONE]
+    when Project::VCS[:REMOTE], Project::VCS[:NONE], Project::VCS[:SUBVERSION_CLOSE]
       vcs_access
       render :template => 'projects/vcs_access'
     else
@@ -448,7 +446,7 @@ class ProjectsController < ApplicationController
     @src = ""
     @vcs_desc = @project.vcsdescription
     case(@vcs)
-    when Project::VCS[:SUBVERSION]
+    when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE] 
       @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
     when Project::VCS[:CVS]
       @src = "cvs -d :ext:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
