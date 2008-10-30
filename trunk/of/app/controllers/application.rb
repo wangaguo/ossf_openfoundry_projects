@@ -15,6 +15,9 @@ require 'gettext/rails'
 ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
 
 class ApplicationController < ActionController::Base
+  #block session store for crawler
+  session :off, :if => lambda {|req| req.user_agent =~ /(Slurp|Spider)/i}
+
   around_filter :touch_session
   before_filter :set_time_zone
 
