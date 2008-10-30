@@ -422,6 +422,15 @@ EOEO
     end
     return false
   end
+  def self.project_names_of_the_reviewer(user_login)
+    rtn = []
+    return rtn unless "#{user_login}".length > 0
+    r = /^(.*)\s+#{user_login}$/
+    File.open(NSC_REVIEWERS_FILE).each do |line|
+      rtn << $1 if line =~ r
+    end
+    return rtn.sort
+  end
   def nsc_role(user_obj)
     if user_obj.has_role?('Admin', self)
       "PI"
