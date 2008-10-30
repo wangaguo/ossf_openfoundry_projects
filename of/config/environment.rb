@@ -115,6 +115,8 @@ Rails::Initializer.run do |config|
 
     NSC_UPLOAD_DIR = "/usr/home/openfoundry/of/nsc_upload_dir" # don't forget to mkdir
     NSC_REVIEWERS_FILE = "/usr/home/openfoundry/of/nsc_upload_dir/reviewers.txt" # p u mapping
+    NSC_REVIEWERS_LOGIN_FILTER = /^nscreviewer\d\d$/ # only accounts that can pass this filter
+                                                     # may possiblely be a valid reviewer
     NSC_CURRENT_YEAR = "97"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
