@@ -1,0 +1,32 @@
+SVN_USER = "www" 
+SVN_GROUP = "www" 
+ROOT = "/home/svn/openfoundry_svn" 
+REPOS_PARENT_DIR = "/home/svn/repos" 
+BACKUP_PARENT_DIR = "/home/svn/backup"
+VIEWVC_PARENT_DIR = "/home/svn/viewvc" 
+SVN_AUTH_FILE = "#{ROOT}/svn-auth-file" 
+SVN_ACCESS_FILE = "#{ROOT}/svn-access-file" 
+SVNADMIN = "/usr/local/bin/svnadmin" # "/usr/bin/svnadmin" on ubuntu 
+SVN_HOST_NAME = "svn.openfoundry.org"
+SVN_URL_PREFIX = "/"
+VIEWVC_HOST_NAME = "of.openfoundry.org"
+VIEWVC_URL_PREFIX = "/viewvc-svn"
+
+DATA_IMPLEMENTATION = "openfoundry_json.rb"
+OPENFOUNDRY_JSON_URI = "a.json" # or an http://... URL
+
+
+#
+# implementation related configuration
+#
+require "fileutils"
+FU = FileUtils::Verbose
+# x_y : anonymous has right "x"
+#       other authenticated but unspecified user has right "y"
+LINK_PARENT_DIR = {
+  "_"    => [],
+  "_r"   => [],
+  "_rw"  => [],
+  "r_r"  => [ VIEWVC_PARENT_DIR ],
+  "r_rw" => [ VIEWVC_PARENT_DIR ],
+}
