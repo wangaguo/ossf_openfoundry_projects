@@ -12,6 +12,8 @@ Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
 Actived Plugins: <%= Rails.configuration.plugins%>
 <br/>
 Timezone: <%= Rails.configuration.time_zone%>
+<br/>
+Logger: <%= Rails.logger.class.to_s%>
 </p>
 
 <h1><%=_('Client Information')%></h1>
