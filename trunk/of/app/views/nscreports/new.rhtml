@@ -1,8 +1,9 @@
-Please upload your reports(.zip) or reviews(.doc) here. <br/><br/>
+Please upload your reports or reviews here (.doc or .pdf). <br/><br/>
 
 <script>
   function validate(file_name, type) {
-    var ext = /review/.test(type) ? ".doc" : ".zip";
+    //var ext = /review/.test(type) ? "doc" : "pdf";
+    var ext = "(doc|pdf)"
     var regex = new RegExp(ext + '$', 'i');
     if (regex.test(file_name)) {
       return "true"

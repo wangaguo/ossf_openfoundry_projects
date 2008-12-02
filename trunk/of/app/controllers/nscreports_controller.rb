@@ -17,14 +17,20 @@ class NscreportsController < ApplicationController
     @nsc_role = @project.nsc_role(current_user)
     case @nsc_role
     when "PI"
-      @types_write = ["requirement", "design", "testing"]
+      @types_write = ["plan", "requirement", "design", "testing"]
     when "REVIEWER"
-      @types_write = ["requirement-review-form", "requirement-review-content", "design-review-form", "design-review-content", "testing-review-form", "testing-review-content"]
+      @types_write = [
+        "plan-review-form", "plan-review-content",
+        "requirement-review-form", "requirement-review-content",
+        "design-review-form", "design-review-content",
+        "testing-review-form", "testing-review-content",
+      ]
     when "ADMIN"
       @types_write = []
     else
       @types_write = []
     end
+    @types_write &= ["plan", "requirement"] # currently we only allow uploading these 2 kinds of documents
   end
 
   def index
@@ -110,15 +116,16 @@ class NscreportsController < ApplicationController
       return
     end
 
-    #render :text => params["the_file"]["datafile"].original_filename
-    # ignore orignial_filename
-    ext = (type =~ /review/) ? "doc" : "zip"
+    #render :text => params["the_file"].original_filename
+    # ignore orignial_filename, only take the extension
+    ###ext = (type =~ /review/) ? "doc" : "zip"
+    ext = (params["the_file"].original_filename =~ /doc$/) ? "doc" : "pdf"
     filename = "#{@project.name}_#{year}_#{type}_#{current_user.login}.#{ext}";
     filepath = "#{NSC_UPLOAD_DIR}/#{filename}"
     File.open(filepath, "wb") do |f|
       f.write(params["the_file"].read)
     end
-    flash[:notice] = "You have successfully uploaded file: #{filename}"
+    flash[:notice] = "You have successfully uploaded the file: #{filename}"
     redirect_to :action => "index"
   end
 end
