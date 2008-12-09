@@ -278,7 +278,7 @@ cacheId('contenu','Stretcher');
 		{
 			btnCreateList = document.getElementById("create_list");
 			btnCreateList.style.visibility = "visible";
-			btnCreateList.childNodes[0].href = "/Sympa/create_project_list_request/" + window.name;
+			btnCreateList.childNodes[0].href = "/sympa/create_project_list_request/" + window.name;
 		}
         }
 
