@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-10-23 09:02-0000\n"
+"POT-Creation-Date: 2008-12-15 02:23-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgid "Project Category"
 msgstr "Project Category"
 
 #: app/helpers/application_helper.rb:68 app/controllers/news_controller.rb:27
-#: app/views/openfoundry/index.rhtml:55
+#: app/views/openfoundry/index.rhtml:56
 #: app/views/projects/test_action_i18n______________.rhtml:16
 msgid "Project News"
 msgstr ""
@@ -1038,7 +1038,7 @@ msgstr ""
 
 #: app/controllers/news_controller.rb:32
 #: app/views/partials/_top_menu_data.rhtml:7
-#: app/views/openfoundry/index.rhtml:61
+#: app/views/openfoundry/index.rhtml:62
 #: app/views/projects/test_action_i18n______________.rhtml:117
 #, fuzzy
 msgid "OpenFoundry News"
@@ -1046,7 +1046,7 @@ msgstr "OpenFoundry News"
 
 #: app/controllers/news_controller.rb:36
 #: app/views/projects/test_action_i18n______________.rhtml:335
-#: app/views/site_admin/site_admin/index.rhtml:31
+#: app/views/site_admin/site_admin/index.rhtml:33
 msgid "News"
 msgstr ""
 
@@ -1266,15 +1266,15 @@ msgid ""
 "developers can contact you when the issue is resolved. "
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:310
+#: app/controllers/openfoundry_controller.rb:315
 msgid "The file \"%{filename}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:314
+#: app/controllers/openfoundry_controller.rb:319
 msgid "The release \"%{release}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/openfoundry_controller.rb:318
+#: app/controllers/openfoundry_controller.rb:323
 msgid "The project \"%{project}\" you are requesting does not exist."
 msgstr ""
 
@@ -1298,95 +1298,95 @@ msgstr ""
 msgid "Version Control"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:59
+#: app/controllers/projects_controller.rb:57
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:160
+#: app/controllers/projects_controller.rb:158
 #: app/views/projects/test_action_i18n______________.rhtml:327
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:162
+#: app/controllers/projects_controller.rb:160
 #: app/views/projects/test_action_i18n______________.rhtml:345
 msgid "Project|Redirecturl"
 msgstr "Redirect URL"
 
-#: app/controllers/projects_controller.rb:163 app/views/projects/show.rhtml:38
+#: app/controllers/projects_controller.rb:161 app/views/projects/show.rhtml:38
 #: app/views/projects/test_action_i18n______________.rhtml:177
 msgid "Project|Vcs"
 msgstr "Version Control System"
 
-#: app/controllers/projects_controller.rb:165
+#: app/controllers/projects_controller.rb:163
 msgid "It may take 5 minutes for %s settings to take effect."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:191
+#: app/controllers/projects_controller.rb:189
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:216
+#: app/controllers/projects_controller.rb:214
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:220
+#: app/controllers/projects_controller.rb:218
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:237
+#: app/controllers/projects_controller.rb:235
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:242
-#: app/controllers/projects_controller.rb:294
+#: app/controllers/projects_controller.rb:240
+#: app/controllers/projects_controller.rb:292
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:247
-#: app/controllers/projects_controller.rb:299
+#: app/controllers/projects_controller.rb:245
+#: app/controllers/projects_controller.rb:297
 msgid "User \"%{user}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:268
+#: app/controllers/projects_controller.rb:266
 msgid "You can't delete User belongs to This Group!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:290
+#: app/controllers/projects_controller.rb:288
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:316
+#: app/controllers/projects_controller.rb:314
 #: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "Member Control"
 
-#: app/controllers/projects_controller.rb:330
+#: app/controllers/projects_controller.rb:328
 #: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "Permission Control"
 
-#: app/controllers/projects_controller.rb:386
+#: app/controllers/projects_controller.rb:384
 msgid "Permission was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:407
+#: app/controllers/projects_controller.rb:405
 msgid "Role \"%{name}\" was successfully created."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:419
+#: app/controllers/projects_controller.rb:417
 msgid "Admin and Member can't be deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:427
+#: app/controllers/projects_controller.rb:425
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:434
+#: app/controllers/projects_controller.rb:432
 #, fuzzy
 msgid "Role id not found!"
 msgstr "Icon"
 
-#: app/controllers/projects_controller.rb:446
+#: app/controllers/projects_controller.rb:444
 #: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr ""
@@ -1480,7 +1480,7 @@ msgstr ""
 
 #: app/views/partials/_login.rhtml:13
 #: app/views/projects/test_action_i18n______________.rhtml:276
-#: app/views/user/login.rhtml:33
+#: app/views/user/login.rhtml:32
 msgid "Login"
 msgstr ""
 
@@ -1840,13 +1840,13 @@ msgstr ""
 msgid "Module Menagements"
 msgstr "Project name"
 
-#: app/views/layouts/application.rhtml:78
+#: app/views/layouts/application.rhtml:80
 #: app/views/projects/test_action_i18n______________.rhtml:105
-#: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:10
+#: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:9
 msgid "Change Icon"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:98
+#: app/views/layouts/application.rhtml:100
 #: app/views/projects/test_action_i18n______________.rhtml:239
 msgid "Steering Organization"
 msgstr ""
@@ -1950,6 +1950,7 @@ msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:2
 #: app/views/projects/test_action_i18n______________.rhtml:63
+#: app/views/site_admin/site_admin/nsc_download.rhtml:8
 #, fuzzy
 msgid "Release Listing"
 msgstr "Project name"
@@ -2295,18 +2296,26 @@ msgid "Anonymous CVS Access"
 msgstr ""
 
 #: app/views/projects/vcs_access.rhtml:25
-msgid "Remote Repository"
+msgid "Subversion: Members Only"
 msgstr ""
 
 #: app/views/projects/vcs_access.rhtml:27
-msgid "This project is using a remote repository."
-msgstr ""
-
-#: app/views/projects/vcs_access.rhtml:32
-msgid "No Version Control System"
+msgid "This project can only be accessed by members."
 msgstr ""
 
 #: app/views/projects/vcs_access.rhtml:34
+msgid "Remote Repository"
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:36
+msgid "This project is using a remote repository."
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:41
+msgid "No Version Control System"
+msgstr ""
+
+#: app/views/projects/vcs_access.rhtml:43
 msgid "This project is not using any version control system."
 msgstr ""
 
@@ -2340,7 +2349,7 @@ msgid "User|Created at"
 msgstr "Created at"
 
 #: app/views/projects/test_action_i18n______________.rhtml:15
-#: app/views/user/home.rhtml:20
+#: app/views/user/home.rhtml:32
 msgid "My Partners"
 msgstr ""
 
@@ -2428,7 +2437,7 @@ msgid ""
 msgstr ""
 
 #: app/views/projects/test_action_i18n______________.rhtml:72
-#: app/views/site_admin/site_admin/index.rhtml:32
+#: app/views/site_admin/site_admin/index.rhtml:34
 msgid "User"
 msgstr ""
 
@@ -2463,7 +2472,7 @@ msgid "User|Password"
 msgstr "New Password"
 
 #: app/views/projects/test_action_i18n______________.rhtml:100
-#: app/views/user/home.rhtml:60
+#: app/views/user/home.rhtml:72
 msgid "Signup Date"
 msgstr ""
 
@@ -2477,7 +2486,7 @@ msgid "Status"
 msgstr "Status"
 
 #: app/views/projects/test_action_i18n______________.rhtml:110
-#: app/views/user/login.rhtml:15
+#: app/views/user/login.rhtml:14
 msgid "Password"
 msgstr ""
 
@@ -2514,7 +2523,7 @@ msgid "User|Conceal Realname|Help"
 msgstr "Hide Realname"
 
 #: app/views/projects/test_action_i18n______________.rhtml:157
-#: app/views/site_admin/site_admin/index.rhtml:30
+#: app/views/site_admin/site_admin/index.rhtml:32
 msgid "Project"
 msgstr "Project name"
 
@@ -2540,12 +2549,12 @@ msgid "User|Conceal Login Status"
 msgstr "Hide Login Status"
 
 #: app/views/projects/test_action_i18n______________.rhtml:183
-#: app/views/user/home.rhtml:3
+#: app/views/user/home.rhtml:2
 msgid "User Icon"
 msgstr "Icon"
 
 #: app/views/projects/test_action_i18n______________.rhtml:191
-#: app/views/user/login.rhtml:25
+#: app/views/user/login.rhtml:24
 msgid "Remember me on this computer"
 msgstr ""
 
@@ -2574,7 +2583,7 @@ msgid "User|Verified"
 msgstr ""
 
 #: app/views/projects/test_action_i18n______________.rhtml:214
-#: app/views/user/_edit.rhtml:21 app/views/user/signup.rhtml:17
+#: app/views/user/_edit.rhtml:21 app/views/user/signup.rhtml:19
 msgid "User|Signup"
 msgstr "Sign up"
 
@@ -2591,7 +2600,7 @@ msgid "User|Conceal Homepage|Help"
 msgstr "Hide Homepage"
 
 #: app/views/projects/test_action_i18n______________.rhtml:221
-#: app/views/user/home.rhtml:36
+#: app/views/user/home.rhtml:48
 msgid "My Email"
 msgstr ""
 
@@ -2606,7 +2615,7 @@ msgid "User|Salt"
 msgstr ""
 
 #: app/views/projects/test_action_i18n______________.rhtml:231
-#: app/views/user/login.rhtml:7
+#: app/views/user/login.rhtml:6
 msgid "Login ID"
 msgstr ""
 
@@ -2703,7 +2712,7 @@ msgid "User|Password Confirmation"
 msgstr "Re-enter New Password"
 
 #: app/views/projects/test_action_i18n______________.rhtml:305
-#: app/views/user/login.rhtml:35
+#: app/views/user/login.rhtml:34
 msgid "Forgot my password"
 msgstr ""
 
@@ -2718,7 +2727,7 @@ msgid "User|Conceal Realname"
 msgstr "Hide Realname"
 
 #: app/views/projects/test_action_i18n______________.rhtml:317
-#: app/views/user/home.rhtml:47 app/views/user/my_projects.rhtml:2
+#: app/views/user/home.rhtml:59 app/views/user/my_projects.rhtml:2
 #, fuzzy
 msgid "My Projects"
 msgstr "My Projects"
@@ -2754,7 +2763,7 @@ msgid "User|Email"
 msgstr "Email Address"
 
 #: app/views/projects/test_action_i18n______________.rhtml:346
-#: app/views/user/login.rhtml:34
+#: app/views/user/login.rhtml:33
 msgid "Register for an account"
 msgstr ""
 
@@ -2816,16 +2825,16 @@ msgstr ""
 msgid "App Information"
 msgstr "Icon"
 
-#: app/views/site_admin/site_admin/index.rhtml:17
+#: app/views/site_admin/site_admin/index.rhtml:19
 #, fuzzy
 msgid "Client Information"
 msgstr "Icon"
 
-#: app/views/site_admin/site_admin/index.rhtml:45
+#: app/views/site_admin/site_admin/index.rhtml:47
 msgid "Resend Stomp msg for ALL MODELS"
 msgstr ""
 
-#: app/views/site_admin/site_admin/index.rhtml:49
+#: app/views/site_admin/site_admin/index.rhtml:51
 msgid "Rebuild Ferret Index"
 msgstr ""
 
@@ -2835,6 +2844,10 @@ msgstr ""
 
 #: app/views/site_admin/site_admin/new_site_mail.rhtml:9
 msgid "Send Mail"
+msgstr ""
+
+#: app/views/user/home.rhtml:19
+msgid "NSC Projects reviewed by me:"
 msgstr ""
 
 #: app/views/user/_invite.rhtml:2
@@ -2851,7 +2864,8 @@ msgstr "Adding my name in the mailing list for activity information"
 
 #: app/views/user/_invite.rhtml:6
 msgid "User|Who'sWho"
-msgstr "Join the <a href=http://whoswho.openfoundry.org target=_blank>Who's Who</a>"
+msgstr ""
+"Join the <a href=http://whoswho.openfoundry.org target=_blank>Who's Who</a>"
 
 #: app/views/user/_invite.rhtml:6
 msgid "User|Who'sWho|Help"
@@ -2859,7 +2873,9 @@ msgstr "Inviting me to join the Who's Who"
 
 #: app/views/user/_invite.rhtml:8
 msgid "User|NewsLetter"
-msgstr "<a href=http://www.openfoundry.org/Newsletter.html target=_blank>OSSF Newsletter</a> subscription (in traditional Chinese)"
+msgstr ""
+"<a href=http://www.openfoundry.org/Newsletter.html target=_blank>OSSF "
+"Newsletter</a> subscription (in traditional Chinese)"
 
 #: app/views/user/_invite.rhtml:8
 msgid "User|NewsLetter|Help"
