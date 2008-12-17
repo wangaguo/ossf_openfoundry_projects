@@ -7,6 +7,15 @@ class Role < ActiveRecord::Base
   has_and_belongs_to_many :functions, :join_table => 'roles_functions'
   belongs_to :authorizable, :polymorphic => true
 
+  def validate
+    unless new_record?
+      if users.length==0 and name.downcase=='admin'
+        errors.add :users, _("Group \"Admin\" CAN NOT be EMPTY.")
+        return false
+      end
+    end
+  end
+
   def editable?
     self.name.downcase != 'admin'
   end

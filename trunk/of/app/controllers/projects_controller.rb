@@ -185,14 +185,24 @@ class ProjectsController < ApplicationController
         #remember functions before
         if drag_role_id.to_i !=0 and old_r=Role.find(drag_role_id)
           if drag_role_id == drop_role_id #fom A to A => nothing happen
-            flash.now[:warning] = 
-            _('No Operation...')
-          elsif r.authorizable_id == old_r.authorizable_id
-            before = u.functions_for(r.authorizable_id)
-            u.roles.delete(old_r)
-            u.roles << r unless u.roles.include? r
-            u.save
+            flash.now[:warning] = _('No Operation...')
+          elsif r.authorizable_id == old_r.authorizable_id #the same project?
+            old_r.users.delete(u)
+            unless old_r.valid?
+              flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY!') 
+              old_r.users << u #TODO: better recovery
+              member_edit #if flag_changed
+              render :action => :member_edit, :layout => 'module_with_flash'
+              return
+            end
+            old_r.save
+            r.users << u unless r.users.include? u
+            r.save
+            #u.roles.delete(old_r)
+            #u.roles << r unless u.roles.include? r
+            #u.save
             flag_changed = true
+            before = u.functions_for(r.authorizable_id)
             after = u.functions_for(r.authorizable_id)
             added = after - before
             removed = before - after
@@ -241,7 +251,7 @@ class ProjectsController < ApplicationController
         {:role => r.name}
       end
     else
-      flash.now[:warn] = 
+      flash.now[:warning] = 
         _('User "%{user}" doesn\'t exist!') % 
       {:user => u.login}
     end
@@ -270,8 +280,17 @@ class ProjectsController < ApplicationController
         if r=Role.find(role_id)
           #remember functions before
           before = u.functions_for(r.authorizable_id)
-          u.roles.delete(r)
-          u.save
+          r.users.delete u
+          unless r.valid?
+            flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY!')
+            r.users << u #TODO: better recovery
+            member_edit #if flag_changed
+            render :action => :member_edit, :layout => 'module_with_flash'
+            return
+          end
+          r.save
+          #u.roles.delete(r)
+          #u.save
           after = u.functions_for(r.authorizable_id)
           removed = before -after
           flag_changed = true
@@ -288,12 +307,12 @@ class ProjectsController < ApplicationController
             _('Remove User "%{user}" from Group "%{role}"') % 
           {:user => u.login, :role => r.name}
         else
-          flash.now[:warn] = 
+          flash.now[:warning] = 
             _('Group "%{role}" doesn\'t exist!') % 
           {:role => r.name}
         end
       else
-        flash.now[:warn] = 
+        flash.now[:warning] = 
           _('User "%{user}" doesn\'t exist!') % 
         {:user => u.login}
       end
