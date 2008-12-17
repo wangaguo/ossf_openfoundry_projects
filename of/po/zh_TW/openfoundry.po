@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-12-15 02:23-0000\n"
+"POT-Creation-Date: 2008-12-17 07:05-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,11 +245,15 @@ msgstr ""
 msgid "Role|Updated by"
 msgstr "修改者"
 
-#: app/models/role.rb:31
+#: app/models/role.rb:13
+msgid "Group \"Admin\" CAN NOT be EMPTY."
+msgstr "Admin群組至少要有一人"
+
+#: app/models/role.rb:40
 msgid "This will remove User form this Group, are you sure?"
 msgstr "這會將使用者從該群組移除, 請確認一次"
 
-#: app/models/role.rb:32
+#: app/models/role.rb:41
 msgid "This will add User to this Group, are you sure?"
 msgstr "這會將使用者加入該群組, 請確認一次"
 
@@ -1258,71 +1262,76 @@ msgstr "版本控制系統"
 msgid "It may take 5 minutes for %s settings to take effect."
 msgstr "請等待約 5 分鐘讓 %s 的設定生效."
 
-#: app/controllers/projects_controller.rb:189
+#: app/controllers/projects_controller.rb:188
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:214
+#: app/controllers/projects_controller.rb:192
+#: app/controllers/projects_controller.rb:285
+msgid "Group \"Admin\" CAN NOT be EMPTY!"
+msgstr "Admin群組至少要有一人!"
+
+#: app/controllers/projects_controller.rb:224
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr "將使用者\"%{user}\"從群組\"%{old_role}\"移到\"%{role}\""
 
-#: app/controllers/projects_controller.rb:218
+#: app/controllers/projects_controller.rb:228
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:235
+#: app/controllers/projects_controller.rb:245
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr "加入使用者\"%{user}\"到群組\"%{role}\""
 
-#: app/controllers/projects_controller.rb:240
-#: app/controllers/projects_controller.rb:292
+#: app/controllers/projects_controller.rb:250
+#: app/controllers/projects_controller.rb:311
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr "群組\"%{role}\"不存在!"
 
-#: app/controllers/projects_controller.rb:245
-#: app/controllers/projects_controller.rb:297
+#: app/controllers/projects_controller.rb:255
+#: app/controllers/projects_controller.rb:316
 msgid "User \"%{user}\" doesn't exist!"
 msgstr "使用者 %{user} 不存在或是停用"
 
-#: app/controllers/projects_controller.rb:266
+#: app/controllers/projects_controller.rb:276
 msgid "You can't delete User belongs to This Group!"
 msgstr "無法移除該使用者!"
 
-#: app/controllers/projects_controller.rb:288
+#: app/controllers/projects_controller.rb:307
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr "從群組\"%{role}\"移除使用者\"%{user}\""
 
-#: app/controllers/projects_controller.rb:314
+#: app/controllers/projects_controller.rb:333
 #: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "成員管理"
 
-#: app/controllers/projects_controller.rb:328
+#: app/controllers/projects_controller.rb:347
 #: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "權限管理"
 
-#: app/controllers/projects_controller.rb:384
+#: app/controllers/projects_controller.rb:403
 msgid "Permission was successfully updated."
 msgstr "權限修改已更新"
 
-#: app/controllers/projects_controller.rb:405
+#: app/controllers/projects_controller.rb:424
 msgid "Role \"%{name}\" was successfully created."
 msgstr "群組\"%{name}\"已建立"
 
-#: app/controllers/projects_controller.rb:417
+#: app/controllers/projects_controller.rb:436
 msgid "Admin and Member can't be deleted."
 msgstr "Admin與Member是預設群組, 不能移除"
 
-#: app/controllers/projects_controller.rb:425
+#: app/controllers/projects_controller.rb:444
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr "群組\"%{name}\"已移除"
 
-#: app/controllers/projects_controller.rb:432
+#: app/controllers/projects_controller.rb:451
 msgid "Role id not found!"
 msgstr "查無此群組!"
 
-#: app/controllers/projects_controller.rb:444
+#: app/controllers/projects_controller.rb:463
 #: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr "版本控制系統: 存取方式"

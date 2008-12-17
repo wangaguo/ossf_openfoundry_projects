@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-12-15 02:23-0000\n"
+"POT-Creation-Date: 2008-12-17 07:05-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,11 +252,15 @@ msgstr ""
 msgid "Role|Updated by"
 msgstr "Summary"
 
-#: app/models/role.rb:31
+#: app/models/role.rb:13
+msgid "Group \"Admin\" CAN NOT be EMPTY."
+msgstr ""
+
+#: app/models/role.rb:40
 msgid "This will remove User form this Group, are you sure?"
 msgstr ""
 
-#: app/models/role.rb:32
+#: app/models/role.rb:41
 msgid "This will add User to this Group, are you sure?"
 msgstr ""
 
@@ -1321,72 +1325,77 @@ msgstr "Version Control System"
 msgid "It may take 5 minutes for %s settings to take effect."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:189
+#: app/controllers/projects_controller.rb:188
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:214
+#: app/controllers/projects_controller.rb:192
+#: app/controllers/projects_controller.rb:285
+msgid "Group \"Admin\" CAN NOT be EMPTY!"
+msgstr ""
+
+#: app/controllers/projects_controller.rb:224
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:218
+#: app/controllers/projects_controller.rb:228
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:235
+#: app/controllers/projects_controller.rb:245
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:240
-#: app/controllers/projects_controller.rb:292
+#: app/controllers/projects_controller.rb:250
+#: app/controllers/projects_controller.rb:311
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:245
-#: app/controllers/projects_controller.rb:297
+#: app/controllers/projects_controller.rb:255
+#: app/controllers/projects_controller.rb:316
 msgid "User \"%{user}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:266
+#: app/controllers/projects_controller.rb:276
 msgid "You can't delete User belongs to This Group!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:288
+#: app/controllers/projects_controller.rb:307
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:314
+#: app/controllers/projects_controller.rb:333
 #: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "Member Control"
 
-#: app/controllers/projects_controller.rb:328
+#: app/controllers/projects_controller.rb:347
 #: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "Permission Control"
 
-#: app/controllers/projects_controller.rb:384
+#: app/controllers/projects_controller.rb:403
 msgid "Permission was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:405
+#: app/controllers/projects_controller.rb:424
 msgid "Role \"%{name}\" was successfully created."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:417
+#: app/controllers/projects_controller.rb:436
 msgid "Admin and Member can't be deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:425
+#: app/controllers/projects_controller.rb:444
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:432
+#: app/controllers/projects_controller.rb:451
 #, fuzzy
 msgid "Role id not found!"
 msgstr "Icon"
 
-#: app/controllers/projects_controller.rb:444
+#: app/controllers/projects_controller.rb:463
 #: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr ""
