@@ -1214,11 +1214,11 @@ msgstr "檔案\"%{filename}\"不存在"
 
 #: app/controllers/openfoundry_controller.rb:319
 msgid "The release \"%{release}\" you are requesting does not exist."
-msgstr "版本\"#{release}\"不存在"
+msgstr "版本\"%{release}\"不存在"
 
 #: app/controllers/openfoundry_controller.rb:323
 msgid "The project \"%{project}\" you are requesting does not exist."
-msgstr "專案\"#{project}\"不存在"
+msgstr "專案\"%{project}\"不存在"
 
 #: app/controllers/projects_controller.rb:34
 #: app/views/projects/test_action_i18n______________.rhtml:208
