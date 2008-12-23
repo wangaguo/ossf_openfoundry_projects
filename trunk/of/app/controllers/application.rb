@@ -296,6 +296,31 @@ THECODE
   # see: vendor/plugins/sliding_sessions/ 
   session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
   
+  protected
+  def check_download_consistancy
+    #this method will check PROJECT NAME, RELEASE VERSION, FILE PATH, and their associations
+    #include PROJECT STATUS and RELEASE STATUS
+    #WON'T consider user's PERMISSION nor LOGIN
+
+    project_name = params["project_name"]
+    release_version = params["release_version"]
+    file_name = params["file_name"]
+
+    @project = Project.find_by_name project_name, :select => 'id, name'
+    @release = Release.find_by_version release_version, :select => 'id, version'
+    @file = Fileentity.find_by_path file_name, :select => 'id, path', :include => [:survey]
+
+    @error_msg ||= ''
+
+    @error_msg += _('The project "%{project}" you are requesting does not exist.') %
+           {:project => CGI.escapeHTML(project_name)} unless @project
+    @error_msg += _('The release "%{release}" you are requesting does not exist.') %
+   {:release => CGI.escapeHTML(release_version)} unless @release
+    @error_msg += _('The file "%{file_name}" you are requesting does not exist.') %
+   {:file_name => CGI.escapeHTML(file_name)} unless @file
+  end
+
+
   private
     def touch_session
       #logger.info("77777777777777#{session[:host]}77777777777777")
