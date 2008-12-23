@@ -1,0 +1,95 @@
+class SurveyController < ApplicationController
+  layout 'application'
+  #see lib/permission_table.rb
+  #before_filter :check_permission
+  #before_filter :default_module_name
+  
+  def show
+    project_id = params[:project_id]
+    unless Project.exists?(project_id)
+      render :text => 'Project not found'
+    end
+    @project = Project.find(project_id, :include => [Release, Fileentity])
+    files = []
+    resource = "0"*11
+    prompt = ''
+    params['id'].split('_').each{|id| 
+      f=Fileentity.find_by_id(id, :include => Survey)
+      if f
+        files << f
+        if f.survey
+           resource,prompt = Survey.merge(f.survey, [resource, prompt]) 
+        end
+      end
+    }
+    render :file => 'app/views/survey/show.html.erb', :layout => false,
+      :locals => {
+        :files => files, :resource => resource, :prompt => prompt}
+  end
+
+  def update
+    #given :fileentity_ids #Array, :resource #String
+    #will update/create survey for fileendity_id and set resource
+    fileenfity_ids = params['id'].split('_')
+    resource = params['resource'].ljust(11,'0')
+    prompt = params['prompt']
+
+    fileenfity_ids.each do |id| 
+      if f=Fileentity.find_by_id(id)
+        f.survey.destroy if f.survey
+        f.survey = Survey.create(:resource => resource, :prompt => prompt)
+        f.save
+      end
+    end
+    redirect_to :action => :show
+  end
+
+  def index
+    project_id = params[:project_id]
+    unless Project.exists?(project_id)
+      render :text => 'Project not found'
+    end
+    @project = Project.find(project_id, :include => [Release, Fileentity])
+    @releases = @project.releases
+    @resource = "\0"*11
+    #render :text => ERB::Util.html_escape(@releases.inspect)
+    #render :file => 'app/views/survey/show.html.erb', :layout => 'application'
+  end
+  
+  def apply
+    check_download_consistancy
+    unless @error_msg.empty?
+      render :text => CGI.escapeHTML("#{@project} #{@release} #{@file}")
+      return  
+    end
+    @survey = Survey.find_by_id params['id']
+    if request.method == :get
+      @downloader = Downloader.new
+    elsif request.method == :post
+      #TODO login user?
+      
+      #goto download_path if no file in session! 
+      unless session[:saved_download_path] 
+        #missing filename in session
+        #back to 'download'
+        redirect_to download1_path @project
+        return
+      end
+
+      #validate fields...
+      downloader = Downloader.new(params['downloader'])
+      unless downloader.check_mandatory(@survey.resource)
+        flash['warning'] = _('You have to fill the REQUIRED fileds.')
+        return
+      end
+      downloader.user = current_user
+      downloader.project = @project
+      downloader.fileentity = @file
+      downloader.release = @release
+      downloader.save
+      redirect_to download1_path @project 
+      return
+    end
+
+  end
+end
