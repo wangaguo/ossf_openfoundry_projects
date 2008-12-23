@@ -18,3 +18,8 @@
   <% end %>
   </table>
 </div>
+<% if @rdr_download_url %>
+  <script>
+    setTimeout('window.location = "<%= @rdr_download_url %>"',100);
+  </script>
+<% end %>
