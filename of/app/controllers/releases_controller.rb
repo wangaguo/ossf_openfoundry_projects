@@ -77,6 +77,12 @@ class ReleasesController < ApplicationController
     @project_name = Project.find(params[:project_id]).name
     @releases = Release.find :all,
       :conditions => "project_id = #{params[:project_id]} AND status = 1", :order => "created_at desc" 
+
+    #use session to rememer FILE after SURVEY form filled...
+    if session[:saved_download_path]
+      @rdr_download_url = "#{request.protocol}of.openfoundry.org#{session[:saved_download_path]}" 
+      session[:saved_download_path] = nil
+    end
   end
   
   def create
