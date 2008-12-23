@@ -1,6 +1,6 @@
 class Fileentity < ActiveRecord::Base
   belongs_to :release
-  
+  has_one :survey 
   #add fulltext indexed SEARCH
   acts_as_ferret({
                  :fields => { 
