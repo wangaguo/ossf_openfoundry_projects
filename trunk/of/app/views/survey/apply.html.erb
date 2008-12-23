@@ -1,0 +1,28 @@
+<%
+  prompt = @survey.prompt
+  resource = @survey.resource
+%>
+  <div id="result">
+  </div>
+  <% form_for @downloader, 
+    :url => downloader_path(@project.name, @release.version, @file.path, @survey) do |f|%>
+<dl>
+  <h3>Your requesting file: </h3>
+  <dt><%=@file%>
+  </dt>
+  <p class="SurveyPrompt" style="width:250px;height:50px"><%=prompt%></p>
+  <% Survey::ITEMS.each_with_index do |item, i| %>
+    <% next if resource[i] == 48 or resource[i] == 52 #'not selected' or 'hidden' 
+      %>
+      <dt>  
+    <span class="SurveyLabel"><%=_(item)%> </span>
+    <% if resource[i] == 50 #mandatory
+       %>
+      <%= required_icon %>
+    <% end %>
+    <dd> 
+    <input class="SurveyItem" id="SurveyItem" name="downloader[<%=item%>]">
+  <%end%>
+</dl>
+<input type="submit" value="<%= s_('Survey|Submit') %>"/> 
+<% end %>
