@@ -146,6 +146,14 @@ class UserController < ApplicationController
     
     @user = User.new(params['user'])
     if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
+       
+      #Remind user to ENABLE COOKIE!
+      if cookies['_of_session_id'].nil?
+        @extra_flash = '<p class="flasherror">You must ENABLE cookie to login.</p>'
+        render 
+        return
+      end
+
       flash[:message] = _('user_login_succeeded')
       redirect_back_or_default :action => :home
       # For "paranoid session store"

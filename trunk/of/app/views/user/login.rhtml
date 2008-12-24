@@ -1,5 +1,10 @@
 <h1><%= _("Login to OpenFoundry") %></h1>
-<div id="Flash"><%= show_flash %></div>
+<div id="Flash">
+  <%= show_flash %>
+<% if @extra_flash %>
+  <%= @extra_flash %>
+<% end %>
+</div>
 <% form_tag '/user/login' do -%>
 <table id="LoginForm" class="form-table" title="Login Form" summary="Login Form" >
   <tr>
