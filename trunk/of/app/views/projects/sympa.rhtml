@@ -1,2 +1,2 @@
 <%# render( :partial => "tabnav" ) %>
-<iframe name="<%= @project.name %>" id="sympa" src="<%= @Path %>" frameborder="0" scrolling="auto" style="border:none; width:750px; height:460px;" ></iframe>
+<iframe name="<%= @project.name %>" id="sympa" src="<%= @Path %>" frameborder="0" scrolling="auto" style="border:none; width:750px; height:460px;" onload="iframe_auto_height(this);"></iframe>
