@@ -151,3 +151,11 @@ Event.observe(window, 'load', SetHeader);
 function wo(url) {
   return "javascript:var a = window.open('" + url + "')";
 }
+
+function iframe_auto_height(iframe)
+{
+  var content_height = iframe.contentWindow.document.body.offsetHeight+50;
+  content_height = content_height < 300 ? 300 : content_height; //set minimal height
+  content_height = typeof content_height == 'number' ? content_height+"px" : content_height
+  iframe.setStyle({height:content_height});
+}
