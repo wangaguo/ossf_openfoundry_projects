@@ -1,0 +1,31 @@
+<% form_tag do %>
+  Project name:<br/>
+  <%= text_field_tag(:project_name, params[:project_name]) %><br/>
+  Role name:<br/>
+  <%= text_field_tag(:role_name, params[:role_name]) %><br/>
+  User login(s):<br/>
+  <%= text_area_tag(:user_logins, params[:user_logins]) %><br/>
+  <%= submit_tag "Add" %>
+<% end %>
+
+<%
+if params[:project_name]
+  p = Project.find_by_name(params[:project_name])
+  r = p.roles.find_by_name(params[:role_name])
+  us = params[:user_logins]
+  us.to_a.map(&:strip).each do |login|
+    begin
+      u = User.find_by_login(login)
+      r.users << u
+      msg = "ok!"
+    rescue
+      msg = $!
+    end
+%>
+  <%= "login \"#{login}\": " + h(msg) %>
+  <br/>
+<%
+  end
+end
+%>
+
