@@ -45,4 +45,10 @@ class Release < ActiveRecord::Base
   def self.new_releases
     Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 5)
   end
+
+  def self.published_releases(options = {})
+    a = options[:alias]
+    if a;a += '.';end        
+    "(#{a}status = 1)"    
+  end
 end

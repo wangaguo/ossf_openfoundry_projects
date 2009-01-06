@@ -11,4 +11,9 @@ class Fileentity < ActiveRecord::Base
                  :single_index => true,
                  :default_field => [:name, :description]
                  },{ :analyzer => GENERIC_ANALYZER } )          
+  def self.published_files(options = {})
+    a = options[:alias]
+    if a;a += '.';end        
+    "(#{a}status = 1)"    
+  end
 end
