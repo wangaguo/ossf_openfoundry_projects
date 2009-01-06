@@ -78,7 +78,7 @@ module ApplicationHelper
           when 'rt'
             level_name, level_class, level_title = 
               _('Issue Tracker'), "rt", 'subject'
-          when 'download'
+          when 'download_path'
             level_name, level_class, level_title = 
               _('Downloads'), nil, nil
           when 'top'
@@ -87,15 +87,29 @@ module ApplicationHelper
           when 'latest'
             level_name, level_class, level_title = 
               _('Latest Releases'), nil, nil
+          when 'help'
+            level_name, level_class, level_title = 
+              _('Help'), 'help', nil
+          when 'survey'
+            level_name, level_class, level_title = 
+              _('Survey'), 'survey', nil
           else
-            level_name = _("#{level.humanize.capitalize}") 
+            if (["help"].include?(level_class)==true) 
+              level_name = ''
+            else
+              level_name = _("#{level.humanize.capitalize}")
+            end
           end
-        elsif level =~ /\d/
-          if(["rt"].include?(level_class)==false)
-            level_name_char = h(level_class.find(level).send(level_title).chars)
-            level_name = left_slice(level_name_char, 20)
-            if level_name_char.length > level_name.length
-              level_name += "..."
+        elsif level =~ /\d/ and level_class
+          if(["rt","help","survey"].include?(level_class)==false)
+            begin
+              level_name_char = h(level_class.find(level).send(level_title).chars)
+              level_name = left_slice(level_name_char, 20)
+              if level_name_char.length > level_name.length
+                level_name += "..."
+              end
+            rescue
+              level_name = level
             end
           end
         end
