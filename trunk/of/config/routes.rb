@@ -22,6 +22,17 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
   map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
   map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
+
+  #downloaders' reviews: for project, release, and file
+  map.project_review '/projects/:id/reviews', 
+                      :controller => 'survey', :action => 'review'
+  map.release_review '/projects/:id/releases/:version/reviews',
+                      :controller => 'survey', :action => 'review',
+                      :requirements => {:version => /.+/}
+  map.file_review '/projects/:id/releases/:version/files/:path/reviews',
+                      :controller => 'survey', :action => 'review',
+                      :requirements => {:path => /.+/, :version => /.+/}
+
   map.resources :projects,
                 :collection => { :applied => :get, :tableizer => :get, :test_action => :any },
                 :member => { :sympa => :get, :viewvc => :get, :role_users => :any, 
@@ -66,6 +77,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :rt,
                 :singular => 'rt1',
                 :name_prefix => 'site_'
+  map.resources :survey,
+                :path_prefix => '/projects/:project_id',
+                :member => {:update => :post, :apply => :any }
+
   map.resources :nscreports,
                 :controller => 'nscreports',
                 :path_prefix => '/projects/:project_id/nsc'
@@ -92,6 +107,12 @@ ActionController::Routing::Routes.draw do |map|
 
   #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 
   map.connect '~:user_alias', :controller => 'user', :action => 'home'
+
+  #for downloader survey 
+  map.downloader 'download_path/:project_name/:release_version/:file_name/survey/:id',
+    :controller => 'survey',
+    :action => 'apply',
+    :requirements => {:file_name => /.+/, :release_version => /.+/}
 
   #for download area~
   map.download 'download_path/:project_name/:release_version/:file_name',
