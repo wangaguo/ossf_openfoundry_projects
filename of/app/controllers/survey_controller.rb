@@ -4,6 +4,30 @@ class SurveyController < ApplicationController
   #before_filter :check_permission
   #before_filter :default_module_name
   
+  def review
+    #show file
+    if params[:id] and params[:version] and params[:path] 
+      @downloaders = Downloader.file_reviews params[:id],params[:version],params[:path]
+      #render :text => "#{@downloaders.length}" 
+    end
+
+    #show release
+    if params[:id] and params[:version] and !params[:path] 
+      @downloaders = Downloader.release_reviews params[:id],params[:version]
+      #render :text => 'release!'
+    end
+
+    #show project
+    if params[:id] and !params[:version] and !params[:path] 
+      #render :text => 'project!'
+      @downloaders = Downloader.project_reviews(params[:id])
+    end
+    
+    #@downloaders ||= Downloader.find :all
+    render #:layout => false
+    return  
+  end
+
   def show
     project_id = params[:project_id]
     unless Project.exists?(project_id)
