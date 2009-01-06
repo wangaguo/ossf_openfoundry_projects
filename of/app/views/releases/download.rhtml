@@ -2,7 +2,15 @@
   <table class=list-table>
   <% @releases.each do |release|%>
     <tr>
-      <th style="text-align: left"><B><%= "<a name=\"#{h(release.version)}\"></a>" + h(release.version) + " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %></B></th>
+      <th style="text-align: left">
+        <B><%= "<a name=\"#{h(release.version)}\"></a>" + 
+          h(release.version) + 
+          " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %>
+        </B>
+      </th>
+      <th style="text-align: right">
+        <%= link_to 'downloader reviews', release_review_path(@project.id, release.version) %>
+      </th>
     </tr>
     <% @files = release.fileentity %>
     <% @files.each do |file| %>
@@ -12,6 +20,9 @@
 					       :file_name => file.path ) %></h2>
       <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits ") + file.file_counter.to_s %><br>
         <%= h(file.description) %>
+      </td>
+      <td style="tset-align: right">
+        <%= link_to 'downloader reviews', file_review_path(@project.id, release.version, file.path) %>
       </td>
     </tr>
     <% end %>
