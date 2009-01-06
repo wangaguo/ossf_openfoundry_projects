@@ -7,6 +7,7 @@ function init()
   if(parent.document.getElementById("of_module"))
     parent.document.getElementById("of_module").style.height = this.document.body.scrollHeight+50+"px";
   multi_lang();
+  $("a[href*='http:']").attr("target","_top");
 }
 
 if(window.attachEvent)
