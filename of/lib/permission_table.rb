@@ -94,7 +94,15 @@ module OpenFoundry
       :removefile => :release,
       :delete => :release
       #:top
-    }#,
+    },
+    :survey => survey_pt = {
+      :index => :survey,
+      :show => :survey,
+      :apply => :survey,
+      :review => :survey,
+      :update => :survey
+    }
+    #,
     #:rt,
     #:kwiki,
     #:images,
@@ -110,6 +118,7 @@ module OpenFoundry
   citations_pt.default = default_permission
   references_pt.default = default_permission
   releases_pt.default = default_permission
+  survey_pt.default = default_permission
 
   default_pt = {}
   default_pt.default = default_permission
