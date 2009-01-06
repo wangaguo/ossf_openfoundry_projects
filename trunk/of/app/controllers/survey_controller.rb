@@ -1,7 +1,7 @@
 class SurveyController < ApplicationController
   layout 'application'
   #see lib/permission_table.rb
-  #before_filter :check_permission
+  before_filter :check_permission
   #before_filter :default_module_name
   
   def review

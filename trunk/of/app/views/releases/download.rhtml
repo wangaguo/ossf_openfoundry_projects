@@ -8,9 +8,11 @@
           " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %>
         </B>
       </th>
-      <th style="text-align: right">
-        <%= link_to 'downloader reviews', release_review_path(@project.id, release.version) %>
-      </th>
+      <% if @permissions.include?(:survey) %>
+        <th style="text-align: right">
+          <%= link_to 'downloader reviews', release_review_path(@project.id, release.version) %>
+        </th>
+      <% end %>
     </tr>
     <% @files = release.fileentity %>
     <% @files.each do |file| %>
@@ -21,9 +23,11 @@
       <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits ") + file.file_counter.to_s %><br>
         <%= h(file.description) %>
       </td>
-      <td style="tset-align: right">
-        <%= link_to 'downloader reviews', file_review_path(@project.id, release.version, file.path) %>
-      </td>
+      <% if @permissions.include?(:survey)%>
+        <td style="tset-align: right">
+          <%= link_to 'downloader reviews', file_review_path(@project.id, release.version, file.path) %>
+        </td>
+      <% end %>
     </tr>
     <% end %>
   <% end %>
