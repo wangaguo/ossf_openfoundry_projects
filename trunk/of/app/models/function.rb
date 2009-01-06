@@ -71,4 +71,19 @@ class Function < ActiveRecord::Base
       return false;
     end
   end
+  N_("Permission|Modify Project Information")
+  N_("Permission|Add/Remove Project Members")
+  N_("Permission|Edit Role Permissions")
+  N_("Permission|Manage Releases")
+  N_("Permission|Manage News")
+  N_("Permission|Manage Help Wanted")
+  N_("Permission|Manage Citations")
+  N_("Permission|Manage References")
+  N_("Permission|Manage Kwiki Pages")
+  N_("Permission|Set As Tracker Admin")
+  N_("Permission|Set As Tracker CC")
+  N_("Permission|Manage Sympa Mailing Lists")
+  N_("Permission|Commit Changes")
+  N_("Permission|Ftp Access")
+
 end
