@@ -240,7 +240,7 @@ class ReleasesController < ApplicationController
         src_path = "#{Project::PROJECT_UPLOAD_PATH}/#{project_name}/upload/#{basename}"
         next if not File.exist?(src_path)
 
-        r.fileentity << make_file_entity(basename, File.size(src_path))
+        r.fileentity << make_file_entity(params[:id], basename, File.size(src_path))
         
         if system("/home/openfoundry/bin/move_upload_files2", src_path, dest_dir) == 0
           added = true
@@ -318,8 +318,8 @@ class ReleasesController < ApplicationController
   private
   
   #建立檔案的database entry, 會連結到外部ftp hook
-  def make_file_entity(path, size)
-    unless ( ret=Fileentity.find_by_path(path) ).nil?
+  def make_file_entity(release_id, path, size)
+    unless ( ret=Fileentity.find_by_release_id_and_path(release_id, path) ).nil?
       ret
     else
       #TODO collect meta info for FILE, move FILE
