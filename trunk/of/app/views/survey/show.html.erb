@@ -4,10 +4,10 @@
     </dt>
   <%end%>
   <%#= resource.inspect%>
-  <h3>Say something to end-users:</h3>
+  <h3><%= s_('survey|Say something to end-users:')%></h3>
   <textarea class="SurveyPrompt" style="width:250px;height:50px"><%=prompt%></textarea>
   <% Survey::ITEMS.each_with_index do |item, i| %>
-    <dt><h3> <%=s_("Survey|#{item}")%> </h3>
+    <dt><h3> <%=s_("survey|#{item}")%> </h3>
     <dd> 
     <% case resource[i] 
      when 48,49,50; 
@@ -16,7 +16,7 @@
     <% Survey::ITEM_STATUS.each_with_index do |status, j|%>
       <% checked =( (resource[i]) == j+48)? 'checked':'' unless masked%>
       <% classname = ' SurveyItemMasked' if masked%>
-      <input class="SurveyItem<%=classname%>" type="radio" name="<%=i%>" value="<%=j%>" <%=checked%>> <%=status%>  
+      <input class="SurveyItem<%=classname%>" type="radio" name="<%=i%>" value="<%=j%>" <%=checked%>> <%= s_("survey|#{status}") %>  
     <%end%>
   <%end%>
 </dl>

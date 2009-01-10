@@ -31,14 +31,19 @@ class Survey < ActiveRecord::Base
 
     return [rtn_resource, rtn_prompt]
   end
-  N_('Survey|name')
-  N_('Survey|email')
-  N_('Survey|purpose')
-  N_('Survey|homepage')
-  N_('Survey|citation')
-  N_('Survey|contact')
-  N_('Survey|occupation')
-  N_('Survey|age')
-  N_('Survey|interests')
-  N_('Survey|skills')
+
+  N_('survey|hedden')
+  N_('survey|optional')
+  N_('survey|mandatory')
+
+  N_('survey|name')
+  N_('survey|email')
+  N_('survey|purpose')
+  N_('survey|homepage')
+  N_('survey|citation')
+  N_('survey|contact')
+  N_('survey|occupation')
+  N_('survey|age')
+  N_('survey|interests')
+  N_('survey|skills')
 end
