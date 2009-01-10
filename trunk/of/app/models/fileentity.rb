@@ -16,4 +16,7 @@ class Fileentity < ActiveRecord::Base
     if a;a += '.';end        
     "(#{a}status = 1)"    
   end
+
+  named_scope :active, :conditions => ['status = 1']
+  named_scope :inactive, :conditions => ['status = 0']
 end
