@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-10 01:54-0000\n"
+"POT-Creation-Date: 2009-01-10 02:22-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -774,6 +774,62 @@ msgstr "修改時間"
 msgid "Job|Updated by"
 msgstr "修改者"
 
+#: app/models/survey.rb:-
+msgid "survey"
+msgstr ""
+
+#: app/models/survey.rb:35
+msgid "survey|hedden"
+msgstr "隱藏"
+
+#: app/models/survey.rb:36
+msgid "survey|optional"
+msgstr "非必填"
+
+#: app/models/survey.rb:37
+msgid "survey|mandatory"
+msgstr "必填"
+
+#: app/models/survey.rb:39
+msgid "survey|name"
+msgstr "大名"
+
+#: app/models/survey.rb:40
+msgid "survey|email"
+msgstr "電子郵件"
+
+#: app/models/survey.rb:41
+msgid "survey|purpose"
+msgstr "目的"
+
+#: app/models/survey.rb:42
+msgid "survey|homepage"
+msgstr "個人首頁"
+
+#: app/models/survey.rb:43
+msgid "survey|citation"
+msgstr "引用資訊"
+
+#: app/models/survey.rb:44
+msgid "survey|contact"
+msgstr "連絡方式"
+
+#: app/models/survey.rb:45
+msgid "survey|occupation"
+msgstr "職業"
+
+#: app/models/survey.rb:46
+msgid "survey|age"
+msgstr "年齡"
+
+#: app/models/survey.rb:47
+msgid "survey|interests"
+msgstr "興趣"
+
+#: app/models/survey.rb:48
+msgid "survey|skills"
+msgstr "專長"
+
 #: app/models/citation.rb:-
 msgid "citation"
 msgstr "引用資訊"
@@ -1348,6 +1404,10 @@ msgstr "尋求支援"
 #: app/controllers/references_controller.rb:22
 msgid "Project References"
 msgstr "參考文獻"
+
+#: app/controllers/survey_controller.rb:106
+msgid "You have to fill the REQUIRED fileds."
+msgstr ""
 
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
 #: app/views/projects/test_action_i18n______________.rhtml:253

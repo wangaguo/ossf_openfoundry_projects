@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-10 01:54-0000\n"
+"POT-Creation-Date: 2009-01-10 02:22-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -774,6 +774,62 @@ msgstr ""
 msgid "Job|Updated by"
 msgstr ""
 
+#: app/models/survey.rb:-
+msgid "survey"
+msgstr ""
+
+#: app/models/survey.rb:35
+msgid "survey|hedden"
+msgstr ""
+
+#: app/models/survey.rb:36
+msgid "survey|optional"
+msgstr ""
+
+#: app/models/survey.rb:37
+msgid "survey|mandatory"
+msgstr ""
+
+#: app/models/survey.rb:39
+msgid "survey|name"
+msgstr ""
+
+#: app/models/survey.rb:40
+msgid "survey|email"
+msgstr ""
+
+#: app/models/survey.rb:41
+msgid "survey|purpose"
+msgstr ""
+
+#: app/models/survey.rb:42
+msgid "survey|homepage"
+msgstr ""
+
+#: app/models/survey.rb:43
+msgid "survey|citation"
+msgstr ""
+
+#: app/models/survey.rb:44
+msgid "survey|contact"
+msgstr ""
+
+#: app/models/survey.rb:45
+msgid "survey|occupation"
+msgstr ""
+
+#: app/models/survey.rb:46
+msgid "survey|age"
+msgstr ""
+
+#: app/models/survey.rb:47
+msgid "survey|interests"
+msgstr ""
+
+#: app/models/survey.rb:48
+msgid "survey|skills"
+msgstr ""
+
 #: app/models/citation.rb:-
 msgid "citation"
 msgstr ""
@@ -1347,6 +1403,10 @@ msgstr ""
 
 #: app/controllers/references_controller.rb:22
 msgid "Project References"
+msgstr ""
+
+#: app/controllers/survey_controller.rb:106
+msgid "You have to fill the REQUIRED fileds."
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
