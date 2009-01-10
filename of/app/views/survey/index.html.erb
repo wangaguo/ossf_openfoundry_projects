@@ -1,5 +1,5 @@
 <fieldset style="overflow:auto;height:400px;width:300px;float:left">
-  <legend>Project Contents</legend>
+  <legend><%= s_('survey|Project Contents')%></legend>
   <div class="" id="ProjectTree" style="overflow:auto;height:380px;width:300px"> 
 <ul>
   <%@releases.each do |release| -%>
@@ -22,7 +22,7 @@
 
 <fieldset style="float:left;overflow:auto;height:400px;width:400px">
   <legend>
-    Project Surveys
+    <%= s_('survey|Project Surveys')%>
     <img id="Survey_Loading" width="15px" height="15px" src="/images/ajax-loader.gif" style="display:none"/>
   </legend>
   <input type="button" value="Apply" onclick="applySurvey();">
