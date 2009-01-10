@@ -95,6 +95,13 @@ document.observe("dom:loaded", project_leftmenu_init);
     <% if functions.include?('role_edit') -%>
       <li><%= link_to _('project_Permission Control'), :controller => :projects, :action => "permission_edit", :id =>@project%></li>
     <% end -%>
+    <% if functions.include?('survey') -%>
+      <li><%= link_to _('project_Surveys'), survey_index_path(:project_id => @project.id), :class => 'subimg'%>
+        <ul>
+          <li><%= link_to _('project_Downloaders'), project_review_path(@project.id)%></li>
+        </ul>
+      </li>
+    <% end -%>
     <% if is_nsc_project %>
     <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
     <% end %>
