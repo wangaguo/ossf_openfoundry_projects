@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-10 02:22-0000\n"
+"POT-Creation-Date: 2009-01-10 02:49-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -812,8 +812,9 @@ msgid "survey"
 msgstr ""
 
 #: app/models/survey.rb:35
-msgid "survey|hedden"
-msgstr ""
+#, fuzzy
+msgid "survey|hidden"
+msgstr "Project Name"
 
 #: app/models/survey.rb:36
 msgid "survey|optional"
