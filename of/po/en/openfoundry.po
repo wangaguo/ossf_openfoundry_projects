@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2008-12-17 07:05-0000\n"
+"POT-Creation-Date: 2009-01-10 01:54-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1228,32 +1228,32 @@ msgstr ""
 msgid "Release"
 msgstr "Release"
 
-#: app/controllers/releases_controller.rb:192
+#: app/controllers/releases_controller.rb:204
 msgid "Release id not found!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:200
+#: app/controllers/releases_controller.rb:212
 msgid "Bad project name: #{project_name}"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:204
+#: app/controllers/releases_controller.rb:216
 #, fuzzy
 msgid "Project id not found!"
 msgstr "Icon"
 
-#: app/controllers/releases_controller.rb:209
+#: app/controllers/releases_controller.rb:221
 msgid "You doesn't select any files!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:215
+#: app/controllers/releases_controller.rb:227
 msgid "Bad version: #{r.version}"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:240
+#: app/controllers/releases_controller.rb:252
 msgid "Your files have been added to Release!"
 msgstr ""
 
-#: app/controllers/releases_controller.rb:242
+#: app/controllers/releases_controller.rb:254
 msgid "No file has been added!"
 msgstr ""
 
@@ -1577,7 +1577,7 @@ msgid "How to Access"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:49
-#: app/views/partials/_project_menu.rhtml:99
+#: app/views/partials/_project_menu.rhtml:107
 #, fuzzy
 msgid "NSC project"
 msgstr "New Project"
@@ -1595,6 +1595,21 @@ msgstr "Manage Releases"
 #: app/views/projects/test_action_i18n______________.rhtml:160
 msgid "release_New"
 msgstr "New Release"
+
+#: app/views/partials/_project_menu.rhtml:99
+#, fuzzy
+msgid "project menu|Surveys"
+msgstr "View"
+
+#: app/views/partials/_project_menu.rhtml:101
+#, fuzzy
+msgid "project menu|Surveys Edit"
+msgstr "Admin"
+
+#: app/views/partials/_project_menu.rhtml:102
+#, fuzzy
+msgid "project menu|Downloaders"
+msgstr "Top Downloads"
 
 #: app/views/partials/_toua.rhtml:2
 #: app/views/projects/test_action_i18n______________.rhtml:277
@@ -2845,6 +2860,10 @@ msgstr ""
 
 #: app/views/site_admin/site_admin/index.rhtml:51
 msgid "Rebuild Ferret Index"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:57
+msgid "大量加入使用者成為某角色"
 msgstr ""
 
 #: app/views/site_admin/site_admin/new_site_mail.rhtml:6
