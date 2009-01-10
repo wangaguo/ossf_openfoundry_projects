@@ -3,8 +3,8 @@ class Downloader < ActiveRecord::Base
   belongs_to :user
   belongs_to :release
   belongs_to :project
-  def check_mandatory(resource)#TODO impl!
-    return true
+  def check_mandatory(resource)
+    return resource.index('2')
   end
 
   named_scope :file_reviews, (
@@ -27,4 +27,5 @@ class Downloader < ActiveRecord::Base
     {:conditions => [ 'project_id = ?', pid ]}
     }
   )
+  named_scope :recent, lambda{|ago| {:conditions => ['updated_at > ?', ago||1.day.ago] }}
 end
