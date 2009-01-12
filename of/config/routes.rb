@@ -79,7 +79,7 @@ ActionController::Routing::Routes.draw do |map|
                 :name_prefix => 'site_'
   map.resources :survey,
                 :path_prefix => '/projects/:project_id',
-                :member => {:update => :post, :apply => :any }
+                :member => {:update => :post, :apply => :any, :delete => :post}
 
   map.resources :nscreports,
                 :controller => 'nscreports',
