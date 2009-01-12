@@ -51,6 +51,17 @@ class SurveyController < ApplicationController
         :files => files, :resource => resource, :prompt => prompt}
   end
 
+  def delete
+    #given :fileentity_ids
+    params['id'].split('_').each do |id|
+      if f=Fileentity.find_by_id(id)
+        f.survey.destroy if f.survey
+        f.save
+      end
+    end
+    redirect_to :action => :show
+  end
+
   def update
     #given :fileentity_ids #Array, :resource #String
     #will update/create survey for fileendity_id and set resource
