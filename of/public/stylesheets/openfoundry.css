@@ -324,4 +324,6 @@ width:500px;
 }
 .ProjectRoleDropDelete_active {background-color:#cff;}
 .RolesUsersSelection {border: 1px dashed #bbbbbb}
-}
+
+/* for survey mask */
+.SurveyItemMasked {background-color:#123456;}
