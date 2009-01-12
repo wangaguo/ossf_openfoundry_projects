@@ -86,7 +86,7 @@ class ReleasesController < ApplicationController
 
     #use session to rememer FILE after SURVEY form filled...
     if session[:saved_download_path]
-      @rdr_download_url = "#{request.protocol}of.openfoundry.org#{session[:saved_download_path]}" 
+      @rdr_download_url = "#{request.protocol}of.openfoundry.org/download/#{session[:saved_download_path]}" 
       session[:saved_download_path] = nil
     end
   end

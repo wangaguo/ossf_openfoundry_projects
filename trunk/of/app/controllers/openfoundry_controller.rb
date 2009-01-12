@@ -292,12 +292,17 @@ class OpenfoundryController < ApplicationController
     #check if project-release-file is match
     check_download_consistancy
 
+    download_path_saved = "#{@project.name}/#{@release.version}/#{@file.path}"
     #chech if file has a mandatory survey
     #TODO login user?
-    if survey_available? and (session[:filled_download_path] != request.path)
+    if( survey_available? 
+        #and (session[:saved_download_path] != download_path_saved )
+      )
+      #save directly download link!
+      session[:saved_download_path] = download_path_saved
+
       survey = @file.survey
 
-      session[:saved_download_path] = request.path
       #go to fill downloader form
       redirect_to downloader_path @project.name, @release.version, @file.path, survey.id 
 
@@ -307,7 +312,7 @@ class OpenfoundryController < ApplicationController
     if @error_msg.empty? 
       add_one_to_download_counter
       #session[:saved_download_path] = nil
-      redirect_to "#{request.protocol}of.openfoundry.org/download/#{@project.name}/#{@release.version}/#{@file.path}"
+      redirect_to "#{request.protocol}of.openfoundry.org/download/#{download_path_saved}"
     else
       render :text => @error_msg
     end
