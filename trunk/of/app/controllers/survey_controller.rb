@@ -86,7 +86,7 @@ class SurveyController < ApplicationController
     end
     @project = Project.find(project_id, :include => [Release, Fileentity])
     @releases = @project.releases
-    @resource = "\0"*11
+    @resource = '0'*11
     #render :text => ERB::Util.html_escape(@releases.inspect)
     #render :file => 'app/views/survey/show.html.erb', :layout => 'application'
   end
