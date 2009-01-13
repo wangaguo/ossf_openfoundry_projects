@@ -99,7 +99,7 @@ class SurveyController < ApplicationController
     end
     @survey = Survey.find_by_id params['id']
     if request.method == :get
-      @downloader = Downloader.new
+      @downloader = Downloader.new(params['downloader'])
     elsif request.method == :post
       #TODO login user?
       
@@ -112,16 +112,16 @@ class SurveyController < ApplicationController
       end
 
       #validate fields...
-      downloader = Downloader.new(params['downloader'])
-      unless downloader.check_mandatory(@survey.resource)
-        flash['warning'] = _('You have to fill the REQUIRED fileds.')
+      @downloader = Downloader.new(params['downloader'])
+      unless @downloader.check_mandatory(@survey.resource)
+        flash[:warning] = s_('Survey|You have to fill the REQUIRED fileds.')
         return
       end
-      downloader.user = current_user
-      downloader.project = @project
-      downloader.fileentity = @file
-      downloader.release = @release
-      downloader.save
+      @downloader.user = current_user
+      @downloader.project = @project
+      @downloader.fileentity = @file
+      @downloader.release = @release
+      @downloader.save
       redirect_to download1_path @project 
       return
     end
