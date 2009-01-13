@@ -32,7 +32,7 @@ class Survey < ActiveRecord::Base
     return [rtn_resource, rtn_prompt]
   end
 
-  N_('survey|hedden')
+  N_('survey|hidden')
   N_('survey|optional')
   N_('survey|mandatory')
 
