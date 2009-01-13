@@ -1,12 +1,12 @@
 <h1> <%= s_('survey|Survey Reviews') %></h1>
 <% columns = Downloader.content_columns%>
-<% columns.reject!{|col| ['creator', 'updated_at', 'created_at', 'updated_by'].include? col.name} %>
+<% columns.reject!{|col| ['file', 'creator', 'updated_at', 'created_at', 'updated_by'].include? col.name} %>
 <div>
   <table class="list-table">
     <tr>
       <% columns.each do |col|%>
         <th>
-          <%= col.human_name %>
+          <%= s_("survey|#{col.name}") %>
         </th>
         <% end %>
     </tr>
