@@ -4,7 +4,13 @@ class Downloader < ActiveRecord::Base
   belongs_to :release
   belongs_to :project
   def check_mandatory(resource)
-    return resource.index('2')
+    Downloader.content_columns.each_with_index do |col,i| 
+      next if ['creator', 'updated_at', 'created_at', 'updated_by'].include? col.name
+      if self.send(col.name).blank? and resource[i] == 50 #mandatory
+        return false
+      end
+    end
+    return true
   end
 
   named_scope :file_reviews, (
