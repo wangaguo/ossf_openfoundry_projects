@@ -291,6 +291,7 @@ class OpenfoundryController < ApplicationController
   def download
     #check if project-release-file is match
     check_download_consistancy
+    add_one_to_download_counter
 
     download_path_saved = "#{@project.name}/#{@release.version}/#{@file.path}"
     #chech if file has a mandatory survey
@@ -310,7 +311,6 @@ class OpenfoundryController < ApplicationController
     end
 
     if @error_msg.empty? 
-      add_one_to_download_counter
       #session[:saved_download_path] = nil
       redirect_to "#{request.protocol}of.openfoundry.org/download/#{download_path_saved}"
     else
