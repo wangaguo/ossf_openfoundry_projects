@@ -10,7 +10,8 @@
       </th>
       <% if @permissions.include?(:survey) %>
         <th style="text-align: right;">
-          <%= link_to 'downloader reviews', release_review_path(@project.id, release.version) %>
+          <%= link_to s_('survey|Downloader Reviews'),
+            release_review_path(@project.id, release.version) %>
         </th>
       <% end %>
     </tr>
@@ -25,7 +26,7 @@
       </td>
       <% if @permissions.include?(:survey)%>
         <td style="text-align: right;">
-          <%= link_to 'downloader reviews', 
+          <%= link_to s_('survey|Downloader Reviews'), 
             file_review_path(@project.id, release.version, file.path) %>
         </td>
       <% end %>
