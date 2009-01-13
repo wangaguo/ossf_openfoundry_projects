@@ -305,7 +305,7 @@ class OpenfoundryController < ApplicationController
       survey = @file.survey
 
       #go to fill downloader form
-      redirect_to downloader_path @project.name, @release.version, @file.path, survey.id 
+      redirect_to( downloader_path( @project.name, @release.version, @file.path, survey.id )) 
 
       return
     end
