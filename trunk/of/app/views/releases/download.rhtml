@@ -9,7 +9,7 @@
         </B>
       </th>
       <% if @permissions.include?(:survey) %>
-        <th style="text-align: right">
+        <th style="text-align: right;">
           <%= link_to 'downloader reviews', release_review_path(@project.id, release.version) %>
         </th>
       <% end %>
@@ -24,8 +24,9 @@
         <%= h(file.description) %>
       </td>
       <% if @permissions.include?(:survey)%>
-        <td style="tset-align: right">
-          <%= link_to 'downloader reviews', file_review_path(@project.id, release.version, file.path) %>
+        <td style="text-align: right;">
+          <%= link_to 'downloader reviews', 
+            file_review_path(@project.id, release.version, file.path) %>
         </td>
       <% end %>
     </tr>
