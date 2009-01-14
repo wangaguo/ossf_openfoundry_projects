@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-10 02:49-0000\n"
+"POT-Creation-Date: 2009-01-13 09:45-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,7 +103,18 @@ msgstr "Top Downloads"
 msgid "Latest Releases"
 msgstr "Release"
 
-#: app/helpers/application_helper.rb:255 app/helpers/application_helper.rb:288
+#: app/helpers/application_helper.rb:92
+#: app/views/partials/_top_menu_data.rhtml:65
+#, fuzzy
+msgid "Help"
+msgstr "Help"
+
+#: app/helpers/application_helper.rb:95
+#, fuzzy
+msgid "Survey"
+msgstr "Project name"
+
+#: app/helpers/application_helper.rb:269 app/helpers/application_helper.rb:302
 #: app/views/projects/test_action_i18n______________.rhtml:173
 msgid "required_icon"
 msgstr "Required"
@@ -322,6 +333,72 @@ msgstr ""
 #, fuzzy
 msgid "Function|Updated by"
 msgstr "Summary"
+
+#: app/models/function.rb:74
+msgid "Permission|Modify Project Information"
+msgstr ""
+
+#: app/models/function.rb:75
+msgid "Permission|Add/Remove Project Members"
+msgstr ""
+
+#: app/models/function.rb:76
+#, fuzzy
+msgid "Permission|Edit Role Permissions"
+msgstr "Icon"
+
+#: app/models/function.rb:77
+#, fuzzy
+msgid "Permission|Manage Releases"
+msgstr "Preference"
+
+#: app/models/function.rb:78
+#, fuzzy
+msgid "Permission|Manage News"
+msgstr "Preference"
+
+#: app/models/function.rb:79
+#, fuzzy
+msgid "Permission|Manage Help Wanted"
+msgstr "Created at"
+
+#: app/models/function.rb:80
+#, fuzzy
+msgid "Permission|Manage Citations"
+msgstr "Icon"
+
+#: app/models/function.rb:81
+#, fuzzy
+msgid "Permission|Manage References"
+msgstr "Preference"
+
+#: app/models/function.rb:82
+#, fuzzy
+msgid "Permission|Manage Kwiki Pages"
+msgstr "Icon"
+
+#: app/models/function.rb:83
+msgid "Permission|Set As Tracker Admin"
+msgstr ""
+
+#: app/models/function.rb:84
+msgid "Permission|Set As Tracker CC"
+msgstr ""
+
+#: app/models/function.rb:85
+#, fuzzy
+msgid "Permission|Manage Sympa Mailing Lists"
+msgstr "Created at"
+
+#: app/models/function.rb:86
+#, fuzzy
+msgid "Permission|Commit Changes"
+msgstr "Icon"
+
+#: app/models/function.rb:87
+#, fuzzy
+msgid "Permission|Ftp Access"
+msgstr "Preference"
 
 #: app/models/session.rb:-
 msgid "session"
@@ -1174,94 +1251,94 @@ msgid "OpenID Login Succeeded"
 msgstr ""
 
 #: app/controllers/user_controller.rb:138
-#: app/controllers/user_controller.rb:160
+#: app/controllers/user_controller.rb:168
 #: app/views/projects/test_action_i18n______________.rhtml:91
 msgid "user_login_failed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:149
+#: app/controllers/user_controller.rb:157
 #: app/views/projects/test_action_i18n______________.rhtml:314
 msgid "user_login_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:185
+#: app/controllers/user_controller.rb:193
 #: app/views/projects/test_action_i18n______________.rhtml:172
 msgid "user_signup_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:190
+#: app/controllers/user_controller.rb:198
 #: app/views/projects/test_action_i18n______________.rhtml:235
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:220
+#: app/controllers/user_controller.rb:228
 #: app/views/projects/test_action_i18n______________.rhtml:124
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:222
+#: app/controllers/user_controller.rb:230
 #: app/views/projects/test_action_i18n______________.rhtml:271
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:254
+#: app/controllers/user_controller.rb:262
 #: app/views/projects/test_action_i18n______________.rhtml:96
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:257
+#: app/controllers/user_controller.rb:265
 #: app/views/projects/test_action_i18n______________.rhtml:134
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:272
+#: app/controllers/user_controller.rb:280
 #: app/views/projects/test_action_i18n______________.rhtml:34
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:274
+#: app/controllers/user_controller.rb:282
 #: app/views/projects/test_action_i18n______________.rhtml:108
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:286
+#: app/controllers/user_controller.rb:294
 #: app/views/projects/test_action_i18n______________.rhtml:319
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:297
+#: app/controllers/user_controller.rb:305
 #: app/views/projects/test_action_i18n______________.rhtml:166
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:327
+#: app/controllers/user_controller.rb:335
 #: app/views/projects/test_action_i18n______________.rhtml:115
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:352
+#: app/controllers/user_controller.rb:360
 #: app/views/projects/test_action_i18n______________.rhtml:278
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:361
+#: app/controllers/user_controller.rb:369
 #: app/views/projects/test_action_i18n______________.rhtml:285
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:372
+#: app/controllers/user_controller.rb:380
 #: app/views/projects/test_action_i18n______________.rhtml:180
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:396
+#: app/controllers/user_controller.rb:404
 #: app/views/projects/test_action_i18n______________.rhtml:167
 msgid "user_delete_finished"
 msgstr ""
 
-#: app/controllers/user_controller.rb:480
+#: app/controllers/user_controller.rb:488
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -1283,6 +1360,18 @@ msgstr ""
 #: app/controllers/application.rb:289 app/controllers/images_controller.rb:197
 #: app/views/projects/test_action_i18n______________.rhtml:141
 msgid "you have no permission"
+msgstr ""
+
+#: app/controllers/application.rb:324
+msgid "The project \"%{project}\" you are requesting does not exist."
+msgstr ""
+
+#: app/controllers/application.rb:326
+msgid "The release \"%{release}\" you are requesting does not exist."
+msgstr ""
+
+#: app/controllers/application.rb:328
+msgid "The file \"%{file_name}\" you are requesting does not exist."
 msgstr ""
 
 #: app/controllers/releases_controller.rb:11
@@ -1330,18 +1419,6 @@ msgid ""
 "left corner. If you really want to submit a ticket as guest, please leave "
 "your contact information, such as email address, in the ticket body, so the "
 "developers can contact you when the issue is resolved. "
-msgstr ""
-
-#: app/controllers/openfoundry_controller.rb:315
-msgid "The file \"%{filename}\" you are requesting does not exist."
-msgstr ""
-
-#: app/controllers/openfoundry_controller.rb:319
-msgid "The release \"%{release}\" you are requesting does not exist."
-msgstr ""
-
-#: app/controllers/openfoundry_controller.rb:323
-msgid "The project \"%{project}\" you are requesting does not exist."
 msgstr ""
 
 #: app/controllers/projects_controller.rb:34
@@ -1478,8 +1555,8 @@ msgstr "Created at"
 msgid "Project References"
 msgstr "Preference"
 
-#: app/controllers/survey_controller.rb:106
-msgid "You have to fill the REQUIRED fileds."
+#: app/controllers/survey_controller.rb:117
+msgid "Survey|You have to fill the REQUIRED fileds."
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
@@ -1555,7 +1632,7 @@ msgstr ""
 
 #: app/views/partials/_login.rhtml:13
 #: app/views/projects/test_action_i18n______________.rhtml:276
-#: app/views/user/login.rhtml:32
+#: app/views/user/login.rhtml:38
 msgid "Login"
 msgstr ""
 
@@ -1896,11 +1973,6 @@ msgstr "Contact Us"
 msgid "Bug Report"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:65
-#, fuzzy
-msgid "Help"
-msgstr "Help"
-
 #: app/views/partials/_top_menu_data.rhtml:67 app/views/layouts/admin.rhtml:6
 #: app/views/projects/test_action_i18n______________.rhtml:249
 msgid "OpenFoundry"
@@ -2069,7 +2141,11 @@ msgstr "Project name"
 msgid "Download"
 msgstr ""
 
-#: app/views/releases/download.rhtml:15
+#: app/views/releases/download.rhtml:13 app/views/releases/download.rhtml:29
+msgid "survey|Downloader Reviews"
+msgstr ""
+
+#: app/views/releases/download.rhtml:24
 #: app/views/projects/test_action_i18n______________.rhtml:8
 msgid "Downloads Hits "
 msgstr ""
@@ -2576,7 +2652,7 @@ msgid "Status"
 msgstr "Status"
 
 #: app/views/projects/test_action_i18n______________.rhtml:110
-#: app/views/user/login.rhtml:14
+#: app/views/user/login.rhtml:20
 msgid "Password"
 msgstr ""
 
@@ -2644,7 +2720,7 @@ msgid "User Icon"
 msgstr "Icon"
 
 #: app/views/projects/test_action_i18n______________.rhtml:191
-#: app/views/user/login.rhtml:24
+#: app/views/user/login.rhtml:30
 msgid "Remember me on this computer"
 msgstr ""
 
@@ -2705,7 +2781,7 @@ msgid "User|Salt"
 msgstr ""
 
 #: app/views/projects/test_action_i18n______________.rhtml:231
-#: app/views/user/login.rhtml:6
+#: app/views/user/login.rhtml:12
 msgid "Login ID"
 msgstr ""
 
@@ -2802,7 +2878,7 @@ msgid "User|Password Confirmation"
 msgstr "Re-enter New Password"
 
 #: app/views/projects/test_action_i18n______________.rhtml:305
-#: app/views/user/login.rhtml:34
+#: app/views/user/login.rhtml:40
 msgid "Forgot my password"
 msgstr ""
 
@@ -2853,7 +2929,7 @@ msgid "User|Email"
 msgstr "Email Address"
 
 #: app/views/projects/test_action_i18n______________.rhtml:346
-#: app/views/user/login.rhtml:33
+#: app/views/user/login.rhtml:39
 msgid "Register for an account"
 msgstr ""
 
@@ -2993,21 +3069,47 @@ msgstr "Preference"
 msgid "Mail|Sincerely, OSSF Team http://www.openfoundry.org"
 msgstr ""
 
+#: app/views/survey/apply.html.erb:28
+#, fuzzy
+msgid "survey|Submit"
+msgstr "Email Address"
+
+#: app/views/survey/index.html.erb:2
+#, fuzzy
+msgid "survey|Project Contents"
+msgstr "Content License"
+
+#: app/views/survey/index.html.erb:25
+#, fuzzy
+msgid "survey|Project Surveys"
+msgstr "View"
+
+#: app/views/survey/index.html.erb:28
+#, fuzzy
+msgid "survey|Apply"
+msgstr "Email Address"
+
+#: app/views/survey/index.html.erb:29
+#, fuzzy
+msgid "survey|Remove"
+msgstr "Project Name"
+
+#: app/views/survey/index.html.erb:30
+#, fuzzy
+msgid "survey|Reset"
+msgstr "Project Name"
+
+#: app/views/survey/show.html.erb:7
+msgid "survey|Say something to end-users:"
+msgstr ""
+
+#: app/views/survey/review.html.erb:1
+msgid "survey|Survey Reviews"
+msgstr ""
+
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Permission|Manage Help Wanted"
-#~ msgstr "Created at"
-
-#, fuzzy
-#~ msgid "Permission|Manage Citations"
-#~ msgstr "Icon"
-
-#, fuzzy
-#~ msgid "Permission|Manage References"
-#~ msgstr "Preference"
 
 #, fuzzy
 #~ msgid "Job|description"
@@ -3073,9 +3175,6 @@ msgstr ""
 #~ msgstr "Change Setting"
 
 #~ msgid "Project UNIX Name"
-#~ msgstr "Project name"
-
-#~ msgid "Summary"
 #~ msgstr "Project name"
 
 #~ msgid "Project|summary"
