@@ -37,6 +37,9 @@
 </div>
 <% if @rdr_download_url %>
   <script>
-    setTimeout('window.location = "<%= @rdr_download_url %>"',100);
+    Event.observe(window,'load',redirect_download);
+    function redirect_download(){
+      window.location = "<%= @rdr_download_url %>";
+    }
   </script>
 <% end %>
