@@ -313,11 +313,11 @@ THECODE
     @release = @project.releases.find_by_version( 
              release_version, :select => 'id, version', 
                               :include => [:fileentity],
-                              :conditions => Release.published_releases ) if @project
+                              :conditions => Release.published_releases(:alias => 'releases') ) if @project
     @file = @release.fileentity.find_by_path( 
              file_name, :select => 'id, path',
                         :include => [:survey],
-                        :conditions => Fileentity.published_files ) if @release
+                        :conditions => Fileentity.published_files(:alias => 'fileentities') ) if @release
 
     @error_msg ||= ''
 
