@@ -85,5 +85,6 @@ class Function < ActiveRecord::Base
   N_("Permission|Manage Sympa Mailing Lists")
   N_("Permission|Commit Changes")
   N_("Permission|Ftp Access")
+  N_("Permission|Manager Download Surveys")
 
 end
