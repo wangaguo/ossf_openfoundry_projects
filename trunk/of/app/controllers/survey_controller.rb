@@ -5,6 +5,12 @@ class SurveyController < ApplicationController
   #before_filter :default_module_name
   
   def review
+    unless Project.exists?(params[:id])
+      render :text => 'Project not found'
+    end
+    @project = Project.find(params[:id])
+    params[:project_id]=@project.id
+
     #show file
     if params[:id] and params[:version] and params[:path] 
       @downloaders = Downloader.file_reviews params[:id],params[:version],params[:path]
@@ -22,10 +28,6 @@ class SurveyController < ApplicationController
       #render :text => 'project!'
       @downloaders = Downloader.project_reviews(params[:id])
     end
-    
-    #@downloaders ||= Downloader.find :all
-    render #:layout => false
-    return  
   end
 
   def show
