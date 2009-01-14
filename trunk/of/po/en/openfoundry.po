@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-14 02:42-0000\n"
+"POT-Creation-Date: 2009-01-14 03:29-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgid "Latest Releases"
 msgstr "Release"
 
 #: app/helpers/application_helper.rb:92
-#: app/views/partials/_top_menu_data.rhtml:65
+#: app/views/partials/_top_menu_data.rhtml:70
 #, fuzzy
 msgid "Help"
 msgstr "Help"
@@ -1476,7 +1476,7 @@ msgstr ""
 
 #: app/controllers/projects_controller.rb:47
 #: app/views/partials/_project_menu.rhtml:38
-#: app/views/partials/_top_menu_data.rhtml:69
+#: app/views/partials/_top_menu_data.rhtml:74
 #: app/views/projects/test_action_i18n______________.rhtml:213
 msgid "Version Control"
 msgstr ""
@@ -2001,43 +2001,47 @@ msgstr "OpenFoundry Features"
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:59
 #: app/views/partials/_top_menu_data.rhtml:61
+msgid "Forum"
+msgstr ""
+
+#: app/views/partials/_top_menu_data.rhtml:64
+#: app/views/partials/_top_menu_data.rhtml:66
 #: app/views/layouts/application.rhtml:48
 #: app/views/projects/test_action_i18n______________.rhtml:339
 msgid "menu_Contact Us"
 msgstr "Contact Us"
 
-#: app/views/partials/_top_menu_data.rhtml:62
+#: app/views/partials/_top_menu_data.rhtml:67
 #: app/views/projects/test_action_i18n______________.rhtml:326
 msgid "Bug Report"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:67 app/views/layouts/admin.rhtml:6
+#: app/views/partials/_top_menu_data.rhtml:72 app/views/layouts/admin.rhtml:6
 #: app/views/projects/test_action_i18n______________.rhtml:249
 msgid "OpenFoundry"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:68
+#: app/views/partials/_top_menu_data.rhtml:73
 #, fuzzy
 msgid "NSC Project"
 msgstr "New Project"
 
-#: app/views/partials/_top_menu_data.rhtml:73
+#: app/views/partials/_top_menu_data.rhtml:78
 #, fuzzy
 msgid "menu_Site Admin"
 msgstr "Admin"
 
-#: app/views/partials/_top_menu_data.rhtml:75
+#: app/views/partials/_top_menu_data.rhtml:80
 #, fuzzy
 msgid "Approve Projects"
 msgstr "New Project"
 
-#: app/views/partials/_top_menu_data.rhtml:76
+#: app/views/partials/_top_menu_data.rhtml:81
 msgid "Translations"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:77
+#: app/views/partials/_top_menu_data.rhtml:82
 #, fuzzy
 msgid "Module Menagements"
 msgstr "Project name"
