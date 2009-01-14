@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-13 09:45-0000\n"
+"POT-Creation-Date: 2009-01-14 02:42-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -400,6 +400,11 @@ msgstr "Icon"
 msgid "Permission|Ftp Access"
 msgstr "Preference"
 
+#: app/models/function.rb:88
+#, fuzzy
+msgid "Permission|Manager Download Surveys"
+msgstr "Preference"
+
 #: app/models/session.rb:-
 msgid "session"
 msgstr ""
@@ -764,6 +769,11 @@ msgstr ""
 msgid "Fileentity|File counter"
 msgstr ""
 
+#: app/models/fileentity.rb:-
+#, fuzzy
+msgid "Fileentity|Status"
+msgstr "Summary"
+
 #: app/models/news.rb:-
 msgid "news"
 msgstr ""
@@ -887,6 +897,21 @@ msgstr "Summary"
 #: app/models/survey.rb:-
 msgid "survey"
 msgstr ""
+
+#: app/models/survey.rb:-
+#, fuzzy
+msgid "Survey|Fileentity"
+msgstr "Project Name"
+
+#: app/models/survey.rb:-
+#, fuzzy
+msgid "Survey|Resource"
+msgstr "Project Name"
+
+#: app/models/survey.rb:-
+#, fuzzy
+msgid "Survey|Prompt"
+msgstr "Homepage"
 
 #: app/models/survey.rb:35
 #, fuzzy
@@ -1174,6 +1199,21 @@ msgstr ""
 #: app/models/downloader.rb:-
 msgid "Downloader|File"
 msgstr ""
+
+#: app/models/downloader.rb:-
+#, fuzzy
+msgid "Downloader|Fileentity"
+msgstr "Email Address"
+
+#: app/models/downloader.rb:-
+#, fuzzy
+msgid "Downloader|User"
+msgstr "Creator"
+
+#: app/models/downloader.rb:-
+#, fuzzy
+msgid "Downloader|Release"
+msgstr "Creator"
 
 #: app/controllers/site_admin/site_admin_controller.rb:85
 msgid "Message sent."
@@ -3067,6 +3107,10 @@ msgstr "Preference"
 #: app/views/layouts_mail/layout.text.html.rhtml:37
 #: app/views/layouts_mail/layout.text.plain.rhtml:5
 msgid "Mail|Sincerely, OSSF Team http://www.openfoundry.org"
+msgstr ""
+
+#: app/views/survey/apply.html.erb:11
+msgid "survey|Your requesting file: "
 msgstr ""
 
 #: app/views/survey/apply.html.erb:28
