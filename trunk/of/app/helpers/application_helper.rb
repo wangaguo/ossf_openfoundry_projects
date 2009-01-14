@@ -97,7 +97,7 @@ module ApplicationHelper
             if (["help"].include?(level_class)==true) 
               level_name = ''
             else
-              level_name = _("#{level.humanize.capitalize}")
+              level_name = h( url_unescape(level).humanize.capitalize )
             end
           end
         elsif level =~ /\d/ and level_class
@@ -292,6 +292,18 @@ module ApplicationHelper
     users.collect!{ |user| "<option value=\"#{user.id}\">
       #{user.login}
       </option>" }.join('\n')
+  end
+ 
+  def url_escape(string)
+    string.gsub(/([^ a-zA-Z0-9_.-]+)/n) do
+      '%' + $1.unpack('H2' * $1.size).join('%').upcase
+    end.tr(' ', '+')
+  end
+
+  def url_unescape(string)
+    string.tr('+', ' ').gsub(/((?:%[0-9a-fA-F]{2})+)/n) do
+      [$1.delete('%')].pack('H*')
+    end
   end
 
   class TwoColumnFormBuilder < ActionView::Helpers::FormBuilder
