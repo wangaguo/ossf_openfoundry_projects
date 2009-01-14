@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-14 03:29-0000\n"
+"POT-Creation-Date: 2009-01-14 06:08-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,7 +104,7 @@ msgid "Latest Releases"
 msgstr "Release"
 
 #: app/helpers/application_helper.rb:92
-#: app/views/partials/_top_menu_data.rhtml:70
+#: app/views/partials/_top_menu_data.rhtml:74
 #, fuzzy
 msgid "Help"
 msgstr "Help"
@@ -114,7 +114,7 @@ msgstr "Help"
 msgid "Survey"
 msgstr "Project name"
 
-#: app/helpers/application_helper.rb:269 app/helpers/application_helper.rb:302
+#: app/helpers/application_helper.rb:269 app/helpers/application_helper.rb:314
 #: app/views/projects/test_action_i18n______________.rhtml:173
 msgid "required_icon"
 msgstr "Required"
@@ -1476,7 +1476,7 @@ msgstr ""
 
 #: app/controllers/projects_controller.rb:47
 #: app/views/partials/_project_menu.rhtml:38
-#: app/views/partials/_top_menu_data.rhtml:74
+#: app/views/partials/_top_menu_data.rhtml:78
 #: app/views/projects/test_action_i18n______________.rhtml:213
 msgid "Version Control"
 msgstr ""
@@ -1825,223 +1825,228 @@ msgstr "OpenFoundry"
 msgid "menu_Home"
 msgstr "Home"
 
-#: app/views/partials/_top_menu_data.rhtml:8
+#: app/views/partials/_top_menu_data.rhtml:10
+#, fuzzy
+msgid "About OpenFoundry Project"
+msgstr "OpenFoundry News"
+
+#: app/views/partials/_top_menu_data.rhtml:12
 #: app/views/projects/test_action_i18n______________.rhtml:139
 msgid "menu_About OSSF"
 msgstr "About OSSF"
 
-#: app/views/partials/_top_menu_data.rhtml:8
+#: app/views/partials/_top_menu_data.rhtml:12
 #: app/views/projects/test_action_i18n______________.rhtml:255
 msgid "menu_About_OSSF_link"
 msgstr "http://www.openfoundry.org/en/About-OSSF.html"
 
-#: app/views/partials/_top_menu_data.rhtml:9
+#: app/views/partials/_top_menu_data.rhtml:13
 #: app/views/projects/test_action_i18n______________.rhtml:229
 msgid "menu_Newsletter"
 msgstr "Newsletter"
 
-#: app/views/partials/_top_menu_data.rhtml:12
+#: app/views/partials/_top_menu_data.rhtml:16
 #: app/views/layouts/application.rhtml:45
 #: app/views/projects/test_action_i18n______________.rhtml:120
 msgid "menu_Projects"
 msgstr "Projects"
 
-#: app/views/partials/_top_menu_data.rhtml:14
+#: app/views/partials/_top_menu_data.rhtml:18
 #: app/views/projects/test_action_i18n______________.rhtml:321
 msgid "menu_Project Listing"
 msgstr "Project Listing"
 
-#: app/views/partials/_top_menu_data.rhtml:15
+#: app/views/partials/_top_menu_data.rhtml:19
 #: app/views/projects/test_action_i18n______________.rhtml:186
 msgid "menu_Project Category"
 msgstr "Project Category"
 
-#: app/views/partials/_top_menu_data.rhtml:16
+#: app/views/partials/_top_menu_data.rhtml:20
 #: app/views/projects/test_action_i18n______________.rhtml:152
 msgid "menu_Project News"
 msgstr "Project News"
 
-#: app/views/partials/_top_menu_data.rhtml:17
+#: app/views/partials/_top_menu_data.rhtml:21
 #: app/views/projects/test_action_i18n______________.rhtml:280
 msgid "menu_Latest Releases"
 msgstr "Latest Release"
 
-#: app/views/partials/_top_menu_data.rhtml:18
+#: app/views/partials/_top_menu_data.rhtml:22
 #: app/views/projects/test_action_i18n______________.rhtml:243
 msgid "menu_Top Downloads"
 msgstr "Top Downloads"
 
-#: app/views/partials/_top_menu_data.rhtml:19
+#: app/views/partials/_top_menu_data.rhtml:23
 #: app/views/projects/test_action_i18n______________.rhtml:58
 msgid "menu_Help Wanted"
 msgstr "Help Wanted"
 
-#: app/views/partials/_top_menu_data.rhtml:20
+#: app/views/partials/_top_menu_data.rhtml:24
 #: app/views/projects/test_action_i18n______________.rhtml:46
 msgid "menu_WebHosting"
 msgstr "WebHosting"
 
-#: app/views/partials/_top_menu_data.rhtml:21
-#: app/views/partials/_top_menu_data.rhtml:38 app/views/projects/new.rhtml:2
+#: app/views/partials/_top_menu_data.rhtml:25
+#: app/views/partials/_top_menu_data.rhtml:42 app/views/projects/new.rhtml:2
 #: app/views/projects/test_action_i18n______________.rhtml:340
 msgid "Create Project"
 msgstr "Create Project"
 
-#: app/views/partials/_top_menu_data.rhtml:25
+#: app/views/partials/_top_menu_data.rhtml:29
 #: app/views/projects/test_action_i18n______________.rhtml:29
 msgid "menu_My Account"
 msgstr "My Account"
 
-#: app/views/partials/_top_menu_data.rhtml:27
+#: app/views/partials/_top_menu_data.rhtml:31
 #: app/views/projects/test_action_i18n______________.rhtml:273
 msgid "menu_Personal Homepage"
 msgstr "Personal Homepage"
 
-#: app/views/partials/_top_menu_data.rhtml:28
+#: app/views/partials/_top_menu_data.rhtml:32
 #: app/views/projects/test_action_i18n______________.rhtml:28
 msgid "menu_Preferences"
 msgstr "Preferences"
 
-#: app/views/partials/_top_menu_data.rhtml:29
+#: app/views/partials/_top_menu_data.rhtml:33
 #: app/views/projects/test_action_i18n______________.rhtml:174
 msgid "menu_My Projects"
 msgstr "My Projects"
 
-#: app/views/partials/_top_menu_data.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:34
 #: app/views/projects/test_action_i18n______________.rhtml:212
 msgid "menu_My Tickets"
 msgstr "My Tickets"
 
-#: app/views/partials/_top_menu_data.rhtml:32
+#: app/views/partials/_top_menu_data.rhtml:36
 #: app/views/projects/test_action_i18n______________.rhtml:12
 msgid "Owner"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:33
+#: app/views/partials/_top_menu_data.rhtml:37
 #: app/views/projects/test_action_i18n______________.rhtml:145
 msgid "Creator"
 msgstr "Creator"
 
-#: app/views/partials/_top_menu_data.rhtml:34
+#: app/views/partials/_top_menu_data.rhtml:38
 #: app/views/projects/test_action_i18n______________.rhtml:254
 msgid "Requestor"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:35
+#: app/views/partials/_top_menu_data.rhtml:39
 #: app/views/projects/test_action_i18n______________.rhtml:222
 msgid "LastUpdatedBy"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:42
+#: app/views/partials/_top_menu_data.rhtml:46
 #: app/views/layouts/application.rhtml:46
 #: app/views/projects/test_action_i18n______________.rhtml:266
 msgid "menu_License Wizard"
 msgstr "License Wizard"
 
-#: app/views/partials/_top_menu_data.rhtml:42
 #: app/views/partials/_top_menu_data.rhtml:46
+#: app/views/partials/_top_menu_data.rhtml:50
 #: app/views/projects/test_action_i18n______________.rhtml:83
 msgid "menu_LW_manual_link"
 msgstr "http://www.openfoundry.org/en/LicenseWizard.html"
 
-#: app/views/partials/_top_menu_data.rhtml:44
-#: app/views/partials/_top_menu_data.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:48
+#: app/views/partials/_top_menu_data.rhtml:49
 #: app/views/projects/test_action_i18n______________.rhtml:233
 msgid "License Wizard"
 msgstr "License Wizard"
 
-#: app/views/partials/_top_menu_data.rhtml:44
+#: app/views/partials/_top_menu_data.rhtml:48
 #: app/views/projects/test_action_i18n______________.rhtml:153
 msgid "menu_LW_22_link"
 msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard2EN/LicenseWizard.cgi"
 
-#: app/views/partials/_top_menu_data.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:49
 #: app/views/projects/test_action_i18n______________.rhtml:30
 msgid "menu_LW_32_link"
 msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm?en"
 
-#: app/views/partials/_top_menu_data.rhtml:46
+#: app/views/partials/_top_menu_data.rhtml:50
 #: app/views/projects/test_action_i18n______________.rhtml:225
 msgid "menu_Manual"
 msgstr "Manual"
 
-#: app/views/partials/_top_menu_data.rhtml:49
+#: app/views/partials/_top_menu_data.rhtml:53
 #: app/views/layouts/application.rhtml:47
 #: app/views/projects/test_action_i18n______________.rhtml:267
 msgid "menu_Help"
 msgstr "Help"
 
-#: app/views/partials/_top_menu_data.rhtml:51
+#: app/views/partials/_top_menu_data.rhtml:55
 #: app/views/projects/test_action_i18n______________.rhtml:113
 msgid "menu_About this Manual"
 msgstr "About this Manual"
 
-#: app/views/partials/_top_menu_data.rhtml:52
+#: app/views/partials/_top_menu_data.rhtml:56
 #: app/views/projects/test_action_i18n______________.rhtml:309
 msgid "menu_OpenFoundry Overview"
 msgstr "OpenFoundry Overview"
 
-#: app/views/partials/_top_menu_data.rhtml:53
+#: app/views/partials/_top_menu_data.rhtml:57
 #: app/views/projects/test_action_i18n______________.rhtml:142
 msgid "menu_End User Guide"
 msgstr "End User Guide"
 
-#: app/views/partials/_top_menu_data.rhtml:54
+#: app/views/partials/_top_menu_data.rhtml:58
 #: app/views/projects/test_action_i18n______________.rhtml:190
 msgid "menu_Project Manager Guide"
 msgstr "Project Manager Guide"
 
-#: app/views/partials/_top_menu_data.rhtml:55
+#: app/views/partials/_top_menu_data.rhtml:59
 #: app/views/projects/test_action_i18n______________.rhtml:97
 msgid "menu_OpenFoundry Features"
 msgstr "OpenFoundry Features"
 
-#: app/views/partials/_top_menu_data.rhtml:56
+#: app/views/partials/_top_menu_data.rhtml:60
 #: app/views/projects/test_action_i18n______________.rhtml:150
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:61
+#: app/views/partials/_top_menu_data.rhtml:65
 msgid "Forum"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:64
-#: app/views/partials/_top_menu_data.rhtml:66
+#: app/views/partials/_top_menu_data.rhtml:68
+#: app/views/partials/_top_menu_data.rhtml:70
 #: app/views/layouts/application.rhtml:48
 #: app/views/projects/test_action_i18n______________.rhtml:339
 msgid "menu_Contact Us"
 msgstr "Contact Us"
 
-#: app/views/partials/_top_menu_data.rhtml:67
+#: app/views/partials/_top_menu_data.rhtml:71
 #: app/views/projects/test_action_i18n______________.rhtml:326
 msgid "Bug Report"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:72 app/views/layouts/admin.rhtml:6
+#: app/views/partials/_top_menu_data.rhtml:76 app/views/layouts/admin.rhtml:6
 #: app/views/projects/test_action_i18n______________.rhtml:249
 msgid "OpenFoundry"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:73
+#: app/views/partials/_top_menu_data.rhtml:77
 #, fuzzy
 msgid "NSC Project"
 msgstr "New Project"
 
-#: app/views/partials/_top_menu_data.rhtml:78
+#: app/views/partials/_top_menu_data.rhtml:82
 #, fuzzy
 msgid "menu_Site Admin"
 msgstr "Admin"
 
-#: app/views/partials/_top_menu_data.rhtml:80
+#: app/views/partials/_top_menu_data.rhtml:84
 #, fuzzy
 msgid "Approve Projects"
 msgstr "New Project"
 
-#: app/views/partials/_top_menu_data.rhtml:81
+#: app/views/partials/_top_menu_data.rhtml:85
 msgid "Translations"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:82
+#: app/views/partials/_top_menu_data.rhtml:86
 #, fuzzy
 msgid "Module Menagements"
 msgstr "Project name"
