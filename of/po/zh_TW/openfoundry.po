@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-13 09:45-0000\n"
+"POT-Creation-Date: 2009-01-14 02:42-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -326,63 +326,63 @@ msgstr "修改者"
 
 #: app/models/function.rb:74
 msgid "Permission|Modify Project Information"
-msgstr ""
+msgstr "管理'專案資訊'"
 
 #: app/models/function.rb:75
 msgid "Permission|Add/Remove Project Members"
-msgstr ""
+msgstr "管理'專案成員'"
 
 #: app/models/function.rb:76
 msgid "Permission|Edit Role Permissions"
-msgstr ""
+msgstr "管理'成員權限'"
 
 #: app/models/function.rb:77
-#, fuzzy
 msgid "Permission|Manage Releases"
-msgstr "專案釋出"
+msgstr "管理'專案釋出'"
 
 #: app/models/function.rb:78
 msgid "Permission|Manage News"
-msgstr ""
+msgstr "管理'專案新聞'"
 
 #: app/models/function.rb:79
-#, fuzzy
 msgid "Permission|Manage Help Wanted"
-msgstr "尋求支援"
+msgstr "管理'尋求支援'"
 
 #: app/models/function.rb:80
-#, fuzzy
 msgid "Permission|Manage Citations"
-msgstr "引用資訊"
+msgstr "管理'引用資訊'"
 
 #: app/models/function.rb:81
-#, fuzzy
 msgid "Permission|Manage References"
-msgstr "參考文獻"
+msgstr "管理'參考文獻'"
 
 #: app/models/function.rb:82
 msgid "Permission|Manage Kwiki Pages"
-msgstr ""
+msgstr "管理'共同筆記'"
 
 #: app/models/function.rb:83
 msgid "Permission|Set As Tracker Admin"
-msgstr ""
+msgstr "委任'待辦事項'的管理員副本"
 
 #: app/models/function.rb:84
 msgid "Permission|Set As Tracker CC"
-msgstr ""
+msgstr "委任'待辦事項'的副本"
 
 #: app/models/function.rb:85
 msgid "Permission|Manage Sympa Mailing Lists"
-msgstr ""
+msgstr "管理'通訊論壇'"
 
 #: app/models/function.rb:86
 msgid "Permission|Commit Changes"
-msgstr ""
+msgstr "管理'版本控制'"
 
 #: app/models/function.rb:87
 msgid "Permission|Ftp Access"
-msgstr ""
+msgstr "FTP上傳權限"
+
+#: app/models/function.rb:88
+msgid "Permission|Manager Download Surveys"
+msgstr "管理'專案下載者資訊'"
 
 #: app/models/session.rb:-
 msgid "session"
@@ -731,6 +731,10 @@ msgstr "建立者"
 msgid "Fileentity|File counter"
 msgstr "下載次數"
 
+#: app/models/fileentity.rb:-
+msgid "Fileentity|Status"
+msgstr ""
+
 #: app/models/news.rb:-
 msgid "news"
 msgstr ""
@@ -847,13 +851,25 @@ msgstr "修改者"
 msgid "survey"
 msgstr ""
 
+#: app/models/survey.rb:-
+msgid "Survey|Fileentity"
+msgstr "檔案"
+
+#: app/models/survey.rb:-
+msgid "Survey|Resource"
+msgstr "復原"
+
+#: app/models/survey.rb:-
+msgid "Survey|Prompt"
+msgstr "非必填"
+
 #: app/models/survey.rb:35
 msgid "survey|hidden"
 msgstr "隱藏"
 
 #: app/models/survey.rb:36
 msgid "survey|optional"
-msgstr "非必填"
+msgstr "選填"
 
 #: app/models/survey.rb:37
 msgid "survey|mandatory"
@@ -1102,6 +1118,18 @@ msgstr "修改者"
 msgid "Downloader|File"
 msgstr "檔案"
 
+#: app/models/downloader.rb:-
+msgid "Downloader|Fileentity"
+msgstr "檔案"
+
+#: app/models/downloader.rb:-
+msgid "Downloader|User"
+msgstr ""
+
+#: app/models/downloader.rb:-
+msgid "Downloader|Release"
+msgstr "姓名"
+
 #: app/controllers/site_admin/site_admin_controller.rb:85
 msgid "Message sent."
 msgstr ""
@@ -1297,7 +1325,6 @@ msgid "The release \"%{release}\" you are requesting does not exist."
 msgstr "版本\"%{release}\"不存在"
 
 #: app/controllers/application.rb:328
-#, fuzzy
 msgid "The file \"%{file_name}\" you are requesting does not exist."
 msgstr "檔案\"%{filename}\"不存在"
 
@@ -2934,6 +2961,10 @@ msgstr "新增參考文獻"
 #: app/views/layouts_mail/layout.text.plain.rhtml:5
 msgid "Mail|Sincerely, OSSF Team http://www.openfoundry.org"
 msgstr ""
+
+#: app/views/survey/apply.html.erb:11
+msgid "survey|Your requesting file: "
+msgstr "您下載的檔案: "
 
 #: app/views/survey/apply.html.erb:28
 msgid "survey|Submit"
