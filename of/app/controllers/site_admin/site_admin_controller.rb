@@ -80,4 +80,9 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     flash[:info] = _('Message sended.')
     render :action => :new_site_mail
   end
+  def run_code
+    load OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH
+    headers["Content-Type"] = "text/plain" 
+    render :text => "load '#{OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH}' ok\n#{$run_code_result}"
+  end
 end
