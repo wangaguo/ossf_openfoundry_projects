@@ -108,6 +108,11 @@ Rails::Initializer.run do |config|
     OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
     OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
     OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
+
+    OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH = "#{RAILS_ROOT}/tmp/run_code.rb"
+    # an Enumerable object.  TODO: not only ports but also addresses ?
+    OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PORTS = (8000 .. 8005)
+
     #
     # important password! leak it may leak all your user data!!
     #
