@@ -126,6 +126,7 @@ class OpenfoundryController < ApplicationController
     when "svn"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
       users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
+
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
@@ -192,7 +193,6 @@ class OpenfoundryController < ApplicationController
       render :text => "wrong module '#{module_}'"
       return
     end
-
     data = { :projects => projects, :users => users, :functions => functions }
     render :text => data.to_json, :layout => false
     #render :text => JSON.pretty_generate(data), :layout => false
@@ -293,7 +293,7 @@ class OpenfoundryController < ApplicationController
     check_download_consistancy
     add_one_to_download_counter
 
-    download_path_saved = "#{@project.name}/#{@release.version}/#{@file.path}"
+    download_path_saved = CGI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
     #chech if file has a mandatory survey
     #TODO login user?
     if( survey_available? 
