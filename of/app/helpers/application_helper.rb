@@ -109,7 +109,7 @@ module ApplicationHelper
                 level_name += "..."
               end
             rescue
-              level_name = level
+              level_name = h(level)
             end
           end
         end
