@@ -18,11 +18,12 @@
 #7998,7999 for foundry_sync
 #8000-8005 for production 
 #9000      for ferret index server
-7996.upto(8005) do |port|
+7995.upto(8005) do |port|
   God.watch do |w|
     w.group = case port
     when 7996..7997 : "openfoundry-sso"
     when 7998..7999 : "openfoundry-sync"
+    when 7995 : "openfoundry-sync"
     else
       port % 2 == 0 ? "openfoundry-even" : "openfoundry-odd"
     end 
