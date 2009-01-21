@@ -1,9 +1,15 @@
 class SurveyController < ApplicationController
   layout 'application'
   #see lib/permission_table.rb
+  before_filter :find_resource_project
   before_filter :check_permission
   #before_filter :default_module_name
   
+  def find_resource_project
+    @project = Project.find_by_id(params['project_id']) if params['project_id']
+  end
+  private :find_resource_project
+
   def review
     unless Project.exists?(params[:id])
       render :text => 'Project not found'
@@ -109,7 +115,7 @@ class SurveyController < ApplicationController
       unless session[:saved_download_path] 
         #missing filename in session
         #back to 'download'
-        redirect_to download1_path @project
+        redirect_to(download1_path @project)
         return
       end
 
@@ -124,7 +130,7 @@ class SurveyController < ApplicationController
       @downloader.fileentity = @file
       @downloader.release = @release
       @downloader.save
-      redirect_to download1_path @project 
+      redirect_to(download1_path @project)
       return
     end
 
