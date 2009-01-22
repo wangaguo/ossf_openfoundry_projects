@@ -1,5 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+document.domain = 'openfoundry.org';
+
 function SetLang(lang)
 {
   var langHref = "";
@@ -207,10 +209,15 @@ function grayOut(vis, options) {
   }
 }
 
-function iframe_auto_height(iframe)
+function iframe_auto_height(fid)
 {
-  var content_height = iframe.contentWindow.document.body.offsetHeight+50;
-  content_height = content_height < 300 ? 300 : content_height; //set minimal height
-  content_height = typeof content_height == 'number' ? content_height+"px" : content_height
-  iframe.setStyle({height:content_height});
+  var iframe = $(fid);
+  try
+  {
+    var content_height = iframe.contentWindow.document.body.offsetHeight+50;
+    content_height = content_height < 300 ? 300 : content_height; //set minimal height
+    content_height = typeof content_height == 'number' ? content_height+"px" : content_height;
+    iframe.setStyle({height:content_height});
+  }
+  catch(e){}
 }
