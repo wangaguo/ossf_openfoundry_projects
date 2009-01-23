@@ -3,7 +3,13 @@ class Project < ActiveRecord::Base
 
   # single selection 
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
-  dummy_fix_me = _("IDEA"), _("PREALPHA"), _("ALPHA"), _("BETA"), _("RELEASED"), _("MATURE"), _("STANDARD")
+  N_("IDEA")
+  N_("PREALPHA")
+  N_("ALPHA")
+  N_("BETA")
+  N_("RELEASED")
+  N_("MATURE")
+  N_("STANDARD")
 
 
   # [ [1, "OSI: Academic Free License"],
@@ -50,7 +56,9 @@ class Project < ActiveRecord::Base
 -1 Other licenses
 EOEO
   # referenced by: project validation
-  dummy_fix_me = _("Public Domain"), _("This project contains no code"), _("Other licenses")
+  N_("Public Domain")
+  N_("This project contains no code")
+  N_("Other licenses")
   LICENSES = Hash[ * LICENSE_DATA.flatten ].freeze
   LICENSE_DISPLAY_KEYS = LICENSE_DATA.map(&:first).map(&:to_i).freeze
   def self.license_to_s(i_or_s)
@@ -91,7 +99,10 @@ EOEO
 -1 Other licenses
 EOEO
   # referenced by: project validation / _form
-  dummy_fix_me = _("Public Domain"), _("Same license as code"), _("Project contains only code"), _("Other licenses")
+  N_("Public Domain")
+  N_("Same license as code")
+  N_("Project contains only code")
+  N_("Other licenses")
   CONTENT_LICENSES = Hash[ * CONTENT_LICENSE_DATA.flatten ].freeze
   CONTENT_LICENSE_DISPLAY_KEYS = CONTENT_LICENSE_DATA.map(&:first).map(&:to_i).freeze
   def self.content_license_to_s(i_or_s)
