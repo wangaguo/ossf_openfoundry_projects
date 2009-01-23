@@ -1,4 +1,7 @@
 .fieldWithErrors {
+  display:inline;
+}
+.fieldWithErrors input, .fieldWithErrors textarea {
  border: dashed 1px red;
 }
 
