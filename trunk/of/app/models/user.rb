@@ -224,5 +224,7 @@ class User < ActiveRecord::Base
   def self.salted_password(salt, hashed_password)
     hashed(salt + hashed_password)
   end
+
+  named_scope :valid_users, :conditions => { :verified => 1 }
 end
 
