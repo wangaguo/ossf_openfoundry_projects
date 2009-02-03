@@ -461,4 +461,7 @@ EOEO
     self.tag_list.add(* code_array.map(&:strip).map(&:upcase).grep(/^NSC/))
   end
 
+  def valid_users_of_role(role_name_string)
+    roles.find_by_name(role_name_string, :select => "id").users.valid_users
+  end
 end
