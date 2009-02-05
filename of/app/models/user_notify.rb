@@ -82,6 +82,18 @@ class UserNotify < ActionMailer::Base
     @body["message"] = message
   end
 
+  def test(user)
+    setup_user_email(user) 
+    @subject += 'Test by Tim!'
+    assigns = {}
+    assigns["name"] = "#{user.realname}"
+    assigns["login"] = user.login
+    assigns["password"] = 1234
+    assigns["url"] = UserSystem::CONFIG[:app_url].to_s
+    assigns["app_name"] = UserSystem::CONFIG[:app_name].to_s
+    build_user_email(assigns)
+  end
+
   def setup_email(user)
     @recipients = "#{user.email}"
     @from       = UserSystem::CONFIG[:email_from].to_s
@@ -98,10 +110,17 @@ class UserNotify < ActionMailer::Base
       end
     end
   end
-  
+ 
+  def setup_user_email(user)
+    @recipients = user.email
+    @from       = UserSystem::CONFIG[:email_from].to_s
+    @subject    = "[#{UserSystem::CONFIG[:app_name]}] "
+    @sent_on    = Time.now
+  end 
+ 
   def render_message(method_name, body)
     layout = method_name.match(%r{text\.html\.rhtml}) ? 'layout.text.html.rhtml' : 'layout.text.plain.rhtml'
     body[:content_for_layout] = render(:file => method_name, :body => body)
-    ActionView::Base.new(template_root, body, self).render(:file => "#{RAILS_ROOT}/app/views/user_notify/#{layout}")
+    ActionView::Base.new(template_root, body, self).render(:file => "#{RAILS_ROOT}/app/views/layouts_mail/#{layout}")
   end
 end
