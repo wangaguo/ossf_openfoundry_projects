@@ -13,14 +13,6 @@
   <%= javascript_include_tag 'calendar/calendar-setup' %>
   <%= stylesheet_link_tag 'calendar' %>
   <%= render :partial => 'partials/top_menu_data' %>
-  <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
-    var pageTracker = _gat._getTracker("UA-5220412-1");
-    pageTracker._trackPageview();
-  </script>
 </head>
 
 <body >
@@ -60,6 +52,8 @@
 
 <div id="MiddlePane">
   <div id="MainContent">
+    <div id="Flash"><%= show_flash %></div>
+
     <%if params["project_id"] != nil%>
       <h1><%= h(@project.summary) %></h1>
     <%end%>
@@ -119,3 +113,13 @@ OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. R
 
 </body>
 </html>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try {
+    var pageTracker = _gat._getTracker("UA-5220412-1");
+    pageTracker._trackPageview();
+  } catch(err) {}
+</script>
