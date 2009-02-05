@@ -54,9 +54,13 @@ Agent: <%= request.user_agent%>
   <li><%= link_to _("Rebuild Ferret Index"), {:action => :aaf_rebuild }, {:confirm => 'really?'} %></li>
   <li><%= link_to _("大量加入使用者成為某角色"), {:action => :batch_add_users } %></li>
   <li><%= link_to _("Run some code on all instances of Rails"), {:action => :edit_code } %></li>
+  <li><%= link_to _("Send site mail"), {:action => :new_site_mail } %></li>
 </ul>
 <br/>
 
 <h2>監控與分析</h2>
-<a href="https://www.google.com/analytics/reporting/?scid=5220412">Google Analytic</a>
+<ul>
+  <li><a href="https://www.google.com/analytics/reporting/?scid=5220412">Google Analytic</a></li>
+  <li><%= link_to _("NSC Download List"), {:action => :nsc_download } %></li>
+</ul>
 
