@@ -17,6 +17,12 @@ if params[:project_name]
     begin
       u = User.find_by_login(login)
       r.users << u
+      ApplicationController::send_msg('function','create',
+                                      {:function_name => f.name,
+                                        :user_id => u.id,
+                                        :project_id => r.authorizable_id
+                                      })
+
       msg = "ok!"
     rescue
       msg = $!
