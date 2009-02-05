@@ -24,22 +24,31 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   def index
     cookies['HeaderOnOff'] = 'OFF'
   end
+
   def gettext_cache_switch
     GetText.cached = !GetText.cached? 
     render :text => "switch to #{GetText.cached?} @ #{Time.now}"
   end
+
   def aaf_rebuild
     User.rebuild_index(User,Project,Release,News,Fileentity)
     redirect_to :action => :index
   end
 
   def rescue_user
-    User.find(:all, :conditions => User.verified_users() + " and id > 200000").each do |u|
-      ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
+    User.find(:all, :conditions => User.verified_users() + " and id = 201159").each do |u|
+      ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login, 'email' => u.email })
     end
   end
+
+  def rescue_user_update
+    User.find(:all, :conditions => User.verified_users() + " and id >= 200000").each do |u|
+      ApplicationController::send_msg(TYPES[:user],ACTIONS[:update],{'id' => u.id, 'name' => u.login, 'email' => u.email })
+    end
+  end
+
   def rescue_project
-    Project.find(:all, :conditions => Project.in_used_projects() + " and id >= 964").each do |p|
+    Project.find(:all, :conditions => Project.in_used_projects() + " and id >= 996").each do |p|
       ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.summary, 'summary' => p.description}) 
     end
   end
@@ -73,13 +82,14 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def send_site_mail
-    users = User.find(:all, :conditions => "id in(58906, 135623) and #{User::verified_users}")
+    users = User.find(:all, :conditions => "#{User::verified_users}")
     users.each do |user|
       UserNotify.deliver_site_mail(user, params[:mail][:subject], params[:mail][:message])
     end 
-    flash[:info] = _('Message sended.')
+    flash[:info] = _('Message sent.')
     render :action => :new_site_mail
   end
+
   def run_code
     load OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH
     headers["Content-Type"] = "text/plain" 
