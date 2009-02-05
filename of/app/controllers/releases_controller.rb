@@ -76,7 +76,7 @@ class ReleasesController < ApplicationController
     @project_id = params[:project_id]
     @project_name = Project.find(params[:project_id]).name
     @releases = Release.find :all,
-      :conditions => "project_id = #{params[:project_id]} AND status = 1", :order => "created_at desc" 
+      :conditions => "project_id = #{params[:project_id]} AND status = 1", :order => "due desc" 
 
     #check if user has survey permission
     @permissions = []
