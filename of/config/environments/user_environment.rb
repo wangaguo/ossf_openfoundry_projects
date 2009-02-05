@@ -8,7 +8,7 @@ module UserSystem
 
     # Sent in emails to users
     # TODO: change to a better host name ??????!!!!
-    :app_url => 'http://localhost:3000/',
+    :app_url => 'http://of.openfoundry.org/',
 
     # Sent in emails to users
     :app_name => 'OpenFoundry',
@@ -21,11 +21,17 @@ module UserSystem
 
     # Two column form input
     :two_column_input => true,
+    
+    #Subject prefix form user emails
+    :email_subject_prefix => '[OpenFoundry]',
+
+    #email available content-type
+    :available_content_type => ['text/plain', 'text/html'],
 
     # Add all changeable user fields to this array.
     # They will then be able to be edited from the edit action. You
     # should NOT include the email field in this array.
-    :changeable_fields => [ 'firstname', 'lastname', 'language' ],
+    :changeable_fields => [ 'realname', 'language' ],
 
     # Set to true to allow delayed deletes (i.e., delete of record
     # doesn't happen immediately after user selects delete account,
