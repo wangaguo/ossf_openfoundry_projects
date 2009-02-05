@@ -4,8 +4,9 @@
 #project_list, #project_list th, #project_list td  {border:solid 1px black;}
 </style>
 <%
-project_columns = ["icon","name","summary","rationale","description","creator","status","statusreason","contactinfo","maturity","license","contentlicense","licensingdescription","platform","programminglanguage","intendedaudience","redirecturl","vcs","vcsdescription","project_counter","created_at","updated_at","updated_by"]
+project_columns = ["name","summary","description","creator","status","statusreason","licensingdescription","license","contentlicense","contactinfo","maturity","platform","programminglanguage","intendedaudience","rationale","redirecturl","vcs","vcsdescription","project_counter","created_at","updated_at","updated_by","icon"]
 %>
+<%= will_paginate @projects %>
 <table id="project_list">
   <tr>
     <th></th>
@@ -29,15 +30,18 @@ project_columns = ["icon","name","summary","rationale","description","creator","
         <% end %>
       </td>
       <% for column in project_columns %>
-        <td>
+        <td style="<%= "white-space:nowrap;" if column == "license"%>">
           <%if column == 'creator'%>
             <a href="/user/home/<%=project.send(column)%>"><%=project.send(column)%></a>
-          <%elsif column == 'description'%>
+          <%elsif ['description', 'licensingdescription'].index(column) %>
             <span title="<%=project.send(column)%>"><%=project.send(column).chars[0..30]%></a>
           <%else%>
           <%=h project.send(column) %>
           <%end%>
           <%= "(#{Project.status_to_s(project.status)})" if column == 'status'%>
+          <%= "(#{Project.licenses_to_s(project.license).join('<br/>')})" if column == 'license'%>
+          <%= "(#{Project.content_licenses_to_s(project.contentlicense)})" if column == 'contentlicense'%>
+          <%= "(#{Project.vcs_to_s(project.vcs)})" if column == 'vcs'%>
         </td>
       <% end %>
   
