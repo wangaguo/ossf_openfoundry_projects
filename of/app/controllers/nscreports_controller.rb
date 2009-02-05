@@ -30,7 +30,8 @@ class NscreportsController < ApplicationController
     else
       @types_write = []
     end
-    @types_write &= ["plan", "requirement"] # currently we only allow uploading these 2 kinds of documents
+    # see: config/initializers/environment_local.rb
+    @types_write = @types_write.select {|x| x =~ NSC_CURRENT_UPLOAD_FILTER }
   end
 
   def index
