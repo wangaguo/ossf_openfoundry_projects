@@ -226,6 +226,25 @@ class User < ActiveRecord::Base
   end
 
   named_scope :valid_users, :conditions => { :verified => 1 }
+
+  #
+  # BE CAREFUL!!
+  #
+  # 
+  # > User.select_only("id, login").first
+  #   
+  # SELECT id, login FROM `users` LIMIT 1
+  #
+  # > Role.find(2).users.select_only("login")
+  #   ....
+  # SELECT * FROM `users` INNER JOIN  ....   <==== FAILED !!!!
+  #
+  # > Role.find(2).users.select_only("login").all
+  #   ....
+  # SELECT login FROM `users` INNER JOIN ....
+  #
+  # see: Association proxies using class methods with named scopes 
+  # http://rails.lighthouseapp.com/projects/8994/tickets/1677
   named_scope :select_only, lambda {|s| { :select => s }} # can not be named as "select"
 end
 
