@@ -226,5 +226,6 @@ class User < ActiveRecord::Base
   end
 
   named_scope :valid_users, :conditions => { :verified => 1 }
+  named_scope :select_only, lambda {|s| { :select => s }} # can not be named as "select"
 end
 
