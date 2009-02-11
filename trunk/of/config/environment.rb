@@ -29,7 +29,9 @@ Rails::Initializer.run do |config|
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
   # config.action_controller.session_store = :active_record_store
-  config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :spandex_mem_cache_store
+  config.cache_store = :spandex_mem_cache_store, '192.168.0.238',
+    {:namespace => "of-#{RAILS_ENV}"}
    
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
