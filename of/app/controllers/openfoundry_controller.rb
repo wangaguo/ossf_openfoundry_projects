@@ -16,7 +16,8 @@ class OpenfoundryController < ApplicationController
   #class Session < ActiveRecord::Base; end # only used by get_session_by_id
   def get_session_by_id(session_id)
     begin
-      Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
+      #Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
+      ::Rails.cache.read("session:#{session_id}")
     rescue
       {}
     end
