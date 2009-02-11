@@ -155,6 +155,11 @@ class UserController < ApplicationController
       end
 
       flash[:message] = _('user_login_succeeded')
+
+      # maintain an enumerable hash that includes online users...
+      # with a simple lock...
+      Session.user_login(session['user'].id)
+
       redirect_back_or_default :action => :home
       # For "paranoid session store"
       #self.app_user=session['user']
@@ -205,6 +210,11 @@ class UserController < ApplicationController
       session['effective_user'] = nil
       redirect_to '/site_admin'
     else #normal user logout~
+
+      # maintain an enumerable hash that include online users
+      # with simple lock
+      Session.user_logout(session['user'].id)
+
       session['user'] = nil
       #For "paranoid session store"
       #kill_login_key
