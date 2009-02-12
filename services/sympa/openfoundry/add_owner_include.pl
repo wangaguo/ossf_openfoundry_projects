@@ -23,7 +23,7 @@ while (<>)
 
 print <<"EOF" if /^update/;
 owner
-email listmaster\@lists.openfoundry.org
+email listmaster\@sympa.of.openfoundry.org
 profile privileged
 reception nomail
 
