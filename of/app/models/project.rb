@@ -419,6 +419,12 @@ EOEO
     end
   end
 
+  def latest_releases(project_id)
+    latest_release = Release.find(:first, :conditions => "releases.status = 1 AND releases.project_id = #{project_id}", :order => "releases.due desc")
+    if latest_release
+      latest_release.version
+    end
+  end
 
   #
   # NSC

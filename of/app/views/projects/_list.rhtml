@@ -15,7 +15,7 @@
   <tr class="item_h <%=class_name%>">
     <td><a href="<%= url_for(:action => 'show', :id => project.id) %>"><%= h(project.summary) %></a></td>
     <td align="center"><%= h tz_date(project.created_at) %></td>
-    <td align="center">&nbsp;</td>
+    <td align="center"><%= h project.latest_releases(project.id) %></td>
     <td align="center"><%= h project.project_counter %></td>
   </tr>
   <tr class="item_b <%=class_name%>">
