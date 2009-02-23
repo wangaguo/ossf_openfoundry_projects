@@ -90,6 +90,8 @@ Rails::Initializer.run do |config|
     UTF8_ANALYSIS_REGEX = 
       /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
     GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
+    DEFAULT_FIELD = [:name, :summary, 
+	    :subject, :description, :requirement, :description_without_tag, :login]
 
     # store host, user_id in sessions
     require 'cgi_session_activerecord_store_hack'
