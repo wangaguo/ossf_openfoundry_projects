@@ -14,9 +14,13 @@
 #
 #   perl -c /path/to/your/etc/RT_SiteConfig.pm
 
-Set($rtname, 'OSSF');
+Set($rtname, 'OpenFoundry');
 Set($Organization, $rtname);
 Set($TicketBaseURI, "fsck.com-rt://$RT::rtname/ticket/");
+
+
+Set($CorrespondAddress , 'contact@openfoundry.org');
+Set($CommentAddress , 'contact@openfoundry.org');
 
 
 Set($WebPath , "/rt");
