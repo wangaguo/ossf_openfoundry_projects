@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-01-14 06:08-0000\n"
+"POT-Creation-Date: 2009-02-25 03:37-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,34 +17,27 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: app/helpers/application_helper.rb:46
-#: app/views/projects/test_action_i18n______________.rhtml:107
 msgid "Home"
 msgstr ""
 
 #: app/helpers/application_helper.rb:56
-#: app/views/projects/test_action_i18n______________.rhtml:119
 msgid "Project Releases"
 msgstr ""
 
 #: app/helpers/application_helper.rb:59
-#: app/views/projects/test_action_i18n______________.rhtml:261
 msgid "user"
 msgstr ""
 
 #: app/helpers/application_helper.rb:62 app/views/projects/_list.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:123
 msgid "Project Listing"
 msgstr ""
 
-#: app/helpers/application_helper.rb:65
-#: app/views/projects/test_action_i18n______________.rhtml:199
-#: app/views/category/list.rhtml:1
+#: app/helpers/application_helper.rb:65 app/views/category/list.rhtml:1
 msgid "Project Category"
 msgstr ""
 
 #: app/helpers/application_helper.rb:68 app/controllers/news_controller.rb:27
-#: app/views/openfoundry/index.rhtml:56
-#: app/views/projects/test_action_i18n______________.rhtml:16
+#: app/views/openfoundry/index.rhtml:59
 msgid "Project News"
 msgstr ""
 
@@ -52,7 +45,6 @@ msgstr ""
 #: app/controllers/jobs_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:24
 #: app/views/partials/_project_menu.rhtml:70
-#: app/views/projects/test_action_i18n______________.rhtml:101
 msgid "Help Wanted"
 msgstr ""
 
@@ -61,7 +53,6 @@ msgstr ""
 #: app/controllers/citations_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:21
 #: app/views/partials/_project_menu.rhtml:61
-#: app/views/projects/test_action_i18n______________.rhtml:292
 msgid "Citations"
 msgstr ""
 
@@ -70,37 +61,32 @@ msgstr ""
 #: app/controllers/references_controller.rb:27
 #: app/views/partials/_project_menu.rhtml:22
 #: app/views/partials/_project_menu.rhtml:64
-#: app/views/projects/test_action_i18n______________.rhtml:268
 msgid "References"
 msgstr ""
 
 #: app/helpers/application_helper.rb:80
-#: app/views/projects/test_action_i18n______________.rhtml:149
 msgid "Issue Tracker"
 msgstr ""
 
 #: app/helpers/application_helper.rb:83
 #: app/controllers/releases_controller.rb:75
 #: app/views/partials/_project_menu.rhtml:47
-#: app/views/projects/test_action_i18n______________.rhtml:188
 msgid "Downloads"
 msgstr ""
 
 #: app/helpers/application_helper.rb:86
 #: app/controllers/releases_controller.rb:47
-#: app/views/projects/test_action_i18n______________.rhtml:307
 msgid "Top Downloads"
 msgstr ""
 
 #: app/helpers/application_helper.rb:89
 #: app/controllers/releases_controller.rb:61
 #: app/views/releases/_new_releases.rhtml:1
-#: app/views/projects/test_action_i18n______________.rhtml:75
 msgid "Latest Releases"
 msgstr ""
 
 #: app/helpers/application_helper.rb:92
-#: app/views/partials/_top_menu_data.rhtml:74
+#: app/views/partials/_top_menu_data.rhtml:68
 msgid "Help"
 msgstr ""
 
@@ -109,7 +95,6 @@ msgid "Survey"
 msgstr ""
 
 #: app/helpers/application_helper.rb:269 app/helpers/application_helper.rb:314
-#: app/views/projects/test_action_i18n______________.rhtml:173
 msgid "required_icon"
 msgstr ""
 
@@ -146,12 +131,10 @@ msgid "Category|Updated by"
 msgstr ""
 
 #: app/models/user.rb:126
-#: app/views/projects/test_action_i18n______________.rhtml:89
 msgid "Old Password Incorrect"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:279
 msgid "release"
 msgstr ""
 
@@ -164,47 +147,38 @@ msgid "Release|Project"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:284
 msgid "Release|Name"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:294
 msgid "Release|Description"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:133
 msgid "Release|Version"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:13
 msgid "Release|Due"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:301
 msgid "Release|Status"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:283
 msgid "Release|Created at"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:210
 msgid "Release|Updated at"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:62
 msgid "Release|Creator"
 msgstr ""
 
 #: app/models/release.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:311
 msgid "Release|Release counter"
 msgstr ""
 
@@ -213,12 +187,10 @@ msgid "Release|Updated by"
 msgstr ""
 
 #: app/models/release.rb:18
-#: app/views/projects/test_action_i18n______________.rhtml:228
 msgid "PREPARING"
 msgstr ""
 
-#: app/models/release.rb:19 app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:37
+#: app/models/release.rb:19 app/models/project.rb:10
 msgid "RELEASED"
 msgstr ""
 
@@ -258,11 +230,11 @@ msgstr ""
 msgid "Group \"Admin\" CAN NOT be EMPTY."
 msgstr ""
 
-#: app/models/role.rb:40
+#: app/models/role.rb:44
 msgid "This will remove User form this Group, are you sure?"
 msgstr ""
 
-#: app/models/role.rb:41
+#: app/models/role.rb:45
 msgid "This will add User to this Group, are you sure?"
 msgstr ""
 
@@ -271,7 +243,6 @@ msgid "image"
 msgstr ""
 
 #: app/models/image.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:4
 msgid "Image|Name"
 msgstr ""
 
@@ -280,7 +251,6 @@ msgid "Image|Meta"
 msgstr ""
 
 #: app/models/image.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:316
 msgid "Image|Comment"
 msgstr ""
 
@@ -297,7 +267,6 @@ msgid "function"
 msgstr ""
 
 #: app/models/function.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:299
 msgid "Function|Name"
 msgstr ""
 
@@ -306,17 +275,14 @@ msgid "Function|Module"
 msgstr ""
 
 #: app/models/function.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:171
 msgid "Function|Description"
 msgstr ""
 
 #: app/models/function.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:291
 msgid "Function|Created at"
 msgstr ""
 
 #: app/models/function.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:224
 msgid "Function|Updated at"
 msgstr ""
 
@@ -405,17 +371,14 @@ msgid "Session|Data"
 msgstr ""
 
 #: app/models/session.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:44
 msgid "Session|Created at"
 msgstr ""
 
 #: app/models/session.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:95
 msgid "Session|Updated at"
 msgstr ""
 
 #: app/models/project.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:23
 msgid "project"
 msgstr ""
 
@@ -428,17 +391,14 @@ msgid "Project|Project Name"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:28
-#: app/views/projects/test_action_i18n______________.rhtml:234
 msgid "Project|Summary"
 msgstr ""
 
 #: app/models/project.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:146
 msgid "Project|Rationale"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:29
-#: app/views/projects/test_action_i18n______________.rhtml:176
 msgid "Project|Description"
 msgstr ""
 
@@ -447,7 +407,6 @@ msgid "Project|Contact Information"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:32
-#: app/views/projects/test_action_i18n______________.rhtml:328
 msgid "Project|Maturity"
 msgstr ""
 
@@ -464,7 +423,6 @@ msgid "Project|Licensing Description"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:36
-#: app/views/projects/test_action_i18n______________.rhtml:129
 msgid "Project|Platform"
 msgstr ""
 
@@ -489,12 +447,10 @@ msgid "Project|Version Control System Description "
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:40
-#: app/views/projects/test_action_i18n______________.rhtml:289
 msgid "Project|Creator"
 msgstr ""
 
 #: app/models/project.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:111
 msgid "Project|Status"
 msgstr ""
 
@@ -503,12 +459,10 @@ msgid "Project|Status Reason"
 msgstr ""
 
 #: app/models/project.rb:- app/views/projects/show.rhtml:41
-#: app/views/projects/test_action_i18n______________.rhtml:159
 msgid "Project|Created at"
 msgstr ""
 
 #: app/models/project.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:194
 msgid "Project|Updated at"
 msgstr ""
 
@@ -517,165 +471,137 @@ msgid "Project|Updated by"
 msgstr ""
 
 #: app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:318
 msgid "IDEA"
 msgstr ""
 
-#: app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:104
+#: app/models/project.rb:7
 msgid "PREALPHA"
 msgstr ""
 
-#: app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:238
+#: app/models/project.rb:8
 msgid "ALPHA"
 msgstr ""
 
-#: app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:121
+#: app/models/project.rb:9
 msgid "BETA"
 msgstr ""
 
-#: app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:77
+#: app/models/project.rb:11
 msgid "MATURE"
 msgstr ""
 
-#: app/models/project.rb:6
-#: app/views/projects/test_action_i18n______________.rhtml:203
+#: app/models/project.rb:12
 msgid "STANDARD"
 msgstr ""
 
-#: app/models/project.rb:53 app/models/project.rb:94
-#: app/views/projects/test_action_i18n______________.rhtml:114
+#: app/models/project.rb:59 app/models/project.rb:102
 msgid "Public Domain"
 msgstr ""
 
-#: app/models/project.rb:53
-#: app/views/projects/test_action_i18n______________.rhtml:61
+#: app/models/project.rb:60
 msgid "This project contains no code"
 msgstr ""
 
-#: app/models/project.rb:53 app/models/project.rb:94
-#: app/views/projects/test_action_i18n______________.rhtml:50
+#: app/models/project.rb:61 app/models/project.rb:105
 msgid "Other licenses"
 msgstr ""
 
-#: app/models/project.rb:94
-#: app/views/projects/test_action_i18n______________.rhtml:7
+#: app/models/project.rb:103
 msgid "Same license as code"
 msgstr ""
 
-#: app/models/project.rb:94
-#: app/views/projects/test_action_i18n______________.rhtml:170
+#: app/models/project.rb:104
 msgid "Project contains only code"
 msgstr ""
 
-#: app/models/project.rb:158
+#: app/models/project.rb:169
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:160 app/views/projects/_tabnav.rhtml:6
+#: app/models/project.rb:171 app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr ""
 
-#: app/models/project.rb:162
+#: app/models/project.rb:173
 msgid "Subversion: members only"
 msgstr ""
 
-#: app/models/project.rb:164
-#: app/views/projects/test_action_i18n______________.rhtml:324
+#: app/models/project.rb:175
 msgid "This project uses a version control system at other site."
 msgstr ""
 
-#: app/models/project.rb:166
-#: app/views/projects/test_action_i18n______________.rhtml:140
+#: app/models/project.rb:177
 msgid "This project does not use any version control system."
 msgstr ""
 
-#: app/models/project.rb:168
-#: app/views/projects/test_action_i18n______________.rhtml:87
+#: app/models/project.rb:179
 msgid "System Error. Please contact the site administrator."
 msgstr ""
 
-#: app/models/project.rb:219
+#: app/models/project.rb:230
 msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
-#: app/models/project.rb:220
-#: app/views/projects/test_action_i18n______________.rhtml:181
+#: app/models/project.rb:231
 msgid "This name is reserved by the system."
 msgstr ""
 
-#: app/models/project.rb:226
-#: app/views/projects/test_action_i18n______________.rhtml:290
+#: app/models/project.rb:237
 msgid "You have choosen too many licenses."
 msgstr ""
 
-#: app/models/project.rb:228
-#: app/views/projects/test_action_i18n______________.rhtml:84
+#: app/models/project.rb:239
 msgid "You have choosen too many content licenses."
 msgstr ""
 
-#: app/models/project.rb:253
-#: app/views/projects/test_action_i18n______________.rhtml:132
+#: app/models/project.rb:264
 msgid "Please choose at least one code license."
 msgstr ""
 
-#: app/models/project.rb:256
-#: app/views/projects/test_action_i18n______________.rhtml:93
+#: app/models/project.rb:267
 msgid ""
 "If this project contains no code, then you may not choose any other license."
 msgstr ""
 
-#: app/models/project.rb:261
-#: app/views/projects/test_action_i18n______________.rhtml:179
+#: app/models/project.rb:272
 msgid "Please choose at least one content license."
 msgstr ""
 
-#: app/models/project.rb:264
-#: app/views/projects/test_action_i18n______________.rhtml:193
+#: app/models/project.rb:275
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
 msgstr ""
 
-#: app/models/project.rb:267
-#: app/views/projects/test_action_i18n______________.rhtml:192
+#: app/models/project.rb:278
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
 msgstr ""
 
-#: app/models/project.rb:271
-#: app/views/projects/test_action_i18n______________.rhtml:303
+#: app/models/project.rb:282
 msgid "You have to choose a code license."
 msgstr ""
 
-#: app/models/project.rb:275
-#: app/views/projects/test_action_i18n______________.rhtml:226
+#: app/models/project.rb:286
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
 msgstr ""
 
-#: app/models/project.rb:279
-#: app/views/projects/test_action_i18n______________.rhtml:252
+#: app/models/project.rb:290
 msgid "Please choose at least one platform."
 msgstr ""
 
-#: app/models/project.rb:283
-#: app/views/projects/test_action_i18n______________.rhtml:57
+#: app/models/project.rb:294
 msgid "Please choose at least one programming language."
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:31
 msgid "fileentity"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:195
 msgid "Fileentity|Icon"
 msgstr ""
 
@@ -684,22 +610,18 @@ msgid "Fileentity|Release"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:168
 msgid "Fileentity|Name"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:86
 msgid "Fileentity|Description"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:32
 msgid "Fileentity|Size"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:156
 msgid "Fileentity|Path"
 msgstr ""
 
@@ -708,12 +630,10 @@ msgid "Fileentity|Meta"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:220
 msgid "Fileentity|Created at"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:334
 msgid "Fileentity|Updated at"
 msgstr ""
 
@@ -722,12 +642,10 @@ msgid "Fileentity|Updated by"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:295
 msgid "Fileentity|Creator"
 msgstr ""
 
 #: app/models/fileentity.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:55
 msgid "Fileentity|File counter"
 msgstr ""
 
@@ -740,12 +658,10 @@ msgid "news"
 msgstr ""
 
 #: app/models/news.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:18
 msgid "News|Subject"
 msgstr ""
 
 #: app/models/news.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:185
 msgid "News|Description"
 msgstr ""
 
@@ -758,22 +674,18 @@ msgid "News|Catid"
 msgstr ""
 
 #: app/models/news.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:236
 msgid "News|Status"
 msgstr ""
 
 #: app/models/news.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:329
 msgid "News|Creator"
 msgstr ""
 
 #: app/models/news.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:187
 msgid "News|Created at"
 msgstr ""
 
 #: app/models/news.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:241
 msgid "News|Updated at"
 msgstr ""
 
@@ -801,15 +713,12 @@ msgstr ""
 msgid "job"
 msgstr ""
 
-#: app/models/job.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:103
-#: app/views/jobs/_form.rhtml:5
+#: app/models/job.rb:- app/views/jobs/_form.rhtml:5
 msgid "Job|Subject"
 msgstr ""
 
-#: app/models/job.rb:-
-#: app/views/projects/test_action_i18n______________.rhtml:201
-#: app/views/jobs/show.rhtml:4 app/views/jobs/_form.rhtml:9
+#: app/models/job.rb:- app/views/jobs/show.rhtml:4
+#: app/views/jobs/_form.rhtml:9
 msgid "Job|Description"
 msgstr ""
 
@@ -1130,27 +1039,24 @@ msgstr ""
 msgid "Downloader|Release"
 msgstr ""
 
-#: app/controllers/site_admin/site_admin_controller.rb:85
+#: app/controllers/site_admin/site_admin_controller.rb:89
 msgid "Message sent."
 msgstr ""
 
 #: app/controllers/news_controller.rb:32
 #: app/views/partials/_top_menu_data.rhtml:7
-#: app/views/openfoundry/index.rhtml:62
-#: app/views/projects/test_action_i18n______________.rhtml:117
+#: app/views/openfoundry/index.rhtml:71
 msgid "OpenFoundry News"
 msgstr ""
 
 #: app/controllers/news_controller.rb:36
-#: app/views/projects/test_action_i18n______________.rhtml:335
-#: app/views/site_admin/site_admin/index.rhtml:33
+#: app/views/site_admin/site_admin/index.rhtml:36
 msgid "News"
 msgstr ""
 
 #: app/controllers/news_controller.rb:59
 #: app/views/partials/_project_menu.rhtml:23
 #: app/views/partials/_project_menu.rhtml:67
-#: app/views/projects/test_action_i18n______________.rhtml:182
 msgid "project_News"
 msgstr ""
 
@@ -1180,139 +1086,113 @@ msgid "Delete Successful"
 msgstr ""
 
 #: app/controllers/user_controller.rb:24
-#: app/views/projects/test_action_i18n______________.rhtml:25
 msgid "User %{user} doesn't exist or be activated"
 msgstr ""
 
 #: app/controllers/user_controller.rb:118
-#: app/views/projects/test_action_i18n______________.rhtml:308
 msgid "Username '%{username}' is invalid"
 msgstr ""
 
 #: app/controllers/user_controller.rb:123
-#: app/views/projects/test_action_i18n______________.rhtml:5
 msgid "Username '%{username}' has already registed"
 msgstr ""
 
 #: app/controllers/user_controller.rb:125
-#: app/views/projects/test_action_i18n______________.rhtml:88
 msgid "Username '%{username}' is ready for use"
 msgstr ""
 
 #: app/controllers/user_controller.rb:133
-#: app/views/projects/test_action_i18n______________.rhtml:216
 msgid "OpenID Login Succeeded"
 msgstr ""
 
 #: app/controllers/user_controller.rb:138
-#: app/controllers/user_controller.rb:168
-#: app/views/projects/test_action_i18n______________.rhtml:91
+#: app/controllers/user_controller.rb:173
 msgid "user_login_failed"
 msgstr ""
 
 #: app/controllers/user_controller.rb:157
-#: app/views/projects/test_action_i18n______________.rhtml:314
 msgid "user_login_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:193
-#: app/views/projects/test_action_i18n______________.rhtml:172
+#: app/controllers/user_controller.rb:198
 msgid "user_signup_succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:198
-#: app/views/projects/test_action_i18n______________.rhtml:235
+#: app/controllers/user_controller.rb:203
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:228
-#: app/views/projects/test_action_i18n______________.rhtml:124
+#: app/controllers/user_controller.rb:238
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:230
-#: app/views/projects/test_action_i18n______________.rhtml:271
+#: app/controllers/user_controller.rb:240
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:262
-#: app/views/projects/test_action_i18n______________.rhtml:96
+#: app/controllers/user_controller.rb:272
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:265
-#: app/views/projects/test_action_i18n______________.rhtml:134
+#: app/controllers/user_controller.rb:275
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:280
-#: app/views/projects/test_action_i18n______________.rhtml:34
+#: app/controllers/user_controller.rb:290
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:282
-#: app/views/projects/test_action_i18n______________.rhtml:108
+#: app/controllers/user_controller.rb:292
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:294
-#: app/views/projects/test_action_i18n______________.rhtml:319
+#: app/controllers/user_controller.rb:304
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:305
-#: app/views/projects/test_action_i18n______________.rhtml:166
+#: app/controllers/user_controller.rb:315
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:335
-#: app/views/projects/test_action_i18n______________.rhtml:115
+#: app/controllers/user_controller.rb:345
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:360
-#: app/views/projects/test_action_i18n______________.rhtml:278
+#: app/controllers/user_controller.rb:370
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:369
-#: app/views/projects/test_action_i18n______________.rhtml:285
+#: app/controllers/user_controller.rb:379
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:380
-#: app/views/projects/test_action_i18n______________.rhtml:180
+#: app/controllers/user_controller.rb:390
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:404
-#: app/views/projects/test_action_i18n______________.rhtml:167
+#: app/controllers/user_controller.rb:414
 msgid "user_delete_finished"
 msgstr ""
 
-#: app/controllers/user_controller.rb:488
+#: app/controllers/user_controller.rb:498
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
 #: app/controllers/application.rb:91
-#: app/views/projects/test_action_i18n______________.rhtml:64
 msgid "&laquo; Previous"
 msgstr ""
 
 #: app/controllers/application.rb:92
-#: app/views/projects/test_action_i18n______________.rhtml:53
 msgid "Next &raquo;"
 msgstr ""
 
 #: app/controllers/application.rb:266 app/controllers/application.rb:269
-#: app/views/projects/test_action_i18n______________.rhtml:286
 msgid "captcha mismatch"
 msgstr ""
 
 #: app/controllers/application.rb:289 app/controllers/images_controller.rb:197
-#: app/views/projects/test_action_i18n______________.rhtml:141
 msgid "you have no permission"
 msgstr ""
 
@@ -1361,7 +1241,6 @@ msgid "No file has been added!"
 msgstr ""
 
 #: app/controllers/images_controller.rb:194
-#: app/views/projects/test_action_i18n______________.rhtml:218
 msgid "image_upload_error"
 msgstr ""
 
@@ -1374,21 +1253,18 @@ msgid ""
 msgstr ""
 
 #: app/controllers/projects_controller.rb:34
-#: app/views/projects/test_action_i18n______________.rhtml:208
 msgid "Basic Information"
 msgstr ""
 
 #: app/controllers/projects_controller.rb:38
 #: app/views/partials/_project_menu.rhtml:46
 #: app/views/partials/_project_menu.rhtml:82
-#: app/views/projects/test_action_i18n______________.rhtml:288
 msgid "Mailing List"
 msgstr ""
 
 #: app/controllers/projects_controller.rb:47
 #: app/views/partials/_project_menu.rhtml:38
-#: app/views/partials/_top_menu_data.rhtml:78
-#: app/views/projects/test_action_i18n______________.rhtml:213
+#: app/views/partials/_top_menu_data.rhtml:72
 msgid "Version Control"
 msgstr ""
 
@@ -1397,17 +1273,14 @@ msgid "System error. Please contact the site administrator."
 msgstr ""
 
 #: app/controllers/projects_controller.rb:158
-#: app/views/projects/test_action_i18n______________.rhtml:327
 msgid "Project was successfully updated."
 msgstr ""
 
 #: app/controllers/projects_controller.rb:160
-#: app/views/projects/test_action_i18n______________.rhtml:345
 msgid "Project|Redirecturl"
 msgstr ""
 
 #: app/controllers/projects_controller.rb:161 app/views/projects/show.rhtml:38
-#: app/views/projects/test_action_i18n______________.rhtml:177
 msgid "Project|Vcs"
 msgstr ""
 
@@ -1485,7 +1358,6 @@ msgid "Role id not found!"
 msgstr ""
 
 #: app/controllers/projects_controller.rb:463
-#: app/views/projects/test_action_i18n______________.rhtml:2
 msgid "Version Control System: How to Access"
 msgstr ""
 
@@ -1494,7 +1366,6 @@ msgid "Project Citations"
 msgstr ""
 
 #: app/controllers/jobs_controller.rb:22
-#: app/views/projects/test_action_i18n______________.rhtml:70
 msgid "Project Help Wanted"
 msgstr ""
 
@@ -1502,158 +1373,128 @@ msgstr ""
 msgid "Project References"
 msgstr ""
 
-#: app/controllers/survey_controller.rb:117
+#: app/controllers/survey_controller.rb:126
 msgid "Survey|You have to fill the REQUIRED fileds."
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:2 app/views/partials/_sed.rhtml:6
-#: app/views/projects/test_action_i18n______________.rhtml:253
 msgid "Show"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:3 app/views/partials/_sed.rhtml:7
-#: app/views/projects/show.rhtml:79
-#: app/views/projects/test_action_i18n______________.rhtml:51
-#: app/views/news/list.rhtml:35 app/views/news/list.rhtml:37
-#: app/views/news/show.rhtml:15 app/views/jobs/list.rhtml:21
-#: app/views/jobs/show.rhtml:14 app/views/citations/list.rhtml:20
-#: app/views/citations/show.rhtml:18 app/views/references/list.rhtml:19
-#: app/views/references/show.rhtml:10
+#: app/views/projects/show.rhtml:79 app/views/news/list.rhtml:35
+#: app/views/news/list.rhtml:37 app/views/news/show.rhtml:15
+#: app/views/jobs/list.rhtml:21 app/views/jobs/show.rhtml:14
+#: app/views/citations/list.rhtml:20 app/views/citations/show.rhtml:18
+#: app/views/references/list.rhtml:19 app/views/references/show.rhtml:10
 msgid "Edit"
 msgstr ""
 
 #: app/views/partials/_sed.rhtml:4 app/views/partials/_sed.rhtml:8
-#: app/views/projects/test_action_i18n______________.rhtml:24
 msgid "Destroy"
 msgstr ""
 
 #: app/views/partials/_tagcloud.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:240
 msgid "Tag Cloud"
 msgstr ""
 
 #: app/views/partials/_captcha.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:137
 msgid "In case you were not an alian. Please keyin according the image"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:4
-#: app/views/projects/test_action_i18n______________.rhtml:22
 msgid "search"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:8
-#: app/views/projects/test_action_i18n______________.rhtml:49
 msgid "Advensed Options"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:35
-#: app/views/projects/test_action_i18n______________.rhtml:68
 msgid "Search in Class"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:50
-#: app/views/projects/test_action_i18n______________.rhtml:106
 msgid "Search Include ALL of the List"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:54
-#: app/views/projects/test_action_i18n______________.rhtml:27
 msgid "Search Include ANY of the List"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:58
-#: app/views/projects/test_action_i18n______________.rhtml:81
 msgid "Search Exclude ANY of the List"
 msgstr ""
 
 #: app/views/partials/_search.rhtml:62
-#: app/views/projects/test_action_i18n______________.rhtml:312
 msgid "Search by Google"
 msgstr ""
 
 #: app/views/partials/_login.rhtml:8
-#: app/views/projects/test_action_i18n______________.rhtml:333
 msgid "Logout"
 msgstr ""
 
-#: app/views/partials/_login.rhtml:13
-#: app/views/projects/test_action_i18n______________.rhtml:276
-#: app/views/user/login.rhtml:38
+#: app/views/partials/_login.rhtml:13 app/views/user/login.rhtml:38
 msgid "Login"
 msgstr ""
 
 #: app/views/partials/_login.rhtml:15
-#: app/views/projects/test_action_i18n______________.rhtml:48
 msgid "Sign Up"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:10
-#: app/views/projects/test_action_i18n______________.rhtml:242
 msgid "project_menu_View"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:12
-#: app/views/projects/test_action_i18n______________.rhtml:135
 msgid "project_menu_Admin"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:17
 #: app/views/partials/_project_menu.rhtml:55
-#: app/views/projects/test_action_i18n______________.rhtml:315
 msgid "project_Info"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:19
 #: app/views/partials/_project_menu.rhtml:58
-#: app/views/projects/test_action_i18n______________.rhtml:109
 msgid "project_Basic_Information"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:20
-#: app/views/projects/test_action_i18n______________.rhtml:161
 msgid "project_Homepage"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:27
 #: app/views/partials/_project_menu.rhtml:76
-#: app/views/projects/test_action_i18n______________.rhtml:337
 msgid "project_Tracker"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:29
-#: app/views/projects/test_action_i18n______________.rhtml:6
 msgid "tracker_Overview"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:30
-#: app/views/projects/test_action_i18n______________.rhtml:126
 msgid "tracker_Defect"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:31
-#: app/views/projects/test_action_i18n______________.rhtml:205
 msgid "tracker_Patch"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:32
-#: app/views/projects/test_action_i18n______________.rhtml:320
 msgid "tracker_Task"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:33
-#: app/views/projects/test_action_i18n______________.rhtml:272
 msgid "tracker_Feature"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:34
-#: app/views/projects/test_action_i18n______________.rhtml:343
 msgid "tracker_Enhancement"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:37
 #: app/views/partials/_project_menu.rhtml:79
-#: app/views/projects/test_action_i18n______________.rhtml:73
 msgid "Wiki"
 msgstr ""
 
@@ -1662,7 +1503,6 @@ msgid "ViewVC"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:43
-#: app/views/projects/test_action_i18n______________.rhtml:189
 msgid "How to Access"
 msgstr ""
 
@@ -1672,7 +1512,6 @@ msgid "NSC project"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:85
-#: app/views/projects/test_action_i18n______________.rhtml:10
 msgid "release_Releases"
 msgstr ""
 
@@ -1681,7 +1520,6 @@ msgid "release_Edit"
 msgstr ""
 
 #: app/views/partials/_project_menu.rhtml:88
-#: app/views/projects/test_action_i18n______________.rhtml:160
 msgid "release_New"
 msgstr ""
 
@@ -1698,307 +1536,254 @@ msgid "project menu|Downloaders"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:277
 msgid "Terms of Use Agreement"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:10
-#: app/views/projects/test_action_i18n______________.rhtml:143
 msgid "I Agree"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:13
-#: app/views/projects/test_action_i18n______________.rhtml:331
 msgid "I Do Not Agree"
 msgstr ""
 
 #: app/views/partials/_toua.rhtml:15
-#: app/views/projects/test_action_i18n______________.rhtml:54
 msgid "submit"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:4
-#: app/views/layouts/application.rhtml:44
-#: app/views/projects/test_action_i18n______________.rhtml:42
+#: app/views/layouts/application.rhtml:36
 msgid "menu_OpenFoundry"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:6
-#: app/views/projects/test_action_i18n______________.rhtml:302
 msgid "menu_Home"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:10
+#: app/views/partials/_top_menu_data.rhtml:8
 msgid "About OpenFoundry Project"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:12
-#: app/views/projects/test_action_i18n______________.rhtml:139
+#: app/views/partials/_top_menu_data.rhtml:9
 msgid "menu_About OSSF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:12
-#: app/views/projects/test_action_i18n______________.rhtml:255
+#: app/views/partials/_top_menu_data.rhtml:9
 msgid "menu_About_OSSF_link"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:13
-#: app/views/projects/test_action_i18n______________.rhtml:229
+#: app/views/partials/_top_menu_data.rhtml:10
 msgid "menu_Newsletter"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:16
-#: app/views/layouts/application.rhtml:45
-#: app/views/projects/test_action_i18n______________.rhtml:120
+#: app/views/partials/_top_menu_data.rhtml:13
+#: app/views/layouts/application.rhtml:37
 msgid "menu_Projects"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:18
-#: app/views/projects/test_action_i18n______________.rhtml:321
+#: app/views/partials/_top_menu_data.rhtml:15
 msgid "menu_Project Listing"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:19
-#: app/views/projects/test_action_i18n______________.rhtml:186
+#: app/views/partials/_top_menu_data.rhtml:16
 msgid "menu_Project Category"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:20
-#: app/views/projects/test_action_i18n______________.rhtml:152
+#: app/views/partials/_top_menu_data.rhtml:17
 msgid "menu_Project News"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:21
-#: app/views/projects/test_action_i18n______________.rhtml:280
+#: app/views/partials/_top_menu_data.rhtml:18
 msgid "menu_Latest Releases"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:22
-#: app/views/projects/test_action_i18n______________.rhtml:243
+#: app/views/partials/_top_menu_data.rhtml:19
 msgid "menu_Top Downloads"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:23
-#: app/views/projects/test_action_i18n______________.rhtml:58
+#: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_Help Wanted"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:24
-#: app/views/projects/test_action_i18n______________.rhtml:46
+#: app/views/partials/_top_menu_data.rhtml:21
 msgid "menu_WebHosting"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:25
-#: app/views/partials/_top_menu_data.rhtml:42 app/views/projects/new.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:340
+#: app/views/partials/_top_menu_data.rhtml:22
+#: app/views/partials/_top_menu_data.rhtml:39 app/views/projects/new.rhtml:2
 msgid "Create Project"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:29
-#: app/views/projects/test_action_i18n______________.rhtml:29
+#: app/views/partials/_top_menu_data.rhtml:26
 msgid "menu_My Account"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:31
-#: app/views/projects/test_action_i18n______________.rhtml:273
+#: app/views/partials/_top_menu_data.rhtml:28
 msgid "menu_Personal Homepage"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:32
-#: app/views/projects/test_action_i18n______________.rhtml:28
+#: app/views/partials/_top_menu_data.rhtml:29
 msgid "menu_Preferences"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:33
-#: app/views/projects/test_action_i18n______________.rhtml:174
+#: app/views/partials/_top_menu_data.rhtml:30
 msgid "menu_My Projects"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:34
-#: app/views/projects/test_action_i18n______________.rhtml:212
+#: app/views/partials/_top_menu_data.rhtml:31
 msgid "menu_My Tickets"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:36
-#: app/views/projects/test_action_i18n______________.rhtml:12
+#: app/views/partials/_top_menu_data.rhtml:33
 msgid "Owner"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:37
-#: app/views/projects/test_action_i18n______________.rhtml:145
+#: app/views/partials/_top_menu_data.rhtml:34
 msgid "Creator"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:38
-#: app/views/projects/test_action_i18n______________.rhtml:254
+#: app/views/partials/_top_menu_data.rhtml:35
 msgid "Requestor"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:39
-#: app/views/projects/test_action_i18n______________.rhtml:222
+#: app/views/partials/_top_menu_data.rhtml:36
 msgid "LastUpdatedBy"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:46
-#: app/views/layouts/application.rhtml:46
-#: app/views/projects/test_action_i18n______________.rhtml:266
+#: app/views/partials/_top_menu_data.rhtml:43
+#: app/views/layouts/application.rhtml:38
 msgid "menu_License Wizard"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:46
-#: app/views/partials/_top_menu_data.rhtml:50
-#: app/views/projects/test_action_i18n______________.rhtml:83
+#: app/views/partials/_top_menu_data.rhtml:43
+#: app/views/partials/_top_menu_data.rhtml:47
 msgid "menu_LW_manual_link"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:48
-#: app/views/partials/_top_menu_data.rhtml:49
-#: app/views/projects/test_action_i18n______________.rhtml:233
+#: app/views/partials/_top_menu_data.rhtml:45
+#: app/views/partials/_top_menu_data.rhtml:46
 msgid "License Wizard"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:48
-#: app/views/projects/test_action_i18n______________.rhtml:153
+#: app/views/partials/_top_menu_data.rhtml:45
 msgid "menu_LW_22_link"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:49
-#: app/views/projects/test_action_i18n______________.rhtml:30
+#: app/views/partials/_top_menu_data.rhtml:46
 msgid "menu_LW_32_link"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:50
-#: app/views/projects/test_action_i18n______________.rhtml:225
+#: app/views/partials/_top_menu_data.rhtml:47
 msgid "menu_Manual"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:53
-#: app/views/layouts/application.rhtml:47
-#: app/views/projects/test_action_i18n______________.rhtml:267
+#: app/views/partials/_top_menu_data.rhtml:50
+#: app/views/layouts/application.rhtml:39
 msgid "menu_Help"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:55
-#: app/views/projects/test_action_i18n______________.rhtml:113
+#: app/views/partials/_top_menu_data.rhtml:52
 msgid "menu_About this Manual"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:56
-#: app/views/projects/test_action_i18n______________.rhtml:309
+#: app/views/partials/_top_menu_data.rhtml:53
 msgid "menu_OpenFoundry Overview"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:57
-#: app/views/projects/test_action_i18n______________.rhtml:142
+#: app/views/partials/_top_menu_data.rhtml:54
 msgid "menu_End User Guide"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:58
-#: app/views/projects/test_action_i18n______________.rhtml:190
+#: app/views/partials/_top_menu_data.rhtml:55
 msgid "menu_Project Manager Guide"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:59
-#: app/views/projects/test_action_i18n______________.rhtml:97
+#: app/views/partials/_top_menu_data.rhtml:56
 msgid "menu_OpenFoundry Features"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:60
-#: app/views/projects/test_action_i18n______________.rhtml:150
+#: app/views/partials/_top_menu_data.rhtml:57
 msgid "Download PDF"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:65
+#: app/views/partials/_top_menu_data.rhtml:60
 msgid "Forum"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:68
-#: app/views/partials/_top_menu_data.rhtml:70
-#: app/views/layouts/application.rhtml:48
-#: app/views/projects/test_action_i18n______________.rhtml:339
+#: app/views/partials/_top_menu_data.rhtml:62
+#: app/views/partials/_top_menu_data.rhtml:64
+#: app/views/layouts/application.rhtml:40
 msgid "menu_Contact Us"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:71
-#: app/views/projects/test_action_i18n______________.rhtml:326
+#: app/views/partials/_top_menu_data.rhtml:65
 msgid "Bug Report"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:76 app/views/layouts/admin.rhtml:6
-#: app/views/projects/test_action_i18n______________.rhtml:249
+#: app/views/partials/_top_menu_data.rhtml:70 app/views/layouts/admin.rhtml:6
 msgid "OpenFoundry"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:77
+#: app/views/partials/_top_menu_data.rhtml:71
 msgid "NSC Project"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:82
+#: app/views/partials/_top_menu_data.rhtml:76
 msgid "menu_Site Admin"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:84
+#: app/views/partials/_top_menu_data.rhtml:78
 msgid "Approve Projects"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:85
+#: app/views/partials/_top_menu_data.rhtml:79
 msgid "Translations"
 msgstr ""
 
-#: app/views/partials/_top_menu_data.rhtml:86
+#: app/views/partials/_top_menu_data.rhtml:80
 msgid "Module Menagements"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:80
-#: app/views/projects/test_action_i18n______________.rhtml:105
-#: app/views/user/edit.rhtml:11 app/views/user/home.rhtml:9
+#: app/views/layouts/application.rhtml:72 app/views/user/edit.rhtml:11
+#: app/views/user/home.rhtml:9
 msgid "Change Icon"
 msgstr ""
 
-#: app/views/layouts/application.rhtml:100
-#: app/views/projects/test_action_i18n______________.rhtml:239
+#: app/views/layouts/application.rhtml:92
 msgid "Steering Organization"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:6
-#: app/views/projects/test_action_i18n______________.rhtml:259
 msgid "rt_issue_tracker"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:10
-#: app/views/projects/test_action_i18n______________.rhtml:211
 msgid "rt_overview"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:11
-#: app/views/projects/test_action_i18n______________.rhtml:92
 msgid "rt_defect"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:12
-#: app/views/projects/test_action_i18n______________.rhtml:336
 msgid "rt_patch"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:13
-#: app/views/projects/test_action_i18n______________.rhtml:71
 msgid "rt_task"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:14
-#: app/views/projects/test_action_i18n______________.rhtml:151
 msgid "rt_feature"
 msgstr ""
 
 #: app/views/layouts/rt.rhtml:15
-#: app/views/projects/test_action_i18n______________.rhtml:206
 msgid "rt_enhancement"
 msgstr ""
 
 #: app/views/releases/edit.rhtml:19 app/views/releases/_file_edit.rhtml:19
 #: app/views/releases/_release_edit.rhtml:19
 #: app/views/projects/permission_edit.rhtml:39
-#: app/views/projects/test_action_i18n______________.rhtml:293
 msgid "Update"
 msgstr ""
 
@@ -2034,47 +1819,39 @@ msgid "File_not_found"
 msgstr ""
 
 #: app/views/releases/new.rhtml:19 app/views/projects/new.rhtml:6
-#: app/views/projects/test_action_i18n______________.rhtml:14
 msgid "Create"
 msgstr ""
 
 #: app/views/releases/_most_popular.rhtml:1
-#: app/views/projects/test_action_i18n______________.rhtml:128
 msgid "Top Download"
 msgstr ""
 
 #: app/views/releases/_most_popular.rhtml:9
 #: app/views/releases/_new_releases.rhtml:9
-#: app/views/projects/_new_projects.rhtml:9
-#: app/views/projects/test_action_i18n______________.rhtml:248
-#: app/views/news/_home_news.rhtml:16 app/views/news/_listn.rhtml:8
+#: app/views/projects/_new_projects.rhtml:9 app/views/news/_home_news.rhtml:15
+#: app/views/news/_listn.rhtml:8 app/views/news/_www_news.html.erb:21
 msgid "More..."
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:63
 #: app/views/site_admin/site_admin/nsc_download.rhtml:8
 msgid "Release Listing"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:7
-#: app/views/projects/test_action_i18n______________.rhtml:118
 msgid "Rank"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:8
-#: app/views/projects/test_action_i18n______________.rhtml:332
 msgid "Release Name"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:9
-#: app/views/projects/test_action_i18n______________.rhtml:275
 msgid "Release Date"
 msgstr ""
 
 #: app/views/releases/_top_download_list.rhtml:10
 #: app/views/projects/_list.rhtml:9 app/views/projects/_list.rhtml:28
-#: app/views/projects/test_action_i18n______________.rhtml:330
 #: app/views/user/my_projects.rhtml:10 app/views/user/my_projects.rhtml:29
 msgid "Download"
 msgstr ""
@@ -2084,50 +1861,45 @@ msgid "survey|Downloader Reviews"
 msgstr ""
 
 #: app/views/releases/download.rhtml:24
-#: app/views/projects/test_action_i18n______________.rhtml:8
 msgid "Downloads Hits "
 msgstr ""
 
 #: app/views/releases/_file_edit.rhtml:19
 #: app/views/releases/_release_edit.rhtml:19
-#: app/views/projects/test_action_i18n______________.rhtml:169
 #: app/views/user/forgot_password.rhtml:13
 #: app/views/user/change_password.rhtml:11
 msgid "Cancel"
 msgstr ""
 
 #: app/views/images/_edit.rhtml:8
-#: app/views/projects/test_action_i18n______________.rhtml:263
 msgid "Upload your picture"
 msgstr ""
 
 #: app/views/images/_edit.rhtml:12
-#: app/views/projects/test_action_i18n______________.rhtml:165
 msgid "Upload"
 msgstr ""
 
 #: app/views/openfoundry/search.rhtml:2
-#: app/views/projects/test_action_i18n______________.rhtml:138
 msgid "Search Result"
 msgstr ""
 
+#: app/views/openfoundry/index.rhtml:68
+msgid "Daily News"
+msgstr ""
+
 #: app/views/openfoundry/_staticities.rhtml:1
-#: app/views/projects/test_action_i18n______________.rhtml:223
 msgid "Statistics"
 msgstr ""
 
 #: app/views/openfoundry/_staticities.rhtml:3
-#: app/views/projects/test_action_i18n______________.rhtml:148
 msgid "Registed Projects"
 msgstr ""
 
 #: app/views/openfoundry/_staticities.rhtml:4
-#: app/views/projects/test_action_i18n______________.rhtml:19
 msgid "Registed Users"
 msgstr ""
 
 #: app/views/openfoundry/_staticities.rhtml:5
-#: app/views/projects/test_action_i18n______________.rhtml:20
 msgid "Online Users"
 msgstr ""
 
@@ -2148,7 +1920,6 @@ msgid "Project Logo"
 msgstr ""
 
 #: app/views/projects/_list.rhtml:36
-#: app/views/projects/test_action_i18n______________.rhtml:269
 msgid "New project"
 msgstr ""
 
@@ -2157,17 +1928,14 @@ msgid "Project navigation bar"
 msgstr ""
 
 #: app/views/projects/_tabnav.rhtml:3
-#: app/views/projects/test_action_i18n______________.rhtml:163
 msgid "Project Basic"
 msgstr ""
 
 #: app/views/projects/_tabnav.rhtml:4
-#: app/views/projects/test_action_i18n______________.rhtml:244
 msgid "Kwiki"
 msgstr ""
 
 #: app/views/projects/_tabnav.rhtml:5
-#: app/views/projects/test_action_i18n______________.rhtml:39
 msgid "Sympa"
 msgstr ""
 
@@ -2179,42 +1947,34 @@ msgid ""
 msgstr ""
 
 #: app/views/projects/show.rhtml:27
-#: app/views/projects/test_action_i18n______________.rhtml:144
 msgid "Project|Name"
 msgstr ""
 
 #: app/views/projects/show.rhtml:30
-#: app/views/projects/test_action_i18n______________.rhtml:237
 msgid "Project|HOMEPAGE"
 msgstr ""
 
 #: app/views/projects/show.rhtml:31
-#: app/views/projects/test_action_i18n______________.rhtml:175
 msgid "Project|Contactinfo"
 msgstr ""
 
 #: app/views/projects/show.rhtml:33
-#: app/views/projects/test_action_i18n______________.rhtml:122
 msgid "Project|License"
 msgstr ""
 
 #: app/views/projects/show.rhtml:34
-#: app/views/projects/test_action_i18n______________.rhtml:198
 msgid "Project|Contentlicense"
 msgstr ""
 
 #: app/views/projects/show.rhtml:35
-#: app/views/projects/test_action_i18n______________.rhtml:184
 msgid "Project|Licensingdescription"
 msgstr ""
 
 #: app/views/projects/show.rhtml:37
-#: app/views/projects/test_action_i18n______________.rhtml:217
 msgid "Project|Programminglanguage"
 msgstr ""
 
 #: app/views/projects/show.rhtml:39
-#: app/views/projects/test_action_i18n______________.rhtml:21
 msgid "Project|Vcsdescription"
 msgstr ""
 
@@ -2224,82 +1984,66 @@ msgid "Project|Nsccode"
 msgstr ""
 
 #: app/views/projects/show.rhtml:56
-#: app/views/projects/test_action_i18n______________.rhtml:94
 msgid "Project Participants"
 msgstr ""
 
 #: app/views/projects/show.rhtml:63
-#: app/views/projects/test_action_i18n______________.rhtml:282
 msgid "Project Participants (grouped by role)"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:39
-#: app/views/projects/test_action_i18n______________.rhtml:274
 msgid "Others"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:73
-#: app/views/projects/test_action_i18n______________.rhtml:313
 msgid "Project|Name|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:75
-#: app/views/projects/test_action_i18n______________.rhtml:79
 msgid "Project|Summary|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:78
-#: app/views/projects/test_action_i18n______________.rhtml:65
 msgid "Project|Description|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:80
-#: app/views/projects/test_action_i18n______________.rhtml:130
 msgid "Project|Contactinfo|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:82
-#: app/views/projects/test_action_i18n______________.rhtml:90
 msgid "Project|Maturity|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:84
-#: app/views/projects/test_action_i18n______________.rhtml:262
 msgid "Project|License|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:87
-#: app/views/projects/test_action_i18n______________.rhtml:136
 msgid "Project|Contentlicense|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:89
-#: app/views/projects/test_action_i18n______________.rhtml:300
 msgid "Project|Licensingdescription|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:91
-#: app/views/projects/test_action_i18n______________.rhtml:80
 msgid "Project|Platform|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:93
-#: app/views/projects/test_action_i18n______________.rhtml:9
 msgid "Project|Programminglanguage|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:97
-#: app/views/projects/test_action_i18n______________.rhtml:112
 msgid "Project|Redirecturl|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:99
-#: app/views/projects/test_action_i18n______________.rhtml:99
 msgid "Project|Vcs|Help"
 msgstr ""
 
 #: app/views/projects/_form.rhtml:101
-#: app/views/projects/test_action_i18n______________.rhtml:204
 msgid "Project|Vcsdescription|Help"
 msgstr ""
 
@@ -2320,26 +2064,22 @@ msgid "comma seperated"
 msgstr ""
 
 #: app/views/projects/role_users.rhtml:3
-#: app/views/projects/test_action_i18n______________.rhtml:341
 msgid "Role|Set as "
 msgstr ""
 
 #: app/views/projects/role_users.rhtml:6
-#: app/views/projects/test_action_i18n______________.rhtml:155
 msgid "Role|Add"
 msgstr ""
 
 #: app/views/projects/role_users.rhtml:15
-#: app/views/projects/test_action_i18n______________.rhtml:209
 msgid "Role|Delete"
 msgstr ""
 
-#: app/views/projects/edit.rhtml:5
-#: app/views/projects/test_action_i18n______________.rhtml:258
-#: app/views/news/edit.rhtml:5 app/views/news/new.rhtml:5
-#: app/views/jobs/edit.rhtml:5 app/views/jobs/new.rhtml:5
-#: app/views/citations/edit.rhtml:5 app/views/citations/new.rhtml:5
-#: app/views/references/edit.rhtml:5 app/views/references/new.rhtml:5
+#: app/views/projects/edit.rhtml:5 app/views/news/edit.rhtml:5
+#: app/views/news/new.rhtml:5 app/views/jobs/edit.rhtml:5
+#: app/views/jobs/new.rhtml:5 app/views/citations/edit.rhtml:5
+#: app/views/citations/new.rhtml:5 app/views/references/edit.rhtml:5
+#: app/views/references/new.rhtml:5
 msgid "Save"
 msgstr ""
 
@@ -2361,12 +2101,10 @@ msgid "Drop People Here to Remove Them from the group."
 msgstr ""
 
 #: app/views/projects/_most_active.rhtml:1
-#: app/views/projects/test_action_i18n______________.rhtml:69
 msgid "Most Active"
 msgstr ""
 
 #: app/views/projects/_new_projects.rhtml:1
-#: app/views/projects/test_action_i18n______________.rhtml:17
 msgid "New Projects"
 msgstr ""
 
@@ -2422,79 +2160,17 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: app/views/projects/test_action_i18n______________.rhtml:3
-msgid "User|Delete after"
+#: app/views/news/list.rhtml:3 app/views/jobs/list.rhtml:3
+#: app/views/citations/list.rhtml:3 app/views/references/list.rhtml:3
+msgid "Sort by"
 msgstr ""
 
-#: app/views/projects/test_action_i18n______________.rhtml:11
-msgid "User|Created at"
+#: app/views/news/list.rhtml:4 app/views/news/_form.rhtml:4
+#: app/views/site_admin/site_admin/new_site_mail.rhtml:3
+#: app/views/jobs/list.rhtml:4
+msgid "Subject"
 msgstr ""
 
-#: app/views/projects/test_action_i18n______________.rhtml:15
-#: app/views/user/home.rhtml:32
-msgid "My Partners"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:26
-msgid "Invalid User!"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:33
-#: app/views/user/edit.rhtml:5
-msgid "Change User Icon"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:35
-#: app/views/user/forgot_password.rhtml:12
-msgid "User|Reset Password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:36
-#: app/views/user/_edit.rhtml:12
-msgid "User|Homepage|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:38
-#: app/views/user/_password.rhtml:16
-msgid "User|Password|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:40
-msgid "Project|Project counter"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:41
-#: app/views/user/_privacy.rhtml:11
-msgid "User|Conceal Bio|Help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:43
-msgid "User|Identity url"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:45
-#: app/views/user/_privacy.rhtml:2
-msgid "User Privacy"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:47
-msgid "User|Logged in at"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:52
-#: app/views/user/_password.rhtml:21 app/views/user/change_password.rhtml:10
-msgid "User|Change Password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:56
-msgid "Project|Intendedaudience"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:59
-msgid "User|Updated at"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:60
 #: app/views/news/list.rhtml:5 app/views/news/show.rhtml:3
 #: app/views/news/_form.rhtml:20 app/views/jobs/list.rhtml:5
 #: app/views/jobs/show.rhtml:2 app/views/citations/list.rhtml:5
@@ -2503,338 +2179,16 @@ msgstr ""
 msgid "Last Updated"
 msgstr ""
 
-#: app/views/projects/test_action_i18n______________.rhtml:66
-#: app/views/user/welcome.rhtml:5
-msgid "home"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:67
-msgid ""
-"Your project creating request has been submitted. Please wait 72 hours for "
-"approving."
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:72
-#: app/views/site_admin/site_admin/index.rhtml:34
-msgid "User"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:74
-#: app/views/user/_edit.rhtml:5
-msgid "User|Login"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:76
-#: app/views/user/_email.rhtml:6
-msgid "Change User Email"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:78
-#: app/views/user/_edit.rhtml:14
-msgid "User|Bio"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:82
-#: app/views/user/_privacy.rhtml:7
-msgid "User|Conceal Email"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:85
-#: app/views/user/_email.rhtml:14
-msgid "User|Email Confirmation"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:98
-#: app/views/user/_password.rhtml:4 app/views/user/_password.rhtml:16
-msgid "User|Password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:100
-#: app/views/user/home.rhtml:72
-msgid "Signup Date"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:102
-#: app/views/news/list.rhtml:28 app/views/news/_form.rhtml:24
-#: app/views/jobs/list.rhtml:15 app/views/jobs/_form.rhtml:21
-#: app/views/citations/list.rhtml:14 app/views/citations/_form.rhtml:29
-#: app/views/references/list.rhtml:13 app/views/references/_form.rhtml:9
-msgid "Status"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:110
-#: app/views/user/login.rhtml:20
-msgid "Password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:116
-msgid "Back"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:125
-#: app/views/user/_edit.rhtml:2
-msgid "User Info"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:127
-#: app/views/user/_edit.rhtml:18
-msgid "User|TimeZone"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:131
-#: app/views/user/_edit.rhtml:14
-msgid "User|Bio|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:147
-#: app/views/user/_edit.rhtml:16
-msgid "User|Language"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:154
-#: app/views/user/_privacy.rhtml:5
-msgid "User|Conceal Realname|Help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:157
-#: app/views/site_admin/site_admin/index.rhtml:32
-msgid "Project"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:158
-#: app/views/category/list.rhtml:4
-msgid "By Project|Maturity"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:162
-#: app/views/user/_edit.rhtml:18
-msgid "User|TimeZone|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:164
-#: app/views/category/list.rhtml:13
-msgid "By Project|License"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:178
-#: app/views/user/_privacy.rhtml:13
-msgid "User|Conceal Login Status"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:183
-#: app/views/user/home.rhtml:2
-msgid "User Icon"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:191
-#: app/views/user/login.rhtml:30
-msgid "Remember me on this computer"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:196
-#: app/views/user/welcome.rhtml:7
-msgid "logout"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:197
-#: app/views/user/_email.rhtml:17
-msgid "User|Change Email"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:200
-msgid "User|Icon"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:202
 #: app/views/news/list.rhtml:20 app/views/news/list.rhtml:22
 #: app/views/jobs/list.rhtml:12
 msgid "Read More"
 msgstr ""
 
-#: app/views/projects/test_action_i18n______________.rhtml:207
-msgid "User|Verified"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:214
-#: app/views/user/_edit.rhtml:21 app/views/user/signup.rhtml:19
-msgid "User|Signup"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:215
-#: app/views/user/_edit.rhtml:5
-msgid "User|Login|Help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:219
-#: app/views/user/_privacy.rhtml:9
-msgid "User|Conceal Homepage|Help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:221
-#: app/views/user/home.rhtml:48
-msgid "My Email"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:227
-#: app/views/user/_edit.rhtml:16
-msgid "User|Language|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:230
-msgid "User|Salt"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:231
-#: app/views/user/login.rhtml:12
-msgid "Login ID"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:232
-#: app/views/user/login.rhtml:1
-msgid "Login to OpenFoundry"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:245
-#: app/views/news/list.rhtml:4 app/views/news/_form.rhtml:4
-#: app/views/site_admin/site_admin/new_site_mail.rhtml:3
-#: app/views/jobs/list.rhtml:4
-msgid "Subject"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:246
-#: app/views/user/_edit.rhtml:10
-msgid "User|Realname|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:247
-#: app/views/user/_edit.rhtml:10
-msgid "User|Realname"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:250
-#: app/views/category/list.rhtml:43
-msgid "By Project|Programminglanguage"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:251
-#: app/views/user/_privacy.rhtml:13
-msgid "User|Conceal Login|Help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:256
-msgid "User|Status"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:257
-msgid "User|Salted password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:260
-#: app/views/user/_email.rhtml:12
-msgid "User|Email|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:264
-#: app/views/user/_edit.rhtml:21
-msgid "User|Change Settings"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:265
-#: app/views/user/_privacy.rhtml:9
-msgid "User|Conceal Homepage"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:270
-#: app/views/user/_privacy.rhtml:7
-msgid "User|Conceal Email|Help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:281
-msgid "Project|Statusreason"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:287
-#: app/views/user/_password.rhtml:13
-msgid "User|Old_password|help"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:296
-#: app/views/user/_privacy.rhtml:11
-msgid "User|Conceal Bio"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:297
-#: app/views/user/_password.rhtml:13
-msgid "User|Old Password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:298
-#: app/views/category/list.rhtml:31
-msgid "By Project|Platform"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:304
-#: app/views/user/_password.rhtml:18
-msgid "User|Password Confirmation"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:305
-#: app/views/user/login.rhtml:40
-msgid "Forgot my password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:306
-#: app/views/user/_privacy.rhtml:16
-msgid "User|Change Privacy"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:310
-#: app/views/user/_privacy.rhtml:5
-msgid "User|Conceal Realname"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:317
-#: app/views/user/home.rhtml:59 app/views/user/my_projects.rhtml:2
-msgid "My Projects"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:322
-msgid "User|Timezone"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:323
-#: app/views/user/_edit.rhtml:12
-msgid "User|Homepage"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:325
-#: app/views/category/list.rhtml:22
-msgid "By Project|Contentlicense"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:338
-msgid "project_Role Control"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:342
-#: app/views/user/_password.rhtml:6
-msgid "Change User Password"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:344
-#: app/views/user/forgot_password.rhtml:8 app/views/user/_email.rhtml:4
-#: app/views/user/_email.rhtml:12
-msgid "User|Email"
-msgstr ""
-
-#: app/views/projects/test_action_i18n______________.rhtml:346
-#: app/views/user/login.rhtml:39
-msgid "Register for an account"
-msgstr ""
-
-#: app/views/news/list.rhtml:3 app/views/jobs/list.rhtml:3
-#: app/views/citations/list.rhtml:3 app/views/references/list.rhtml:3
-msgid "Sort by"
+#: app/views/news/list.rhtml:28 app/views/news/_form.rhtml:24
+#: app/views/jobs/list.rhtml:15 app/views/jobs/_form.rhtml:21
+#: app/views/citations/list.rhtml:14 app/views/citations/_form.rhtml:29
+#: app/views/references/list.rhtml:13 app/views/references/_form.rhtml:9
+msgid "Status"
 msgstr ""
 
 #: app/views/news/list.rhtml:30 app/views/news/_form.rhtml:25
@@ -2892,16 +2246,36 @@ msgstr ""
 msgid "Client Information"
 msgstr ""
 
-#: app/views/site_admin/site_admin/index.rhtml:47
-msgid "Resend Stomp msg for ALL MODELS"
+#: app/views/site_admin/site_admin/index.rhtml:35
+msgid "Project"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:37
+msgid "User"
 msgstr ""
 
 #: app/views/site_admin/site_admin/index.rhtml:51
+msgid "Resend Stomp msg for ALL MODELS"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:54
 msgid "Rebuild Ferret Index"
 msgstr ""
 
-#: app/views/site_admin/site_admin/index.rhtml:57
+#: app/views/site_admin/site_admin/index.rhtml:55
 msgid "大量加入使用者成為某角色"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:56
+msgid "Run some code on all instances of Rails"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:57
+msgid "Send site mail"
+msgstr ""
+
+#: app/views/site_admin/site_admin/index.rhtml:64
+msgid "NSC Download List"
 msgstr ""
 
 #: app/views/site_admin/site_admin/new_site_mail.rhtml:6
@@ -2912,8 +2286,245 @@ msgstr ""
 msgid "Send Mail"
 msgstr ""
 
+#: app/views/category/list.rhtml:4
+msgid "By Project|Maturity"
+msgstr ""
+
+#: app/views/category/list.rhtml:13
+msgid "By Project|License"
+msgstr ""
+
+#: app/views/category/list.rhtml:22
+msgid "By Project|Contentlicense"
+msgstr ""
+
+#: app/views/category/list.rhtml:31
+msgid "By Project|Platform"
+msgstr ""
+
+#: app/views/category/list.rhtml:43
+msgid "By Project|Programminglanguage"
+msgstr ""
+
+#: app/views/user/welcome.rhtml:5
+msgid "home"
+msgstr ""
+
+#: app/views/user/welcome.rhtml:7
+msgid "logout"
+msgstr ""
+
+#: app/views/user/_password.rhtml:4 app/views/user/_password.rhtml:16
+msgid "User|Password"
+msgstr ""
+
+#: app/views/user/_password.rhtml:6
+msgid "Change User Password"
+msgstr ""
+
+#: app/views/user/_password.rhtml:13
+msgid "User|Old Password"
+msgstr ""
+
+#: app/views/user/_password.rhtml:13
+msgid "User|Old_password|help"
+msgstr ""
+
+#: app/views/user/_password.rhtml:16
+msgid "User|Password|help"
+msgstr ""
+
+#: app/views/user/_password.rhtml:18
+msgid "User|Password Confirmation"
+msgstr ""
+
+#: app/views/user/_password.rhtml:21 app/views/user/change_password.rhtml:10
+msgid "User|Change Password"
+msgstr ""
+
+#: app/views/user/forgot_password.rhtml:8 app/views/user/_email.rhtml:4
+#: app/views/user/_email.rhtml:12
+msgid "User|Email"
+msgstr ""
+
+#: app/views/user/forgot_password.rhtml:12
+msgid "User|Reset Password"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:2
+msgid "User Info"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:5
+msgid "User|Login"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:5
+msgid "User|Login|Help"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:10
+msgid "User|Realname"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:10
+msgid "User|Realname|help"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:12
+msgid "User|Homepage"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:12
+msgid "User|Homepage|help"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:14
+msgid "User|Bio"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:14
+msgid "User|Bio|help"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:16
+msgid "User|Language"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:16
+msgid "User|Language|help"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:18
+msgid "User|TimeZone"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:18
+msgid "User|TimeZone|help"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:21 app/views/user/signup.rhtml:19
+msgid "User|Signup"
+msgstr ""
+
+#: app/views/user/_edit.rhtml:21
+msgid "User|Change Settings"
+msgstr ""
+
+#: app/views/user/edit.rhtml:5
+msgid "Change User Icon"
+msgstr ""
+
+#: app/views/user/_email.rhtml:6
+msgid "Change User Email"
+msgstr ""
+
+#: app/views/user/_email.rhtml:12
+msgid "User|Email|help"
+msgstr ""
+
+#: app/views/user/_email.rhtml:14
+msgid "User|Email Confirmation"
+msgstr ""
+
+#: app/views/user/_email.rhtml:17
+msgid "User|Change Email"
+msgstr ""
+
+#: app/views/user/home.rhtml:2
+msgid "User Icon"
+msgstr ""
+
 #: app/views/user/home.rhtml:19
 msgid "NSC Projects reviewed by me:"
+msgstr ""
+
+#: app/views/user/home.rhtml:32
+msgid "My Partners"
+msgstr ""
+
+#: app/views/user/home.rhtml:48
+msgid "My Email"
+msgstr ""
+
+#: app/views/user/home.rhtml:59 app/views/user/my_projects.rhtml:2
+msgid "My Projects"
+msgstr ""
+
+#: app/views/user/home.rhtml:72
+msgid "Signup Date"
+msgstr ""
+
+#: app/views/user/login.rhtml:1
+msgid "Login to OpenFoundry"
+msgstr ""
+
+#: app/views/user/login.rhtml:12
+msgid "Login ID"
+msgstr ""
+
+#: app/views/user/login.rhtml:20
+msgid "Password"
+msgstr ""
+
+#: app/views/user/login.rhtml:30
+msgid "Remember me on this computer"
+msgstr ""
+
+#: app/views/user/login.rhtml:39
+msgid "Register for an account"
+msgstr ""
+
+#: app/views/user/login.rhtml:40
+msgid "Forgot my password"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:2
+msgid "User Privacy"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:5
+msgid "User|Conceal Realname"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:5
+msgid "User|Conceal Realname|Help"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:7
+msgid "User|Conceal Email"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:7
+msgid "User|Conceal Email|Help"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:9
+msgid "User|Conceal Homepage"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:9
+msgid "User|Conceal Homepage|Help"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:11
+msgid "User|Conceal Bio"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:11
+msgid "User|Conceal Bio|Help"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:13
+msgid "User|Conceal Login Status"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:13
+msgid "User|Conceal Login|Help"
+msgstr ""
+
+#: app/views/user/_privacy.rhtml:16
+msgid "User|Change Privacy"
 msgstr ""
 
 #: app/views/user/_invite.rhtml:2
