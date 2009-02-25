@@ -11,11 +11,8 @@
   <ul>
     <% rss.items.each_with_index do |item, i| %>
       <li>
-                  <%= link_to item.title, item.link %>
+      <%= link_to item.title, item.link, {:class => 'news_subject'} %>
       </li>
-      <% if i==0 %> 
-        <p><%=h(item.description) %></p>
-      <% end %>
     <%end %>
   </ul>
   <%=link_to _('More...'), 'http://www.openfoundry.org' %>
