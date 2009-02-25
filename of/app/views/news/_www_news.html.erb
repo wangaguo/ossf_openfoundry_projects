@@ -1,0 +1,23 @@
+<%- require 'rss/1.0' %>
+<%- require 'rss/2.0' %>
+<%- require 'open-uri' %>
+
+<%- source = "http://www.openfoundry.org/en/rss-feed/News" # url or local file %>
+<%- content = "" # raw content of rss feed will be loaded here %>
+<%- open(source) do |s| content = s.read end %>
+<%- rss = RSS::Parser.parse(content, false) %>
+
+<div id="www_news">
+  <ul>
+    <% rss.items.each_with_index do |item, i| %>
+      <li>
+                  <%= link_to item.title, item.link %>
+      </li>
+      <% if i==0 %> 
+        <p><%=h(item.description) %></p>
+      <% end %>
+    <%end %>
+  </ul>
+  <%=link_to _('More...'), 'http://www.openfoundry.org' %>
+</div>
+
