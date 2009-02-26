@@ -53,27 +53,12 @@
 </div>
 <div id="RightWidget">
   <div id="HomeRight">
-      <h3>
-          <img src="/images/of/icon05.gif" align="left" />
-	  <%#=link_to image_tag('/images/feed.png', 
-			       {:alt => 'rss', 
-		  	        :style => 'float:right;vertical-align:middle;padding: 8px'}),
-			       {:controller => :news, :action => :pnews_feed, :format => :rss} %>
-          <%=_('Project News')%>
-
-      </h3>
-
     <%= render :partial => "news/listn", :locals => {:newsList => News.ProjectNews}%>
     <%= render :partial => "releases/new_releases", :locals => {:newReleasesList => Release.new_releases}%>    
   </div>
 </div>
 <div id="Home">
-	<h3><img src="/images/of/main_icon01.gif" align="left" /><%=_('Daily News')%></h3>
-	<%= render :partial => "news/www_news" %>
-
-  <h3><img src="/images/of/main_icon01.gif" align="left" /><%=_('OpenFoundry News')%>
-    <%#=link_to_remote( "更新", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %>
-  </h3>
+  <%= render :partial => "news/www_news" %>
 	<%= render :partial => "news/home_news", :locals =>{:newsList => News.home_news} %>
   <div>
   </div>

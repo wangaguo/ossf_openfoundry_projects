@@ -33,6 +33,10 @@ ActionController::Routing::Routes.draw do |map|
                       :controller => 'survey', :action => 'review',
                       :requirements => {:path => /.+/, :version => /.+/}
 
+  # feed for new projects
+  map.new_projects_feed '/projects/news_projects_feed.:format',
+                        :controller => 'projects', :action => 'new_projects_feed'
+
   map.resources :projects,
                 :collection => { :applied => :get, :tableizer => :get, :test_action => :any },
                 :member => { :sympa => :get, :viewvc => :get, :role_users => :any, 
@@ -43,6 +47,13 @@ ActionController::Routing::Routes.draw do |map|
                              :test_action => :any }
   #map.resources :users, 
   #              :controller => :user                
+
+  # feed for new openfoundry news
+  map.new_project_news_feed '/news/new_openfoundry_news_feed.:format',
+                        :controller => 'news', :action => 'new_openfoundry_news_feed'
+  # feed for new project news
+  map.new_project_news_feed '/news/new_project_news_feed.:format',
+                        :controller => 'news', :action => 'new_project_news_feed'
   map.resources :news,
                 :singular => 'news1',
                 :collection => { :new_release => :any },
@@ -103,6 +114,7 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
+  map.connect ':controller/:action.:format'
 
 
   #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 

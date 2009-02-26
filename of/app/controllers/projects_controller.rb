@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
   before_filter :set_project
 
   before_filter :check_permission
@@ -130,7 +130,6 @@ class ProjectsController < ApplicationController
     h["license"] = "," + normalize_values(Project::LICENSE_DISPLAY_KEYS.map(&:to_s), split_strip_compact_array((h["license"] || {}).values))[0].join(",") + ","
     h["contentlicense"] = "," + normalize_values(Project::CONTENT_LICENSE_DISPLAY_KEYS.map(&:to_s), split_strip_compact_array((h["contentlicense"] || {}).values))[0].join(",") + ","
   end
-
 
   def create
     join_with_separator
@@ -454,9 +453,26 @@ class ProjectsController < ApplicationController
     render :action => 'permission_edit', :layout => 'module_with_flash'
   end
    
-  def feed
-    @projects = Project.find(:all, :conditions => Project.in_used_projects(), :limit => 10, :order => "created_at DESC")
-    render :layout => false
+  def new_projects_feed
+    new_projects = Project.find(:all, :conditions => Project.in_used_projects , :order => "created_at desc", :limit => 10)
+
+    feed_options = {
+      :feed => {
+        :title       => _("OpenFoundry: New Projects Feed"),
+        :description => _("New projects on OpenFoundry"),
+        :link        => 'of.openfoundry.org',
+        :language    => 'UTF-8'
+      },
+      :item => {
+        :title => :summary,
+        :description => :description,
+        :link => lambda { |p| project_url(:id => p.id)}
+      }
+    }
+    respond_to do |format|
+      format.rss { render_rss_feed_for new_projects, feed_options }
+      format.xml { render_atom_feed_for new_projects, feed_options }
+    end
   end
   
   def vcs_access

@@ -315,6 +315,50 @@ class ReleasesController < ApplicationController
       :action => :uploadfiles, :id => params[:id], :layout =>'false')
   end
 
+  def top_download_feed
+    top_releases = Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "release_counter desc", :limit => 10)
+
+    feed_options = {
+      :feed => {
+        :title       => _("OpenFoundry: Top Download"),
+        :description => _("Top download on OpenFoundry"),
+        :link        => 'of.openfoundry.org',
+        :language    => 'UTF-8'
+      },
+      :item => {
+        :title => lambda { |r| "#{r.project.summary} #{r.version}"},
+        :description => lambda {|r| "#{r.project.description}"},
+        :link => lambda { |r| download1_url(:project_id => r.project.id)+"##{r.version}" }
+      }
+    }
+    respond_to do |format|
+      format.rss { render_rss_feed_for top_releases, feed_options }
+      format.xml { render_atom_feed_for top_releases, feed_options }
+    end
+  end
+
+  def new_release_feed
+    new_release = Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 10)
+
+    feed_options = {
+      :feed => {
+        :title       => _("OpenFoundry: Latest Releases"),
+        :description => _("Latest releases on OpenFoundry"),
+        :link        => 'of.openfoundry.org',
+        :language    => 'UTF-8'
+      },
+      :item => {
+        :title => lambda { |r| "#{r.project.summary} #{r.version}"},
+        :description => lambda {|r| "#{r.project.description}"},
+        :link => lambda { |r| download1_url(:project_id => r.project.id)+"##{r.version}" }
+      }
+    }
+    respond_to do |format|
+      format.rss { render_rss_feed_for new_release, feed_options }
+      format.xml { render_atom_feed_for new_release, feed_options }
+    end
+  end
+
   private
   
   #建立檔案的database entry, 會連結到外部ftp hook
