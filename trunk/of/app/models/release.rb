@@ -12,9 +12,8 @@ class Release < ActiveRecord::Base
                               :description => { :store => :yes,
                                              :index => :yes }                                                         
                             },
-                 :single_index => true,
-                 :default_field => [:name, :description]
-                 },{ :analyzer => GENERIC_ANALYZER })
+                 :single_index => true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   N_('PREPARING')
   N_('RELEASED')
   STATUS = { :PREPARING => 0, :RELEASED => 1}.freeze

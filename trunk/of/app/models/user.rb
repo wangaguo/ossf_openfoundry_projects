@@ -13,9 +13,8 @@ class User < ActiveRecord::Base
                              #:lastname => {:boost => 0.8,:store => :yes}, 
                              :name => {:boost => 0.8,:store => :yes} 
                             },
-                 :single_index => true,
-                 :default_field => [:login]
-                 }, { :analyzer => GENERIC_ANALYZER } )
+                 :single_index => true
+                 }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
                  
   # disable ferret search if not verified        
   def ferret_enabled?(is_bulk_index = false)

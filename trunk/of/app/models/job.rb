@@ -13,9 +13,8 @@ class Job < ActiveRecord::Base
                               :requirement => { :store => :yes,
                                              :index => :yes }
                             },
-                  :single_index => true,
-                  :default_field => [:subject, :description, :requirement]
-                 },{ :analyzer => GENERIC_ANALYZER })
+                  :single_index => true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   
   def should_be_indexed?
     self.status == Job::STATUS[:Enabled]

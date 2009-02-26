@@ -8,9 +8,8 @@ class Fileentity < ActiveRecord::Base
                                           :store => :yes },
                               :description => { :store => :yes}
                             },
-                 :single_index => true,
-                 :default_field => [:name, :description]
-                 },{ :analyzer => GENERIC_ANALYZER } )          
+                 :single_index => true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )          
   def self.published_files(options = {})
     a = options[:alias]
     if a;a += '.';end        
