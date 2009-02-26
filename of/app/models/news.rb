@@ -11,9 +11,8 @@ class News < ActiveRecord::Base
                               :description_without_tag => { :store => :yes,
                                              :index => :yes }                                                         
                             },
-                  :single_index => true,
-                  :default_field => [:subject, :description_without_tag]
-                 },{ :analyzer => GENERIC_ANALYZER })
+                  :single_index => true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   def description_without_tag
     description.gsub(/<[^>]*>/, '')
   end

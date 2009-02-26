@@ -198,9 +198,8 @@ EOEO
                               :description => { :store => :yes,
                                                 :index => :yes }                                                         
                             },
-                 :single_index =>true,
-                 :default_field => [:name, :summary, :description]
-                 },{ :analyzer => GENERIC_ANALYZER })
+                 :single_index =>true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
 
   def should_be_indexed?
     self.status == Project::STATUS[:READY]
@@ -470,4 +469,6 @@ EOEO
   def valid_users_of_role(role_name_string)
     roles.find_by_name(role_name_string, :select => "id").users.valid_users
   end
+  
+  named_scope :in_used, :conditions => { :status => Project::STATUS[:READY] } 
 end
