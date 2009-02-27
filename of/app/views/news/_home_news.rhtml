@@ -17,3 +17,9 @@
   <%end %>
 </ul>
 <%=link_to _('More...'), {:controller => "news"}, :class => "more" %>
+<%=auto_discovery_link_tag(:rss,
+   {:format => :rss, :controller => :news, :action => :new_openfoundry_news_feed,},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'RSS'} }) %>
+<%=auto_discovery_link_tag(:atom,
+   {:format => :xml, :controller => :news, :action => :new_openfoundry_news_feed},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'ATOM'} }) %>

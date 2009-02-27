@@ -1,7 +1,8 @@
 <h3>
   <%=link_to image_tag('/images/atom.png', {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
                        {:controller => :news, :action => :new_project_news_feed, :format => :xml} %>
-  <img src="/images/of/icon05.gif" align="left" /><%=_('Project News')%><%#=link_to_remote( "<img src='http://publi    b.boulder.ibm.com/infocenter/tivihelp/v10r1/topic/com.ibm.ccmdb.doc/cmdb_user/images/icon_reload.gif' style='border:none;    ' border='0'></img>", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %>
+  <img src="/images/of/icon05.gif" align="left" />
+  <%=_('Project News')%>
 </h3>
 <ul>
   <%for news in newsList %>
@@ -11,3 +12,10 @@
   <%end %>
 </ul>
 <%=link_to _('More...'), project_news_path(), :class => "more" %>
+<%=auto_discovery_link_tag(:rss,
+   {:format => :rss, :controller => :news, :action => :pnews_feed},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Project News'), :type => 'RSS'} }) %>
+<%=auto_discovery_link_tag(:atom,
+   {:format => :xml, :controller => :news, :action => :pnews_feed},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("Project News"), :type => 'ATOM'} }) %>
+
