@@ -11,6 +11,7 @@
   <%for news in newsList %>
     <li>
     <%= link_to news.subject, {:controller => "news", :action => "show", :id => news.id}, :class => "news_subject" %>
+    <%= news.created_at.strftime "%Y-%m-%d" %>
     </li>
     <%if i==1 %>
       <p><%=h(news.description.chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;<%=link_to( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>     
