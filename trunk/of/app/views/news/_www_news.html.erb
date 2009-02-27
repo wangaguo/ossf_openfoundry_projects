@@ -2,22 +2,32 @@
 <%- require 'rss/2.0' %>
 <%- require 'open-uri' %>
 
-<%- source = "http://www.openfoundry.org/en/rss-feed/News" # url or local file %>
-<%- content = "" # raw content of rss feed will be loaded here %>
-<%- open(source) do |s| content = s.read end %>
-<%- rss = RSS::Parser.parse(content, false) %>
+<%- div_id ||= 'www_news' %>
+<%- subject_class ||= 'news_subject' %>
+<%- rss_link ||= 'http://www.openfoundry.org/en/rss-feed/News' %>
+<%- more_link ||= 'http://www.openfoundry.org' %>
+
+<%- rss = "" %>
+<%- open(rss_link) do |raw| rss = RSS::Parser.parse(raw.read, false) end %>
 
 <h3>
-  <img src="/images/of/main_icon01.gif" align="left" /><%=_('Daily News')%>
+	<img src="/images/of/main_icon01.gif" align="left" />
+	<%=link_to image_tag('/images/feed.png', 
+	       {:alt => 'rss', 
+	  	        :style => 'float:right;vertical-align:middle;padding: 10px'}),
+	       rss_link %>
+	<%=_('Daily News')%>
 </h3>
-<div id="www_news">
+<div id='<%= div_id %>'>
   <ul>
     <% rss.items.each_with_index do |item, i| %>
       <li>
-      <%= link_to item.title, item.link, {:class => 'news_subject'} %>
+      <%= link_to item.title, item.link, {:class => subject_class} %>
+      <%#= item.date.strftime '%m/%d' %>
       </li>
     <%end %>
   </ul>
-  <%=link_to _('More...'), 'http://www.openfoundry.org' %>
+  <%=link_to _('More...'), more_link %>
 </div>
-
+<%=auto_discovery_link_tag(:rss, rss_link,
+  {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Daily News'), :type => 'RSS'} }) %>
