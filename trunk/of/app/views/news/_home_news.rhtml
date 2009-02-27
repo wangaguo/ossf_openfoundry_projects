@@ -1,10 +1,7 @@
 <h3>
-  <img src="/images/of/main_icon01.gif" align="left" /><%=_('OpenFoundry News')%>
-  <%#=link_to_remote( "更新", :update => "home_news", :url => { :controller => 'news', :action => '_home_news' } ) %>
-  <%=link_to image_tag('/images/rss.jpg', {:alt => 'rss', :width => '26px'}),
-                       {:controller => :news, :action => :new_openfoundry_news_feed, :format => :rss} %>
-  <%=link_to image_tag('/images/xml.gif', {:alt => 'xml', :width => '26px'}),
+  <%=link_to image_tag('/images/atom.png', {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
                        {:controller => :news, :action => :new_openfoundry_news_feed, :format => :xml} %>
+  <img src="/images/of/main_icon01.gif" align="left" /><%=_('OpenFoundry News')%>
 </h3>
 <%i=1 %>
 <ul>
