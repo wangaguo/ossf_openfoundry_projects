@@ -12,8 +12,8 @@
 </ul>
 <%=link_to _('More...'), projects_path() + "?sortdesc=listing-created_at", :class => "more" %>
 <%=auto_discovery_link_tag(:rss, 
-   {:format => :rss, :controller => :projects, :action => "feed"},
+   {:format => :rss, :controller => :projects, :action => :new_projects_feed},
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('New Projects'), :type => 'RSS'} }) %>
 <%=auto_discovery_link_tag(:atom, 
-   {:format => :xml, :controller => :projects, :action => "feed"},
+   {:format => :xml, :controller => :projects, :action => :new_projects_feed},
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('New Projects'), :type => 'ATOM'} }) %>
