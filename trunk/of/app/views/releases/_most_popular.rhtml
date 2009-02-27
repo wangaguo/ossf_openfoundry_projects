@@ -11,3 +11,9 @@
   <%end %>
 </ul>
 <%= link_to _("More..."), {:controller => 'releases', :action => 'top'}, :class => "more" %>
+<%=auto_discovery_link_tag(:rss, 
+   {:format => :rss, :controller => :releases, :action => "top_feed"},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Top Download'), :type => 'RSS'} }) %>
+<%=auto_discovery_link_tag(:atom, 
+   {:format => :xml, :controller => :releases, :action => "top_feed"},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Top Download'), :type => 'ATOM'} }) %>
