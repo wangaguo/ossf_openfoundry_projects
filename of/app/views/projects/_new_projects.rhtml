@@ -1,9 +1,7 @@
 <h3>
-  <img src="/images/of/icon_new_projects.gif" align="left" /><%= _('New Projects') %>
-  <%=link_to image_tag('/images/rss.jpg', {:alt => 'rss', :width => '26px'}),
-                       {:controller => :projects, :action => :new_projects_feed, :format => :rss} %>
-  <%=link_to image_tag('/images/xml.gif', {:alt => 'xml', :width => '26px'}),
+  <%=link_to image_tag('/images/atom.png', {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
                        {:controller => :projects, :action => :new_projects_feed, :format => :xml} %>
+  <img src="/images/of/icon_new_projects.gif" align="left" /><%= _('New Projects') %>
 </h3>
 <ul>
   <%for project in projectList %>
