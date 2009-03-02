@@ -1,4 +1,4 @@
-<%#= render( :partial => "tabnav" ) %>   
+<%#= render( :partial => "tabnav" ) %>
 <% def show_with_seperator(v); "#{v}".split(",").grep(/./).join(", ") end %>
 <div id="ProjectBasic">
 
@@ -76,5 +76,5 @@
 </fieldset>
 
 
-<%= (link_to _('Edit'), :action => 'edit', :id => @project ) if fpermit?("project_info", @project.id) %> 
+<%= (link_to _('Edit'), :action => 'edit', :id => @project ) if fpermit?("project_info", @project.id) %>
 </div>
