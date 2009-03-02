@@ -6,7 +6,7 @@
 <%
 project_columns = ["name","summary","description","creator","status","statusreason","licensingdescription","license","contentlicense","contactinfo","maturity","platform","programminglanguage","intendedaudience","rationale","redirecturl","vcs","vcsdescription","project_counter","created_at","updated_at","updated_by","icon"]
 %>
-<%= will_paginate @projects %>
+<%= paginate = will_paginate @projects %>
 <table id="project_list">
   <tr>
     <th></th>
@@ -52,7 +52,7 @@ project_columns = ["name","summary","description","creator","status","statusreas
   <% end %>
 </table>
 
-<%= will_paginate @projects %>
+<%= paginate %>
 <br />
 
 <%= link_to 'New project', :action => 'new' %>

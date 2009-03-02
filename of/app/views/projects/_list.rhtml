@@ -1,6 +1,6 @@
 <div id="ProjectList">
   <h1><%= _('Project Listing') %> <%= "<b>by #{@filter_by}</b>" if @filter_by %></h1>
-<%= will_paginate projects %>
+<%= paginate = will_paginate projects %>
 <table class="ProjectList">
   <tr>
     <th><%= link_to _('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
@@ -29,7 +29,7 @@
   </tr>
 <% end -%>
 </table>
-<%= will_paginate projects %>
+<%= paginate %>
 
 <br />
 

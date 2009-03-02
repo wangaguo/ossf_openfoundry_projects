@@ -1,7 +1,7 @@
 <div id="UserProjectList">
 <h1><%= _('My Projects') %></h1>
 
-<%= will_paginate @my_projects %>
+<%= paginate = will_paginate @my_projects %>
 <table class="UserProjectList">
   <tr>
     <th><%= link_to _('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
@@ -30,5 +30,5 @@
   </tr>
 <% end -%>
 </table>
-<%= will_paginate @my_projects %>
+<%= paginate %>
 </div> 
