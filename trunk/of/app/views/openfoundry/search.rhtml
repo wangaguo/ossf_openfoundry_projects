@@ -4,7 +4,7 @@
     <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => true}%>	
   </div>
   <%unless @results.empty?%>
-  <%= will_paginate @results %>  
+  <%= paginate = will_paginate @results %>  
   <table class='form-table'>
     <% @results.each do |record| %>
       <tr>
@@ -12,7 +12,7 @@
       </tr>
     <% end %>
   </table>
-  <%= will_paginate @results %>  
+  <%= paginate %>  
   <%else%>
 no record!
   <%end%>
