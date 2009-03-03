@@ -5,7 +5,7 @@ module ActionView
         form_method_with_record_identification :form_for, name_or_object, *args, &proc
       end
       
-      alias_method_chain :form_for, :record_identification
+      #alias_method_chain :form_for, :record_identification
       
       protected
         def form_method_with_record_identification(method_name, name_or_object, *args, &proc)
