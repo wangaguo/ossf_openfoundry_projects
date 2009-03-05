@@ -42,7 +42,7 @@ module ActionView
         form_method_with_record_identification :remote_form_for, name_or_object, *args, &proc
       end
 
-      alias_method_chain :remote_form_for, :record_identification
+      #alias_method_chain :remote_form_for, :record_identification
     end
   end
 end
