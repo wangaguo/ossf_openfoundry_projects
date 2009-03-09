@@ -53,4 +53,5 @@ class Release < ActiveRecord::Base
 
   named_scope :inactive, :conditions => ['status = 0']
   named_scope :active, :conditions => ['status = 1']
+  named_scope :latest, :order => ['due desc']
 end
