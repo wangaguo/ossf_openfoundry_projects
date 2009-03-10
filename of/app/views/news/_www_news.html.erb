@@ -21,6 +21,7 @@
   <ul>
     <% rss.items.each_with_index do |item, i| %>
       <li>
+      <%= if item.date - 7.days.ago > 0 then link_to image_tag('/images/hot.png') end %>
       <%= link_to item.title, item.link, {:class => subject_class} %>
       <%#= item.date.strftime '%m/%d' %>
       </li>
