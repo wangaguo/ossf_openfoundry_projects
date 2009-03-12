@@ -61,6 +61,7 @@ Rails::Initializer.run do |config|
   config.gem 'rake', :version =>  ">= 0.8.1" 
   #config.gem 'rmagick', :version =>  ">= 1.15.12" 
   config.gem 'tzinfo', :version =>  ">= 0.3.6" 
+  config.gem 'packr', :version =>  ">= 3.1.0" 
   #config.gem 'ruby-openid', :version =>  ">= 2.1.2"
 
   config.time_zone = 'Taipei' 
