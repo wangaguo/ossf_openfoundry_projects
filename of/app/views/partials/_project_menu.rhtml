@@ -85,7 +85,7 @@ document.observe("dom:loaded", project_leftmenu_init);
       <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id), :class => 'subimg' %>
         <ul>
           <li><%= link_to _('release_Edit'), releases_path(:project_id => project.id) %></li>
-          <li><%= link_to _('release_New'), new_release_url(:project_id => project.id) %></li>
+          <li><%= link_to _('release_New'), new_release_path(:project_id => project.id) %></li>
         </ul>
       </li>
     <% end -%>
