@@ -17,7 +17,7 @@ class OpenfoundryController < ApplicationController
   def get_session_by_id(session_id)
     begin
       #Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
-      ::Rails.cache.read("session:#{session_id}")
+      ::Rails.cache.read("session:#{session_id}") || {}
     rescue
       {}
     end
@@ -29,7 +29,7 @@ class OpenfoundryController < ApplicationController
       return {} if session_id !~ /^[0-9a-f]*$/ 
       #rows = ActiveRecord::Base.connection.select_rows("select data from sessions where session_id = '#{session_id}'")
       #return Marshal.load(Base64.decode64(rows[0][0]))
-      ::Rails.cache.read("session:#{session_id}")
+      ::Rails.cache.read("session:#{session_id}") || {}
     rescue
       {}
     end
