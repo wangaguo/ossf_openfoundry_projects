@@ -5,7 +5,7 @@
   <tr>
     <th><%= link_to _('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
     <th><%= link_to _('Created At'),  sort_param('listing', Project, 'created_at', 'created_at') %></th>
-    <th><%= link_to _('Latest File'),  sort_param('listing', Project, 'updated_at', 'updated_at') %></th>
+    <th><%= link_to _('Latest File'),  sort_param('listing', Release, 'created_at', 'created_at') %></th>
     <th><%= link_to _('Download'),  sort_param('listing', Project, 'project_counter', 'project_counter') %></th>
   </tr>
 <% i=0; class_name = ""; -%>
