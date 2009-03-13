@@ -1,5 +1,7 @@
 <% @columns ||= 7 %>
+<% bundle :name => "dragdrop", :packr_options => {:shrink_vars => true, :base62 => true} do %>
 <%= javascript_include_tag "dragdrop"  %>
+<% end %>
 <div id="ProjectMemberEdit">
   <fieldset>
     
