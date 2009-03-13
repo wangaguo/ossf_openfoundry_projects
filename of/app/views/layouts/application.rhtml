@@ -6,9 +6,12 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>OpenFoundry -- <%= controller.action_name %><%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
   <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
-  <% bundle :packr_options => {:shrink_vars => true, :base62 => false} do %>
+  <% bundle :name => "prototype" do %>
+  <%= javascript_include_tag "prototype" %>
+  <% end %>
+  <% bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
   <%= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
-  <%= javascript_include_tag "prototype", "effects", "application", "transmenu" %>
+  <%= javascript_include_tag "effects", "transmenu", "application" %>
   <%= javascript_include_tag 'calendar/calendar' %>
   <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
   <%= javascript_include_tag 'calendar/calendar-setup' %>
