@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
   # [ [1, "OSI: Academic Free License"],
   #   [2, "OSI: Affero GNU Public License"] ]
   # having mutiple spaces is ok
+  # [ 34 OSI: X.Net License ] has been deleted at 2009.03.10
   LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
 0 This project contains no code
 -2 Public Domain
@@ -51,10 +52,53 @@ class Project < ActiveRecord::Base
 31 OSI: Simple Public License 2.0
 32 OSI: Sleepycat License
 33 OSI: University of Illinois/NCSA Open Source License
-34 OSI: X.Net License
 35 OSI: zlib/libpng License
 -1 Other licenses
 EOEO
+  # referenced by: licenses
+  N_("url_link_for_OSI: Academic Free License")
+  N_("url_link_for_OSI: Affero GNU Public License")
+  N_("url_link_for_OSI: Adaptive Public License")
+  N_("url_link_for_OSI: Apache License 2.0")
+  N_("url_link_for_OSI: Artistic License 2.0")
+  N_("url_link_for_OSI: Attribution Assurance Licenses")
+  N_("url_link_for_OSI: BSD License (New and Simplified BSD License)")
+  N_("url_link_for_OSI: Boost Software License (BSL1.0)")
+  N_("url_link_for_OSI: Common Development and Distribution License (CDDL)")
+  N_("url_link_for_OSI: Common Public Attribution License 1.0 (CPAL)")
+  N_("url_link_for_OSI: Common Public License 1.0")
+  N_("url_link_for_OSI: Eclipse Public License")
+  N_("url_link_for_OSI: Educational Community License 2.0")
+  N_("url_link_for_OSI: Eiffel Forum License 2.0")
+  N_("url_link_for_OSI: Fair License")
+  N_("url_link_for_OSI: GNU General Public License 2.0 (GPLv2)")
+  N_("url_link_for_OSI: GNU General Public License 3.0 (GPLv3)")
+  N_("url_link_for_OSI: GNU Library or \"Lesser\" General Public License 2.1 (LGPLv2)")
+  N_("url_link_for_OSI: GNU Library or \"Lesser\" General Public License 3.0 (LGPLv3)")
+  N_("url_link_for_OSI: ISC License")
+  N_("url_link_for_OSI: Lucent Public License 1.02")
+  N_("url_link_for_OSI: Microsoft Public License (Ms-PL)")
+  N_("url_link_for_OSI: Microsoft Reciprocal License (Ms-RL)")
+  N_("url_link_for_OSI: MIT License")
+  N_("url_link_for_OSI: Mozilla Public License 1.1 (MPL)")
+  N_("url_link_for_OSI: NASA Open Source Agreement 1.3")
+  N_("url_link_for_OSI: NTP License")
+  N_("url_link_for_OSI: Open Group Test Suite License")
+  N_("url_link_for_OSI: Open Software License")
+  N_("url_link_for_OSI: Qt Public License (QPL)")
+  N_("url_link_for_OSI: Simple Public License 2.0")
+  N_("url_link_for_OSI: Sleepycat License")
+  N_("url_link_for_OSI: University of Illinois/NCSA Open Source License")
+  N_("url_link_for_OSI: zlib/libpng License")
+  N_("url_link_for_GNU Free Documentation License")
+  N_("url_link_for_Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)")
+  N_("url_link_for_Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)")
+  N_("url_link_for_Creative Commons: Attribution Non-commercial (by-nc)")
+  N_("url_link_for_Creative Commons: Attribution No Derivatives (by-nd)")
+  N_("url_link_for_Creative Commons: Attribution Share Alike (by-sa)")
+  N_("url_link_for_Creative Commons: Attribution (by)")
+
+
   # referenced by: project validation
   N_("Public Domain")
   N_("This project contains no code")
