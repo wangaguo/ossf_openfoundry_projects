@@ -18,6 +18,9 @@
   <%= stylesheet_link_tag 'calendar' %>
   <% end %>
   <%= render :partial => 'partials/top_menu_data' %>
+  <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
+   <script>alert('Please use Internet Explorer 6 or above.');</script>
+  <% end %>
 </head>
 
 <body >
