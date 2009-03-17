@@ -19,11 +19,13 @@
 </h3>
 <div id='<%= div_id %>'>
   <ul>
-    <% rss.items.each_with_index do |item, i| %>
+    <% rss_sorted_by_date = rss.items.sort_by {|item| item.date}.reverse %>
+    <% rss_sorted_by_date.each_with_index do |item, i| %>
+    <%# rss.items.each_with_index do |item, i| %>
       <li>
-      <%= if item.date - 7.days.ago > 0 then link_to image_tag('/images/hot.png') end %>
+      <%= if item.date > 7.days.ago then image_tag('/images/hot.png') end %>
       <%= link_to item.title, item.link, {:class => subject_class} %>
-      <%#= item.date.strftime '%m/%d' %>
+      <%= item.date.strftime "%Y-%m-%d" %>
       </li>
     <%end %>
   </ul>
