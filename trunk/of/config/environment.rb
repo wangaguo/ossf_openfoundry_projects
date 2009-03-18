@@ -55,7 +55,9 @@ Rails::Initializer.run do |config|
   config.gem 'acts_as_ferret', :version => '>= 0.4.3'
   config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
   config.gem 'ferret', :version => ">= 0.11.6" 
-  config.gem 'gettext', :version => ">= 1.91.0" 
+  #config.gem 'gettext', :version => ">= 1.91.0" 
+  config.gem "grosser-fast_gettext",  
+    :version => '>= 0.3.0', :lib => 'fast_gettext', :source => "http://gems.github.com"
   config.gem 'json', :version => ">= 1.1.2" 
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 

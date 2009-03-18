@@ -1,5 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  #use fast-gettext
+  include FastGettext::Translation 
   
   def viewports_manager(options={})
     #TODO add extension here
