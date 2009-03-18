@@ -29,7 +29,7 @@ Agent: <%= request.user_agent%>
     <%= link_to_remote "Gettext Cache Switch", :url => { :action => :gettext_cache_switch },
     :update => 'GettextReloadReturn' %>
     <span id=GettextReloadReturn>
-      Currently Gettext Cached is <%=GetText.cached?%>
+      Currently Gettext Cached is <%#=GetText.cached?%>
     </span>
   </li>
   <li><%= link_to _("Project"), :controller => "project" %></li>

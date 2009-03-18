@@ -5,7 +5,6 @@ require 'user_system'
 require 'of'
 require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
-require 'gettext/rails'
 
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
@@ -21,6 +20,9 @@ class ApplicationController < ActionController::Base
   around_filter :touch_session
   before_filter :set_time_zone
 
+  #use fast-gettext
+  include FastGettext::Translation
+
   #for permission table
   include OpenFoundry::PermissionTable
 
@@ -31,8 +33,6 @@ class ApplicationController < ActionController::Base
 # for exception growler 
 #  include ExceptionGrowler
   
-  init_gettext "openfoundry"
-
   helper :user
   helper :projects
   require_dependency 'user'
@@ -47,8 +47,21 @@ class ApplicationController < ActionController::Base
 #          ActiveRecord::Base.connection.execute 'SET NAMES UTF8'
 #        end
 #  end
+  #set locale for each request
+  before_filter :set_gettext_locale
+
   protected
-  before_init_gettext :set_locale_for_gettext
+  #fast-gettext set_locale utility
+  def set_gettext_locale
+    FastGettext.available_locales = ['en', 'zh_TW']
+    FastGettext.text_domain = 'openfoundry'
+    session[:lang] = FastGettext.set_locale(
+      params[:lang] || session[:lang] || current_user.language || 
+      request.env['HTTP_ACCEPT_LANGUAGE'] || 'zh_TW')
+    #set locale for will_paginate 
+    set_will_paginate_lang
+  end
+
   # also being invoked when a user changes his/her language preference
   def set_locale_for_gettext!(lang)
     # changing cookies[] only will not have effect in this request
@@ -67,26 +80,6 @@ class ApplicationController < ActionController::Base
     cookies["lang"] = lang # or set it in the 'after' filter ?
   end
 
-  def set_locale_for_gettext
-    lang = ""
-    if params["lang"]
-      # side-effect: the next page will also render in this language
-      #lang = cookies["lang"] = params["lang"]
-      lang = params["lang"]
-    else
-      if cookies["lang"]
-        lang = cookies["lang"]
-      else
-        # TODO: guest / empty language setting
-        #set_locale_for_gettext!(current_user.language)
-        lang = current_user.language
-      end
-    end
-    set_locale_for_gettext!(lang)
-    #set_locale("zh_TW")
-  end
-
-  after_init_gettext :set_will_paginate_lang
   def set_will_paginate_lang
     WillPaginate::ViewHelpers.pagination_options[:prev_label] = _("&laquo; Previous")
     WillPaginate::ViewHelpers.pagination_options[:next_label] = _("Next &raquo;")
