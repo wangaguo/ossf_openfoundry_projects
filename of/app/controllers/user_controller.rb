@@ -431,7 +431,7 @@ class UserController < ApplicationController
       session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
         :locals => {:submit_to => '/user/signup', 
-                    :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
+                    :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{FastGettext.locale.to_s}.txt"}
       return true
     when :post
       if( session[:toua] == :show )
