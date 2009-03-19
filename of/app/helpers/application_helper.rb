@@ -312,6 +312,9 @@ module ApplicationHelper
     include ActionView::Helpers::FormOptionsHelper
     include ActionView::Helpers::TagHelper
 
+    #use fast-gettext
+    include FastGettext::Translation 
+
     def required_icon
       t = _("required_icon")
       %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
