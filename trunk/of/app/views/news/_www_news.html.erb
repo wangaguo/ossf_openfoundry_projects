@@ -29,7 +29,7 @@
       </li>
     <%end %>
   </ul>
-  <%=link_to _('More...'), more_link %>
+  <%=link_to _('More...'), more_link, :class => "more" %>
 </div>
 <%=auto_discovery_link_tag(:rss, rss_link,
   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Daily News'), :type => 'RSS'} }) %>
