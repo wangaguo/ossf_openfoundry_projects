@@ -103,12 +103,15 @@ Rails::Initializer.run do |config|
     #require "lib/mongrel_size_limit.rb"
     #require 'bleak_house' if ENV['BLEAK_HOUSE']
     
+
+  }
+
     # For Project Upload
     OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
 
     # TODO: better naming
     OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
-    OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8.hours # in seconds
+    OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
     OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
     OPENFOUNDRY_VIEWVC_CVS_URL =  'http://of.openfoundry.org/viewvc-cvs/'
     OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
@@ -135,7 +138,4 @@ Rails::Initializer.run do |config|
     NSC_CURRENT_YEAR = "97"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
-
-  }
-
 end
