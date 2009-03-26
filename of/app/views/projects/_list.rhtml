@@ -6,7 +6,7 @@
     <th><%= link_to _('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
     <th><%= link_to _('Created At'),  sort_param('listing', Project, 'created_at', 'created_at') %></th>
     <th><%= link_to _('Latest File'),  sort_param('listing', Release, 'created_at', 'created_at') %></th>
-    <th><%= link_to _('Download'),  sort_param('listing', Project, 'project_counter', 'project_counter') %></th>
+    <th width="70"><%= link_to _('Download'),  sort_param('listing', Project, 'project_counter', 'project_counter') %></th>
   </tr>
 <% i=0; class_name = ""; -%>
 <% for project in projects -%>
@@ -17,16 +17,18 @@
     <td align="center"><%= h tz_date(project.created_at) %></td>
     <% tmp = project.releases.active.latest.first %>
     <td align="center"><%= h( tmp.due) if tmp %></td>
-    <td align="center"><%= h project.project_counter %></td>
+    <td rowspan="2" align="center">
+      <%= link_to _('Download'), download1_path(:project_id => project.id) %><br />
+      (<%= h project.project_counter %>)
+    </td>
   </tr>
   <tr class="item_b <%=class_name%>">
     <td colspan="3">
       <a href="<%= url_for(:action => 'show', :id => project.id) %>">
         <img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{project.icon}_64") %>" align="left" alt="<%= _('Project Logo') %>" title="<%= h(project.summary) %>"/>
       </a>
-      <%= h "#{project.description}".chars[0..150] + "#{'...' if project.description.chars.length > 150 }" %><br/>
+      <%= h "#{project.description}".chars[0..140] + "#{'...' if project.description.chars.length > 140 }" %><br/>
     </td>
-    <td align="center"><%= link_to _('Download'), download1_path(:project_id => project.id) %></td>
   </tr>
 <% end -%>
 </table>
