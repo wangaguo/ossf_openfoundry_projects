@@ -327,3 +327,6 @@ width:500px;
 
 /* for survey mask */
 .SurveyItemMasked {background-color:#123456;}
+
+/* for current page text on will_paginate */
+.current { text-decoration: underline overline; }
