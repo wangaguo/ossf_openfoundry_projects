@@ -1707,7 +1707,7 @@ msgstr "http://swan.iis.sinica.edu.tw/LicenseWizard/index.htm"
 #: app/views/partials/_top_menu_data.rhtml:43
 #: app/views/partials/_top_menu_data.rhtml:47
 msgid "menu_LW_manual_link"
-msgstr "http://www.openfoundry.org/LicenseWizard.html"
+msgstr "http://www.openfoundry.org/Law-and-Policy/License-Wizard/"
 
 #: app/views/partials/_top_menu_data.rhtml:18
 msgid "menu_Latest Releases"
