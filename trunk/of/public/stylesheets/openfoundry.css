@@ -160,7 +160,8 @@ body {
 .ProjectList { border-collapse:collapse; width:99%; margin:2px; }
 .ProjectList th { background-color:#DEE7FF; }
 .ProjectList .item_h td { }
-.ProjectList .item_b td { border-bottom:solid 1px grey; }
+.ProjectList .item_b { height:75px;  border-bottom:solid 1px grey; }
+.ProjectList .item_b td img { margin-right:10px; }
 
 /*
 border-bottom:solid 2px #DEE7FF;
