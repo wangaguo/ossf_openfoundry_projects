@@ -364,7 +364,8 @@ EOEO
 
     returning Project.create(data) do |project|
       if project.errors.empty?
-        ProjectNotify.deliver_applied_site_admin(project)
+        #ProjectNotify.deliver_applied_site_admin(project)
+        ProjectNotify.deliver_project_reviewer(project)
       end
     end
   end
