@@ -5,6 +5,6 @@ class SiteAdmin < ApplicationController
 
   def check_site_admin
     redirect_to :controller => '../openfoundry' unless( current_user().has_role?('site_admin') or 
-                                                      current_user.has_role>('project_reviewer') )
+                                                      current_user.has_role?('project_reviewer') )
   end
 end
