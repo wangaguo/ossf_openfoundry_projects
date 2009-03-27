@@ -991,7 +991,7 @@ msgstr "排名"
 #: app/views/news/list.rhtml:20 app/views/news/list.rhtml:22
 #: app/views/jobs/list.rhtml:12
 msgid "Read More"
-msgstr "閱讀完整文章"
+msgstr "閱讀全文"
 
 #: app/views/site_admin/site_admin/index.rhtml:54
 msgid "Rebuild Ferret Index"
