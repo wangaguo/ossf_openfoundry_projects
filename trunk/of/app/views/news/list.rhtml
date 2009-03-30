@@ -6,7 +6,7 @@
 </div>
 <ul>
   <%for news in @news %>
-  <li>
+  <li class="news_list">
     <%if news.catid == 0%>
       <%= link_to h(news.subject), site_news1_path(:id => news), :class => "news_subject" %>
     <%else%>
