@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
     # puts "#################### set_locale_for_gettext!: lang: ###{lang}##"
     #return if lang == ""
     lang = "zh_TW" if lang == ""
-    set_locale(lang, true)
+    FastGettext.set_locale(lang)
     cookies["lang"] = lang # or set it in the 'after' filter ?
   end
 
