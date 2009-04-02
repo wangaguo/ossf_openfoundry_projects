@@ -7,7 +7,6 @@
     <th align=left nowrap><%= _('Rank') %></th>
     <th align=left><%= _('Release Name') %></th>
     <th align=left><%= _('Release Date') %></th>
-    <th align=left><%= _('Download') %></th>
   </tr>
   
 <% i=(@page-1)*100 %>
@@ -18,7 +17,6 @@
     <td><%= (i+=1).to_s %></td>
     <td><%= link_to h(release.project.summary + " " + release.version), download1_path(:project_id => release.project_id) + "##{release.version}" %></td>
     <td><%= release.created_at.strftime("%Y/%m/%d") if !release.due.nil? %></td>
-    <td><%= release.release_counter %></td>
   </tr>
 <% end %>
 </table>
