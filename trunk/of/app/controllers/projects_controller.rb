@@ -72,7 +72,7 @@ class ProjectsController < ApplicationController
     reset_sortable_columns
     add_to_sortable_columns('listing', Project, 'summary', 'summary') 
     add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
-    add_to_sortable_columns('listing', Release, 'created_at', 'created_at')
+    add_to_sortable_columns('listing', Release, 'created_at', 'latest_file')
     add_to_sortable_columns('listing', Project, 'project_counter', 'project_counter')
     
     # params[:cat] => 'maturity' / 'platform' ...
