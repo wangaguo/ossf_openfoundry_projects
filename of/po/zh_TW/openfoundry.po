@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2009-03-25 02:17-0000\n"
+"POT-Creation-Date: 2009-04-07 03:46-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr "加入檔案"
 
 #: app/views/jobs/list.rhtml:33 app/views/jobs/new.rhtml:1
 msgid "Add Job"
-msgstr "新增尋求支援"
+msgstr "新增徵求伙伴"
 
 #: app/views/news/list.rhtml:50 app/views/news/new.rhtml:1
 msgid "Add News"
@@ -248,8 +248,7 @@ msgstr "刪除"
 msgid "Disabled"
 msgstr ""
 
-#: app/views/releases/_top_download_list.rhtml:10
-#: app/views/projects/_list.rhtml:9 app/views/projects/_list.rhtml:29
+#: app/views/projects/_list.rhtml:9 app/views/projects/_list.rhtml:21
 #: app/views/user/my_projects.rhtml:10 app/views/user/my_projects.rhtml:29
 msgid "Download"
 msgstr "下載"
@@ -352,7 +351,7 @@ msgstr "說明"
 #: app/views/partials/_project_menu.rhtml:24
 #: app/views/partials/_project_menu.rhtml:70
 msgid "Help Wanted"
-msgstr "尋求支援"
+msgstr "徵求伙伴"
 
 #: app/helpers/application_helper.rb:48
 msgid "Home"
@@ -584,7 +583,7 @@ msgstr "新聞"
 msgid "New Projects"
 msgstr "新進專案"
 
-#: app/views/projects/_list.rhtml:37
+#: app/views/projects/_list.rhtml:39
 msgid "New project"
 msgstr "註冊專案"
 
@@ -719,7 +718,7 @@ msgstr "管理'引用資訊'"
 
 #: app/models/function.rb:79
 msgid "Permission|Manage Help Wanted"
-msgstr "管理'尋求支援'"
+msgstr "管理'徵求伙伴'"
 
 #: app/models/function.rb:82
 msgid "Permission|Manage Kwiki Pages"
@@ -799,13 +798,13 @@ msgstr "引用資訊"
 
 #: app/controllers/jobs_controller.rb:22
 msgid "Project Help Wanted"
-msgstr "尋求支援"
+msgstr "徵求伙伴"
 
 #: app/helpers/application_helper.rb:64 app/views/projects/_list.rhtml:2
 msgid "Project Listing"
 msgstr "專案列表"
 
-#: app/views/projects/_list.rhtml:25 app/views/user/my_projects.rhtml:25
+#: app/views/projects/_list.rhtml:28 app/views/user/my_projects.rhtml:25
 msgid "Project Logo"
 msgstr "專案LOGO"
 
@@ -1690,7 +1689,7 @@ msgstr "說明"
 
 #: app/views/partials/_top_menu_data.rhtml:20
 msgid "menu_Help Wanted"
-msgstr "尋求支援"
+msgstr "徵求伙伴"
 
 #: app/views/partials/_top_menu_data.rhtml:6
 msgid "menu_Home"

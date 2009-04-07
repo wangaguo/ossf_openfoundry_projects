@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2009-03-25 02:17-0000\n"
+"POT-Creation-Date: 2009-04-07 03:46-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,8 +270,7 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: app/views/releases/_top_download_list.rhtml:10
-#: app/views/projects/_list.rhtml:9 app/views/projects/_list.rhtml:29
+#: app/views/projects/_list.rhtml:9 app/views/projects/_list.rhtml:21
 #: app/views/user/my_projects.rhtml:10 app/views/user/my_projects.rhtml:29
 #, fuzzy
 msgid "Download"
@@ -628,7 +627,7 @@ msgstr ""
 msgid "New Projects"
 msgstr "New Project"
 
-#: app/views/projects/_list.rhtml:37
+#: app/views/projects/_list.rhtml:39
 #, fuzzy
 msgid "New project"
 msgstr "New Project"
@@ -876,7 +875,7 @@ msgstr "Created at"
 msgid "Project Listing"
 msgstr "Project Listing"
 
-#: app/views/projects/_list.rhtml:25 app/views/user/my_projects.rhtml:25
+#: app/views/projects/_list.rhtml:28 app/views/user/my_projects.rhtml:25
 #, fuzzy
 msgid "Project Logo"
 msgstr "Project name"
