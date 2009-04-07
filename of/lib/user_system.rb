@@ -66,7 +66,7 @@ module UserSystem
   # a popup window might just close itself for instance
   def access_denied
     flash[:notice] = _('You have to login OpenFoundry first.')
-    redirect_to :controller => "user", :action => "login"
+    redirect_to '/user/login'
   end  
   
   # store current uri in  the session.
