@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2009-04-07 03:46-0000\n"
+"POT-Creation-Date: 2009-04-08 03:48-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1296,9 +1296,20 @@ msgid "Subversion"
 msgstr ""
 
 #: app/views/projects/vcs_access.rhtml:5
-#, fuzzy
 msgid "Subversion Access"
-msgstr "Preference"
+msgstr "Subversion Access"
+
+#: app/views/projects/vcs_access.rhtml:7
+#: app/views/projects/vcs_access.rhtml:17
+msgid "Subversion Access|Description"
+msgstr ""
+"This project's Subversion repository can be checked out through SVN with the "
+"following instruction set"
+
+#: app/views/projects/vcs_access.rhtml:12
+#: app/views/projects/vcs_access.rhtml:22
+msgid "Subversion Access|See More"
+msgstr "See more instruction"
 
 #: app/views/projects/vcs_access.rhtml:25
 msgid "Subversion: Members Only"

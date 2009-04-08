@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: version 0.0.1\n"
-"POT-Creation-Date: 2009-04-07 03:46-0000\n"
+"POT-Creation-Date: 2009-04-08 03:48-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1195,7 +1195,17 @@ msgstr ""
 
 #: app/views/projects/vcs_access.rhtml:5
 msgid "Subversion Access"
-msgstr ""
+msgstr "版本控制存取方式"
+
+#: app/views/projects/vcs_access.rhtml:7
+#: app/views/projects/vcs_access.rhtml:17
+msgid "Subversion Access|Description"
+msgstr "本專案的版本控制檔案庫可利用下列 SVN 指令集取得"
+
+#: app/views/projects/vcs_access.rhtml:12
+#: app/views/projects/vcs_access.rhtml:22
+msgid "Subversion Access|See More"
+msgstr "了解更多指令"
 
 #: app/views/projects/vcs_access.rhtml:25
 msgid "Subversion: Members Only"
