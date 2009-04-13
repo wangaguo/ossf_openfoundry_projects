@@ -37,9 +37,9 @@ class ProjectsController < ApplicationController
   def sympa
     @module_name = _('Mailing List')
     if (params[:path] != nil)
-      @Path = OPENFOUNDRY_SYMPA_URL + "/#{params[:path]}" 
+      @Path = OPENFOUNDRY_OF_URL + "#{params[:path]}" 
     else
-      @Path = OPENFOUNDRY_SYMPA_URL + "/lists_by_project/" + @project.name
+      @Path = OPENFOUNDRY_SYMPA_URL + "lists_by_project/" + @project.name
     end
   end
   
