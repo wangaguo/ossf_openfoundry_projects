@@ -2,7 +2,7 @@ class Release < ActiveRecord::Base
   belongs_to :project
   has_many :fileentity
   
-  validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,16}$/
+  validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,255}$/
 
   #add fulltext indexed SEARCH
   acts_as_ferret({ :fields => { 
