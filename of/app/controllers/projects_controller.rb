@@ -41,6 +41,14 @@ class ProjectsController < ApplicationController
     else
       @Path = OPENFOUNDRY_SYMPA_URL + "lists_by_project/" + @project.name
     end
+
+    if (params[:projectUnixName] != nil)
+      @sympa_new_url = "/projects/" + Project.find_by_name("#{params[:projectUnixName]}", :select => 'id').id.to_s + "/sympa"
+      
+      @sympa_new_url += "?path=#{params[:path]}" if !(params[:path] =~ /(info)/).nil?
+      
+      redirect_to @sympa_new_url
+    end
   end
   
   def viewvc
