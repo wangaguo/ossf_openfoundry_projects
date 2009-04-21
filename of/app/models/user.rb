@@ -1,3 +1,4 @@
+require 'gettext_textdomain_for_model'
 require 'digest/sha1'
 require 'of'
 
