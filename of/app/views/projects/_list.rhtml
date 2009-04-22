@@ -24,10 +24,17 @@
   </tr>
   <tr class="item_b <%=class_name%>">
     <td colspan="3">
-      <a href="<%= url_for(:action => 'show', :id => project.id) %>">
-        <img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{project.icon}_64") %>" align="left" alt="<%= _('Project Logo') %>" title="<%= h(project.summary) %>"/>
-      </a>
-      <%= h project.description.chars[0..130] + "#{'...' if project.description.chars.length > 130 }" %>
+      <table>
+        <tr>
+          <td class="imgarea"> 
+            <a href="<%= url_for(:action => 'show', :id => project.id) %>">
+              <img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{project.icon}_64") %>" align="center" alt="<%= _('Project Logo') %>" title="<%= h(project.summary) %>"/>
+            </a>
+          </td>
+          <td class="txtarea">
+            <%= h project.description.chars[0..130] + "#{'...' if project.description.chars.length > 130 }" %></td>
+        </tr>
+      </table>
     </td>
   </tr>
 <% end -%>
