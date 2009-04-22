@@ -161,7 +161,8 @@ body {
 .ProjectList th { background-color:#DEE7FF; }
 .ProjectList .item_h td { }
 .ProjectList .item_b { height:75px;  border-bottom:solid 1px grey; }
-.ProjectList .item_b td img { margin-right:20px; }
+.ProjectList .item_b td .imgarea { width:64px; height:64px; text-align:center; }
+.ProjectList .item_b td .txtarea { margin-left:20px; width:580px; height:64px; padding-left:20px; text-align:left; vertical-align:top; }
 
 /*
 border-bottom:solid 2px #DEE7FF;
