@@ -8,16 +8,16 @@ class User < ActiveRecord::Base
   acts_as_authorized_user
 
   #add fulltext indexed SEARCH
-  acts_as_ferret({
-                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
-                             #:firstname => {:boost => 0.8,:store => :yes}, 
-                             #:lastname => {:boost => 0.8,:store => :yes}, 
-                             :name => {:boost => 0.8,:store => :yes} 
-                            },
-                 :single_index => true
-                 }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
-                 
-  # disable ferret search if not verified        
+  #acts_as_ferret({
+  #               :fields => {:login => {:boost => 1.5,:store => :yes}, 
+  #                           #:firstname => {:boost => 0.8,:store => :yes}, 
+  #                           #:lastname => {:boost => 0.8,:store => :yes}, 
+  #                           :name => {:boost => 0.8,:store => :yes} 
+  #                          },
+  #               :single_index => true
+  #               }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
+  #               
+  ## disable ferret search if not verified        
   def ferret_enabled?(is_bulk_index = false)
     (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
   end
