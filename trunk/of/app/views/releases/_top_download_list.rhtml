@@ -15,7 +15,7 @@
   <tr class="<%= class_name %>">
     <td><img src="<%= url_for(:controller => :images,:action => "cached_image", :id => "#{Project.find(release.project_id).icon}_16") %>"/></td>
     <td><%= (i+=1).to_s %></td>
-    <td><%= link_to h(release.project.summary + " " + release.version), download1_path(:project_id => release.project_id) + "##{release.version}" %></td>
+    <td><%= link_to h(release.project.summary), download1_path(:project_id => release.project_id) %></td>
     <td><%= release.created_at.strftime("%Y/%m/%d") if !release.due.nil? %></td>
   </tr>
 <% end %>

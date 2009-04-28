@@ -6,7 +6,7 @@
 <ul>
   <%for download in downloadList %>
     <li>
-      <%= link_to h(download.project.summary + " " + download.version), download1_path(:project_id => download.project_id) + "##{download.version}" %>
+      <%= link_to h(download.project.summary), download1_path(:project_id => download.project_id) %>
     </li>
   <%end %>
 </ul>
