@@ -36,9 +36,9 @@ class Function < ActiveRecord::Base
     ActiveRecord::Base.connection.select_values(sql)
   end
   
-  def self.function_permit(function_name, authorizable_id, authorizable_type)
+  def self.function_permit(user, function_name, authorizable_id, authorizable_type)
     #if site admin, allow it anyway
-    return true if current_user.has_role? "site_admin"
+    return true if user.has_role? "site_admin"
     #if the permission is allow_all, allow it whoever 
     return true if function_name.to_s == 'allow_all'
 
@@ -50,7 +50,7 @@ class Function < ActiveRecord::Base
               R.authorizable_type = 'Project' and 
               R.authorizable_id  = P.id and 
               #{Project.in_used_projects(:alias => 'P')} and 
-              U.login = '#{current_user.login}' and 
+              U.login = '#{user.login}' and 
               #{User.verified_users(:alias => 'U')}                      
         ") > 0
     
@@ -63,7 +63,7 @@ class Function < ActiveRecord::Base
         "roles.authorizable_id = '#{authorizable_id}' and " +
         "roles.authorizable_id = projects.id and " +
         "#{Project.in_used_projects(:alias => 'projects')} and " +
-        "users.login = '#{current_user.login}' and " + 
+        "users.login = '#{user.login}' and " + 
         "#{User.verified_users(:alias => 'users')} and " +
         "functions.name = '#{function_name}'"))
       return true
