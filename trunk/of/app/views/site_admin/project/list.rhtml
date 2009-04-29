@@ -34,7 +34,7 @@ project_columns = ["name","summary","description","creator","status","statusreas
           <%if column == 'creator'%>
             <a href="/user/home/<%=project.send(column)%>"><%=project.send(column)%></a>
           <%elsif ['description', 'licensingdescription'].index(column) %>
-            <span title="<%=project.send(column)%>"><%=project.send(column).chars[0..30]%></a>
+            <span title="<%=project.send(column)%>"><%=project.send(column).mb_chars[0..30]%></a>
           <%else%>
           <%=h project.send(column) %>
           <%end%>
