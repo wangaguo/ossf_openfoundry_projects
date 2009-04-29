@@ -269,21 +269,19 @@ class OpenfoundryController < ApplicationController
   end
   
   def search #for search!!! TODO: catalog and optimize?
-     flash[:warning] = '目前系統進行更新中無法提供搜尋服務，造成不便敬請見諒。'
-     redirect_to "/"
-#    @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
-#    @options = {}
-#    @options[:per_page] = params[:per_page] || 20
-#    @options[:page] = params[:page] || 1
-#    @options[:models] = 
-#      if params[:chk]
-#        params[:chk].keys.map{|k| Object.const_get(k)}
-#      else
-#        :all
-#      end
-#    obj = @options[:models] == :all ? User : @options[:models].first
-#    @results = obj.find_with_ferret(@query, @options) 
-#    @lookup = RECORD_LOOKUP_TABLE
+    @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
+    @options = {}
+    @options[:per_page] = params[:per_page] || 20
+    @options[:page] = params[:page] || 1
+    @options[:models] = 
+      if params[:chk]
+        params[:chk].keys.map{|k| Object.const_get(k)}
+      else
+        :all
+      end
+    obj = @options[:models] == :all ? User : @options[:models].first
+    @results = obj.find_with_ferret(@query, @options) 
+    @lookup = RECORD_LOOKUP_TABLE
   end
   
 #  def tag #for displaying taggalbe objects~
