@@ -1,4 +1,3 @@
-require 'gettext_textdomain_for_model'
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
 

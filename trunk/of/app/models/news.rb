@@ -1,4 +1,3 @@
-require 'gettext_textdomain_for_model'
 class News < ActiveRecord::Base
   belongs_to :project, :foreign_key => "catid"
   
