@@ -7,7 +7,7 @@ class SurveyController < ApplicationController
   
   def find_resource_project
     @project = Project.find_by_id(params['project_id']) if params['project_id']
-    @project ||= Project.find_by_id(params['id']) if params['id']
+    @project ||= Project.find_by_id(params[:id]) if params[:id]
   end
   private :find_resource_project
 
