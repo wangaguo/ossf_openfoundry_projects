@@ -1,4 +1,3 @@
-require 'gettext_textdomain_for_model'
 class Job < ActiveRecord::Base
   belongs_to :project, :foreign_key => "project_id"
   STATUS = {:Enabled => 1, :Disabled => 0}

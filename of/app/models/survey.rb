@@ -1,4 +1,3 @@
-require 'gettext_textdomain_for_model'
 class Survey < ActiveRecord::Base
   belongs_to :fileentity
   ITEM_STATUS = ['hidden', 'optional', 'mandatory'].freeze

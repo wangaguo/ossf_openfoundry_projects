@@ -1,4 +1,3 @@
-require 'gettext_textdomain_for_model'
 class Fileentity < ActiveRecord::Base
   belongs_to :release
   has_one :survey 
