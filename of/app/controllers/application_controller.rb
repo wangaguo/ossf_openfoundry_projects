@@ -11,17 +11,18 @@ require 'cgi_session_activerecord_store_hack'
 
 # share session cookie for sub-doamins (SSO)
 # TODO: substitide domain name in the installing process
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".of.openfoundry.org"
+#ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_domain] = ".dev.openfoundry.org"
 
 class ApplicationController < ActionController::Base
   #block session store for crawler
-  session :off, :if => lambda {|req| req.user_agent =~ /(Slurp|Spider)/i}
+  #session :off, :if => lambda {|req| req.user_agent =~ /(Slurp|Spider)/i}
 
   around_filter :touch_session
   before_filter :set_time_zone
 
   #use fast-gettext
-  include FastGettext::Translation
+  #include FastGettext::Translation
+  init_gettext "openfoundry"
 
   #for permission table
   include OpenFoundry::PermissionTable
@@ -48,36 +49,19 @@ class ApplicationController < ActionController::Base
 #        end
 #  end
   #set locale for each request
-  before_filter :set_gettext_locale
+  before_init_gettext :set_gettext_locale
+  after_init_gettext :set_will_paginate_lang
 
   protected
-  #fast-gettext set_locale utility
-  def set_gettext_locale
-    FastGettext.available_locales = ['en', 'zh_TW']
-    FastGettext.text_domain = 'openfoundry'
-    session[:lang] = FastGettext.set_locale(
-      params[:lang] || session[:lang] || current_user.language || 
-      request.env['HTTP_ACCEPT_LANGUAGE'] || 'zh_TW')
-    #set locale for will_paginate 
-    set_will_paginate_lang
+  def set_gettext_locale 
+    # guest's language should be nil, because "" is true. 
+    # request.preferred_language_from is plugin, return value is zh-TW, gettext need zh_TW.
+    cookies[:lang] = set_locale( (params[:lang] || cookies[:lang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
   end
 
   # also being invoked when a user changes his/her language preference
   def set_locale_for_gettext!(lang)
-    # changing cookies[] only will not have effect in this request
-    # cookies["lang"] = params["lang"] = lang
-    #
-    # lang == 'fr'    is ok
-    # lang == 'aaaaa' is ok
-    # lang == nil     is still ok !
-    # lang == '' will die !!
-    #
-    # TODO: fall back ?
-    # puts "#################### set_locale_for_gettext!: lang: ###{lang}##"
-    #return if lang == ""
-    lang = "zh_TW" if lang == ""
-    FastGettext.set_locale(lang)
-    cookies["lang"] = lang # or set it in the 'after' filter ?
+    cookies[:lang] = set_locale(lang||"en")
   end
 
   def set_will_paginate_lang
@@ -88,7 +72,7 @@ class ApplicationController < ActionController::Base
   
   #before_filter :login_required
   def current_user(session = session())
-    session['effective_user'] || session['user'] || User.find_by_login('guest') 
+    session[:effective_user] || session[:user] || User.find_by_login('guest') 
     #effective_user for site_admin 'su' to others 
     #user is your 'normal login user'
   end
@@ -100,7 +84,7 @@ class ApplicationController < ActionController::Base
 
   
   # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_of_session_id'
+  #session :session_key => '_of_session_id'
   
   # Fro "paranoid session store"
   #before_filter :touch_session
@@ -225,7 +209,7 @@ THECODE
   end
   
   def fpermit?(function_name, authorizable_id, authorizable_type = 'Project')
-    Function.function_permit(function_name, authorizable_id, authorizable_type)
+    Function.function_permit(current_user, function_name, authorizable_id, authorizable_type)
   end
   helper_method :fpermit?
   
@@ -275,20 +259,17 @@ THECODE
       else
         fpermit?(function_name, 0)
       end
-    rescue
+    rescue Exception => e
       pass = false
     ensure
       unless(pass)
-        flash[:warning] = _('you have no permission')+" [#{function_name}]!" 
+        flash[:warning] = _('you have no permission')+" [#{function_name} #{e}]!" 
         redirect_to(request.referer || '/')
       end
     end
     pass
   end
 
-  # see: vendor/plugins/sliding_sessions/ 
-  session :session_expires_after => OPENFOUNDRY_SESSION_EXPIRES_AFTER # in seconds
-  
   protected
   def check_download_consistancy
     #this method will check PROJECT NAME, RELEASE VERSION, FILE PATH, and their associations
