@@ -35,7 +35,6 @@ class OpenfoundryController < ApplicationController
     end
   end
 
-  session :off, :only => [:get_user_by_session_id, :authentication_authorization, :foundry_dump, :foundry_sync, :authentication_authorization_II, :redirect_rt_openfoundry_org, :akak]
   def get_user_by_session_id
     s = get_session_by_id2(params['session_id'])
     u = current_user(s) 
