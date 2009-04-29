@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.1.1' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -26,10 +26,6 @@ Rails::Initializer.run do |config|
   # (by default production uses :info, the others :debug)
   config.log_level = :info
 
-  # Use the database for sessions instead of the file system
-  # (create the session table with 'rake db:sessions:create')
-  # config.action_controller.session_store = :active_record_store
-  config.action_controller.session_store = :spandex_mem_cache_store
   config.cache_store = :spandex_mem_cache_store, '192.168.0.238',
     {:namespace => "of-#{RAILS_ENV}"}
    
@@ -55,16 +51,15 @@ Rails::Initializer.run do |config|
   config.gem 'acts_as_ferret', :version => '>= 0.4.3'
   config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
   config.gem 'ferret', :version => ">= 0.11.6" 
-  #config.gem 'gettext', :version => ">= 1.91.0" 
-  config.gem "grosser-fast_gettext",  
-    :version => '>= 0.3.0', :lib => 'fast_gettext', :source => "http://gems.github.com"
+  # for gettext 2.0.0
+  config.gem "locale_rails"
+  config.gem "gettext_activerecord"
+  config.gem "gettext_rails"
+ 
   config.gem 'json', :version => ">= 1.1.2" 
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 
-  #config.gem 'rmagick', :version =>  ">= 1.15.12" 
-  config.gem 'tzinfo', :version =>  ">= 0.3.6" 
   config.gem 'packr', :version =>  ">= 3.1.0" 
-  #config.gem 'ruby-openid', :version =>  ">= 2.1.2"
 
   config.time_zone = 'Taipei' 
 
@@ -82,7 +77,7 @@ Rails::Initializer.run do |config|
   # Mime::Type.register "application/x-mobile", :mobile
 
   # Include your application configuration below
-  require 'environments/user_environment'
+  require 'user_environment'
 
   #ActionMailer::Base.delivery_method = :sendmail
 
@@ -96,9 +91,6 @@ Rails::Initializer.run do |config|
     DEFAULT_FIELD = [:name, :summary, 
 	    :subject, :description, :requirement, :description_without_tag, :login]
 
-    # store host, user_id in sessions
-    require 'cgi_session_activerecord_store_hack'
-    
     #require "lib/memory.rb"
     #require "lib/mongrel_size_limit.rb"
     #require 'bleak_house' if ENV['BLEAK_HOUSE']
