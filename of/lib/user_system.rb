@@ -46,7 +46,7 @@ module UserSystem
       return true  
     end
 
-    if user? and authorize?(session['user'])
+    if user? and authorize?(session[:user])
       return true
     end
 
@@ -72,39 +72,39 @@ module UserSystem
   # store current uri in  the session.
   # we can return to this location by calling return_location
   def store_location
-    session['return-to'] = request.request_uri
+    session[:return_to] = request.request_uri
   end
 
   # move to the last store_location call or to the passed default one
   def redirect_back_or_default(default)
-    if session['return-to'].nil?
+    if session[:return_to].nil?
       redirect_to default
     else
-      redirect_to session['return-to']
-      session['return-to'] = nil
+      redirect_to session[:return_to]
+      session[:return_to] = nil
     end
   end
 
   def user?
     # First, is the user already authenticated?
-    return true if session['user'] and (not params['s'])
+    return true if session[:user] and (not params[:s])
 
     # If not, is the user being authenticated by a token?
-    return false if not params['user']
-    id = params['user']
-    if params['k'] and params['s']
-      k,s = params['k'], params['s']
+    return false if not params[:user]
+    id = params[:user]
+    if params[:k] and params[:s]
+      k,s = params[:k], params[:s]
       atts = Marshal.load(Base64.decode64(s))
       atts = {} unless atts.kind_of? Hash
       #目前只能讓user改 email而已
-      atts.delete_if{|k,v| k!='email'} 
-      session['user'] = User.authenticate_by_token(id, k, atts)
-      return true if not session['user'].nil?
+      atts.delete_if{|k,v| k!=:email} 
+      session[:user] = User.authenticate_by_token(id, k, atts)
+      return true if not session[:user].nil?
     else
       key = params['key']
       if id and key
-        session['user'] = User.authenticate_by_token(id, key)
-        return true if not session['user'].nil?
+        session[:user] = User.authenticate_by_token(id, key)
+        return true if not session[:user].nil?
       end
     end
     
