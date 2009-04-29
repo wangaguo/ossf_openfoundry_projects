@@ -233,18 +233,18 @@ EOEO
   acts_as_authorizable
 
   #add fulltext indexed SEARCH
-  #acts_as_ferret({
-  #               :fields => { 
-  #                            :name => { :boost => 1.5,
-  #                                       :store => :yes
-  #                                       },
-  #                            :summary => { :store => :yes,
-  #                                          :index => :yes },
-  #                            :description => { :store => :yes,
-  #                                              :index => :yes }                                                         
-  #                          },
-  #               :single_index =>true
-  #               },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
+  acts_as_ferret({
+                 :fields => { 
+                              :name => { :boost => 1.5,
+                                         :store => :yes
+                                         },
+                              :summary => { :store => :yes,
+                                            :index => :yes },
+                              :description => { :store => :yes,
+                                                :index => :yes }                                                         
+                            },
+                 :single_index =>true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
 
   def should_be_indexed?
     self.status == Project::STATUS[:READY]
