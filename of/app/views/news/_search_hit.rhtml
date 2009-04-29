@@ -11,7 +11,7 @@
     text = record.highlight(@query, {:field => 'description_without_tag'})
     #text = record.highlight(@query, {:field => 'description'})
     #text = record.description_without_tag # record.highlight(@query, {:field => 'description_without_tag'})
-    #if text.empty?; text = record.description_without_tag.chars[0..150] + "..."; end 
+    #if text.empty?; text = record.description_without_tag.mb_chars[0..150] + "..."; end 
   %>
 
   <%= text %> 
