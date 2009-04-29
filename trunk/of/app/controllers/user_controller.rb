@@ -92,7 +92,7 @@ class UserController < ApplicationController
       @name = user.login
       @icon = user.icon
       @conceal_email = user.t_conceal_email
-      session['email_image'] = user.email unless @conceal_email
+      session[:email_image] = user.email unless @conceal_email
       @email_md5 = Digest::MD5.hexdigest(user.email)
       @created_at = user.created_at
       #@status = user. unless user.t_conseal_status
@@ -129,7 +129,7 @@ class UserController < ApplicationController
   def login
     begin redirect_to :action => :home, :controller => :user ;return end if login?
     # for OpenID Session
-    if params['open_id_complete'] and session['user'] = open_id_authentication(nil)
+    if params['open_id_complete'] and session[:user] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
       redirect_back_or_default '/user/home' 
       return
@@ -145,10 +145,10 @@ class UserController < ApplicationController
     #rebuild_session
     
     @user = User.new(params['user'])
-    if session['user'] = User.authenticate(params['user']['login'], params['user']['password'])
+    if session[:user] = User.authenticate(params['user']['login'], params['user']['password'])
        
       #Remind user to ENABLE COOKIE!
-      if cookies['_of_session_id'].nil?
+      if cookies['_of_session'].nil?
         @extra_flash = '<p class="flasherror">You must ENABLE cookie to login.</p>'
         render 
         return
@@ -158,11 +158,11 @@ class UserController < ApplicationController
 
       # maintain an enumerable hash that includes online users...
       # with a simple lock...
-      Session.user_login(session['user'].id)
+      Session.user_login(session[:user].id)
 
       redirect_back_or_default :action => :home
       # For "paranoid session store"
-      #self.app_user=session['user']
+      #self.app_user=session[:user]
       
       #      if params['remember_me']
       #        # TODO: is this always the case ??
@@ -183,6 +183,8 @@ class UserController < ApplicationController
       return
     end
     params['user'].delete('form')
+    user_tags = params['user'].select{|k,v|k =~ /^t_([^=]*)$/}
+    params['user'].reject!{|k,v|k =~ /^t_([^=]*)$/}
     @user = User.new(params['user'])
     return unless valid_captcha?
     begin
@@ -191,6 +193,9 @@ class UserController < ApplicationController
         @user.new_password = true
         @user.new_email = true
         if @user.save
+          #fix rails2.3 ar consist problem
+          user_tags.each{|p|@user.method_missing(p[0],p[1])}
+          
           key = @user.generate_security_token
           url = url_for(:action => 'welcome')
           url += "?user=#{@user.id}&key=#{key}"
@@ -199,23 +204,23 @@ class UserController < ApplicationController
           redirect_to :action => 'login'
         end
       end
-    rescue
+    rescue 
       flash.now[:message] = _('user_confirmation_email_error')
     end
   end  
    
   def logout
     #logout while su as somebody, and back to site_admin page
-    if session['effective_user']
-      session['effective_user'] = nil
+    if session[:effective_user]
+      session[:effective_user] = nil
       redirect_to '/site_admin'
     else #normal user logout~
 
       # maintain an enumerable hash that include online users
       # with simple lock
-      Session.user_logout(session['user'].id)
+      Session.user_logout(session[:user].id)
 
-      session['user'] = nil
+      session[:user] = nil
       #For "paranoid session store"
       #kill_login_key
       #rebuild_session
@@ -353,7 +358,7 @@ class UserController < ApplicationController
   end
 
   def delete
-    @user = session['user']
+    @user = session[:user]
     begin
       if UserSystem::CONFIG[:delayed_delete]
         User.transaction(@user) do
@@ -373,7 +378,7 @@ class UserController < ApplicationController
   end
 
   def restore_deleted
-    @user = session['user']
+    @user = session[:user]
     @user.deleted = 0
     if not @user.save
       flash.now[:notice] = _('user_restore_deleted_error') % "#{@user['login']}"
@@ -431,7 +436,7 @@ class UserController < ApplicationController
       session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
         :locals => {:submit_to => '/user/signup', 
-                    :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{FastGettext.locale.to_s}.txt"}
+                    :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
       return true
     when :post
       if( session[:toua] == :show )
