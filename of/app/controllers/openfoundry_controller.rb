@@ -17,7 +17,7 @@ class OpenfoundryController < ApplicationController
   def get_session_by_id(session_id)
     begin
       #Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
-      ::Rails.cache.read("session:#{session_id}") || {}
+      ::Rails.cache.read("#{session_id}") || {}
     rescue
       {}
     end
@@ -29,7 +29,7 @@ class OpenfoundryController < ApplicationController
       return {} if session_id !~ /^[0-9a-f]*$/ 
       #rows = ActiveRecord::Base.connection.select_rows("select data from sessions where session_id = '#{session_id}'")
       #return Marshal.load(Base64.decode64(rows[0][0]))
-      ::Rails.cache.read("session:#{session_id}") || {}
+      ::Rails.cache.read("#{session_id}") || {}
     rescue
       {}
     end
@@ -49,7 +49,7 @@ class OpenfoundryController < ApplicationController
     session_id, project_name = params[:SID], params[:projectname]
     begin 
       the_session_data = get_session_by_id(session_id)
-      user = the_session_data['user']
+      user = the_session_data[:user]
       @name = user.login
       project = Project.find_by_name(project_name)
       if project == nil
@@ -79,13 +79,13 @@ class OpenfoundryController < ApplicationController
     rtn = {}
     begin 
       the_session_data = get_session_by_id(session_id)
-      user = the_session_data['user']
+      user = the_session_data[:user]
       project_id = Project.find_by_name(project_name, :select => "id").id
       function_names = Function.functions(:authorizable_id => project_id, :user_id => user.id)
 
       rtn = { :name => user.login, :email => user.email, :function_names => function_names }
-    rescue
-      rtn = { :name => "guest", :email => "guest@users.openfoundry.org" , :function_names => [] }
+    rescue Exception => ex
+      rtn = { :name => "guest", :email => "guest@users.openfoundry.org" , :function_names => [] ,:error => ex}
     end
     render :text => rtn.to_json, :layout => false
   end
