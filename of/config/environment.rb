@@ -26,8 +26,8 @@ Rails::Initializer.run do |config|
   # (by default production uses :info, the others :debug)
   config.log_level = :info
 
-  config.cache_store = :spandex_mem_cache_store, '192.168.0.238',
-    {:namespace => "of-#{RAILS_ENV}"}
+  config.cache_store = [ :mem_cache_store, '192.168.0.238:11211:',
+    {:namespace => "of-#{RAILS_ENV}", :timeout => nil } ]
    
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
