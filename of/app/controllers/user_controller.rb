@@ -148,7 +148,7 @@ class UserController < ApplicationController
     if session[:user] = User.authenticate(params['user']['login'], params['user']['password'])
        
       #Remind user to ENABLE COOKIE!
-      if cookies['_of_session'].nil?
+      if cookies['_of_session_id'].nil?
         @extra_flash = '<p class="flasherror">You must ENABLE cookie to login.</p>'
         render 
         return
