@@ -76,7 +76,7 @@ def split_strip_compact_array(values_str_array, delimiter = ",")
 end
 
 def left_slice(data, max_length)
-  data_chars = data.chars
+  data_chars = data.mb_chars
   l = 0
   i = 0
   while l < max_length && data_chars[i] != nil #i <= title_chars.length-1
