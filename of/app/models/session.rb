@@ -13,7 +13,7 @@ class Session < ActiveRecord::Base
       access_memcache_with_lock do 
         online = ::Rails.cache.read('session-pool') || {}
         online.delete(user_id)
-	::Rails.cache.write('session-pool', online)
+	      ::Rails.cache.write('session-pool', online)
       end
     end
 
@@ -35,13 +35,15 @@ class Session < ActiveRecord::Base
     private 
 
     def access_memcache_with_lock
-      while true
+      t=1000
+      while(t > 0)
+        t-=1
         next if ::Rails.cache.exist?('session-pool:lock')
         ::Rails.cache.write('session-pool:lock','!')
-	yield
-        ::Rails.cache.delete('session-pool:lock')
+	      yield
         break
       end
+      ::Rails.cache.delete('session-pool:lock')
     end
   end
 end
