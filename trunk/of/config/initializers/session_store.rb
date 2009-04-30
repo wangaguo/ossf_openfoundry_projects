@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :key         => '_of_session',
+  :key         => '_of_session_id',
   :secret      => '30d096717228ac2c04e07369dd1692ba46e12a2c9666d9ae49161af470b3212d59dfeb711dd94f0d44d7edf2cfc8bd239488a5eba84e3fb2c6317a93e0714b9c',
   :expire_after => 8.hours,
   :domain      => '.of.openfoundry.org',
