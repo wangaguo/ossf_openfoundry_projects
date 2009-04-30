@@ -39,16 +39,19 @@ module ApplicationHelper
   def breadcrumbs(options={})
     #TODO table or list?
     html = "<table class=\"#{options[:class]}\"> \n<tr>\n"
-    
+#    hierarchy = 1 
+#
     url = request.path.split('?')  #remove extra query string parameters
     levels = url[0].split('/') #break up url into different levels
     #if not 'home' page, give a 'home' link
-    html << addcrumb( _('Home') , '/') unless levels.empty? 
+#    html << addcrumb( _('Home'), hierarchy, '/') unless levels.empty? 
+    html << addcrumb( _('Home', '/') unless levels.empty? 
     level_name=""
     level_class=nil
     level_title='name'
     levels.each_with_index do |level, index|
       unless level.blank?
+        hierarchy += 1
         if level =~ /[a-z]+/
           case level  
           when 'releases'
@@ -103,8 +106,8 @@ module ApplicationHelper
         elsif level =~ /\d/ and level_class
           if(["rt","help","survey"].include?(level_class)==false)
             begin
-              level_name_char = h(level_class.find(level).send(level_title).chars)
-              level_name = left_slice(level_name_char, 20)
+              level_name_char = h(level_class.find(level).send(level_title).mb_chars)
+              level_name = left_slice(level_name_char, 40)
               if level_name_char.length > level_name.length
                 level_name += "..."
               end
@@ -116,17 +119,21 @@ module ApplicationHelper
         if index == levels.size-1 #|| 
             #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
           #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
+ #         html << addcrumb(level_name, hierarchy) unless (level_name.nil?) 
           html << addcrumb(level_name) unless (level_name.nil?) 
         else
           link='/'+levels[1..index].join('/')
-          html << addcrumb(level_name,link)
+#          html << addcrumb(level_name, hierarchy, link)
+          html << addcrumb(level_name, link)
         end
       end
     end
     html << "</tr>\n</table>\n"
   end
   
+#  def addcrumb(name,level,path = nil)
   def addcrumb(name,path = nil)
+#    name = "<a href=\"#{path}\" id=\"bc-hierarchy-#{level}\">#{name}</a>" unless path.nil?
     name = "<a href=\"#{path}\">#{name}</a>" unless path.nil?
     "<td>&raquo;#{name}</td>\n"
   end
