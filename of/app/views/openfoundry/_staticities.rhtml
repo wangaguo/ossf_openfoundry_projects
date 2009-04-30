@@ -2,11 +2,4 @@
 <ul>
   <li><%= _('Registed Projects')%>: <%= projectCount %></li>
   <li><%= _('Registed Users')%>: <%= userCount %></li>
-  <li><%=_('Online Users')%>: 
-  <br/>
-  <% online_users.each_with_index do |u,i| %>
-    <%= user_portrait_link(u, :float => 'left') %>
-  <%end%>
-  <br clear="all"/>
-  </li>
 </ul>
