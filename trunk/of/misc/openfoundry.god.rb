@@ -153,7 +153,7 @@ God.watch do |w|
   w.transition(:up, :restart) do |on|
     on.condition(:memory_usage) do |c|
       c.interval = 20
-      c.above = 50.megabytes
+      c.above = 75.megabytes
       c.times = [3, 5]
       c.notify = 'ossf-dev'
     end
