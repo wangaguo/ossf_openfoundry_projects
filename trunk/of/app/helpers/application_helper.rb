@@ -106,7 +106,7 @@ module ApplicationHelper
           if(["rt","help","survey"].include?(level_class)==false)
             begin
               level_name_char = h(level_class.find(level).send(level_title).mb_chars)
-              level_name = left_slice(level_name_char, 40)
+              level_name = left_slice(level_name_char, 20)
               if level_name_char.length > level_name.length
                 level_name += "..."
               end
