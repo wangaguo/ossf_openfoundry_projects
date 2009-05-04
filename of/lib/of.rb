@@ -80,7 +80,7 @@ def left_slice(data, max_length)
   l = 0
   i = 0
   while l < max_length && data_chars[i] != nil #i <= title_chars.length-1
-    l += data_chars[i] > 255 ? 2 : 1
+    l += data_chars[i] > 255.chr ? 2 : 1
     if l <= max_length
       i = i + 1
     end
