@@ -6,6 +6,7 @@ require 'of'
 require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
 
+require 'gettext_rails'
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
 
@@ -19,10 +20,6 @@ class ApplicationController < ActionController::Base
 
   around_filter :touch_session
   before_filter :set_time_zone
-
-  #use fast-gettext
-  #include FastGettext::Translation
-  init_gettext "openfoundry"
 
   #for permission table
   include OpenFoundry::PermissionTable
@@ -51,6 +48,7 @@ class ApplicationController < ActionController::Base
   #set locale for each request
   before_init_gettext :set_gettext_locale
   after_init_gettext :set_will_paginate_lang
+  init_gettext "openfoundry"
 
   protected
   def set_gettext_locale 
