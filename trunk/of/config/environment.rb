@@ -52,10 +52,12 @@ Rails::Initializer.run do |config|
   config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
   config.gem 'ferret', :version => ">= 0.11.6" 
   # for gettext 2.0.0
+  config.gem "locale"
   config.gem "locale_rails"
+  config.gem "gettext"
   config.gem "gettext_activerecord"
   config.gem "gettext_rails"
- 
+
   config.gem 'json', :version => ">= 1.1.2" 
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 
