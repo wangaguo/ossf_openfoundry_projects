@@ -509,4 +509,15 @@ EOEO
   end
   
   named_scope :in_used, :conditions => { :status => Project::STATUS[:READY] } 
+
+  def dump(options = {})
+    file_type = options[:type]||:csv
+    columns = self.class.content_columns.map{|c|c.name}
+    columns -= ['icon', 'vcs', 'vcsdescription', 'status', 'creator',
+                'created_at', 'updated_at', 'updated_by', "statusreason", "project_counter"]
+    case(file_type)
+    when :csv :
+      columns.map{|c|"\"#{v=(self.send(c)||'');if(v.respond_to?(:gsub));v.gsub('"',"\\\"");else v;end}\""}.join(options[:split]||',') 
+    end
+  end
 end
