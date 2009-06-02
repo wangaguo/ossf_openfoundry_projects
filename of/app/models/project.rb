@@ -515,9 +515,10 @@ EOEO
     columns = self.class.content_columns.map{|c|c.name}
     columns -= ['icon', 'vcs', 'vcsdescription', 'status', 'creator',
                 'created_at', 'updated_at', 'updated_by', "statusreason", "project_counter"]
+    columns.insert(0,'id')
     case(file_type)
     when :csv :
-      columns.map{|c|"\"#{v=(self.send(c)||'');if(v.respond_to?(:gsub));v.gsub('"',"\\\"");else v;end}\""}.join(options[:split]||',') 
+      columns.map{|c|"\"#{v=(self.send(c)||'');if(v.respond_to?(:gsub));v.gsub('"',"'").gsub("\n",'').gsub("\r",'').gsub(',',"，");else v;end}\""}.join(options[:split]||',') 
     end
   end
 end
