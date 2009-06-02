@@ -27,7 +27,7 @@
   _("Project|Name"), (h @project.name),
   _("Project|Summary"), (h @project.summary),
   _("Project|Description"), (h @project.description),
-  _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url),
+  _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
   _("Project|Contactinfo"), (h @project.contactinfo),
   _("Project|Maturity"), (h @project.maturity_to_s),
   _("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br>\n"),
