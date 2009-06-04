@@ -36,7 +36,7 @@
   _("Project|Platform"), (h show_with_seperator(@project.platform)),
   _("Project|Programminglanguage"), (h show_with_seperator(@project.programminglanguage)),
   _("Project|Vcs"), (h @project.vcs_to_s),
-  _("Project|Vcsdescription"), (h @project.vcsdescription),
+  _("Project|Vcsdescription"), (auto_link(simple_format(h @project.vcsdescription))),
   _("Project|Creator"), ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true) : ""),
   _("Project|Created at"), tz_datetime(@project.created_at)
   ] +
