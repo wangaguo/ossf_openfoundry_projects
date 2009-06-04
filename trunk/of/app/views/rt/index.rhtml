@@ -61,7 +61,7 @@
   <%if(@project != nil)%>
   <a href="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" class="bug_report">問題回報</a>
   <%end%>
-  &nbsp;&nbsp;<a href="#" onclick="hideDiv('TicketSearchForm');" class="search">查詢</a>
+  &nbsp;&nbsp;<a href="javascript:hideDiv('TicketSearchForm');" class="search">查詢</a>
 <div style="" id="TicketSearchForm">
   <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
   <ul>
