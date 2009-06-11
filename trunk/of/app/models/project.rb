@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
 0 This project contains no code
 -2 Public Domain
 1 OSI: Academic Free License
-2 OSI: Affero GNU Public License
+2 OSI: GNU Affero General Public License v3 (AGPL3)
 3 OSI: Adaptive Public License
 4 OSI: Apache License 2.0
 5 OSI: Artistic License 2.0
@@ -514,7 +514,7 @@ EOEO
     file_type = options[:type]||:csv
     columns = self.class.content_columns.map{|c|c.name}
     columns -= ['icon', 'vcs', 'vcsdescription', 'status', 'creator',
-                'created_at', 'updated_at', 'updated_by', "statusreason", "project_counter"]
+                'created_at', 'updated_at', 'updated_by', "statusreason"]
     columns.insert(0,'id')
     case(file_type)
     when :csv :
