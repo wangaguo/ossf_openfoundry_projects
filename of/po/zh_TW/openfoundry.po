@@ -639,7 +639,7 @@ msgstr ""
 "Version-3.0-AFL.html"
 
 #: app/models/project.rb:60
-msgid "url_link_for_OSI: Affero GNU Public License"
+msgid "url_link_for_OSI: GNU Affero General Public License v3 (AGPL3)"
 msgstr "http://www.opensource.org/licenses/agpl-v3.html"
 
 #: app/models/project.rb:61
