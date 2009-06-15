@@ -513,12 +513,29 @@ EOEO
   def dump(options = {})
     file_type = options[:type]||:csv
     columns = self.class.content_columns.map{|c|c.name}
-    columns -= ['icon', 'vcs', 'vcsdescription', 'status', 'creator',
+    columns -= ['icon', 'vcs', 'vcsdescription', 'status', 
                 'created_at', 'updated_at', 'updated_by', "statusreason"]
     columns.insert(0,'id')
+    columns.concat(['creator_email','member_emails'])
+    creator = User.valid_users.find_by_id(self.send('creator'))
+    member_emails = roles.map{|r|r.users.map{|u|"#{u.login}:#{u.email}"}}.flatten.join('|')
     case(file_type)
     when :csv :
-      columns.map{|c|"\"#{v=(self.send(c)||'');if(v.respond_to?(:gsub));v.gsub('"',"'").gsub("\n",'').gsub("\r",'').gsub(',',"，");else v;end}\""}.join(options[:split]||',') 
+      columns.map{|c|"\"#{
+      if(c=='creator')
+        v = "#{creator.login}" 
+      elsif(c=='creator_email')  
+        v = "#{creator.email}" 
+      elsif (c == 'member_emails')
+        v = member_emails 
+      else
+        v = (self.send(c)||'');
+      end 
+      if(v.respond_to?(:gsub));
+        v.gsub('"',"'").gsub("\n",'').gsub("\r",'').gsub(',',"，");
+      else v;
+      end
+    }\""}.join(options[:split]||',') 
     end
   end
 end
