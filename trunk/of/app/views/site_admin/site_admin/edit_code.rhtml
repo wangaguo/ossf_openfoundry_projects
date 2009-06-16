@@ -26,10 +26,11 @@ end
 <% url = "http://#{request.env["SERVER_NAME"]}:%d#{url_for(:action => 'run_code')}" %>
 <script type="text/javascript" src="/javascripts/jquery.js"></script>
 <script type="text/javascript">
+jQuery.noConflict();
 function trigger_run_code()
 {
 <% OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PORTS.each do |port| %>
-  $('#blah').append('<iframe src="<%= url % port %>"></iframe>');
+  jQuery('#blah').append('<iframe src="<%= url % port %>"></iframe>');
 <% end %>
 }
 </script>
