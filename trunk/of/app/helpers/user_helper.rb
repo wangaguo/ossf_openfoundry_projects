@@ -1,5 +1,19 @@
 module UserHelper
 
+  def role_portrait(role, _options = {})
+    options = {
+      :size => 32,
+      :float => nil,
+    }.merge(_options)
+
+    title = role.respond_to?('p_name') ? "#{role.p_name}'s #{role.name}" : role.name
+
+    "<div class=\"role_portrait\" title=\"#{title}\">
+     <img src=\"/images/cached_image/1_#{options[:size]}\"  
+                         align=#{options[:align]||:middle} />
+     <br/> #{title}
+     </div>"
+  end
   def user_portrait_link(user, _options = {})
     options = {
       :size => 32,
