@@ -57,7 +57,7 @@ class Project < ActiveRecord::Base
 EOEO
   # referenced by: licenses
   N_("url_link_for_OSI: Academic Free License")
-  N_("url_link_for_OSI: Affero GNU Public License")
+  N_("url_link_for_OSI: GNU Affero General Public License v3 (AGPL3)")
   N_("url_link_for_OSI: Adaptive Public License")
   N_("url_link_for_OSI: Apache License 2.0")
   N_("url_link_for_OSI: Artistic License 2.0")
