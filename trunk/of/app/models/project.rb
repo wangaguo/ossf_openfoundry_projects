@@ -390,7 +390,7 @@ EOEO
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
-    ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => self.id, 'name' => self.summary, 'summary' => self.description})
+    ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => self.id, 'name' => self.name, 'summary' => self.summary})
     # send admin function creation msg
     Function.find(:all).each do |f|
       ApplicationController::send_msg('function','create',
