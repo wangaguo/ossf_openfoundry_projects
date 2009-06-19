@@ -49,7 +49,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
 
   def rescue_project
     Project.find(:all, :conditions => Project.in_used_projects() + " and id >= 996").each do |p|
-      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.summary, 'summary' => p.description}) 
+      ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.name, 'summary' => p.summary}) 
     end
   end
 
@@ -59,7 +59,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     #end
   
     #Project.find(:all, :conditions => Project.in_used_projects()).each do |p|
-    #  ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.summary, 'summary' => p.description}) 
+    #  ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.name, 'summary' => p.summary}) 
     #end
     
     ActiveRecord::Base.connection.select_rows(
