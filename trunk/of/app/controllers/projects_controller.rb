@@ -163,6 +163,7 @@ class ProjectsController < ApplicationController
 
     old_redirecturl = @project.redirecturl
     old_vcs = @project.vcs
+    old_summary = @project.summary
     if @project.update_attributes(params[:project])
       flash[:notice] = _('Project was successfully updated.')
       changed = []
@@ -171,6 +172,12 @@ class ProjectsController < ApplicationController
       if not changed.empty?
         flash[:notice] +=  " " + _('It may take 5 minutes for %s settings to take effect.') % changed.join("/")
       end
+
+      # send message to rt module for sync
+      if @project.summary != old_summary
+        ApplicationController::send_msg(TYPES[:project], ACTIONS[:update], {'id' => @project.id, 'name' => @project.name, 'summary' => @project.summary})
+      end 
+
       redirect_to :action => 'show', :id => @project
     else
       render :action => 'edit'
