@@ -88,7 +88,6 @@ window.OF = {
           Requestors: "Please enter a valid email address"
         }
       });
-      $( "#Queue_ProjectName" ).val( $( "#bc-hierarchy-3", window.parent.document ).html() );        
     },//create end
     modify: function(){
       $("option[value='P1']").attr("text", "Most Important(P1)");
