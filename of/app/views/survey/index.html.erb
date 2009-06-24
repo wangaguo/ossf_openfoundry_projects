@@ -38,7 +38,7 @@
   function reloadSurvey(){
     $("Survey_Loading").show();
     ids = collectFileID();
-    new Ajax.Updater('ProjectSurvey', '/projects/1/survey/'+ids, {method:'get', asynchronous:false, evalScripts:true});
+    new Ajax.Updater('ProjectSurvey', '/projects/<%=@project.id%>/survey/'+ids, {method:'get', asynchronous:false, evalScripts:true});
     $("Survey_Loading").hide();
   }
   function toggleRelease(rid){
@@ -61,7 +61,7 @@
     //resource=collectResource();
     //_prompt=$$("textarea.SurveyPrompt")[0].value
     //alert(resource);
-    new Ajax.Updater('ProjectSurvey', '/projects/1/survey/'+ids+'/delete', {method:'post', asynchronous:false, evalScripts:true});
+    new Ajax.Updater('ProjectSurvey', '/projects/<%=@project.id%>/survey/'+ids+'/delete', {method:'post', asynchronous:false, evalScripts:true});
     $("Survey_Loading").hide();
   }
   function applySurvey(){
@@ -70,7 +70,7 @@
     resource=collectResource();
     _prompt=$$("textarea.SurveyPrompt")[0].value
     //alert(resource);
-    new Ajax.Updater('ProjectSurvey', '/projects/1/survey/'+ids+'/update', {method:'post', asynchronous:false, evalScripts:true, parameters:'?resource='+resource+'&prompt='+_prompt});
+    new Ajax.Updater('ProjectSurvey', '/projects/<%=@project.id%>/survey/'+ids+'/update', {method:'post', asynchronous:false, evalScripts:true, parameters:'?resource='+resource+'&prompt='+_prompt});
     $("Survey_Loading").hide();
   }
   function collectFileID(){
