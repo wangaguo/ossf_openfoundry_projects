@@ -17,14 +17,14 @@ class CategoryController < ApplicationController
   end
   
   def list
-    projects = Project.find(:all, :conditions => Project::in_used_projects())
+    #projects = Project.find(:all, :conditions => Project::in_used_projects())
     @maturity = {}
     @license = {}
     @content_license = {}
     @platform = {}
     @programming_language = {}
     
-    projects.each do |p|
+    Project.in_used.each do |p|
       [p.maturity].each{|x| @maturity[x] = (@maturity[x] || 0) + 1}
       "#{p.license}".split(",").grep(/./).each{|x| @license[x] = (@license[x] || 0) + 1}
       "#{p.contentlicense}".split(",").grep(/./).each{|x| @content_license[x] = (@content_license[x] || 0) + 1}
