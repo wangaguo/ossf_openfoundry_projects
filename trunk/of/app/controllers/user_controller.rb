@@ -58,7 +58,7 @@ class UserController < ApplicationController
                                        P.created_at,P.updated_at,P.project_counter
                  from projects P join roles R join roles_users RU 
                  where P.id = R.authorizable_id and R.authorizable_type = 'Project' and 
-                       (P.status = 2 or P.status = 3) and                      
+                       P.status = 2 and                      
                        R.id = RU.role_id and RU.user_id = #{current_user.id} order by P.id", 
                                 :page => page, :per_page => 10, 
                                 :order => sortable_order('listing', :model => Project, 
