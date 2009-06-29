@@ -6,6 +6,8 @@ class AddTableProjectsLicenses < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
+    add_index "projects_licenses", ["project_id"], :name => "index_license_on_p"
+    add_index "projects_licenses", ["license_id"], :name => "index_license_on_l"
   end
 
   def self.down
