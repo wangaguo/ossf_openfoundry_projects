@@ -130,6 +130,8 @@ Rails::Initializer.run do |config|
 
     NSC_CURRENT_UPLOAD_FILTER = /./ # only types that match this filter can be uploaded
                                     # you may override it in initializers/environment_local.rb
+    NSC_UPLOAD_FROM = "2009/01/01 00:00"
+    NSC_UPLOAD_TO = "2009/12/31 23:59"
     NSC_CURRENT_YEAR = "97"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"

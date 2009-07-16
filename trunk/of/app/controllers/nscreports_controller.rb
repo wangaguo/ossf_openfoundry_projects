@@ -32,6 +32,7 @@ class NscreportsController < ApplicationController
     end
     # see: config/initializers/environment_local.rb
     @types_write = @types_write.select {|x| x =~ NSC_CURRENT_UPLOAD_FILTER }
+    @types_write = [] if !(DateTime.now > NSC_UPLOAD_FROM.to_datetime && DateTime.now < NSC_UPLOAD_TO.to_datetime)
   end
 
   def index
