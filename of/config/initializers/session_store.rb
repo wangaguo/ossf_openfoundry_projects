@@ -11,7 +11,7 @@ ActionController::Base.session = {
   :domain      => '.of.openfoundry.org',
   #this is for mem_cache_store
   :namespace   => "of-#{RAILS_ENV}",
-  :memcache_server => '192.168.0.238:11211'
+  :memcache_server => '192.168.0.20:11211'
 
 }
 
