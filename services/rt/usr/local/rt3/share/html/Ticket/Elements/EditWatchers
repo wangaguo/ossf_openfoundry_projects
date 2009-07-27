@@ -57,7 +57,9 @@
 <input type="checkbox" class="checkbox" name="Ticket-DeleteWatcher-Type-<%$Watchers->Type%>-Principal-<%$watcher->MemberId%>" value="1" unchecked />
 %if ($watcher->MemberObj->IsUser) { 
 <a href="<%$RT::WebPath%>/Admin/Users/Modify.html?id=<%$watcher->MemberObj->Object->id%>">
-<%$watcher->MemberObj->Object->Name%></a> 
+% my $name = $watcher->MemberObj->Object->Name;
+% $name =~ s/\@.*/\@.../g;
+<%$name%></a>
 % if ($TicketObj and grep { $_->Content eq $watcher->MemberObj->Object->EmailAddress } $TicketObj->SquelchMailTo)  {
 <b><&|/l&>(Will not be sent email)</&></b>
 % }

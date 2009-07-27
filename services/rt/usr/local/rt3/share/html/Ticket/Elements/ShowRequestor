@@ -52,6 +52,7 @@ my $people = $Ticket->Requestors->UserMembersObj;
 while (my $requestor=$people->Next) {
 next if $requestor->Privileged;
 my $name=$requestor->RealName || $requestor->EmailAddress;	
+$name =~ s/\@.*/\@.../g;
 my $tickets = RT::Tickets->new($session{'CurrentUser'});
 $tickets->FromSQL( "Requestor.id = ". $requestor->id ." AND (Status = 'open' OR Status = 'new')" );
 $tickets->RowsPerPage($rows);
