@@ -93,12 +93,12 @@ module UserSystem
     return false if not params[:user]
     id = params[:user]
     if params[:k] and params[:s]
-      k,s = params[:k], params[:s]
-      atts = Marshal.load(Base64.decode64(s))
+      kk,ss = params[:k], params[:s]
+      atts = Marshal.load(Base64.decode64(ss))
       atts = {} unless atts.kind_of? Hash
       #目前只能讓user改 email而已
       atts.delete_if{|k,v| k!=:email} 
-      session[:user] = User.authenticate_by_token(id, k, atts)
+      session[:user] = User.authenticate_by_token(id, kk, atts)
       return true if not session[:user].nil?
     else
       key = params['key']
