@@ -198,6 +198,7 @@ class User < ActiveRecord::Base
     # Allow logins for deleted accounts, but only via this method (and
     # not the regular authenticate call)
     u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
+    return nil if atts.empty? and User.valid_users.count(:conditions => "login = '#{u.login}'") > 0
     return nil if u.nil? or u.token_expired?
     return nil if false == u.update_expiry
     unless atts.empty?#update atts
