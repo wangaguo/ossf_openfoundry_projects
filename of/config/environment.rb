@@ -25,7 +25,7 @@ Rails::Initializer.run do |config|
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   config.log_level = :info
-
+  config.threadsafe!
   config.cache_store = [ :mem_cache_store, '192.168.0.20:11211:',
     {:namespace => "of-#{RAILS_ENV}", :timeout => nil } ]
    
