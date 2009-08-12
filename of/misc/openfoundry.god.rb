@@ -106,7 +106,7 @@
 end
 
 God.watch do |w|
-  command = "su #{USER} -c 'cd #{RAILS_ROOT};#{RUBY} #{RAILS_ROOT}/script/ferret_server -e #{ENVIRONMENT} %s'"
+  command = "su #{USER} -c 'cd #{RAILS_ROOT};#{RUBY} #{RAILS_ROOT}/script/ferret_server -e #{ENVIRONMENT} --root=. %s'"
   w.group = "openfoundry-index-server"
 
   w.name = "openfoundry-ferret-server-9000"
