@@ -199,11 +199,6 @@ God.contact(:email) do |c|
   c.group = 'ossf-dev'
 end
 God.contact(:email) do |c|
-  c.name = 'lours'
-  c.email = 'lcamel@iis.sinica.edu.tw'
-  c.group = 'ossf-dev'
-end
-God.contact(:email) do |c|
   c.name = 'aguo'
   c.email = 'wangaguo@iis.sinica.edu.tw'
   c.group = 'ossf-dev'
@@ -211,6 +206,16 @@ end
 God.contact(:email) do |c|
   c.name = 'thkuo'
   c.email = 'thkuo@iis.sinica.edu.tw'
+  c.group = 'ossf-dev'
+end
+God.contact(:email) do |c|
+  c.name = 'river'
+  c.email = 'fuchuanc@citi.sinica.edu.tw'
+  c.group = 'ossf-dev'
+end
+God.contact(:email) do |c|
+  c.name = 'ant'
+  c.email = 'yftzeng@citi.sinica.edu.tw'
   c.group = 'ossf-dev'
 end
 
