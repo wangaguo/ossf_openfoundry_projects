@@ -79,10 +79,11 @@ body {
 #Home h3 { background-image:url(/images/of/main_title_bg01.gif); color:#686868; line-height:38px; font-weight:normal; }
 
 #OFIntro { height:200px; margin:0px 15px; border-bottom:solid 1px #F3F3F9; }
-#OFIntro #Module { float:right; }
+#OFIntro #Module { float:right; width:34%; overflow:hidden; }
 #OFIntro #Module img { opacity:0.6; padding:8px; }
 #OFIntro #Module img:hover { opacity:1; }
 #OFIntro #Module a ,#Module td { font-size:12px; text-align:center;}
+#OFIntro #Module_Function_Text { width:63%; } 
 #OFIntro #Module_Text { font-size:100%; margin: 15px; }
 
 /* Left menu */
