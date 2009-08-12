@@ -3,7 +3,7 @@ class News < ActiveRecord::Base
   
   STATUS = {:Enabled => 1, :Disabled => 0}
   #add fulltext indexed SEARCH
-  acts_as_ferret(
+  acts_as_ferret({
                   :fields => { 
                               :subject => { :boost => 1.5,
                                           :store => :yes,
@@ -11,8 +11,8 @@ class News < ActiveRecord::Base
                               :description_without_tag => { :store => :yes,
                                              :index => :yes }                                                         
                             },
-                  :single_index => true,
-                  :ferret => {:analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
+                  :single_index => true
+                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   def description_without_tag
     description.gsub(/<[^>]*>/, '')
   end
