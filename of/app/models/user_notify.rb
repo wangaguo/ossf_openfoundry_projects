@@ -80,6 +80,8 @@ class UserNotify < ActionMailer::Base
     setup_email(user)
     @subject = subject
     @body["message"] = message
+    #@content_type = "text/plain"
+    #@content_type = "multipart/alternative"
   end
 
   def test(user)
