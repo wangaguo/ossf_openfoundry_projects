@@ -8,6 +8,7 @@
 <%- more_link ||= 'http://www.openfoundry.org' %>
 
 <%- rss = "" %>
+<% begin %>
 <%- open(rss_link) do |raw| rss = RSS::Parser.parse(raw.read, false) end %>
 
 <h3>
@@ -33,3 +34,5 @@
 </div>
 <%=auto_discovery_link_tag(:rss, rss_link,
   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Daily News'), :type => 'RSS'} }) %>
+<% rescue %>
+<% end %>
