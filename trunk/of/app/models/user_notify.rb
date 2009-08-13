@@ -76,12 +76,12 @@ class UserNotify < ActionMailer::Base
     @body["app_name"] = UserSystem::CONFIG[:app_name].to_s
   end
  
-  def site_mail(user, subject, message)
-    setup_email(user)
+  def site_mail(subject, message)
+    @from    = "OSSF Contact<#{UserSystem::CONFIG[:email_from].to_s}>"
+    @sent_on = Time.now
     @subject = subject
     @body["message"] = message
-    #@content_type = "text/plain"
-    #@content_type = "multipart/alternative"
+    @content_type = "text/html"
   end
 
   def test(user)

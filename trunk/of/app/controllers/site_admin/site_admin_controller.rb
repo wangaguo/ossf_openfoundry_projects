@@ -83,8 +83,10 @@ class SiteAdmin::SiteAdminController < SiteAdmin
 
   def send_site_mail
     users = User.find(:all, :conditions => "#{User::verified_users}")
+    mail = UserNotify.create_site_mail(params[:news][:subject], params[:news][:message])
     users.each do |user|
-      UserNotify.deliver_site_mail(user, params[:mail][:subject], params[:mail][:message])
+      mail.to = "#{user.login} <#{user.email}>"
+      UserNotify.deliver(mail)
     end 
     flash[:info] = _('Message sent.')
     render :action => :new_site_mail
