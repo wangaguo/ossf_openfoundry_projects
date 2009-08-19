@@ -316,7 +316,7 @@ class ReleasesController < ApplicationController
   end
 
   def top_download_feed
-    top_releases = Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "release_counter desc", :limit => 10)
+    top_releases = Release.find(:all, :group => 'project_id', :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => 10)
 
     feed_options = {
       :feed => {
