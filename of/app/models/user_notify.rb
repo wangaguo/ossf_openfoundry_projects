@@ -2,6 +2,9 @@ class UserNotify < ActionMailer::Base
   def signup(user, password, url=nil)
     setup_email(user)
     
+    # Set Contenti-Type for Sending mails
+    @content_type = "text/html"
+
     # Email header info
     @subject += "Welcome to #{UserSystem::CONFIG[:app_name]}!"
      
