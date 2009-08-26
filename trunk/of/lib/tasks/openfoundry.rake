@@ -22,7 +22,7 @@ namespace 'openfoundry' do
     desc 'Memcache Server Configure'
     task 'memcache' do
       puts "\x1b[38;5;9m---start memcache configure---\x1b[0m"
-      replace_template('config/Initializers.yml')
+      replace_template('config/initializers/session_store.rb')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
@@ -33,6 +33,19 @@ namespace 'openfoundry' do
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
+    desc 'Index Server Configure'
+    task 'ferret' do
+      puts "\x1b[38;5;9m---start ferret server configure---\x1b[0m"
+      replace_template('config/ferret_server.yml')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
+
+    desc 'OpenFoundry Module Configure'
+    task 'module' do
+      puts "\x1b[38;5;9m---start module configure---\x1b[0m"
+      replace_template('config/initializes/openfoundry.yml')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
   end
   task :config => ['config:db', 'config:memcache', 'config:stomp']
 end
