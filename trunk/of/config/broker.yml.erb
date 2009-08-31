@@ -1,23 +1,17 @@
-development:
+ ############################
+ # Stomp Adapter Properties #
+ ############################
+ 
+development:  &ref
     adapter: stomp
     login: <%=stomp_user%>
     passcode: <%=stomp_pass%>
     host: <%=stomp_host%> 
     reliable: true
     reconnectDelay: 5
+    ###default values###
+    #port: 61613
 
-test:
-    adapter: stomp
-    login: <%=stomp_user%>
-    passcode: <%=stomp_pass%>
-    host: <%=stomp_host%> 
-    reliable: true
-    reconnectDelay: 5
+test: *ref
 
-production:
-    adapter: stomp
-    login: <%=stomp_user%>
-    passcode: <%=stomp_pass%>
-    host: <%=stomp_host%> 
-    reliable: true
-    reconnectDelay: 5
+production: *ref
