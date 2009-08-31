@@ -1,0 +1,66 @@
+<h2><%=_('App Information')%></h2>
+<b>my PID: <%= $$ %></b>
+<p>
+Ruby Version: <%= `ruby -v`%>
+<br/>
+Rails Version: <%= Rails.version %>
+<br/>
+Rails Environment: <%= Rails.env.inspect %>
+<br/>
+Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
+<br/>
+Actived Plugins: <%= Rails.configuration.plugins%>
+<br/>
+Timezone: <%= Rails.configuration.time_zone%>
+<br/>
+Logger: <%= Rails.logger.class.to_s%>
+</p>
+
+<h2><%=_('Client Information')%></h2>
+<p>
+IP: <%= request.remote_ip%>
+<br/>
+Agent: <%= request.user_agent%>
+</p>
+
+<h2>網站管理</h2>
+<ul>
+  <li>
+    <%= link_to_remote "Gettext Cache Switch", :url => { :action => :gettext_cache_switch },
+    :update => 'GettextReloadReturn' %>
+    <span id=GettextReloadReturn>
+      Currently Gettext Cached is <%#=GetText.cached?%>
+    </span>
+  </li>
+  <li><%= link_to _("Project"), :controller => "project" %></li>
+  <li><%= link_to _("News"), :controller => "news" %></li>
+  <li><%= link_to _("User"), :controller => "user" %></li>
+  <li>
+    切換使用者
+    <input id="switch_user_search" size="25" type="text">
+    <%= observe_field "switch_user_search",
+        :url =>"/site_admin/site_admin/switch_user_search",
+        :frequency => 0.5,
+        :update => 'ProjectMemberNew',
+        :with => :username
+    %>
+    <div id='ProjectMemberNew' style='overflow:visible'>
+    </div>
+  </li>
+  <li>
+    <%= link_to _("Resend Stomp msg for ALL MODELS"), {:action => :resend }, {:confirm => 'really?'} %>
+    (BE CAREFUL! for data sync only...)
+  </li>
+  <li><%= link_to _("Rebuild Ferret Index"), {:action => :aaf_rebuild }, {:confirm => 'really?'} %></li>
+  <li><%= link_to _("大量加入使用者成為某角色"), {:action => :batch_add_users } %></li>
+  <li><%= link_to _("Run some code on all instances of Rails"), {:action => :edit_code } %></li>
+  <li><%= link_to _("Send site mail"), {:action => :new_site_mail } %></li>
+</ul>
+<br/>
+
+<h2>監控與分析</h2>
+<ul>
+  <li><a href="https://www.google.com/analytics/reporting/?scid=5220412">Google Analytic</a></li>
+  <li><%= link_to _("NSC Download List"), {:action => :nsc_download } %></li>
+</ul>
+

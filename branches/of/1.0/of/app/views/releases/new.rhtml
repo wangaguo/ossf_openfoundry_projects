@@ -1,0 +1,21 @@
+<h1>Project New Release</h1>
+<p class=ReleaseBasic>
+<% form_for :release, @release, :url => {:project_id => @project.id, :action => :create} do |f|%>
+    <table class=ReleaseNew >
+<tr><th><em class='require'>*</em><%= Release.columns_hash['version'].human_name  -%> : </th>
+<td><%= text_field(:release, :version, :size => 20) %></td>
+</tr>
+<tr><th><%= Release.columns_hash['due'].human_name  -%> : </th>
+<td><%= text_field(:release, :due, :size => 20) %><img alt="Calendar" class="calendar-trigger" id="release_due_trigger" src="/images/calendar.gif" /><script type="text/javascript">
+    //<![CDATA[
+Calendar.setup({inputField : 'release_due', ifFormat : '%Y-%m-%d', button : 'release_due_trigger' });
+//]]>
+</script></td>
+</tr>
+<tr><th><em class='require'>*</em><%= Release.columns_hash['status'].human_name  -%> : </th>
+<td><%= select( "release", "status", @release_status) %></td>
+</tr>
+</table>
+    <%= submit_tag _("Create") %>
+  <% end %>
+</p>

@@ -1,0 +1,22 @@
+<%= error_messages_for 'bad_project', :object_name => 'project' %>
+
+<h1>Change status</h1>
+Current status is: <%= Project.status_to_s(@project.status) %>
+<p>
+
+<% form_tag :action => 'change_status', :id => @project do %>
+  <p><label for="project_statusreason">Statusreason</label><br/>
+  <%= text_area_tag 'statusreason' %></p>
+
+  <% if @project.status == Project::STATUS[:APPLYING] %>
+    <%= submit_tag 'approve', :name => 'invoke' %>
+    <%= submit_tag 'reject', :name => 'invoke' %>
+  <% end %>
+  <% if @project.status == Project::STATUS[:READY] %>
+    <%= submit_tag 'suspend', :name => 'invoke' %>
+  <% end %>
+  <% if @project.status == Project::STATUS[:SUSPENDED] %>
+    <%= submit_tag 'resume', :name => 'invoke' %>
+  <% end %>
+<% end %>
+
