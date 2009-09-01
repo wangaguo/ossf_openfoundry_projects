@@ -7,7 +7,8 @@ ip_prefix = '192.168.6'
 host = 'dev.openfoundry.org'
 
 #-------------------#
-#  Session config   #
+#  Session config
+#  in session_store.rb
 #-------------------#
 session_key = '_of_session_id'
 session_domain = ".#{host}"
@@ -31,14 +32,16 @@ db_user = 'ossf'
 rails_cache = ':memcache'
 
 #----------------------#
-#  Stomp server config  #
+#  Stomp server config
+#  in broker.yml
 #----------------------#
 stomp_host = "#{ip_prefix}.1"
 stomp_user = 'openfoundry'
 
 
 #------------------------#
-#  Ferret server config  #
+#  Ferret server config
+#  in ferret_server.yml
 #------------------------#
 ferret_host = "#{ip_prefix}.20"
 
