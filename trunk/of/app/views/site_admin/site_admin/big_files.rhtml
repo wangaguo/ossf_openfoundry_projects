@@ -1,0 +1,29 @@
+<h2>Find big files<h2>
+<%
+  file_size = params[:file_size] || "1G"
+  hr = system("find #{ File.join(Rails.public_path, 'download')} -type f -size +#{file_size} " + %q@ -exec ls -lh {} \; | awk '{ print $9 ": " $5 }' > /tmp/of_bigfile.txt @)
+  i= 0
+%>
+<form>
+File size:<input type="text" id="file_size" name="file_size" value="<%=file_size%>" />
+<input type="submit" />
+<br/>
+<pre>
+size format e.g. 10M 1G
+k       kilobytes (1024 bytes)
+M       megabytes (1024 kilobytes)
+G       gigabytes (1024 megabytes)
+T       terabytes (1024 gigabytes)
+P       petabytes (1024 terabytes)
+</pre>
+</form>
+
+<h3>Big files list</h3>
+<% if hr then %>
+<% IO.readlines("/tmp/of_bigfile.txt").each do |x| -%>
+  <%= "#{i+=1} #{x}" %><br/>
+<% end -%>
+<% else %>
+  Has some error occur!<br/>
+  May be is filesize format error.
+<% end %>
