@@ -99,7 +99,11 @@ module ApplicationHelper
             if (["help"].include?(level_class)==true) 
               level_name = ''
             else
-              level_name = h( url_unescape(level).humanize.capitalize )
+              if ( _( "breadcrumb|" + level ) == "breadcrumb|" + level )
+                level_name = h( url_unescape(level).humanize.capitalize )
+              else
+                level_name = _( "breadcrumb|" + level )
+              end
             end
           end
         elsif level =~ /\d/ and level_class
