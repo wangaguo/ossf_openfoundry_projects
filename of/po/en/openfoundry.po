@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-05-13 08:42-0000\n"
+"POT-Creation-Date: 2009-09-04 08:25-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,7 +137,12 @@ msgstr "Help"
 msgid "Survey"
 msgstr "Project name"
 
-#: app/helpers/application_helper.rb:271 app/helpers/application_helper.rb:316
+#: app/helpers/application_helper.rb:102 app/helpers/application_helper.rb:105
+#, fuzzy
+msgid "breadcrumb|"
+msgstr "VCS Access"
+
+#: app/helpers/application_helper.rb:275 app/helpers/application_helper.rb:320
 #: app/views/projects/new.rhtml:2
 msgid "required_icon"
 msgstr "Required"
@@ -181,6 +186,50 @@ msgstr "Summary"
 #, fuzzy
 msgid "Category|Updated by"
 msgstr "Summary"
+
+#: app/models/category.rb:3
+msgid "breadcrumb|vcs_access"
+msgstr "VCS Access"
+
+#: app/models/category.rb:4
+msgid "breadcrumb|my_projects"
+msgstr "My Projects"
+
+#: app/models/category.rb:5
+msgid "breadcrumb|login"
+msgstr "Login"
+
+#: app/models/category.rb:6
+msgid "breadcrumb|new"
+msgstr "Create Project"
+
+#: app/models/category.rb:7
+msgid "breadcrumb|home"
+msgstr "Homepage"
+
+#: app/models/category.rb:8
+msgid "breadcrumb|edit"
+msgstr "Preferences"
+
+#: app/models/category.rb:9
+msgid "breadcrumb|owner"
+msgstr "Owner"
+
+#: app/models/category.rb:10
+msgid "breadcrumb|creator"
+msgstr "Creator"
+
+#: app/models/category.rb:11
+msgid "breadcrumb|requestor"
+msgstr "Requestor"
+
+#: app/models/category.rb:12
+msgid "breadcrumb|lastupdatedby"
+msgstr "New Update"
+
+#: app/models/category.rb:13
+msgid "breadcrumb|site_admin"
+msgstr "Site Admin"
 
 #: app/models/user.rb:-
 msgid "User|Icon"
@@ -617,11 +666,11 @@ msgstr "Programming Language"
 msgid "Project|Intendedaudience"
 msgstr "Intended Audience"
 
-#: app/models/project.rb:- app/controllers/projects_controller.rb:169
+#: app/models/project.rb:- app/controllers/projects_controller.rb:170
 msgid "Project|Redirecturl"
 msgstr "Redirect URL"
 
-#: app/models/project.rb:- app/controllers/projects_controller.rb:170
+#: app/models/project.rb:- app/controllers/projects_controller.rb:171
 #: app/views/projects/show.rhtml:38
 msgid "Project|Vcs"
 msgstr "Version Control System"
@@ -1505,7 +1554,7 @@ msgstr "Creator"
 msgid "Downloader|Release"
 msgstr "Creator"
 
-#: app/controllers/site_admin/site_admin_controller.rb:89
+#: app/controllers/site_admin/site_admin_controller.rb:91
 msgid "Message sent."
 msgstr ""
 
@@ -1725,7 +1774,7 @@ msgid "image_upload_error"
 msgstr "There is an error while upload image"
 
 #: app/controllers/images_controller.rb:196
-#: app/controllers/application_controller.rb:268
+#: app/controllers/application_controller.rb:264
 msgid "you have no permission"
 msgstr ""
 
@@ -1786,95 +1835,95 @@ msgstr ""
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:167
+#: app/controllers/projects_controller.rb:168
 msgid "Project was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:172
+#: app/controllers/projects_controller.rb:173
 msgid "It may take 5 minutes for %s settings to take effect."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:197
+#: app/controllers/projects_controller.rb:204
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:201
-#: app/controllers/projects_controller.rb:294
+#: app/controllers/projects_controller.rb:208
+#: app/controllers/projects_controller.rb:301
 msgid "Group \"Admin\" CAN NOT be EMPTY!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:233
+#: app/controllers/projects_controller.rb:240
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:237
+#: app/controllers/projects_controller.rb:244
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:254
+#: app/controllers/projects_controller.rb:261
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:259
-#: app/controllers/projects_controller.rb:320
+#: app/controllers/projects_controller.rb:266
+#: app/controllers/projects_controller.rb:327
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:264
-#: app/controllers/projects_controller.rb:325
+#: app/controllers/projects_controller.rb:271
+#: app/controllers/projects_controller.rb:332
 msgid "User \"%{user}\" doesn't exist!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:285
+#: app/controllers/projects_controller.rb:292
 msgid "You can't delete User belongs to This Group!"
 msgstr ""
 
-#: app/controllers/projects_controller.rb:316
+#: app/controllers/projects_controller.rb:323
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr ""
 
-#: app/controllers/projects_controller.rb:342
+#: app/controllers/projects_controller.rb:349
 #: app/views/partials/_project_menu.rhtml:93
 msgid "project_Member Control"
 msgstr "Member Control"
 
-#: app/controllers/projects_controller.rb:356
+#: app/controllers/projects_controller.rb:363
 #: app/views/partials/_project_menu.rhtml:96
 msgid "project_Permission Control"
 msgstr "Permission Control"
 
-#: app/controllers/projects_controller.rb:412
+#: app/controllers/projects_controller.rb:419
 msgid "Permission was successfully updated."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:433
+#: app/controllers/projects_controller.rb:440
 msgid "Role \"%{name}\" was successfully created."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:445
+#: app/controllers/projects_controller.rb:452
 msgid "Admin and Member can't be deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:453
+#: app/controllers/projects_controller.rb:460
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:460
+#: app/controllers/projects_controller.rb:467
 #, fuzzy
 msgid "Role id not found!"
 msgstr "Icon"
 
-#: app/controllers/projects_controller.rb:471
+#: app/controllers/projects_controller.rb:478
 #, fuzzy
 msgid "OpenFoundry: New Projects Feed"
 msgstr "OpenFoundry News"
 
-#: app/controllers/projects_controller.rb:472
+#: app/controllers/projects_controller.rb:479
 #, fuzzy
 msgid "New projects on OpenFoundry"
 msgstr "OpenFoundry"
 
-#: app/controllers/projects_controller.rb:489
+#: app/controllers/projects_controller.rb:496
 msgid "Version Control System: How to Access"
 msgstr ""
 
@@ -1897,36 +1946,36 @@ msgstr "Preference"
 msgid "Survey|You have to fill the REQUIRED fileds."
 msgstr ""
 
-#: app/controllers/application_controller.rb:70
+#: app/controllers/application_controller.rb:66
 msgid "&laquo; Previous"
 msgstr ""
 
-#: app/controllers/application_controller.rb:71
+#: app/controllers/application_controller.rb:67
 msgid "Next &raquo;"
 msgstr ""
 
-#: app/controllers/application_controller.rb:245
-#: app/controllers/application_controller.rb:248
+#: app/controllers/application_controller.rb:241
+#: app/controllers/application_controller.rb:244
 msgid "captcha mismatch"
 msgstr ""
 
-#: app/controllers/application_controller.rb:300
+#: app/controllers/application_controller.rb:296
 msgid "The project \"%{project}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/application_controller.rb:302
+#: app/controllers/application_controller.rb:298
 msgid "The release \"%{release}\" you are requesting does not exist."
 msgstr ""
 
-#: app/controllers/application_controller.rb:304
+#: app/controllers/application_controller.rb:300
 msgid "The file \"%{file_name}\" you are requesting does not exist."
 msgstr ""
 
-#: app/views/news/_www_news.html.erb:18 app/views/news/_www_news.html.erb:35
+#: app/views/news/_www_news.html.erb:19 app/views/news/_www_news.html.erb:36
 msgid "Daily News"
 msgstr ""
 
-#: app/views/news/_www_news.html.erb:32
+#: app/views/news/_www_news.html.erb:33
 #: app/views/releases/_most_popular.rhtml:13
 #: app/views/releases/_new_releases.rhtml:13
 #: app/views/projects/_new_projects.rhtml:13
@@ -1934,7 +1983,7 @@ msgstr ""
 msgid "More..."
 msgstr ""
 
-#: app/views/news/_www_news.html.erb:35
+#: app/views/news/_www_news.html.erb:36
 #: app/views/releases/_most_popular.rhtml:16
 #: app/views/releases/_most_popular.rhtml:19
 #: app/views/releases/_new_releases.rhtml:16
@@ -2265,9 +2314,8 @@ msgid "Requestor"
 msgstr ""
 
 #: app/views/partials/_top_menu_data.rhtml:36
-#, fuzzy
 msgid "LastUpdatedBy"
-msgstr "Summary"
+msgstr "New Update"
 
 #: app/views/partials/_top_menu_data.rhtml:43
 #: app/views/layouts/application.rhtml:46
@@ -2463,7 +2511,7 @@ msgid "Top Download"
 msgstr "Top Downloads"
 
 #: app/views/releases/_top_download_list.rhtml:2
-#: app/views/site_admin/site_admin/nsc_download.rhtml:8
+#: app/views/site_admin/site_admin/nsc_download.rhtml:11
 #, fuzzy
 msgid "Release Listing"
 msgstr "Project name"
@@ -2586,7 +2634,7 @@ msgstr ""
 msgid "Project|HOMEPAGE"
 msgstr "Project Homepage"
 
-#: app/views/projects/show.rhtml:43 app/views/projects/_form.rhtml:111
+#: app/views/projects/show.rhtml:43 app/views/projects/_form.rhtml:109
 #: app/views/nscreports/index.rhtml:1
 msgid "Project|Nsccode"
 msgstr "NSC project code"
@@ -2605,85 +2653,85 @@ msgstr "License"
 msgid "Others"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:73
+#: app/views/projects/_form.rhtml:71
 #, fuzzy
 msgid "Project|Name|Help"
 msgstr "Project name"
 
-#: app/views/projects/_form.rhtml:75
+#: app/views/projects/_form.rhtml:73
 #, fuzzy
 msgid "Project|Summary|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:78
+#: app/views/projects/_form.rhtml:76
 #, fuzzy
 msgid "Project|Description|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:80
+#: app/views/projects/_form.rhtml:78
 #, fuzzy
 msgid "Project|Contactinfo|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:82
+#: app/views/projects/_form.rhtml:80
 #, fuzzy
 msgid "Project|Maturity|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:84
+#: app/views/projects/_form.rhtml:82
 #, fuzzy
 msgid "Project|License|Help"
 msgstr "Icon"
 
-#: app/views/projects/_form.rhtml:87
+#: app/views/projects/_form.rhtml:85
 #, fuzzy
 msgid "Project|Contentlicense|Help"
 msgstr "Content License"
 
-#: app/views/projects/_form.rhtml:89
+#: app/views/projects/_form.rhtml:87
 #, fuzzy
 msgid "Project|Licensingdescription|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:91
+#: app/views/projects/_form.rhtml:89
 #, fuzzy
 msgid "Project|Platform|Help"
 msgstr "Project name"
 
-#: app/views/projects/_form.rhtml:93
+#: app/views/projects/_form.rhtml:91
 #, fuzzy
 msgid "Project|Programminglanguage|Help"
 msgstr "Programming Language"
 
-#: app/views/projects/_form.rhtml:97
+#: app/views/projects/_form.rhtml:95
 #, fuzzy
 msgid "Project|Redirecturl|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:99
+#: app/views/projects/_form.rhtml:97
 #, fuzzy
 msgid "Project|Vcs|Help"
 msgstr "Icon"
 
-#: app/views/projects/_form.rhtml:101
+#: app/views/projects/_form.rhtml:99
 #, fuzzy
 msgid "Project|Vcsdescription|Help"
 msgstr "Summary"
 
-#: app/views/projects/_form.rhtml:109
+#: app/views/projects/_form.rhtml:107
 #, fuzzy
 msgid "For NSC projects"
 msgstr "New Project"
 
-#: app/views/projects/_form.rhtml:110
+#: app/views/projects/_form.rhtml:108
 msgid "Please refer to the"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:110
+#: app/views/projects/_form.rhtml:108
 msgid "help document"
 msgstr ""
 
-#: app/views/projects/_form.rhtml:111
+#: app/views/projects/_form.rhtml:109
 msgid "comma seperated"
 msgstr ""
 
@@ -2930,7 +2978,7 @@ msgstr ""
 msgid "NSC Download List"
 msgstr "Top Downloads"
 
-#: app/views/site_admin/site_admin/new_site_mail.rhtml:6
+#: app/views/site_admin/site_admin/new_site_mail.rhtml:5
 msgid "Message Content"
 msgstr ""
 
@@ -3161,15 +3209,6 @@ msgstr "Hide About Me"
 msgid "User|Conceal Bio|Help"
 msgstr "Hide About Me"
 
-#: app/views/user/_privacy.rhtml:13
-msgid "User|Conceal Login Status"
-msgstr "Hide Login Status"
-
-#: app/views/user/_privacy.rhtml:13
-#, fuzzy
-msgid "User|Conceal Login|Help"
-msgstr "Hide Login Status"
-
 #: app/views/user/_privacy.rhtml:16
 msgid "User|Change Privacy"
 msgstr "Change Privacy"
@@ -3227,6 +3266,13 @@ msgstr ""
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr ""
+
+#~ msgid "User|Conceal Login Status"
+#~ msgstr "Hide Login Status"
+
+#, fuzzy
+#~ msgid "User|Conceal Login|Help"
+#~ msgstr "Hide Login Status"
 
 #, fuzzy
 #~ msgid "Direction"
