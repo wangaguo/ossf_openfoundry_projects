@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
 
   # add required gems 
   config.gem 'cgi_multipart_eof_fix', :version => '>= 2.5.0'
-  config.gem 'acts_as_ferret', :version => '>= 0.4.3'
+  config.gem 'acts_as_ferret', :version => '= 0.4.3'
   config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
   config.gem 'ferret', :version => ">= 0.11.6" 
   # for gettext 2.0.0
