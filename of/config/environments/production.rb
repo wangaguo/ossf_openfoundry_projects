@@ -14,13 +14,15 @@ config.action_controller.perform_caching             = true
 # See everything in the log (default is :info)
 # config.log_level = :debug
 
+# Use a different logger for distributed setups
+require 'syslog_logger'
+config.logger = SyslogLogger.new
+
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
-config.threadsafe!
 
-require 'rubygems'
-require 'syslog_logger'
-RAILS_DEFAULT_LOGGER = SyslogLogger.new
+# Enable threaded mode
+config.threadsafe!
