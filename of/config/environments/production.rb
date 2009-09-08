@@ -11,11 +11,16 @@ config.cache_classes = true
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 
+# See everything in the log (default is :info)
+# config.log_level = :debug
+
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+config.threadsafe!
+
 require 'rubygems'
 require 'syslog_logger'
 RAILS_DEFAULT_LOGGER = SyslogLogger.new
