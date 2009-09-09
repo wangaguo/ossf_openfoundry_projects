@@ -1,0 +1,155 @@
+
+body {
+    background: #FFFFFF;
+    color: #000000;
+    font-family: Helvetica, sans-serif;
+    font-size: 12pt;
+    margin: 0pt;
+}
+
+div#header
+{
+    height: 65px;
+    margin-top: 0px;
+    margin-right-value: 0px;
+    margin-bottom: 0px;
+    margin-left-value: 0px;
+    margin-left-ltr-source: physical;
+    margin-left-rtl-source: physical;
+    margin-right-ltr-source: physical;
+    margin-right-rtl-source: physical;
+    padding-top: 0px;
+    padding-right-value: 0px;
+    padding-bottom: 0px;
+    padding-left-value: 0px;
+    padding-left-ltr-source: physical;
+    padding-left-rtl-source: physical;
+    padding-right-ltr-source: physical;
+    padding-right-rtl-source: physical;
+    min-width: 600px;
+    background-color: transparent;
+    background-image: url(top-bg.gif);
+    background-repeat: repeat-x;
+    background-attachment: scroll;
+    -x-background-x-position: left;
+    -x-background-y-position: top;
+    -moz-background-clip: initial;
+    -moz-background-origin: initial;
+    -moz-background-inline-policy: initial;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(204, 204, 204);
+    
+    
+}
+
+div#header h1
+{
+    position: absolute;
+    left: 0pt;
+    top: 0px;
+    margin-top: 0px;
+    width: 199px;
+    height: 65px;
+    background-color: transparent;
+    background-image: url(top-left.gif);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    -x-background-x-position: left;
+    -x-background-y-position: top;
+    -moz-background-clip: initial;
+    -moz-background-origin: initial;
+    -moz-background-inline-policy: initial;
+}
+div#header h1 span {display:none;}
+
+.qa
+{
+    margin-top: 2em;
+}
+.question
+{
+    color: rgb(51, 102, 153);
+    font-family: "Helvetica",sans-serif;
+    font-weight: bold;
+}
+.answer
+{
+    margin: 0.1em;
+    font-family: "Helvetica",sans-serif;
+    line-height: 1.4em;
+}
+
+img
+{
+    margin: 1em;
+}
+
+div#MainWidgets
+{
+    position: absolute; 
+    width: 160px;
+    padding-top: 20px;
+}
+
+div#MainBody
+{
+    position: absolute; 
+    left: 170px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+
+ul.topnav {
+	list-style: none;
+	margin-left: 0;
+ 	margin-right: 0.25em;		
+	padding-left: 0.25em;
+	padding-bottom: 0;	
+	padding-top:0;
+	margin-top: 0;
+	margin-bottom:0;
+}
+
+
+ul.topnav li
+{
+  border: 1px solid #669966;
+  background: #afc7af;
+  padding: 0;
+  margin-top: 3px;
+  margin-bottom: 7px;
+  height: 20pt;
+}
+
+
+ul.topnav li a
+{
+  display: block;
+  height: 20pt;
+  padding-left: 7px;
+  background: #afc7af;
+  font-family: Verdana, Sans Serif;
+  font-size: 12pt;
+  color: #fefefe;
+}
+
+ul.topnav li a:hover
+{
+  color: #000;
+  background: #bfd7bf;
+  text-decoration: none;
+}
+
+ul.topnav li a:active
+{
+  color: #bfd7bf;
+  background: #fff;
+  text-decoration: none;
+}
+
+tt
+{
+  background: #dddddd;
+  padding: 3px;
+}
