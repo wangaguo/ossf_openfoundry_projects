@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>OSSF Web Hosting Services</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="webhosting.css" type="text/css" />
+
+</head>
+<body>
+<div id="header">
+    <h1><span>OpenFoundry</span></h1>
+</div>
+<div id="MainWidgets">
+    <div id="MainMenu">
+    <ul class="topnav">
+    <li><a href="index.html">網站代管服務說明</a></li>
+    <li><a href="how_to_upload.html">上傳區使用說明</a></li>
+<!--
+    <li><a href="term_of_use.html">使用條款</a></li>
+    <li><a href="logo.html">標識用法</a></li>
+-->
+    </ul>
+    </div>
+</div>
+<div id="MainBody">
+<div class="qa">
+    <div class="question">
+    什麼是 OpenFoundry 網站代管(web hosting)服務?
+    </div>
+    <div class="answer">
+    <p>
+    對於每個在 <a href="http://of.openfoundry.org/">OpenFoundry (of.openfoundry.org)</a> 上開立的專案，
+    我們提供網址為 <tt>http://[專案ID].openfoundry.org</tt> 的網頁空間，
+    讓專案管理員可以自行放置與該專案相關的網頁，
+    以便在專案管理上有更多的資源做更靈活的運用。
+    </p>
+    </div>
+</div>
+
+<div class="qa">
+    <div class="question">
+    網站代管服務的內容為何？
+    </div>
+    <div class="answer">
+    <p>
+    我們提供每個專案 100MB 的靜態網頁空間，
+    未來將開放動態的模版與程式執行能力，
+    並規劃為專案提供現成的網頁系統。
+    </p>
+    </div>
+</div>
+
+<div class="qa">
+    <div class="question">
+    我要如何使用網站代管服務？
+    </div>
+    <div class="answer">
+    <p>
+    如果您是專案開發網站上的專案管理員，或專案管理者有開放<tt>FTP Access</tt>權限，
+   ，且同意 <a href="term_of_use.html">使用條款</a>，
+    即可透過 FTP 或 FTP over TLS 的方式，
+    以專案開發網站上的帳號登入 <tt>ftp.of.openfoundry.org</tt> 主機並上傳資料；
+    登入後，您將會看到所有您具有權限專案的目錄，只要將檔案放置於 www 目錄下，
+    只要將檔案放置於其下，就可以透過 <tt>http://[專案ID].openfoundry.org</tt> 的網址存取。
+    </p>
+    
+    <p>
+    UNIX 的使用者可直接透過命令列工具上傳檔案.<br>
+    如: <tt>ftp ftp.of.openfoundry.org</tt></br>
+    或: <tt>ftps ftp.of.openfoundry.org</tt>
+    </p>
+    
+    <dt>FileZilla 設定範例 (FTP over TLS)</dt>
+    <dd>
+    <img src="FileZilla_FTP_TLS.png"/>
+    </dd>
+    
+    </p>
+    </div>
+</div> <!-- qa -->
+
+</div> <!-- MainBody -->
+
+</body>
+</html>
