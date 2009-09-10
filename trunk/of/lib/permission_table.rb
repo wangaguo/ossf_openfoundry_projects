@@ -98,7 +98,7 @@ module OpenFoundry
     :survey => survey_pt = {
       :index => :survey,
       :show => :survey,
-      :apply => :survey,
+      #:apply => :survey,
       :review => :survey,
       :update => :survey
     }
