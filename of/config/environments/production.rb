@@ -26,3 +26,7 @@ config.logger = SyslogLogger.new
 
 # Enable threaded mode
 config.threadsafe!
+
+#for db cluster
+config.gem "sdsykes-read_from_slave", :lib=>"read_from_slave"
+
