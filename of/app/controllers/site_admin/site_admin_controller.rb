@@ -79,17 +79,45 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def new_site_mail
-  end
+    if request.post? then
+      @mail = Hashit.new(params[:mail])
+      bcc_max = 100
+      bcc_j = 0
+      bcc_i = 0
+      bcc = []
+      mail = UserNotify.create_site_mail(@mail.subject, @mail.message)
 
-  def send_site_mail
-    users = User.find(:all, :conditions => "#{User::verified_users}")
-    mail = UserNotify.create_site_mail(params[:news][:subject], params[:news][:message])
-    users.each do |user|
-      mail.to = "#{user.login} <#{user.email}>"
-      UserNotify.deliver(mail)
-    end 
-    flash[:info] = _('Message sent.')
-    render :action => :new_site_mail
+      case @mail.type 
+      when "to"
+        bcc[0] = @mail.to 
+      when "all_valid_users", "all_valid_users_and_filter"
+        if @mail.type == "all_valid_users" then
+          users = User.find(:all, :conditions => "#{User::verified_users}")
+          #users = User.find(:all, :conditions => "id > 50798 and #{User::verified_users}")
+        else
+          @mail.filter = "'" + @mail.filter.gsub(/[^a-zA-Z0-9,_]/, '').gsub(/,/, "','") + "'"
+          users = User.find(:all, :conditions => "#{User::verified_users} and login not in(#{@mail.filter})")
+        end
+        users.each do |user|
+          if bcc[bcc_i].nil? then bcc[bcc_i] = "" end
+          bcc[bcc_i] += "#{user.login} <#{user.email}>, "
+          if (bcc_j+=1) == bcc_max then
+            bcc_j=0
+            bcc_i+=1
+          end
+        end
+      end
+
+      bcc.each do |bc|
+        mail.bcc = bc
+        UserNotify.deliver(mail)
+      end
+
+      flash.now[:notice] = _('Message sent.')
+    else
+      m = {:type => "to", :to => "", :filter => "" , :subject => "[OpenFoundry]", :message => "Please input HTML content."}
+      @mail = Hashit.new(m)
+    end
   end
 
   def run_code
