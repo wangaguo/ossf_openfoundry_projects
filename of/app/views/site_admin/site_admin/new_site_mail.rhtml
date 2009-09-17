@@ -11,9 +11,12 @@
       if(!$j("[name$=[to]]").val().match(/.*@.*\..*/)) hr+="to: The mail format is not valid.\n";
     }
     else if($j("[name$=[type]]:checked").val() == "all_valid_users_and_filter") {
-      if($j("[name$=[filter]]").val().match(/[^a-zA-Z_,]/)) hr+="filter: The format is not valid.  e.g. tom,jerry,allen\n";
+      if($j("[name$=[filter]]").val().match(/[^a-zA-Z_,']/)) hr+="filter: The format is not valid.  e.g. tom,jerry,allen\n";
     }
-    if(hr != "") alert(hr);
+    if(hr != "") {
+      alert(hr);
+      return(false);
+    }
     else if(confirm('Are you sure to send the mail?')==false) return(false);
   }
 </script>
