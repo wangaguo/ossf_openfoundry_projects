@@ -79,6 +79,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def new_site_mail
+    filter_file = File.join(Rails.configuration.root_path, 'config', 'site_mail_filter.txt')
     if request.post? then
       @mail = Hashit.new(params[:mail])
       bcc_max = 100
@@ -96,6 +97,9 @@ class SiteAdmin::SiteAdminController < SiteAdmin
           #users = User.find(:all, :conditions => "id > 50798 and #{User::verified_users}")
         else
           @mail.filter = "'" + @mail.filter.gsub(/[^a-zA-Z0-9,_]/, '').gsub(/,/, "','") + "'"
+          f = File.new(filter_file, "w")
+          f.write(@mail.filter)
+          f.close
           users = User.find(:all, :conditions => "#{User::verified_users} and login not in(#{@mail.filter})")
         end
         users.each do |user|
@@ -117,6 +121,13 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     else
       m = {:type => "to", :to => "", :filter => "" , :subject => "[OpenFoundry]", :message => "Please input HTML content."}
       @mail = Hashit.new(m)
+
+      if File.exist?(filter_file) then
+        File.readlines(filter_file).each do |line|
+          @mail.filter = line
+          break
+        end
+      end
     end
   end
 

@@ -5,6 +5,7 @@ require 'user_system'
 require 'of'
 require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
+require 'hashit'
 
 require 'gettext_rails'
 # For "paranoid session store"
