@@ -55,7 +55,8 @@ Rails::Initializer.run do |config|
   config.gem "gettext"
   config.gem "gettext_activerecord"
   config.gem "gettext_rails"
-
+  config.gem "sdsykes-read_from_slave", :lib =>"read_from_slave", :source => "http://gems.github.com"
+  config.gem "SyslogLogger", :lib => "syslog_logger"
   config.gem 'json', :version => ">= 1.1.2" 
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 
