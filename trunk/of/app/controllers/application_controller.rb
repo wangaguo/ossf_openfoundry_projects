@@ -294,11 +294,11 @@ THECODE
 
     @error_msg ||= ''
 
-    @error_msg += _('The project "%{project}" you are requesting does not exist.') %
+    @error_msg += _("The project \"#{project}\" you are requesting does not exist.") %
            {:project => CGI.escapeHTML(project_name)} unless @project
-    @error_msg += _('The release "%{release}" you are requesting does not exist.') %
+    @error_msg += _("The release \"#{release}\" you are requesting does not exist.") %
    {:release => CGI.escapeHTML(release_version)} unless @release
-    @error_msg += _('The file "%{file_name}" you are requesting does not exist.') %
+    @error_msg += _("The file \"#{file_name}\" you are requesting does not exist.") %
    {:file_name => CGI.escapeHTML(file_name)} unless @file
   end
 
