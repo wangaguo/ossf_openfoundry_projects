@@ -292,6 +292,10 @@ class OpenfoundryController < ApplicationController
   def download
     #check if project-release-file is match
     check_download_consistancy
+    unless @error_msg.empty?
+      render :text => @error_msg
+      return
+    end
     add_one_to_download_counter
 
     download_path_saved = CGI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
@@ -313,12 +317,7 @@ class OpenfoundryController < ApplicationController
       return
     end
 
-    if @error_msg.empty? 
-      #session[:saved_download_path] = nil
-      redirect_to "#{request.protocol}of.openfoundry.org/download/#{download_path_saved}"
-    else
-      render :text => @error_msg
-    end
+    redirect_to "#{request.protocol}of.openfoundry.org/download/#{download_path_saved}"
   end
 
   def redirect_rt_openfoundry_org
