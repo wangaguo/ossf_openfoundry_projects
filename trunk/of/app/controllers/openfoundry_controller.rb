@@ -270,6 +270,7 @@ class OpenfoundryController < ApplicationController
   
   def search #for search!!! TODO: catalog and optimize?
     @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
+    query = "*" + @query.gsub(/\*/, "").split(" ").join("* *") + "*"
     @options = {}
     @options[:per_page] = params[:per_page] || 20
     @options[:page] = params[:page] || 1
@@ -280,7 +281,7 @@ class OpenfoundryController < ApplicationController
         :all
       end
     obj = @options[:models] == :all ? User : @options[:models].first
-    @results = obj.find_with_ferret(@query, @options) 
+    @results = obj.find_with_ferret(query, @options) 
     @lookup = RECORD_LOOKUP_TABLE
   end
   
