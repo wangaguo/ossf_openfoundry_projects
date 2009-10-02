@@ -63,6 +63,34 @@ class ApplicationController < ActionController::Base
     cookies[:lang] = set_locale(lang||"en")
   end
 
+  def get_project_by_id_or_name(id_or_name)
+    rtn = nil
+    if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then
+      in_used_projects = ""
+    else
+      in_used_projects = Project.in_used_projects() 
+    end
+
+    case id_or_name
+    when /^\d+$/
+      rtn = Project.find_by_id(id_or_name, :conditions => in_used_projects)
+    when Project::NAME_REGEX
+      in_used_projects = " and #{in_used_projects}" if(in_used_projects != "")
+      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ? #{in_used_projects}", id_or_name])
+        yield rtn.id
+        return
+      end
+    end
+
+    if not rtn
+      flash[:warning] = "Project '#{id_or_name}' does not exist, or it has be deactivated."
+      redirect_to "/"
+    elsif rtn.status != Project::STATUS[:READY]
+      flash.now[:notice] = "Project is not READY."
+    end
+    rtn
+  end
+
   def set_will_paginate_lang
     WillPaginate::ViewHelpers.pagination_options[:prev_label] = _("&laquo; Previous")
     WillPaginate::ViewHelpers.pagination_options[:next_label] = _("Next &raquo;")
