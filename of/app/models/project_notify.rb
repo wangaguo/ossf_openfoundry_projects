@@ -12,15 +12,13 @@ class ProjectNotify < ActionMailer::Base
   def project_reviewer(project, sent_at = Time.now)
     @subject    = "Project creation request: #{project.name}"
     @body       = { 
-                    :change_status_url => url_for(:controller => 'site_admin/project',
-                                                  :action => 'change_status_form',
-                                                  :id => project.id), 
                     :project => project
                   }
     @recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
     @headers    = {}
+    @content_type = "text/html"
   end
   #def applied_site_admin(project, sent_at = Time.now)
   #  @subject    = "Project creation request: #{project.name}"

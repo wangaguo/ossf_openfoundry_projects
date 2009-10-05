@@ -22,11 +22,11 @@ project_columns = ["name","summary","description","creator","status","statusreas
 <% for project in @projects %>
     <tr>
     
-      <td><%= link_to 'Show', :action => 'show', :id => project %></td>
-      <td><%= link_to 'Edit', :action => 'edit', :id => project %></td>
+      <td><%= link_to _('Show'), {:action => 'show', :controller => '../projects', :id => project}, :target => '_blank' %></td>
+      <td><%= link_to _('Edit'), {:action => 'edit', :controller => '../projects', :id => project}, :target => '_blank' %></td>
       <td>
         <% if project.status != Project::STATUS[:REJECTED] %>
-            <%= link_to 'Change status', :action => 'change_status_form', :id => project.id %>
+          <%= link_to _('Change status'), {:action => 'change_status_form', :id => project.id}, :target => '_blank' %>
         <% end %>
       </td>
       <% for column in project_columns %>
