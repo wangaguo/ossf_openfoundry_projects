@@ -1,25 +1,18 @@
+<base href="<%= OPENFOUNDRY_OF_URL %>">
+<pre>
 Dear Project Reviewer:
 
 Please approve or reject the project creation request:
-<% ["name","summary","description","creator","licensingdescription","license","contentlicense",
-  "contactinfo","maturity","platform","programminglanguage","intendedaudience","rationale",
-  "redirecturl", "created_at"].each do |col|
-    out=@project.send(col)
-    out=Project.licenses_to_s(@project.license).join("\n") if col=='license'
-    out=Project.content_licenses_to_s(@project.contentlicense).join("\n") if col=='contentlicense'
-    out=User.find(@project.creator).login if col=='creator'
-  if out %>
-<%="+++#{col}+++"%> 
-<%=out%>
-<%="---end of #{col}---"%>
-  <% end %>
-<% end %>
-
-<%= '-'*20 %>
-
-Please go to this link:
-<%= @change_status_url %>
-
-<%= '-'*20 %>
-
-OpenFoundry System ^_^
+</pre>
+<hr/>
+<dl>
+  <dt>name:</dt><dd><%= @project.name %></dd>
+  <dt>summary:</dt><dd><%= @project.summary %></dd>
+  <dt>description:</dt><dd><%= @project.description %></dd>
+</dl>
+<%= link_to _('Change status'), {:action => 'change_status_form', :controller => 'site_admin/project', :id => @project} %> |
+<%= link_to _('Show'), {:action => 'show', :controller => 'projects', :id => @project} %> |
+<%= link_to _('Edit'), {:action => 'edit', :controller => 'projects', :id => @project} %> |
+<%= link_to _('List'), {:action => 'list', :controller => 'site_admin/project', :id => @project} %>
+<hr/>
+OpenFoundry System

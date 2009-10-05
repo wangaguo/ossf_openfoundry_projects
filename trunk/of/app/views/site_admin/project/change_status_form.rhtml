@@ -1,12 +1,12 @@
 <%= error_messages_for 'bad_project', :object_name => 'project' %>
 
-<h1>Change status</h1>
+<h1>Change Status</h1>
 Current status is: <%= Project.status_to_s(@project.status) %>
 <p>
 
 <% form_tag :action => 'change_status', :id => @project do %>
-  <p><label for="project_statusreason">Statusreason</label><br/>
-  <%= text_area_tag 'statusreason' %></p>
+  <p><label for="statusreason">Status Reason</label><br/>
+  <%= text_area_tag 'statusreason', @project.statusreason %></p>
 
   <% if @project.status == Project::STATUS[:APPLYING] %>
     <%= submit_tag 'approve', :name => 'invoke' %>
@@ -19,4 +19,7 @@ Current status is: <%= Project.status_to_s(@project.status) %>
     <%= submit_tag 'resume', :name => 'invoke' %>
   <% end %>
 <% end %>
+<%= link_to _('List'), :action => 'list' %> |
+<%= link_to _('Show'), {:action => 'show', :controller => '../projects', :id => @project}, :target => '_blank' %> |
+<%= link_to _('Edit'), {:action => 'edit', :controller => '../projects', :id => @project}, :target => '_blank' %>
 
