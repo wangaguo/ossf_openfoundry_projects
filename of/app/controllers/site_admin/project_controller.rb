@@ -1,4 +1,6 @@
 class SiteAdmin::ProjectController < SiteAdmin
+  layout 'application'
+
   def index
     list
     render :action => 'list'
@@ -56,10 +58,10 @@ class SiteAdmin::ProjectController < SiteAdmin
   end
   def change_status
     @project = Project.find(params[:id])
-    raise "wrong params[:invoke]: #{params[:invoke]}" if not ['approve', 'reject', 'suspend', 'resume'].include?(params[:invoke])
+    raise "wrong params['invoke']: #{params['invoke']}" if not ['approve', 'reject', 'suspend', 'resume'].include?(params['invoke'])
     if @project.send(params[:invoke], params[:statusreason])
       flash[:notice] = 'status changed!'
-      redirect_to :action => 'show', :id => @project.id
+      redirect_to :action => 'show', :controller => '../projects', :id => @project.id
     else
       @bad_project = @project   # bad project only for showing error messages
       @project = Project.find(params[:id])
