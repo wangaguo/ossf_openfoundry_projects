@@ -298,9 +298,11 @@ EOEO
   ##end
 
   def validate
-    cond = ["name = ? and #{Project.approved_projects}", name]
-    cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
-    errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
+    if status != Project::STATUS[:REJECTED]
+      cond = ["name = ? and #{Project.approved_projects}", name]
+      cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
+      errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
+    end
 
     ls = "#{license}".split(",").grep(/./).map(&:to_i)
     if ls.length == 0
@@ -407,15 +409,16 @@ EOEO
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
     self.status = Project::STATUS[:REJECTED]
     self.statusreason = reason
-    save
-    ProjectNotify.deliver_rejected(self)
+    if save!
+      ProjectNotify.deliver_rejected(self)
+    end
   end
   # reason: string
   def suspend(reason)
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:READY]
     self.status = Project::STATUS[:SUSPENDED]
     self.statusreason = reason
-    save
+    save!
     # TODO: notify by email
   end
   # reason: string
@@ -423,7 +426,7 @@ EOEO
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:SUSPENDED]
     self.status = Project::STATUS[:READY]
     self.statusreason = reason
-    save
+    save!
     # TODO: notify by email
   end
 
