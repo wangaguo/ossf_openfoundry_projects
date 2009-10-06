@@ -3,7 +3,7 @@ class KwikiController < ApplicationController
   before_filter :get_project
   def get_project
     @project = get_project_by_id_or_name(params[:project_id]) { |id| redirect_to :project_id => id }
-    @module_name = "共同筆記"
+    @module_name = _('Wiki')
   end
   
   def index

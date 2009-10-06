@@ -2,14 +2,9 @@ class RtController < ApplicationController
   layout 'rt'
   before_filter :get_project
   def get_project
-    if(params[:project_id] != nil)
-      @project = Project.find(:first, :conditions => "id = #{params[:project_id]}")
-      if(@project == nil)
-        redirect_to "http://of.openfoundry.org"
-      end
-    end
+    @project = get_project_by_id_or_name(params[:project_id]) { |id| redirect_to :project_id => id }
   end
-  
+
   def index
     rt_init
   end
