@@ -12,7 +12,7 @@ class ProjectNotify < ActionMailer::Base
   def project_reviewer(project, sent_at = Time.now)
     @subject    = "Project creation request: #{project.name}"
     @body       = { 
-                    :project => project
+                    :project => project, :user => User.find(project.creator)
                   }
     @recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
