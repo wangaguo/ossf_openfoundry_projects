@@ -91,7 +91,11 @@ class UserController < ApplicationController
     if user
       @name = user.login
       @icon = user.icon
-      @conceal_email = user.t_conceal_email
+      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then 
+        @conceal_email = false
+      else
+        @conceal_email = user.t_conceal_email
+      end
       session[:email_image] = user.email unless @conceal_email
       @email_md5 = Digest::MD5.hexdigest(user.email)
       @created_at = user.created_at
