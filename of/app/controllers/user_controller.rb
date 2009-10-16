@@ -132,6 +132,11 @@ class UserController < ApplicationController
 
   def login
     begin redirect_to :action => :home, :controller => :user ;return end if login?
+
+    if params['user'].nil? && !request.referer.nil? then 
+      session[:return_to] = request.referer
+    end
+
     # for OpenID Session
     if params['open_id_complete'] and session[:user] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
@@ -229,7 +234,8 @@ class UserController < ApplicationController
       #kill_login_key
       #rebuild_session
 
-      redirect_to :action => 'login'
+      flash[:message] = _('user_logout_succeeded')
+      redirect_to '/'
     end
   end
 
