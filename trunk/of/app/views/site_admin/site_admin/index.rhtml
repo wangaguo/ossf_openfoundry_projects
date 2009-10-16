@@ -62,6 +62,12 @@ Agent: <%= request.user_agent%>
 <h2>監控與分析</h2>
 <ul>
   <li><a href="https://www.google.com/analytics/reporting/?scid=5220412">Google Analytic</a></li>
-  <li><%= link_to _("NSC Download List"), {:action => :nsc_download } %></li>
 </ul>
+<br/>
 
+<h2>NSC相關</h2>
+<ul>
+  <li><%= link_to _("Report status"), {:controller => '../nsc', :action => :report_status} %></li>
+  <li><%= link_to _("Download count"), {:controller => '../nsc', :action => :download_count} %></li>
+  <li><%= link_to _("Download List"), {:action => :nsc_download } %></li>
+</ul>
