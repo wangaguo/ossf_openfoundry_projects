@@ -1,6 +1,8 @@
 class Release < ActiveRecord::Base
   belongs_to :project
   has_many :fileentity
+  #redis counter settings
+  acts_as_redis_counter :release_counter, :ttl => 5.minutes, :hits => 100
   
   validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,255}$/
 

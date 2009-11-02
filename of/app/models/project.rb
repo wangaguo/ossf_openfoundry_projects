@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
+  #redis counter settings
+  acts_as_redis_counter :project_counter, :ttl => 5.minutes, :hits => 100
 
   # single selection 
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
