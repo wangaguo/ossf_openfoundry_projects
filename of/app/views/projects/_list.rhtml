@@ -19,7 +19,7 @@
     <td align="center"><%= h(tmp.due) if tmp %></td>
     <td rowspan="2" align="center">
       <%= link_to _('Download'), download1_path(:project_id => project.id) %><br />
-      (<%= h project.project_counter %>)
+      (<%= h project.redis_counter_project_counter %>)
     </td>
   </tr>
   <tr class="item_b <%=class_name%>">
