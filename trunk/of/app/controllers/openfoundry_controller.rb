@@ -388,11 +388,14 @@ class OpenfoundryController < ApplicationController
   end
 
   def add_one_to_download_counter
-     ActiveRecord::Base.connection.execute("update `projects` set `project_counter` = 
-                        `project_counter` + 1 where `id` ='#{@project.id}'")
-     ActiveRecord::Base.connection.execute("update `releases` set `release_counter` = 
-                        `release_counter` + 1 where `id` = '#{@release.id}'")
-     ActiveRecord::Base.connection.execute("update `fileentities` set `file_counter` = 
-                        `file_counter` + 1 where `id` = #{@file.id}")
+     #ActiveRecord::Base.connection.execute("update `projects` set `project_counter` = 
+     #                   `project_counter` + 1 where `id` ='#{@project.id}'")
+     @project.redis_counter_project_counter_inc                   
+     #ActiveRecord::Base.connection.execute("update `releases` set `release_counter` = 
+     #                   `release_counter` + 1 where `id` = '#{@release.id}'")
+     @release.redis_counter_release_counter_inc                   
+     #ActiveRecord::Base.connection.execute("update `fileentities` set `file_counter` = 
+     #                   `file_counter` + 1 where `id` = #{@file.id}")
+     @file.redis_counter_file_counter_inc                   
   end
 end
