@@ -5,14 +5,14 @@
 
   RUBY = "/home/openfoundry/ruby/ruby/bin/ruby"
   MONGREL_RAILS = "/home/openfoundry/ruby/ruby/bin/mongrel_rails"
-  RAILS_ROOT = "/home/openfoundry/of"
-  ENVIRONMENT = "production"
-  #ENVIRONMENT = "development"
+  RAILS_ROOT = "/home/openfoundry/of_up_to232"
+  #ENVIRONMENT = "production"
+  ENVIRONMENT = "development"
 
   USER = 'openfoundry'
   GROUP = 'openfoundry'
 
-  ADDRESS = '127.0.0.1'
+  ADDRESS = '192.168.6.20'
 
 #7996,7997 for sso
 #7998,7999 for foundry_sync
@@ -21,14 +21,14 @@
 7995.upto(8005) do |port|
   God.watch do |w|
     w.group = case port
-    when 7996..7997 : "openfoundry-sso"
-    when 7998..7999 : "openfoundry-sync"
-    when 7995 : "openfoundry-sync"
+    when 7996..7997 : "dev-sso"
+    when 7998..7999 : "dev-sync"
+    when 7995 : "dev-sync"
     else
-      port % 2 == 0 ? "openfoundry-even" : "openfoundry-odd"
+      port % 2 == 0 ? "dev-even" : "dev-odd"
     end 
 
-    w.name = "openfoundry-mongrel-#{port}"
+    w.name = "dev-mongrel-#{port}"
     w.interval = 30.seconds # default      
     w.start = "#{RUBY} #{MONGREL_RAILS} start -e #{ENVIRONMENT} -c #{RAILS_ROOT} -p #{port} \
       --user #{USER} --group #{GROUP} -l #{RAILS_ROOT}/log/mongrel.#{port}.log \
@@ -107,9 +107,9 @@ end
 
 God.watch do |w|
   command = "su #{USER} -c 'cd #{RAILS_ROOT};#{RUBY} #{RAILS_ROOT}/script/ferret_server -e #{ENVIRONMENT} %s'"
-  w.group = "openfoundry-index-server"
+  w.group = "dev-index-server"
 
-  w.name = "openfoundry-ferret-server-9000"
+  w.name = "dev-ferret-server-9000"
   w.interval = 30.seconds # default      
   w.start = command % 'start'
   w.stop = command % 'stop'
