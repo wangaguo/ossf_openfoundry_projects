@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-10-15 08:20-0000\n"
+"POT-Creation-Date: 2009-11-16 08:50-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,12 +133,10 @@ msgid "Help"
 msgstr "Help"
 
 #: app/helpers/application_helper.rb:97
-#, fuzzy
 msgid "Survey"
 msgstr ""
 
 #: app/helpers/application_helper.rb:102 app/helpers/application_helper.rb:105
-#, fuzzy
 msgid "breadcrumb|"
 msgstr ""
 
@@ -146,6 +144,44 @@ msgstr ""
 #: app/views/projects/new.rhtml:2
 msgid "required_icon"
 msgstr "Required"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "category"
+msgstr "Project Category"
+
+#: app/models/category.rb:-
+msgid "Category|Name"
+msgstr ""
+
+#: app/models/category.rb:-
+msgid "Category|Parent"
+msgstr ""
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Creator"
+msgstr "Created at"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Description"
+msgstr "Description"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Created at"
+msgstr "Created at"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Updated at"
+msgstr "Summary"
+
+#: app/models/category.rb:-
+#, fuzzy
+msgid "Category|Updated by"
+msgstr "Summary"
 
 #: app/models/category.rb:3
 msgid "breadcrumb|vcs_access"
@@ -285,11 +321,76 @@ msgstr "Time Zone"
 msgid "Old Password Incorrect"
 msgstr ""
 
-#: app/models/release.rb:17
+#: app/models/release.rb:-
+#, fuzzy
+msgid "release"
+msgstr "Release"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Icon"
+msgstr "Release"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Project"
+msgstr "Preference"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Name"
+msgstr "Project name"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Description"
+msgstr "Description"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Version"
+msgstr "Versions"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Due"
+msgstr "Project name"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Status"
+msgstr "Preference"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Created at"
+msgstr "Created at"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Updated at"
+msgstr "Summary"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Creator"
+msgstr "Creator"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Release counter"
+msgstr "Release"
+
+#: app/models/release.rb:-
+#, fuzzy
+msgid "Release|Updated by"
+msgstr "Summary"
+
+#: app/models/release.rb:19
 msgid "PREPARING"
 msgstr "Preparing"
 
-#: app/models/release.rb:18 app/models/project.rb:10
+#: app/models/release.rb:20 app/models/project.rb:12
 msgid "RELEASED"
 msgstr "Released"
 
@@ -604,105 +705,105 @@ msgstr "Summary"
 msgid "Project|Updated by"
 msgstr "Summary"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:8
 msgid "IDEA"
 msgstr "Idea"
 
-#: app/models/project.rb:7
+#: app/models/project.rb:9
 msgid "PREALPHA"
 msgstr "Pre-Alpha"
 
-#: app/models/project.rb:8
+#: app/models/project.rb:10
 msgid "ALPHA"
 msgstr "Alpha"
 
-#: app/models/project.rb:9
+#: app/models/project.rb:11
 msgid "BETA"
 msgstr "Beta"
 
-#: app/models/project.rb:11
+#: app/models/project.rb:13
 msgid "MATURE"
 msgstr "Mature"
 
-#: app/models/project.rb:12
+#: app/models/project.rb:14
 msgid "STANDARD"
 msgstr "Standard"
 
-#: app/models/project.rb:59
+#: app/models/project.rb:61
 msgid "url_link_for_OSI: Academic Free License"
 msgstr ""
 "http://www.openfoundry.org/en/Law-and-Policy/Licenses/Academic-Free-License-"
 "Version-3.0-AFL.html"
 
-#: app/models/project.rb:60
+#: app/models/project.rb:62
 msgid "url_link_for_OSI: GNU Affero General Public License v3 (AGPL3)"
 msgstr "http://www.opensource.org/licenses/agpl-v3.html"
 
-#: app/models/project.rb:61
+#: app/models/project.rb:63
 msgid "url_link_for_OSI: Adaptive Public License"
 msgstr "http://www.opensource.org/licenses/apl1.0.php"
 
-#: app/models/project.rb:62
+#: app/models/project.rb:64
 msgid "url_link_for_OSI: Apache License 2.0"
 msgstr "http://www.openfoundry.org/en/Law-and-Policy/Licenses/Aapache-2.0.html"
 
-#: app/models/project.rb:63
+#: app/models/project.rb:65
 msgid "url_link_for_OSI: Artistic License 2.0"
 msgstr "http://www.opensource.org/licenses/artistic-license-2.0.php"
 
-#: app/models/project.rb:64
+#: app/models/project.rb:66
 msgid "url_link_for_OSI: Attribution Assurance Licenses"
 msgstr "http://www.opensource.org/licenses/attribution.php"
 
-#: app/models/project.rb:65
+#: app/models/project.rb:67
 msgid "url_link_for_OSI: BSD License (New and Simplified BSD License)"
 msgstr ""
 "http://www.openfoundry.org/en/Law-and-Policy/Licenses/BSD-3-clause-BSD-"
 "License.html"
 
-#: app/models/project.rb:66
+#: app/models/project.rb:68
 msgid "url_link_for_OSI: Boost Software License (BSL1.0)"
 msgstr "http://www.opensource.org/licenses/bsl1.0.html"
 
-#: app/models/project.rb:67
+#: app/models/project.rb:69
 msgid "url_link_for_OSI: Common Development and Distribution License (CDDL)"
 msgstr "http://www.opensource.org/licenses/cddl1.php"
 
-#: app/models/project.rb:68
+#: app/models/project.rb:70
 msgid "url_link_for_OSI: Common Public Attribution License 1.0 (CPAL)"
 msgstr "http://www.opensource.org/licenses/cpal_1.0"
 
-#: app/models/project.rb:69
+#: app/models/project.rb:71
 msgid "url_link_for_OSI: Common Public License 1.0"
 msgstr "http://www.openfoundry.org/en/Law-and-Policy/Licenses/CPL.html"
 
-#: app/models/project.rb:70
+#: app/models/project.rb:72
 msgid "url_link_for_OSI: Eclipse Public License"
 msgstr "http://www.opensource.org/licenses/eclipse-1.0.php"
 
-#: app/models/project.rb:71
+#: app/models/project.rb:73
 msgid "url_link_for_OSI: Educational Community License 2.0"
 msgstr "http://www.opensource.org/licenses/ecl2.php"
 
-#: app/models/project.rb:72
+#: app/models/project.rb:74
 msgid "url_link_for_OSI: Eiffel Forum License 2.0"
 msgstr "http://www.opensource.org/licenses/ver2_eiffel.php"
 
-#: app/models/project.rb:73
+#: app/models/project.rb:75
 msgid "url_link_for_OSI: Fair License"
 msgstr "http://www.opensource.org/licenses/fair.php"
 
-#: app/models/project.rb:74
+#: app/models/project.rb:76
 msgid "url_link_for_OSI: GNU General Public License 2.0 (GPLv2)"
 msgstr ""
 "http://www.openfoundry.org/component/option,com_content/Itemid,192/id,32/"
 "lang,en/task,view/"
 
-#: app/models/project.rb:75
+#: app/models/project.rb:77
 msgid "url_link_for_OSI: GNU General Public License 3.0 (GPLv3)"
 msgstr "http://www.opensource.org/licenses/gpl-3.0.html"
 
-#: app/models/project.rb:76
+#: app/models/project.rb:78
 msgid ""
 "url_link_for_OSI: GNU Library or \"Lesser\" General Public License 2.1 "
 "(LGPLv2)"
@@ -710,209 +811,209 @@ msgstr ""
 "http://www.openfoundry.org/en/Law-and-Policy/Licenses/GNU-Lesser-Public-"
 "License-Version-2.1-LGPL.html"
 
-#: app/models/project.rb:77
+#: app/models/project.rb:79
 msgid ""
 "url_link_for_OSI: GNU Library or \"Lesser\" General Public License 3.0 "
 "(LGPLv3)"
 msgstr "http://www.opensource.org/licenses/lgpl-3.0.html"
 
-#: app/models/project.rb:78
+#: app/models/project.rb:80
 msgid "url_link_for_OSI: ISC License"
 msgstr "http://www.opensource.org/licenses/isc-license.txt"
 
-#: app/models/project.rb:79
+#: app/models/project.rb:81
 msgid "url_link_for_OSI: Lucent Public License 1.02"
 msgstr "http://www.opensource.org/licenses/lucent1.02.php"
 
-#: app/models/project.rb:80
+#: app/models/project.rb:82
 msgid "url_link_for_OSI: Microsoft Public License (Ms-PL)"
 msgstr "http://www.opensource.org/licenses/ms-pl.html"
 
-#: app/models/project.rb:81
+#: app/models/project.rb:83
 msgid "url_link_for_OSI: Microsoft Reciprocal License (Ms-RL)"
 msgstr "http://www.opensource.org/licenses/ms-rl.html"
 
-#: app/models/project.rb:82
+#: app/models/project.rb:84
 msgid "url_link_for_OSI: MIT License"
 msgstr "http://www.openfoundry.org/en/Law-and-Policy/Licenses/MIT.html"
 
-#: app/models/project.rb:83
+#: app/models/project.rb:85
 msgid "url_link_for_OSI: Mozilla Public License 1.1 (MPL)"
 msgstr "http://www.openfoundry.org/en/Law-and-Policy/Licenses/MPL.html"
 
-#: app/models/project.rb:84
+#: app/models/project.rb:86
 msgid "url_link_for_OSI: NASA Open Source Agreement 1.3"
 msgstr "http://www.opensource.org/licenses/nasa1.3.php"
 
-#: app/models/project.rb:85
+#: app/models/project.rb:87
 msgid "url_link_for_OSI: NTP License"
 msgstr "http://www.opensource.org/licenses/ntp-license.php"
 
-#: app/models/project.rb:86
+#: app/models/project.rb:88
 msgid "url_link_for_OSI: Open Group Test Suite License"
 msgstr "http://www.opensource.org/licenses/opengroup.php"
 
-#: app/models/project.rb:87
+#: app/models/project.rb:89
 msgid "url_link_for_OSI: Open Software License"
 msgstr ""
 "http://www.openfoundry.org/Law-and-Policy/Licenses/Open-Software-License-"
 "3.0¿OSL¿.html"
 
-#: app/models/project.rb:88
+#: app/models/project.rb:90
 msgid "url_link_for_OSI: Qt Public License (QPL)"
 msgstr ""
 "http://www.openfoundry.org/component/option,com_content/Itemid,192/id,757/"
 "lang,en/task,view/"
 
-#: app/models/project.rb:89
+#: app/models/project.rb:91
 msgid "url_link_for_OSI: Simple Public License 2.0"
 msgstr "http://www.opensource.org/licenses/simpl-2.0.html"
 
-#: app/models/project.rb:90
+#: app/models/project.rb:92
 msgid "url_link_for_OSI: Sleepycat License"
 msgstr "http://www.opensource.org/licenses/sleepycat.php"
 
-#: app/models/project.rb:91
+#: app/models/project.rb:93
 msgid "url_link_for_OSI: University of Illinois/NCSA Open Source License"
 msgstr "http://www.opensource.org/licenses/UoI-NCSA.php"
 
-#: app/models/project.rb:92
+#: app/models/project.rb:94
 msgid "url_link_for_OSI: zlib/libpng License"
 msgstr "http://www.openfoundry.org/en/Law_and_Policy/Licenses/zlib/libpng.html"
 
-#: app/models/project.rb:93
+#: app/models/project.rb:95
 msgid "url_link_for_GNU Free Documentation License"
 msgstr "http://www.fsf.org/licensing/licenses/fdl.html"
 
-#: app/models/project.rb:94
+#: app/models/project.rb:96
 msgid ""
 "url_link_for_Creative Commons: Attribution Non-commercial No Derivatives (by-"
 "nc-nd)"
 msgstr "http://creativecommons.org/licenses/by-nc-nd/2.5/tw/deed.en"
 
-#: app/models/project.rb:95
+#: app/models/project.rb:97
 msgid ""
 "url_link_for_Creative Commons: Attribution Non-commercial Share Alike (by-nc-"
 "sa)"
 msgstr "http://creativecommons.org/licenses/by-nc-sa/2.5/tw/deed.en"
 
-#: app/models/project.rb:96
+#: app/models/project.rb:98
 msgid "url_link_for_Creative Commons: Attribution Non-commercial (by-nc)"
 msgstr "http://creativecommons.org/licenses/by-nc/2.5/tw/deed.en"
 
-#: app/models/project.rb:97
+#: app/models/project.rb:99
 msgid "url_link_for_Creative Commons: Attribution No Derivatives (by-nd)"
 msgstr "http://creativecommons.org/licenses/by-nd/2.5/tw/deed.en"
 
-#: app/models/project.rb:98
+#: app/models/project.rb:100
 msgid "url_link_for_Creative Commons: Attribution Share Alike (by-sa)"
 msgstr "http://creativecommons.org/licenses/by-sa/2.5/tw/deed.en"
 
-#: app/models/project.rb:99
+#: app/models/project.rb:101
 msgid "url_link_for_Creative Commons: Attribution (by)"
 msgstr "http://creativecommons.org/licenses/by/2.5/tw/deed.en"
 
-#: app/models/project.rb:103 app/models/project.rb:146
+#: app/models/project.rb:105 app/models/project.rb:148
 msgid "Public Domain"
 msgstr ""
 
-#: app/models/project.rb:104
+#: app/models/project.rb:106
 msgid "This project contains no code"
 msgstr ""
 
-#: app/models/project.rb:105 app/models/project.rb:149
+#: app/models/project.rb:107 app/models/project.rb:151
 msgid "Other licenses"
 msgstr ""
 
-#: app/models/project.rb:147
+#: app/models/project.rb:149
 msgid "Same license as code"
 msgstr ""
 
-#: app/models/project.rb:148
+#: app/models/project.rb:150
 #, fuzzy
 msgid "Project contains only code"
 msgstr "Contact Information"
 
-#: app/models/project.rb:213
+#: app/models/project.rb:215
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:215 app/views/projects/_tabnav.rhtml:6
+#: app/models/project.rb:217 app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr ""
 
-#: app/models/project.rb:217
+#: app/models/project.rb:219
 msgid "Subversion: members only"
 msgstr ""
 
-#: app/models/project.rb:219
+#: app/models/project.rb:221
 msgid "This project uses a version control system at other site."
 msgstr ""
 
-#: app/models/project.rb:221
+#: app/models/project.rb:223
 msgid "This project does not use any version control system."
 msgstr ""
 
-#: app/models/project.rb:223
+#: app/models/project.rb:225
 msgid "System Error. Please contact the site administrator."
 msgstr ""
 
-#: app/models/project.rb:273
+#: app/models/project.rb:275
 msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
-#: app/models/project.rb:274
+#: app/models/project.rb:276
 msgid "This name is reserved by the system."
 msgstr ""
 
-#: app/models/project.rb:280
+#: app/models/project.rb:282
 msgid "You have choosen too many licenses."
 msgstr ""
 
-#: app/models/project.rb:282
+#: app/models/project.rb:284
 msgid "You have choosen too many content licenses."
 msgstr ""
 
-#: app/models/project.rb:309
+#: app/models/project.rb:311
 msgid "Please choose at least one code license."
 msgstr ""
 
-#: app/models/project.rb:312
+#: app/models/project.rb:314
 msgid ""
 "If this project contains no code, then you may not choose any other license."
 msgstr ""
 
-#: app/models/project.rb:317
+#: app/models/project.rb:319
 msgid "Please choose at least one content license."
 msgstr ""
 
-#: app/models/project.rb:320
+#: app/models/project.rb:322
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
 msgstr ""
 
-#: app/models/project.rb:323
+#: app/models/project.rb:325
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
 msgstr ""
 
-#: app/models/project.rb:327
+#: app/models/project.rb:329
 msgid "You have to choose a code license."
 msgstr ""
 
-#: app/models/project.rb:331
+#: app/models/project.rb:333
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
 msgstr ""
 
-#: app/models/project.rb:335
+#: app/models/project.rb:337
 msgid "Please choose at least one platform."
 msgstr ""
 
-#: app/models/project.rb:339
+#: app/models/project.rb:341
 msgid "Please choose at least one programming language."
 msgstr ""
 
@@ -1449,7 +1550,7 @@ msgstr "Creator"
 msgid "Downloader|Release"
 msgstr "Creator"
 
-#: app/controllers/site_admin/site_admin_controller.rb:120
+#: app/controllers/site_admin/site_admin_controller.rb:119
 msgid "Message sent."
 msgstr ""
 
@@ -1526,98 +1627,102 @@ msgstr ""
 msgid "User %{user} doesn't exist or be activated"
 msgstr ""
 
-#: app/controllers/user_controller.rb:122
+#: app/controllers/user_controller.rb:98
+msgid "user hide homepage"
+msgstr "This user doesn't allow others to view this page."
+
+#: app/controllers/user_controller.rb:125
 msgid "Username '%{username}' is invalid"
 msgstr ""
 
-#: app/controllers/user_controller.rb:127
+#: app/controllers/user_controller.rb:130
 msgid "Username '%{username}' has already registed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:129
+#: app/controllers/user_controller.rb:132
 msgid "Username '%{username}' is ready for use"
 msgstr ""
 
-#: app/controllers/user_controller.rb:142
+#: app/controllers/user_controller.rb:145
 msgid "OpenID Login Succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:147
-#: app/controllers/user_controller.rb:182
+#: app/controllers/user_controller.rb:150
+#: app/controllers/user_controller.rb:185
 msgid "user_login_failed"
 msgstr "login failed"
 
-#: app/controllers/user_controller.rb:166
+#: app/controllers/user_controller.rb:169
 msgid "user_login_succeeded"
 msgstr "login succeeded"
 
-#: app/controllers/user_controller.rb:212
+#: app/controllers/user_controller.rb:215
 msgid "user_signup_succeeded"
 msgstr "signup succeeded"
 
-#: app/controllers/user_controller.rb:217
+#: app/controllers/user_controller.rb:220
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:237
+#: app/controllers/user_controller.rb:240
 msgid "user_logout_succeeded"
 msgstr "logout succeeded"
 
-#: app/controllers/user_controller.rb:253
+#: app/controllers/user_controller.rb:256
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:255
+#: app/controllers/user_controller.rb:258
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:287
+#: app/controllers/user_controller.rb:290
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:290
+#: app/controllers/user_controller.rb:293
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:305
+#: app/controllers/user_controller.rb:308
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:307
+#: app/controllers/user_controller.rb:310
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:319
+#: app/controllers/user_controller.rb:322
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:330
+#: app/controllers/user_controller.rb:333
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:360
+#: app/controllers/user_controller.rb:363
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:385
+#: app/controllers/user_controller.rb:388
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:394
+#: app/controllers/user_controller.rb:397
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:405
+#: app/controllers/user_controller.rb:408
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:429
+#: app/controllers/user_controller.rb:432
 msgid "user_delete_finished"
 msgstr ""
 
-#: app/controllers/user_controller.rb:513
+#: app/controllers/user_controller.rb:516
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -2312,7 +2417,7 @@ msgid "Module Menagements"
 msgstr "Project name"
 
 #: app/views/layouts/application.rhtml:79 app/views/user/edit.rhtml:11
-#: app/views/user/home.rhtml:9
+#: app/views/user/home.rhtml:10
 #, fuzzy
 msgid "Change Icon"
 msgstr "Icon"
@@ -2405,7 +2510,7 @@ msgid "Top Download"
 msgstr "Top Downloads"
 
 #: app/views/releases/_top_download_list.rhtml:2
-#: app/views/site_admin/site_admin/nsc_download.rhtml:11
+#: app/views/site_admin/site_admin/nsc_download.rhtml:12
 #, fuzzy
 msgid "Release Listing"
 msgstr "Project name"
@@ -3031,29 +3136,29 @@ msgstr "Re-enter Email"
 msgid "User|Change Email"
 msgstr "Change Email"
 
-#: app/views/user/home.rhtml:2
+#: app/views/user/home.rhtml:3
 msgid "User Icon"
 msgstr "Icon"
 
-#: app/views/user/home.rhtml:19
+#: app/views/user/home.rhtml:20
 msgid "NSC Projects reviewed by me:"
 msgstr ""
 
-#: app/views/user/home.rhtml:32
+#: app/views/user/home.rhtml:33
 #, fuzzy
 msgid "My Partners"
 msgstr "My Projects"
 
-#: app/views/user/home.rhtml:48
+#: app/views/user/home.rhtml:49
 msgid "My Email"
 msgstr ""
 
-#: app/views/user/home.rhtml:59 app/views/user/my_projects.rhtml:2
+#: app/views/user/home.rhtml:60 app/views/user/my_projects.rhtml:2
 #, fuzzy
 msgid "My Projects"
 msgstr "My Projects"
 
-#: app/views/user/home.rhtml:72
+#: app/views/user/home.rhtml:73
 #, fuzzy
 msgid "Signup Date"
 msgstr "Project name"
@@ -3089,15 +3194,6 @@ msgstr ""
 msgid "User Privacy"
 msgstr "Change Email"
 
-#: app/views/user/_privacy.rhtml:5
-msgid "User|Conceal Realname"
-msgstr "Hide Realname"
-
-#: app/views/user/_privacy.rhtml:5
-#, fuzzy
-msgid "User|Conceal Realname|Help"
-msgstr "Hide Realname"
-
 #: app/views/user/_privacy.rhtml:7
 msgid "User|Conceal Email"
 msgstr "Hide Email"
@@ -3115,15 +3211,6 @@ msgstr "Hide Homepage"
 #, fuzzy
 msgid "User|Conceal Homepage|Help"
 msgstr "Hide Homepage"
-
-#: app/views/user/_privacy.rhtml:11
-msgid "User|Conceal Bio"
-msgstr "Hide About Me"
-
-#: app/views/user/_privacy.rhtml:11
-#, fuzzy
-msgid "User|Conceal Bio|Help"
-msgstr "Hide About Me"
 
 #: app/views/user/_privacy.rhtml:16
 msgid "User|Change Privacy"
@@ -3182,6 +3269,20 @@ msgstr ""
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr ""
+
+#~ msgid "User|Conceal Realname"
+#~ msgstr "Hide Realname"
+
+#, fuzzy
+#~ msgid "User|Conceal Realname|Help"
+#~ msgstr "Hide Realname"
+
+#~ msgid "User|Conceal Bio"
+#~ msgstr "Hide About Me"
+
+#, fuzzy
+#~ msgid "User|Conceal Bio|Help"
+#~ msgstr "Hide About Me"
 
 #~ msgid "User|Conceal Login Status"
 #~ msgstr "Hide Login Status"
