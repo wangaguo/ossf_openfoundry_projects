@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-10-15 08:20-0000\n"
+"POT-Creation-Date: 2009-11-16 08:50-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -356,11 +356,11 @@ msgstr "下載次數"
 msgid "Release|Updated by"
 msgstr "更新者"
 
-#: app/models/release.rb:17
+#: app/models/release.rb:19
 msgid "PREPARING"
 msgstr "準備中(Preparing)"
 
-#: app/models/release.rb:18 app/models/project.rb:10
+#: app/models/release.rb:20 app/models/project.rb:12
 msgid "RELEASED"
 msgstr "釋出(Released)"
 
@@ -657,103 +657,103 @@ msgstr "上次修改時間"
 msgid "Project|Updated by"
 msgstr "上次修改時間"
 
-#: app/models/project.rb:6
+#: app/models/project.rb:8
 msgid "IDEA"
 msgstr "概念(Idea)"
 
-#: app/models/project.rb:7
+#: app/models/project.rb:9
 msgid "PREALPHA"
 msgstr "雛形(Pre-Alpha)"
 
-#: app/models/project.rb:8
+#: app/models/project.rb:10
 msgid "ALPHA"
 msgstr "測試(Alpha)"
 
-#: app/models/project.rb:9
+#: app/models/project.rb:11
 msgid "BETA"
 msgstr "試用(Beta)"
 
-#: app/models/project.rb:11
+#: app/models/project.rb:13
 msgid "MATURE"
 msgstr "成熟(Mature)"
 
-#: app/models/project.rb:12
+#: app/models/project.rb:14
 msgid "STANDARD"
 msgstr "標準(Standard)"
 
-#: app/models/project.rb:59
+#: app/models/project.rb:61
 msgid "url_link_for_OSI: Academic Free License"
 msgstr ""
 "http://www.openfoundry.org/Law-and-Policy/Licenses/Academic-Free-License-"
 "Version-3.0-AFL.html"
 
-#: app/models/project.rb:60
+#: app/models/project.rb:62
 msgid "url_link_for_OSI: GNU Affero General Public License v3 (AGPL3)"
 msgstr "http://www.opensource.org/licenses/agpl-v3.html"
 
-#: app/models/project.rb:61
+#: app/models/project.rb:63
 msgid "url_link_for_OSI: Adaptive Public License"
 msgstr "http://www.opensource.org/licenses/apl1.0.php"
 
-#: app/models/project.rb:62
+#: app/models/project.rb:64
 msgid "url_link_for_OSI: Apache License 2.0"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/Aapache-2.0.html"
 
-#: app/models/project.rb:63
+#: app/models/project.rb:65
 msgid "url_link_for_OSI: Artistic License 2.0"
 msgstr "http://www.opensource.org/licenses/artistic-license-2.0.php"
 
-#: app/models/project.rb:64
+#: app/models/project.rb:66
 msgid "url_link_for_OSI: Attribution Assurance Licenses"
 msgstr "http://www.opensource.org/licenses/attribution.php"
 
-#: app/models/project.rb:65
+#: app/models/project.rb:67
 msgid "url_link_for_OSI: BSD License (New and Simplified BSD License)"
 msgstr ""
 "http://www.openfoundry.org/Law-and-Policy/Licenses/BSD-3-clause-BSD-License."
 "html"
 
-#: app/models/project.rb:66
+#: app/models/project.rb:68
 msgid "url_link_for_OSI: Boost Software License (BSL1.0)"
 msgstr "http://www.opensource.org/licenses/bsl1.0.html"
 
-#: app/models/project.rb:67
+#: app/models/project.rb:69
 msgid "url_link_for_OSI: Common Development and Distribution License (CDDL)"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/CDDL.html"
 
-#: app/models/project.rb:68
+#: app/models/project.rb:70
 msgid "url_link_for_OSI: Common Public Attribution License 1.0 (CPAL)"
 msgstr "http://www.opensource.org/licenses/cpal_1.0"
 
-#: app/models/project.rb:69
+#: app/models/project.rb:71
 msgid "url_link_for_OSI: Common Public License 1.0"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/CPL.html"
 
-#: app/models/project.rb:70
+#: app/models/project.rb:72
 msgid "url_link_for_OSI: Eclipse Public License"
 msgstr "http://www.opensource.org/licenses/eclipse-1.0.php"
 
-#: app/models/project.rb:71
+#: app/models/project.rb:73
 msgid "url_link_for_OSI: Educational Community License 2.0"
 msgstr "http://www.opensource.org/licenses/ecl2.php"
 
-#: app/models/project.rb:72
+#: app/models/project.rb:74
 msgid "url_link_for_OSI: Eiffel Forum License 2.0"
 msgstr "http://www.opensource.org/licenses/ver2_eiffel.php"
 
-#: app/models/project.rb:73
+#: app/models/project.rb:75
 msgid "url_link_for_OSI: Fair License"
 msgstr "http://www.opensource.org/licenses/fair.php"
 
-#: app/models/project.rb:74
+#: app/models/project.rb:76
 msgid "url_link_for_OSI: GNU General Public License 2.0 (GPLv2)"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/GPL.html"
 
-#: app/models/project.rb:75
+#: app/models/project.rb:77
 msgid "url_link_for_OSI: GNU General Public License 3.0 (GPLv3)"
 msgstr "http://www.opensource.org/licenses/gpl-3.0.html"
 
-#: app/models/project.rb:76
+#: app/models/project.rb:78
 msgid ""
 "url_link_for_OSI: GNU Library or \"Lesser\" General Public License 2.1 "
 "(LGPLv2)"
@@ -761,208 +761,208 @@ msgstr ""
 "http://www.openfoundry.org/Law-and-Policy/Licenses/GNU-Lesser-General-Public-"
 "License-2.1%EF%BC%88LGPL%EF%BC%89.html"
 
-#: app/models/project.rb:77
+#: app/models/project.rb:79
 msgid ""
 "url_link_for_OSI: GNU Library or \"Lesser\" General Public License 3.0 "
 "(LGPLv3)"
 msgstr "http://www.opensource.org/licenses/lgpl-3.0.html"
 
-#: app/models/project.rb:78
+#: app/models/project.rb:80
 msgid "url_link_for_OSI: ISC License"
 msgstr "http://www.opensource.org/licenses/isc-license.txt"
 
-#: app/models/project.rb:79
+#: app/models/project.rb:81
 msgid "url_link_for_OSI: Lucent Public License 1.02"
 msgstr "http://www.opensource.org/licenses/lucent1.02.php"
 
-#: app/models/project.rb:80
+#: app/models/project.rb:82
 msgid "url_link_for_OSI: Microsoft Public License (Ms-PL)"
 msgstr "http://www.opensource.org/licenses/ms-pl.html"
 
-#: app/models/project.rb:81
+#: app/models/project.rb:83
 msgid "url_link_for_OSI: Microsoft Reciprocal License (Ms-RL)"
 msgstr "http://www.opensource.org/licenses/ms-rl.html"
 
-#: app/models/project.rb:82
+#: app/models/project.rb:84
 msgid "url_link_for_OSI: MIT License"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/MIT.html"
 
-#: app/models/project.rb:83
+#: app/models/project.rb:85
 msgid "url_link_for_OSI: Mozilla Public License 1.1 (MPL)"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/MPL.html"
 
-#: app/models/project.rb:84
+#: app/models/project.rb:86
 msgid "url_link_for_OSI: NASA Open Source Agreement 1.3"
 msgstr "http://www.opensource.org/licenses/nasa1.3.php"
 
-#: app/models/project.rb:85
+#: app/models/project.rb:87
 msgid "url_link_for_OSI: NTP License"
 msgstr "http://www.opensource.org/licenses/ntp-license.php"
 
-#: app/models/project.rb:86
+#: app/models/project.rb:88
 msgid "url_link_for_OSI: Open Group Test Suite License"
 msgstr "http://www.opensource.org/licenses/opengroup.php"
 
-#: app/models/project.rb:87
+#: app/models/project.rb:89
 msgid "url_link_for_OSI: Open Software License"
 msgstr ""
 "http://www.openfoundry.org/Law-and-Policy/Licenses/Open-Software-License-3.0%"
 "EF%BC%88OSL%EF%BC%89.html"
 
-#: app/models/project.rb:88
+#: app/models/project.rb:90
 msgid "url_link_for_OSI: Qt Public License (QPL)"
 msgstr ""
 "http://www.openfoundry.org/Law-and-Policy/Licenses/Q-Public-License-1.0%EF%BC"
 "%88QPL%EF%BC%89.html"
 
-#: app/models/project.rb:89
+#: app/models/project.rb:91
 msgid "url_link_for_OSI: Simple Public License 2.0"
 msgstr "http://www.opensource.org/licenses/simpl-2.0.html"
 
-#: app/models/project.rb:90
+#: app/models/project.rb:92
 msgid "url_link_for_OSI: Sleepycat License"
 msgstr "http://www.opensource.org/licenses/sleepycat.php"
 
-#: app/models/project.rb:91
+#: app/models/project.rb:93
 msgid "url_link_for_OSI: University of Illinois/NCSA Open Source License"
 msgstr "http://www.opensource.org/licenses/UoI-NCSA.php"
 
-#: app/models/project.rb:92
+#: app/models/project.rb:94
 msgid "url_link_for_OSI: zlib/libpng License"
 msgstr "http://www.openfoundry.org/Law-and-Policy/Licenses/zlib/libpng.html"
 
-#: app/models/project.rb:93
+#: app/models/project.rb:95
 msgid "url_link_for_GNU Free Documentation License"
 msgstr "http://www.fsf.org/licensing/licenses/fdl.html"
 
-#: app/models/project.rb:94
+#: app/models/project.rb:96
 msgid ""
 "url_link_for_Creative Commons: Attribution Non-commercial No Derivatives (by-"
 "nc-nd)"
 msgstr "http://creativecommons.org/licenses/by-nc-nd/2.5/tw/"
 
-#: app/models/project.rb:95
+#: app/models/project.rb:97
 msgid ""
 "url_link_for_Creative Commons: Attribution Non-commercial Share Alike (by-nc-"
 "sa)"
 msgstr "http://creativecommons.org/licenses/by-nc-sa/2.5/tw/"
 
-#: app/models/project.rb:96
+#: app/models/project.rb:98
 msgid "url_link_for_Creative Commons: Attribution Non-commercial (by-nc)"
 msgstr "http://creativecommons.org/licenses/by-nc/2.5/tw/"
 
-#: app/models/project.rb:97
+#: app/models/project.rb:99
 msgid "url_link_for_Creative Commons: Attribution No Derivatives (by-nd)"
 msgstr "http://creativecommons.org/licenses/by-nd/2.5/tw/"
 
-#: app/models/project.rb:98
+#: app/models/project.rb:100
 msgid "url_link_for_Creative Commons: Attribution Share Alike (by-sa)"
 msgstr "http://creativecommons.org/licenses/by-sa/2.5/tw/"
 
-#: app/models/project.rb:99
+#: app/models/project.rb:101
 msgid "url_link_for_Creative Commons: Attribution (by)"
 msgstr "http://creativecommons.org/licenses/by/2.5/tw/"
 
-#: app/models/project.rb:103 app/models/project.rb:146
+#: app/models/project.rb:105 app/models/project.rb:148
 msgid "Public Domain"
 msgstr "公共財(Public Domain)"
 
-#: app/models/project.rb:104
+#: app/models/project.rb:106
 msgid "This project contains no code"
 msgstr "專案不包含程式碼"
 
-#: app/models/project.rb:105 app/models/project.rb:149
+#: app/models/project.rb:107 app/models/project.rb:151
 msgid "Other licenses"
 msgstr "其他"
 
-#: app/models/project.rb:147
+#: app/models/project.rb:149
 msgid "Same license as code"
 msgstr "同程式碼"
 
-#: app/models/project.rb:148
+#: app/models/project.rb:150
 msgid "Project contains only code"
 msgstr "專案不包含圖文內容"
 
-#: app/models/project.rb:213
+#: app/models/project.rb:215
 msgid "CVS"
 msgstr ""
 
-#: app/models/project.rb:215 app/views/projects/_tabnav.rhtml:6
+#: app/models/project.rb:217 app/views/projects/_tabnav.rhtml:6
 msgid "Subversion"
 msgstr ""
 
-#: app/models/project.rb:217
+#: app/models/project.rb:219
 msgid "Subversion: members only"
 msgstr ""
 
-#: app/models/project.rb:219
+#: app/models/project.rb:221
 msgid "This project uses a version control system at other site."
 msgstr "使用其他站台的版本控制系統"
 
-#: app/models/project.rb:221
+#: app/models/project.rb:223
 msgid "This project does not use any version control system."
 msgstr "不使用版本控制系統"
 
-#: app/models/project.rb:223
+#: app/models/project.rb:225
 msgid "System Error. Please contact the site administrator."
 msgstr "系統錯誤, 請通知站台管理員."
 
-#: app/models/project.rb:273
+#: app/models/project.rb:275
 msgid "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
 msgstr ""
 
-#: app/models/project.rb:274
+#: app/models/project.rb:276
 msgid "This name is reserved by the system."
 msgstr "抱歉, 此名字已被系統保留"
 
-#: app/models/project.rb:280
+#: app/models/project.rb:282
 msgid "You have choosen too many licenses."
 msgstr "您選擇了太多種程式碼授權方式"
 
-#: app/models/project.rb:282
+#: app/models/project.rb:284
 msgid "You have choosen too many content licenses."
 msgstr "您選擇了太多種圖文授權方式"
 
-#: app/models/project.rb:309
+#: app/models/project.rb:311
 msgid "Please choose at least one code license."
 msgstr "請選擇至少一種程式碼授權方式"
 
-#: app/models/project.rb:312
+#: app/models/project.rb:314
 msgid ""
 "If this project contains no code, then you may not choose any other license."
 msgstr "此專案若不包含程式碼, 請不用選取其他程式碼授權方式"
 
-#: app/models/project.rb:317
+#: app/models/project.rb:319
 msgid "Please choose at least one content license."
 msgstr "請選擇至少一種圖文授權方式"
 
-#: app/models/project.rb:320
+#: app/models/project.rb:322
 msgid ""
 "If this project contains only code, then you may not choose any other "
 "content license."
 msgstr "此專案若只有程式碼, 請不用選取圖文授權方式"
 
-#: app/models/project.rb:323
+#: app/models/project.rb:325
 msgid ""
 "If the content license is the same with the code license, then you may not "
 "choose any other content license."
 msgstr "圖文授權方式若與程式碼授權方式相同, 請不用選擇其他圖文授權方式"
 
-#: app/models/project.rb:327
+#: app/models/project.rb:329
 msgid "You have to choose a code license."
 msgstr "請選擇程式碼授權方式"
 
-#: app/models/project.rb:331
+#: app/models/project.rb:333
 msgid ""
 "You have to fill in the \"Licensing Description\" if you choosed \"Other "
 "licenses\"."
 msgstr "若您選擇了\"其他\"授權方式, 則請填寫\"授權說明\""
 
-#: app/models/project.rb:335
+#: app/models/project.rb:337
 msgid "Please choose at least one platform."
 msgstr "請選擇至少一種作業環境"
 
-#: app/models/project.rb:339
+#: app/models/project.rb:341
 msgid "Please choose at least one programming language."
 msgstr "請選擇至少一種程式語言"
 
@@ -1419,7 +1419,7 @@ msgstr "年齡"
 msgid "Downloader|Release"
 msgstr "姓名"
 
-#: app/controllers/site_admin/site_admin_controller.rb:120
+#: app/controllers/site_admin/site_admin_controller.rb:119
 msgid "Message sent."
 msgstr ""
 
@@ -1491,98 +1491,102 @@ msgstr "共同筆記"
 msgid "User %{user} doesn't exist or be activated"
 msgstr "使用者 %{user} 不存在或是停用"
 
-#: app/controllers/user_controller.rb:122
+#: app/controllers/user_controller.rb:98
+msgid "user hide homepage"
+msgstr "此使用者不允許別人觀看其個人首頁"
+
+#: app/controllers/user_controller.rb:125
 msgid "Username '%{username}' is invalid"
 msgstr "使用者名稱'%{username}'無效"
 
-#: app/controllers/user_controller.rb:127
+#: app/controllers/user_controller.rb:130
 msgid "Username '%{username}' has already registed"
 msgstr "使用者名稱'%{username}'已經註冊過了"
 
-#: app/controllers/user_controller.rb:129
+#: app/controllers/user_controller.rb:132
 msgid "Username '%{username}' is ready for use"
 msgstr "使用者名稱'%{username}'可以使用"
 
-#: app/controllers/user_controller.rb:142
+#: app/controllers/user_controller.rb:145
 msgid "OpenID Login Succeeded"
 msgstr "OpenID登入成功"
 
-#: app/controllers/user_controller.rb:147
-#: app/controllers/user_controller.rb:182
+#: app/controllers/user_controller.rb:150
+#: app/controllers/user_controller.rb:185
 msgid "user_login_failed"
 msgstr "登入失敗"
 
-#: app/controllers/user_controller.rb:166
+#: app/controllers/user_controller.rb:169
 msgid "user_login_succeeded"
 msgstr "登入成功"
 
-#: app/controllers/user_controller.rb:212
+#: app/controllers/user_controller.rb:215
 msgid "user_signup_succeeded"
 msgstr "註冊成功, 請到您的所填入的電子郵件信箱回覆驗證信"
 
-#: app/controllers/user_controller.rb:217
+#: app/controllers/user_controller.rb:220
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:237
+#: app/controllers/user_controller.rb:240
 msgid "user_logout_succeeded"
 msgstr "登出成功"
 
-#: app/controllers/user_controller.rb:253
+#: app/controllers/user_controller.rb:256
 msgid "user_updated_email"
 msgstr "電子郵件更新成功"
 
-#: app/controllers/user_controller.rb:255
+#: app/controllers/user_controller.rb:258
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:287
+#: app/controllers/user_controller.rb:290
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:290
+#: app/controllers/user_controller.rb:293
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:305
+#: app/controllers/user_controller.rb:308
 msgid "user_enter_valid_email_address"
 msgstr "電子郵件位址不正確"
 
-#: app/controllers/user_controller.rb:307
+#: app/controllers/user_controller.rb:310
 msgid "user_email_address_not_found"
 msgstr "查無此電子郵件位址"
 
-#: app/controllers/user_controller.rb:319
+#: app/controllers/user_controller.rb:322
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:330
+#: app/controllers/user_controller.rb:333
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:360
+#: app/controllers/user_controller.rb:363
 msgid "Update User Privacy Setting Successed"
 msgstr "使有者隱私權已更新"
 
-#: app/controllers/user_controller.rb:385
+#: app/controllers/user_controller.rb:388
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:394
+#: app/controllers/user_controller.rb:397
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:405
+#: app/controllers/user_controller.rb:408
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:429
+#: app/controllers/user_controller.rb:432
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:513
+#: app/controllers/user_controller.rb:516
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -2247,7 +2251,7 @@ msgid "Module Menagements"
 msgstr "模組管理"
 
 #: app/views/layouts/application.rhtml:79 app/views/user/edit.rhtml:11
-#: app/views/user/home.rhtml:9
+#: app/views/user/home.rhtml:10
 msgid "Change Icon"
 msgstr "更換圖像"
 
@@ -2332,7 +2336,7 @@ msgid "Top Download"
 msgstr "下載排行"
 
 #: app/views/releases/_top_download_list.rhtml:2
-#: app/views/site_admin/site_admin/nsc_download.rhtml:11
+#: app/views/site_admin/site_admin/nsc_download.rhtml:12
 msgid "Release Listing"
 msgstr "釋出列表"
 
@@ -2908,27 +2912,27 @@ msgstr "請再次輸入電子郵件"
 msgid "User|Change Email"
 msgstr "更改電子郵件"
 
-#: app/views/user/home.rhtml:2
+#: app/views/user/home.rhtml:3
 msgid "User Icon"
 msgstr "使用者圖像"
 
-#: app/views/user/home.rhtml:19
+#: app/views/user/home.rhtml:20
 msgid "NSC Projects reviewed by me:"
 msgstr ""
 
-#: app/views/user/home.rhtml:32
+#: app/views/user/home.rhtml:33
 msgid "My Partners"
 msgstr "我的伙伴"
 
-#: app/views/user/home.rhtml:48
+#: app/views/user/home.rhtml:49
 msgid "My Email"
 msgstr "我的電子郵件"
 
-#: app/views/user/home.rhtml:59 app/views/user/my_projects.rhtml:2
+#: app/views/user/home.rhtml:60 app/views/user/my_projects.rhtml:2
 msgid "My Projects"
 msgstr "我參與的專案"
 
-#: app/views/user/home.rhtml:72
+#: app/views/user/home.rhtml:73
 msgid "Signup Date"
 msgstr "註冊時間"
 
@@ -2960,14 +2964,6 @@ msgstr "忘記密碼"
 msgid "User Privacy"
 msgstr "使用者隱私設定"
 
-#: app/views/user/_privacy.rhtml:5
-msgid "User|Conceal Realname"
-msgstr "隱藏真實姓名"
-
-#: app/views/user/_privacy.rhtml:5
-msgid "User|Conceal Realname|Help"
-msgstr "不顯示真實姓名在使用者頁面"
-
 #: app/views/user/_privacy.rhtml:7
 msgid "User|Conceal Email"
 msgstr "隱藏電子郵件"
@@ -2983,14 +2979,6 @@ msgstr "隱藏個人首頁"
 #: app/views/user/_privacy.rhtml:9
 msgid "User|Conceal Homepage|Help"
 msgstr "不顯示個人首頁在使用者頁面"
-
-#: app/views/user/_privacy.rhtml:11
-msgid "User|Conceal Bio"
-msgstr "隱藏自我描述"
-
-#: app/views/user/_privacy.rhtml:11
-msgid "User|Conceal Bio|Help"
-msgstr "不顯示自我描述在使用者頁面"
 
 #: app/views/user/_privacy.rhtml:16
 msgid "User|Change Privacy"
@@ -3046,6 +3034,18 @@ msgstr ""
 #: lib/user_system.rb:68
 msgid "You have to login OpenFoundry first."
 msgstr "你必需先登入OpenFoundry"
+
+#~ msgid "User|Conceal Realname"
+#~ msgstr "隱藏真實姓名"
+
+#~ msgid "User|Conceal Realname|Help"
+#~ msgstr "不顯示真實姓名在使用者頁面"
+
+#~ msgid "User|Conceal Bio"
+#~ msgstr "隱藏自我描述"
+
+#~ msgid "User|Conceal Bio|Help"
+#~ msgstr "不顯示自我描述在使用者頁面"
 
 #~ msgid "The project \"%{project}\" you are requesting does not exist."
 #~ msgstr "專案\"%{project}\"不存在"
