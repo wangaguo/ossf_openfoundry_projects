@@ -91,7 +91,7 @@ class UserController < ApplicationController
     if user
       @name = user.login
       @icon = user.icon
-      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then 
+      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer')  || @my then 
         @conceal_homepage = false
         @conceal_email = false
       else
