@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-11-16 08:50-0000\n"
+"POT-Creation-Date: 2009-11-18 09:50-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1627,102 +1627,98 @@ msgstr ""
 msgid "User %{user} doesn't exist or be activated"
 msgstr ""
 
-#: app/controllers/user_controller.rb:98
-msgid "user hide homepage"
-msgstr "This user doesn't allow others to view this page."
-
-#: app/controllers/user_controller.rb:125
+#: app/controllers/user_controller.rb:131
 msgid "Username '%{username}' is invalid"
 msgstr ""
 
-#: app/controllers/user_controller.rb:130
+#: app/controllers/user_controller.rb:136
 msgid "Username '%{username}' has already registed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:132
+#: app/controllers/user_controller.rb:138
 msgid "Username '%{username}' is ready for use"
 msgstr ""
 
-#: app/controllers/user_controller.rb:145
+#: app/controllers/user_controller.rb:151
 msgid "OpenID Login Succeeded"
 msgstr ""
 
-#: app/controllers/user_controller.rb:150
-#: app/controllers/user_controller.rb:185
+#: app/controllers/user_controller.rb:156
+#: app/controllers/user_controller.rb:191
 msgid "user_login_failed"
 msgstr "login failed"
 
-#: app/controllers/user_controller.rb:169
+#: app/controllers/user_controller.rb:175
 msgid "user_login_succeeded"
 msgstr "login succeeded"
 
-#: app/controllers/user_controller.rb:215
+#: app/controllers/user_controller.rb:221
 msgid "user_signup_succeeded"
 msgstr "signup succeeded"
 
-#: app/controllers/user_controller.rb:220
+#: app/controllers/user_controller.rb:226
 msgid "user_confirmation_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:240
+#: app/controllers/user_controller.rb:246
 msgid "user_logout_succeeded"
 msgstr "logout succeeded"
 
-#: app/controllers/user_controller.rb:256
+#: app/controllers/user_controller.rb:262
 msgid "user_updated_email"
 msgstr ""
 
-#: app/controllers/user_controller.rb:258
+#: app/controllers/user_controller.rb:264
 msgid "user_change_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:290
+#: app/controllers/user_controller.rb:296
 msgid "user_updated_password"
 msgstr ""
 
-#: app/controllers/user_controller.rb:293
+#: app/controllers/user_controller.rb:299
 msgid "user_change_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:308
+#: app/controllers/user_controller.rb:314
 msgid "user_enter_valid_email_address"
 msgstr ""
 
-#: app/controllers/user_controller.rb:310
+#: app/controllers/user_controller.rb:316
 msgid "user_email_address_not_found"
 msgstr ""
 
-#: app/controllers/user_controller.rb:322
+#: app/controllers/user_controller.rb:328
 msgid "user_forgotten_password_emailed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:333
+#: app/controllers/user_controller.rb:339
 msgid "user_forgotten_password_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:363
+#: app/controllers/user_controller.rb:369
 msgid "Update User Privacy Setting Successed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:388
+#: app/controllers/user_controller.rb:394
 msgid "user_delete_email_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:397
+#: app/controllers/user_controller.rb:403
 msgid "user_restore_deleted_error"
 msgstr ""
 
-#: app/controllers/user_controller.rb:408
+#: app/controllers/user_controller.rb:414
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr ""
 
-#: app/controllers/user_controller.rb:432
+#: app/controllers/user_controller.rb:438
 msgid "user_delete_finished"
 msgstr ""
 
-#: app/controllers/user_controller.rb:516
+#: app/controllers/user_controller.rb:522
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -2417,7 +2413,7 @@ msgid "Module Menagements"
 msgstr "Project name"
 
 #: app/views/layouts/application.rhtml:79 app/views/user/edit.rhtml:11
-#: app/views/user/home.rhtml:10
+#: app/views/user/home.rhtml:9
 #, fuzzy
 msgid "Change Icon"
 msgstr "Icon"
@@ -3136,7 +3132,7 @@ msgstr "Re-enter Email"
 msgid "User|Change Email"
 msgstr "Change Email"
 
-#: app/views/user/home.rhtml:3
+#: app/views/user/home.rhtml:2
 msgid "User Icon"
 msgstr "Icon"
 
@@ -3145,20 +3141,54 @@ msgid "NSC Projects reviewed by me:"
 msgstr ""
 
 #: app/views/user/home.rhtml:33
-#, fuzzy
 msgid "My Partners"
-msgstr "My Projects"
+msgstr "My Partners"
 
-#: app/views/user/home.rhtml:49
+#: app/views/user/home.rhtml:35
+msgid "User Own Partners"
+msgstr "'s Partners"
+
+#: app/views/user/home.rhtml:50
+msgid "My Realname"
+msgstr "My Realname"
+
+#: app/views/user/home.rhtml:52
+msgid "User Own Realname"
+msgstr "'s Realname"
+
+#: app/views/user/home.rhtml:63
 msgid "My Email"
-msgstr ""
+msgstr "My Email"
 
-#: app/views/user/home.rhtml:60 app/views/user/my_projects.rhtml:2
-#, fuzzy
+#: app/views/user/home.rhtml:65
+msgid "User Own Email"
+msgstr "'s Email"
+
+#: app/views/user/home.rhtml:76
+msgid "My Homepage"
+msgstr "My Homepage"
+
+#: app/views/user/home.rhtml:78
+msgid "User Own Homepage"
+msgstr "'s Homepage"
+
+#: app/views/user/home.rhtml:89
+msgid "My Description"
+msgstr "My Description"
+
+#: app/views/user/home.rhtml:91
+msgid "User Own Description"
+msgstr "'s Description"
+
+#: app/views/user/home.rhtml:101 app/views/user/my_projects.rhtml:2
 msgid "My Projects"
 msgstr "My Projects"
 
-#: app/views/user/home.rhtml:73
+#: app/views/user/home.rhtml:103
+msgid "User Own Projects"
+msgstr "'s Projects"
+
+#: app/views/user/home.rhtml:115
 #, fuzzy
 msgid "Signup Date"
 msgstr "Project name"
@@ -3194,6 +3224,15 @@ msgstr ""
 msgid "User Privacy"
 msgstr "Change Email"
 
+#: app/views/user/_privacy.rhtml:5
+msgid "User|Conceal Realname"
+msgstr "Hide Realname"
+
+#: app/views/user/_privacy.rhtml:5
+#, fuzzy
+msgid "User|Conceal Realname|Help"
+msgstr "Hide Realname"
+
 #: app/views/user/_privacy.rhtml:7
 msgid "User|Conceal Email"
 msgstr "Hide Email"
@@ -3211,6 +3250,15 @@ msgstr "Hide Homepage"
 #, fuzzy
 msgid "User|Conceal Homepage|Help"
 msgstr "Hide Homepage"
+
+#: app/views/user/_privacy.rhtml:11
+msgid "User|Conceal Bio"
+msgstr "Hide About Me"
+
+#: app/views/user/_privacy.rhtml:11
+#, fuzzy
+msgid "User|Conceal Bio|Help"
+msgstr "Hide About Me"
 
 #: app/views/user/_privacy.rhtml:16
 msgid "User|Change Privacy"
@@ -3270,19 +3318,8 @@ msgstr ""
 msgid "You have to login OpenFoundry first."
 msgstr ""
 
-#~ msgid "User|Conceal Realname"
-#~ msgstr "Hide Realname"
-
-#, fuzzy
-#~ msgid "User|Conceal Realname|Help"
-#~ msgstr "Hide Realname"
-
-#~ msgid "User|Conceal Bio"
-#~ msgstr "Hide About Me"
-
-#, fuzzy
-#~ msgid "User|Conceal Bio|Help"
-#~ msgstr "Hide About Me"
+#~ msgid "user hide homepage"
+#~ msgstr "This user doesn't allow others to view this page."
 
 #~ msgid "User|Conceal Login Status"
 #~ msgstr "Hide Login Status"
