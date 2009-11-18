@@ -91,12 +91,18 @@ class UserController < ApplicationController
     if user
       @name = user.login
       @icon = user.icon
-      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer')  || @my then 
+      @realname = user.realname
+      @homepage = user.homepage
+      @bio = user.bio
+      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then 
+        @conceal_realname = false
         @conceal_homepage = false
+        @conceal_bio = false
         @conceal_email = false
       else
-        flash.now[:message] = _("user hide homepage")
+        @conceal_realname = user.t_conceal_realname
         @conceal_homepage = user.t_conceal_homepage
+        @conceal_bio = user.t_conceal_bio
         @conceal_email = user.t_conceal_email
       end
       session[:email_image] = user.email unless @conceal_email

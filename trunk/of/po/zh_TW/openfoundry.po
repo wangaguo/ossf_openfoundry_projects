@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2009-11-16 08:50-0000\n"
+"POT-Creation-Date: 2009-11-18 09:50-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1491,102 +1491,98 @@ msgstr "共同筆記"
 msgid "User %{user} doesn't exist or be activated"
 msgstr "使用者 %{user} 不存在或是停用"
 
-#: app/controllers/user_controller.rb:98
-msgid "user hide homepage"
-msgstr "此使用者不允許別人觀看其個人首頁"
-
-#: app/controllers/user_controller.rb:125
+#: app/controllers/user_controller.rb:131
 msgid "Username '%{username}' is invalid"
 msgstr "使用者名稱'%{username}'無效"
 
-#: app/controllers/user_controller.rb:130
+#: app/controllers/user_controller.rb:136
 msgid "Username '%{username}' has already registed"
 msgstr "使用者名稱'%{username}'已經註冊過了"
 
-#: app/controllers/user_controller.rb:132
+#: app/controllers/user_controller.rb:138
 msgid "Username '%{username}' is ready for use"
 msgstr "使用者名稱'%{username}'可以使用"
 
-#: app/controllers/user_controller.rb:145
+#: app/controllers/user_controller.rb:151
 msgid "OpenID Login Succeeded"
 msgstr "OpenID登入成功"
 
-#: app/controllers/user_controller.rb:150
-#: app/controllers/user_controller.rb:185
+#: app/controllers/user_controller.rb:156
+#: app/controllers/user_controller.rb:191
 msgid "user_login_failed"
 msgstr "登入失敗"
 
-#: app/controllers/user_controller.rb:169
+#: app/controllers/user_controller.rb:175
 msgid "user_login_succeeded"
 msgstr "登入成功"
 
-#: app/controllers/user_controller.rb:215
+#: app/controllers/user_controller.rb:221
 msgid "user_signup_succeeded"
 msgstr "註冊成功, 請到您的所填入的電子郵件信箱回覆驗證信"
 
-#: app/controllers/user_controller.rb:220
+#: app/controllers/user_controller.rb:226
 msgid "user_confirmation_email_error"
 msgstr "您的驗證信傳送失敗"
 
-#: app/controllers/user_controller.rb:240
+#: app/controllers/user_controller.rb:246
 msgid "user_logout_succeeded"
 msgstr "登出成功"
 
-#: app/controllers/user_controller.rb:256
+#: app/controllers/user_controller.rb:262
 msgid "user_updated_email"
 msgstr "電子郵件更新成功"
 
-#: app/controllers/user_controller.rb:258
+#: app/controllers/user_controller.rb:264
 msgid "user_change_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:290
+#: app/controllers/user_controller.rb:296
 msgid "user_updated_password"
 msgstr "密碼更新成功"
 
-#: app/controllers/user_controller.rb:293
+#: app/controllers/user_controller.rb:299
 msgid "user_change_password_email_error"
 msgstr "密碼更新失敗"
 
-#: app/controllers/user_controller.rb:308
+#: app/controllers/user_controller.rb:314
 msgid "user_enter_valid_email_address"
 msgstr "電子郵件位址不正確"
 
-#: app/controllers/user_controller.rb:310
+#: app/controllers/user_controller.rb:316
 msgid "user_email_address_not_found"
 msgstr "查無此電子郵件位址"
 
-#: app/controllers/user_controller.rb:322
+#: app/controllers/user_controller.rb:328
 msgid "user_forgotten_password_emailed"
 msgstr "您的確認信已寄出"
 
-#: app/controllers/user_controller.rb:333
+#: app/controllers/user_controller.rb:339
 msgid "user_forgotten_password_email_error"
 msgstr "確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:363
+#: app/controllers/user_controller.rb:369
 msgid "Update User Privacy Setting Successed"
 msgstr "使有者隱私權已更新"
 
-#: app/controllers/user_controller.rb:388
+#: app/controllers/user_controller.rb:394
 msgid "user_delete_email_error"
 msgstr "刪除使用者確認信傳送失敗"
 
-#: app/controllers/user_controller.rb:397
+#: app/controllers/user_controller.rb:403
 msgid "user_restore_deleted_error"
 msgstr "復原刪除使用者"
 
-#: app/controllers/user_controller.rb:408
+#: app/controllers/user_controller.rb:414
 msgid ""
 "Sorry, it could be the fellowing reason: User Login Name / Email already be "
 "used, Token Expired or Token Not Existed"
 msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:432
+#: app/controllers/user_controller.rb:438
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:516
+#: app/controllers/user_controller.rb:522
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
@@ -2251,7 +2247,7 @@ msgid "Module Menagements"
 msgstr "模組管理"
 
 #: app/views/layouts/application.rhtml:79 app/views/user/edit.rhtml:11
-#: app/views/user/home.rhtml:10
+#: app/views/user/home.rhtml:9
 msgid "Change Icon"
 msgstr "更換圖像"
 
@@ -2912,7 +2908,7 @@ msgstr "請再次輸入電子郵件"
 msgid "User|Change Email"
 msgstr "更改電子郵件"
 
-#: app/views/user/home.rhtml:3
+#: app/views/user/home.rhtml:2
 msgid "User Icon"
 msgstr "使用者圖像"
 
@@ -2924,15 +2920,51 @@ msgstr ""
 msgid "My Partners"
 msgstr "我的伙伴"
 
-#: app/views/user/home.rhtml:49
+#: app/views/user/home.rhtml:35
+msgid "User Own Partners"
+msgstr "的伙伴"
+
+#: app/views/user/home.rhtml:50
+msgid "My Realname"
+msgstr "我的真實姓名"
+
+#: app/views/user/home.rhtml:52
+msgid "User Own Realname"
+msgstr "的真實姓名"
+
+#: app/views/user/home.rhtml:63
 msgid "My Email"
 msgstr "我的電子郵件"
 
-#: app/views/user/home.rhtml:60 app/views/user/my_projects.rhtml:2
+#: app/views/user/home.rhtml:65
+msgid "User Own Email"
+msgstr "的電子郵件"
+
+#: app/views/user/home.rhtml:76
+msgid "My Homepage"
+msgstr "我的個人首頁"
+
+#: app/views/user/home.rhtml:78
+msgid "User Own Homepage"
+msgstr "的個人首頁"
+
+#: app/views/user/home.rhtml:89
+msgid "My Description"
+msgstr "我的個人描述"
+
+#: app/views/user/home.rhtml:91
+msgid "User Own Description"
+msgstr "的個人描述"
+
+#: app/views/user/home.rhtml:101 app/views/user/my_projects.rhtml:2
 msgid "My Projects"
 msgstr "我參與的專案"
 
-#: app/views/user/home.rhtml:73
+#: app/views/user/home.rhtml:103
+msgid "User Own Projects"
+msgstr "參與的專案"
+
+#: app/views/user/home.rhtml:115
 msgid "Signup Date"
 msgstr "註冊時間"
 
@@ -2964,6 +2996,14 @@ msgstr "忘記密碼"
 msgid "User Privacy"
 msgstr "使用者隱私設定"
 
+#: app/views/user/_privacy.rhtml:5
+msgid "User|Conceal Realname"
+msgstr "隱藏真實姓名"
+
+#: app/views/user/_privacy.rhtml:5
+msgid "User|Conceal Realname|Help"
+msgstr "不顯示真實姓名在使用者頁面"
+
 #: app/views/user/_privacy.rhtml:7
 msgid "User|Conceal Email"
 msgstr "隱藏電子郵件"
@@ -2979,6 +3019,14 @@ msgstr "隱藏個人首頁"
 #: app/views/user/_privacy.rhtml:9
 msgid "User|Conceal Homepage|Help"
 msgstr "不顯示個人首頁在使用者頁面"
+
+#: app/views/user/_privacy.rhtml:11
+msgid "User|Conceal Bio"
+msgstr "隱藏自我描述"
+
+#: app/views/user/_privacy.rhtml:11
+msgid "User|Conceal Bio|Help"
+msgstr "不顯示自我描述在使用者頁面"
 
 #: app/views/user/_privacy.rhtml:16
 msgid "User|Change Privacy"
@@ -3035,17 +3083,8 @@ msgstr ""
 msgid "You have to login OpenFoundry first."
 msgstr "你必需先登入OpenFoundry"
 
-#~ msgid "User|Conceal Realname"
-#~ msgstr "隱藏真實姓名"
-
-#~ msgid "User|Conceal Realname|Help"
-#~ msgstr "不顯示真實姓名在使用者頁面"
-
-#~ msgid "User|Conceal Bio"
-#~ msgstr "隱藏自我描述"
-
-#~ msgid "User|Conceal Bio|Help"
-#~ msgstr "不顯示自我描述在使用者頁面"
+#~ msgid "user hide homepage"
+#~ msgstr "此使用者不允許別人觀看其個人首頁"
 
 #~ msgid "The project \"%{project}\" you are requesting does not exist."
 #~ msgstr "專案\"%{project}\"不存在"
