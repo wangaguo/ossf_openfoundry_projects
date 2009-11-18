@@ -270,7 +270,8 @@ class OpenfoundryController < ApplicationController
   
   def search #for search!!! TODO: catalog and optimize?
     @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
-    query = "*" + @query.gsub(/\*/, "").split(" ").join("* *") + "*"
+    query = (@query+" ").gsub(/([\w])+[\s]+/){|m|
+      $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
     @options = {}
     @options[:per_page] = params[:per_page] || 20
     @options[:page] = params[:page] || 1
