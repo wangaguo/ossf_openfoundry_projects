@@ -2553,7 +2553,7 @@ msgstr "儲存"
 #: app/views/projects/_role_new.rhtml:8
 #: app/views/projects/permission_edit.rhtml:11
 msgid "New"
-msgstr "新聞"
+msgstr "新增"
 
 #: app/views/projects/member_edit.rhtml:8
 msgid "Member Management"
