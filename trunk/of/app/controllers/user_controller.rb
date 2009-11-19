@@ -94,7 +94,7 @@ class UserController < ApplicationController
       @realname = user.realname
       @homepage = user.homepage
       @bio = user.bio
-      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then 
+      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
         @conceal_realname = false
         @conceal_homepage = false
         @conceal_bio = false
