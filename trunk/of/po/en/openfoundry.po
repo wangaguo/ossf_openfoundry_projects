@@ -2754,7 +2754,7 @@ msgstr "Project name"
 #: app/views/projects/_role_new.rhtml:8
 #: app/views/projects/permission_edit.rhtml:11
 msgid "New"
-msgstr ""
+msgstr "Add"
 
 #: app/views/projects/member_edit.rhtml:8
 #, fuzzy
