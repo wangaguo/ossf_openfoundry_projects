@@ -178,6 +178,9 @@ class UserController < ApplicationController
       # with a simple lock...
       Session.user_login(session[:user].id)
 
+      # set language for user's default preference
+      cookies["lang"] = current_user.language
+
       redirect_back_or_default :action => :home
       # For "paranoid session store"
       #self.app_user=session[:user]
