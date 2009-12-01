@@ -77,6 +77,7 @@ ActionController::Routing::Routes.draw do |map|
                  :editrelease => :post, :updaterelease => :post,
                  :viewrelease => :post, :viewfile => :post,
                  :reload => :post,
+                 :web_upload => :post, :delete_files => :post,
                  :download => :any },
     :singular => :release
   map.resources :kwiki,
