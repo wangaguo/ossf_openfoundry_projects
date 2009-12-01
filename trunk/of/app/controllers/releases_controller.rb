@@ -192,6 +192,34 @@ class ReleasesController < ApplicationController
       render :layout => false   
     end
   end
+
+  def web_upload
+    for i in 1..5
+      file = 'upload_file_'+i.to_s
+      if !params[file].nil?
+        upload_an_file(params[file])
+      end
+    end
+    redirect_to url_for(:project_id => params[:project_id],
+      :action => :show, :id => params[:id])
+  end
+
+  def upload_an_file(uploaded_file)
+    save_as = File.join(Project::PROJECT_UPLOAD_PATH, @project.name , 'upload', uploaded_file.original_path)
+
+    File.open( save_as.to_s, 'w' ) do |file|
+      file.write( uploaded_file.read )
+    end
+    return true
+  end
+
+  def delete_files
+    params[:uploadfiles].each do |f|
+      file_path = "#{Project::PROJECT_UPLOAD_PATH}/#{@project.name}/upload/#{f}"
+      File.delete(file_path) if File.exist?(file_path)
+    end
+    reload
+  end
   
   #用link_to_remote呼叫 將檔案加入專案發佈中
   def addfiles
