@@ -153,7 +153,7 @@ God.watch do |w|
   w.transition(:up, :restart) do |on|
     on.condition(:memory_usage) do |c|
       c.interval = 20
-      c.above = 75.megabytes
+      c.above = 300.megabytes
       c.times = [3, 5]
       c.notify = 'ossf-dev'
     end
@@ -199,13 +199,13 @@ God.contact(:email) do |c|
   c.group = 'ossf-dev'
 end
 God.contact(:email) do |c|
-  c.name = 'aguo'
+  c.name = 'wangaguo'
   c.email = 'wangaguo@iis.sinica.edu.tw'
   c.group = 'ossf-dev'
 end
 God.contact(:email) do |c|
-  c.name = 'thkuo'
-  c.email = 'thkuo@iis.sinica.edu.tw'
+  c.name = 'shawn'
+  c.email = 'shawn.chiou@citi.sinica.edu.tw'
   c.group = 'ossf-dev'
 end
 God.contact(:email) do |c|
@@ -213,10 +213,4 @@ God.contact(:email) do |c|
   c.email = 'fuchuanc@citi.sinica.edu.tw'
   c.group = 'ossf-dev'
 end
-God.contact(:email) do |c|
-  c.name = 'ant'
-  c.email = 'yftzeng@citi.sinica.edu.tw'
-  c.group = 'ossf-dev'
-end
-
 
