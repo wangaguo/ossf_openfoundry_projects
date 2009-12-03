@@ -55,12 +55,13 @@ Rails::Initializer.run do |config|
   config.gem "gettext"
   config.gem "gettext_activerecord"
   config.gem "gettext_rails"
-  config.gem "sdsykes-read_from_slave", :lib =>"read_from_slave", :source => "http://gems.github.com"
+  #config.gem "sdsykes-read_from_slave", :lib =>"read_from_slave", :source => "http://gems.github.com"
   config.gem "SyslogLogger", :lib => "syslog_logger"
   config.gem 'json', :version => ">= 1.1.2" 
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 
   config.gem 'packr', :version =>  ">= 3.1.0" 
+  config.gem 'redis'
 
   config.time_zone = 'Taipei' 
 
@@ -91,6 +92,9 @@ Rails::Initializer.run do |config|
     GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
     DEFAULT_FIELD = [:name, :summary, 
 	    :subject, :description, :requirement, :description_without_tag, :login]
+    #for redis connection
+    REDIS = Redis.new :host => '192.168.0.238'
+
 
     #require "lib/memory.rb"
     #require "lib/mongrel_size_limit.rb"
@@ -104,6 +108,7 @@ Rails::Initializer.run do |config|
 
     # TODO: better naming
     OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
+    OPENFOUNDRY_SITEMAIL_BATCH_MAX = 500 
     OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
     OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
     OPENFOUNDRY_VIEWVC_CVS_URL =  'http://of.openfoundry.org/viewvc-cvs/'
@@ -112,6 +117,7 @@ Rails::Initializer.run do |config|
     OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
     OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
     OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
+    OPENFOUNDRY_FTP_URL = 'ftp://ftp.of.openfoundry.org/'
 
     OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH = "#{RAILS_ROOT}/tmp/run_code.rb"
     # an Enumerable object.  TODO: not only ports but also addresses ?
@@ -131,7 +137,7 @@ Rails::Initializer.run do |config|
                                     # you may override it in initializers/environment_local.rb
     NSC_UPLOAD_FROM = "2009/01/01 00:00"
     NSC_UPLOAD_TO = "2009/12/31 23:59"
-    NSC_CURRENT_YEAR = "97"
+    NSC_CURRENT_YEAR = "98"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
 end
