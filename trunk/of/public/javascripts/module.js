@@ -104,7 +104,7 @@ window.OF = {
       $("tr:has(small:contains('P3'))").css("background-color","#FFE8BF").prev().css("background-color","#FFE8BF");
       $("tr:has(small:contains('P4'))").css("background-color","#F9AFFF").prev().css("background-color","#F9AFFF");
       $("tr:has(small:contains('P5'))").css("background-color","#F35FFF").prev().css("background-color","#F35FFF");
-      $("tr:contains('已處理'), tr:contains('已駁回'), tr:contains('rejected'), tr:contains('resolved')").css("background-color","gray").next().css("background-color","gray");
+      $("tr").find("td:eq(2):contains('已處理'), td:eq(2):contains('已駁回'), td:eq(2):contains('rejected'), td:eq(2):contains('resolved')").parent().css("background-color","gray").next().css("background-color","gray");
       $("small:contains('P1')").css("background-color","#FF6F6F");
       $("small:contains('P2')").css("background-color","#FFAFAF");
       $("small:contains('P3')").css("background-color","#FFE8BF");
