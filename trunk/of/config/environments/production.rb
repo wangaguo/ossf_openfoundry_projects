@@ -28,5 +28,5 @@ config.logger = SyslogLogger.new
 config.threadsafe!
 
 #for db cluster
-config.gem "sdsykes-read_from_slave", :lib=>"read_from_slave"
+#config.gem "sdsykes-read_from_slave", :lib=>"read_from_slave"
 
