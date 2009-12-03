@@ -82,7 +82,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     filter_file = File.join(Rails.configuration.root_path, 'config', 'site_mail_filter.txt')
     if request.post? then
       @mail = Hashit.new(params[:mail])
-      bcc_max = 100
+      bcc_max = OPENFOUNDRY_SITEMAIL_BATCH_MAX 
       bcc_j = 0
       bcc_i = 0
       bcc = []
@@ -94,7 +94,6 @@ class SiteAdmin::SiteAdminController < SiteAdmin
       when "all_valid_users", "all_valid_users_and_filter"
         if @mail.type == "all_valid_users" then
           users = User.find(:all, :conditions => "#{User::verified_users}")
-          #users = User.find(:all, :conditions => "id > 50798 and #{User::verified_users}")
         else
           @mail.filter = "'" + @mail.filter.gsub(/[^a-zA-Z0-9,_]/, '').gsub(/,/, "','") + "'"
           f = File.new(filter_file, "w")
@@ -103,8 +102,8 @@ class SiteAdmin::SiteAdminController < SiteAdmin
           users = User.find(:all, :conditions => "#{User::verified_users} and login not in(#{@mail.filter})")
         end
         users.each do |user|
-          if bcc[bcc_i].nil? then bcc[bcc_i] = "" end
-          bcc[bcc_i] += "#{user.login} <#{user.email}>, "
+          if bcc[bcc_i].nil? then bcc[bcc_i] = "" else bcc[bcc_i] += ", " end
+          bcc[bcc_i] += "#{user.login} <#{user.email}>"
           if (bcc_j+=1) == bcc_max then
             bcc_j=0
             bcc_i+=1
