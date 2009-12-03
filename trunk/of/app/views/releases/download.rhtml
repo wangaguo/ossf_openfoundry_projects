@@ -1,11 +1,15 @@
 <div id="ReleaseBasic">
   <table class=list-table>
   <% @releases.each do |release|%>
+    <%
+      due = release.due.strftime("%Y/%m/%d") if release.due
+      due ||= "Due Day Unknown"
+    %>
     <tr>
       <th style="text-align: left">
         <B><%= "<a name=\"#{h(release.version)}\"></a>" + 
           h(release.version) + 
-          " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %>
+          " (" + due + ")" %>
         </B>
       </th>
       <% if @permissions.include?(:survey) %>
