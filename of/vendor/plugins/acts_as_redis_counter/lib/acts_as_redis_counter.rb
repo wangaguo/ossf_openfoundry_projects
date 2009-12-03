@@ -50,7 +50,8 @@ module ActsAsRedisCounter #:nodoc:
 
             # save to db
             if (redis_value - db_value) > hits or expired
-              send(:update_attribute, attribute, redis_value)
+              send(:write_attribute, attribute, redis_value)
+              update_without_callbacks
 
               # set ttl key expiration
               REDIS.set(ttl_key, 1, options[:ttl].to_i)
