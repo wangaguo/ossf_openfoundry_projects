@@ -308,16 +308,13 @@ THECODE
     file_name = params["file_name"]
 
     @project = Project.find_by_name( 
-             project_name, :select => 'id, name,project_counter', 
-                           :include => [:releases], 
+             project_name, :include => [:releases], 
                            :conditions => Project.in_used_projects )
     @release = @project.releases.find_by_version( 
-             release_version, :select => 'id, version,release_counter', 
-                              :include => [:fileentity],
+             release_version, :include => [:fileentity],
                               :conditions => Release.published_releases(:alias => 'releases') ) if @project
     @file = @release.fileentity.find_by_path( 
-             file_name, :select => 'id, path, file_counter', 
-                        :include => [:survey],
+             file_name, :include => [:survey],
                         :conditions => Fileentity.published_files(:alias => 'fileentities') ) if @release
 
     @error_msg ||= ''
