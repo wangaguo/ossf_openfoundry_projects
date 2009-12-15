@@ -308,8 +308,9 @@ class OpenfoundryController < ApplicationController
     if( survey_available? 
         #and (session[:saved_download_path] != download_path_saved )
       )
-      #save directly download link!
-      session[:saved_download_path] = download_path_saved
+      #save directly download link to tmp session
+      #session[:saved_download_path] = download_path_saved
+      session[:tmp_path] = download_path_saved
 
       survey = @file.survey
 
