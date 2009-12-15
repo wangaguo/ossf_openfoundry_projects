@@ -84,10 +84,15 @@ class ReleasesController < ApplicationController
       @permissions << :survey
     end
 
+    #for IE activeX download redirect
+    @rdr_download_url = session[:tmp_download_path] if session[:tmp_download_path] and request.referer.nil? and session[:tmp_download_path].include? "of.openfoundry.org/download/#{@project_name}" 
+    session[:tmp_download_path] = nil
+
     #use session to rememer FILE after SURVEY form filled...
     if session[:saved_download_path]
       @rdr_download_url = "#{request.protocol}of.openfoundry.org/download/#{session[:saved_download_path]}" 
       session[:saved_download_path] = nil
+      session[:tmp_download_path] = @rdr_download_url
     end
   end
   
