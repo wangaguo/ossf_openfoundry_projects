@@ -111,6 +111,10 @@ class SurveyController < ApplicationController
       @downloader = Downloader.new(params['downloader'])
     elsif request.method == :post
       #TODO login user?
+     
+      #save formal download path to session if the survey submit button is clicked
+      session[:saved_download_path] = session[:tmp_path]
+      session[:tmp_path] = nil
       
       #goto download_path if no file in session! 
       unless session[:saved_download_path] 
