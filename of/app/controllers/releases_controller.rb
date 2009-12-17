@@ -4,6 +4,7 @@ class ReleasesController < ApplicationController
     :parent_id_method => 'project_id')
   layout 'module'
   #see lib/permission_table.rb
+  before_filter :login_required, :only => [ :show ]
   before_filter :check_permission
   before_filter :default_module_name
 
