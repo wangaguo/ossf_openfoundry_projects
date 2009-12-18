@@ -24,14 +24,14 @@ ActionController::Routing::Routes.draw do |map|
   map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
 
   #downloaders' reviews: for project, release, and file
-  map.project_review '/projects/:id/reviews', 
-                      :controller => 'survey', :action => 'review'
-  map.release_review '/projects/:id/releases/:version/reviews',
-                      :controller => 'survey', :action => 'review',
-                      :requirements => {:version => /.+/}
   map.file_review '/projects/:id/releases/:version/files/:path/reviews',
                       :controller => 'survey', :action => 'review',
                       :requirements => {:path => /.+/, :version => /.+/}
+  map.release_review '/projects/:id/releases/:version/reviews',
+                      :controller => 'survey', :action => 'review',
+                      :requirements => {:version => /.+/}
+  map.project_review '/projects/:id/reviews', 
+                      :controller => 'survey', :action => 'review'
 
   # feed for new projects
   map.new_projects_feed '/projects/news_projects_feed.:format',
