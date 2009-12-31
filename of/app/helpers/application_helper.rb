@@ -361,6 +361,10 @@ module ApplicationHelper
       "<td>#{super(@object_name, method, priority_zones, options.merge(:object => @object), html_options)}</td></tr>"
     end
   end
+
+  def nl2br(htmlstring)
+    htmlstring.gsub("\n\r", "<br />").gsub("\r", "").gsub("\n", "<br />")
+  end
 end
 
    
