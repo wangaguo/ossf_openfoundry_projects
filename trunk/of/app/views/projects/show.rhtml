@@ -26,7 +26,7 @@
   * ([
   _("Project|Name"), (h @project.name),
   _("Project|Summary"), (h @project.summary),
-  _("Project|Description"), (h @project.description),
+  _("Project|Description"), nl2br(h @project.description),
   _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
   _("Project|Contactinfo"), (h @project.contactinfo),
   _("Project|Maturity"), (h @project.maturity_to_s),
