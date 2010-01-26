@@ -2528,7 +2528,7 @@ msgstr "說明文件"
 
 #: app/views/projects/_form.rhtml:109
 msgid "comma seperated"
-msgstr "逗號分隔"
+msgstr "半形逗號分隔"
 
 #: app/views/projects/role_users.rhtml:3
 msgid "Role|Set as "
