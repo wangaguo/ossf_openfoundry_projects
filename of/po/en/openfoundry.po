@@ -2394,14 +2394,12 @@ msgid "NSC Project"
 msgstr "New Project"
 
 #: app/views/partials/_top_menu_data.rhtml:76
-#, fuzzy
 msgid "menu_Site Admin"
 msgstr "Admin"
 
 #: app/views/partials/_top_menu_data.rhtml:78
-#, fuzzy
-msgid "Approve Projects"
-msgstr "New Project"
+msgid "Project List"
+msgstr "All Projects"
 
 #: app/views/partials/_top_menu_data.rhtml:79
 msgid "Translations"
