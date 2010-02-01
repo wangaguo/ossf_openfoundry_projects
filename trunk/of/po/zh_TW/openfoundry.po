@@ -2235,8 +2235,8 @@ msgid "menu_Site Admin"
 msgstr "站台管理"
 
 #: app/views/partials/_top_menu_data.rhtml:78
-msgid "Approve Projects"
-msgstr "核可專案"
+msgid "Project List"
+msgstr "專案列表"
 
 #: app/views/partials/_top_menu_data.rhtml:79
 msgid "Translations"
