@@ -113,7 +113,9 @@ class SiteAdmin::SiteAdminController < SiteAdmin
 
       bcc.each do |bc|
         mail.bcc = bc
-        UserNotify.deliver(mail)
+        run_later do
+          UserNotify.deliver(mail)
+        end
       end
 
       flash.now[:notice] = _('Message sent.')
