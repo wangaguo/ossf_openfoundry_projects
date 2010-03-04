@@ -1,6 +1,6 @@
 <%#= render( :partial => "tabnav" ) %>
 <% def show_with_seperator(v); "#{v}".split(",").grep(/./).join(", ") end %>
-<div id="ProjectBasic">
+<div id="ProjectBasic" about="#self">  
 
 <%
   def rows(*data)
@@ -30,8 +30,8 @@
   _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
   _("Project|Contactinfo"), (h @project.contactinfo),
   _("Project|Maturity"), (h @project.maturity_to_s),
-  _("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br>\n"),
-  _("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br>\n"),
+  _("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"),
+  _("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"),
   _("Project|Licensingdescription"), (h @project.licensingdescription),
   _("Project|Platform"), (h show_with_seperator(@project.platform)),
   _("Project|Programminglanguage"), (h show_with_seperator(@project.programminglanguage)),
