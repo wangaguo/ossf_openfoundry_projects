@@ -25,7 +25,7 @@ module ProjectsHelper
     <a href=\"/projects/#{project.id}\">
     <img src=\"#{url_for(:controller => :images, :action => "cached_image",
                              :id => "#{project.icon}_#{options[:size]||32}")}\"
-             title=\"#{project.name}\" align=#{options[:align]||:middle} />
+             title=\"#{project.name}\" align=\"#{options[:align]||:middle}\" />
      #{options[:with_name] ? "<br/> #{project.name}" : '' }
     </a></div>"
   end
