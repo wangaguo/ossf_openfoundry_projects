@@ -27,7 +27,7 @@ module UserHelper
     width:#{options[:with_login] ? '60' : '32' }px; 
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; 
     white-space:normal; word-break:break-all; overflow:hidden;\">
-    #{options[:link]? "<a href=\"#{options[:link]}\">" : '' }
+    #{options[:link]? "<a rel=\"doap:developer\" href=\"#{options[:link]}#self\">" : '' }
      <img src=\"/images/cached_image/#{user.icon}_#{options[:size]}\"  
                          align=\"#{options[:align]||:middle}\" />
      #{options[:with_login] ? "<br/> #{user.login}" : '' }
