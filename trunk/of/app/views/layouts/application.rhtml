@@ -74,7 +74,7 @@
             <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>"/>
           </a>  
         </div>
-        <span><br/>  
+        <br/>  
           <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
             <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a></span>
           <%end%>
@@ -118,11 +118,9 @@
 <div id="Footer">
 <hr/>
 OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. Resolution 1024*768.<br/>
-<a href="http://www.openfoundry.org/index.php?option=com_content&task=view&id=879&Itemid=1">Privacy Policy</a> | <a href="http://www.openfoundry.org/index.php?option=com_content&task=view&id=880&Itemid=1">Terms of Use</a>
+<a href="http://www.openfoundry.org/index.php?option=com_content&amp;task=view&amp;id=879&amp;Itemid=1">Privacy Policy</a> | <a href="http://www.openfoundry.org/index.php?option=com_content&amp;task=view&amp;id=880&amp;Itemid=1">Terms of Use</a>
 </div>
 
-</body>
-</html>
 <script type="text/javascript">
   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -133,3 +131,5 @@ OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. R
     pageTracker._trackPageview();
   } catch(err) {}
 </script>
+</body>
+</html>
