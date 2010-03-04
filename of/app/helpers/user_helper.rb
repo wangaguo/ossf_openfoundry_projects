@@ -29,7 +29,7 @@ module UserHelper
     white-space:normal; word-break:break-all; overflow:hidden;\">
     #{options[:link]? "<a href=\"#{options[:link]}\">" : '' }
      <img src=\"/images/cached_image/#{user.icon}_#{options[:size]}\"  
-                         align=#{options[:align]||:middle} />
+                         align=\"#{options[:align]||:middle}\" />
      #{options[:with_login] ? "<br/> #{user.login}" : '' }
     #{options[:link]? "</a>":'' }
     </div>"
