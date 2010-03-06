@@ -10,7 +10,7 @@ module ProjectsHelper
     when 7: ["by"            ]
     else []
     end.each do |x|
-      rtn += " <img src=\"/images/cc/#{x}_standard.gif\" width=\"16\">"
+      rtn += " <img src=\"/images/cc/#{x}_standard.gif\" width=\"16\"/>"
     end
     rtn
   end
@@ -22,7 +22,7 @@ module ProjectsHelper
     width:#{options[:with_name] ? '75' : '32' }px;
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom;
     white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px;\">
-    <a href=\"/projects/#{project.id}\">
+    <a href=\"/projects/#{project.id}\" #{options[:rdf_tag]}>
     <img src=\"#{url_for(:controller => :images, :action => "cached_image",
                              :id => "#{project.icon}_#{options[:size]||32}")}\"
              title=\"#{project.name}\" align=\"#{options[:align]||:middle}\" />
