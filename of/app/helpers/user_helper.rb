@@ -21,13 +21,14 @@ module UserHelper
       :float => nil,
       :link => "/user/home/#{user.id}"
     }.merge(_options)
+    rdf_tag = options[:rdf_tag] || ''
     "<div class=\"user_portrait\" title=\"#{user.login}\" 
     style=\"#{options[:float] ? "float:#{options[:float]};" : 'display:inline;'} 
     height:#{options[:with_login] ? '55' : '32' }px; 
     width:#{options[:with_login] ? '60' : '32' }px; 
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; 
     white-space:normal; word-break:break-all; overflow:hidden;\">
-    #{options[:link]? "<a rel=\"doap:developer\" href=\"#{options[:link]}#self\">" : '' }
+    #{options[:link]? "<a #{rdf_tag} href=\"#{options[:link]}#self\">" : '' }
      <img src=\"/images/cached_image/#{user.icon}_#{options[:size]}\"  
                          align=\"#{options[:align]||:middle}\" />
      #{options[:with_login] ? "<br/> #{user.login}" : '' }
