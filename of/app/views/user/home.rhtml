@@ -14,7 +14,7 @@
   <% end %>
 </fieldset>
 
-<dl>
+<dl about="#self">
   <% if (@my and @name =~ NSC_REVIEWERS_LOGIN_FILTER) %>
   <dt>
     <%= _('NSC Projects reviewed by me:') %>
@@ -105,7 +105,7 @@
   </dt>
   <dd>
     <% @projects.each do |p| %>
-      <%= project_logo_link(p, {:with_name => true, :float => 'left'}) %>
+      <%= project_logo_link(p, {:with_name => true, :float => 'left', :rdf_tag => 'rev="doap:developer"'}) %>
     <% end %>
     <br clear="all"/>
   </dd>
