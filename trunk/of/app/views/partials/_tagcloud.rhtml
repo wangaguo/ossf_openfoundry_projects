@@ -1,5 +1,5 @@
 <div class="tag_cloud">
-  <h3><img src="/images/of/icon01.gif" align="left" /><%= _('Tag Cloud') %></h3>
+  <h3><%= image_tag("of/icon01.gif", :align => "left") %> <%= _('Tag Cloud') %></h3>
   <% tag_counts=User.tag_counts() %>
   <% tag_counts.sort! { |a,b| a.count <=> b.count}%>
     <% sum=0 %>
