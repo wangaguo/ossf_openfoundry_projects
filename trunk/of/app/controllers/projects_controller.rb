@@ -55,11 +55,22 @@ class ProjectsController < ApplicationController
     logger.debug "session['user']: " + session[:user].inspect
   end
 
+  def list_n3 #it is a kind of rdf format that list all projects
+    txt="\t@prefix doap:<http://usefulinc.com/ns/doap#>.\n#{Project.in_used.find(:all).map{|p| 
+       "<#{project_url p.id}#self> a doap:Project."}.join("\n")}"
+    headers["Content-Type"] = "text/n3; charset=utf-8" 
+    render :text => txt
+  end
+  private :list_n3
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   #verify :method => :post, :only => [ :destroy, :create, :update ],
   #       :redirect_to => { :action => :list }
 
   def list
+    if(params[:format] == 'n3')
+      list_n3
+      return
+    end
     reset_sortable_columns
     add_to_sortable_columns('listing', Project, 'summary', 'summary') 
     add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
