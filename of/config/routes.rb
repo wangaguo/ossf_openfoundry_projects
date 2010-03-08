@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
                         :controller => 'projects', :action => 'new_projects_feed'
 
   map.resources :projects,
-                :collection => { :applied => :get, :tableizer => :get, :test_action => :any },
+                :collection => { :list => :get, :applied => :get, :tableizer => :get, :test_action => :any },
                 :member => { :sympa => :get, :viewvc => :get, :role_users => :any, 
                              :member_edit => :get, :member_delete => :post,
                               :member_add => :post,
