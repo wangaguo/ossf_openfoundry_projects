@@ -1,13 +1,12 @@
-
 <% if(login?) -%>
   <%# = lightbox_link_to "Link Name", url_for(:controller => :images, :action => "image", :id => current_user.icon) %> 
   <%# = lightbox_image_tag(url_for(:controller => :images, :action => "image", :id => current_user.icon, :size => 24), url_for(:controller => :images, :action => "image", :id => current_user.icon), {:class=>"images"}, :title => "This is a test!") %>
-  <%= user_portrait_link current_user,:size => 24, :align => :middle%>
-  <a href="/user/home"><%= current_user.login%></a>
+  <%= user_portrait_link current_user,:size => 24, :align => :middle %>
+  <%= link_to current_user.login, :controller => :user, :action => :logout %>
   &nbsp; | &nbsp; 
-  <a href="/user/logout"><%= _("Logout")%></a>
+  <%= link_to _("Logout"), :contoller => :user, :action => :logout %>
 <% else -%>
-  <%= link_to _('Login'), :controller => :user, :action => 'login' %>
+  <%= link_to _('Login'), :controller => :user, :action => :login %>
   &nbsp; | &nbsp;
-  <%= link_to _('Sign Up'), :controller => 'user', :action => 'signup' %> 
+  <%= link_to _('Sign Up'), :controller => :user, :action => :signup %> 
 <% end -%>
