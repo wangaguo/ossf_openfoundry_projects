@@ -32,7 +32,7 @@
   <% if(@my)%>
     <%= _('My Partners')%>
   <%  else %>
-    <%= "<em>#{@name}</em>" + _('User Own Partners') %>
+    <%= "<em property=\"foaf:nickname\ rdfs:label\">#{@name}</em>" + _('User Own Partners') %>
   <% end %>:
   </dt>
   <dd>
@@ -92,7 +92,7 @@
     <% end %>:
   </dt>
   <dd>
-    <%= "#{@bio}"%>
+    <%= content_tag(:span, @bio, :property => "rdfs:comment") %>
   </dd>
 <% end %>
 
