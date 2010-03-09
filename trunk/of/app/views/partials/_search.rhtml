@@ -1,5 +1,5 @@
 <% adv ||= false %>
-<% form_tag '/openfoundry/search', :method => :get do -%>
+<% form_tag url_for(:controller => :openfoundry, :action => :search), :method => :get do -%>
   <%= text_field_tag( (if adv;'query_adv';else'query';end),@query, :size => size ) %>
   <%= submit_tag _('search'), :class => 'button' %>
   <%if adv%>
