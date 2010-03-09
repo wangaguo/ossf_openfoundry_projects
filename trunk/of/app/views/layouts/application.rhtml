@@ -1,7 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:doap="http://usefulinc.com/ns/doap#"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:of="http://of.openfoundry.org/ns#"
+      xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>OpenFoundry -- <%= controller.action_name %><%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
@@ -49,7 +53,10 @@
     </div>
   </div>
   <div id="shortcut_area">
-    &nbsp;<a href="javascript: HeaderOnOff()" title="Header On/Off"><img id="HeaderOnOffImage" src="/images/HeaderOnOff_Off.gif"/></a>
+    &nbsp;
+    <a href="javascript: HeaderOnOff()" title="Header On/Off">
+        <%= image_tag "HeaderOnOff_Off.gif", :id => "HeaderOnOffImage" %>
+    </a>
   </div>
 </div>
 
@@ -76,7 +83,11 @@
         </div>
         <br/>  
           <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
-            <img src="/images/green_arrow_right.gif"/> <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a></span>
+            <%= image_tag "green_arrow_right.gif" %> 
+            <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">
+                <%=_('Change Icon')%>
+            </a>
+          </span>
           <%end%>
       </div>
           <%= render :partial => 'images/edit', :locals => 
@@ -99,13 +110,13 @@
         <%= render :partial => 'releases/most_popular', :locals => {:downloadList => Release.top_download} %>
         <%= render :partial => 'projects/new_projects', :locals => {:projectList => Project.new_projects} %>
         
-        <h3><img src="/images/of/icon01.gif" align="left" /><%=_('Steering Organization')%></h3>
+        <h3><%= image_tag "of/icon01.gif", :align => "left" %><%=_('Steering Organization')%></h3>
         <div style="text-align:center;">
           <a href="http://www.citi.sinica.edu.tw/" target="_blank">
-            <img src="http://www.openfoundry.org/images/stories/ITIAS_LOGO.jpg" title="Research Center for Information Technology Innovation Academia Sinica">
+            <img src="http://www.openfoundry.org/images/stories/ITIAS_LOGO.jpg" title="Research Center for Information Technology Innovation Academia Sinica"/>
           </a>
           <a href="http://web.nsc.gov.tw/default.asp" target="_blank">
-            <img src="http://www.openfoundry.org/images/stories/nsc.jpg" title="行政院國家科學委員會">
+            <img src="http://www.openfoundry.org/images/stories/nsc.jpg" title="行政院國家科學委員會"/>
           </a>
         </div>
 
