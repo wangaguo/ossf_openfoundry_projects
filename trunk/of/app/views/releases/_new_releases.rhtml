@@ -1,7 +1,10 @@
 <h3>
-  <%=link_to image_tag('/images/atom.png', {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
-                       {:controller => :releases, :action => :new_release_feed, :format => :xml} %>
-  <img src="/images/of/icon06.gif" align="left" valign="middle" /><%= _("Latest Releases") %>
+  <%=link_to 
+     image_tag('atom.png', 
+          {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
+     {:controller => :releases, :action => :new_release_feed, :format => :xml} %>
+  <%= image_tag "of/icon06.gif", :align => "left", :valign => "middle" %>
+  <%= _("Latest Releases") %>
 </h3>
 <ul>
   <% for release in newReleasesList %>
