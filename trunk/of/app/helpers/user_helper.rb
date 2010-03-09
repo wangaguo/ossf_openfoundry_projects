@@ -29,8 +29,10 @@ module UserHelper
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; 
     white-space:normal; word-break:break-all; overflow:hidden;\">
     #{options[:link]? "<a #{rdf_tag} href=\"#{options[:link]}#self\">" : '' }
-     <img src=\"/images/cached_image/#{user.icon}_#{options[:size]}\"  
-                         align=\"#{options[:align]||:middle}\" />
+     <img src=\"#{url_for(
+        :controller => :images, :action => :cached_image,
+        :id => "#{user.icon}_#{options[:size]}")}\"  
+      align=\"#{options[:align]||:middle}\" />
      #{options[:with_login] ? "<br/> #{user.login}" : '' }
     #{options[:link]? "</a>":'' }
     </div>"
