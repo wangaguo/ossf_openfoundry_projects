@@ -2,14 +2,14 @@
   <div id="Module">
     <table>
       <tr>
-        <td><a onmouseover="module_text_change('Module_Text_IssueTracker')" onmouseout="module_text_change('');" title="Issue Tracker"><img src="/images/of/banner_icon01.gif" /><br/>待辦事項</a></td>
-        <td><a onmouseover="module_text_change('Module_Text_Wiki')" onmouseout="module_text_change('');" title="Wiki"><img src="/images/of/banner_icon02.gif" /><br/>共同筆記</a></td>
-        <td><a onmouseover="module_text_change('Module_Text_VCS')" onmouseout="module_text_change('');" title="Version Control"><img src="/images/of/banner_icon03.gif" /><br/>版本控制</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_IssueTracker')" onmouseout="module_text_change('');" title="Issue Tracker"><%= image_tag "of/banner_icon01.gif" %><br/>待辦事項</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_Wiki')" onmouseout="module_text_change('');" title="Wiki"><%= image_tag "of/banner_icon02.gif" %><br/>共同筆記</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_VCS')" onmouseout="module_text_change('');" title="Version Control"><%= image_tag "of/banner_icon03.gif" %><br/>版本控制</a></td>
       </tr>
       <tr>
-        <td><a onmouseover="module_text_change('Module_Text_MailingList')" onmouseout="module_text_change('');" title="Mailing List"><img src="/images/of/banner_icon04.gif" /><br/>通信論壇</a></td>
-        <td><a onmouseover="module_text_change('Module_Text_ProjectManagement')" onmouseout="module_text_change('');" title="Project Management"><img src="/images/of/banner_icon05.gif" /><br/>專案管理</a></td>
-        <td><a onmouseover="module_text_change('Module_Text_Webhosting')" onmouseout="module_text_change('');" title="Webhosting"><img src="/images/of/banner_icon06.gif" /><br/>網站代管</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_MailingList')" onmouseout="module_text_change('');" title="Mailing List"><%= image_tag "of/banner_icon04.gif" %><br/>通信論壇</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_ProjectManagement')" onmouseout="module_text_change('');" title="Project Management"><%= image_tag "of/banner_icon05.gif" %><br/>專案管理</a></td>
+        <td><a onmouseover="module_text_change('Module_Text_Webhosting')" onmouseout="module_text_change('');" title="Webhosting"><%= image_tag "of/banner_icon06.gif" %><br/>網站代管</a></td>
       </tr>
     </table>
   </div>
@@ -22,10 +22,10 @@
   <h1>Welcome to OpenFoundry</h1>
   <div id="Module_Function_Text">
     <div id="Module_Text">  
-    自由軟體鑄造場所開發的 <a href="/projects/1">OpenFoundry</a> 是一個讓自由軟體愛好者可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自由軟體，使用者也可在此取得軟體並提供意見。現在就<a href="/projects/new"><em>建立</em></a>屬於你的專案吧！
+    自由軟體鑄造場所開發的 <a href="/projects/1">OpenFoundry</a> 是一個讓自由軟體愛好者可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自由軟體，使用者也可在此取得軟體並提供意見。現在就<%= link_to '<em>建立</em>', :controller => :projects, :action => :new %>屬於你的專案吧！
     </div>
     <div id="Module_Text_OpenFoundry" style="display:none;">
-    自由軟體鑄造場所開發的 <a href="/projects/1">OpenFoundry</a> 是一個讓自由軟體愛好者可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自由軟體，使用者也可在此取得軟體並提供意見。現在就<a href="/projects/new"><em>建立</em></a>屬於你的專案吧！
+    自由軟體鑄造場所開發的 <a href="/projects/1">OpenFoundry</a> 是一個讓自由軟體愛好者可以共同參與的網站，我們提供了包括待辦事項、版本控制、共同筆記、通信論壇、專案管理與網站代管等功能，讓開發者可利用此平台發展與分享自由軟體，使用者也可在此取得軟體並提供意見。現在就<%= link_to '<em>建立</em>', :controller => :projects, :action => :new %>屬於你的專案吧！
     </div>
     <div id="Module_Text_IssueTracker" style="display:none;">
 待辦事項(Issue Tracker)<br/><br/>
