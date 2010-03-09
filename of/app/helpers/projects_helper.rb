@@ -22,7 +22,7 @@ module ProjectsHelper
     width:#{options[:with_name] ? '75' : '32' }px;
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom;
     white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px;\">
-    <a href=\"#{project_path(project)}\" #{options[:rdf_tag]}>
+    <a href=\"#{project_path(project)}#self\" #{options[:rdf_tag]}>
     <img src=\"#{url_for(:controller => :images, :action => "cached_image",
                              :id => "#{project.icon}_#{options[:size]||32}")}\"
              title=\"#{project.name}\" align=\"#{options[:align]||:middle}\" />
