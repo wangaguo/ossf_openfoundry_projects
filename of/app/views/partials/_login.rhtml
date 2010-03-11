@@ -4,7 +4,7 @@
   <%= user_portrait_link current_user,:size => 24, :align => :middle %>
   <%= link_to current_user.login, :controller => :user, :action => :home %>
   &nbsp; | &nbsp; 
-  <%= link_to _("Logout"), :contoller => :user, :action => :logout %>
+  <%= link_to _("Logout"), :controller => :user, :action => :logout %>
 <% else -%>
   <%= link_to _('Login'), :controller => :user, :action => :login %>
   &nbsp; | &nbsp;
