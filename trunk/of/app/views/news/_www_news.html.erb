@@ -12,10 +12,10 @@
 <%- open(rss_link) do |raw| rss = RSS::Parser.parse(raw.read, false) end %>
 
 <h3>
-	<img src="/images/of/main_icon01.gif" align="left" />
-  <%=link_to image_tag('/images/atom.png', 
+  <%= image_tag "of/main_icon01.gif", :align => "left" %>
+  <%=link_to( image_tag('atom.png', 
          {:alt => 'rss', :width => '20px', :style => 'padding:8px;float:right'}),
-	       rss_link %>
+	       rss_link )%>
 	<%=_('Daily News')%>
 </h3>
 <div id='<%= div_id %>'>
