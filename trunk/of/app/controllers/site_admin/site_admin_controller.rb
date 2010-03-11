@@ -86,7 +86,6 @@ class SiteAdmin::SiteAdminController < SiteAdmin
       bcc_j = 0
       bcc_i = 0
       bcc = []
-      mail = UserNotify.create_site_mail(@mail.subject, @mail.message)
 
       case @mail.type 
       when "to"
@@ -111,19 +110,19 @@ class SiteAdmin::SiteAdminController < SiteAdmin
         end
       end
 
+      mail = UserNotify.create_site_mail(@mail.subject, @mail.message)
+      mail_check = UserNotify.create_site_mail(@mail.subject, "")
       bcc_i = 0
+
       bcc.each do |bc|
         run_later do
           bcc_i+=1
-          maildo = mail
-          maildo.bcc = bc
-          maildo.body = @mail.message + "<br/>" + bcc_i.to_s
+          mail.bcc = bc
           UserNotify.deliver(mail)
 
-          maildo.subject = "Site mail check point"
-          maildo.bcc = OPENFOUNDRY_SITE_ADMIN_EMAIL 
-          maildo.body = "users=#{users.length if !users.nil?}<br/>bcc_max=#{bcc_max}<br/>bcc_batch=#{bcc.length}<br/>bcc_i=#{bcc_i}"
-          UserNotify.deliver(mail)
+          mail_check.bcc = OPENFOUNDRY_SITE_ADMIN_EMAIL 
+          mail_check.body = "users=#{users.length if !users.nil?}<br/>bcc_max=#{bcc_max}<br/>bcc_batch=#{bcc.length}<br/>bcc_i=#{bcc_i}"
+          UserNotify.deliver(mail_check)
         end
       end
 
