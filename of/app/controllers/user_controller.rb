@@ -146,6 +146,8 @@ class UserController < ApplicationController
       session[:return_to] = request.referer
     end
 
+    reset_session
+
     # for OpenID Session
     if params['open_id_complete'] and session[:user] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
@@ -236,15 +238,7 @@ class UserController < ApplicationController
       session[:effective_user] = nil
       redirect_to '/site_admin'
     else #normal user logout~
-
-      # maintain an enumerable hash that include online users
-      # with simple lock
-      Session.user_logout(session[:user].id)
-
-      session[:user] = nil
-      #For "paranoid session store"
-      #kill_login_key
-      #rebuild_session
+      reset_session
 
       flash[:message] = _('user_logout_succeeded')
       redirect_to '/'
