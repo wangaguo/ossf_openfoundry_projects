@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
   before_filter :set_project
 
   before_filter :check_permission
@@ -41,6 +41,22 @@ class ProjectsController < ApplicationController
       @Path = OPENFOUNDRY_VIEWVC_CVS_URL + @project.name
     when Project::VCS[:SUBVERSION]
       @Path = OPENFOUNDRY_VIEWVC_SVN_URL + "?root=" + @project.name
+    when Project::VCS[:REMOTE], Project::VCS[:NONE], Project::VCS[:SUBVERSION_CLOSE]
+      vcs_access
+      render :template => 'projects/vcs_access'
+    else
+      render :text => _("System error. Please contact the site administrator.")
+    end
+  end
+
+  def websvn 
+    @module_name = _('Version Control')
+    case @project.vcs
+    when Project::VCS[:CVS]
+      render :text => _("The WebSVN can't support CVS. Please use ViewVC.")
+    when Project::VCS[:SUBVERSION]
+      @Path = OPENFOUNDRY_WEB_SVN_URL + "listing.php?repname=" + @project.name
+      render :template => 'projects/viewvc'
     when Project::VCS[:REMOTE], Project::VCS[:NONE], Project::VCS[:SUBVERSION_CLOSE]
       vcs_access
       render :template => 'projects/vcs_access'
