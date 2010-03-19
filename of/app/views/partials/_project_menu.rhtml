@@ -40,6 +40,9 @@ document.observe("dom:loaded", project_leftmenu_init);
               <% if project.vcs == Project::VCS[:CVS] or project.vcs == Project::VCS[:SUBVERSION] %>
               <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
               <% end %>
+              <% if project.vcs == Project::VCS[:SUBVERSION] %>
+              <li><%= link_to _("WebSVN"), websvn_project_path(:id => project.id) %></li>
+              <% end %>
               <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
           </ul>
       </li>

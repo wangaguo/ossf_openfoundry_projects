@@ -39,9 +39,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :projects,
                 :collection => { :list => :get, :applied => :get, :tableizer => :get, :test_action => :any },
-                :member => { :sympa => :get, :viewvc => :get, :role_users => :any, 
+                :member => { :sympa => :get, :viewvc => :get, :websvn => :get, :role_users => :any, 
                              :member_edit => :get, :member_delete => :post,
-                              :member_add => :post,
+                             :member_add => :post,
                              :role_update => :any,
                              :role_new => :any, :role_create => :any, :vcs_access => :any,
                              :test_action => :any }

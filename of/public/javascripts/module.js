@@ -43,6 +43,8 @@ window.OF = {
       else if(pathname.match(/^\/rt\/Search\/Results.html/i)) this.RT.list();
       else if(pathname.match(/^\/rt\/Ticket\/Modify.html/i)) this.RT.modify();
       else if(pathname.match(/^\/rt\/Ticket\/Display.html/i)) this.RT.display();
+      else if(pathname.match(/^\/viewvc/i)) this.viewvc();
+      else if(pathname.match(/^\/websvn/i)) this.websvn();
       //else if(pathname.match(/^\/rt\/Search\/Results.html/i)) this.RT.create();
     }
     this.iframe_auto_height();
@@ -129,8 +131,31 @@ window.OF = {
   },//Kwiki end
   
   viewvc: function(){
-    return "viewvc";
+    $("a[title^='ViewVC']").css("display", "none"); //ViewVC Logo
+    if(parent != window){
+      $("div.vc_navheader").css("display", "none"); //nav bar
+    }
   },//viewvc end
+
+  websvn: function(){
+    if(parent != window){
+      switch($("select[name='templatechoice']").val())
+      {
+        case 'BlueGrey':
+          $("div#header, div#projects").css("display", "none");
+          break;
+        case 'calm':
+          $("div#select, h1").css("display", "none");
+          $("div#info").css({"width":"20%"});
+          $("div#wrap").css({"width":"75%", "margin-left":"23%"});
+          break;
+        case 'Elegant':
+          $("div#menus, h1").css("display", "none");
+          break;
+      }
+      $("#templateform").insertAfter($("#revisionform"));
+    }
+  },//websvn end
   
   iframe_auto_height: function(){
     if(!this.in_of()) return;

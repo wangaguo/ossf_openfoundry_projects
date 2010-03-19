@@ -62,6 +62,8 @@ Rails::Initializer.run do |config|
   config.gem 'rake', :version =>  ">= 0.8.1" 
   config.gem 'packr', :version =>  ">= 3.1.0" 
   config.gem 'redis'
+  # for profiling
+  config.gem 'newrelic_rpm'
 
   config.time_zone = 'Taipei' 
 
@@ -112,6 +114,7 @@ Rails::Initializer.run do |config|
     OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
     OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
     OPENFOUNDRY_VIEWVC_CVS_URL =  'http://of.openfoundry.org/viewvc-cvs/'
+    OPENFOUNDRY_WEB_SVN_URL = 'http://of.openfoundry.org/websvn/'
     OPENFOUNDRY_OF_URL = 'http://of.openfoundry.org'
     OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
     OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
