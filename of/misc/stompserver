@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. "/etc/rc.subr"
+
+name="stompserver"
+rcvar=`set_rcvar`
+
+command="/usr/local/bin/stompserver"
+command_interpreter="/usr/local/bin/ruby18"
+config_file="/usr/local/stompserver/$name.conf"
+command_args="--config=${config_file}"
+pidfile="/usr/local/stompserver/log/$name.pid"
+required_files="${config_file}"
+
+# read configuration and set defaults
+load_rc_config "$name"
+: ${stompserver_enable="NO"}
+
+run_rc_command "$1"
