@@ -74,11 +74,19 @@ class AddSiteData < ActiveRecord::Migration
     #--------------
     #建立User 
     #--------------
-    User.create :login => 'root', :email => 'contact@openfoundry.org',:verified => 0
-    User.create :login => 'guest', :email => 'contact@openfoundry.org',:verified => 0
+    User.create :login => 'guest', :email => 'lrsc@ntust.edu.tw',:verified => 0
+    u = User.create :login => 'root', :email => 'lrsc@ntust.edu.tw',:verified => 1, :salted_password => 'wnai@4048'.crypt('$1$')
+    r = Role.create :name => 'site_admin'
+    r.users << u
+    r.save!
+    r = Role.create :name => 'project_reviewer'
+    r.users << u
+    r.save!	
   end
 
   def self.down
     Function.delete_all
+    User.delete_all
+    Role.delete_all
   end
 end
