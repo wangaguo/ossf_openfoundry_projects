@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# PROVIDE: stompserver
+# REQUIRE: LOGIN
+
 . "/etc/rc.subr"
 
 name="stompserver"

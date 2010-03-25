@@ -5,9 +5,9 @@
 
   RUBY = "/home/openfoundry/ruby/ruby/bin/ruby"
   MONGREL_RAILS = "/home/openfoundry/ruby/ruby/bin/mongrel_rails"
-  RAILS_ROOT = "/home/openfoundry/of_up_to232"
-  #ENVIRONMENT = "production"
-  ENVIRONMENT = "development"
+  RAILS_ROOT = "/home/openfoundry/of"
+  ENVIRONMENT = "production"
+  #ENVIRONMENT = "development"
 
   USER = 'openfoundry'
   GROUP = 'openfoundry'
@@ -21,14 +21,14 @@
 7995.upto(8005) do |port|
   God.watch do |w|
     w.group = case port
-    when 7996..7997 : "dev-sso"
-    when 7998..7999 : "dev-sync"
-    when 7995 : "dev-sync"
+    when 7996..7997 : "8-sso"
+    when 7998..7999 : "9-sync"
+    when 7995 : "sync"
     else
-      port % 2 == 0 ? "dev-even" : "dev-odd"
+      port % 2 == 0 ? "1-even" : "2-odd"
     end 
 
-    w.name = "dev-mongrel-#{port}"
+    w.name = "mongrel-#{port}"
     w.interval = 30.seconds # default      
     w.start = "#{RUBY} #{MONGREL_RAILS} start -e #{ENVIRONMENT} -c #{RAILS_ROOT} -p #{port} \
       --user #{USER} --group #{GROUP} -l #{RAILS_ROOT}/log/mongrel.#{port}.log \
@@ -107,9 +107,9 @@ end
 
 God.watch do |w|
   command = "su #{USER} -c 'cd #{RAILS_ROOT};#{RUBY} #{RAILS_ROOT}/script/ferret_server -e #{ENVIRONMENT} %s'"
-  w.group = "dev-index-server"
+  w.group = "0-index-server"
 
-  w.name = "dev-ferret-server-9000"
+  w.name = "ferret-server-9000"
   w.interval = 30.seconds # default      
   w.start = command % 'start'
   w.stop = command % 'stop'
