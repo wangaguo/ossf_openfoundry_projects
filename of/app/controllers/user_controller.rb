@@ -91,9 +91,9 @@ class UserController < ApplicationController
     if user
       @name = user.login
       @icon = user.icon
-      @realname = user.realname
-      @homepage = user.homepage
-      @bio = user.bio
+      @realname = user.realname||''
+      @homepage = user.homepage||''
+      @bio = user.bio||''
       if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
         @conceal_realname = false
         @conceal_homepage = false
