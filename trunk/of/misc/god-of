@@ -2,6 +2,9 @@
 
 . "/etc/rc.subr"
 
+# PROVIDE: 
+# REQUIRE: memcached 
+
 name="god"
 rcvar=`set_rcvar`
 
