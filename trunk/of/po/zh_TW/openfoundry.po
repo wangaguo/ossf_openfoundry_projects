@@ -1518,7 +1518,7 @@ msgstr "登入成功"
 
 #: app/controllers/user_controller.rb:221
 msgid "user_signup_succeeded"
-msgstr "註冊成功, 請到您的所填入的電子郵件信箱回覆驗證信"
+msgstr "註冊成功, 請到您所填入的電子郵件信箱回覆驗證信"
 
 #: app/controllers/user_controller.rb:226
 msgid "user_confirmation_email_error"
@@ -1530,7 +1530,7 @@ msgstr "登出成功"
 
 #: app/controllers/user_controller.rb:262
 msgid "user_updated_email"
-msgstr "電子郵件更新成功"
+msgstr "電子郵件更新成功，請到您所填入的電子郵件信箱回覆驗證信"
 
 #: app/controllers/user_controller.rb:264
 msgid "user_change_email_error"
