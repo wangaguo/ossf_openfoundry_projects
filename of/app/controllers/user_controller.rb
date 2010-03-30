@@ -249,8 +249,9 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing email")
     return if generate_filled_in
     params['user'].delete('form')
-    @user.change_email(params[:user][:email], params[:user][:email_confirmation])
-    if @user.valid?
+#    @user.change_email(params[:user][:email], params[:user][:email_confirmation])
+    if @user.valid? && User.find_by_email(params[:user][:email]).nil?
+      @user.change_email(params[:user][:email], params[:user][:email_confirmation])
       k = @user.generate_security_token()
       s = Base64.encode64(Marshal.dump({:email => @user.email}))
       url = url_for(:action => :welcome)
