@@ -252,7 +252,6 @@ class UserController < ApplicationController
     @user_original_email = @user.email
     @user.change_email(params[:user][:email], params[:user][:email_confirmation])
     if @user.valid?
-      @user.change_email(params[:user][:email], params[:user][:email_confirmation])
       k = @user.generate_security_token()
       s = Base64.encode64(Marshal.dump({:email => @user.email}))
       url = url_for(:action => :welcome)
