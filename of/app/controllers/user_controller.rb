@@ -249,8 +249,9 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing email")
     return if generate_filled_in
     params['user'].delete('form')
-#    @user.change_email(params[:user][:email], params[:user][:email_confirmation])
-    if @user.valid? && User.find_by_email(params[:user][:email]).nil?
+    @user_original_email = @user.email
+    @user.change_email(params[:user][:email], params[:user][:email_confirmation])
+    if @user.valid?
       @user.change_email(params[:user][:email], params[:user][:email_confirmation])
       k = @user.generate_security_token()
       s = Base64.encode64(Marshal.dump({:email => @user.email}))
@@ -258,7 +259,9 @@ class UserController < ApplicationController
       url+= "?user=#{@user.id}&k=#{k}&s=#{s}"
       UserNotify.deliver_change_email(@user, url)
       flash.now[:notice] = _('user_updated_email') % "#{@user.email}"
+      @user.change_email(@user.email, "")
     else
+      @user.change_email(@user_original_email, "")
       flash.now[:warning] = _('user_change_email_error')
     end
     #dummy = User.find_by_login('dummy')
