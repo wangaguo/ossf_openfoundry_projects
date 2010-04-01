@@ -192,13 +192,17 @@ class User < ActiveRecord::Base
     find( :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
   end
 
+  def self.is_the_same_loginname_used?(u)
+    u.verified ==0 and User.valid_users.count(:conditions => "login = '#{u.login}'") > 0
+  end
+
   def self.authenticate_by_token(id, token, atts = {})
     include OpenFoundry::Message
     # 加上了用atts修改個人資料的功能 by tim
     # Allow logins for deleted accounts, but only via this method (and
     # not the regular authenticate call)
     u = find( :first, :conditions => ["id = ? AND security_token = ?", id, token])
-    return nil if u.nil? and atts.empty? and User.valid_users.count(:conditions => "login = '#{u.login}'") > 0
+    return nil if atts.empty? and is_the_same_loginname_used?(u)
     return nil if u.nil? or u.token_expired?
     return nil if false == u.update_expiry
     unless atts.empty?#update atts
