@@ -33,7 +33,6 @@ i = 0
 
 <% for project in projects %>
 <%
-  break if i == 5
   tmp_nsccode = project.tag_list.names.grep(/^NSC\d/).sort.join("<br/>")
   find_nsccode = ""
   if tmp_nsccode == ""
