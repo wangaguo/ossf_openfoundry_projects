@@ -5,7 +5,14 @@ class ProjectsController < ApplicationController
   before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
   before_filter :set_project
 
-  before_filter :check_permission
+  before_filter :project_check_permission
+  def project_check_permission
+    if @project and @project.status == Project::STATUS[:PENDING]
+    else
+      check_permission
+    end
+  end
+
   def set_project
     if params[:id]
       @project = get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
@@ -174,7 +181,15 @@ class ProjectsController < ApplicationController
     old_redirecturl = @project.redirecturl
     old_vcs = @project.vcs
     old_summary = @project.summary
+    if @project.status == Project::STATUS[:PENDING] 
+      params[:project][:status] = Project::STATUS[:APPLYING]
+    end
+
     if @project.update_attributes(params[:project])
+      if @project.status == Project::STATUS[:APPLYING] 
+        ProjectNotify.deliver_project_reviewer(@project)
+        redirect_to :action => 'applied'
+      end
       flash[:notice] = _('Project was successfully updated.')
       changed = []
       changed << _("Project|Redirecturl") if @project.redirecturl != old_redirecturl

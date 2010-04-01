@@ -109,6 +109,7 @@ Rails::Initializer.run do |config|
     OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
 
     # TODO: better naming
+    OPENFOUNDRY_SITE_NAME = 'OpenFoundry'
     OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
     OPENFOUNDRY_SITEMAIL_BATCH_MAX = 500 
     OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds

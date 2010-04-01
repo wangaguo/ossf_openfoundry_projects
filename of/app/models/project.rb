@@ -188,7 +188,7 @@ EOEO
   #
   # important INTERNAL status
   #
-  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }.freeze
+  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3, :PENDING => 4 }.freeze
 
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
@@ -375,9 +375,10 @@ EOEO
   end
 
   # reason: string
-  def approve(reason)
-    raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
+  def approve(reason, replymessage)
+    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:PENDING], Project::STATUS[:REJECTED]].include?(self.status)
 
+    reason = replymessage + "\n" + reason
     if not update_attributes(:status => Project::STATUS[:READY], :statusreason => reason)
       return false
     end
@@ -404,15 +405,15 @@ EOEO
                         })
     end
     Release::build_path(self.name, self.id)
-    ProjectNotify.deliver_approved(self)
+    ProjectNotify.deliver_approved(self, replymessage)
   end
   # reason: string
-  def reject(reason)
-    raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
+  def reject(reason, replymessage)
+    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:PENDING]].include?(self.status)
     self.status = Project::STATUS[:REJECTED]
-    self.statusreason = reason
+    self.statusreason = replymessage + "\n" + reason
     if save!
-      ProjectNotify.deliver_rejected(self)
+      ProjectNotify.deliver_rejected(self, replymessage)
     end
   end
   # reason: string
@@ -431,6 +432,16 @@ EOEO
     save!
     # TODO: notify by email
   end
+  # reason: string
+  def pending(reason, replymessage)
+    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:REJECTED]].include?(self.status) 
+    self.status = Project::STATUS[:PENDING]
+    self.statusreason = replymessage + "\n" + reason
+    save!
+    if save!
+      ProjectNotify.deliver_pending(self, replymessage)
+    end
+  end
 
   # Project.find(:first, :conditions => ["name = ? and #{Project.in_used_projects}", 'openfoundry'])
   #                                     ["name = ? and (status = 2)", "openfoundry"]
@@ -447,6 +458,10 @@ EOEO
   def self.approved_projects(options = {})
     a = options[:alias] ? options[:alias] + "." : ""
     "(#{a}status = #{Project::STATUS[:READY]} or #{a}status = #{Project::STATUS[:SUSPENDED]})"
+  end
+  def self.pending_projects(options = {})
+    a = options[:alias] ? options[:alias] + "." : ""
+    "(#{a}status = #{Project::STATUS[:PENDING]})"
   end
 
   def self.new_projects

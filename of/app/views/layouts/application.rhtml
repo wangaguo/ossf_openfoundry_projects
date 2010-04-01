@@ -95,7 +95,7 @@
           {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) }%>
     <%end%>
 
-  	<%if params["project_id"] != nil%>
+  	<%if params["project_id"] != nil and @project.status != Project::STATUS[:PENDING] %>
 
       <div id="LeftMenu">
         <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>

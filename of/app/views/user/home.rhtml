@@ -110,6 +110,18 @@
     <br clear="all"/>
   </dd>
 
+<% if @pending_projects.length>0 and @my -%>  
+  <dt>
+    <%= _('My Pending Projects')%>
+  </dt>
+  <dd>
+    <% @pending_projects.each do |p| -%>
+      <%= project_logo_link(p, {:with_name => true, :float => 'left', :action => 'edit'}) %>
+    <% end -%>
+    <br clear="all"/>
+  </dd>
+<% end -%>  
+
   <% if @my%>
     <dt>
     <%= _('Signup Date') %>:

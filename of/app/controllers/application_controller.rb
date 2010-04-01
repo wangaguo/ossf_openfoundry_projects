@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
     if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then
       in_used_projects = ""
     else
-      in_used_projects = Project.in_used_projects() 
+      in_used_projects = "(#{Project.in_used_projects()} or #{Project.pending_projects()})" #include pending projects for pending status.
     end
 
     case id_or_name
@@ -82,11 +82,11 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if not rtn
+    if not rtn or (rtn.status == Project::STATUS[:PENDING] and in_used_projects != "" and (rtn.creator != current_user().id or controller_name != 'projects' or (action_name != 'edit' and action_name != 'update'))) #project not ready. pending and not allow actions.
       flash[:warning] = "Project '#{id_or_name}' does not exist, or it has be deactivated."
       redirect_to "/"
-    elsif rtn.status != Project::STATUS[:READY]
-      flash.now[:notice] = "Project is not READY."
+    elsif in_used_projects == "" and rtn.status != Project::STATUS[:READY] #admin & reviewer messages
+      flash.now[:warning] = "Project is not READY. Status is #{Project.status_to_s(rtn.status)}."
     end
     rtn
   end
