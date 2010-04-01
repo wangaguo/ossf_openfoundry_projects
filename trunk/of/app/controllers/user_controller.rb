@@ -259,11 +259,11 @@ class UserController < ApplicationController
       url+= "?user=#{@user.id}&k=#{k}&s=#{s}"
       UserNotify.deliver_change_email(@user, url)
       flash.now[:notice] = _('user_updated_email') % "#{@user.email}"
-      @user.change_email(@user.email, "")
     else
-      @user.change_email(@user_original_email, "")
       flash.now[:warning] = _('user_change_email_error')
     end
+    @user.email = @user_originail_email
+    @user.email_confirmation = ""
     #dummy = User.find_by_login('dummy')
 #    begin
 #      #User.transaction(@user) do
