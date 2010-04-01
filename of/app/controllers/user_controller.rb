@@ -262,7 +262,7 @@ class UserController < ApplicationController
     else
       flash.now[:warning] = _('user_change_email_error')
     end
-    @user.email = @user_originail_email
+    @user.email = @user_original_email
     @user.email_confirmation = ""
     #dummy = User.find_by_login('dummy')
 #    begin
