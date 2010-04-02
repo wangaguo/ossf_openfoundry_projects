@@ -1,0 +1,19 @@
+<base href="<%= OPENFOUNDRY_OF_URL %>">
+<pre>
+Dear Project Reviewer:
+
+Please approve or reject the project creation request:
+Requested by <a href="mailto:<%=@user.email%>"><%=@user.login%>(<%=@user.realname%>)</a>.
+</pre>
+<hr/>
+<dl>
+  <dt>name:</dt><dd><%= @project.name %></dd>
+  <dt>summary:</dt><dd><%= @project.summary %></dd>
+  <dt>description:</dt><dd><%= @project.description %></dd>
+</dl>
+<%= link_to _('Change status'), {:action => 'change_status_form', :controller => 'site_admin/project', :id => @project} %> |
+<%= link_to _('Show'), {:action => 'show', :controller => 'projects', :id => @project} %> |
+<%= link_to _('Edit'), {:action => 'edit', :controller => 'projects', :id => @project} %> |
+<%= link_to _('List'), {:action => 'list', :controller => 'site_admin/project', :id => @project} %>
+<hr/>
+OpenFoundry System

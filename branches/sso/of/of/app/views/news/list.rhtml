@@ -1,0 +1,51 @@
+<h1><%=@head%></h1>
+<div class="sort">
+<%= _("Sort by")%>
+<%= link_to _('Subject'),  sort_param('listing', News, 'subject', 'subject') %> |
+<%= link_to _('Last Updated'),  sort_param('listing', News, 'updated_at', 'updated_at') %>
+</div>
+<ul>
+  <%for news in @news %>
+  <li class="news_list">
+    <%if news.catid == 0%>
+      <%= link_to h(news.subject), site_news1_path(:id => news), :class => "news_subject" %>
+    <%else%>
+      <%= link_to h(news.subject), news1_path(:id => news.id, :project_id => news.catid), :class => "news_subject" %>
+    <%end%>
+    <%=tz_date(news.updated_at)%>
+    <p>
+    <%= truncate(h(news.description.gsub(/<[^>]*>/,'')), 270, "...") %>
+    (
+    <%if news.catid == 0%>
+      <%= link_to _('Read More'), site_news1_path(:id => news) %>
+    <%else%>
+      <%= link_to _('Read More'), news1_path(:id => news.id, :project_id => news.catid) %>
+    <%end%>
+    )
+    </p>
+    <% if fpermit?("news", params[:project_id]) -%>
+    <p>
+      <label><%=_('Status')%>:</label>
+      <% if news.status == 1 %>
+        <%=_('Enabled')%>
+      <% else %>
+	      <%=_('Disabled')%>
+      <% end %>
+      <%if news.catid == 0%>
+        <%= link_to _('Edit'), edit_site_news1_path(:id => news) %>
+      <%else%>
+        <%= link_to _('Edit'), edit_news1_path(:id => news, :project_id => news.catid) %>
+      <%end%>
+      <%= link_to _('Delete'), { :action => 'destroy', :id => news }, :confirm => _('Are you sure?'), :method => :delete %>
+    </p>
+    <% end %>
+  </li>
+  <% end %>
+</ul>
+  
+<%= will_paginate @news %>
+
+<br />
+<% if fpermit?("news", params[:project_id]) -%>
+<%= link_to _('Add News'), :action => 'new' %>
+<% end %>

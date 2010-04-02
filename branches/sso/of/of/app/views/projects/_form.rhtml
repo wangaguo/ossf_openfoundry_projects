@@ -1,0 +1,116 @@
+<%# https://sourceforge.net/register-project %>
+<%# http://code.google.com/hosting/createProject %>
+
+<%= error_messages_for 'project' %>
+
+<!--[form:project]-->
+<%
+  def foo(col, req, help)
+    return <<"AAA"
+    <label for="project_#{col}">
+      #{_("Project|#{col.capitalize}")}
+    </label>
+    #{ required_icon() if req }
+    #{ help_icon(help) if help }
+AAA
+  end
+
+  def rows(*data)
+    rtn = ""
+    while ( ! data.empty? )
+      h = data.shift
+      d = data.shift
+      rtn += %Q!<tr><th>#{h}</th><td>#{d}</td></tr>!
+    end
+    rtn
+  end
+
+  def to_select(h)
+    h.values.sort.map {|x| [_(h.index(x).to_s), x]}
+  end
+
+  def of_check_box_group(name, predefined, value)
+    values = "#{value}".split(",").grep(/./)
+    rtn = ""
+    #predefined = predefined.sort
+    predefined.each_with_index do |p, i|
+      rtn += check_box_tag("#{name}[#{i}]", p, values.include?(p)) + p + "\n"
+    end
+    rtn += "<br/>" + _("Others") + " "
+    rtn += text_field_tag("#{name}[-1]", (values - predefined).join(", "), :size => 50)
+  end
+
+  def err(obj, field, str)
+    obj.errors.on(field) ? "<div class=\"fieldWithErrors\">#{str}</div>" : str
+  end
+%>
+
+<%
+  choosen_licenses = (@project.license || "").split(",").grep(/./).map(&:to_i)
+  tmp_licenses = ""
+  Project::LICENSE_DISPLAY_KEYS.each do |i|
+    tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) + ( i > 0 ? link_to( Project.license_to_s(i), _("url_link_for_#{Project.license_to_s(i)}"), :target =>"_blank" ) : Project.license_to_s(i) ) + "<br>\n"
+  end
+  tmp_licenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_licenses}</div>"
+%>
+<%
+  choosen_contentlicenses = (@project.contentlicense || "").split(",").grep(/./).map(&:to_i)
+  tmp_contentlicenses = ""
+  Project::CONTENT_LICENSE_DISPLAY_KEYS.each do |i|
+    txt = Project.content_license_to_s(i)
+    txt += " " + cc_images(i)
+    tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) + ( i > 0 ? link_to( Project.content_license_to_s(i), _("url_link_for_#{Project.content_license_to_s(i)}"), :target => "_blank" ) : Project.content_license_to_s(i) ) + "<br>\n"
+  end
+  tmp_contentlicenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_contentlicenses}</div>"
+%>
+<%
+  tmp_nsccode = @project.tag_list.names.grep(/^NSC/).sort.join(", ")
+%>
+<table class="form-table">
+<%=  rows(
+  foo("name", true, _("Project|Name|Help")),
+    text_field('project', 'name', :disabled => (is_edit == true), :maxlength => 15, :style => 'width:15em'),
+  foo("summary", true, _("Project|Summary|Help")),
+    text_field('project', 'summary', :maxlength => 255, :size => 50),
+  # rationale
+  foo("description", true, _("Project|Description|Help")),
+    text_area('project', 'description'),
+  foo("contactinfo", false, _("Project|Contactinfo|Help")),
+    text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
+  foo("maturity", true, _("Project|Maturity|Help")),
+    select('project', 'maturity', to_select(Project::MATURITY)),
+  foo("license", true, _("Project|License|Help")) + "<br/><br/><br/>" +
+    "<a href=\"javascript:eval(wo('#{_('menu_LW_manual_link')}'))\">#{_('License Wizard')}</a>",
+    err(@project, :license, tmp_licenses),
+  foo("contentlicense", true, _("Project|Contentlicense|Help")),
+    err(@project, :contentlicense, tmp_contentlicenses),
+  foo("licensingdescription", false, _("Project|Licensingdescription|Help")),
+    text_area('project', 'licensingdescription'),
+  foo("platform", true, _("Project|Platform|Help")),
+    err(@project, :platform, of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform)),
+  foo("programminglanguage", true, _("Project|Programminglanguage|Help")), 
+    err(@project, :programminglanguage, of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage)),
+  #foo("intendedaudience", true, _("Project|Intendedaudience|Help")), 
+  #  of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience),
+  foo("redirecturl", false, _("Project|Redirecturl|Help")), 
+    text_field('project', 'redirecturl', :maxlength => 255, :size => 50),
+  foo("vcs", true, _("Project|Vcs|Help")), 
+    select('project', 'vcs', [:SUBVERSION, :SUBVERSION_CLOSE, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
+  foo("vcsdescription", false, _("Project|Vcsdescription|Help")), 
+    text_area('project', 'vcsdescription')
+
+)
+%>
+</table>
+
+<fieldset style="clear:both;">
+  <legend><%= _("For NSC projects") %>:</legend>
+  <%= _("Please refer to the") %> <b><a href="/help/nsc_project" target="_blank"><%= _("help document") %></a></b>.<br/><br/>
+  <label for=\"project_nsccode\"><%= _('Project|Nsccode') %></label> (<%= _('comma seperated') %>)<br/>
+  e.g. NSC97-2218-E-123-456
+  <%= err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50)) %>
+</fieldset>
+
+
+<!--[eoform:project]-->
+

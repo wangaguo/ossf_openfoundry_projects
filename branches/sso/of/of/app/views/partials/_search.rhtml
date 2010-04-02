@@ -1,0 +1,76 @@
+<% adv ||= false %>
+<% form_tag url_for(:controller => :openfoundry, :action => :search), :method => :get do -%>
+  <%= text_field_tag( (if adv;'query_adv';else'query';end),@query, :size => size ) %>
+  <%= submit_tag _('search'), :class => 'button' %>
+  <%if adv%>
+    <a href="#" onclick="Effect.toggle('search_chk','appear');Effect.toggle('search_inc','appear');
+     document.getElementById('query_adv').value=''; return false">
+    <%=_('Advensed Options')%>
+  </a>
+    <script>
+        s_check = s_and = s_or = s_not = ''; 
+        function update_query(){
+            q = s_check+' '+s_and +' '+ s_or +' '+ s_not;
+            q = q.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
+            document.getElementById('query_adv').value = q;
+        }    
+        function update_and_query(){
+            s_and = document.getElementById('query_include_and').value.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ');
+            update_query();
+        }
+        function update_or_query(){
+            s_or = document.getElementById('query_include_or').value.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ').split(' ').join(' OR ');
+            update_query();
+        }
+        function update_not_query(){
+            s_not = document.getElementById('query_exclude').value.replace(/^\s+|\s+$/g,'').replace(/\s+/g,' ').split(' ').join(' -');
+            if(s_not != ''){
+                    s_not = '-' + s_not
+            }
+            update_query();
+        }
+      </script>
+      <div id='search_chk' style="display:none;">
+        <fieldset>
+          <legend><%= _('Search in Class') %></legend>
+          <div id='query_chk_class'>
+            <% %w(User Project News Release Fileentity Job).each_with_index do |model_class,i| %>
+              <%= check_box_tag model_class, true, false, :name => "chk[#{model_class}]"%> 
+              <%= _(model_class) %>
+              <%= if i%6 == 5 ;"<br/>"; end %>
+            <% end %>
+          </div>
+        </fieldset>
+      </div>
+      <%end%>
+    <%end%>
+    <%if adv%>
+      <div id='search_inc'  style="display:none;">
+        <fieldset>
+          <legend><%= _('Search Include ALL of the List') %></legend>
+          <%= text_field_tag 'query_include_and','', :size => size, :onchange => 'update_and_query();return false' %>
+        </fieldset>
+        <fieldset>
+          <legend><%= _('Search Include ANY of the List') %></legend>
+          <%= text_field_tag 'query_include_or','', :size => size, :onchange => 'update_or_query();return false' %>
+        </fieldset>
+        <fieldset>
+          <legend><%= _('Search Exclude ANY of the List') %></legend>
+          <%= text_field_tag 'query_exclude','', :size => size, :onchange => 'update_not_query();return false' %>
+        </fieldset>
+<fieldset>
+<legend><%=_('Search by Google')%></legend>
+<form method="get" action="http://www.google.com/search">
+
+<input type="text"   name="q" size="31"
+ maxlength="255" value="" />
+<input type="submit" value="Google Search" />
+<input type="radio"  name="sitesearch" value="" />
+ The Web
+<input type="radio"  name="sitesearch"
+ value="of.openfoundry.org" checked /> of.openfoundry.org <br />
+
+</form>
+</fieldset>
+      </div>
+  <%end%>

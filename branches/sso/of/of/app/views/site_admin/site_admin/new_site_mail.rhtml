@@ -1,0 +1,41 @@
+<%= javascript_include_tag "jquery" %>
+<script type="text/javascript">
+  var $j = jQuery.noConflict();
+  $j(document).ready(function() {
+    $j("#mail_form").attr("onsubmit", "return check()");
+  });
+
+  function check() {
+    hr = "";
+    if($j("[name$=[type]]:checked").val() == "to") {
+      if(!$j("[name$=[to]]").val().match(/.*@.*\..*/)) hr+="to: The mail format is not valid.\n";
+    }
+    else if($j("[name$=[type]]:checked").val() == "all_valid_users_and_filter") {
+      if($j("[name$=[filter]]").val().match(/[^a-zA-Z_,']/)) hr+="filter: The format is not valid.  e.g. tom,jerry,allen\n";
+    }
+    if(hr != "") {
+      alert(hr);
+      return(false);
+    }
+    else if(confirm('Are you sure to send the mail?')==false) return(false);
+  }
+</script>
+
+<% form_for(:mail, :url => {:action => "new_site_mail"}, :html => { :id => "mail_form", :method => :post }) do |f| %>
+  <%= f.radio_button("type", "to" ) %>To:
+  <%= f.text_field("to", :size => 30) %><br/>
+  <%= f.radio_button("type", "all_valid_users") %>All valid users<br/>
+  <%= f.radio_button("type", "all_valid_users_and_filter") %>All valid users with filter<br/>
+  <%= f.text_field("filter", :size => 100) %><br/>
+  <p>
+    <%= f.label("subject", _('Subject')) %><br/>
+    <%= f.text_field 'subject', :size => 100 %>
+  </p>
+  <p>
+    <%=f.label("message", _('Message Content')) %><br/>
+    <%= javascript_include_tag 'fckeditor/fckeditor.js' %>
+    <%= fckeditor_textarea( 'mail', 'message', :height => 400 ) %>
+  </p>
+
+  <%= submit_tag _('Send Mail') %>
+<% end %>
