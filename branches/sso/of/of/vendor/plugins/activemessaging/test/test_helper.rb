@@ -1,16 +1,23 @@
-# load the rails environment
-# TODO currently requires you to run tests as a installed plugin, we should try to fix this
-ENV['RAILS_ENV'] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../../../../config/environment")
+rails_environtment_file = File.expand_path(File.dirname(__FILE__) + "/../../../../config/environment")
 
+if File.exists? rails_environtment_file
+  require rails_environment_file
+  APP_ROOT = RAILS_ROOT
+else
+  ENV['APP_ENV'] = 'test'
+  APP_ENV = 'test'
+  
+  $: << File.expand_path(File.dirname(__FILE__) + '/../lib')
+  require 'rubygems'
+  require 'activesupport'
+  require 'activemessaging/message_sender'
+  require 'activemessaging/processor'
+  require 'activemessaging/gateway'
+  require 'activemessaging/adapters/test'
+  APP_ROOT = File.dirname(__FILE__) + '/app'
+end
+  
 # load other libraries
 require 'test/unit'
 
-# load activemessaging
-# TODO this is already loaded automatically by starting Rails
-# but we may need to do this if we want to run a13g tests without Rails
-#require File.dirname(__FILE__) + '/../lib/activemessaging/processor'
-#require File.dirname(__FILE__) + '/../lib/activemessaging/gateway'
 require File.dirname(__FILE__) + '/../lib/activemessaging/test_helper'
-
-

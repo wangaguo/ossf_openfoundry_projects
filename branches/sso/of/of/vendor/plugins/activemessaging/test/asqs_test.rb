@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/test_helper'
+require 'activemessaging/adapters/asqs'
 
 class AsqsTest < Test::Unit::TestCase
   
@@ -59,7 +60,7 @@ EOM
 
   
   def test_send_and_receive
-    @connection.subscribe @d
+    @connection.subscribe @d, :visibility_timeout=>100
     @connection.send @d, @message
 
     @connection.test_headers = {:destination=>@d}
@@ -67,7 +68,9 @@ EOM
     <ReceiveMessageResponse>
       <Message>
         <MessageId>11YEJMCHE2DM483NGN40|3H4AA8J7EJKM0DQZR7E1|PT6DRTB278S4MNY77NJ0</MessageId>
-        <MessageBody>#{@message}</MessageBody>
+        <ReceiptHandle>some handle value</ReceiptHandle>
+        <Body>#{@message}</Body>
+        <MD5OfBody>not really the md5</MD5OfBody>
       </Message>
       <ResponseStatus>
         <StatusCode>Success</StatusCode>
@@ -75,6 +78,7 @@ EOM
       </ResponseStatus>
     </ReceiveMessageResponse>
 EOM
+
     message = @connection.receive
     assert_equal @message, message.body
   end

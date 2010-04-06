@@ -4,6 +4,7 @@ require 'openssl'
 require 'base64'
 require 'cgi'
 require 'time'
+require 'activemessaging/adapter'
 
 module ActiveMessaging
   module Adapters
@@ -15,7 +16,8 @@ module ActiveMessaging
         register :asqs
 
         QUEUE_NAME_LENGTH = 1..80
-        MESSAGE_SIZE = 1..(256 * 1024)
+        # MESSAGE_SIZE = 1..(256 * 1024)
+        MESSAGE_SIZE = 1..(8 * 1024)
         VISIBILITY_TIMEOUT = 0..(24 * 60 * 60)
         NUMBER_OF_MESSAGES = 1..255
         GET_QUEUE_ATTRIBUTES = ['All', 'ApproximateNumberOfMessages', 'VisibilityTimeout']
@@ -61,9 +63,9 @@ module ActiveMessaging
           # look at the existing queues, create any that are missing
           queue = get_or_create_queue queue_name
           if @subscriptions.has_key? queue.name
-            @subscriptions[queue.name] += 1
+            @subscriptions[queue.name].add
           else
-            @subscriptions[queue.name] = 1 
+            @subscriptions[queue.name] = Subscription.new(queue.name, message_headers)
           end
         end
 
@@ -71,8 +73,8 @@ module ActiveMessaging
         # for sqs, attempt delete the queues, won't work if not empty, that's ok
         def unsubscribe queue_name, message_headers={}
           if @subscriptions[queue_name]
-            @subscriptions[queue_name] -= 1
-            @subscriptions.delete(queue_name) if @subscriptions[queue_name] <= 0
+            @subscriptions[queue_name].remove
+            @subscriptions.delete(queue_name) if @subscriptions[queue_name].count <= 0
           end
         end
 
@@ -89,23 +91,31 @@ module ActiveMessaging
           raise "No subscriptions to receive messages from." if (@subscriptions.nil? || @subscriptions.empty?)
           start = @current_subscription
           while true
+            # puts "calling receive..."
             @current_subscription = ((@current_subscription < @subscriptions.length-1) ? @current_subscription + 1 : 0)
             sleep poll_interval if (@current_subscription == start)
             queue_name = @subscriptions.keys.sort[@current_subscription]
             queue = queues[queue_name]
+            subscription = @subscriptions[queue_name]
             unless queue.nil?
-              messages = retrieve_messsages queue, 1
+              messages = retrieve_messsages queue, 1, subscription.headers[:visibility_timeout]
               return messages[0] unless (messages.nil? or messages.empty? or messages[0].nil?)
             end
           end
         end
 
         def received message, headers={}
-          delete_message message
+          begin
+            delete_message message
+          rescue Object=>exception
+            logger.error "Exception in ActiveMessaging::Adapters::AmazonSQS::Connection.received() logged and ignored: "
+            logger.error exception
+          end
         end
 
         def unreceive message, headers={}
           # do nothing; by not deleting the message will eventually become visible again
+          return true
         end
         
         protected
@@ -181,7 +191,7 @@ module ActiveMessaging
         end
 
       	def make_request(action, url=nil, params = {})
-      	  
+          # puts "make_request a=#{action} u=#{url} p=#{params}"
       	  url ||= @aws_url
       	  
       		# Add Actions
@@ -207,32 +217,29 @@ module ActiveMessaging
           # puts "request_url = #{request_url}"
           request = Net::HTTP::Get.new(request_url)
 
-          # You should always retry a 5xx error, as some of these are expected
-    	    tryit = true
           retry_count = 0
-          while tryit
+          while retry_count < @request_retry_count.to_i
+      		  retry_count = retry_count + 1
+            # puts "make_request try retry_count=#{retry_count}"
             begin
               response = SQSResponse.new(http_request(host,port,request))
-              if (response.http_response == Net::HTTPServerError || response.nil?) && retry_count <= @request_retry_count
-          		  retry_count ++
-          		  sleep(@reconnect_delay)
-        		  else
-                tryit = false
-      		    end
-            rescue StandardError, TimeoutError
-              raise $! unless reliable
-        		  retry_count ++
+              check_errors(response)
+              return response
+            rescue Object=>ex
+              # puts "make_request caught #{ex}"
+              raise ex unless reliable
         		  sleep(@reconnect_delay)
             end
           end
-          check_errors(response)
         end
 
+        # I wrap this so I can move to a different client, or easily mock for testing
         def http_request h, p, r
           return Net::HTTP.start(h, p){ |http| http.request(r) }
         end
 
         def check_errors(response)
+          raise "http response was nil" if (response.nil?)
           raise response.errors if (response && response.errors?)
           response
         end
@@ -315,17 +322,14 @@ module ActiveMessaging
         end
 
         def errors
-          msg = ""
-          if http_response.kind_of?(Net::HTTPSuccess)
-            msg = "Errors: "
-          else
-            msg = "HTTP Error: #{http_response.code} : #{http_response.message}"
-          end
+          return "HTTP Error: #{http_response.code} : #{http_response.message}" unless http_response.kind_of?(Net::HTTPSuccess)
 
+          msg = nil
           each_node('//Error') { |n|
+            msg ||= ""
             c = n.elements['Code'].text
             m = n.elements['Message'].text
-            msg << ", " if msg != "Errors: "
+            msg << ", " if msg != ""
             msg << "#{c} : #{m}"
           }
 
@@ -344,6 +348,23 @@ module ActiveMessaging
         def nodes(xp)
           doc.elements.to_a(xp)
         end
+      end
+
+      class Subscription
+        attr_accessor :name, :headers, :count
+        
+        def initialize(destination, headers={}, count=1)
+          @destination, @headers, @count = destination, headers, count
+        end
+        
+        def add
+          @count += 1
+        end
+
+        def remove
+          @count -= 1
+        end
+
       end
 
       class Queue
@@ -379,6 +400,7 @@ module ActiveMessaging
           @headers, @id, @body, @md5_of_body, @receipt_handle, @response, @queue, @command =  headers, id, body, md5_of_body, receipt_handle, response, queue, command
           headers['destination'] = queue.name
         end
+
       
         def to_s
           "<AmazonSQS::Message id='#{id}' body='#{body}' headers='#{headers.inspect}' command='#{command}' response='#{response}'>"

@@ -1,20 +1,17 @@
-require 'dispatcher' unless defined?(::Dispatcher)
-::Dispatcher.class_eval do
-
-  def self.prepare_application_for_dispatch
-    if (self.private_methods.include? "prepare_application")
-      prepare_application
-    else
-      new(STDOUT).prepare_application
+if defined? Rails
+  ActiveMessaging.logger.debug "Rails available: Adding reload hooks."
+  require 'dispatcher' unless defined?(::Dispatcher)
+  ::Dispatcher.class_eval do
+    
+    def self.prepare_application_for_dispatch
+      disp = new(STDOUT)
+      disp.run_callbacks :before_dispatch
     end
-  end  
-
-  def self.reset_application_after_dispatch
-    if (self.private_methods.include? "reset_after_dispatch")
-      reset_after_dispatch
-    else
-      new(STDOUT).cleanup_application
+    
+    def self.reset_application_after_dispatch
+      disp = new(STDOUT)
+      disp.run_callbacks :after_dispatch, :enumerator => :reverse_each
     end
+
   end
-  
 end
