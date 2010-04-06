@@ -3,16 +3,16 @@
 # This is the actual config file used to keep the mongrels of
 # of.openfoundry.org running.
 
-  RUBY = "/home/openfoundry/ruby/ruby/bin/ruby"
-  MONGREL_RAILS = "/home/openfoundry/ruby/ruby/bin/mongrel_rails"
+  RUBY = "/usr/local/bin/ruby"
+  MONGREL_RAILS = "/usr/local/bin/mongrel_rails"
   RAILS_ROOT = "/home/openfoundry/of"
-  ENVIRONMENT = "production"
-  #ENVIRONMENT = "development"
+  #ENVIRONMENT = "production"
+  ENVIRONMENT = "development"
 
   USER = 'openfoundry'
   GROUP = 'openfoundry'
 
-  ADDRESS = '192.168.6.20'
+  ADDRESS = '127.0.0.1'
 
 #7996,7997 for sso
 #7998,7999 for foundry_sync
@@ -21,14 +21,14 @@
 7995.upto(8005) do |port|
   God.watch do |w|
     w.group = case port
-    when 7996..7997 : "8-sso"
-    when 7998..7999 : "9-sync"
-    when 7995 : "sync"
+    when 7996..7997 : "dev-sso"
+    when 7998..7999 : "dev-sync"
+    when 7995 : "dev-sync"
     else
-      port % 2 == 0 ? "1-even" : "2-odd"
+      port % 2 == 0 ? "dev-even" : "dev-odd"
     end 
 
-    w.name = "mongrel-#{port}"
+    w.name = "dev-mongrel-#{port}"
     w.interval = 30.seconds # default      
     w.start = "#{RUBY} #{MONGREL_RAILS} start -e #{ENVIRONMENT} -c #{RAILS_ROOT} -p #{port} \
       --user #{USER} --group #{GROUP} -l #{RAILS_ROOT}/log/mongrel.#{port}.log \
@@ -53,21 +53,19 @@
     w.transition([:start, :restart], :up) do |on|
       on.condition(:process_running) do |c|
         c.running = true
-        c.notify = 'tim'
       end
       
       # failsafe
       on.condition(:tries) do |c|
         c.times = 5
         c.transition = :start
-        c.notify = 'tim'
       end
     end
 
     # start if process is not running
     w.transition(:up, :start) do |on|
       on.condition(:process_exits) do |c|
-        c.notify = 'ossf-dev'
+      c.notify = 'ossf-dev'
       end
     end
     
@@ -98,8 +96,6 @@
         c.retry_in = 10.minutes
         c.retry_times = 5
         c.retry_within = 2.hours
-
-        c.notify = 'tim'
       end
     end
   end
@@ -107,9 +103,9 @@ end
 
 God.watch do |w|
   command = "su #{USER} -c 'cd #{RAILS_ROOT};#{RUBY} #{RAILS_ROOT}/script/ferret_server -e #{ENVIRONMENT} %s'"
-  w.group = "0-index-server"
+  w.group = "dev-index-server"
 
-  w.name = "ferret-server-9000"
+  w.name = "dev-ferret-server-9000"
   w.interval = 30.seconds # default      
   w.start = command % 'start'
   w.stop = command % 'stop'
@@ -131,14 +127,12 @@ God.watch do |w|
   w.transition([:start, :restart], :up) do |on|
     on.condition(:process_running) do |c|
       c.running = true
-      c.notify = 'tim'
     end
     
     # failsafe
     on.condition(:tries) do |c|
       c.times = 5
       c.transition = :start
-      c.notify = 'tim'
     end
   end
 
@@ -176,8 +170,6 @@ God.watch do |w|
       c.retry_in = 10.minutes
       c.retry_times = 5
       c.retry_within = 2.hours
-
-      c.notify = 'tim'
     end
   end
 end
@@ -192,25 +184,4 @@ God::Contacts::Email.server_settings = {
   :domain => "openfoundry.org",
   :authentication => :plain
 }
-
-God.contact(:email) do |c|
-  c.name = 'tim'
-  c.email = 'tim@iis.sinica.edu.tw'
-  c.group = 'ossf-dev'
-end
-God.contact(:email) do |c|
-  c.name = 'wangaguo'
-  c.email = 'wangaguo@iis.sinica.edu.tw'
-  c.group = 'ossf-dev'
-end
-God.contact(:email) do |c|
-  c.name = 'shawn'
-  c.email = 'shawn.chiou@citi.sinica.edu.tw'
-  c.group = 'ossf-dev'
-end
-God.contact(:email) do |c|
-  c.name = 'river'
-  c.email = 'fuchuanc@citi.sinica.edu.tw'
-  c.group = 'ossf-dev'
-end
 
