@@ -42,7 +42,7 @@ module ApplicationHelper
     hierarchy = 1 
 
     url = request.path.split('?')  #remove extra query string parameters
-    levels = url[0].split('/') #break up url into different levels
+    levels = (url[0] || '' ).split('/') #break up url into different levels
     #if not 'home' page, give a 'home' link
     html << addcrumb( _('Home'), hierarchy, '/') unless levels.empty? 
     level_name=""
