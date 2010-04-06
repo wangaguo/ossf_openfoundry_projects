@@ -65,8 +65,9 @@ module UserSystem
   # example use :
   # a popup window might just close itself for instance
   def access_denied
-    flash[:notice] = _('You have to login OpenFoundry first.')
-    redirect_to '/user/login'
+  #  flash[:notice] = _('You have to login OpenFoundry first.')
+  #  redirect_to '/user/login'
+     redirect_to SSO_LOGIN
   end  
   
   # store current uri in  the session.
