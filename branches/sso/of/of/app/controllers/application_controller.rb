@@ -104,7 +104,20 @@ class ApplicationController < ActionController::Base
     #user is your 'normal login user'
   end
   def login?
+		login_by_sso
     current_user().login != 'guest' 
+  end
+  def login_by_sso
+    if cookies['ossfauth']
+      chk = Curl::Easy.http_post(SSO_FETCH,
+                                 Curl::PostField.content('regist_key', SSO_OF_REGIST_KEY),
+                                 Curl::PostField.content('session_key', cookies['ossfauth']))
+
+      if chk.body_str != "Error, no such session"
+        user_data = Hash[*(chk.body_str.split(/: |, /))]
+        session[:user] = User.authenticate_by_sso(user_data['name'])
+      end
+    end
   end
   helper_method :current_user
   helper_method :login?
