@@ -8,6 +8,9 @@ require 'cgi_session_activerecord_store_hack'
 require 'hashit'
 
 require 'gettext_rails'
+
+require 'rubygems'
+require 'curb'
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
 
