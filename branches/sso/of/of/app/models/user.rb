@@ -192,6 +192,10 @@ class User < ActiveRecord::Base
     find( :first, :conditions => ["login = ? AND salted_password = ? AND verified = 1", login, pass.crypt(u.salted_password)])
   end
 
+  def self.authenticate_by_sso(login)
+  	find( :first, :conditions => ["login = ? AND verified = 1", login] )
+  end
+
   def self.is_the_same_loginname_used?(u)
     u.verified ==0 and User.valid_users.count(:conditions => "login = '#{u.login}'") > 0
   end
