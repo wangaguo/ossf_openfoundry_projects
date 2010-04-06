@@ -268,12 +268,12 @@ module ApplicationHelper
   end
   
   def help_icon(tooltip)
-    '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
+    '<img src="/of/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
   end
   
   def required_icon
     t = _("required_icon")
-    %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
+    %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/of/images/icon/star.gif"></em>!
   end
 
   def tz_date(time_at)
@@ -318,10 +318,10 @@ module ApplicationHelper
 
     def required_icon
       t = _("required_icon")
-      %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
+      %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/of/images/icon/star.gif"></em>!
     end
     def help_icon(tooltip)
-      '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
+      '<img src="/of/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
     end
     
     def label(method, text = nil, options = {})
