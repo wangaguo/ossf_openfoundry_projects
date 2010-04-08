@@ -147,8 +147,6 @@ class UserController < ApplicationController
       session[:return_to] = request.referer
     end
 
-    reset_session
-
     # for OpenID Session
     if params['open_id_complete'] and session[:user] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
@@ -162,8 +160,8 @@ class UserController < ApplicationController
     # end of OpenID Session 
     
     return if generate_blank
-    #For "paranoid session store"
-    #rebuild_session
+
+    reset_session
     
     @user = User.new(params['user'])
     if session[:user] = User.authenticate(params['user']['login'], params['user']['password'])
