@@ -3,6 +3,7 @@ require 'digest/md5'
 
 class UserController < ApplicationController
   require_dependency  'user'
+  layout 'module'
   before_filter :set_user_id, :except => [:login, :signup, :forgot_password, :welcome, :username_availability_check]
   before_filter :login_required, :except => [:login, :home, :signup, :forgot_password, :welcome, :username_availability_check]
 
