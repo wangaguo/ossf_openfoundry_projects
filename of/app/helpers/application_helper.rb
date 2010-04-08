@@ -95,6 +95,9 @@ module ApplicationHelper
           when 'survey'
             level_name, level_class, level_title = 
               _('Survey'), 'survey', nil
+          when 'signup'
+            level_name, level_class, level_title = 
+              _('Sign Up'), 'signup', nil
           else
             if (["help"].include?(level_class)==true) 
               level_name = ''
