@@ -23,20 +23,20 @@ var menudata=
       ]
     },
 <% if current_user.login != 'guest' %>
-    {id:'<%=_('menu_My Account')%>', url:'/user/home',
+    {id:'<%=_('menu_My Account')%>', url:'/of/user/home',
       submenu:[
-        {id:'<%=_('menu_Personal Homepage')%>', url:'/user/home'},
-        {id:'<%=_('menu_Preferences')%>', url:'/user/edit'},
-        {id:'<%=_('menu_My Projects')%>', url:'/user/my_projects'},
+        {id:'<%=_('menu_Personal Homepage')%>', url:'/of/user/home'},
+        {id:'<%=_('menu_Preferences')%>', url:'/of/user/edit'},
+        {id:'<%=_('menu_My Projects')%>', url:'/of/user/my_projects'},
         {id:'<%=_('menu_My Tickets')%>', url:'',
           submenu:[
-            {id:'<%=_('Owner')%>', url:'/rt/owner'},
-            {id:'<%=_('Creator')%>', url:'/rt/creator'},
-            {id:'<%=_('Requestor')%>', url:'/rt/requestor'},
-            {id:'<%=_('LastUpdatedBy')%>', url:'/rt/lastupdatedby'}
+            {id:'<%=_('Owner')%>', url:'/of/rt/owner'},
+            {id:'<%=_('Creator')%>', url:'/of/rt/creator'},
+            {id:'<%=_('Requestor')%>', url:'/of/rt/requestor'},
+            {id:'<%=_('LastUpdatedBy')%>', url:'/of/rt/lastupdatedby'}
           ]
         },
-        {id:'<img src="/images/icon/star.gif"/><%=_('Create Project')%>', url:'/projects/new'}
+        {id:'<img src="/images/icon/star.gif"/><%=_('Create Project')%>', url:'/of/projects/new'}
       ]
     },
 <% end %>

@@ -8,17 +8,7 @@ Current status is: <%= Project.status_to_s(@project.status) %>
   <p><label for="statusreason">Status Reason</label><br/>
   <%= text_area_tag 'statusreason', @project.statusreason %></p>
 
-  <% if [Project::STATUS[:APPLYING], Project::STATUS[:PENDING], Project::STATUS[:REJECTED]].include?(@project.status) %>
-    <p><label for="replymessage">Reply Message</label><br/>
-    <%= text_area_tag 'replymessage' %></p>
-  <% end %>
-
   <% if @project.status == Project::STATUS[:APPLYING] %>
-    <%= submit_tag 'approve', :name => 'invoke' %>
-    <%= submit_tag 'pending', :name => 'invoke' %>
-    <%= submit_tag 'reject', :name => 'invoke' %>
-  <% end %>
-  <% if @project.status == Project::STATUS[:PENDING] %>
     <%= submit_tag 'approve', :name => 'invoke' %>
     <%= submit_tag 'reject', :name => 'invoke' %>
   <% end %>
@@ -27,10 +17,6 @@ Current status is: <%= Project.status_to_s(@project.status) %>
   <% end %>
   <% if @project.status == Project::STATUS[:SUSPENDED] %>
     <%= submit_tag 'resume', :name => 'invoke' %>
-  <% end %>
-  <% if @project.status == Project::STATUS[:REJECTED] %>
-    <%= submit_tag 'approve', :name => 'invoke' %>
-    <%= submit_tag 'pending', :name => 'invoke' %>
   <% end %>
 <% end %>
 <%= link_to _('List'), :action => 'list' %> |

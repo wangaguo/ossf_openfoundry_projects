@@ -8,5 +8,6 @@
 <% else -%>
   <%= link_to _('Login'), :controller => :user, :action => :login %>
   &nbsp; | &nbsp;
-  <%= link_to _('Sign Up'), :controller => :user, :action => :signup %> 
+  <%#= link_to _('Sign Up'), :controller => :user, :action => :signup %> 
+  <%= link_to _('Sign Up'), "http://ssodev.openfoundry.org/sso/user/signup" %> 
 <% end -%>
