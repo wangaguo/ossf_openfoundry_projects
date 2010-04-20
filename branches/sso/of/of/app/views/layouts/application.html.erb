@@ -73,25 +73,7 @@
       <%elsif controller.controller_name == "help"%>
         <%=render :partial => "partials/help_menu"%>
       <%else%>
-        <div id="HomeLeft">
-          <%= render :partial => 'openfoundry/staticities', 
-                     :locals => {:userCount => User.count(:conditions => User.verified_users),
-                          :projectCount => Project.count(:conditions => Project.in_used_projects())
-                          } %>
-          <%= render :partial => 'releases/most_popular', :locals => {:downloadList => Release.top_download} %>
-          <%= render :partial => 'projects/new_projects', :locals => {:projectList => Project.new_projects} %>
-          
-          <h3><%= image_tag "of/icon01.gif", :align => "left" %><%=_('Steering Organization')%></h3>
-          <div style="text-align:center;">
-            <a href="http://www.citi.sinica.edu.tw/" target="_blank">
-              <img src="http://www.openfoundry.org/images/stories/ITIAS_LOGO.jpg" title="Research Center for Information Technology Innovation Academia Sinica"/>
-            </a>
-            <a href="http://web.nsc.gov.tw/default.asp" target="_blank">
-              <img src="http://www.openfoundry.org/images/stories/nsc.jpg" title="行政院國家科學委員會"/>
-            </a>
-          </div>
-  
-        </div>
+        <%=render :partial => "partials/homeleft"%>
       <%end%>
     </div>
   </div>
