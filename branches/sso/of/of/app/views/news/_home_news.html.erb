@@ -1,13 +1,15 @@
-<h3>
+<% module_title = capture do -%>
   <%=link_to( image_tag('atom.png', 
              {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
              {:controller => :news, :action => :new_openfoundry_news_feed, :format => :xml} )%>
   <%= image_tag "of/main_icon01.gif", :align => "left" %>
   <%=_('OpenFoundry News')%>
-</h3>
+<% end -%>
+
+<% module_content = capture do -%>
 <%i=1 %>
 <ul>
-  <%for news in newsList %>
+  <% for news in newsList -%>
     <li>
     <%= if news.created_at > 7.days.ago then image_tag('hot.png') end %>
     <%= link_to news.subject, 
@@ -17,8 +19,8 @@
     <%if i==1 %>
       <p><%=h(news.description.mb_chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;<%=link_to( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>     
       <%i=i+1%>
-    <%end %>
-  <%end %>
+    <% end -%>
+  <% end -%>
 </ul>
 <%=link_to( _('More...'), {:controller => "news"}, :class => "more" )%>
 <%=auto_discovery_link_tag(:rss,
@@ -27,3 +29,6 @@
 <%=auto_discovery_link_tag(:atom,
    {:format => :xml, :controller => :news, :action => :new_openfoundry_news_feed},
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'ATOM'} }) %>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>

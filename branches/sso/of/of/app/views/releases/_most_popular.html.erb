@@ -1,10 +1,12 @@
-<h3>
+<% module_title = capture do -%>
   <%=link_to( image_tag('atom.png', 
          {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
          {:controller => :releases, :action => :top_download_feed, :format => :xml} ) %>
   <%= image_tag "of/icon02.gif", :align => "left" %>
   <%=_('Top Download')%>
-</h3>
+<% end -%>
+
+<% module_content = capture do -%>
 <ul>
   <%for download in downloadList %>
     <li>
@@ -22,3 +24,6 @@
 <%=auto_discovery_link_tag(:atom, 
    {:format => :xml, :controller => :releases, :action => "top_download_feed"},
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Top Download'), :type => 'ATOM'} }) %>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>

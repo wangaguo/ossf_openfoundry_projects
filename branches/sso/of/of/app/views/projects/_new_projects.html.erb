@@ -1,16 +1,18 @@
-<h3>
+<% module_title = capture do -%>
   <%=link_to image_tag('atom.png', 
                {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
                {:controller => :projects, :action => :new_projects_feed, :format => :xml} %>
   <%= image_tag "of/icon_new_projects.gif", :align => "left" %>
   <%= _('New Projects') %>
-</h3>
+<% end -%>
+
+<% module_content = capture do -%>
 <ul>
-  <%for project in projectList %>
+  <% for project in projectList -%>
   <li>
     <%= link_to h(project.summary), project_path(:id => project.id) %>
   </li>
-  <%end %>
+  <% end -%>
 </ul>
 <%=link_to _('More...'), projects_path() + "?sortdesc=listing-created_at", :class => "more" %>
 <%=auto_discovery_link_tag(:rss, 
@@ -19,3 +21,6 @@
 <%=auto_discovery_link_tag(:atom, 
    {:format => :xml, :controller => :projects, :action => :new_projects_feed},
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('New Projects'), :type => 'ATOM'} }) %>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>

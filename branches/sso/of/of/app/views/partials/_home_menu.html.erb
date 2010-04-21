@@ -1,0 +1,25 @@
+<% module_title = capture do -%>
+<%= _('Projects Menu') %>
+<% end -%>
+
+<% module_content = capture do -%>
+<ul class="menu">
+  <li><%= link_to '<img src="/of/images/icon/star.gif"/>'+_('Create Project')%></li>
+  <% if current_user.login != 'guest' -%>
+  <li><%= link_to _('menu_My Projects')%></li>
+  <li><%= link_to _('menu_My Tickets')%></li>
+  <li><%= link_to _('menu_My Messages')%></li>
+  <% end -%>
+  <li><%= link_to _('menu_License Wizard') %></li>
+  <li><%= link_to _('Forum') %></li>
+  <li><%= link_to _('menu_Project Listing') %></li>
+  <li><%= link_to _('menu_Project Category') %></li>
+  <li><%= link_to _('menu_Project News') %></li>
+  <li><%= link_to _('menu_Latest Releases') %></li>
+  <li><%= link_to _('menu_Top Downloads') %></li>
+  <li><%= link_to _('menu_Help Wanted') %></li>
+  <li><%= link_to _('menu_WebHosting') %></li>
+</ul>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => ''} %>

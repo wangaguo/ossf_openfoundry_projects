@@ -1,17 +1,19 @@
-<h3>
+<% module_title = capture do -%>
   <%=link_to( 
      image_tag('atom.png', 
           {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
      {:controller => :releases, :action => :new_release_feed, :format => :xml}) %>
   <%= image_tag "of/icon06.gif", :align => "left", :valign => "middle" %>
   <%= _("Latest Releases") %>
-</h3>
+<% end -%>
+
+<% module_content = capture do -%>
 <ul>
-  <% for release in newReleasesList %>
+  <% for release in newReleasesList -%>
   <li>
     <%= link_to h(release.project.summary + " " + release.version), download1_path(:project_id => release.project_id) + "##{release.version}" %>
   </li>
-  <% end %>
+  <% end -%>
 </ul>
 <%= link_to _("More..."), {:controller => 'releases', :action => 'latest'}, :class => "more" %>
 <%=auto_discovery_link_tag(:rss,
@@ -20,3 +22,6 @@
 <%=auto_discovery_link_tag(:atom,
    {:format => :xml, :controller => :releases, :action => "new_release_feed"},
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("Latest Releases"), :type => 'ATOM'} }) %>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
