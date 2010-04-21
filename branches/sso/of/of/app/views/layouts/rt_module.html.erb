@@ -1,11 +1,15 @@
-<div class="rt-block <%= variation%>">
+<% variation = variation || '' %>
+<% module_title = module_title || nil %>
+<div class="rt-block <%= variation %>">
   <div class="rt-module-surround">
     <div class="rt-module-top"><div class="rt-module-top2"><div class="rt-module-top3"></div></div></div>
     <div class="rt-module-inner">
-      <div class="module-title"><h2><%= yield :module_title %></h2></div>
+      <% if module_title %>
+        <div class="module-title"><h2><%= module_title %></h2></div>
+      <% end %>
       <div class="clear"></div>
       <div class="module-content">
-        <%= yield :module_content %>
+        <%= module_content %>
       </div>
     </div>
     <div class="rt-module-bottom"><div class="rt-module-bottom2"><div class="rt-module-bottom3"></div></div></div>
