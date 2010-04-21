@@ -155,7 +155,7 @@ class NewsController < ApplicationController
       :item => {
         :title => :subject,
         :description => :description,
-        :link => lambda { |n| news_url(:id => n.id, :project_id => n.catid)}
+        :link => lambda { |n| url_for(:controller => "news", :action => "show", :id => n.id)}
       }     
     }     
     respond_to do |format|
