@@ -1,3 +1,4 @@
+<% showDescr == showDescr || true -%> 
 <% module_title = capture do -%>
   <%=link_to( image_tag('atom.png', 
              {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
@@ -16,10 +17,12 @@
         {:controller => "news", :action => "show", :id => news.id}, :class => "news_subject" %>
     <%= news.created_at.strftime "%Y-%m-%d" %>
     </li>
-    <%if i==1 %>
-      <p><%=h(news.description.mb_chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;<%=link_to( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>     
-      <%i=i+1%>
+    <% if showDescr == true -%>
+      <% if i==1 -%>
+        <p><%=h(news.description.mb_chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;<%=link_to( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>     
+      <% end -%>
     <% end -%>
+    <%i=i+1%>
   <% end -%>
 </ul>
 <%=link_to( _('More...'), {:controller => "news"}, :class => "more" )%>
