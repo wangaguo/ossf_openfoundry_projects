@@ -1,3 +1,4 @@
+<% module_content = capture do -%>
 <script>
 document.observe("dom:loaded", project_leftmenu_init);
 </script>
@@ -112,3 +113,7 @@ document.observe("dom:loaded", project_leftmenu_init);
   </ul>
   <% end %>
 </div>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => ''}  %>
+

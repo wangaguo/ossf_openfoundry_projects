@@ -1,26 +1,29 @@
 <% inside_layout 'application' do -%>
-  <div id="module_rt">
-    <div id="module_nav">
-      <div id="module_nav_center">
-        <div id="module_nav_right">
-          <h3><%=_('rt_issue_tracker')%></h3>
-          <div id="module_nav_tab">
-            
-<ul id="rt_nav" class="module_tab">
-<li id="type_all" onclick="rt_nav(this)" class="off"><a href="<%=@base_url%>" target="of_module"><%=_('rt_overview')%></a></li>
-<li id="type_defect" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'defect')%>" target="of_module"><%=_('rt_defect')%></a></li>
-<li id="type_patch" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'patch')%>" target="of_module"><%=_('rt_patch')%></a></li>
-<li id="type_task" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'task')%>" target="of_module"><%=_('rt_task')%></a></li>
-<li id="type_feature" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'feature')%>" target="of_module"><%=_('rt_feature')%></a></li>
-<li id="type_enhancement" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'enhancement')%>" target="of_module"><%=_('rt_enhancement')%></a></li>
-</ul>
+  <% module_title = _('rt_issue_tracker') -%>
+  <% module_tabs = capture do -%>
+            <div id="module_nav_tab">
+  <ul id="rt_nav" class="module_tab">
+  <li id="type_all" onclick="rt_nav(this)" class="off"><a href="<%=@base_url%>" target="of_module"><%=_('rt_overview')%></a></li>
+  <li id="type_defect" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'defect')%>" target="of_module"><%=_('rt_defect')%></a></li>
+  <li id="type_patch" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'patch')%>" target="of_module"><%=_('rt_patch')%></a></li>
+  <li id="type_task" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'task')%>" target="of_module"><%=_('rt_task')%></a></li>
+  <li id="type_feature" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'feature')%>" target="of_module"><%=_('rt_feature')%></a></li>
+  <li id="type_enhancement" onclick="rt_nav(this)" class="off"><a href="<%=@tabnav_url.gsub(/@type/, 'enhancement')%>" target="of_module"><%=_('rt_enhancement')%></a></li>
+  </ul>
+            </div>
+  <% end -%>
+  <% module_content = capture do -%>
+    <div id="module_rt">
+      <div id="module_nav">
+        <div id="module_nav_center">
+          <div id="module_nav_right">
           </div>
         </div>
       </div>
+      <div id="module_content">
+      <%= yield %>
+      </div>
     </div>
-    <div id="module_content">
-    <%= yield %>
-    </div>
-  </div>
-     
+  <% end -%>
+  <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_tabs =>module_tabs, :module_content => module_content, :variation => 'square1'}  %>
 <% end -%>

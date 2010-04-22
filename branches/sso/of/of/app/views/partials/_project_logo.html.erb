@@ -1,0 +1,21 @@
+<% module_content = capture do -%>
+  <div class="project_logo_border">
+    <div id='project_logo'>
+      <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
+        <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>"/>
+      </a>
+    </div>
+    <br/>
+      <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
+        <%= image_tag "green_arrow_right.gif" %>
+        <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">
+            <%=_('Change Icon')%>
+        </a>
+      </span>
+      <%end%>
+  </div>
+  <%= render :partial => 'images/edit', :locals =>
+    {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) } %>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => ''}  %>

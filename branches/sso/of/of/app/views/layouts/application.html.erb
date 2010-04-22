@@ -5,16 +5,18 @@
   <% bundle :name => "prototype" do %>
   <%= javascript_include_tag "prototype" %>
   <% end %>
-  <% bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
-  <%= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
-  <%= javascript_include_tag "effects", "transmenu", "application" %>
+  <%# bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
+  <%#= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
+  <%= stylesheet_link_tag "scaffold", "ofnew" %>
+  <%#= javascript_include_tag "effects", "transmenu", "application" %>
+  <%= javascript_include_tag "effects", "application" %>
   <%= javascript_include_tag 'calendar/calendar' %>
   <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
   <%= javascript_include_tag 'calendar/calendar-setup' %>
   <%= javascript_include_tag "http://ssodev.openfoundry.org/sso/javascripts/langsync.js" %>
   <%= stylesheet_link_tag 'calendar' %>
-  <% end %>
-  <%= render :partial => 'partials/top_menu_data' %>
+  <%# end %>
+  <%#= render :partial => 'partials/top_menu_data' %>
   <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
    <script>alert('Please use Internet Explorer 6 or above.');</script>
   <% end %>
@@ -22,6 +24,7 @@
 
 <% content_for :header_content do -%>
   <div id="header-toolbar">
+    <div id="Login"><%= render :partial => 'partials/login' %></div>
     <%= render :partial => 'partials/lang'%>
   </div>
   <div id="search">
@@ -31,42 +34,25 @@
 
 <% content_for :body_content do -%>
 <div id="of-body">
-  <div id="SiteMap">
-    <div id="Login"><%= render :partial => 'partials/login' %></div>
-    <div id="BreadCrumbs"><%= breadcrumbs %></div>
+  <div id="rt-breadcrumbs">
+    <div class="rt-breadcrumb-surround">
+      <div id="SiteMap">
+        <div id="BreadCrumbs"><%= breadcrumbs %></div>
+      </div>
+    </div>
   </div>
-  
+
   <div id="MiddlePane">
-    <div id="MainContent">
+    <div id="MainContent" class="rt-grid-9 rt-push-3">
       <div id="Flash"><%= show_flash %></div>
       <%if params["project_id"] != nil%>
         <h1><%= h(@project.summary) %></h1>
       <%end%>
       <%= yield :layout %>
     </div>
-    <div id="LeftWidget">   
-      <%if params["project_id"] != nil%>
-        <div class="project_logo_border">
-          <div id='project_logo'>
-            <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
-              <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>"/>
-            </a>  
-          </div>
-          <br/>  
-            <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
-              <%= image_tag "green_arrow_right.gif" %> 
-              <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">
-                  <%=_('Change Icon')%>
-              </a>
-            </span>
-            <%end%>
-        </div>
-            <%= render :partial => 'images/edit', :locals => 
-            {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) }%>
-      <%end%>
-  
+    <div id="LeftWidget" class="rt-grid-3 rt-pull-9">   
     	<%if params["project_id"] != nil%>
-  
+        <%=render :partial => "partials/project_logo", :locals => {:project => @project}%>
         <div id="LeftMenu">
           <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
         </div>

@@ -1,91 +1,5 @@
-/* For All */
-* {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:13px;
-  color:#666;
-}
-h1 { font-size:20px; }
-h2 { font-size:18px; }
-h3 { font-size:16px; }
-h4 { font-size:14px; }
-h1, h2, h3, h4 { color:#31659C; margin:3px; }
-/*input[type="button"], input[type="submit"], input[type="reset"] { color:#31659C; background-color:#C6D3F7; }*/
-label { font-weight:bold; }
-img { border:none; }
 fieldset { border:solid 2px #DEE7FF; }
 fieldset legend { font-weight:bold; color:#4265DE; }
-a { text-decoration: none; color:#0D356F; }
-a:hover { color: #577FE3; /*border-bottom: dotted 1px #333;*/ }
-textarea { height:100px; width:500px; }
-ul { margin:0px; padding:0 5px 0 20px; list-style-position:outside; list-style:url(../images/of/icon_s01.gif); }
-em { color:red; font-weight:bold; font-style:normal; }
-
-.button { background:url(../images/button.gif) repeat-x; color:white; cursor:pointer; padding:2px 5px; margin:0px; }
-.button:hover { background-position:bottom; }
-.odd { }
-.even { background-color:#EFF4FF; }
-* :focus { color:#2332AE; }
-td { padding:3px; }
-th { padding:3px; }
-
-/* For Layout */
-body { 
-	behavior: url(csshover2.htc); /* call hover behaviour file */
-  margin: 0px;
-}
-/*width:227px; */
-#MiddlePane { 
-  padding-left:227px;
-  margin:0;    
-  min-width: 450px; /* LC fullwidth + CC padding */  
- }
-#LeftWidget, #MainContent { float:left; position:relative; }
-#LeftWidget {
-  width: 227px; /* LC width */  
-  right: 227px; /* LC fullwidth */  
-  margin-left: -99%;
-}
-#MainContent { width: 99%; }
-* html #LeftWidget { left:0; /* RC fullwidth */ }/*IE fix*/
-
-#SiteMap {font-weight:bold; border-bottom:solid 2px #F3F3F9; margin-bottom:3px; height:25px; }
-#Login { float:left; text-indent:5px; line-height:25px; width:230px; overflow:hidden; }
-#BreadCrumbs { padding-left:227px; }
-#BreadCrumbs a { color:#aaa; }
-
-#RightWidget { float:right; width:34%; overflow:hidden;	}
-#Home { width:63%; }
-
-#Footer {
-  padding:30px 0px 10px 0px;
-  text-align:center;
-  clear:both;
-  width:100%;
-  float:right;
-}
-
-
-/* For HomePage */
-
-.more { margin-left:8px; font-weight:bold; }
-/*
-#Login { background:url(../images/of/login_bg.gif) repeat-x; padding:5px; width:215px; }
-#Login h3 { background-image:url(../images/of/login_01.gif); height:25px; padding:12px 0px 0px 35px; margin:-5px; color:white;  }
-#Login img { border:solid 2px #999999; }
-*/
-
-#HomeLeft h3, #HomeRight h3 { background-image:url(../images/of/icon_bg01.gif); color:#39379C; line-height:33px; width:214px; font-weight:normal; }
-#HomeLeft ul, #HomeRight ul, #Home ul { margin:5px 0 15px 0px; width:90%; }
-#Home { border-right:solid 1px #F3F3F9; border-left:solid 1px #F3F3F9; }
-#Home h3 { background-image:url(../images/of/main_title_bg01.gif); color:#686868; line-height:38px; font-weight:normal; }
-
-#OFIntro { height:200px; margin:0px 15px; border-bottom:solid 1px #F3F3F9; }
-#OFIntro #Module { float:right; width:34%; overflow:hidden; }
-#OFIntro #Module img { opacity:0.6; padding:8px; }
-#OFIntro #Module img:hover { opacity:1; }
-#OFIntro #Module a ,#Module td { font-size:12px; text-align:center;}
-#OFIntro #Module_Function_Text { width:63%; } 
-#OFIntro #Module_Text { font-size:100%; margin: 15px; }
 
 /* Left menu */
 #LeftMenu { padding-left:5px; }
@@ -166,13 +80,8 @@ body {
 .ProjectList .item_b td .imgarea { width:64px; height:64px; text-align:center; }
 .ProjectList .item_b td .txtarea { margin-left:20px; width:580px; height:64px; padding-left:20px; text-align:left; vertical-align:top; }
 
-/*
-border-bottom:solid 2px #DEE7FF;
-
-background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll center bottom;
- width:99%;
- */
-.module_tab {  }
+/* module */
+.module_tab { float:right;  }
 .module_tab {
   font-size:93%;
   line-height:normal;
@@ -209,14 +118,7 @@ background:white url(http://rt.openfoundry.org/img/tab/bg.gif) repeat-x scroll c
   opacity:0.9; filter:alpha(opacity=90);
 }
 
-
-/* module */
 #of_module { width:750px; height:2000px;}
-#module_nav { display:table; padding:0 0 0 0px; margin:0px 0 0 0px; width:100%; background:url(../images/project_navbar_l.gif) no-repeat;}
-#module_nav #module_nav_center { margin:0 0 0 6px; background:url(../images/project_navbar_c.gif); }
-#module_nav #module_nav_right { background:url(../images/project_navbar_r.gif) no-repeat right; line-height:23px; height:32px; }
-#module_nav h3 { background:url(../images/project_navbar_arrow.gif) no-repeat; padding-left:30px; float:left; }
-#module_nav #module_nav_tab { float:right; text-align:right; margin-top:7px; }
 #module_content { border:solid 1px #ccc; border-top:none; padding:3px; }
 
 /* rt */
