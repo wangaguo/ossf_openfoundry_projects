@@ -32,6 +32,7 @@ class UserController < ApplicationController
   end
 
   def my_projects
+    @module_name = _('My Projects')
     reset_sortable_columns
     add_to_sortable_columns('listing', Project, 'summary', 'summary') 
     add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
@@ -80,6 +81,7 @@ class UserController < ApplicationController
     # TODO: user may be empty!!!!!!!!!!!!!!!! .... guest account?
     #logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
     
+    @module_name = _('menu_Personal Homepage')
     if params['id']
       user = User.find_by_id params['id']
       @my = ( current_user and (user.id == current_user.id) )
