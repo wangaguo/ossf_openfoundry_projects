@@ -24,13 +24,13 @@ class NewsController < ApplicationController
   
   def list
     if @is_all_projects_news == true
-      @head = _('Project News')
-      layout_name = "application"
+      @module_name = _('Project News')
+      layout_name = "normal"
       conditions = "news.catid<>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
     elsif params[:project_id].nil? 
-      @head = _('OpenFoundry News')
-      layout_name = "application"
+      @module_name = _('OpenFoundry News')
+      layout_name = "normal"
       conditions = "catid=0"
     else
       @module_name = _('News')
@@ -54,7 +54,8 @@ class NewsController < ApplicationController
   
   def show
     if params[:project_id].nil? 
-      layout_name = "application"
+      @module_name = _('OpenFoundry News')
+      layout_name = "normal"
     else
       @module_name = _('project_News')
       layout_name = "module"
