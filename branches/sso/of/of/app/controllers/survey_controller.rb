@@ -1,5 +1,5 @@
 class SurveyController < ApplicationController
-  layout 'application'
+  layout 'module'
   #see lib/permission_table.rb
   before_filter :find_resource_project
   before_filter :check_permission
@@ -12,6 +12,7 @@ class SurveyController < ApplicationController
   private :find_resource_project
 
   def review
+    @module_name = _('project menu|Downloaders')
     unless Project.exists?(params[:id])
       render :text => 'Project not found'
     end
@@ -89,6 +90,8 @@ class SurveyController < ApplicationController
   end
 
   def index
+    @module_name = _('project menu|Surveys Edit')
+
     project_id = params[:project_id]
     unless Project.exists?(project_id)
       render :text => 'Project not found'

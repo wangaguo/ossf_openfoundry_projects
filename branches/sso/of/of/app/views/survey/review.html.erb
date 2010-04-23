@@ -1,4 +1,3 @@
-<h1> <%= s_('survey|Survey Reviews') %></h1>
 <% columns = Downloader.content_columns%>
 <% columns.reject!{|col| ['file', 'creator', 'updated_at', 'created_at', 'updated_by'].include? col.name} %>
 <div>
