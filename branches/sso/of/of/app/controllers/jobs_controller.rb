@@ -19,8 +19,8 @@ class JobsController < ApplicationController
   
   def list
     if params[:project_id].nil? 
-      @head = _('Project Help Wanted')
-      layout_name = "application"
+      @module_name = _('Project Help Wanted')
+      layout_name = "normal"
       conditions = "jobs.project_id>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
     else
