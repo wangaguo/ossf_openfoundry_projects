@@ -17,6 +17,7 @@ class CategoryController < ApplicationController
   end
   
   def list
+    @module_name = _('Project Category')
     #projects = Project.find(:all, :conditions => Project::in_used_projects())
     @maturity = {}
     @license = {}
