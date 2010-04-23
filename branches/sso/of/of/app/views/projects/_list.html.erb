@@ -1,5 +1,7 @@
 <div id="ProjectList">
-  <h1><%= _('Project Listing') %> <%= "<b>by #{@filter_by}</b>" if @filter_by %></h1>
+<% @module_name = capture do -%>
+  <%= _('Project Listing') %> <%= "<b>by #{@filter_by}</b>" if @filter_by %>
+<% end -%>
 <%= paginate = will_paginate projects %>
 <table class="ProjectList">
   <tr>
