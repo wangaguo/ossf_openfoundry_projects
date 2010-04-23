@@ -36,6 +36,7 @@ class ReleasesController < ApplicationController
   
   #list all release for a given :project_id
   def list
+    @module_name = _('release_Edit')
     @project_id = params[:project_id]
     @releases = Release.find :all,
       :conditions => "project_id = #{params[:project_id]}", :order => 'due desc'
@@ -113,6 +114,7 @@ class ReleasesController < ApplicationController
   end
   
   def new
+    @module_name = _('release_New')
     if request.get?
       @release = Release.new
       @release.status = 0
