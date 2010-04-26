@@ -147,6 +147,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    @module_name = _("Create Project")
     @project = Project.new
   end
 

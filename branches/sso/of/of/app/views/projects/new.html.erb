@@ -1,9 +1,7 @@
 <div id="ProjectNew">
-<h1><%=_("Create Project") + "<span style=\"font-size:10px; margin-left: 20px;\">(" + required_icon() + _("required_icon") + ")</span>"%></h1>
-
+<%= "<em>(" + required_icon() + _("required_icon") + ")</em>"%>
 <% form_tag :action => 'create' do %>
   <%= render :partial => 'form', :locals => { :is_edit => false } %>
   <%= submit_tag _("Create") %>
 <% end %>
-
 </div>
