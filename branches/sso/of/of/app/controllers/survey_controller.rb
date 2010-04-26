@@ -12,7 +12,7 @@ class SurveyController < ApplicationController
   private :find_resource_project
 
   def review
-    @module_name = _('project menu|Downloaders')
+    @module_name = s_('project menu|Downloaders')
     unless Project.exists?(params[:id])
       render :text => 'Project not found'
     end
@@ -90,7 +90,7 @@ class SurveyController < ApplicationController
   end
 
   def index
-    @module_name = _('project menu|Surveys Edit')
+    @module_name = s_('project menu|Surveys Edit')
 
     project_id = params[:project_id]
     unless Project.exists?(project_id)

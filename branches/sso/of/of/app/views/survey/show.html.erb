@@ -1,13 +1,14 @@
+<% if files %>
+<ul>
+  <%=files.map{|f| '<li>'+f.path+'</li>'}%>
+</ul>
+<%end%>
+
+<label><%= s_('survey|Say something to end-users:')%></label>
+<textarea class="SurveyPrompt" style="width:250px;height:50px"><%=prompt%></textarea>
 <dl>
-  <% if files %>
-    <dt><%=files.map{|f| f.path}.join('<br>')%>
-    </dt>
-  <%end%>
-  <%#= resource.inspect%>
-  <h3><%= s_('survey|Say something to end-users:')%></h3>
-  <textarea class="SurveyPrompt" style="width:250px;height:50px"><%=prompt%></textarea>
   <% Survey::ITEMS.each_with_index do |item, i| %>
-    <dt><h3> <%=s_("survey|#{item}")%> </h3>
+    <dt><%=s_("survey|#{item}")%></dt>
     <dd> 
     <% case resource[i] 
      when 48,49,50; 
