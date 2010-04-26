@@ -1,7 +1,7 @@
 <% content_for :head_content do -%>
  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= @module_name ||controller.action_name %> 
-         <%= '- '+(@project ? @project.name : '') %>
+         <%= (@project ? '- '+(@project.name||'') : '') %>
          - OpenFoundry
          <%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
   <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
