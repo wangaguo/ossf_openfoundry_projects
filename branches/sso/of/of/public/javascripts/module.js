@@ -1,8 +1,13 @@
-importJS("http://of.openfoundry.org/javascripts/jquery.js", "jQuery", function(){
+var module = function(){};
+module.js_path = "http://of.openfoundry.org/of/javascripts/";
+module.logo_path = "http://www.openfoundry.org/Powered-by-OSSF-180x50";
+module.site_path = "http://www.openfoundry.org/";
+
+importJS(module.js_path+"jquery.js", "jQuery", function(){
   var pathname = location.pathname;
   _OF(jQuery);
   if(pathname.match(/^\/rt\/ticket\/create.html/i) || pathname.match(/^\/c/i)) {
-    importJS("http://of.openfoundry.org/javascripts/jquery.validate.js", "jQuery.validator", function(){
+    importJS(module.js_path+"jquery.validate.js", "jQuery.validator", function(){
       jQuery(document).ready(function(){OF.onload();});
     });
   }
@@ -53,9 +58,9 @@ window.OF = {
       $("a[href*='http:']").attr("target","_top"); //external link
     }
     //不是openfoundry.org就加上ossf logo
-    if(parent == window || this.is_crosssite() || !parent.location.host.match(/of.openfoundry.org/))
+    if(parent == window || this.is_crosssite() || !parent.location.host.match(location.host))
     {
-      $("body").append('<a href="http://www.openfoundry.org" target="_blank"><img src="http://www.openfoundry.org/Powered-by-OSSF-180x50" style="border:none; float:right;"></a>');
+      $("body").append('<a href="'+module.site_path+'" target="_blank"><img src="'+module.logo_path+'" style="border:none; float:right;"></a>');
     }
   },
   
