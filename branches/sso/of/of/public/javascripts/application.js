@@ -132,23 +132,6 @@ function HeaderOnOff(vSwitch)
 	}
 }
 
-function SetHeader()
-{
-	vSwitch = getCookie("HeaderOnOff");
-	if(vSwitch == 'OFF' )
-	{
-		$("header").style.display = "none";
-    $('HeaderOnOffImage').src="/images/HeaderOnOff_On.gif";
-	}
-	else
-	{
-		$("header").style.display = "block";
-    $('HeaderOnOffImage').src="/images/HeaderOnOff_Off.gif";
-	}
-}
-
-Event.observe(window, 'load', SetHeader);
-
 function wo(url) {
   return "javascript:var a = window.open('" + url + "')";
 }
