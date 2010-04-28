@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:doap="http://usefulinc.com/ns/doap#"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:of="http://of.openfoundry.org/ns#"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xml:lang="en" lang="en">
+<head>
+ <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <% bundle :name => "prototype" do %>
+  <%= javascript_include_tag "prototype" %>
+  <% end %>
+  <%= stylesheet_link_tag "openfoundry" %>
+  <%= javascript_include_tag "application", "module" %>
+</head>
+<body>
+<%= yield :layout %>
+</body>
+</html>
