@@ -1,0 +1,10 @@
+<%if @user and @projects %>
+    <%= "<em>#{@user.name}</em>" + _('User Own Projects') %>
+  </dt>
+  <dd>
+    <% @projects.each do |p| %>
+      <%= project_logo_link(p, {:with_name => true, :float => 'left', :rdf_tag => 'rev="doap:developer"'}) %>
+    <% end %>
+    <br clear="all"/>
+  </dd>
+  <% end %>:
