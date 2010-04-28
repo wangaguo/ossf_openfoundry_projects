@@ -4,7 +4,7 @@
              {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
              {:controller => :news, :action => :new_openfoundry_news_feed, :format => :xml} )%>
   <%= image_tag "of/main_icon01.gif", :align => "left" %>
-  <%=_('OpenFoundry News')%>
+  <%=_('Announcements')%>
 <% end -%>
 
 <% module_content = capture do -%>
@@ -19,7 +19,7 @@
     </li>
     <% if showDescr == true -%>
       <% if i==1 -%>
-        <p><%=h(news.description.mb_chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;<%=link_to( "(詳全文)", :controller => "news", :action => "show", :id => news.id ) %></p>     
+        <p><%=h(news.description.mb_chars[0..270].gsub(/<[^>]*>/,' ')) %>...&nbsp;<%=link_to( _('Detail'), :controller => "news", :action => "show", :id => news.id ) %></p>     
       <% end -%>
     <% end -%>
     <%i=i+1%>
