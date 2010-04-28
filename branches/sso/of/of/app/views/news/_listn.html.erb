@@ -13,6 +13,7 @@
     <%= link_to( 
 	h(news.project.summary + ' - ' + news.subject), 
 	news1_path(:id => news.id, :project_id => news.catid) )%>
+    <%= news.updated_at.strftime "%Y-%m-%d" %>
   </li>
   <%end -%>
 </ul>
