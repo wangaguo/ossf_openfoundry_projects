@@ -1,105 +1,192 @@
-<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:doap="http://usefulinc.com/ns/doap#"
-      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-      xmlns:of="http://of.openfoundry.org/ns#"
-      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-      xml:lang="en" lang="en">
-<head>
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/components/com_customproperties/css/customproperties.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/components/com_gantry/css/gantry.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/components/com_gantry/css/grid-12.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/components/com_gantry/css/joomla.css" type="text/css" />
+    <link rel="stylesheet" href="/components/com_gantry/css/gantry.css" type="text/css" />
+    <link rel="stylesheet" href="/components/com_gantry/css/grid-12.css" type="text/css" />
+    <link rel="stylesheet" href="/components/com_gantry/css/joomla.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/joomla.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/style1.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/light-body.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/demo-styles.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/template.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/template-firefox.css" type="text/css" />
 
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/joomla.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/splitmenu.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/typography.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/fusionmenu.css" type="text/css" />
+    <link rel="stylesheet" href="/modules/mod_jflanguageselection/tmpl/mod_jflanguageselection.css" type="text/css" />
+    <style type="text/css">
+/*<![CDATA[*/
+    <!--
+    #rt-main-surround ul.menu li.active > a, #rt-main-surround ul.menu li.active > .separator, #rt-main-surround ul.menu li.active > .item, #rt-main-surround .square4 ul.menu li:hover > a, #rt-main-surround .square4 ul.menu li:hover > .item, #rt-main-surround .square4 ul.menu li:hover > .separator, .roktabs-links ul li.active span {color:#0088B5;}
+    a, #rt-main-surround ul.menu a:hover, #rt-main-surround ul.menu .separator:hover, #rt-main-surround ul.menu .item:hover {color:#0088B5;}
+    -->
+    /*]]>*/
+    </style>
 
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/style1.css" type="text/css" />
+    <link href="http://ssodev.openfoundry.org/components/com_mtree/templates/m2/template.css" rel="stylesheet" type="text/css" />
+    </script><!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->
+    <%= yield :head_content %>
+  </head>
+  <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
+    <div id="rt-main-background">
+      <div class="rt-container">
+        <div id="rt-header">
+          <div class="rt-grid-7 rt-alpha">
+            <div class="rt-block">
+              <a href="/" id="rt-logo" name="rt-logo"></a>
 
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/light-body.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/demo-styles.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/template.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/template-firefox.css" type="text/css" />
-  <link rel="stylesheet" href="http://freenix.iis.sinica.edu.tw/wsw/templates/rt_quantive_j15/css/typography.css" type="text/css" />
-  <%= yield :head_content %>
-</head>
+            </div>
+          </div>
+          <div class="rt-grid-5 rt-omega">
+            <div class="square9">
+              <div class="rt-block">
+                <div class="rt-module-surround">
+                  <div class="rt-module-top">
+                    <div class="rt-module-top2">
+                      <div class="rt-module-top3"></div>
 
-<body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-splitmenu col12 ">
-<div id="rt-main-background">
-  <div class="rt-container">
-    <div id="rt-drawer">
-      <div class="rt-grid-12 rt-alpha rt-omega">
-        <div class="clear"></div>
-      </div>
-      <div class="clear"></div>
-    </div>
-    <div id="rt-header">
+                    </div>
+                  </div>
+                  <div class="rt-module-inner">
+                    <div class="module-content">
+                      <%= yield :header_content %>
+                    </div>
+                  </div>
+                  <div class="rt-module-bottom">
+                    <div class="rt-module-bottom2">
+                      <div class="rt-module-bottom3"></div>
 
-      <div class="rt-grid-12 rt-alpha rt-omega">
-        <div style="float:right;">
-          <%= yield :header_content %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
         </div>
-        <div class="rt-block">
-          <a href="http://freenix.iis.sinica.edu.tw/wsw/" id="rt-logo"></a>
+        <div id="rt-navigation">
+
+          <div id="rt-navigation2">
+            <div id="rt-navigation3">
+              <div class="nopill">
+                <ul class="menutop level1">
+                  <li class="item1 root">
+                    <a class="orphan item bullet" href="http://ssodev.openfoundry.org/"><span>首頁</span></a>
+                  </li>
+                  <li class="item32 root">
+
+                    <a class="orphan item bullet" href="http://ssodev.openfoundry.org/of/"><span>專案</span></a>
+                  </li>
+                  <li class="item6 root">
+                    <a class="orphan item bullet" href="/tw/community"><span>社群</span></a>
+                  </li>
+                  <li class="item4 root">
+                    <a class="orphan item bullet" href="/tw/news"><span>新聞</span></a>
+
+                  </li>
+                  <li class="item5 root">
+                    <a class="orphan item bullet" href="/tw/law-and-licenses"><span>法律源地</span></a>
+                  </li>
+                  <li class="item3 root">
+                    <a class="orphan item bullet" href="/tw/workshop"><span>工作坊</span></a>
+                  </li>
+                  <li class="item2 active root">
+
+                    <a class="orphan item bullet" href="/tw/resourcecatalog?Name=Value"><span>資源表列</span></a>
+                  </li>
+                  <li class="item45 root">
+                    <a class="orphan item bullet" href="/tw/about"><span>關於</span></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="clear"></div>
+
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="clear"></div>
+        <div class="rt-surround">
+          <div class="rt-surround2">
+            <div class="rt-surround3">
+              <div id="rt-main-surround">
+                <div id="rt-breadcrumbs">
+                  <div class="rt-breadcrumb-surround">
 
+                    <%= yield :breadcrumbs_content %>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <div id="rt-main" class="sa3-mb9">
+                  <div class="rt-main-inner">
+                    <%= yield :body_content %>
+                    <div class="clear"></div>
+                  </div>
+
+                </div>
+              </div>
+              <div id="rt-copyright">
+                <div class="rt-grid-12 rt-alpha rt-omega">
+                  <div class="rt-block">
+                    <div class="rt-module-surround">
+                      <div class="rt-module-top">
+                        <div class="rt-module-top2">
+                          <div class="rt-module-top3"></div>
+
+                        </div>
+                      </div>
+                      <div class="rt-module-inner">
+                        <div class="module-title">
+                          <h2 class="title">
+                            聯絡我們
+                          </h2>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="module-content">
+                          <p>
+                            TEL:
+                          </p>
+                          <p>
+                            FAX:
+                          </p>
+                          <p>
+                            E-Mail:
+                          </p>
+
+                        </div>
+                      </div>
+                      <div class="rt-module-bottom">
+                        <div class="rt-module-bottom2">
+                          <div class="rt-module-bottom3"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="rt-footer-bottom-wrap">
+                <div class="rt-footer-bottom">
+                  <div class="rt-footer-bottom2">
+                    <div class="rt-footer-bottom3"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rt-surround-bottom">
+          <div class="rt-surround-bottom2">
+            <div class="rt-surround-bottom3"></div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div id="rt-navigation"><div id="rt-navigation2"><div id="rt-navigation3">
-      <div class="nopill">
-        <ul class="menutop level1">
-          <li class="item1">
-            <a class="orphan item" href="http://freenix.iis.sinica.edu.tw/wsw/">
-              <span> 首頁         </span>
-            </a>
-
-          </li>
-          <li class="item6">
-              <a class="orphan item" href="http://freenix.iis.sinica.edu.tw/wsw/index.php?option=com_comprofiler&amp;task=userslist&amp;listid=4&amp;Itemid=6&amp;lang=tw">
-              <span> 社群         </span>
-            </a>
-          </li>
-          <li class="item4">
-            <a class="orphan item" href="http://freenix.iis.sinica.edu.tw/wsw/index.php?option=com_content&amp;view=section&amp;layout=blog&amp;id=13&amp;Itemid=4&amp;lang=tw">
-
-              <span> 新聞         </span>
-            </a>
-          </li>
-          <li class="item5">
-              <a class="orphan item" href="http://freenix.iis.sinica.edu.tw/wsw/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=106&amp;Itemid=5&amp;lang=tw">
-              <span> 法律源地         </span>
-            </a>
-
-          </li>
-          <li class="item3">
-              <a class="orphan item" href="http://freenix.iis.sinica.edu.tw/wsw/index.php?option=com_eventlist&amp;view=eventlist&amp;Itemid=3&amp;lang=tw">
-              <span> 工作坊         </span>
-            </a>
-          </li>
-          <li class="item2">
-            <a class="orphan item" href="http://freenix.iis.sinica.edu.tw/wsw/index.php?option=com_mtree&amp;Itemid=2&amp;lang=tw&amp;Name=Value">
-
-              <span> 資源表列         </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="clear"></div>
-    </div></div></div>
-
-  <div class="rt-surround"><div class="rt-surround2"><div class="rt-surround3">
-    <div id="rt-main-surround"><div id="rt-main" class="mb9-sa3"><div class="rt-main-inner">
-      <!-- content body begin -->
-      <%= yield :body_content %>
-      <!-- content body end -->
-    </div></div></div>
-  </div></div></div>
-
-  <div class="rt-surround-bottom"><div class="rt-surround-bottom2"><div class="rt-surround-bottom3"></div></div></div></div>
-</div>
-</body>
+  </body>
 </html>
-
