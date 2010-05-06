@@ -29,6 +29,7 @@
 
     <link href="http://ssodev.openfoundry.org/components/com_mtree/templates/m2/template.css" rel="stylesheet" type="text/css" />
     </script><!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->
+    <script type="text/javascript" src="/modules/mod_ofssologin/js/ofssologin.js"></script>
     <%= yield :head_content %>
   </head>
   <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
@@ -54,6 +55,19 @@
                   <div class="rt-module-inner">
                     <div class="module-content">
                       <%= yield :header_content %>
+
+<div class="ofssologin_search_square9">
+  <form id="of_search" action="/of/openfoundry/search" method="get" onsubmit="of_search(); return false;">
+    <input id="query" name="query" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="28" value="search..."  onblur="if(this.value=='') this.value='search...';" onfocus="if(this.value=='search...') this.value='';" />
+    <select id="of_search_type">
+      <option value="Projects"><%=_('Projects')%></option>
+      <option value="Content"><%=_('Content')%></option>
+      <option value="Community"><%=_('Community')%></option>
+    </select>
+    <input type="hidden" name="commit" value="search" />
+  </form>
+</div>  
+
                     </div>
                   </div>
                   <div class="rt-module-bottom">

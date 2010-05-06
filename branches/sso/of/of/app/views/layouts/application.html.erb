@@ -1,5 +1,5 @@
 <% content_for :head_content do -%>
-  <title><%= @module_name ||controller.action_name %> 
+  <title><%= @module_name || controller.action_name %> 
          <%= (@project ? '- '+(@project.name||'') : '') %>
          - OpenFoundry
          <%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
@@ -22,11 +22,11 @@
 
 <% content_for :header_content do -%>
   <div id="header-toolbar">
-    <div id="Login"><%= render :partial => 'partials/login' %></div>
+    <div id="Login">
+    <%= render :partial => 'partials/login' %>
+    &nbsp;|&nbsp;
     <%= render :partial => 'partials/lang'%>
-  </div>
-  <div id="search">
-    <%= render :partial => 'partials/search', :locals =>{:size => 10}%>
+    </div>
   </div>
 <% end -%>
 
