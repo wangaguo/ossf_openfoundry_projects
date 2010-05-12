@@ -1,0 +1,14 @@
+<% if not @rss.nil? %>
+  <table>
+    <% @rss.items.each do | item | %>
+      <tr><td><a href='<%=item.link %>'><%=item.title %></a></td></tr>
+
+      <tr>
+        <td>
+          Created&nbsp;<%=tz_date( item.dc_date ) %>&nbsp;&nbsp;
+          by&nbsp;<%=h item.dc_creator %>&nbsp;&nbsp;
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
