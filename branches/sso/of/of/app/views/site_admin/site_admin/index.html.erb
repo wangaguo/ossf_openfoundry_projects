@@ -39,7 +39,7 @@ Agent: <%= request.user_agent%>
     切換使用者
     <input id="switch_user_search" size="25" type="text">
     <%= observe_field "switch_user_search",
-        :url =>"/site_admin/site_admin/switch_user_search",
+        :url =>"#{root_path}site_admin/site_admin/switch_user_search",
         :frequency => 0.5,
         :update => 'ProjectMemberNew',
         :with => :username
