@@ -279,7 +279,7 @@ class OpenfoundryController < ApplicationController
       if params[:chk]
         params[:chk].keys.map{|k| Object.const_get(k)}
       else
-        :all
+        @options[:models] = [Project] 
       end
     obj = @options[:models] == :all ? User : @options[:models].first
     @results = obj.find_with_ferret(query, @options) 
