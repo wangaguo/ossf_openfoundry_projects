@@ -24,16 +24,16 @@ class NewsController < ApplicationController
   
   def list
     if @is_all_projects_news == true
-      @module_name = _('Project News')
+      @module_name = _('Projects News')
       layout_name = "normal"
       conditions = "news.catid<>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
     elsif params[:project_id].nil? 
-      @module_name = _('OpenFoundry News')
+      @module_name = _('Announcements')
       layout_name = "normal"
       conditions = "catid=0"
     else
-      @module_name = _('News')
+      @module_name = _('Project News')
       layout_name = "module"
       conditions = "catid=#{params[:project_id]}"
     end
@@ -60,11 +60,13 @@ class NewsController < ApplicationController
       @module_name = _('project_News')
       layout_name = "module"
     end
+    @module_name = @news.subject
     render :layout => layout_name, :template => 'news/show'
   end
   
   def new
     @news = News.new
+    @module_name = _('Add News')
   end
 
   def new_release
@@ -115,6 +117,7 @@ class NewsController < ApplicationController
   
   def edit
     @news.updated_at = @news.updated_at.strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
+    @module_name = _('Edit')
   end
   
   def update

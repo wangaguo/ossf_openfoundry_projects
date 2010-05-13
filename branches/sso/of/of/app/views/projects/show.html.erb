@@ -7,18 +7,16 @@
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
 
 <br/>
-<center>
 <table>
   <tr>
     <td>
-      <%= button_to _('Downloads'), download1_path(:project_id => params[:id]) %>
+      <%= link_to "<span>#{_('Downloads')}</span>", download1_path(:project_id => @project.id), :class => 'readon' %>
     </td>
     <td>
-      <%= button_to _('project_Tracker'), rt_path(:project_id => params[:id]), :class => 'subimg' %>
+      <%= link_to "<span>#{_('project_Tracker')}</span>", rt_path(:project_id => @project.id), :class => 'readon' %>
     </td>
   </tr>
 </table>
-</center>
 
 <br/>
 <% module_title = capture do %>
@@ -37,8 +35,8 @@
   <%=render :partial => 'member' %>
 <% end %>
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
-<br/>
 
+<br/>
 <%# module_content = capture do %>
   <%#=render :partial => "logo" %>
 <%# end %>

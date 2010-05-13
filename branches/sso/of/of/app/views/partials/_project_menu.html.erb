@@ -21,7 +21,6 @@ document.observe("dom:loaded", project_leftmenu_init);
               <li><%= link_to _('project_Homepage'), "http://#{project.name}.openfoundry.org", :target => '_blank' %></li>
               <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
               <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
-              <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
               <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
           </ul>
       </li>
@@ -47,8 +46,9 @@ document.observe("dom:loaded", project_leftmenu_init);
               <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
           </ul>
       </li>
-      <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
       <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+      <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
+      <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
       <% if is_nsc_project %>
       <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
       <% end %>
@@ -115,5 +115,4 @@ document.observe("dom:loaded", project_leftmenu_init);
 </div>
 <% end -%>
 
-<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => ''}  %>
-
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'}  %>

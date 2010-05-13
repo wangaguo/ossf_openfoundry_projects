@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed, :project_board]
   before_filter :set_project
 
   before_filter :project_check_permission
@@ -21,7 +21,6 @@ class ProjectsController < ApplicationController
   
   def set_project_id
     params[:project_id] = params[:id]
-    @module_name = _('Basic Information')
   end
   
   def sympa
@@ -134,16 +133,47 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @module_name = _('Basic Information')
+    @nsccode = @project.tag_list.names.grep(/^NSC\d/).sort.join(", ")
+
     @participents = User.find_by_sql("
       select distinct U.id, U.login, U.icon, R.name as role_name
         from users U
           inner join roles_users RU on U.id = RU.user_id
           inner join roles R on RU.role_id = R.id
         where
-          R.authorizable_id = #{@project.id} and
+          R.authorizable_id = #{ @project.id } and
           R.authorizable_type= 'Project'
         order by U.id
-    ")    
+    ")
+#    render :action => 'project_board'
+    @p = @participents.group_by { |p| p.role_name }
+
+    #
+    # for project issues
+    #
+    if @project.id
+      # the base request url for rt rdf
+      prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=Queue = '#{ @project.id }'"
+
+      # connect to the rdf file 
+      require 'open-uri'
+      content = ''
+      open( URI::escape( prturl ) ) do | f | content = f.read end
+
+      # parse the rdf of project issues
+      require 'rss/1.0'
+      require 'rss/2.0'
+      require 'rss/dublincore'
+      require 'rss/content'
+      begin
+        @rss = RSS::Parser.parse( content, false, false )
+      rescue RSS::InvalidRSSError
+        @rss = nil
+      end
+    end
+
+    render :layout => "application"
   end
 
   def new
@@ -537,4 +567,49 @@ class ProjectsController < ApplicationController
   end
   def test_action
   end
+
+  def project_board
+    @project = Project.find(params[:id])
+    @nsccode = @project.tag_list.names.grep(/^NSC\d/).sort.join(", ")
+
+    @participents = User.find_by_sql("
+      select distinct U.id, U.login, U.icon, R.name as role_name
+        from users U
+          inner join roles_users RU on U.id = RU.user_id
+          inner join roles R on RU.role_id = R.id
+        where
+          R.authorizable_id = #{params[:id]} and
+          R.authorizable_type= 'Project'
+        order by U.id
+    ")
+    @p = @participents.group_by { |p| p.role_name }
+    @news = News.find(:all, :conditions => "catid=#{params[:id]} and status = #{News::STATUS[:Enabled]}", :order => "updated_at desc", :limit => 5)
+
+    #
+    # for project issues
+    #
+    if params[ :id ]
+      # the base request url for rt rdf
+      prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=Queue = '#{ params[ :id ] }'"
+
+      # connect to the rdf file 
+      require 'open-uri'
+      content = ''
+      open( URI::escape( prturl ) ) do | f | content = f.read end
+
+      # parse the rdf of project issues
+      require 'rss/1.0'
+      require 'rss/2.0'
+      require 'rss/dublincore'
+      require 'rss/content'
+      begin
+        @rss = RSS::Parser.parse( content, false, false )
+      rescue RSS::InvalidRSSError
+        @rss = nil
+      end
+    end
+
+    render :layout => "application"
+  end
+
 end
