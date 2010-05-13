@@ -36,15 +36,16 @@ module ApplicationHelper
   end
   
   #TODO to be optimized! about this breadcrumb, see http://joshhuckabee.com/node/58
-  def breadcrumbs(options={})
+  def breadcrumbs(module_name=nil)
     #TODO table or list?
-    html = "<table class=\"#{options[:class]}\"> \n<tr>\n"
+#    html = "<table class=\"#{options[:class]}\"> \n<tr>\n"
+    html = "<a id='breadcrumbs-home' href='/'></a><span class=\"breadcrumbs pathway\"> \n"
     hierarchy = 1 
 
     url = request.path.split('?')  #remove extra query string parameters
     levels = (url[0] || '' ).split('/') #break up url into different levels
     #if not 'home' page, give a 'home' link
-    html << addcrumb( _('Home'), hierarchy, '/') unless levels.empty? 
+#    html << addcrumb( _('Home'), hierarchy, '/') unless levels.empty? 
     level_name=""
     level_class=nil
     level_title='name'
@@ -122,19 +123,32 @@ module ApplicationHelper
         if index == levels.size-1 #|| 
             #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
           #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
-          html << addcrumb(level_name, hierarchy) unless (level_name.nil?) 
+          if (level_name.length > 20 or level_class == User) or (level_name.length > 20 and level_class == User) 
+            html << addcrumb(level_name, hierarchy) unless (level_name.nil?)
+          else
+            html << addcrumb(@module_name, hierarchy) unless (@module_name.nil?) 
+          end
         else
-          link='/'+levels[1..index].join('/')
+          link = '/of/'+levels[1..index].join('/')
           html << addcrumb(level_name, hierarchy, link)
         end
       end
     end
-    html << "</tr>\n</table>\n"
+#    html << "</tr>\n</table>\n"
+    if levels.empty?
+        html << '<span class="no-link">' + _("Projects") + "</span>"
+    end
+    html << "\n</span>\n"
   end
   
   def addcrumb(name,level,path = nil)
-    name = "<a href=\"#{path}\" id=\"bc-hierarchy-#{level}\">#{name}</a>" unless path.nil?
-    "<td>&raquo;#{name}</td>\n"
+#      name = "<a class='pathway' href=\"#{path}\" id=\"bc-hierarchy-#{level}\">#{name}</a>" unless path.nil?
+#    "<td>&raquo;#{name}</td>\n"
+    if path
+      name = "<a class='pathway' href=\"#{path}\">#{name}</a>" unless path.nil?
+    else
+      name = "<span class='no-link'>#{name}</span>"
+    end
   end
 
   def arranged_select(tag_name, records, options = {})

@@ -48,7 +48,7 @@
     	<%if params["project_id"] != nil%>
           <%=render :partial => "partials/project_logo", :locals => {:project => @project}%>
           <% module_title = capture do %>
-            <%= _('Project News') %>
+            <%= _('News') %>
           <% end %>
           <% module_content = capture do%>
             <%=render :partial => "news/news_list", :locals => {:project => @project}%>

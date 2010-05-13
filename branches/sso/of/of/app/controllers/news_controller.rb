@@ -24,7 +24,7 @@ class NewsController < ApplicationController
   
   def list
     if @is_all_projects_news == true
-      @module_name = _('Projects News')
+      @module_name = _('Project News')
       layout_name = "normal"
       conditions = "news.catid<>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
@@ -33,7 +33,7 @@ class NewsController < ApplicationController
       layout_name = "normal"
       conditions = "catid=0"
     else
-      @module_name = _('Project News')
+      @module_name = _('News')
       layout_name = "module"
       conditions = "catid=#{params[:project_id]}"
     end
