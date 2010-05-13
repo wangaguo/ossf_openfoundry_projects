@@ -6,8 +6,8 @@ class Function < ActiveRecord::Base
   def self.functions(options = { :authorizable_type => '', :authorizable_id => '', :user_id => ''})
     at = options[:authorizable_type] || 'Project'
     ai = options[:authorizable_id]
-    ui = options[:user_id]
-    raise "bad parameter!" if at !~ /^\w+$/ or (not Fixnum === ai) or (not Fixnum === ui)
+    ui = options[:user_id] || 0
+    raise "bad parameter! ui =#{ui}" if at !~ /^\w+$/ or (not Fixnum === ai) or (not Fixnum === ui)
 
     #if user is the admin of this project, return all functions
     if Role.count_by_sql(
@@ -17,8 +17,7 @@ class Function < ActiveRecord::Base
               R.authorizable_type = 'Project' and
               R.authorizable_id  = P.id and
               #{Project.in_used_projects(:alias => 'P')} and
-              U.id = '#{ui}' and
-              #{User.verified_users(:alias => 'U')}
+              U.id = '#{ui}'
         ") > 0
       sql = "select F.name from functions F"
     else
@@ -50,8 +49,7 @@ class Function < ActiveRecord::Base
               R.authorizable_type = 'Project' and 
               R.authorizable_id  = P.id and 
               #{Project.in_used_projects(:alias => 'P')} and 
-              U.login = '#{user.login}' and 
-              #{User.verified_users(:alias => 'U')}                      
+              U.login = '#{user.login}' 
         ") > 0
     
     #else check every permission carefully!
@@ -64,7 +62,6 @@ class Function < ActiveRecord::Base
         "roles.authorizable_id = projects.id and " +
         "#{Project.in_used_projects(:alias => 'projects')} and " +
         "users.login = '#{user.login}' and " + 
-        "#{User.verified_users(:alias => 'users')} and " +
         "functions.name = '#{function_name}'"))
       return true
     else
