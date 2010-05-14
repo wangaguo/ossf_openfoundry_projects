@@ -58,12 +58,12 @@ class ApplicationController < ActionController::Base
   def set_gettext_locale 
     # guest's language should be nil, because "" is true. 
     # request.preferred_language_from is plugin, return value is zh-TW, gettext need zh_TW.
-    cookies[:lang] = set_locale( (params[:lang] || cookies[:lang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
+    cookies[:oflang] = set_locale( (params[:lang] || cookies[:oflang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
   end
 
   # also being invoked when a user changes his/her language preference
   def set_locale_for_gettext!(lang)
-    cookies[:lang] = set_locale(lang||"en")
+    cookies[:oflang] = set_locale(lang||"en")
   end
 
   def get_project_by_id_or_name(id_or_name)
