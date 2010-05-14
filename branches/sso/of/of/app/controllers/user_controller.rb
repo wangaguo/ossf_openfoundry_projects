@@ -1,5 +1,7 @@
 require 'base64'
 require 'digest/md5'
+require 'rubygems'
+require 'curb'
 
 class UserController < ApplicationController
   require_dependency  'user'
@@ -14,7 +16,7 @@ class UserController < ApplicationController
         id = params['user_alias'] if User.exists?(params['user_alias'])
       when User::LOGIN_REGEX 
         obj = User.find(:first, :select => :id, 
-                       :conditions => ["login = ? and #{User.verified_users}", params['user_alias'] ])
+                       :conditions => ["login = ?", params['user_alias'] ])
         id = obj.id if obj
       end
       if id
@@ -71,17 +73,14 @@ class UserController < ApplicationController
   end
   
   def index
-    redirect_to :action => :home
+    redirect_to :action => :dashboard
   end
 
   def home
     # given uid to show other user's home
     # or goto login
     # TODO: redirect to login .... ok
-    # TODO: user may be empty!!!!!!!!!!!!!!!! .... guest account?
-    #logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
-    
-    @module_name = _('menu_Personal Homepage')
+    @module_name = _('menu_Personal Homepage') 
     if params['id']
       user = User.find_by_id params['id']
       @my = ( current_user and (user.id == current_user.id) )
@@ -90,7 +89,7 @@ class UserController < ApplicationController
       @my =true
     end
 
-    if user
+    if user and user.id
       @name = user.login
       @icon = user.icon
       @realname = user.realname||''
@@ -112,7 +111,7 @@ class UserController < ApplicationController
       @created_at = user.created_at
       #@status = user. unless user.t_conseal_status
 
-      @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} and #{User.verified_users(:alias => 'U')} order by U.id")
+      @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} order by U.id")
       @projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} and #{Project.in_used_projects(:alias => 'P')} order by P.id")
       @pending_projects = Project.find(:all, :conditions => "#{Project.pending_projects()} and creator = '#{current_user().id}'")
       #@partners = []
@@ -124,7 +123,7 @@ class UserController < ApplicationController
       #@partners.flatten!.uniq!  
     else
       flash[:message] = "You are guest!!"
-      redirect_to :action => 'login'
+      redirect_to '/of/' 
     end
   end
 
@@ -134,7 +133,7 @@ class UserController < ApplicationController
       render :layout => false, :text => _("Username '%{username}' is invalid") % {:username => username }
       return
     end
-    if User.exists?([ "login = ? and #{User.verified_users}", username ])
+    if User.exists?([ "login = ? ", username ])
       render :layout => false, :text => 
       ( _("Username '%{username}' has already registed") % {:username => username } )
     else
@@ -148,8 +147,6 @@ class UserController < ApplicationController
     if params['user'].nil? && !request.referer.nil? then 
       session[:return_to] = request.referer
     end
-
-    reset_session
 
     # for OpenID Session
     if params['open_id_complete'] and session[:user] = open_id_authentication(nil)
@@ -252,7 +249,6 @@ class UserController < ApplicationController
     return unless login_required #_("you have to login before changing email")
     return if generate_filled_in
     params['user'].delete('form')
-    @user_original_email = @user.email
     @user.change_email(params[:user][:email], params[:user][:email_confirmation])
     if @user.valid?
       k = @user.generate_security_token()
@@ -264,8 +260,6 @@ class UserController < ApplicationController
     else
       flash.now[:warning] = _('user_change_email_error')
     end
-    @user.email = @user_original_email
-    @user.email_confirmation = ""
     #dummy = User.find_by_login('dummy')
 #    begin
 #      #User.transaction(@user) do
@@ -425,7 +419,7 @@ class UserController < ApplicationController
     users = unless name.blank?
       User.find_by_sql(
         ["select id,icon,login,realname,email from users where 
-                          #{User.verified_users} and login like  ? limit ?","%#{name}%" ,limit])
+                          login like  ? limit ?","%#{name}%" ,limit])
     else
       []
     end
@@ -457,7 +451,7 @@ class UserController < ApplicationController
     when :get
       session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
-        :locals => {:submit_to => '/user/signup', 
+        :locals => {:submit_to => '/of/user/signup', 
                     :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
       return true
     when :post
