@@ -1,0 +1,46 @@
+#!/usr/bin/env ruby
+require 'curb'
+
+f = File.new( "tmp/sync_time" )
+utime = f.read || 5.minutes.ago.utc.to_i 
+
+def log_synctime( status, who )
+	utime = Time.zone.now.utc
+
+	f = File.new( "tmp/sync_time", "w" )
+	f.puts "#{ utime.to_i }"
+	f.close
+
+  logger = Logger.new( 'tmp/sync_log.log' )
+	logger.debug "[user-#{ who } #{ status } by SCRIPT-SYNC at #{ utime }]" 
+end
+
+# map the column names of DB between sso and of
+def translate( h )
+  { :name => :login }.each do | k, v |
+    if( h.has_key? k )
+      h[ v ] = h.delete( k )
+    end
+  end
+	# reject the column names not in of-DB
+  h.reject! { | k, v | not User.column_names.member? k.to_s }
+end
+
+if data = JSON.parse( Curl::Easy.http_post( SSO_PERIOD_SYNC, Curl::PostField.content( 'synctime', utime ) ).body_str ) and !data.empty?
+	data.each { | uset |
+		# data hash for each user 
+		udata = uset[ "user" ]
+		udata.symbolize_keys!
+
+		if User.find( :first, :conditions => { :login => udata[ "login" ] } ).nil?
+			# user in sso-side is created newly and it haven't been created by real-time sync
+			# so...create it!!
+			usync = User.new( translate( udata ) )
+			log_synctime( "created", "#{ udata[ "login" ] }" ) if usync.save
+		else
+			# update user data
+			usync = User.find( :first, :conditions => { :login => udata[ "login" ]  } )
+			log_synctime( "updated", "#{ udata[ "login" ] }" ) if usync.update_attributes( translate( udata ) )
+		end
+	}
+end
