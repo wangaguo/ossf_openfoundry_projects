@@ -6,7 +6,7 @@ require 'curb'
 class UserController < ApplicationController
   require_dependency  'user'
   before_filter :set_user_id, :except => [:login, :signup, :forgot_password, :welcome, :username_availability_check]
-  before_filter :login_required, :except => [:login, :home, :signup, :forgot_password, :welcome, :username_availability_check]
+  before_filter :login_required, :except => [:login, :home, :signup, :forgot_password, :welcome, :username_availability_check, :dashboard]
 
   def set_user_id
     if params['user_alias']
@@ -92,9 +92,9 @@ class UserController < ApplicationController
     if user and user.id
       @name = user.login
       @icon = user.icon
-      @realname = user.realname||''
-      @homepage = user.homepage||''
-      @bio = user.bio||''
+      @realname = user.realname
+      @homepage = user.homepage
+      @bio = user.bio
       if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
         @conceal_realname = false
         @conceal_homepage = false
@@ -109,7 +109,7 @@ class UserController < ApplicationController
       session[:email_image] = user.email unless @conceal_email
       @email_md5 = Digest::MD5.hexdigest(user.email)
       @created_at = user.created_at
-      #@status = user. unless user.t_conseal_status
+			@pending_projects = Project.find(:all, :conditions => "#{Project.pending_projects()} and creator = '#{current_user().id}'")
 
       @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} order by U.id")
       @projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} and #{Project.in_used_projects(:alias => 'P')} order by P.id")
@@ -142,6 +142,13 @@ class UserController < ApplicationController
   end
 
   def login
+    if login?
+      cookies["lang"] = current_user.language
+			redirect_to :controller => :user, :action => :home
+    else
+      redirect_to SSO_LOGIN + "?return_url=" + SSO_OF_LOGIN
+    end
+=begin
     begin redirect_to :action => :home, :controller => :user ;return end if login?
 
     if params['user'].nil? && !request.referer.nil? then 
@@ -195,6 +202,7 @@ class UserController < ApplicationController
     else
       flash[:message] = _('user_login_failed')  
     end
+=end
   end
 
   def signup
@@ -238,11 +246,32 @@ class UserController < ApplicationController
       session[:effective_user] = nil
       redirect_to '/site_admin'
     else #normal user logout~
-      reset_session
+
+      # maintain an enumerable hash that include online users
+      # with simple lock
+#      Session.user_logout(session[:user].id)
+
+			if cookies[:ossfauth]
+				curl = Curl::Easy.new(SSO_LOGOUT)
+				curl.cookies = "ossfauth=#{cookies[:ossfauth]};"
+				curl.http_post
+
+				cookies.delete :ossfauth
+        session[:user] = nil
+
+				flash[:message] = _('user_logout_succeeded')
+				redirect_to '/of/'
+			end
+=begin
+      session[:user] = nil
+      #For "paranoid session store"
+      #kill_login_key
+      #rebuild_session
 
       flash[:message] = _('user_logout_succeeded')
       redirect_to '/'
-    end
+=end
+		end
   end
 
   def change_email
@@ -426,6 +455,72 @@ class UserController < ApplicationController
     render(:partial => 'search_hit_member',
       :locals => {:users => users},
       :layout => false) 
+  end
+
+  def dashboard
+    # set user's object in session initially
+    login_by_sso if session[ :user ].nil?
+
+    @allrtoptions = { "Owner" => "owner", "Creator" => "creator", "Requestor" => "requestor", "Last Updated" => "lastupdatedby" }
+
+    if params[ :username ] || session[ :user ]
+      #
+      # My Issue Tracker
+      #
+
+      # the base request url for rt rdf
+      rturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=id>'0'"
+      # set the current user name
+      @name = ( params[ :username ].nil? )? current_user().login : params[ :username ]
+
+      # set the relation of rt with user 
+      case params[ :lookfor ]
+        when 'owner'
+          rturl += " AND Owner='" + @name + "'"
+        when 'creator'
+          rturl += " AND Creator='" + @name + "'"
+        when 'requestor'
+          rturl += " AND Requestor.Name='" + @name + "'"
+        when 'lastupdatedby'
+          rturl += " AND LastUpdatedBy='" + @name + "'"
+        else
+          rturl += " AND Owner='" + @name + "'"
+      end
+
+      # connect to the rdf file
+      require 'open-uri'
+      content = ''
+      open( URI::escape( rturl ) ) do | f | content = f.read end
+
+      # parse the the rdf file
+      require 'rss/1.0'
+      require 'rss/2.0'
+      require 'rss/dublincore'
+      require 'rss/content'
+      begin
+        @rss = RSS::Parser.parse( content, false, false )
+      rescue RSS::InvalidRSSError
+        @rss = nil
+      end
+
+      #
+      # My Projects 
+      #
+      @my_projects = Project.find_by_sql "SELECT DISTINCT(P.id), P.icon, P.name, P.updated_at FROM projects P 
+                                         JOIN roles R 
+                                         JOIN roles_users RU 
+                                         JOIN users U WHERE
+                                         P.id = R.authorizable_id AND 
+                                         R.authorizable_type = 'Project' AND 
+                                         P.status = 2 AND 
+                                         R.id = RU.role_id AND 
+                                         U.login = '#{ @name }' AND 
+                                         RU.user_id = U.id
+                                         ORDER BY P.id"
+
+    end
+    
+    render :layout => "application"
   end
 
   protected
