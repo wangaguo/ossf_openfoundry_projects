@@ -1,0 +1,32 @@
+<% module_title = capture do -%>
+<%= _('Recently Issue') %>
+<div class="module-function">
+  <form action="dashboard">
+    <%=select_tag( 'lookfor', options_for_select( allrtoptions, "#{ params[ 'lookfor' ] }" ), :onchange => "this.form.submit();" ) %>
+    <input type='hidden' id='username' name='username' value='<%=uname %>'>
+  </form>
+</div>
+<%end%>
+
+<% module_content = capture do -%>
+<% if not rss.nil? %>
+    <table>
+      <% rss.items.each do | item | %>
+        <tr><td><a href='<%=item.link %>'><%=item.title %></a></td></tr>
+
+        <tr>
+          <td>
+            Created&nbsp;<%=tz_date( item.dc_date ) %>&nbsp;&nbsp;
+            by&nbsp;<%=h item.dc_creator %>&nbsp;&nbsp;
+            Project:&nbsp;<span class="pa"><%=link_to item.dc_description, "/of/projects/#{ item.dc_description }" %></span>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    no data 
+  <% end %>
+<% end %>
+
+<%=render :file => 'layouts/rt_module', :locals => { :module_title => module_title, :module_content => module_content, :variation => 'square1' } %>
+
