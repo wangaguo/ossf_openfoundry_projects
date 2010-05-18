@@ -40,13 +40,25 @@
     <div id="MainContent" class="rt-grid-9 rt-push-3">
       <div id="Flash"><%= show_flash %></div>
       <%if params["project_id"] != nil%>
-        <h1><%= h(@project.summary) %></h1>
+        <table>
+          <tr><td>
+            <h3>
+            <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
+              <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" height="25" width="25"/>
+            </a>
+            <%= h(@project.summary) %>
+            </h3>
+          </td></tr>
+        </table>
       <%end%>
       <%= yield :layout %>
     </div>
     <div id="LeftWidget" class="rt-grid-3 rt-pull-9">   
     	<%if params["project_id"] != nil%>
           <%=render :partial => "partials/project_logo", :locals => {:project => @project}%>
+        <div id="LeftMenu">
+          <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+        </div>
           <% module_title = capture do %>
             <%= _('News') %>
           <% end %>
@@ -54,9 +66,6 @@
             <%=render :partial => "news/news_list", :locals => {:project => @project}%>
           <% end %>
           <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
-        <div id="LeftMenu">
-          <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
-        </div>
       <%elsif controller.controller_name == "help"%>
         <%=render :partial => "partials/help_menu"%>
       <%else%>

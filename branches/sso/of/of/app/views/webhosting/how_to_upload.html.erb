@@ -1,0 +1,39 @@
+<div id="MainBody">
+    如何上傳檔案？
+    <p>
+    對於每個在 <a href="http://of.openfoundry.org/">OpenFoundry (of.openfoundry.org)</a> 上開立的專案，
+    我們提供網址為 <tt>ftp://ftp.of.openfoundry.org/[專案ID]/upload</tt> 的上傳空間，
+    讓專案管理員可以自行放置與該專案預計釋出的檔案，再至網頁挑選檔案進行釋出，FTP提供了較穩定的上傳方式，
+    改善了以往網頁無法續傳與上傳不穩定的問題。
+    </p>
+    上傳區檔案名稱的限制？
+    <p>
+    考量到各種瀏覽器的相容性，暫時不開放中文檔名、空白、與特殊字元的上傳，亦不開放目錄上傳，但 FTP 服務已支援 UTF-8 編碼，
+    未來我們會持續改進各種相容性的問題，再開放更彈性的檔案命名。
+    </p>
+    我要如何設定FTP上傳？
+    <p>
+    如果您是專案開發網站上的專案管理員，或專案管理者有開放<tt>FTP Access</tt>權限，
+    且同意 <a href="term_of_use.html">使用條款</a>，
+    即可透過 FTP 或 FTP over TLS 的方式，
+    以專案開發網站上的帳號登入 <tt>ftp.of.openfoundry.org</tt> 主機並上傳資料；
+    登入後，您將會看到所有您具有權限專案的目錄，只要將檔案放置於 upload 目錄下，即可透過專案開發網站釋出。
+    </p>
+    
+    <p>
+    UNIX 的使用者可直接透過命令列工具上傳檔案.<br>
+    如: <tt>ftp ftp.of.openfoundry.org</tt></br>
+    或: <tt>ftps ftp.of.openfoundry.org</tt>
+    </p>
+    
+    <p>
+    Windows 的使用者可安裝如<a href="http://filezilla.sourceforge.net/">FileZilla</a> 
+    等 FTP / FTP over TLS 方式的傳輸工具上傳檔案.
+
+    <dt>FileZilla 設定範例 (FTP over TLS)</dt>
+    <dd>
+    <img src='../images/FileZilla_FTP_TLS.png' />
+    </dd>
+    
+    </p>
+</div>
