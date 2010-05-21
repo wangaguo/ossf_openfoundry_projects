@@ -3,77 +3,90 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
+    <meta name="keywords" content="" />
+    <meta name="title" content="OpenFoundry" />
+    <meta name="author" content="ossf"/>
+    <meta name="description" content="." />
 
     <link rel="stylesheet" href="/components/com_gantry/css/gantry.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/light-body-ie6.css" type="text/css" />
+    <link rel="stylesheet" href="/components/com_gantry/css/gantry-ie6.css" type="text/css" />
+    <![endif]-->
     <link rel="stylesheet" href="/components/com_gantry/css/grid-12.css" type="text/css" />
     <link rel="stylesheet" href="/components/com_gantry/css/joomla.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="/components/com_gantry/css/joomla-ie6.css" type="text/css" />
+    <![endif]-->
     <link rel="stylesheet" href="/templates/rt_quantive_j15/css/joomla.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/suckerfish.css" type="text/css" />
+    <![endif]-->
     <link rel="stylesheet" href="/templates/rt_quantive_j15/css/style1.css" type="text/css" />
+
     <link rel="stylesheet" href="/templates/rt_quantive_j15/css/light-body.css" type="text/css" />
-    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/demo-styles.css" type="text/css" />
     <link rel="stylesheet" href="/templates/rt_quantive_j15/css/template.css" type="text/css" />
-    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/template-firefox.css" type="text/css" />
-
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/template-ie6.css" type="text/css" />
+    <![endif]-->
     <link rel="stylesheet" href="/templates/rt_quantive_j15/css/typography.css" type="text/css" />
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/joomla-ie7.css" type="text/css" />
+    <link rel="stylesheet" href="/templates/rt_quantive_j15/css/template-ie7.css" type="text/css" />
+    <![endif]-->
     <link rel="stylesheet" href="/templates/rt_quantive_j15/css/fusionmenu.css" type="text/css" />
-    <link rel="stylesheet" href="/modules/mod_jflanguageselection/tmpl/mod_jflanguageselection.css" type="text/css" />
-    <style type="text/css">
-/*<![CDATA[*/
-    <!--
-    #rt-main-surround ul.menu li.active > a, #rt-main-surround ul.menu li.active > .separator, #rt-main-surround ul.menu li.active > .item, #rt-main-surround .square4 ul.menu li:hover > a, #rt-main-surround .square4 ul.menu li:hover > .item, #rt-main-surround .square4 ul.menu li:hover > .separator, .roktabs-links ul li.active span {color:#0088B5;}
-    a, #rt-main-surround ul.menu a:hover, #rt-main-surround ul.menu .separator:hover, #rt-main-surround ul.menu .item:hover {color:#0088B5;}
-    -->
-    /*]]>*/
-    </style>
-
-    <link href="http://ssodev.openfoundry.org/components/com_mtree/templates/m2/template.css" rel="stylesheet" type="text/css" />
-    </script><!--[if IE]><style type="text/css">.floattext{zoom:1;}, * html #eventlist dd { height: 1%; }</style><![endif]-->
-    <script type="text/javascript" src="/modules/mod_ofssologin/js/ofssologin.js"></script>
     <%= yield :head_content %>
+    <script type="text/javascript" src="/modules/mod_ofssologin/js/ofssologin.js"></script>
+    <script type="text/javascript" src="/sso/javascripts/langsync.js"></script>
   </head>
+
   <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
     <div id="rt-main-background">
       <div class="rt-container">
+        <!-- header Start -->
         <div id="rt-header">
+          <!-- Logo -->
           <div class="rt-grid-7 rt-alpha">
-            <div class="rt-block">
-              <a href="/" id="rt-logo" name="rt-logo"></a>
 
+            <div class="rt-block">
+
+              <a href="/" id="rt-logo" name="rt-logo"></a>
             </div>
           </div>
           <div class="rt-grid-5 rt-omega">
+            <!-- Input Account Login and Logout and Search -->
             <div class="square9">
               <div class="rt-block">
                 <div class="rt-module-surround">
+
                   <div class="rt-module-top">
                     <div class="rt-module-top2">
                       <div class="rt-module-top3"></div>
-
                     </div>
                   </div>
                   <div class="rt-module-inner">
                     <div class="module-content">
-                      <%= yield :header_content %>
-
-<div class="ofssologin_search_square9">
-  <form id="of_search" action="/of/openfoundry/search" method="get" onsubmit="of_search(); return false;">
-    <input id="query" name="query" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="28" value="search..."  onblur="if(this.value=='') this.value='search...';" onfocus="if(this.value=='search...') this.value='';" />
-    <select id="of_search_type">
-      <option value="Projects"><%=_('Projects')%></option>
-      <option value="Content"><%=_('Content')%></option>
-      <option value="Community"><%=_('Community')%></option>
-    </select>
-    <input type="hidden" name="commit" value="search" />
-  </form>
-</div>  
-
+                      <div class="ofssologin_square9">
+                        <%= yield :header_content %>
+                        <div class="ofssologin_search_square9">
+                          <form id="of_search" action="/of/openfoundry/search" method="get" onsubmit="of_search(); return false;">
+                            <select id="of_search_type">
+                              <option value="Projects"><%=_('Projects')%></option>
+                              <option value="Content"><%=_('Content')%></option>
+                              <option value="Community"><%=_('People')%></option>
+                            </select>
+                            <input id="query" name="query" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="28" value="search..."  onblur="if(this.value=='') this.value='search...';" onfocus="if(this.value=='search...') this.value='';" />
+                            <input type="hidden" name="commit" value="search" />
+                          </form>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="rt-module-bottom">
-                    <div class="rt-module-bottom2">
-                      <div class="rt-module-bottom3"></div>
 
+                    <div class="rt-module-bottom2">
+
+                      <div class="rt-module-bottom3"></div>
                     </div>
                   </div>
                 </div>
@@ -81,126 +94,120 @@
             </div>
           </div>
           <div class="clear"></div>
-        </div>
-        <div id="rt-navigation">
 
+        </div><!-- header END-->
+        <!-- MainMenu Start-->
+        <div id="rt-navigation">
           <div id="rt-navigation2">
             <div id="rt-navigation3">
-              <div class="nopill">
-                <ul class="menutop level1">
-                  <li class="item1 root">
-                    <a class="orphan item bullet" href="http://ssodev.openfoundry.org/"><span>首頁</span></a>
-                  </li>
-                  <li class="item32 root">
-
-                    <a class="orphan item bullet" href="http://ssodev.openfoundry.org/of/"><span>專案</span></a>
-                  </li>
-                  <li class="item6 root">
-                    <a class="orphan item bullet" href="/tw/community"><span>社群</span></a>
-                  </li>
-                  <li class="item4 root">
-                    <a class="orphan item bullet" href="/tw/news"><span>新聞</span></a>
-
-                  </li>
-                  <li class="item5 root">
-                    <a class="orphan item bullet" href="/tw/law-and-licenses"><span>法律源地</span></a>
-                  </li>
-                  <li class="item3 root">
-                    <a class="orphan item bullet" href="/tw/workshop"><span>工作坊</span></a>
-                  </li>
-                  <li class="item2 active root">
-
-                    <a class="orphan item bullet" href="/tw/resourcecatalog?Name=Value"><span>資源表列</span></a>
-                  </li>
-                  <li class="item45 root">
-                    <a class="orphan item bullet" href="/tw/about"><span>關於</span></a>
-                  </li>
-                </ul>
-              </div>
+              <ul class="menutop level1">
+                <li class="item root">
+                  <a class="orphan item bullet" href="/"><span><%=_('Home')%></span></a>
+                </li>
+                <li class="item root active">
+                  <a class="orphan item bullet" href="/of/"><span><%=_('Projects')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/community"><span><%=_('Community')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/news"><span><%=_('News')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/law-and-licenses"><span><%=_('Law and Licenses')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/workshop"><span><%=_('Workshop')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/resourcecatalog"><span><%=_('Resource Catalog')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/about"><span><%=_('About')%></span></a>
+                </li>
+              </ul>
               <div class="clear"></div>
-
             </div>
           </div>
-        </div>
+        </div><!-- MainMenu END-->
+        <!-- MainBody Start-->
         <div class="rt-surround">
           <div class="rt-surround2">
             <div class="rt-surround3">
+
               <div id="rt-main-surround">
+
+                <!--Pathway Start -->
                 <div id="rt-breadcrumbs">
                   <div class="rt-breadcrumb-surround">
-
                     <%= yield :breadcrumbs_content %>
                   </div>
                   <div class="clear"></div>
-                </div>
-                <div id="rt-main" class="sa3-mb9">
+
+                </div><!--Pathway END -->
+
+                <!--MainBody Full Area Header Start-->
+                <div id="rt-main" class="mb12">
                   <div class="rt-main-inner">
+                    <!--MainBody Full Area Header End-->
+                    <!--Input OF main body here -->
                     <%= yield :body_content %>
                     <div class="clear"></div>
                   </div>
-
                 </div>
-              </div>
+              </div><!--Footer Start -->
               <div id="rt-copyright">
+
                 <div class="rt-grid-12 rt-alpha rt-omega">
                   <div class="rt-block">
                     <div class="rt-module-surround">
                       <div class="rt-module-top">
+
                         <div class="rt-module-top2">
                           <div class="rt-module-top3"></div>
-
                         </div>
                       </div>
                       <div class="rt-module-inner">
-                        <div class="module-title">
-                          <h2 class="title">
-                            聯絡我們
-                          </h2>
-                        </div>
-                        <div class="clear"></div>
 
                         <div class="module-content">
                           <p>
-                            TEL:
+                            <%=_('template_footer_content')%>
                           </p>
-                          <p>
-                            FAX:
-                          </p>
-                          <p>
-                            E-Mail:
-                          </p>
-
                         </div>
+
                       </div>
                       <div class="rt-module-bottom">
                         <div class="rt-module-bottom2">
+
                           <div class="rt-module-bottom3"></div>
                         </div>
                       </div>
                     </div>
                   </div>
-
                 </div>
+
                 <div class="clear"></div>
               </div>
+
               <div class="rt-footer-bottom-wrap">
                 <div class="rt-footer-bottom">
                   <div class="rt-footer-bottom2">
                     <div class="rt-footer-bottom3"></div>
                   </div>
                 </div>
+              </div><!--Footer End -->
 
-              </div>
             </div>
+
           </div>
-        </div>
+        </div><!--MainBody Footer Start-->
         <div class="rt-surround-bottom">
           <div class="rt-surround-bottom2">
             <div class="rt-surround-bottom3"></div>
           </div>
-        </div>
-
+        </div><!--MainBody Footer End-->
       </div>
+
     </div>
   </body>
 </html>
