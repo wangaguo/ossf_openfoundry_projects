@@ -1,11 +1,7 @@
-<% @columns ||= 7 %>
 <% bundle :name => "dragdrop", :packr_options => {:shrink_vars => true, :base62 => true} do %>
 <%= javascript_include_tag "dragdrop"  %>
 <% end %>
 <div id="ProjectMemberEdit">
-  <fieldset>
-    
-    <legend><%= _('Member Management') %></legend>
     <table class="list-table">
       <th style="text-align:left">
         <%= _('Search for New Member')%>: 
@@ -28,7 +24,7 @@
     <%= drop_receiving_element drop_id,
       :onDrop => "function(drag_element, drop_element, event){
     if (confirm(\"#{escape_javascript(_('This will remove User form this Group, are you sure?'))}\"))
-    {#{remote_function(:update => 'MainContent',
+    {#{remote_function(:update => 'module_content',
     :url => {:controller => :projects,
     :action => :member_delete,
     :id => @project.id},
@@ -45,31 +41,21 @@
         <table class="list-table">
           <tr> <th style="text-align:left"> <%= role.name %> </th> </tr>
         </table>
-        <table class="list-table">
-          <tr>
-            <% @users_map[i].each_with_index do |user,ii| %>
-              <% r_u_id = "role_#{role.id}_user_#{user.id}" %>
-              <td>
-                <div class="RolesUsersSelection" id="<%= r_u_id %>">
-                  <%= render :partial => "roles_users_selection", :locals => {:user => user} %>
-                </div>
-                <%= draggable_element r_u_id, :revert => true %>
-              </td>
-              <% if ii%@columns == @columns-1 %>
-              </tr><tr>
-              <% elsif ii == @users_map[i].length-1 %>
-                <% (ii%@columns).upto(@columns-1) do %>
-                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </td>
-                <% end %>
-              <% end %>
-            <% end %>    
-          </tr>     
-        </table>
+        <div>
+          <% @users_map[i].each_with_index do |user,ii| %>
+            <% r_u_id = "role_#{role.id}_user_#{user.id}" %>
+            <div class="RolesUsersSelection" id="<%= r_u_id %>" style="">
+              <%= render :partial => "roles_users_selection", :locals => {:user => user} %>
+            </div>
+            <%= draggable_element r_u_id, :revert => true %>
+          <% end %>    
+          <br clear="all"/>
+        </div>
       </div>
       <%= drop_receiving_element drop_id,
         :onDrop => "function(drag_element, drop_element, event){
       if (confirm(\"#{escape_javascript(_('This will add User to this Group, are you sure?'))}\"))
-      {#{remote_function(:update => 'MainContent',
+      {#{remote_function(:update => 'module_content',
       :url => {:controller => :projects,
       :action => :member_change,
       :id => @project.id},
@@ -82,5 +68,4 @@
         :hoverclass => "#{drop_class}_active"
     %>      
     <% end %>
-  </fieldset> 
 </div>

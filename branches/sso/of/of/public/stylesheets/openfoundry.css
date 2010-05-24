@@ -5,6 +5,8 @@
 #of-body .even { background-color:#EFF4FF; }
 #of-body dl>dt { font-weight:bold; }
 #of-body dl>dd { margin-left:35px; }
+#of-body .more { display:block; text-align:right; }
+#of-body img { border:none; }
 
 /* Left menu */
 #LeftMenu { padding-left:5px; }
@@ -234,7 +236,7 @@ text-align:center;
 width:500px;
 }
 .ProjectRoleDropDelete_active {background-color:#cff;}
-.RolesUsersSelection {border: 1px dashed #bbbbbb}
+.RolesUsersSelection { cursor:move; }
 
 /* for survey mask */
 .SurveyItemMasked {background-color:#123456;}
