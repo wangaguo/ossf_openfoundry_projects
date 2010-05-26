@@ -1,11 +1,7 @@
 <script type="text/javascript">
 <!--
-  function toggle_visibility(id) {
-    var e = document.getElementById(id);
-    if(e.style.display == '')
-      e.style.display = 'none';
-    else
-      e.style.display = '';
+  window.onload=function(){
+    Effect.SlideUp('more');
   }
 //-->
 </script>
@@ -29,7 +25,8 @@ end %>
 
 <div id="ProjectBasic">  
   <fieldset>
-    <table class="list-table" id="basic">
+    <div id="basic">
+    <table class="list-table">
     <%= rows(0,
       * ([ 
       _("Project|Summary"), content_tag(:span, @project.summary),
@@ -37,9 +34,10 @@ end %>
       _("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
       ] ) )
     %>
-    </table>
-
-    <table class="list-table" id="more" style="display:none">
+  </table>
+  </div>
+  <div id="more">
+    <table class="list-table">
     <%= rows(1, 
       * ([ 
       _("Project|Name"), content_tag(:span, @project.name),
@@ -56,8 +54,9 @@ end %>
       _("Project|Created at"), content_tag(:span, tz_datetime(@project.created_at), :content => tz_date(@project.created_at)),
       ] + (@nsccode.empty?() ? [] : [ _("Project|Nsccode"), h(@nsccode)]) ) )
     %>
-    </table>
-    <%= link_to _('More...'), nil, :onclick => 'toggle_visibility("more");toggle_visibility("lr");toggle_visibility("mr");return false;', :style => 'padding:8px;float:right' , :id => 'mr' %>
-    <%= link_to _('Less...'), nil, :onclick => 'toggle_visibility("more");toggle_visibility("mr");toggle_visibility("lr");return false;', :style => 'display:none;padding:8px;float:right' , :id => 'lr' %>
+  </table>
+  </div>
+  <a id ="mr" href="#" onclick="Effect.SlideDown('more'); Effect.Fade('mr'); Effect.Grow('le', {direction:'center'}); return false" style="padding:8px;float:right"><%= _('More...') %></a>
+  <a id ="le" href="#" onclick="Effect.SlideUp('more'); Effect.Grow('mr', {direction:'bottom-left'}); Effect.Fade('le'); return false" style="display:none;padding:8px;float:right"><%= _('Less...') %></a>
   </fieldset>
 </div>

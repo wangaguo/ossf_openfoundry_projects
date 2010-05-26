@@ -6,7 +6,6 @@
 <% end %>
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
 
-<br/>
 <table>
   <tr>
     <td>
@@ -18,16 +17,14 @@
   </tr>
 </table>
 
-<br/>
 <% module_title = capture do %>
-  <%='Project Issues' %>
+  <%=_( 'Project Issues' ) %>
 <% end %>
 <% module_content = capture do %>
-  <%= render :partial => "project_issues" %>
+  <%= render :partial => "project_issues", :locals => { :rss => @rss }%>
 <% end %>
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
 
-<br/>
 <% module_title = capture do %>
   <%= _('Project Participants') %>
 <% end %>
@@ -35,23 +32,3 @@
   <%=render :partial => 'member' %>
 <% end %>
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
-
-<br/>
-<%# module_content = capture do %>
-  <%#=render :partial => "logo" %>
-<%# end %>
-<%#= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'} %>
-
-<%# module_content = capture do %>
-  <%#=render :partial => "menu" %>
-<%# end %>
-<%#= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'} %>
-<%# module_title = capture do %>
-  <%#= _('Project News') %>
-<%# end %>
-<%# module_content = capture do %>
-  <%#= render :partial => "news/news_list" %>
-<%# end %>
-<%#= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
-
-<br clear="all" />
