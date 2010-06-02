@@ -300,9 +300,7 @@ class OpenfoundryController < ApplicationController
     end
     add_one_to_download_counter
 
-    download_path_saved = CGI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
-    #restore url encoding for slash(/)
-    download_path_saved.gsub!('%2F', '/')
+    download_path_saved = URI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
     #chech if file has a mandatory survey
     #TODO login user?
     if( survey_available? 
