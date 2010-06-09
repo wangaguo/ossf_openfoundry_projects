@@ -141,6 +141,8 @@ Rails::Initializer.run do |config|
     NSC_CURRENT_YEAR = "98"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
+    
+    UI_SCHEMA_CSS_HOST = 'freenix'
 
     #
     # sso testing variables
@@ -150,6 +152,7 @@ Rails::Initializer.run do |config|
     SSO_FETCH = 'http://ssodev.openfoundry.org/sso/site/fetch'
     SSO_OF_REGIST_KEY = 'c1cac710-030f-012d-c173-0011254f08ff'
     SSO_OF_LOGIN = 'http://ssodev.openfoundry.org/of/user/login'
+		SSO_PERIOD_SYNC = 'http://ssodev.openfoundry.org/sso/sync.json'
 
     config.action_controller.relative_url_root = "/of"
 end
