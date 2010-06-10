@@ -96,6 +96,9 @@ module ApplicationHelper
           when 'survey'
             level_name, level_class, level_title = 
               _('Survey'), 'survey', nil
+          when 'webhosting'
+            level_name, level_class, level_title = 
+              _('menu_WebHosting'), 'webhosting', nil
           else
             if (["help"].include?(level_class)==true) 
               level_name = ''
@@ -129,7 +132,7 @@ module ApplicationHelper
             html << addcrumb(@module_name, hierarchy) unless (@module_name.nil?) 
           end
         else
-          link = '/of/'+levels[1..index].join('/')
+          link = "#{root_path}"+levels[1..index].join('/')
           html << addcrumb(level_name, hierarchy, link)
         end
       end
