@@ -568,48 +568,4 @@ class ProjectsController < ApplicationController
   def test_action
   end
 
-  def project_board
-    @project = Project.find(params[:id])
-    @nsccode = @project.tag_list.names.grep(/^NSC\d/).sort.join(", ")
-
-    @participents = User.find_by_sql("
-      select distinct U.id, U.login, U.icon, R.name as role_name
-        from users U
-          inner join roles_users RU on U.id = RU.user_id
-          inner join roles R on RU.role_id = R.id
-        where
-          R.authorizable_id = #{params[:id]} and
-          R.authorizable_type= 'Project'
-        order by U.id
-    ")
-    @p = @participents.group_by { |p| p.role_name }
-    @news = News.find(:all, :conditions => "catid=#{params[:id]} and status = #{News::STATUS[:Enabled]}", :order => "updated_at desc", :limit => 5)
-
-    #
-    # for project issues
-    #
-    if params[ :id ]
-      # the base request url for rt rdf
-      prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=Queue = '#{ params[ :id ] }'"
-
-      # connect to the rdf file 
-      require 'open-uri'
-      content = ''
-      open( URI::escape( prturl ) ) do | f | content = f.read end
-
-      # parse the rdf of project issues
-      require 'rss/1.0'
-      require 'rss/2.0'
-      require 'rss/dublincore'
-      require 'rss/content'
-      begin
-        @rss = RSS::Parser.parse( content, false, false )
-      rescue RSS::InvalidRSSError
-        @rss = nil
-      end
-    end
-
-    render :layout => "application"
-  end
-
 end
