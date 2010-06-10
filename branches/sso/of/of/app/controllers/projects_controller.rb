@@ -154,7 +154,7 @@ class ProjectsController < ApplicationController
     #
     if @project.id
       # the base request url for rt rdf
-      prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=Queue = '#{ @project.id }'"
+      prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
 
       # connect to the rdf file 
       require 'open-uri'
