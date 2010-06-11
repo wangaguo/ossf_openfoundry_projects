@@ -119,6 +119,14 @@ class ApplicationController < ActionController::Base
       if chk.body_str != "Error, no such session"
         user_data = Hash[*(chk.body_str.split(/: |, /))]
         session[:user] = User.authenticate_by_sso(user_data['name'])
+
+        # prevent the account is not exist at OF Database only
+        # 1) remove the login status here!!
+        # 2) record this error!!
+        if session[:user].nil?
+          cookies.delete :ossfauth
+          cookies[:sync_error_at_of] = user_data['name']
+        end
 			else
 				cookies.delete :ossfauth
 				session[:user] = nil
