@@ -119,6 +119,9 @@ class ApplicationController < ActionController::Base
       if chk.body_str != "Error, no such session"
         user_data = Hash[*(chk.body_str.split(/: |, /))]
         session[:user] = User.authenticate_by_sso(user_data['name'])
+			else
+				cookies.delete :ossfauth
+				session[:user] = nil
       end
     end
   end
