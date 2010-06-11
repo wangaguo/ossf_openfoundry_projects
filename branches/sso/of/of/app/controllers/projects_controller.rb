@@ -146,7 +146,6 @@ class ProjectsController < ApplicationController
           R.authorizable_type= 'Project'
         order by U.id
     ")
-#    render :action => 'project_board'
     @p = @participents.group_by { |p| p.role_name }
 
     #
