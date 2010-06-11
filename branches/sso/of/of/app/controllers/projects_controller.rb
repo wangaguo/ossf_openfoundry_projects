@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed, :project_board]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
   before_filter :set_project
 
   before_filter :project_check_permission
