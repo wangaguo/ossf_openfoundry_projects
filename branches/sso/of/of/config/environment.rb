@@ -147,12 +147,13 @@ Rails::Initializer.run do |config|
     #
     # sso testing variables
     #
-    SSO_LOGIN = 'http://ssodev.openfoundry.org/sso/user/login'
-    SSO_LOGOUT = 'http://ssodev.openfoundry.org/sso/user/logout'
-    SSO_FETCH = 'http://ssodev.openfoundry.org/sso/site/fetch'
-    SSO_OF_REGIST_KEY = 'c1cac710-030f-012d-c173-0011254f08ff'
-    SSO_OF_LOGIN = 'http://ssodev.openfoundry.org/of/user/login'
-		SSO_PERIOD_SYNC = 'http://ssodev.openfoundry.org/sso/sync.json'
+    sso_host = 'ssodev.openfoundry.org'
+    SSO_LOGIN = "http://#{sso_host}/sso/user/login"
+    SSO_LOGOUT = "http://#{sso_host}/sso/user/logout"
+    SSO_FETCH = "http://#{sso_host}/sso/site/fetch"
+    SSO_OF_REGIST_KEY = "c1cac710-030f-012d-c173-0011254f08ff"
+    SSO_OF_LOGIN = "http://#{sso_host}/of/user/login"
+		SSO_PERIOD_SYNC = "http://#{sso_host}/sso/sync.json"
 
     config.action_controller.relative_url_root = "/of"
 end
