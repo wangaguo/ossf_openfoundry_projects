@@ -1,29 +1,22 @@
 ActionController::Routing::Routes.draw do |map|
 
-  #######################################################
-  # For host specific routing, see lib/route_by_host.rb #
-  #######################################################
-
-
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  # map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # You can have the root of your site routed by hooking up '' 
-  # -- just remember to delete public/index.html.
-
-  map.connect '', :controller => 'openfoundry'
+  map.root :controller => 'openfoundry'
+  #####################
+  # API!!
+  #####################
+  map.resource :api,
+    :controller => :api, :only => [:user,:project],
+    :member => {:user => :get, :project => :get}
+  #####################
+  #administration:
+  #####################
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
   map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
   map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
 
+  #####################
   #downloaders' reviews: for project, release, and file
+  #####################
   map.file_review '/projects/:id/releases/:version/files/:path/reviews',
                       :controller => 'survey', :action => 'review',
                       :requirements => {:path => /.+/, :version => /.+/}
@@ -33,27 +26,24 @@ ActionController::Routing::Routes.draw do |map|
   map.project_review '/projects/:id/reviews', 
                       :controller => 'survey', :action => 'review'
 
-  # feed for new projects
-  map.new_projects_feed '/projects/news_projects_feed.:format',
-                        :controller => 'projects', :action => 'new_projects_feed'
-
+  #####################
+  #resources:
+  #####################
+  map.resources :openfoundry,
+                :collection => { :search => :any }
+  map.resources :category
   map.resources :projects,
-                :collection => { :list => :get, :applied => :get, :tableizer => :get, :test_action => :any },
-                :member => { :sympa => :get, :viewvc => :get, :websvn => :get, :role_users => :any, 
-                             :member_edit => :get, :member_delete => :post,
-                             :member_add => :post,
-                             :role_update => :any,
+                :collection => { :list => :get, :applied => :get, 
+			         :tableizer => :get, :test_action => :any },
+                :member => { :sympa => :get, :viewvc => :get, :websvn => :get, 
+			     :role_users => :any, 
+                             :member_edit => :any, :member_delete => :post,
+                             :member_add => :post, :permission_edit => :get,
+                             :member_change => :post, :role_update => :any,
+                             :group_update => :any,
+                             :group_create => :any, :group_delete => :get,
                              :role_new => :any, :role_create => :any, :vcs_access => :any,
-                             :test_action => :any }
-  #map.resources :users, 
-  #              :controller => :user                
-
-  # feed for new openfoundry news
-  map.new_project_news_feed '/news/new_openfoundry_news_feed.:format',
-                        :controller => 'news', :action => 'new_openfoundry_news_feed'
-  # feed for new project news
-  map.new_project_news_feed '/news/new_project_news_feed.:format',
-                        :controller => 'news', :action => 'new_project_news_feed'
+                             :test_action => :any}
   map.resources :news,
                 :singular => 'news1',
                 :collection => { :new_release => :any },
@@ -61,16 +51,31 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :news,
                 :singular => 'news1',
                 :name_prefix => 'site_'
+
+  #####################
+  #resources: jobs
+  #####################
   map.resources :jobs,
                 :path_prefix => '/projects/:project_id'
+  map.connect '/jobs', :controller => :jobs, :action => :index
+  map.resources :jobs,
+                :collection => { :list => :get }
+  #####################
+  #resources: citations
+  #####################
   map.resources :citations,
                 :path_prefix => '/projects/:project_id'
+  #####################
+  #resources: references
+  #####################
   map.resources :references,
                 :path_prefix => '/projects/:project_id'
-  #for project releases
+  #####################
+  #resources: releases
+  #####################
   map.resources :releases,
     :path_prefix => '/projects/:project_id',
-    :collection => 'download',
+    :collection => ['download'],
     :member => { :uploadfiles => :any, :delete => :post, 
                  :addfiles => :post, :removefile => :post,
                  :editfile => :post, :updatefile => :post,
@@ -78,8 +83,17 @@ ActionController::Routing::Routes.draw do |map|
                  :viewrelease => :post, :viewfile => :post,
                  :reload => :post,
                  :web_upload => :post, :delete_files => :post,
-                 :download => :any },
+                 :download => :any, :new_releases => :any },
     :singular => :release
+  map.resources :releases,
+    :collection => ['latest', 'top']
+  map.feed_release '/releases/new_release_feed.:format', 
+                  :controller => :releases, :action => :new_release_feed
+  map.feed_release '/releases/top_download_feed.:format', 
+                  :controller => :releases, :action => :top_download_feed
+  #####################
+  #resources: other...
+  #####################
   map.resources :kwiki,
                 :singular => 'kwiki1',
                 :path_prefix => '/projects/:project_id'
@@ -96,30 +110,55 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :nscreports,
                 :controller => 'nscreports',
                 :path_prefix => '/projects/:project_id/nsc'
-  
-  #  map.release 'project/:project_id/release', 
-  #    :controller => 'release', :action => 'list'
-  #  map.release 'project/:project_id/release/:release_id',
-  #    :controller => 'release', :action => 'show'
-  #  map.release 'project/:project_id/release/:action', 
-  #    :controller => 'release'
-  #  map.release 'project/:project_id/release/:action/:release_id', 
-  #    :controller => 'release'
+  map.resources :images,
+                :only => [:cached_image, :upload, :email_image],
+                :collection => {:cached_image => :get, :upload => :any,
+                                :email_image => :get}
 
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
+  map.resource :user,
+    :only => [:logout, :login, :index],
+    :controller => :user,
+    :collection => {:dashboard => :get},
+    :member => {:home => :get,:index => :get,  
+                :login => :get, :logout => :get, 
+                :search => :post}
+  map.connect '/user', :controller => :user, :action => :index
+
+  map.resource :rescue,
+    :only => [:not_found],
+    :controller => :rescue,
+    :member => {:not_found => :get}
+
+  map.resources :webhosting,
+                :collection => { :how_to_upload => :get }
+
+  #####################
+  #rss feeds:
+  #####################
+  
+  # feed for new projects
+  map.new_projects_feed '/projects/news_projects_feed.:format',
+                        :controller => 'projects', :action => 'new_projects_feed'
+  # feed for new openfoundry news
+  map.new_project_news_feed '/news/new_openfoundry_news_feed.:format',
+                        :controller => 'news', :action => 'new_openfoundry_news_feed'
+  # feed for new project news
+  map.new_project_news_feed '/news/new_project_news_feed.:format',
+                        :controller => 'news', :action => 'new_project_news_feed'
+  #####################
+  #misc:
+  #####################
   map.download1 '/projects/:project_id/download',
     :controller => 'releases',
     :action => 'download'  
   # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action.:format'
+  #map.connect ':controller/:action/:id.:format'
+  #map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action.:format'
 
 
   #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 
-  map.connect '~:user_alias', :controller => 'user', :action => 'home'
+  #map.connect '~:user_alias', :controller => 'user', :action => 'home'
 
   #for downloader survey 
   map.downloader 'download_path/:project_name/:release_version/:file_name/survey/:id',
@@ -132,8 +171,4 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'openfoundry',
     :action => 'download',
     :requirements => {:file_name => /.+/, :release_version => /.+/}
-  #  require "pp"
-#  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
-#看controller的named_routes
-#ActionController::Routing::Routes.named_routes.routes.each {|name, route| puts "%20s: %s" % [name, route] if name.to_s.include? "news"}; nil
 end
