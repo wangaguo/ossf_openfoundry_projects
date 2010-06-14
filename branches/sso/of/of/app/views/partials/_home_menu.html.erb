@@ -4,10 +4,10 @@
 
 <% module_content = capture do -%>
 <ul class="menu">
-  <li><%= link_to '<img src="/of/images/icon/star.gif"/>'+_('Create Project')%></li>
+  <li><%= link_to _('Create Project'), new_project_path() %></li>
   <% if current_user.login != 'guest' -%>
   <li class="parent active item19">
-    <span><%= link_to _("Personal") %></span>
+    <span><%= link_to _('Personal') %></span>
     <ul>
     <li id="current" class="active item20"><span><%= link_to _('menu_My Projects')%></span></li>
     <li><%= link_to _('menu_My Tickets')%></li>
@@ -15,15 +15,15 @@
     </ul>
   </li>
   <% end -%>
-  <li><%= link_to _('menu_License Wizard') %></li>
-  <li><%= link_to _('Forum') %></li>
-  <li><%= link_to _('menu_Project Listing') %></li>
-  <li><%= link_to _('menu_Project Category') %></li>
-  <li><%= link_to _('menu_Project News') %></li>
-  <li><%= link_to _('menu_Latest Releases') %></li>
-  <li><%= link_to _('menu_Top Downloads') %></li>
-  <li><%= link_to _('menu_Help Wanted') %></li>
-  <li><%= link_to _('menu_WebHosting') %></li>
+  <li><%= link_to _('menu_License Wizard'), '/index.php?option=com_content&view=article&id=134&Itemid=19&lang=tw' %></li>
+  <li><%= link_to _('Forum'), '/forum.html?func=showcat&catid=48' %></li>
+  <li><%= link_to _('menu_Project Listing'), :controller => 'projects' %></li>
+  <li><%= link_to _('menu_Project Category'), :controller => 'category'  %></li>
+  <li><%= link_to _('menu_Project News'), project_news_path() %></li>
+  <li><%= link_to _('menu_Latest Releases'), :controller => 'releases', :action => 'latest' %></li>
+  <li><%= link_to _('menu_Top Downloads'), :controller => 'releases', :action => 'top' %></li>
+  <li><%= link_to _('menu_Help Wanted'), :controller => 'jobs' %></li>
+  <li ><%= link_to _('menu_WebHosting'), :controller => 'webhosting' %></li>
 </ul>
 <% end -%>
 
