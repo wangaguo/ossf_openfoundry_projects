@@ -1,7 +1,8 @@
 <% module_title = capture do -%>
-  My Projects
+<%= _( 'menu_My Projects' ) %>
 <% end %>
 
+<a id="myprojects"></a>
 <% module_content = capture do -%>
   <% if not my_projects.blank? %>
     <table>
@@ -10,24 +11,27 @@
           <td rowspan="2"> 
             <a href="<%=project_url( p.id ) %>"><img src="<%=url_for( :controller => :images, :action => "cached_image", :id => "#{ p.icon }_64" ) %>"></a>
           </td>
-          <td><a href="<%=project_url( p.id ) %>"><%="#{ p.name }" %></a></td>
-          <td><%="#{ tz_date( p.updated_at ) }" %></td>
+          <td><h3>&nbsp;<a href="<%=project_url( p.id ) %>"><%="#{ p.name }" %></a></h3></td>
+          <td align="right"><%="#{ tz_date( p.updated_at ) }" %></td>
         </tr>
+
         <tr>
           <td colspan="2">
             <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/rt" %>">Issue Tracker</a></span>
             <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/kwiki" %>">Wiki</a></span>
             <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/download" %>">Release</a></span>
             <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/member_edit" %>">Member</a></span>
-            <span class="mp_button"><a href="<%="/of/projects/permission_edit/#{ p.id }" %>">Permission</a></span>
+            <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/permission_edit/" %>">Permission</a></span>
             <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/viewvc" %>">Version Control</a></span>
             <span class="mp_button"><a href="<%="/of/projects/#{ p.id }/survey" %>">Surveys</a></span>
           </td>
         </tr>
+
+        <tr><td height="15"></td></tr>
       <% end %> 
     </table>
   <% else %>
-    no data
+    Sorry, there is no data for your request. 
   <% end %>
 <% end %>
 
