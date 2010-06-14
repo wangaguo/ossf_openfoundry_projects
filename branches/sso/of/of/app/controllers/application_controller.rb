@@ -101,8 +101,8 @@ class ApplicationController < ActionController::Base
   end
   
   #before_filter :login_required
-  def current_user(session = session())
-    session[:effective_user] || session[:user] || User.find_by_login('guest') 
+  def current_user()
+    session[:effective_user] || session[:user] || User.new(:login => 'guest')
     #effective_user for site_admin 'su' to others 
     #user is your 'normal login user'
   end
