@@ -18,6 +18,6 @@ class ApiController < ApplicationController
   end
 
   def api_render
-    render :file => "api/#{params[:do]}", :layout => 'no_frame'
+    render :file => "api/#{params[:do]}", :layout =>false 
   end
 end
