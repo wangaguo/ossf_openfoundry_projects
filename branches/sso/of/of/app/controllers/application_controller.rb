@@ -39,6 +39,9 @@ class ApplicationController < ActionController::Base
   helper :projects
   require_dependency 'user'
 
+  rescue_from ActionController::RoutingError, :with => :not_found
+
+
 #  before_filter :configure_charsets
 #
 #  def configure_charsets
@@ -53,6 +56,11 @@ class ApplicationController < ActionController::Base
   before_init_gettext :set_gettext_locale
   after_init_gettext :set_will_paginate_lang
   init_gettext "openfoundry"
+  layout 'normal'
+  def not_found
+    flash[:error] = 'not_found'
+    redirect_to not_found_rescue_path
+  end
 
   protected
   def set_gettext_locale 
