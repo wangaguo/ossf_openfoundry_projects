@@ -88,6 +88,7 @@ module UserSystem
 
   def user?
     # First, is the user already authenticated?
+    login_by_sso
     return true if session[:user] and (not params[:s])
 
     # If not, is the user being authenticated by a token?
