@@ -1,7 +1,5 @@
 class MsgHandleProcessor < ApplicationProcessor
 
-  subscribes_to :queue_data
-
   def on_message(message)
 		logger.debug "============================================================"
     logger.debug "[AMQ DATA RECEIVED] at [#{Time.now}]"
