@@ -9,7 +9,9 @@
       <% my_projects.each do | p | %>
         <tr>
           <td rowspan="2"> 
-            <a href="<%=project_url( p.id ) %>"><img src="<%=url_for( :controller => :images, :action => "cached_image", :id => "#{ p.icon }_64" ) %>"></a>
+            <a href="<%=project_url( p.id ) %>">
+              <img src="<%=url_for( :controller => :images, :action => "cached_image", :id => "#{ p.icon }_64" ) %>" style="vertical-align: middle;">
+            </a>
           </td>
           <td><h3>&nbsp;<a href="<%=project_url( p.id ) %>"><%="#{ p.name }" %></a></h3></td>
           <td align="right"><%="#{ tz_date( p.updated_at ) }" %></td>
