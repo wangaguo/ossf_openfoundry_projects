@@ -22,7 +22,7 @@ module OpenFoundry
     module ClassMethods
       include ActiveMessaging::MessageSender
       
-#      publishes_to :ossf_msg
+      publishes_to :ossf_msg
      
       def send_msg(type, action, data)
         publish(:ossf_msg, 
