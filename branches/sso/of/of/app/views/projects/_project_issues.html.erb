@@ -1,6 +1,6 @@
-<% if not @rss.nil? %>
+<% if not rss.items.blank? %>
   <table>
-    <% @rss.items.each do | item | %>
+    <% rss.items.each do | item | %>
       <tr><td><a href='<%=item.link %>'><%=item.title %></a></td></tr>
 
       <tr>
@@ -11,4 +11,6 @@
       </tr>
     <% end %>
   </table>
+<% else %>
+  Sorry, there is no data for your request.
 <% end %>
