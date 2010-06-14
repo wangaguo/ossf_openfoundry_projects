@@ -11,7 +11,7 @@
     <ul>
     <li id="current" class="active item20"><span><%= link_to _('menu_My Projects'), "#{ root_path }user/dashboard#myprojects"%></span></li>
     <li><%= link_to _('menu_My Tickets'), "#{ root_path }user/dashboard#mytickets" %></li>
-    <li><%= link_to _('menu_My Messages')%></li>
+    <li><%= link_to _('menu_My Messages'), "/#{ I18n.locale.to_s[ -2..-1 ].downcase }/my-message"%></li>
     </ul>
   </li>
   <% end -%>
