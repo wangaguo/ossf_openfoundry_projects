@@ -12,7 +12,6 @@
   <%= javascript_include_tag 'calendar/calendar' %>
   <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
   <%= javascript_include_tag 'calendar/calendar-setup' %>
-  <%= javascript_include_tag "http://ssodev.openfoundry.org/sso/javascripts/langsync.js" %>
   <%= stylesheet_link_tag 'calendar' %>
   <%# end %>
   <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
@@ -44,7 +43,7 @@
           <tr><td>
             <h3>
             <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
-              <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" height="25" width="25"/>
+              <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" width="25" />
             </a>
             <%= h(@project.summary) %>
             </h3>
