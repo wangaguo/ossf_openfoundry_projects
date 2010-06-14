@@ -11,6 +11,8 @@ class OpenfoundryController < ApplicationController
                          'Reference' => 'references', 'Citation' => 'citations' }
   
   def index
+    @module_name = _('Home')
+    render :layout => "application"
   end
 
   #class Session < ActiveRecord::Base; end # only used by get_session_by_id
@@ -103,7 +105,7 @@ class OpenfoundryController < ApplicationController
     case module_ = params[:module]
     when "vcs"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
+      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users")
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
@@ -114,7 +116,6 @@ class OpenfoundryController < ApplicationController
             RU.role_id = R.id and 
             RU.user_id = U.id and
             P.vcs = #{Project::VCS[:CVS]} and
-            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -126,7 +127,8 @@ class OpenfoundryController < ApplicationController
       end
     when "svn"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
+      users = ActiveRecord::Base.connection.select_rows(
+	"select login, salted_password from users")
 
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
@@ -138,7 +140,6 @@ class OpenfoundryController < ApplicationController
             RU.role_id = R.id and 
             RU.user_id = U.id and 
             (P.vcs = #{Project::VCS[:SUBVERSION]} or P.vcs = #{Project::VCS[:SUBVERSION_CLOSE]}) and
-            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -150,7 +151,8 @@ class OpenfoundryController < ApplicationController
       end
     when "rt"
       projects = ActiveRecord::Base.connection.select_rows("select id, name, summary from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows("select id, login, email from users where #{User.verified_users()}")
+      users = ActiveRecord::Base.connection.select_rows(
+	 "select id, login, email from users")
       sql= "select distinct U.id, P.id, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
@@ -160,7 +162,6 @@ class OpenfoundryController < ApplicationController
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
             RU.user_id = U.id and 
-            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -173,7 +174,7 @@ class OpenfoundryController < ApplicationController
     when "sympa"
       users = {}
       ActiveRecord::Base.connection.select_rows(
-        "select id, email from users where #{User.verified_users()}").each do |i,e|
+        "select id, email from users ").each do |i,e|
         users[i] = e 
       end
       sql= "select distinct P.name, U.id from 
@@ -185,7 +186,6 @@ class OpenfoundryController < ApplicationController
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
             RU.user_id = U.id and 
-            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = 
@@ -209,7 +209,7 @@ class OpenfoundryController < ApplicationController
     end
 
     projects = Project.find(:all, :conditions => Project.in_used_projects())
-    users = User.find(:all, :conditions => User.verified_users())
+    users = User.find(:all)
 
     data = {
       :projects => projects.map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
@@ -279,7 +279,7 @@ class OpenfoundryController < ApplicationController
       if params[:chk]
         params[:chk].keys.map{|k| Object.const_get(k)}
       else
-        @options[:models] = [Project] 
+        @options[:models] = [Project]
       end
     obj = @options[:models] == :all ? User : @options[:models].first
     @results = obj.find_with_ferret(query, @options) 
