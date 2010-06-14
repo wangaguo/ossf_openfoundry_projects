@@ -9,8 +9,8 @@
   <li class="parent active item19">
     <span><%= link_to _('Personal') %></span>
     <ul>
-    <li id="current" class="active item20"><span><%= link_to _('menu_My Projects')%></span></li>
-    <li><%= link_to _('menu_My Tickets')%></li>
+    <li id="current" class="active item20"><span><%= link_to _('menu_My Projects'), "#{ root_path }user/dashboard#myprojects"%></span></li>
+    <li><%= link_to _('menu_My Tickets'), "#{ root_path }user/dashboard#mytickets" %></li>
     <li><%= link_to _('menu_My Messages')%></li>
     </ul>
   </li>
