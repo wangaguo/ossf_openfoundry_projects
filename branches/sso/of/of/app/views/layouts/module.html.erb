@@ -1,5 +1,5 @@
 <% inside_layout 'application' do -%> 
-  <% module_title = @module_name %>
+  <% module_title = h(@module_name) %>
   <% module_content = capture do -%>
     <div id="module_rt">
       <div id="module_nav">
