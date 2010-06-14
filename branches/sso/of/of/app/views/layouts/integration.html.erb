@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/fusionmenu.css" type="text/css" />
     <%= yield :head_content %>
     <script type="text/javascript" src="http://<%=UI_SCHEMA_CSS_HOST%>/modules/mod_ofssologin/js/ofssologin.js"></script>
-    <script type="text/javascript" src="/sso/javascripts/langsync.js"></script>
+    <%= javascript_include_tag 'langsync.js' %>
   </head>
 
   <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
