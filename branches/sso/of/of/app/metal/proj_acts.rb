@@ -56,17 +56,14 @@ class ProjActs
         project_url = "http://#{of_domain}/projects/"
         h_stat = {
           'new_project'  => {
-            'icon' => 'http://whoswho.openfoundry.org/templates/rt_versatility_iii_j15/images/printButton.png',
             'text' => '<span class="pa_new">New</span>',
             'desc' => 'project just created'
           },
           'news_publish' => {
-            'icon' => 'http://whoswho.openfoundry.org/templates/rt_versatility_iii_j15/images/printButton.png',
             'text' => '<span class="pa_publish">Publish</span>',
             'desc' => 'a project news'
           },
           'proj_release' => {
-            'icon' => 'http://whoswho.openfoundry.org/templates/rt_versatility_iii_j15/images/printButton.png',
             'text' => '<span class="pa_release">Release</span>',
             'desc' => 'a new file'
           }
@@ -117,7 +114,7 @@ class ProjActs
             # do nothing
           end
 
-          output.concat("<li><img src=\"#{h_stat[row['type']]['icon']}\"> <a href=\"#{url}\">#{row['project_name']}</a> #{h_stat[row['type']]['text']} #{h_stat[row['type']]['desc']}. <span class=\"published-date\">#{row['updated'].strftime('%Y-%m-%d')}</span></li>\n")
+          output.concat("<li><a href=\"#{url}\">#{row['project_name']}</a> #{h_stat[row['type']]['text']} #{h_stat[row['type']]['desc']}. <span class=\"published-date\">#{row['updated'].strftime('%Y-%m-%d')}</span></li>\n")
         }
 
         output.concat('</ul></div>')
