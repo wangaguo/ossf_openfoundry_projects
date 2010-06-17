@@ -1,7 +1,7 @@
 <script type="text/javascript">
 <!--
   window.onload=function(){
-    Effect.SlideUp('more');
+    Effect.BlindUp('more');
   }
 //-->
 </script>
@@ -56,7 +56,7 @@ end %>
     %>
   </table>
   </div>
-  <a id ="mr" href="#" onclick="Effect.SlideDown('more'); Effect.Fade('mr'); Effect.Grow('le', {direction:'center'}); return false" style="padding:8px;float:right"><%= _('More...') %></a>
-  <a id ="le" href="#" onclick="Effect.SlideUp('more'); Effect.Grow('mr', {direction:'bottom-left'}); Effect.Fade('le'); return false" style="display:none;padding:8px;float:right"><%= _('Less...') %></a>
+  <a id ="mr" href="#" onclick="Effect.BlindDown('more'); Effect.Fade('mr'); Effect.Grow('le', {direction:'center'}); return false" style="padding:8px;float:right"><%= _('More...') %></a>
+  <a id ="le" href="#" onclick="Effect.BlindUp('more'); Effect.Grow('mr', {direction:'bottom-left'}); Effect.Fade('le'); return false" style="display:none;padding:8px;float:right"><%= _('Less...') %></a>
   </fieldset>
 </div>
