@@ -1,7 +1,7 @@
 <% if(login?) -%>
   <%=_('Hi')%>,<%= link_to current_user.login, '/user/userprofile' %>
   &nbsp;|&nbsp; 
-  <%= link_to _('Dashboard'), '/of/user/dashboard' %>
+  <%= link_to _('Dashboard'), "#{ root_path }user/dashboard" %>
   &nbsp;|&nbsp; 
   <%= link_to _('Settings'), '/sso/user/edit' %>
   &nbsp;|&nbsp; 

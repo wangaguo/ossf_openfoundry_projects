@@ -122,7 +122,7 @@ class UserController < ApplicationController
       #@partners.flatten!.uniq!  
     else
       flash[:message] = "You are guest!!"
-      redirect_to '/of/' 
+      redirect_to "#{ root_path }" 
     end
   end
 
@@ -259,7 +259,7 @@ class UserController < ApplicationController
         session[:user] = nil
 
 				flash[:message] = _('user_logout_succeeded')
-				redirect_to '/of/'
+				redirect_to "#{ root_path }" 
 			end
 =begin
       session[:user] = nil
@@ -541,7 +541,7 @@ class UserController < ApplicationController
     when :get
       session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
-        :locals => {:submit_to => '/of/user/signup', 
+        :locals => {:submit_to => "#{ root_path }user/signup", 
                     :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
       return true
     when :post

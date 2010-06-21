@@ -19,7 +19,7 @@
           <td>
             Created&nbsp;<%=tz_date( item.dc_date ) %>&nbsp;&nbsp;
             by&nbsp;<%=h item.dc_creator %>&nbsp;&nbsp;
-            Project:&nbsp;<span class="pa"><%=link_to item.dc_description, "/of/projects/#{ item.dc_description }" %></span>
+            Project:&nbsp;<span class="pa"><%=link_to item.dc_description, "#{ root_path }projects/#{ item.dc_description }" %></span>
           </td>
         </tr>
       <% end %>

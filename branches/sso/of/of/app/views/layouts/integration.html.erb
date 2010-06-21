@@ -69,7 +69,7 @@
                       <div class="ofssologin_square9">
                         <%= yield :header_content %>
                         <div class="ofssologin_search_square9">
-                          <form id="of_search" action="/of/openfoundry/search" method="get" onsubmit="of_search(); return false;">
+                          <form id="of_search" action="<%="#{ root_path }openfoundry/search" %>" method="get" onsubmit="of_search(); return false;">
                             <select id="of_search_type">
                               <option value="Projects"><%=_('Projects')%></option>
                               <option value="Content"><%=_('Content')%></option>
@@ -105,7 +105,7 @@
                   <a class="orphan item bullet" href="/"><span><%=_('Home')%></span></a>
                 </li>
                 <li class="item root active">
-                  <a class="orphan item bullet" href="/of/"><span><%=_('Projects')%></span></a>
+                  <a class="orphan item bullet" href="<%="#{ root_path }" %>"><span><%=_('Projects')%></span></a>
                 </li>
                 <li class="item root">
                   <a class="orphan item bullet" href="/community"><span><%=_('Community')%></span></a>
