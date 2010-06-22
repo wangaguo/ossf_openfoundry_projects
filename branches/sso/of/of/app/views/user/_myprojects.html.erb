@@ -8,7 +8,7 @@
     <table>
       <% my_projects.each do | p | %>
         <tr>
-          <td rowspan="2"> 
+          <td rowspan="2" style="vertical-align: middle;">
             <a href="<%=project_url( p.id ) %>">
               <img src="<%=url_for( :controller => :images, :action => "cached_image", :id => "#{ p.icon }_64" ) %>" style="vertical-align: middle;">
             </a>
