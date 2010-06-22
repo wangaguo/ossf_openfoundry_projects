@@ -75,7 +75,7 @@ var menudata=
    <% if current_user.has_role? 'site_admin' %>
     ,{id:'<%=_('menu_Site Admin')%>', url:'/site_admin',
       submenu:[
-        {id:'<%= _('Project List')%>', url:'/site_admin/project'},
+        {id:'<%= _('Project List')%>', url:'/site_admin/project'}
 //        {id:'<%= _('Translations')%>', url:''},
 //        {id:'<%= _('Module Menagements')%>', url:''}
       ]
