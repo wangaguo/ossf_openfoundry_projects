@@ -1,15 +1,17 @@
-Your project creation request "<%= @project_name %>" has been pending!
-Please visit the following URL: <%= @project_url %>, or visit your user homepage.
-If you have any question, please contact us at <%= OPENFOUNDRY_SITE_ADMIN_EMAIL %>.
-
+<p>
+Your project creation request "<%= @project_name %>" has been pending!<br />
+Please visit the following URL: <%= @project_url %>, or visit your user homepage.<br />
+If you have any question, please contact us at <%= OPENFOUNDRY_SITE_ADMIN_EMAIL %>.<br />
+<br />
 <% if @replymessage != "" -%>
------------------------------------------------------------------------------------
-
-<%= @replymessage %>
-
------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------<br />
+<br />
+<%= @replymessage %><br />
+<br />
+-----------------------------------------------------------------------------------<br />
 <% end -%>
-
-Thank you.
-
-OpenFoundry
+<br />
+Thank you.<br />
+<br />
+OpenFoundry<br />
+</p>

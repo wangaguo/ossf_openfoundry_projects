@@ -42,6 +42,7 @@ class ProjectNotify < ActionMailer::Base
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
     @headers    = {}
+    @content_type = "text/html"
   end
 
   def rejected(project, replymessage,  sent_at = Time.now)
@@ -52,6 +53,7 @@ class ProjectNotify < ActionMailer::Base
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
     @headers    = {}
+    @content_type = "text/html"
   end
 
   def pending(project, replymessage, sent_at = Time.now)
@@ -62,5 +64,6 @@ class ProjectNotify < ActionMailer::Base
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
     @headers    = {}
+    @content_type = "text/html"
   end
 end

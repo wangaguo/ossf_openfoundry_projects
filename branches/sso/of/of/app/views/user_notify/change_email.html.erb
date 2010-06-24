@@ -1,16 +1,21 @@
-Dear User, this message is from <%= @app_name %>
-
-You had change your email address on 'of.openfoundry.org'.
-
-
-NOTICE! 
-
-**DO NOT CLICK THE LINK**, if you havn't regist on our website.
-
-
-
-Click on the following link to confirm your email modification:
-
-<a href="<%= @url%>">Click me!</a>
-
-<%= @url %>
+<p>
+Dear User, this message is from <%= @app_name %><br />
+<br />
+You had change your email address on 'of.openfoundry.org'.<br />
+<br />
+<br />
+NOTICE!<br /> 
+<br />
+**DO NOT CLICK THE LINK**, if you havn't regist on our website.<br />
+<br />
+<br />
+<br />
+Click on the following link to confirm your email modification:<br />
+<br />
+<a href="<%= @url%>">Click Me!</a><br />
+<br />
+Or click:<br />
+<br />
+<a href="<%= @url%>"><%= @url %></a><br />
+<br />
+</p>

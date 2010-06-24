@@ -2,7 +2,7 @@ class UserNotify < ActionMailer::Base
   def signup(user, password, url=nil)
     setup_email(user)
     
-    # Set Contenti-Type for Sending mails
+    # Set Content-Type for Sending mails
     @content_type = "text/html"
 
     # Email header info
@@ -19,6 +19,9 @@ class UserNotify < ActionMailer::Base
   def forgot_password(user, url=nil)
     setup_email(user)
 
+    # Set Content-Type for Sending mails
+    @content_type = "text/html"
+
     # Email header info
     @subject += "Forgotten password notification"
 
@@ -32,6 +35,9 @@ class UserNotify < ActionMailer::Base
   def change_email(dummyuser, url)
     setup_email(dummyuser)
 
+    # Set Content-Type for Sending mails
+    @content_type = "text/html"
+
     # Email header info
     @subject += "Changed email notification"
 
@@ -42,6 +48,9 @@ class UserNotify < ActionMailer::Base
   
   def change_password(user, password, url=nil)
     setup_email(user)
+
+    # Set Content-Type for Sending mails
+    @content_type = "text/html"
 
     # Email header info
     @subject += "Changed password notification"
@@ -57,6 +66,9 @@ class UserNotify < ActionMailer::Base
   def pending_delete(user, url=nil)
     setup_email(user)
 
+    # Set Content-Type for Sending mails
+    @content_type = "text/html"
+
     # Email header info
     @subject += "Delete user notification"
 
@@ -69,6 +81,9 @@ class UserNotify < ActionMailer::Base
 
   def delete(user, url=nil)
     setup_email(user)
+
+    # Set Content-Type for Sending mails
+    @content_type = "text/html"
 
     # Email header info
     @subject += "Delete user notification"
