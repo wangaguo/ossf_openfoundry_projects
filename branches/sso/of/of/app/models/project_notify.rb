@@ -66,4 +66,14 @@ class ProjectNotify < ActionMailer::Base
     @headers    = {}
     @content_type = "text/html"
   end
+
+    def s_(key)
+      I18n.t key
+    end
+    helper_method :s_
+    def _(key)
+      I18n.t key
+    end
+    helper_method :_
+
 end
