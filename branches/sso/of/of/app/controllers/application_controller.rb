@@ -7,7 +7,7 @@ require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
 require 'hashit'
 
-require 'gettext_rails'
+#require 'gettext_rails'
 
 require 'rubygems'
 require 'curb'
@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   around_filter :touch_session
   before_filter :set_time_zone
+  before_filter :set_locale
 
   #for permission table
   include OpenFoundry::PermissionTable
@@ -39,7 +40,7 @@ class ApplicationController < ActionController::Base
   helper :projects
   require_dependency 'user'
 
-  rescue_from ActionController::RoutingError, :with => :not_found
+  #rescue_from ActionController::RoutingError, :with => :not_found
 
 
 #  before_filter :configure_charsets
@@ -53,9 +54,9 @@ class ApplicationController < ActionController::Base
 #        end
 #  end
   #set locale for each request
-  before_init_gettext :set_gettext_locale
-  after_init_gettext :set_will_paginate_lang
-  init_gettext "openfoundry"
+  #before_init_gettext :set_gettext_locale
+  #after_init_gettext :set_will_paginate_lang
+  #init_gettext "openfoundry"
   layout 'normal'
   def not_found
     flash[:error] = 'not_found'
@@ -63,16 +64,16 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-  def set_gettext_locale 
+#  def set_gettext_locale 
     # guest's language should be nil, because "" is true. 
     # request.preferred_language_from is plugin, return value is zh-TW, gettext need zh_TW.
-    cookies[:oflang] = set_locale( (params[:lang] || cookies[:oflang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
-  end
+#    cookies[:oflang] = set_locale( (params[:lang] || cookies[:oflang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
+#  end
 
   # also being invoked when a user changes his/her language preference
-  def set_locale_for_gettext!(lang)
-    cookies[:oflang] = set_locale(lang||"en")
-  end
+#  def set_locale_for_gettext!(lang)
+#    cookies[:oflang] = set_locale(lang||"en")
+#  end
 
   def get_project_by_id_or_name(id_or_name)
     rtn = nil
@@ -377,4 +378,39 @@ THECODE
         Time.zone = current_user.timezone
       end
     end
+
+    def s_(key)
+      I18n.t key
+    end
+    helper_method :s_
+    def _(key)
+      I18n.t key
+    end
+    helper_method :_
+
+  #####################
+  # locale setting
+  #####################
+  def set_locale
+    #what language we support
+    @locales = {:en => 'English', :zh_TW => '繁體中文'}
+
+    #this is our language selection priority:
+    locale = ( params[:lang] || cookies[:oflang] || session[:lang] || scan_lang_from_browser || scan_lang_from_user || :zh_TW )
+    locale = :zh_TW if locale == ''
+    #lang is not supported, use :zh_TW
+    locale = :zh_TW unless(@locales.has_key? locale.to_sym)
+
+    #set lang to session, cookie, and I18n
+    I18n.locale = session[:lang] = cookies[:oflang] = locale
+  end
+
+  def scan_lang_from_browser
+    ( request.env['HTTP_ACCEPT_LANGUAGE'] || '' ).scan(/^[a-z]{2}/).first
+  end
+
+  def scan_lang_from_user
+    session[:user].lang if session[:user]
+  end
+
 end

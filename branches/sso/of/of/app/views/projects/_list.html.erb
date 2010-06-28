@@ -5,7 +5,7 @@
 <%= paginate = will_paginate projects %>
 <table class="ProjectList">
   <tr>
-    <th width="600"><%= link_to _('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
+    <th width="600"><%= link_to t('Project Summary'),  sort_param('listing', Project, 'summary', 'summary') %></th>
     <th width="70"><%= link_to _('Created At'),  sort_param('listing', Project, 'created_at', 'created_at') %></th>
     <th width="70"><%= link_to _('Latest File'),  sort_param('listing', Release, 'created_at', 'latest_file') %></th>
     <th width="70"><%= link_to _('Download'),  sort_param('listing', Project, 'project_counter', 'project_counter') %></th>

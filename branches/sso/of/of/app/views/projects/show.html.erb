@@ -17,7 +17,8 @@
       <%= link_to "<span>#{_('Downloads')}</span>", download1_path(:project_id => @project.id), :class => 'readon' %>
     </td>
     <td>
-      <%= link_to "<span>#{_('Bug Report')}</span>", rt_path(:project_id => @project.id), :class => 'readon' %>
+      <%#= link_to "<span>#{_('Bug Report')}</span>", rt1_path(:project_id => @project.id), :class => 'readon' %>
+      <%= link_to "<span>#{_('Bug Report')}</span>", "../../rt/Ticket/Create.html?Queue=#{@project.id}", :class => 'readon' %>
     </td>
   </tr>
 </table>

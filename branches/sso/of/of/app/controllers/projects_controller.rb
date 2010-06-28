@@ -556,7 +556,7 @@ class ProjectsController < ApplicationController
     when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE] 
       @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
     when Project::VCS[:CVS]
-      @src = "cvs -d :ext:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
+      @src = "cvs -d :ssh:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
     when Project::VCS[:REMOTE]
     else
     end

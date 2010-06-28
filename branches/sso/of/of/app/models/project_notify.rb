@@ -18,7 +18,13 @@ class ProjectNotify < ActionMailer::Base
     @body       = { 
                     :project => project, :user => User.find(project.creator)
                   }
-    @recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
+    #@recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
+    #TODO this is ssodev test!!!!!!!!!!!
+    #if sso_host == 'ssodev.openfoundry.org'
+      @recipients = "hyder.ossf@gmail.com"#Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
+    #else  
+    #  @recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
+    #end
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
     @headers    = {}

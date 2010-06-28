@@ -1,13 +1,13 @@
 <% if(login?) -%>
   <%=_('Hi')%>,<%= link_to current_user.login, '/user/userprofile' %>
   &nbsp;|&nbsp; 
-  <%= link_to _('Dashboard'), "#{ root_path }user/dashboard" %>
+  <%= link_to _('Dashboard'), dashboard_user_path %>
   &nbsp;|&nbsp; 
   <%= link_to _('Settings'), '/sso/user/edit' %>
   &nbsp;|&nbsp; 
-  <%= link_to _("Logout"), :controller => :user, :action => :logout %>
+  <%= link_to _("Logout"), logout_user_path %>
 <% else -%>
-  <%= link_to _('Login'), :controller => :user, :action => :login %>
+  <%= link_to _('Login'), login_user_path %>
   &nbsp;|&nbsp; 
   <%= link_to _('Sign Up'), "/sso/user/signup" %> 
 <% end -%>

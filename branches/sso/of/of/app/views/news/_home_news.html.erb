@@ -2,7 +2,7 @@
 <% module_title = capture do -%>
   <%=link_to( image_tag('atom.png', 
              {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
-             {:controller => :news, :action => :new_openfoundry_news_feed, :format => :xml} )%>
+             new_openfoundry_news_feed_path( :format => :xml) )%>
   <%=_('Announcements')%>
 <% end -%>
 
@@ -13,7 +13,7 @@
     <li>
     <%= if news.created_at > 7.days.ago then image_tag('hot.png') end %>
     <%= link_to news.subject, 
-        {:controller => "news", :action => "show", :id => news.id}, :class => "news_subject" %>
+        site_news1_path(:id => news.id), :class => "news_subject" %>
     <%= news.created_at.strftime "%Y-%m-%d" %>
     </li>
     <% if showDescr == true -%>
@@ -24,12 +24,12 @@
     <%i=i+1%>
   <% end -%>
 </ul>
-<%=link_to( _('More...'), {:controller => "news"}, :class => "more" )%>
+<%=link_to( _('More...'), site_news_path, :class => "more" )%>
 <%=auto_discovery_link_tag(:rss,
-   {:format => :rss, :controller => :news, :action => :new_openfoundry_news_feed,},
+   new_openfoundry_news_feed_path({:format => :rss}),
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'RSS'} }) %>
 <%=auto_discovery_link_tag(:atom,
-   {:format => :xml, :controller => :news, :action => :new_openfoundry_news_feed},
+   new_openfoundry_news_feed_path({:format => :xml}),
    {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'ATOM'} }) %>
 <% end -%>
 

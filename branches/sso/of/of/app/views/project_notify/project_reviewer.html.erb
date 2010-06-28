@@ -11,9 +11,9 @@ Requested by <a href="mailto:<%=@user.email%>"><%=@user.login%>(<%=@user.realnam
   <dt>summary:</dt><dd><%= @project.summary %></dd>
   <dt>description:</dt><dd><%= @project.description %></dd>
 </dl>
-<%= link_to _('Change status'), {:action => 'change_status_form', :controller => 'site_admin/project', :id => @project} %> |
+<%= link_to _('Change status'), {:action => 'change_status_form', :controller => 'site_admin/projects', :id => @project} %> |
 <%= link_to _('Show'), {:action => 'show', :controller => 'projects', :id => @project} %> |
 <%= link_to _('Edit'), {:action => 'edit', :controller => 'projects', :id => @project} %> |
-<%= link_to _('List'), {:action => 'list', :controller => 'site_admin/project', :id => @project} %>
+<%= link_to _('List'), {:action => 'list', :controller => 'site_admin/projects', :id => @project} %>
 <hr/>
 OpenFoundry System

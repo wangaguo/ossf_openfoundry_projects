@@ -7,7 +7,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     users = unless name.blank?
       User.find_by_sql(
         ["select id,icon,login,realname,email from users where 
-                          #{User.verified_users} and login like  ? limit ?","%#{name}%" ,limit])
+                          login like  ? limit ?","%#{name}%" ,limit])
     else
       []
     end
@@ -36,13 +36,13 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def rescue_user
-    User.find(:all, :conditions => User.verified_users() + " and id = 201159").each do |u|
+    User.find(:all, :conditions => "id = 201159").each do |u|
       ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login, 'email' => u.email })
     end
   end
 
   def rescue_user_update
-    User.find(:all, :conditions => User.verified_users() + " and id >= 200000").each do |u|
+    User.find(:all, :conditions => "id >= 200000").each do |u|
       ApplicationController::send_msg(TYPES[:user],ACTIONS[:update],{'id' => u.id, 'name' => u.login, 'email' => u.email })
     end
   end
@@ -54,13 +54,6 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def resend
-    #User.find(:all, :conditions => User.verified_users()).each do |u|
-    #  ApplicationController::send_msg(TYPES[:user],ACTIONS[:create],{'id' => u.id, 'name' => u.login})
-    #end
-  
-    #Project.find(:all, :conditions => Project.in_used_projects()).each do |p|
-    #  ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => p.id, 'name' => p.name, 'summary' => p.summary}) 
-    #end
     
     ActiveRecord::Base.connection.select_rows(
     "select distinct U.id, P.id, F.name from users U, roles_users RU, roles_functions RF, functions F, roles R, projects P where
@@ -69,7 +62,6 @@ class SiteAdmin::SiteAdminController < SiteAdmin
              ( R.name = 'Admin' ) ) and
              RU.role_id = R.id and R.authorizable_type = 'Project' and
              R.authorizable_id = P.id and 
-             #{User.verified_users(:alias => 'U')} and 
              #{Project.in_used_projects(:alias => 'P')} order by U.id
            ").each do |u, p, f|
              ApplicationController::send_msg(TYPES[:function],ACTIONS[:create],{'user_id' => u, 'project_id' => p, 'function_name' => f})

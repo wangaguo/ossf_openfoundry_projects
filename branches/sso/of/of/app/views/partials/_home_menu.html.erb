@@ -6,15 +6,15 @@
 <ul class="menu">
   <% if current_user.login != 'guest' -%>
     <li><%= link_to _('Create Project'), new_project_path() %></li>
-    <li><%= link_to _('Dashboard'), "#{ root_path }user/dashboard" %></li>
+    <li><%= link_to _('Dashboard'), dashboard_user_path %></li>
   <% end -%>
-  <li><%= link_to _('menu_Project Listing'), :controller => 'projects' %></li>
-  <li><%= link_to _('menu_Project Category'), :controller => 'category'  %></li>
+  <li><%= link_to _('menu_Project Listing'), projects_path %></li>
+  <li><%= link_to _('menu_Project Category'), category_index_path  %></li>
   <li><%= link_to _('menu_Project News'), project_news_path() %></li>
-  <li><%= link_to _('menu_Latest Releases'), :controller => 'releases', :action => 'latest' %></li>
-  <li><%= link_to _('menu_Top Downloads'), :controller => 'releases', :action => 'top' %></li>
-  <li><%= link_to _('menu_Help Wanted'), :controller => 'jobs' %></li>
-  <li><%= link_to _('menu_WebHosting'), :controller => 'webhosting' %></li>
+  <li><%= link_to _('menu_Latest Releases'), latest_releases_path %></li>
+  <li><%= link_to _('menu_Top Downloads'), top_releases_path %></li>
+  <li><%= link_to _('menu_Help Wanted'), list_jobs_path %></li>
+  <li><%= link_to _('menu_WebHosting'), webhosting_index_path %></li>
   <li class="parent active"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('Help') %></a>
   <div id="bsc_menu0" style="display:none">
   <ul>
