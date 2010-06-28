@@ -68,7 +68,7 @@ module ApplicationHelper
               _('Project Category'), Project, 'name'
           when 'news'
             level_name, level_class, level_title = 
-              _('Project News'), News, 'subject'
+              _('News'), News, 'subject'
           when 'jobs'
             level_name, level_class, level_title = 
               _('Help Wanted'), Job, 'subject'
