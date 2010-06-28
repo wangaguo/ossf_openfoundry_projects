@@ -47,8 +47,23 @@ namespace 'openfoundry' do
       replace_template('config/initializers/openfoundry.rb')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
+
+    desc 'OpenFoundry Environment Configure'
+    task 'environment' do
+      puts "\x1b[38;5;9m---start Environment configure---\x1b[0m"
+      replace_template('config/environment.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
+
+    desc 'OpenFoundry SSO Configure'
+    task 'sso' do
+      puts "\x1b[38;5;9m---start sso configure---\x1b[0m"
+      replace_template('config/initializers/sso.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
   end
-  task :config => ['config:db', 'config:memcache', 'config:stomp', 'config:ferret','config:module']
+  task :config => ['config:db', 'config:memcache', 'config:sso',
+            'config:stomp', 'config:ferret','config:module', 'config:environment']
 end
 
 def replace_template(fname, opt ={} )
