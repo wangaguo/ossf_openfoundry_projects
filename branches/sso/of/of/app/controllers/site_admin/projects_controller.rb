@@ -1,4 +1,4 @@
-class SiteAdmin::ProjectController < SiteAdmin
+class SiteAdmin::ProjectsController < SiteAdmin
   layout 'application'
 
   def index
