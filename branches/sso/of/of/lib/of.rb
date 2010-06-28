@@ -2,6 +2,14 @@
 require 'yaml'
 
 module OpenFoundry
+  module VeryDirty
+    def _(key)
+      key
+    end  
+    def N_(key)
+      key
+    end  
+  end
   module Message
     def self.included(base)
       base.extend(ClassMethods)
@@ -34,6 +42,7 @@ module OpenFoundry
 end
 
 ActiveRecord::Base.send(:include, OpenFoundry::Message)
+ActiveRecord::Base.send(:extend, OpenFoundry::VeryDirty)
 
 
 # (a, b) = normalize_values(%w[Ruby Perl JavaScript], %w[c Javascript perl]) {|x| x.downcase }
