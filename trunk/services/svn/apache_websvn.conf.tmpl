@@ -1,0 +1,18 @@
+AddHandler application/x-httpd-php .php
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+    # 
+    # Since Pound doesn't alter the host header for us,
+    # we will receive the host name of the frontend site.
+    #
+    ServerName #{WEBSVN_HOST_NAME}
+
+    Alias / #{WEBSVN_URL_PREFIX}
+    <Location />
+        DirectoryIndex index.php
+        Order allow,deny
+        Allow from all
+    </Location>
+</VirtualHost>
+
