@@ -8,8 +8,8 @@ NameVirtualHost *:80
     #
     ServerName #{WEBSVN_HOST_NAME}
 
-    Alias / #{WEBSVN_URL_PREFIX}
-    <Location />
+    Alias /#{WEBSVN_URL_PREFIX} #{WEBSVN_PATH_PREFIX}
+    <Location /#{WEBSVN_URL_PREFIX}>
         DirectoryIndex index.php
         Order allow,deny
         Allow from all
