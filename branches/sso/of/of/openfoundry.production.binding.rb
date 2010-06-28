@@ -69,4 +69,9 @@ redis_server = "127.0.0.1"
 #------------------------#
 
 sso_ui_host = '140.109.22.20'
-sso_of_auth_key = 'FIX ME'
+
+#------------------------#
+#  sso config
+#  in sso.rb
+#------------------------#
+tolk_user = 'ossf_trans'

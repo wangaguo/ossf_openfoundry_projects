@@ -55,6 +55,13 @@ namespace 'openfoundry' do
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
+    desc 'OpenFoundry Translation Configure'
+    task 'translation' do
+      puts "\x1b[38;5;9m---start translation configure---\x1b[0m"
+      replace_template('config/initializers/tolk.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
+
     desc 'OpenFoundry SSO Configure'
     task 'sso' do
       puts "\x1b[38;5;9m---start sso configure---\x1b[0m"
@@ -62,7 +69,7 @@ namespace 'openfoundry' do
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
   end
-  task :config => ['config:db', 'config:memcache', 'config:sso',
+  task :config => ['config:db', 'config:memcache', 'config:sso', 'config:translation',
             'config:stomp', 'config:ferret','config:module', 'config:environment']
 end
 
