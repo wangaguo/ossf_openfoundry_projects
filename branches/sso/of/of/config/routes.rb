@@ -11,6 +11,13 @@ ActionController::Routing::Routes.draw do |map|
   #administration:
   #####################
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
+
+  map.namespace :site_admin do |admin|
+    admin.resources :projects,
+                    :member => {:change_status_form => :any,
+                                :list => :any
+                                }
+  end
   map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
   map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
 
@@ -131,6 +138,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :webhosting,
                 :collection => { :how_to_upload => :get }
+  
+  map.resources :help,
+                :collection => { :index => :any, :nsc_project => :any }
 
   #####################
   #rss feeds:
@@ -140,7 +150,7 @@ ActionController::Routing::Routes.draw do |map|
   map.new_projects_feed '/projects/news_projects_feed.:format',
                         :controller => 'projects', :action => 'new_projects_feed'
   # feed for new openfoundry news
-  map.new_project_news_feed '/news/new_openfoundry_news_feed.:format',
+  map.new_openfoundry_news_feed '/news/new_openfoundry_news_feed.:format',
                         :controller => 'news', :action => 'new_openfoundry_news_feed'
   # feed for new project news
   map.new_project_news_feed '/news/new_project_news_feed.:format',
