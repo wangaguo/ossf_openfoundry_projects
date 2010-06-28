@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: openfoundry 0.1\n"
-"POT-Creation-Date: 2010-04-28 05:54-0000\n"
+"POT-Creation-Date: 2010-05-21 09:47-0000\n"
 "PO-Revision-Date: 2007-05-16 03:50-0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,93 +50,108 @@ msgstr ""
 msgid "Tag|Name"
 msgstr "圖片名稱"
 
-#: app/helpers/application_helper.rb:47
-msgid "Home"
-msgstr "首頁"
-
-#: app/helpers/application_helper.rb:58
+#: app/helpers/application_helper.rb:59
 msgid "Project Releases"
 msgstr "專案釋出"
 
-#: app/helpers/application_helper.rb:61 app/models/user.rb:-
+#: app/helpers/application_helper.rb:62 app/models/user.rb:-
 msgid "user"
 msgstr "使用者"
 
-#: app/helpers/application_helper.rb:64 app/views/projects/_list.html.erb:3
+#: app/helpers/application_helper.rb:65 app/views/projects/_list.html.erb:3
 msgid "Project Listing"
 msgstr "專案列表"
 
-#: app/helpers/application_helper.rb:67
+#: app/helpers/application_helper.rb:68
 #: app/controllers/category_controller.rb:20
 msgid "Project Category"
 msgstr "專案分類"
 
-#: app/helpers/application_helper.rb:70 app/controllers/news_controller.rb:27
-#: app/views/news/_listn.html.erb:6 app/views/news/_listn.html.erb:23
-#: app/views/news/_listn.html.erb:26
+#: app/helpers/application_helper.rb:71 app/controllers/news_controller.rb:27
+#: app/views/news/_listn.html.erb:5 app/views/news/_listn.html.erb:22
+#: app/views/news/_listn.html.erb:25
 msgid "Project News"
 msgstr "專案新聞"
 
-#: app/helpers/application_helper.rb:73 app/controllers/jobs_controller.rb:8
+#: app/helpers/application_helper.rb:74 app/controllers/jobs_controller.rb:8
 #: app/controllers/jobs_controller.rb:27
-#: app/views/partials/_project_menu.html.erb:25
-#: app/views/partials/_project_menu.html.erb:74
+#: app/views/partials/_project_menu.html.erb:17
+#: app/views/partials/_project_menu.html.erb:51
+#: app/views/projects/_menu.html.erb:9
 msgid "Help Wanted"
 msgstr "徵求伙伴"
 
-#: app/helpers/application_helper.rb:76
+#: app/helpers/application_helper.rb:77
 #: app/controllers/citations_controller.rb:8
 #: app/controllers/citations_controller.rb:27
-#: app/views/partials/_project_menu.html.erb:22
-#: app/views/partials/_project_menu.html.erb:65
+#: app/views/partials/_project_menu.html.erb:15
+#: app/views/partials/_project_menu.html.erb:49
+#: app/views/projects/_menu.html.erb:7
 msgid "Citations"
 msgstr "引用資訊"
 
-#: app/helpers/application_helper.rb:79
+#: app/helpers/application_helper.rb:80
 #: app/controllers/references_controller.rb:8
 #: app/controllers/references_controller.rb:27
-#: app/views/partials/_project_menu.html.erb:23
-#: app/views/partials/_project_menu.html.erb:68
+#: app/views/partials/_project_menu.html.erb:16
+#: app/views/partials/_project_menu.html.erb:50
+#: app/views/projects/_menu.html.erb:8
 msgid "References"
 msgstr "參考文獻"
 
-#: app/helpers/application_helper.rb:82
+#: app/helpers/application_helper.rb:83
 msgid "Issue Tracker"
 msgstr "待辦事項"
 
-#: app/helpers/application_helper.rb:85
+#: app/helpers/application_helper.rb:86
 #: app/controllers/releases_controller.rb:77
-#: app/views/partials/_project_menu.html.erb:51
+#: app/views/partials/_project_menu.html.erb:31
+#: app/views/partials/_project_menu.html.erb:88
+#: app/views/projects/project_board.html.erb:14
+#: app/views/projects/_menu.html.erb:34
 msgid "Downloads"
 msgstr "下載區"
 
-#: app/helpers/application_helper.rb:88
+#: app/helpers/application_helper.rb:89
 #: app/controllers/releases_controller.rb:49
 msgid "Top Downloads"
 msgstr "下載排行"
 
-#: app/helpers/application_helper.rb:91
+#: app/helpers/application_helper.rb:92
 #: app/controllers/releases_controller.rb:63
-#: app/views/releases/_new_releases.html.erb:7
-#: app/views/releases/_new_releases.html.erb:22
-#: app/views/releases/_new_releases.html.erb:25
+#: app/views/releases/_new_releases.html.erb:6
+#: app/views/releases/_new_releases.html.erb:21
+#: app/views/releases/_new_releases.html.erb:24
 msgid "Latest Releases"
 msgstr "最新釋出專案"
 
-#: app/helpers/application_helper.rb:94
+#: app/helpers/application_helper.rb:95
 #: app/views/partials/_top_menu_data.html.erb:68
 msgid "Help"
-msgstr "說明"
+msgstr "協助"
 
-#: app/helpers/application_helper.rb:97
+#: app/helpers/application_helper.rb:98
 msgid "Survey"
 msgstr "下載者資料"
 
-#: app/helpers/application_helper.rb:102 app/helpers/application_helper.rb:105
+#: app/helpers/application_helper.rb:101
+#: app/controllers/webhosting_controller.rb:3
+#: app/views/partials/_top_menu_data.html.erb:21
+#: app/views/partials/_home_menu.html.erb:26
+msgid "menu_WebHosting"
+msgstr "專案網頁空間"
+
+#: app/helpers/application_helper.rb:106 app/helpers/application_helper.rb:109
 msgid "breadcrumb|"
 msgstr ""
 
-#: app/helpers/application_helper.rb:275 app/helpers/application_helper.rb:320
+#: app/helpers/application_helper.rb:142
+#: app/views/layouts/integration.html.erb:74
+#: app/views/layouts/integration.html.erb:108
+msgid "Projects"
+msgstr "專案"
+
+#: app/helpers/application_helper.rb:292 app/helpers/application_helper.rb:337
 #: app/views/projects/new.html.erb:2
 msgid "required_icon"
 msgstr "必填"
@@ -194,7 +209,7 @@ msgstr "登入"
 
 #: app/models/category.rb:6
 msgid "breadcrumb|new"
-msgstr "建立專案"
+msgstr "新增"
 
 #: app/models/category.rb:7
 msgid "breadcrumb|home"
@@ -202,7 +217,7 @@ msgstr "我的首頁"
 
 #: app/models/category.rb:8
 msgid "breadcrumb|edit"
-msgstr "偏好設定"
+msgstr "編輯"
 
 #: app/models/category.rb:9
 msgid "breadcrumb|owner"
@@ -776,7 +791,7 @@ msgid "reference"
 msgstr "參考文獻"
 
 #: app/models/reference.rb:- app/views/references/_form.html.erb:5
-#: app/views/references/show.html.erb:4
+#: app/views/references/show.html.erb:3
 msgid "Reference|Source"
 msgstr "文獻來源"
 
@@ -873,11 +888,11 @@ msgstr "專案"
 msgid "Project|Icon"
 msgstr "版本控制系統"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:38
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:43
 msgid "Project|Name"
 msgstr "專案代號"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:40
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:32
 msgid "Project|Summary"
 msgstr "專案摘要"
 
@@ -885,35 +900,35 @@ msgstr "專案摘要"
 msgid "Project|Rationale"
 msgstr "註冊原因"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:42
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:44
 msgid "Project|Description"
 msgstr "專案描述"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:46
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:46
 msgid "Project|Contactinfo"
 msgstr "連絡方式"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:47
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:47
 msgid "Project|Maturity"
 msgstr "專案成熟度"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:48
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:33
 msgid "Project|License"
 msgstr "程式碼授權"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:49
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:48
 msgid "Project|Contentlicense"
 msgstr "圖文授權"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:50
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:49
 msgid "Project|Licensingdescription"
 msgstr "授權說明"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:51
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:50
 msgid "Project|Platform"
 msgstr "作業環境"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:53
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:34
 msgid "Project|Programminglanguage"
 msgstr "程式語言"
 
@@ -921,20 +936,20 @@ msgstr "程式語言"
 msgid "Project|Intendedaudience"
 msgstr "適用對象"
 
-#: app/models/project.rb:- app/controllers/projects_controller.rb:196
+#: app/models/project.rb:- app/controllers/projects_controller.rb:225
 msgid "Project|Redirecturl"
 msgstr "首頁轉址"
 
-#: app/models/project.rb:- app/controllers/projects_controller.rb:197
-#: app/views/projects/show.html.erb:54
+#: app/models/project.rb:- app/controllers/projects_controller.rb:226
+#: app/views/projects/_basic.html.erb:51
 msgid "Project|Vcs"
 msgstr "版本控制系統"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:55
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:52
 msgid "Project|Vcsdescription"
 msgstr "版本控制系統描述"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:56
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:53
 msgid "Project|Creator"
 msgstr "專案建立者"
 
@@ -950,7 +965,7 @@ msgstr "原因"
 msgid "Project|Project counter"
 msgstr "專案下載次數"
 
-#: app/models/project.rb:- app/views/projects/show.html.erb:57
+#: app/models/project.rb:- app/views/projects/_basic.html.erb:54
 msgid "Project|Created at"
 msgstr "建立日期"
 
@@ -1280,17 +1295,17 @@ msgid "Job|Subject"
 msgstr "標題"
 
 #: app/models/job.rb:- app/views/jobs/_form.html.erb:9
-#: app/views/jobs/show.html.erb:4
+#: app/views/jobs/show.html.erb:3
 msgid "Job|Description"
 msgstr "描述"
 
 #: app/models/job.rb:- app/views/jobs/_form.html.erb:13
-#: app/views/jobs/show.html.erb:6
+#: app/views/jobs/show.html.erb:5
 msgid "Job|Requirement"
 msgstr "技能需求"
 
 #: app/models/job.rb:- app/views/jobs/_form.html.erb:17
-#: app/views/jobs/show.html.erb:8
+#: app/views/jobs/show.html.erb:7
 msgid "Job|Due"
 msgstr "有效日期"
 
@@ -1323,7 +1338,7 @@ msgid "citation"
 msgstr "引用資訊"
 
 #: app/models/citation.rb:- app/views/citations/_form.html.erb:5
-#: app/views/citations/show.html.erb:4
+#: app/views/citations/show.html.erb:3
 msgid "Citation|Primary authors"
 msgstr "主要作者"
 
@@ -1333,22 +1348,22 @@ msgid "Citation|Project title"
 msgstr "專案名稱"
 
 #: app/models/citation.rb:- app/views/citations/_form.html.erb:13
-#: app/views/citations/show.html.erb:6
+#: app/views/citations/show.html.erb:5
 msgid "Citation|License"
 msgstr "授權方式"
 
 #: app/models/citation.rb:- app/views/citations/_form.html.erb:17
-#: app/views/citations/show.html.erb:8
+#: app/views/citations/show.html.erb:7
 msgid "Citation|Url"
 msgstr "網站連結"
 
 #: app/models/citation.rb:- app/views/citations/_form.html.erb:21
-#: app/views/citations/show.html.erb:10
+#: app/views/citations/show.html.erb:9
 msgid "Citation|Release date"
 msgstr "釋出時間"
 
 #: app/models/citation.rb:- app/views/citations/_form.html.erb:25
-#: app/views/citations/show.html.erb:12
+#: app/views/citations/show.html.erb:11
 msgid "Citation|Release version"
 msgstr "版本號"
 
@@ -1486,61 +1501,89 @@ msgstr "檔案路徑"
 msgid "Message sent."
 msgstr "訊息已送出"
 
-#: app/controllers/news_controller.rb:32 app/controllers/news_controller.rb:57
-#: app/views/partials/_top_menu_data.html.erb:7
-#: app/views/news/_home_news.html.erb:31 app/views/news/_home_news.html.erb:34
-msgid "OpenFoundry News"
-msgstr "OpenFoundry新聞"
+#: app/controllers/news_controller.rb:32 app/views/news/_home_news.html.erb:6
+msgid "Announcements"
+msgstr "系統公告"
 
 #: app/controllers/news_controller.rb:36
+#: app/views/layouts/application.html.erb:62
+#: app/views/layouts/integration.html.erb:114
 #: app/views/site_admin/site_admin/index.html.erb:36
 msgid "News"
 msgstr "新聞"
 
+#: app/controllers/news_controller.rb:57
+#: app/views/partials/_top_menu_data.html.erb:7
+#: app/views/news/_home_news.html.erb:30 app/views/news/_home_news.html.erb:33
+msgid "OpenFoundry News"
+msgstr "OpenFoundry新聞"
+
 #: app/controllers/news_controller.rb:60
-#: app/views/partials/_project_menu.html.erb:24
-#: app/views/partials/_project_menu.html.erb:71
+#: app/views/partials/_project_menu.html.erb:33
+#: app/views/partials/_project_menu.html.erb:90
+#: app/views/projects/_menu.html.erb:36
 msgid "project_News"
 msgstr "專案新聞"
 
-#: app/controllers/news_controller.rb:82
+#: app/controllers/news_controller.rb:69 app/views/news/list.html.erb:49
+msgid "Add News"
+msgstr "新增新聞"
+
+#: app/controllers/news_controller.rb:84
 msgid "No this release."
 msgstr "無此項目"
 
-#: app/controllers/news_controller.rb:109
-#: app/controllers/references_controller.rb:59
-#: app/controllers/citations_controller.rb:66
-#: app/controllers/jobs_controller.rb:63
+#: app/controllers/news_controller.rb:111
+#: app/controllers/references_controller.rb:66
+#: app/controllers/citations_controller.rb:68
+#: app/controllers/jobs_controller.rb:65
 msgid "Add Successful"
 msgstr "新增成功"
 
-#: app/controllers/news_controller.rb:133
+#: app/controllers/news_controller.rb:120
 #: app/controllers/references_controller.rb:74
-#: app/controllers/citations_controller.rb:87
-#: app/controllers/jobs_controller.rb:81
+#: app/controllers/citations_controller.rb:77
+#: app/controllers/jobs_controller.rb:74 app/views/partials/_sed.html.erb:3
+#: app/views/partials/_sed.html.erb:7
+#: app/views/partials/_project_menu.html.erb:44
+#: app/views/references/list.html.erb:19 app/views/references/show.html.erb:9
+#: app/views/citations/list.html.erb:20 app/views/citations/show.html.erb:17
+#: app/views/jobs/list.html.erb:20 app/views/jobs/show.html.erb:13
+#: app/views/project_notify/project_reviewer.html.erb:16
+#: app/views/news/list.html.erb:34 app/views/news/list.html.erb:36
+#: app/views/news/show.html.erb:15
+#: app/views/site_admin/project/list.html.erb:26
+#: app/views/site_admin/project/change_status_form.html.erb:24
+msgid "Edit"
+msgstr "修改"
+
+#: app/controllers/news_controller.rb:136
+#: app/controllers/references_controller.rb:82
+#: app/controllers/citations_controller.rb:90
+#: app/controllers/jobs_controller.rb:84
 msgid "Edit Successful"
 msgstr "編輯成功"
 
-#: app/controllers/news_controller.rb:142
-#: app/controllers/references_controller.rb:83
-#: app/controllers/citations_controller.rb:96
-#: app/controllers/jobs_controller.rb:90
+#: app/controllers/news_controller.rb:145
+#: app/controllers/references_controller.rb:91
+#: app/controllers/citations_controller.rb:99
+#: app/controllers/jobs_controller.rb:93
 msgid "Delete Successful"
 msgstr "刪除成功"
 
-#: app/controllers/news_controller.rb:151
+#: app/controllers/news_controller.rb:154
 msgid "OpenFoundry: News"
 msgstr "OpenFoundry: 新聞"
 
-#: app/controllers/news_controller.rb:152
+#: app/controllers/news_controller.rb:155
 msgid "News about OpenFoundry"
 msgstr "OpenFoundry 的新聞"
 
-#: app/controllers/news_controller.rb:173
+#: app/controllers/news_controller.rb:176
 msgid "OpenFoundry: Project News"
 msgstr "OpenFoundry: 專案新聞"
 
-#: app/controllers/news_controller.rb:174
+#: app/controllers/news_controller.rb:177
 msgid "Proejct news on OpenFoundry"
 msgstr "OpenFoundry 上的專案新聞"
 
@@ -1631,23 +1674,29 @@ msgid ""
 "used, Token Expired or Token Not Existed"
 msgstr "抱歉, 無法驗證您註冊的帳號, 可能是他人使用相同帳號或是相同"
 
-#: app/controllers/user_controller.rb:463
+#: app/controllers/user_controller.rb:526
 msgid "user_delete_finished"
 msgstr "使用者已刪除"
 
-#: app/controllers/user_controller.rb:547
+#: app/controllers/user_controller.rb:610
 msgid "Your OpenID profile registration failed"
 msgstr ""
 
 #: app/controllers/kwiki_controller.rb:6
-#: app/views/partials/_project_menu.html.erb:38
-#: app/views/partials/_project_menu.html.erb:83
+#: app/views/partials/_project_menu.html.erb:19
+#: app/views/partials/_project_menu.html.erb:53
+#: app/views/projects/_menu.html.erb:22
 msgid "Wiki"
 msgstr "共同筆記"
 
 #: app/controllers/references_controller.rb:22
 msgid "Project References"
 msgstr "參考文獻"
+
+#: app/controllers/references_controller.rb:56
+#: app/views/references/list.html.erb:31
+msgid "Add Reference"
+msgstr "新增參考文獻"
 
 #: app/controllers/rt_controller.rb:19
 msgid ""
@@ -1657,135 +1706,140 @@ msgid ""
 "developers can contact you when the issue is resolved. "
 msgstr ""
 
-#: app/controllers/projects_controller.rb:24
-msgid "Basic Information"
-msgstr "基本資料"
-
-#: app/controllers/projects_controller.rb:28
-#: app/views/partials/_project_menu.html.erb:50
-#: app/views/partials/_project_menu.html.erb:86
+#: app/controllers/projects_controller.rb:27
+#: app/views/partials/_project_menu.html.erb:32
+#: app/views/partials/_project_menu.html.erb:72
+#: app/views/projects/_menu.html.erb:35
 msgid "Mailing List"
 msgstr "通訊論壇"
 
-#: app/controllers/projects_controller.rb:45
-#: app/controllers/projects_controller.rb:60
+#: app/controllers/projects_controller.rb:44
+#: app/controllers/projects_controller.rb:59
 #: app/views/partials/_top_menu_data.html.erb:72
-#: app/views/partials/_project_menu.html.erb:39
+#: app/views/partials/_project_menu.html.erb:20
+#: app/views/partials/_project_menu.html.erb:60
+#: app/views/projects/_menu.html.erb:23
 msgid "Version Control"
 msgstr "版本控制"
 
-#: app/controllers/projects_controller.rb:55
-#: app/controllers/projects_controller.rb:71
+#: app/controllers/projects_controller.rb:54
+#: app/controllers/projects_controller.rb:70
 msgid "System error. Please contact the site administrator."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:63
+#: app/controllers/projects_controller.rb:62
 msgid "The WebSVN can't support CVS. Please use ViewVC."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:150
+#: app/controllers/projects_controller.rb:136
+#: app/views/projects/show.html.erb:2
+#: app/views/projects/project_board.html.erb:2
+msgid "Basic Information"
+msgstr "基本資料"
+
+#: app/controllers/projects_controller.rb:179
 #: app/views/partials/_top_menu_data.html.erb:22
 #: app/views/partials/_top_menu_data.html.erb:39
 #: app/views/partials/_home_menu.html.erb:7
 msgid "Create Project"
 msgstr "建立專案"
 
-#: app/controllers/projects_controller.rb:194
+#: app/controllers/projects_controller.rb:223
 msgid "Project was successfully updated."
 msgstr "專案已更新."
 
-#: app/controllers/projects_controller.rb:199
+#: app/controllers/projects_controller.rb:228
 msgid "It may take 5 minutes for %s settings to take effect."
 msgstr "請等待約 5 分鐘讓 %s 的設定生效."
 
-#: app/controllers/projects_controller.rb:230
+#: app/controllers/projects_controller.rb:259
 msgid "No Operation..."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:234
-#: app/controllers/projects_controller.rb:327
+#: app/controllers/projects_controller.rb:263
+#: app/controllers/projects_controller.rb:356
 msgid "Group \"Admin\" CAN NOT be EMPTY!"
 msgstr "Admin群組至少要有一人!"
 
-#: app/controllers/projects_controller.rb:266
+#: app/controllers/projects_controller.rb:295
 msgid "Move User \"%{user}\" from Group \"%{old_role}\" to Group \"%{role}\""
 msgstr "將使用者\"%{user}\"從群組\"%{old_role}\"移到\"%{role}\""
 
-#: app/controllers/projects_controller.rb:270
+#: app/controllers/projects_controller.rb:299
 msgid "You can't move User between Groups that belong to different Projects."
 msgstr ""
 
-#: app/controllers/projects_controller.rb:287
+#: app/controllers/projects_controller.rb:316
 msgid "Add User \"%{user}\" into Group \"%{role}\""
 msgstr "加入使用者\"%{user}\"到群組\"%{role}\""
 
-#: app/controllers/projects_controller.rb:292
-#: app/controllers/projects_controller.rb:353
+#: app/controllers/projects_controller.rb:321
+#: app/controllers/projects_controller.rb:382
 msgid "Group \"%{role}\" doesn't exist!"
 msgstr "群組\"%{role}\"不存在!"
 
-#: app/controllers/projects_controller.rb:297
-#: app/controllers/projects_controller.rb:358
+#: app/controllers/projects_controller.rb:326
+#: app/controllers/projects_controller.rb:387
 msgid "User \"%{user}\" doesn't exist!"
 msgstr "使用者 %{user} 不存在或是停用"
 
-#: app/controllers/projects_controller.rb:318
+#: app/controllers/projects_controller.rb:347
 msgid "You can't delete User belongs to This Group!"
 msgstr "無法移除該使用者!"
 
-#: app/controllers/projects_controller.rb:349
+#: app/controllers/projects_controller.rb:378
 msgid "Remove User \"%{user}\" from Group \"%{role}\""
 msgstr "從群組\"%{role}\"移除使用者\"%{user}\""
 
-#: app/controllers/projects_controller.rb:375
-#: app/views/partials/_project_menu.html.erb:97
+#: app/controllers/projects_controller.rb:404
+#: app/views/partials/_project_menu.html.erb:75
 msgid "project_Member Control"
 msgstr "成員管理"
 
-#: app/controllers/projects_controller.rb:389
-#: app/views/partials/_project_menu.html.erb:100
+#: app/controllers/projects_controller.rb:418
+#: app/views/partials/_project_menu.html.erb:78
 msgid "project_Permission Control"
 msgstr "權限管理"
 
-#: app/controllers/projects_controller.rb:445
+#: app/controllers/projects_controller.rb:474
 msgid "Permission was successfully updated."
 msgstr "權限修改已更新"
 
-#: app/controllers/projects_controller.rb:466
+#: app/controllers/projects_controller.rb:495
 msgid "Role \"%{name}\" was successfully created."
 msgstr "群組\"%{name}\"已建立"
 
-#: app/controllers/projects_controller.rb:478
+#: app/controllers/projects_controller.rb:507
 msgid "Admin and Member can't be deleted."
 msgstr "Admin與Member是預設群組, 不能移除"
 
-#: app/controllers/projects_controller.rb:486
+#: app/controllers/projects_controller.rb:515
 msgid "Role \"%{name}\" was successfully deleted."
 msgstr "群組\"%{name}\"已移除"
 
-#: app/controllers/projects_controller.rb:493
+#: app/controllers/projects_controller.rb:522
 msgid "Role id not found!"
 msgstr "查無此群組!"
 
-#: app/controllers/projects_controller.rb:504
+#: app/controllers/projects_controller.rb:533
 msgid "OpenFoundry: New Projects Feed"
 msgstr "OpenFoundry: 新進專案Feed"
 
-#: app/controllers/projects_controller.rb:505
+#: app/controllers/projects_controller.rb:534
 msgid "New projects on OpenFoundry"
 msgstr "OpenFoundry 的新進專案"
 
-#: app/controllers/projects_controller.rb:522
+#: app/controllers/projects_controller.rb:551
 msgid "Version Control System: How to Access"
 msgstr "版本控制系統: 存取方式"
 
 #: app/controllers/survey_controller.rb:15
-#: app/views/partials/_project_menu.html.erb:106
+#: app/views/partials/_project_menu.html.erb:84
 msgid "project menu|Downloaders"
 msgstr "下載者資料"
 
 #: app/controllers/survey_controller.rb:93
-#: app/views/partials/_project_menu.html.erb:105
+#: app/views/partials/_project_menu.html.erb:83
 msgid "project menu|Surveys Edit"
 msgstr "管理統計表"
 
@@ -1797,21 +1851,30 @@ msgstr "請填寫必要的欄位."
 msgid "Project Citations"
 msgstr "引用資訊"
 
+#: app/controllers/citations_controller.rb:53
+#: app/views/citations/list.html.erb:32
+msgid "Add Citation"
+msgstr "新增引用資訊"
+
 #: app/controllers/jobs_controller.rb:22
 msgid "Project Help Wanted"
 msgstr "徵求伙伴"
+
+#: app/controllers/jobs_controller.rb:53 app/views/jobs/list.html.erb:32
+msgid "Add Job"
+msgstr "新增徵求伙伴"
 
 #: app/controllers/releases_controller.rb:12
 msgid "Release"
 msgstr "規畫釋出"
 
 #: app/controllers/releases_controller.rb:39
-#: app/views/partials/_project_menu.html.erb:91
+#: app/views/partials/_project_menu.html.erb:56
 msgid "release_Edit"
 msgstr "版本管理"
 
 #: app/controllers/releases_controller.rb:117
-#: app/views/partials/_project_menu.html.erb:92
+#: app/views/partials/_project_menu.html.erb:57
 msgid "release_New"
 msgstr "版本新增"
 
@@ -1859,20 +1922,20 @@ msgstr "OpenFOundry: 最新釋出專案"
 msgid "Latest releases on OpenFoundry"
 msgstr "OpenFoundry 的最新釋出專案"
 
-#: app/controllers/application_controller.rb:99
+#: app/controllers/application_controller.rb:106
 msgid "&laquo; Previous"
 msgstr "上一頁"
 
-#: app/controllers/application_controller.rb:100
+#: app/controllers/application_controller.rb:107
 msgid "Next &raquo;"
 msgstr "下一頁"
 
-#: app/controllers/application_controller.rb:290
-#: app/controllers/application_controller.rb:293
+#: app/controllers/application_controller.rb:297
+#: app/controllers/application_controller.rb:300
 msgid "captcha mismatch"
 msgstr "驗證碼錯誤"
 
-#: app/controllers/application_controller.rb:313
+#: app/controllers/application_controller.rb:320
 #: app/controllers/images_controller.rb:196
 msgid "you have no permission"
 msgstr "您沒有足夠權限"
@@ -1908,6 +1971,17 @@ msgstr ""
 #: app/controllers/openfoundry_controller.rb:-
 msgid "CGI::Session::ActiveRecordStore::Session|Updated at"
 msgstr ""
+
+#: app/controllers/openfoundry_controller.rb:14
+#: app/views/layouts/integration.html.erb:105
+msgid "Home"
+msgstr "首頁"
+
+#: app/controllers/webhosting_controller.rb:7
+#: app/views/partials/_home_menu.html.erb:28
+#: app/views/releases/uploadfiles.html.erb:132
+msgid "How to Upload?"
+msgstr "如何上傳檔案?"
 
 #: app/views/partials/_top_menu_data.html.erb:4
 msgid "menu_OpenFoundry"
@@ -1967,11 +2041,6 @@ msgstr "下載排行"
 msgid "menu_Help Wanted"
 msgstr "徵求伙伴"
 
-#: app/views/partials/_top_menu_data.html.erb:21
-#: app/views/partials/_home_menu.html.erb:26
-msgid "menu_WebHosting"
-msgstr "專案網頁空間"
-
 #: app/views/partials/_top_menu_data.html.erb:26
 msgid "menu_My Account"
 msgstr "帳號"
@@ -1982,11 +2051,13 @@ msgstr "偏好設定"
 
 #: app/views/partials/_top_menu_data.html.erb:30
 #: app/views/partials/_home_menu.html.erb:12
+#: app/views/user/_myprojects.html.erb:2
 msgid "menu_My Projects"
 msgstr "我參與的專案"
 
 #: app/views/partials/_top_menu_data.html.erb:31
 #: app/views/partials/_home_menu.html.erb:13
+#: app/views/user/_myissues.html.erb:2
 msgid "menu_My Tickets"
 msgstr "我的待辦事項"
 
@@ -2064,7 +2135,7 @@ msgstr "下載pdf格式"
 #: app/views/partials/_top_menu_data.html.erb:60
 #: app/views/partials/_home_menu.html.erb:19
 msgid "Forum"
-msgstr "討論區"
+msgstr "線上協助"
 
 #: app/views/partials/_top_menu_data.html.erb:62
 #: app/views/partials/_top_menu_data.html.erb:64
@@ -2136,11 +2207,23 @@ msgstr "不包含任一內容(空白隔開)"
 msgid "Search by Google"
 msgstr "Google搜尋"
 
-#: app/views/partials/_login.html.erb:7
+#: app/views/partials/_login.html.erb:2
+msgid "Hi"
+msgstr ""
+
+#: app/views/partials/_login.html.erb:4
+msgid "Dashboard"
+msgstr "專案管理"
+
+#: app/views/partials/_login.html.erb:6
+msgid "Settings"
+msgstr "帳號設定"
+
+#: app/views/partials/_login.html.erb:8
 msgid "Logout"
 msgstr "登出"
 
-#: app/views/partials/_login.html.erb:9 app/views/user/login.html.erb:38
+#: app/views/partials/_login.html.erb:10 app/views/user/login.html.erb:38
 msgid "Login"
 msgstr "登入"
 
@@ -2171,96 +2254,53 @@ msgstr "送出"
 msgid "Show"
 msgstr "顯示"
 
-#: app/views/partials/_sed.html.erb:3 app/views/partials/_sed.html.erb:7
-#: app/views/references/list.html.erb:19 app/views/references/show.html.erb:10
-#: app/views/projects/show.html.erb:99 app/views/citations/list.html.erb:20
-#: app/views/citations/show.html.erb:18 app/views/jobs/list.html.erb:20
-#: app/views/jobs/show.html.erb:14
-#: app/views/project_notify/project_reviewer.html.erb:16
-#: app/views/news/list.html.erb:34 app/views/news/list.html.erb:36
-#: app/views/news/show.html.erb:15
-#: app/views/site_admin/project/list.html.erb:26
-#: app/views/site_admin/project/change_status_form.html.erb:24
-msgid "Edit"
-msgstr "修改"
-
 #: app/views/partials/_sed.html.erb:4 app/views/partials/_sed.html.erb:8
 msgid "Destroy"
 msgstr "刪除"
 
-#: app/views/partials/_project_menu.html.erb:11
-msgid "project_menu_View"
-msgstr "檢視專案"
-
-#: app/views/partials/_project_menu.html.erb:13
-msgid "project_menu_Admin"
-msgstr "管理專案"
-
-#: app/views/partials/_project_menu.html.erb:18
-#: app/views/partials/_project_menu.html.erb:59
+#: app/views/partials/_project_menu.html.erb:14
+#: app/views/partials/_project_menu.html.erb:43
+#: app/views/partials/_project_menu.html.erb:46
+#: app/views/projects/_menu.html.erb:3
 msgid "project_Info"
 msgstr "專案資訊"
 
-#: app/views/partials/_project_menu.html.erb:20
-#: app/views/partials/_project_menu.html.erb:62
-msgid "project_Basic_Information"
-msgstr "基本資料"
-
-#: app/views/partials/_project_menu.html.erb:21
-msgid "project_Homepage"
-msgstr "專案首頁"
-
-#: app/views/partials/_project_menu.html.erb:28
-#: app/views/partials/_project_menu.html.erb:80
+#: app/views/partials/_project_menu.html.erb:18
+#: app/views/partials/_project_menu.html.erb:52
+#: app/views/projects/project_board.html.erb:17
+#: app/views/projects/_menu.html.erb:12
 msgid "project_Tracker"
 msgstr "待辦事項"
 
-#: app/views/partials/_project_menu.html.erb:30
-msgid "tracker_Overview"
-msgstr "綜覽"
-
-#: app/views/partials/_project_menu.html.erb:31
-msgid "tracker_Defect"
-msgstr "瑕疵"
-
-#: app/views/partials/_project_menu.html.erb:32
-msgid "tracker_Patch"
-msgstr "修正檔"
-
-#: app/views/partials/_project_menu.html.erb:33
-msgid "tracker_Task"
-msgstr "工作事項"
-
-#: app/views/partials/_project_menu.html.erb:34
-msgid "tracker_Feature"
-msgstr "新功能"
-
-#: app/views/partials/_project_menu.html.erb:35
-msgid "tracker_Enhancement"
-msgstr "改進"
-
-#: app/views/partials/_project_menu.html.erb:42
+#: app/views/partials/_project_menu.html.erb:23
+#: app/views/partials/_project_menu.html.erb:63
+#: app/views/projects/_menu.html.erb:26
 msgid "ViewVC"
 msgstr ""
 
-#: app/views/partials/_project_menu.html.erb:45
+#: app/views/partials/_project_menu.html.erb:26
+#: app/views/partials/_project_menu.html.erb:66
+#: app/views/projects/_menu.html.erb:29
 msgid "WebSVN"
 msgstr ""
 
-#: app/views/partials/_project_menu.html.erb:47
+#: app/views/partials/_project_menu.html.erb:28
+#: app/views/partials/_project_menu.html.erb:68
+#: app/views/projects/_menu.html.erb:31
 msgid "How to Access"
 msgstr "存取方式"
 
-#: app/views/partials/_project_menu.html.erb:53
-#: app/views/partials/_project_menu.html.erb:111
+#: app/views/partials/_project_menu.html.erb:35
+#: app/views/partials/_project_menu.html.erb:92
 msgid "NSC project"
 msgstr ""
 
-#: app/views/partials/_project_menu.html.erb:89
-msgid "release_Releases"
-msgstr "規畫釋出"
+#: app/views/partials/_project_menu.html.erb:44
+#: app/views/projects/_menu.html.erb:5
+msgid "project_Basic_Information"
+msgstr "基本資料"
 
-#: app/views/partials/_project_menu.html.erb:103
+#: app/views/partials/_project_menu.html.erb:81
 msgid "project menu|Surveys"
 msgstr "專案下載者資訊"
 
@@ -2271,14 +2311,13 @@ msgstr "專案新聞"
 
 #: app/views/partials/_home_menu.html.erb:10
 msgid "Personal"
-msgstr ""
+msgstr "個人相關"
 
 #: app/views/partials/_home_menu.html.erb:14
-#, fuzzy
 msgid "menu_My Messages"
-msgstr "我的待辦事項"
+msgstr "我的站內訊息"
 
-#: app/views/partials/_project_logo.html.erb:12
+#: app/views/partials/_project_logo.html.erb:13
 #: app/views/user/edit.html.erb:11 app/views/user/home.html.erb:9
 msgid "Change Icon"
 msgstr "更換圖像"
@@ -2306,89 +2345,96 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: app/views/references/edit.html.erb:5 app/views/references/new.html.erb:5
-#: app/views/projects/edit.html.erb:5 app/views/citations/edit.html.erb:5
-#: app/views/citations/new.html.erb:5 app/views/jobs/edit.html.erb:5
-#: app/views/jobs/new.html.erb:5 app/views/news/edit.html.erb:5
-#: app/views/news/new.html.erb:5
+#: app/views/references/edit.html.erb:5 app/views/references/new.html.erb:3
+#: app/views/projects/edit.html.erb:5 app/views/citations/edit.html.erb:3
+#: app/views/citations/new.html.erb:3 app/views/jobs/edit.html.erb:5
+#: app/views/jobs/new.html.erb:4 app/views/news/edit.html.erb:5
+#: app/views/news/new.html.erb:3
 msgid "Save"
 msgstr "儲存"
 
-#: app/views/references/edit.html.erb:8 app/views/citations/edit.html.erb:8
+#: app/views/references/edit.html.erb:8 app/views/citations/edit.html.erb:6
 #: app/views/jobs/edit.html.erb:8 app/views/news/edit.html.erb:8
 msgid "View"
 msgstr "檢視"
 
-#: app/views/references/edit.html.erb:9 app/views/references/new.html.erb:8
-#: app/views/references/show.html.erb:15 app/views/citations/edit.html.erb:9
-#: app/views/citations/new.html.erb:8 app/views/citations/show.html.erb:23
-#: app/views/jobs/edit.html.erb:9 app/views/jobs/new.html.erb:8
-#: app/views/jobs/show.html.erb:19
+#: app/views/references/edit.html.erb:9 app/views/references/new.html.erb:6
+#: app/views/references/show.html.erb:14 app/views/citations/edit.html.erb:7
+#: app/views/citations/new.html.erb:6 app/views/citations/show.html.erb:22
+#: app/views/jobs/edit.html.erb:9 app/views/jobs/new.html.erb:7
+#: app/views/jobs/show.html.erb:18
 #: app/views/project_notify/project_reviewer.html.erb:17
-#: app/views/news/edit.html.erb:9 app/views/news/new.html.erb:8
+#: app/views/news/edit.html.erb:9 app/views/news/new.html.erb:6
 #: app/views/news/show.html.erb:20
 #: app/views/site_admin/project/change_status_form.html.erb:22
 msgid "List"
 msgstr "列表"
-
-#: app/views/references/new.html.erb:1 app/views/references/list.html.erb:31
-msgid "Add Reference"
-msgstr "新增參考文獻"
 
 #: app/views/references/list.html.erb:3 app/views/citations/list.html.erb:3
 #: app/views/jobs/list.html.erb:2 app/views/news/list.html.erb:2
 msgid "Sort by"
 msgstr "排序"
 
-#: app/views/references/list.html.erb:4 app/views/references/show.html.erb:2
-#: app/views/citations/list.html.erb:5 app/views/citations/show.html.erb:2
-#: app/views/jobs/list.html.erb:4 app/views/jobs/show.html.erb:2
+#: app/views/references/list.html.erb:4 app/views/references/show.html.erb:1
+#: app/views/citations/list.html.erb:5 app/views/citations/show.html.erb:1
+#: app/views/jobs/list.html.erb:4 app/views/jobs/show.html.erb:1
 #: app/views/news/_form.html.erb:20 app/views/news/list.html.erb:4
 #: app/views/news/show.html.erb:3
 msgid "Last Updated"
 msgstr "更新時間"
 
-#: app/views/references/list.html.erb:20 app/views/references/show.html.erb:11
+#: app/views/references/list.html.erb:20 app/views/references/show.html.erb:10
 #: app/views/projects/permission_edit.html.erb:41
-#: app/views/citations/list.html.erb:21 app/views/citations/show.html.erb:19
-#: app/views/jobs/list.html.erb:21 app/views/jobs/show.html.erb:15
+#: app/views/citations/list.html.erb:21 app/views/citations/show.html.erb:18
+#: app/views/jobs/list.html.erb:21 app/views/jobs/show.html.erb:14
 #: app/views/releases/uploadfiles.html.erb:96 app/views/news/list.html.erb:38
 #: app/views/news/show.html.erb:16
 msgid "Delete"
 msgstr "刪除"
 
-#: app/views/references/list.html.erb:20 app/views/references/show.html.erb:11
-#: app/views/citations/list.html.erb:21 app/views/citations/show.html.erb:19
-#: app/views/jobs/list.html.erb:21 app/views/jobs/show.html.erb:15
+#: app/views/references/list.html.erb:20 app/views/references/show.html.erb:10
+#: app/views/citations/list.html.erb:21 app/views/citations/show.html.erb:18
+#: app/views/jobs/list.html.erb:21 app/views/jobs/show.html.erb:14
 #: app/views/news/list.html.erb:38 app/views/news/show.html.erb:16
 msgid "Are you sure?"
 msgstr "請再確認一次"
 
-#: app/views/projects/_new_projects.html.erb:6
-#: app/views/projects/_new_projects.html.erb:21
-#: app/views/projects/_new_projects.html.erb:24
+#: app/views/projects/_new_projects.html.erb:5
+#: app/views/projects/_new_projects.html.erb:20
+#: app/views/projects/_new_projects.html.erb:23
 msgid "New Projects"
 msgstr "新進專案"
 
-#: app/views/projects/_new_projects.html.erb:18
-#: app/views/releases/_most_popular.html.erb:21
-#: app/views/releases/_new_releases.html.erb:19
-#: app/views/news/_listn.html.erb:20 app/views/news/_home_news.html.erb:28
-#: app/views/news/_www_news.html.erb:33
+#: app/views/projects/_new_projects.html.erb:17
+#: app/views/projects/_basic.html.erb:59
+#: app/views/releases/_most_popular.html.erb:20
+#: app/views/releases/_new_releases.html.erb:18
+#: app/views/news/_listn.html.erb:19 app/views/news/_home_news.html.erb:27
+#: app/views/news/_www_news.html.erb:33 app/views/news/_news_list.html.erb:14
 msgid "More..."
 msgstr "更多..."
 
-#: app/views/projects/_new_projects.html.erb:21
-#: app/views/projects/_new_projects.html.erb:24
-#: app/views/releases/_most_popular.html.erb:24
-#: app/views/releases/_most_popular.html.erb:27
-#: app/views/releases/_new_releases.html.erb:22
-#: app/views/releases/_new_releases.html.erb:25
-#: app/views/news/_listn.html.erb:23 app/views/news/_listn.html.erb:26
-#: app/views/news/_home_news.html.erb:31 app/views/news/_home_news.html.erb:34
+#: app/views/projects/_new_projects.html.erb:20
+#: app/views/projects/_new_projects.html.erb:23
+#: app/views/releases/_most_popular.html.erb:23
+#: app/views/releases/_most_popular.html.erb:26
+#: app/views/releases/_new_releases.html.erb:21
+#: app/views/releases/_new_releases.html.erb:24
+#: app/views/news/_listn.html.erb:22 app/views/news/_listn.html.erb:25
+#: app/views/news/_home_news.html.erb:30 app/views/news/_home_news.html.erb:33
 #: app/views/news/_www_news.html.erb:36
 msgid "Feed|%{name} %{type} Feed"
 msgstr ""
+
+#: app/views/projects/show.html.erb:21
+#: app/views/projects/project_board.html.erb:25
+msgid "Project Issues"
+msgstr "專案待辦事項"
+
+#: app/views/projects/show.html.erb:29
+#: app/views/projects/project_board.html.erb:34
+msgid "Project Participants"
+msgstr "專案參與者"
 
 #: app/views/projects/_form.html.erb:39
 msgid "Others"
@@ -2462,7 +2508,7 @@ msgstr "請參考"
 msgid "help document"
 msgstr "說明文件"
 
-#: app/views/projects/_form.html.erb:109 app/views/projects/show.html.erb:62
+#: app/views/projects/_form.html.erb:109 app/views/projects/_basic.html.erb:55
 #: app/views/nscreports/index.html.erb:1
 msgid "Project|Nsccode"
 msgstr "國科會計畫編號"
@@ -2519,57 +2565,49 @@ msgstr "WIKI"
 msgid "Sympa"
 msgstr "通訊論壇"
 
-#: app/views/projects/vcs_access.html.erb:5
-msgid "Subversion Access"
-msgstr "版本控制存取方式"
-
-#: app/views/projects/vcs_access.html.erb:7
-#: app/views/projects/vcs_access.html.erb:16
+#: app/views/projects/vcs_access.html.erb:6
+#: app/views/projects/vcs_access.html.erb:15
 msgid "Subversion Access|Description"
 msgstr "本專案的版本控制檔案庫可利用下列 SVN 指令集取得"
 
-#: app/views/projects/vcs_access.html.erb:11
-#: app/views/projects/vcs_access.html.erb:21
+#: app/views/projects/vcs_access.html.erb:10
+#: app/views/projects/vcs_access.html.erb:20
 msgid "Subversion Access|See More"
 msgstr "了解更多指令"
 
-#: app/views/projects/vcs_access.html.erb:14
+#: app/views/projects/vcs_access.html.erb:13
 msgid "Anonymous CVS Access"
 msgstr ""
 
-#: app/views/projects/vcs_access.html.erb:24
+#: app/views/projects/vcs_access.html.erb:23
 msgid "Subversion: Members Only"
 msgstr ""
 
-#: app/views/projects/vcs_access.html.erb:26
+#: app/views/projects/vcs_access.html.erb:25
 msgid "This project can only be accessed by members."
 msgstr ""
 
-#: app/views/projects/vcs_access.html.erb:33
+#: app/views/projects/vcs_access.html.erb:32
 msgid "Remote Repository"
 msgstr ""
 
-#: app/views/projects/vcs_access.html.erb:35
+#: app/views/projects/vcs_access.html.erb:34
 msgid "This project is using a remote repository."
 msgstr ""
 
-#: app/views/projects/vcs_access.html.erb:40
+#: app/views/projects/vcs_access.html.erb:39
 msgid "No Version Control System"
 msgstr ""
 
-#: app/views/projects/vcs_access.html.erb:42
+#: app/views/projects/vcs_access.html.erb:41
 msgid "This project is not using any version control system."
 msgstr ""
 
 #: app/views/projects/member_edit.html.erb:8
-msgid "Member Management"
-msgstr "成員管理"
-
-#: app/views/projects/member_edit.html.erb:11
 msgid "Search for New Member"
 msgstr "找新成員"
 
-#: app/views/projects/member_edit.html.erb:26
+#: app/views/projects/member_edit.html.erb:23
 msgid "Drop People Here to Remove Them from the group."
 msgstr "將成員拖放到此處刪除"
 
@@ -2581,18 +2619,6 @@ msgid ""
 msgstr ""
 "您註冊的專案將會在 72 小時內核定, 屆時將以 email 通知您. 如有任何問題, 請與我"
 "們連絡: %{email} ."
-
-#: app/views/projects/show.html.erb:45
-msgid "Project|HOMEPAGE"
-msgstr "專案首頁"
-
-#: app/views/projects/show.html.erb:75
-msgid "Project Participants"
-msgstr "專案參與者"
-
-#: app/views/projects/show.html.erb:83
-msgid "Project Participants (grouped by role)"
-msgstr "專案參與者(依角色分類)"
 
 #: app/views/projects/role_users.html.erb:3
 msgid "Role|Set as "
@@ -2633,6 +2659,42 @@ msgstr "更新"
 msgid "Most Active"
 msgstr "活躍專案"
 
+#: app/views/projects/_menu.html.erb:6
+msgid "project_Homepage"
+msgstr "專案首頁"
+
+#: app/views/projects/_menu.html.erb:14
+msgid "tracker_Overview"
+msgstr "綜覽"
+
+#: app/views/projects/_menu.html.erb:15
+msgid "tracker_Defect"
+msgstr "瑕疵"
+
+#: app/views/projects/_menu.html.erb:16
+msgid "tracker_Patch"
+msgstr "修正檔"
+
+#: app/views/projects/_menu.html.erb:17
+msgid "tracker_Task"
+msgstr "工作事項"
+
+#: app/views/projects/_menu.html.erb:18
+msgid "tracker_Feature"
+msgstr "新功能"
+
+#: app/views/projects/_menu.html.erb:19
+msgid "tracker_Enhancement"
+msgstr "改進"
+
+#: app/views/projects/_basic.html.erb:45
+msgid "Project|HOMEPAGE"
+msgstr "專案首頁"
+
+#: app/views/projects/_basic.html.erb:60
+msgid "Less..."
+msgstr ""
+
 #: app/views/survey/apply.html.erb:11
 msgid "survey|Your requesting file: "
 msgstr "您下載的檔案: "
@@ -2664,14 +2726,6 @@ msgstr "復原"
 #: app/views/survey/show.html.erb:7
 msgid "survey|Say something to end-users:"
 msgstr "給下載者的一些話:"
-
-#: app/views/citations/new.html.erb:1 app/views/citations/list.html.erb:32
-msgid "Add Citation"
-msgstr "新增引用資訊"
-
-#: app/views/jobs/new.html.erb:1 app/views/jobs/list.html.erb:32
-msgid "Add Job"
-msgstr "新增徵求伙伴"
 
 #: app/views/jobs/list.html.erb:3 app/views/news/_form.html.erb:4
 #: app/views/news/list.html.erb:3
@@ -2717,6 +2771,39 @@ msgstr "新功能"
 msgid "rt_enhancement"
 msgstr "改進"
 
+#: app/views/layouts/integration.html.erb:75
+#, fuzzy
+msgid "Content"
+msgstr "訊息內容"
+
+#: app/views/layouts/integration.html.erb:76
+msgid "People"
+msgstr ""
+
+#: app/views/layouts/integration.html.erb:111
+msgid "Community"
+msgstr "社群"
+
+#: app/views/layouts/integration.html.erb:117
+msgid "Law and Licenses"
+msgstr "法律源地"
+
+#: app/views/layouts/integration.html.erb:120
+msgid "Workshop"
+msgstr "工作坊"
+
+#: app/views/layouts/integration.html.erb:123
+msgid "Resource Catalog"
+msgstr "資源表列"
+
+#: app/views/layouts/integration.html.erb:126
+msgid "About"
+msgstr "關於"
+
+#: app/views/layouts/integration.html.erb:174
+msgid "template_footer_content"
+msgstr ""
+
 #: app/views/layouts_mail/layout.html.erb:5
 #: app/views/layouts_mail/layout.text.html.rhtml:37
 msgid "Mail|Sincerely, OSSF Team http://www.openfoundry.org"
@@ -2729,9 +2816,9 @@ msgstr ""
 msgid "Cancel"
 msgstr "取消"
 
-#: app/views/releases/_most_popular.html.erb:6
-#: app/views/releases/_most_popular.html.erb:24
-#: app/views/releases/_most_popular.html.erb:27
+#: app/views/releases/_most_popular.html.erb:5
+#: app/views/releases/_most_popular.html.erb:23
+#: app/views/releases/_most_popular.html.erb:26
 msgid "Top Download"
 msgstr "下載排行"
 
@@ -2803,10 +2890,6 @@ msgstr "上傳"
 msgid "Reset"
 msgstr "重設"
 
-#: app/views/releases/uploadfiles.html.erb:132
-msgid "How to Upload?"
-msgstr "如何上傳檔案?"
-
 #: app/views/images/_edit.html.erb:8
 msgid "Upload your picture"
 msgstr "選擇上傳的圖片"
@@ -2816,14 +2899,10 @@ msgid "Search Result"
 msgstr "搜尋結果"
 
 #: app/views/openfoundry/_staticities.html.erb:3
-msgid "Statistics"
-msgstr "統計資訊"
-
-#: app/views/openfoundry/_staticities.html.erb:8
 msgid "Registed Projects"
 msgstr "專案"
 
-#: app/views/openfoundry/_staticities.html.erb:9
+#: app/views/openfoundry/_staticities.html.erb:4
 msgid "Registed Users"
 msgstr "使用者"
 
@@ -2835,11 +2914,7 @@ msgstr "描述"
 msgid "Tags"
 msgstr ""
 
-#: app/views/news/_home_news.html.erb:7
-msgid "Announcements"
-msgstr "系統公告"
-
-#: app/views/news/_home_news.html.erb:22
+#: app/views/news/_home_news.html.erb:21
 msgid "Detail"
 msgstr "詳全文"
 
@@ -2847,9 +2922,10 @@ msgstr "詳全文"
 msgid "Daily News"
 msgstr "最新動態"
 
-#: app/views/news/new.html.erb:1 app/views/news/list.html.erb:49
-msgid "Add News"
-msgstr "新增新聞"
+#: app/views/news/_news_list.html.erb:12
+#, fuzzy
+msgid "No News"
+msgstr "新聞"
 
 #: app/views/site_admin/site_admin/nsc_download.html.erb:16
 msgid "Release Listing"
@@ -3136,7 +3212,7 @@ msgstr "我的個人描述"
 msgid "User Own Description"
 msgstr "的個人描述"
 
-#: app/views/user/home.html.erb:103
+#: app/views/user/home.html.erb:103 app/views/api/projects.erb:2
 msgid "User Own Projects"
 msgstr "參與的專案"
 
@@ -3189,6 +3265,27 @@ msgstr "登出"
 #: app/views/user/forgot_password.html.erb:12
 msgid "User|Reset Password"
 msgstr "重設密碼"
+
+#~ msgid "project_menu_View"
+#~ msgstr "檢視專案"
+
+#~ msgid "project_menu_Admin"
+#~ msgstr "管理專案"
+
+#~ msgid "release_Releases"
+#~ msgstr "規畫釋出"
+
+#~ msgid "Subversion Access"
+#~ msgstr "版本控制存取方式"
+
+#~ msgid "Member Management"
+#~ msgstr "成員管理"
+
+#~ msgid "Project Participants (grouped by role)"
+#~ msgstr "專案參與者(依角色分類)"
+
+#~ msgid "Statistics"
+#~ msgstr "統計資訊"
 
 #~ msgid "Old Password Incorrect"
 #~ msgstr "舊密碼不正確"
