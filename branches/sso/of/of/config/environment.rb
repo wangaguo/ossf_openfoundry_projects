@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -18,14 +18,14 @@ Rails::Initializer.run do |config|
 
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
-  config.plugins = %W(authorization  activemessaging acts_as_redis_counter acts_as_taggable_on_steroids bundle-fu fckeditor http_accept_language nested_layouts resource_feeder run_later simply_helpful sortable_column_headers spandex_mem_cache_store validates_timeliness will_paginate)
+  config.plugins = %W(tolk authorization  activemessaging acts_as_redis_counter acts_as_taggable_on_steroids bundle-fu fckeditor http_accept_language nested_layouts resource_feeder run_later simply_helpful sortable_column_headers spandex_mem_cache_store validates_timeliness will_paginate)
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
-  config.cache_store = [ :mem_cache_store, '127.0.0.1:11211:',
+  config.cache_store = [ :mem_cache_store, '127.0.0.1:11211',
     {:namespace => "of-#{RAILS_ENV}", :timeout => nil } ]
    
   # Use SQL instead of Active Record's schema dumper when creating the test database.
@@ -51,11 +51,11 @@ Rails::Initializer.run do |config|
   #config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
   config.gem 'ferret', :version => ">= 0.11.6" 
   # for gettext 2.0.0
-  config.gem "locale"
-  config.gem "locale_rails"
-  config.gem "gettext"
-  config.gem "gettext_activerecord"
-  config.gem "gettext_rails"
+  #config.gem "locale"
+  #config.gem "locale_rails"
+  #config.gem "gettext"
+  #config.gem "gettext_activerecord"
+  #config.gem "gettext_rails"
   #config.gem "sdsykes-read_from_slave", :lib =>"read_from_slave", :source => "http://gems.github.com"
   config.gem "SyslogLogger", :lib => "syslog_logger"
   config.gem 'json', :version => ">= 1.1.2" 
@@ -65,6 +65,8 @@ Rails::Initializer.run do |config|
   config.gem 'redis'
 
   config.time_zone = 'Taipei' 
+
+  config.i18n.default_locale = "zh_TW"
 
   # Add new inflection rules using the following format 
   # (all these examples are active by default):
@@ -108,7 +110,6 @@ Rails::Initializer.run do |config|
 #    OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
 
     # TODO: better naming
-#    OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
 #    OPENFOUNDRY_SITEMAIL_BATCH_MAX = 500 
 #    OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
 #    OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
@@ -142,18 +143,5 @@ Rails::Initializer.run do |config|
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
     
-    UI_SCHEMA_CSS_HOST = 'freenix'
-
-    #
-    # sso testing variables
-    #
-    sso_host = 'ssodev.openfoundry.org'
-    SSO_LOGIN = "http://#{sso_host}/sso/user/login"
-    SSO_LOGOUT = "http://#{sso_host}/sso/user/logout"
-    SSO_FETCH = "http://#{sso_host}/sso/site/fetch"
-    SSO_OF_REGIST_KEY = "c1cac710-030f-012d-c173-0011254f08ff"
-    SSO_OF_LOGIN = "http://#{sso_host}/of/user/login"
-		SSO_PERIOD_SYNC = "http://#{sso_host}/sso/sync.json"
-
     config.action_controller.relative_url_root = "/of"
 end
