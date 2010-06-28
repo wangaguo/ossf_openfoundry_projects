@@ -8,7 +8,7 @@ NameVirtualHost *:80
     #
     ServerName #{WEBSVN_HOST_NAME}
 
-    Alias /#{WEBSVN_URL_PREFIX} #{WEBSVN_PATH_PREFIX}
+    Alias /#{WEBSVN_URL_PREFIX} /usr/local/www/websvn
     <Location /#{WEBSVN_URL_PREFIX}>
         DirectoryIndex index.php
         Order allow,deny
