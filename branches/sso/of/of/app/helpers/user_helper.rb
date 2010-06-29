@@ -19,7 +19,7 @@ module UserHelper
       :size => 32,
       :with_login => false,
       :float => nil,
-      :link => url_for(:controller => :user, :action => :home, :id => user.id)
+      :link => "/user/userprofile/#{user.login}" 
     }.merge(_options)
     rdf_tag = options[:rdf_tag] || ''
     "<div class=\"user_portrait\" title=\"#{user.login}\" 
