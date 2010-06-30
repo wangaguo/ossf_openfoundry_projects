@@ -26,7 +26,7 @@ module UserHelper
     style=\"#{options[:float] ? "float:#{options[:float]};" : 'display:inline;'} 
     height:#{options[:with_login] ? '55' : '32' }px; 
     width:#{options[:with_login] ? '60' : '32' }px; 
-    border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; 
+    border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; line-height: normal;  
     white-space:normal; word-break:break-all; overflow:hidden;\">
     #{options[:link]? "<a #{rdf_tag} href=\"#{options[:link]}#self\">" : '' }
      <img src=\"#{url_for(
