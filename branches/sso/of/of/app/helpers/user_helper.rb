@@ -19,7 +19,7 @@ module UserHelper
       :size => 32,
       :with_login => false,
       :float => nil,
-      :link => "/user/userprofile/#{user.login}" 
+      :link => "/#{ I18n.locale[ -2, 2 ].downcase }/community/userprofile/#{user.login}" 
     }.merge(_options)
     rdf_tag = options[:rdf_tag] || ''
     "<div class=\"user_portrait\" title=\"#{user.login}\" 
@@ -28,7 +28,7 @@ module UserHelper
     width:#{options[:with_login] ? '60' : '32' }px; 
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom; line-height: normal;  
     white-space:normal; word-break:break-all; overflow:hidden;\">
-    #{options[:link]? "<a #{rdf_tag} href=\"#{options[:link]}#self\">" : '' }
+    #{options[:link]? "<a #{rdf_tag} href=\"#{options[:link]}\">" : '' }
      <img src=\"#{url_for(
         :controller => :images, :action => :cached_image,
         :id => "#{user.icon}_#{options[:size]}")}\"  
