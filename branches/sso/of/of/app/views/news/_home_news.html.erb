@@ -27,10 +27,10 @@
 <%=link_to( _('More...'), site_news_path, :class => "more" )%>
 <%=auto_discovery_link_tag(:rss,
    new_openfoundry_news_feed_path({:format => :rss}),
-   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'RSS'} }) %>
+   { :title => s_( "Feed|#{ _( 'OpenFoundry News' ) } RSS Feed" ) } ) %>
 <%=auto_discovery_link_tag(:atom,
    new_openfoundry_news_feed_path({:format => :xml}),
-   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("OpenFoundry News"), :type => 'ATOM'} }) %>
+   { :title => s_( "Feed|#{ _( 'OpenFoundry News' ) } ATOM Feed" ) } ) %>
 <% end -%>
 
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>

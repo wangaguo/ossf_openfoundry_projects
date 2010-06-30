@@ -20,10 +20,10 @@
 <%= link_to( _("More..."), {:controller => 'releases', :action => 'top'}, :class => "more" ) %>
 <%=auto_discovery_link_tag(:rss, 
    {:format => :rss, :controller => :releases, :action => "top_download_feed"},
-   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Top Download'), :type => 'RSS'} }) %>
+   { :title => s_( "Feed|#{ _('Top Download') } RSS Feed" ) } ) %>
 <%=auto_discovery_link_tag(:atom, 
    {:format => :xml, :controller => :releases, :action => "top_download_feed"},
-   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Top Download'), :type => 'ATOM'} }) %>
+   { :title => s_( "Feed|#{ _('Top Download') } ATOM Feed" ) } ) %>
 <% end -%>
 
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
