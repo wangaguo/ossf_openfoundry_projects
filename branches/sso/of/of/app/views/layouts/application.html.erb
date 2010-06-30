@@ -37,16 +37,17 @@
 <div id="of-body">
   <div id="MiddlePane">
     <div class="rt-grid-12">
-
       <%if params["project_id"] != nil%>
        <div class="pj_logo" >
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
             <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=64 />
           </a>
        </div>
-       <div class="pj_title" >
+       <div >
           <h3>
+          <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
             <%= h(@project.summary) %>
+          </a>
           </h3>
         <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
           <%= image_tag "green_arrow_right.gif" %>
@@ -56,7 +57,6 @@
           {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) } %>
        </div>
       <%end%>
-
     </div>
 
     <div id="MainContent" class="rt-grid-9 rt-push-3">
