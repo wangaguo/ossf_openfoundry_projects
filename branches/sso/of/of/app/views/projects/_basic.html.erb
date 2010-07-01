@@ -29,9 +29,9 @@ end %>
     <table class="list-table">
     <%= rows(0,
       * ([ 
-      _("Project|Summary"), content_tag(:span, @project.summary),
       _("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
       _("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
+      _("Project|Contactinfo"), (h @project.contactinfo),  
       ] ) )
     %>
   </table>
@@ -41,9 +41,9 @@ end %>
     <%= rows(1, 
       * ([ 
       _("Project|Name"), content_tag(:span, @project.name),
+      _("Project|Summary"), content_tag(:span, @project.summary),
       _("Project|Description"), content_tag(:span, nl2br(h @project.description)),
       _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
-      _("Project|Contactinfo"), (h @project.contactinfo),  
       _("Project|Maturity"), (h @project.maturity_to_s),
       _("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
       _("Project|Licensingdescription"), (h @project.licensingdescription), 
