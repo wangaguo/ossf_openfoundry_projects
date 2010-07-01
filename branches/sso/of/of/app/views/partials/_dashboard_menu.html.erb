@@ -7,13 +7,13 @@
   <li><%= link_to _('menu_My Projects'), "#{ root_path }user/dashboard#myprojects"%></li>
   <li><%= link_to _('menu_My Tickets'), "#{ root_path }user/dashboard#mytickets" %></li>
   <li><%#= link_to _('menu_My Messages'), "/#{ I18n.locale.to_s[ -2..-1 ].downcase }/my-message"%></li>
-  <li class="parent active"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('Help') %></a>
+  <li class="parent"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('Help') %></a>
   <div id="bsc_menu0" style="display:none">
   <ul>
-    <li><%= link_to _('OpenFoundry'), "#{ root_path }help" %></li>
-    <li><%= link_to _('NSC Project'), "#{ root_path }help/nsc_project" %></li>
-    <li><%= link_to _('menu_License Wizard'), '/index.php?option=com_content&view=article&id=134&Itemid=19&lang=tw' %></li>
-    <li><%= link_to _('Forum'), '/forum.html?func=showcat&catid=48' %></li>
+    <li><%= link_to 'OpenFoundry', '/help/how-to-start' %></li>
+    <li><%= link_to _('NSC Project'), '/help/nsc-project' %></li>
+    <li><%= link_to _('menu_License Wizard'), '/help/license-wizard' %></li>
+    <li><%= link_to _('Forum'), '/help/openfoundry-forum' %></li>
   </ul>
   </div>
   </li>

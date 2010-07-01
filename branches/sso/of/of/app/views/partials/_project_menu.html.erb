@@ -11,7 +11,7 @@
 <div style="clear:both;">
 <% if functions.length == 0 -%>
   <ul id="project_menu" class="menu">
-      <li class="parent active"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('project_Info') %></a>
+      <li class="parent"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('project_Info') %></a>
         <div id="bsc_menu0" style="display:none">
         <ul>
           <li><%= link_to _('project_Basic_Information'), project_path(:id => project.id) %></li>
@@ -24,7 +24,7 @@
 
       <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
       <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
-      <li class="parent active"><a href='#' onclick="Effect.toggle('vcs_menu0','blind', {duration: 0.3}); return false"><%= _('Version Control') %></a>
+      <li class="parent"><a href='#' onclick="Effect.toggle('vcs_menu0','blind', {duration: 0.3}); return false"><%= _('Version Control') %></a>
           <div id="vcs_menu0" style="display:none">
           <ul>
               <% if project.vcs == Project::VCS[:CVS] or project.vcs == Project::VCS[:SUBVERSION] %>
