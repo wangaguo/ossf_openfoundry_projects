@@ -195,7 +195,7 @@ EOEO
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
 
   # name validation
-  NAME_REGEX = /^[a-z][0-9a-z]{2,14}$/ # lengh = 15
+  NAME_REGEX = /^[a-z][0-9a-z-]{2,13}[0-9a-z]$/ # lengh = 15
   
   def self.status_to_s(int_status)
     _(STATUS.index(int_status).to_s)
