@@ -19,7 +19,7 @@ module UserHelper
       :size => 32,
       :with_login => false,
       :float => nil,
-      :link => "/#{ I18n.locale[ -2, 2 ].downcase }/community/userprofile/#{user.login}" 
+      :link => "/community/userprofile/#{user.login}" 
     }.merge(_options)
     rdf_tag = options[:rdf_tag] || ''
     "<div class=\"user_portrait\" title=\"#{user.login}\" 
