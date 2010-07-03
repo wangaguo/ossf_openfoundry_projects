@@ -245,7 +245,7 @@ class ReleasesController < ApplicationController
       project_name = project.name
       # paranoid ...
       if bad_file(project_name)
-        flash[:error] = _('Bad project name: #{project_name}')
+        flash[:error] = _( 'Bad project name' ) + ": #{ project_name }"
         pass = false
       end
     else
@@ -260,7 +260,7 @@ class ReleasesController < ApplicationController
 
     # paranoid ...
     if bad_file(r.version)
-      flash[:error] = _('Bad version: #{r.version}')
+      flash[:error] = _( 'Bad version' ) + ": #{ r.version }"
       pass = false
     end
 

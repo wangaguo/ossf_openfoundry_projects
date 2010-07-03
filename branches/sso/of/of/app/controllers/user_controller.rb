@@ -22,7 +22,7 @@ class UserController < ApplicationController
       if id
         redirect_to "/user/home/#{id}" 
       else
-        flash[:warning] = _("User #{ params[ 'user_alias' ] } doesn't exist or be activated")
+        flash[:warning] = _( 'user' ) + "#{ params[ 'user_alias' ] }" + _( "doesn\'t exist or be activated" )
         redirect_to "/"
       end
       return
@@ -128,7 +128,7 @@ class UserController < ApplicationController
   def username_availability_check
     username = params['username']
     unless username =~ User::LOGIN_REGEX
-      render :layout => false, :text => _("Username '#{ username }' is invalid")
+      render :layout => false, :text => _( 'Username' ) + "#{ username }" + _( 'is invalid' )
       return
     end
     if User.exists?([ "login = ? ", username ])

@@ -23,7 +23,7 @@
     </div>
     <%= drop_receiving_element drop_id,
       :onDrop => "function(drag_element, drop_element, event){
-    if (confirm(\"#{escape_javascript(_('This will remove User form this Group, are you sure?'))}\"))
+    if (confirm(\"#{escape_javascript(_('This will remove User from this Group, are you sure?'))}\"))
     {#{remote_function(:update => 'module_content',
     :url => {:controller => :projects,
     :action => :member_delete,

@@ -41,6 +41,6 @@ class Role < ActiveRecord::Base
   end
 
   #for ajax i18n
-  N_('This will remove User form this Group, are you sure?')
+  N_('This will remove User from this Group, are you sure?')
   N_('This will add User to this Group, are you sure?')
 end

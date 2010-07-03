@@ -225,7 +225,7 @@ class ProjectsController < ApplicationController
       changed << _("Project|Redirecturl") if @project.redirecturl != old_redirecturl
       changed << _("Project|Vcs") if @project.vcs != old_vcs
       if not changed.empty?
-        flash[:notice] +=  " " + _('It may take 5 minutes for %s settings to take effect.') % changed.join("/")
+        flash[:notice] +=  " " + _('It may take 5 minutes for settings to take effect.')
       end
 
       # send message to rt module for sync
@@ -260,7 +260,7 @@ class ProjectsController < ApplicationController
           elsif r.authorizable_id == old_r.authorizable_id #the same project?
             old_r.users.delete(u)
             unless old_r.valid?
-              flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY!') 
+              flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY.') 
               old_r.users << u #TODO: better recovery
               member_edit #if flag_changed
               render :action => :member_edit, :layout => 'module_with_flash'
@@ -291,9 +291,7 @@ class ProjectsController < ApplicationController
                                                 :project_id => r.authorizable_id
                                               })
             end
-            flash.now[:notice] = 
-              _('Move User "%{user}" from Group "%{old_role}" to Group "%{role}"') % 
-            {:user => u.login, :old_role => old_r.name, :role => r.name}
+            flash.now[:notice] = _( 'Move User to Group' ) + " #{ r.name }" 
           else
             flash.now[:warning] = 
               _('You can\'t move User between Groups that belong to different Projects.')
@@ -312,19 +310,13 @@ class ProjectsController < ApplicationController
                                               :project_id => r.authorizable_id
                                             })
           end
-          flash.now[:notice] = 
-            _('Add User "%{user}" into Group "%{role}"') % 
-          {:user => u.login, :role => r.name} 
+          flash.now[:notice] = _( 'Add User into Group' ) + " #{ r.name }"
         end
       else
-        flash.now[:warn] = 
-          _('Group "%{role}" doesn\'t exist!') % 
-        {:role => r.name}
-      end
+        flash.now[:warn] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
+      end 
     else
-      flash.now[:warning] = 
-        _('User "%{user}" doesn\'t exist!') % 
-      {:user => u.login}
+      flash.now[:warning] = _( 'User doesn\'t exist!' ) + ": #{ u.login }"
     end
     member_edit #if flag_changed
     render :action => :member_edit, :layout => 'module_with_flash'
@@ -353,7 +345,7 @@ class ProjectsController < ApplicationController
           before = u.functions_for(r.authorizable_id)
           r.users.delete u
           unless r.valid?
-            flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY!')
+            flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY.')
             r.users << u #TODO: better recovery
             member_edit #if flag_changed
             render :action => :member_edit, :layout => 'module_with_flash'
@@ -378,14 +370,10 @@ class ProjectsController < ApplicationController
             _('Remove User "%{user}" from Group "%{role}"') % 
           {:user => u.login, :role => r.name}
         else
-          flash.now[:warning] = 
-            _('Group "%{role}" doesn\'t exist!') % 
-          {:role => r.name}
+          flash.now[:warning] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
         end
       else
-        flash.now[:warning] = 
-          _('User "%{user}" doesn\'t exist!') % 
-        {:user => u.login}
+        flash.now[:warning] = _( 'User doesn\'t exist!' ) + ": #{ u.login }"
       end
     end
     member_edit #if flag_changed
@@ -492,8 +480,7 @@ class ProjectsController < ApplicationController
       if(role.name.upcase != "ADMIN" && role.name.upcase != "MEMBER")
         role.authorizable_type = "Project"
         if role.save
-          flash.now[:notice] = _('Role "%{name}" was successfully created.') %
-            {:name => role.name}
+          flash.now[:notice] = _( 'Role was successfully created.' ) + ": #{ role.name }"
         end
       end
     end
@@ -512,8 +499,7 @@ class ProjectsController < ApplicationController
     else
       @project.roles.delete role
       role.destroy
-      flash.now[:notice] = _('Role "%{name}" was successfully deleted.') %
-            {:name => role.name}
+      flash.now[:notice] = _( 'Role was successfully deleted.' ) + ": #{ role.name }"
 #      render :update do |page|
 #        page[:role_new].reload
 #      end  

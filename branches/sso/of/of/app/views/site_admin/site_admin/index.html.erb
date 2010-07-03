@@ -52,7 +52,7 @@ Agent: <%= request.user_agent%>
     (BE CAREFUL! for data sync only...)
   </li>
   <li><%= link_to _("Rebuild Ferret Index"), {:action => :aaf_rebuild }, {:confirm => 'really?'} %></li>
-  <li><%= link_to _("大量加入使用者成為某角色"), {:action => :batch_add_users } %></li>
+  <li><%= link_to _("bat_add_users"), {:action => :batch_add_users } %></li>
   <li><%= link_to _("Run some code on all instances of Rails"), {:action => :edit_code } %></li>
   <li><%= link_to _("Send site mail"), {:action => :new_site_mail } %></li>
   <li><%= link_to _("Check big files"), {:action => :big_files } %></li>
