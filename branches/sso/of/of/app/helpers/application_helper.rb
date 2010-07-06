@@ -123,7 +123,7 @@ module ApplicationHelper
           if (level_name.length > 20 or level_class == User)# or (level_name.length > 20 and level_class == User) 
             html << addcrumb(level_name, hierarchy) unless (level_name.nil?)
           else
-            html << addcrumb(@module_name, hierarchy) unless (@module_name.nil?) 
+            unless (@module_name.nil?) then html << addcrumb(@module_name, hierarchy) else html << addcrumb(level_name, hierarchy) end
           end
         else
           link = "#{root_path}"+levels[1..index].join('/')
