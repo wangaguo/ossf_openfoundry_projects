@@ -15,7 +15,8 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :site_admin do |admin|
     admin.resources :projects,
                     :member => {:change_status_form => :any,
-                                :list => :any
+                                :list => :any,
+                                :projects_upload => :any
                                 }
   end
   map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'

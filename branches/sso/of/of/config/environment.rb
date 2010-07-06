@@ -66,6 +66,7 @@ Rails::Initializer.run do |config|
 
   config.time_zone = 'Taipei' 
 
+  config.i18n.load_path = [Dir[File.join(RAILS_ROOT, 'config', 'locales', '{en,zh_TW}.{yml}')] ]
   config.i18n.default_locale = "zh_TW"
 
   # Add new inflection rules using the following format 

@@ -42,6 +42,7 @@ module OpenFoundry
 end
 
 ActiveRecord::Base.send(:include, OpenFoundry::Message)
+ActiveRecord::Base.send(:include, OpenFoundry::VeryDirty)
 ActiveRecord::Base.send(:extend, OpenFoundry::VeryDirty)
 
 

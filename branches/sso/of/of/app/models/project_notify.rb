@@ -19,12 +19,7 @@ class ProjectNotify < ActionMailer::Base
                     :project => project, :user => User.find(project.creator)
                   }
     #@recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
-    #TODO this is ssodev test!!!!!!!!!!!
-    #if sso_host == 'ssodev.openfoundry.org'
-      @recipients = "hyder.ossf@gmail.com"#Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
-    #else  
-    #  @recipients = Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
-    #end
+    @recipients = "hyder.ossf@gmail.com"#Role.find_by_name('project_reviewer').users.map(&:email)  # array is ok
     @from       = OPENFOUNDRY_SITE_ADMIN_EMAIL
     @sent_on    = sent_at
     @headers    = {}
@@ -73,13 +68,13 @@ class ProjectNotify < ActionMailer::Base
     @content_type = "text/html"
   end
 
-    def s_(key)
-      I18n.t key
-    end
-    helper_method :s_
-    def _(key)
-      I18n.t key
-    end
-    helper_method :_
+  def s_(key)
+    I18n.t key
+  end
+  helper_method :s_
+  def _(key)
+    I18n.t key
+  end
+  helper_method :_
 
 end

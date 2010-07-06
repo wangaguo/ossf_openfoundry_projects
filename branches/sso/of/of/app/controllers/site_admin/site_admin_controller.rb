@@ -31,7 +31,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def aaf_rebuild
-    User.rebuild_index(User,Project,Release,News,Fileentity)
+    User.rebuild_index(Project,Release,News,Fileentity)
     redirect_to :action => :index
   end
 

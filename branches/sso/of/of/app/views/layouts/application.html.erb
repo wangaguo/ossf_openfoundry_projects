@@ -40,7 +40,7 @@
       <%if params["project_id"] != nil%>
        <div class="pj_logo" >
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
-            <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=64 />
+            <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=48 />
           </a>
        </div>
        <div >

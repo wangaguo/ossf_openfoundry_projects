@@ -457,6 +457,7 @@ class UserController < ApplicationController
   def dashboard
     # set user's object in session initially
     #login_by_sso if session[ :user ].nil?
+    @module_name= t('dashboard')
 
     @allrtoptions = { "Owner" => "owner", "Creator" => "creator", "Requestor" => "requestor", "Last Updated" => "lastupdatedby" }
 
