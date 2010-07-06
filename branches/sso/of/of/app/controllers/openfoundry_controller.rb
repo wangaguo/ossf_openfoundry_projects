@@ -11,7 +11,7 @@ class OpenfoundryController < ApplicationController
                          'Reference' => 'references', 'Citation' => 'citations' }
   
   def index
-    @module_name = _('Home')
+    @module_name = _('Projects')
     render :layout => "application"
   end
 
