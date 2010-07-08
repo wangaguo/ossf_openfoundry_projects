@@ -88,6 +88,7 @@ Rails::Initializer.run do |config|
 
 
   config.after_initialize {
+    require 'of'
     # add fulltext indexed SEARCH
     # for search in UTF-8
     UTF8_ANALYSIS_REGEX = 
