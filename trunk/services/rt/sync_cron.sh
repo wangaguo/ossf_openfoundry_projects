@@ -1,5 +1,6 @@
 #!/bin/sh
-OSSF_CHECKOUT=`pwd`
+OSSF_CHECKOUT="FIX ME"
+
 RUBY=`which ruby`
 
 SYNC_FILE="${OSSF_CHECKOUT}/sync.rb"
