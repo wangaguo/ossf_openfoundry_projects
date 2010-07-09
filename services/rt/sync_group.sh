@@ -1,10 +1,11 @@
 #!/bin/sh
-cd /root/CodeSnippets
+CHECKOUT_PATH="FIX ME"
 SYNC_SECRET="FIX ME"
 SYNC_HOST="FIX ME"
-SYNC_SCRIPT=group.pl
+
 DUMP_LINK="http://${SYNC_HOST}/openfoundry/foundry_sync?secret=${SYNC_SECRET}&module=rt"
 
+SYNC_SCRIPT=group.pl
 JSON_DUMP=b.json
 RESULT_LOG=group_result.txt
 CHECK_LOG=group_result2.txt
@@ -14,6 +15,8 @@ PERL=`which perl`
 DATE=/bin/date
 FETCH=`which fetch`
 GREP=/usr/bin/grep
+
+cd ${CHECKOUT_PATH}
 
 echo "#####################" >> ${RESULT_LOG}
 $DATE >> ${RESULT_LOG}
