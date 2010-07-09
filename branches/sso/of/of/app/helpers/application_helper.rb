@@ -107,6 +107,8 @@ module ApplicationHelper
                   level_name = left_slice(level_name_char, 20)
                   if level_name_char.length > level_name.length
                     level_name += "..."
+                  else
+                    level_name = _( "breadcrumb|" + level )
                   end
                 rescue
                   level_name = _( "breadcrumb|" + level )
