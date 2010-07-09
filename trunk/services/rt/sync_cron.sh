@@ -1,3 +1,4 @@
+#!/bin/sh
 OSSF_CHECKOUT=`pwd`
 RUBY=`which ruby`
 
