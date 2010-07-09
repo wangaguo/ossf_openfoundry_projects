@@ -38,7 +38,9 @@ ActionController::Routing::Routes.draw do |map|
   #resources:
   #####################
   map.resources :openfoundry,
-                :collection => { :search => :any }
+                :collection => { :search => :any ,
+				 :foundry_sync => :any
+				}
   map.resources :category
   map.resources :projects,
                 :collection => { :list => :get, :applied => :get, 
