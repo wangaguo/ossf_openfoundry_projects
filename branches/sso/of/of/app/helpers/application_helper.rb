@@ -102,11 +102,19 @@ module ApplicationHelper
               if ( _( "breadcrumb|" + level ) == "breadcrumb|" + level )
                 level_name = h( url_unescape(level).humanize.capitalize )
               else
-                level_name = _( "breadcrumb|" + level )
+                begin
+                  level_name_char = h(level)
+                  level_name = left_slice(level_name_char, 20)
+                  if level_name_char.length > level_name.length
+                    level_name += "..."
+                  end
+                rescue
+                  level_name = _( "breadcrumb|" + level )
+                end
               end
             end
           end
-        elsif level =~ /\d/ and level_class
+        elsif level =~ /\d/# and level_class
           if(["rt","help","survey"].include?(level_class)==false)
             begin
               level_name_char = h(level_class.find(level).send(level_title).mb_chars)
