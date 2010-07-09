@@ -52,8 +52,8 @@ class ProjActs
 
         # other needed variables
         data_array = []
-        of_domain = 'of.openfoundry.org'
-        project_url = "http://#{of_domain}/projects/"
+        of_domain = SSO_HOST
+        project_url = "http://#{of_domain}/of/projects/"
         h_stat = {
           'new_project'  => {
             'text' => '<span class="pa_new">New</span>',
