@@ -155,6 +155,9 @@ class ProjectsController < ApplicationController
       # the base request url for rt rdf
       prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
 
+      # unsolved only
+      prturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
+
       # connect to the rdf file 
       require 'open-uri'
       content = ''

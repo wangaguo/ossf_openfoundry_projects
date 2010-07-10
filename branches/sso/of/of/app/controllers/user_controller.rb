@@ -483,6 +483,9 @@ class UserController < ApplicationController
         rturl += " AND Owner='" + @name + "'"
     end
 
+    # unsolved only
+    rturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
+
     # connect to the rdf file
     require 'open-uri'
     content = ''
