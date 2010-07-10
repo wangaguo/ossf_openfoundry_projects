@@ -320,7 +320,7 @@ class OpenfoundryController < ApplicationController
       return
     end
 
-    redirect_to "#{request.protocol}of.openfoundry.org/download/#{download_path_saved}"
+    redirect_to "#{request.protocol}#{SSO_HOST}download/#{download_path_saved}"
   end
 
   def redirect_rt_openfoundry_org
@@ -347,9 +347,9 @@ class OpenfoundryController < ApplicationController
           when /\/Attachment\/(\d+)\/(\d+)\/(.*)/i
             f = Fileentity.find_by_meta("#{$1},#{$2}")
             if f
-              redirect_to "http://of.openfoundry.org/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+              redirect_to "#{request.protocol}#{SSO_HOST}download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
             else
-              redirect_to "http://of.openfoundry.org/releases/top"
+              redirect_to "#{request.protocol}#{SSO_HOST}releases/top"
             end
             return
           end
@@ -361,24 +361,24 @@ class OpenfoundryController < ApplicationController
         when /\/source(.*)/i
           action = :viewvc
         end
-        redirect_to "http://of.openfoundry.org/#{controller}/#{q}/#{action}"
+        redirect_to "#{request.protocol}#{SSO_HOST}#{controller}/#{q}/#{action}"
       when /\/download(.*)/i
         case $1
         when /\/(\d+)\/(\d+)\/(.*)/
           f = Fileentity.find_by_meta("#{$1},#{$2}")
           logger.info("")
           if f
-            redirect_to "http://of.openfoundry.org/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+            redirect_to "#{request.protocol}#{SSO_HOST}download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
           else
-            redirect_to "http://of.openfoundry.org/releases/top"            
+            redirect_to "#{request.protocol}#{SSO_HOST}releases/top"            
           end
         else
-          redirect_to "http://of.openfoundry.org/releases/top"
+          redirect_to "#{request.protocol}#{SSO_HOST}releases/top"
         end
       end   
     when /\/viewvc/i
     else
-      redirect_to 'http://of.openfoundry.org/', :status => 307
+      redirect_to "#{request.protocol}#{SSO_HOST}", :status => 307
     end
   end
 

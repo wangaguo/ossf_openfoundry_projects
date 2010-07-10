@@ -77,7 +77,7 @@ class NewsController < ApplicationController
       release.fileentity.each do |file|
         @news.description += "* #{file.path} (#{file.description})\n"
       end
-      @news.description += "\nhttp://of.openfoundry.org/projects/#{params[:project_id]}/download"
+      @news.description += "\n#{request.protocol}#{SSO_HOST}projects/#{params[:project_id]}/download"
       @news.status = News::STATUS[:Disabled]
       render :action => :new
     else
@@ -153,7 +153,7 @@ class NewsController < ApplicationController
       :feed => {
         :title       => _("OpenFoundry: News"),
         :description => _("News about OpenFoundry"),
-        :link        => 'of.openfoundry.org',
+        :link        => "#{SSO_HOST}",
         :language    => 'UTF-8'
       },    
       :item => {
@@ -175,7 +175,7 @@ class NewsController < ApplicationController
       :feed => {
         :title       => _("OpenFoundry: Project News"),
         :description => _("Proejct news on OpenFoundry"),
-        :link        => 'of.openfoundry.org',
+        :link        => "#{SSO_HOST}",
         :language    => 'UTF-8'
       },    
       :item => {

@@ -521,7 +521,7 @@ class ProjectsController < ApplicationController
       :feed => {
         :title       => _("OpenFoundry: New Projects Feed"),
         :description => _("New projects on OpenFoundry"),
-        :link        => 'of.openfoundry.org',
+        :link        => "#{SSO_HOST}",
         :language    => 'UTF-8'
       },
       :item => {
