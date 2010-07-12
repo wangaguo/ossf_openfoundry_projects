@@ -87,7 +87,7 @@ ActionController::Routing::Routes.draw do |map|
   #####################
   map.resources :releases,
     :path_prefix => '/projects/:project_id',
-    :collection => ['download'],
+    :collection => {:download => :any} ,
     :member => { :uploadfiles => :any, :delete => :post, 
                  :addfiles => :post, :removefile => :post,
                  :editfile => :post, :updatefile => :post,
@@ -98,11 +98,7 @@ ActionController::Routing::Routes.draw do |map|
                  :download => :any, :new_releases => :any },
     :singular => :release
   map.resources :releases,
-    :collection => ['latest', 'top']
-  map.feed_release '/releases/new_release_feed.:format', 
-                  :controller => :releases, :action => :new_release_feed
-  map.feed_release '/releases/top_download_feed.:format', 
-                  :controller => :releases, :action => :top_download_feed
+    :collection => {:latest => :any, :top => :any,:new_release_feed => :get, :top_download_feed => :get }
   #####################
   #resources: other...
   #####################
