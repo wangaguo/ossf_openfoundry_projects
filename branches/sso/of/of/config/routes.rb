@@ -44,7 +44,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :category
   map.resources :projects,
                 :collection => { :list => :get, :applied => :get, 
-			         :tableizer => :get, :test_action => :any },
+			         :tableizer => :get, :test_action => :any,
+                                 :new_projects_feed => :get},
                 :member => { :sympa => :get, :viewvc => :get, :websvn => :get, 
 			     :role_users => :any, 
                              :member_edit => :any, :member_delete => :post,
@@ -60,6 +61,7 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => '/projects/:project_id'
   map.resources :news,
                 :singular => 'news1',
+                :collection => {:new_openfoundry_news_feed => :get,:new_project_news_feed => :get},
                 :name_prefix => 'site_'
 
   #####################
@@ -145,19 +147,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :help,
                 :collection => { :index => :any, :nsc_project => :any }
 
-  #####################
-  #rss feeds:
-  #####################
-  
-  # feed for new projects
-  map.new_projects_feed '/projects/news_projects_feed.:format',
-                        :controller => 'projects', :action => 'new_projects_feed'
-  # feed for new openfoundry news
-  map.new_openfoundry_news_feed '/news/new_openfoundry_news_feed.:format',
-                        :controller => 'news', :action => 'new_openfoundry_news_feed'
-  # feed for new project news
-  map.new_project_news_feed '/news/new_project_news_feed.:format',
-                        :controller => 'news', :action => 'new_project_news_feed'
   #####################
   #misc:
   #####################
