@@ -236,7 +236,7 @@ class ApplicationController < ActionController::Base
             else                                      # good
               if not @#{parent} = #{parent_class_name}.find_by_id(pid_child, :conditions => #{parent_conditions})
                 flash[:warning] = "#{parent} '\#{pid_child}' does not exist, or it has be deactivated."
-                redirect_to '/'
+                redirect_to root_path
               else
                 # ok !
               end
@@ -248,13 +248,13 @@ class ApplicationController < ActionController::Base
           if @#{parent} = #{parent_class_name}.find_by_id(pid_param, :conditions => #{parent_conditions})
             redirect_to :#{parent}_id => pid_param, :id => nil, :action => 'index'
           else
-            redirect_to '/' # TODO: root ?
+            redirect_to root_path
           end
         end
       elsif pid_param # example: /projects/100/news
         if not @#{parent} = #{parent_class_name}.find_by_id(pid_param, :conditions => #{parent_conditions})
           flash[:warning] = _("The resource #{parent}(\#{pid_param}) does not exist.")
-          redirect_to '/' # TODO: root ?
+          redirect_to root_path
         else
           # do nothing. ok.
         end
