@@ -16,7 +16,7 @@ Timezone: <%= Rails.configuration.time_zone%>
 Logger: <%= Rails.logger.class.to_s%>
 </p>
 
-<h2><%=_('Client Information')%></h2>
+<h2><%=('Client Information')%></h2>
 <p>
 IP: <%= request.remote_ip%>
 <br/>
@@ -25,16 +25,9 @@ Agent: <%= request.user_agent%>
 
 <h2>網站管理</h2>
 <ul>
-  <li>
-    <%= link_to_remote "Gettext Cache Switch", :url => { :action => :gettext_cache_switch },
-    :update => 'GettextReloadReturn' %>
-    <span id=GettextReloadReturn>
-      Currently Gettext Cached is <%#=GetText.cached?%>
-    </span>
-  </li>
-  <li><%= link_to _("Project"), :controller => "project" %></li>
-  <li><%= link_to _("News"), :controller => "news" %></li>
-  <li><%= link_to _("User"), :controller => "user" %></li>
+  <li><%= link_to ("Project"), site_admin_projects_path %></li>
+  <li><%= link_to ("News"), site_admin_news_index_path %></li>
+  <li><%= link_to ("User"), site_admin_users_path %></li>
   <li>
     切換使用者
     <input id="switch_user_search" size="25" type="text">
@@ -48,14 +41,14 @@ Agent: <%= request.user_agent%>
     </div>
   </li>
   <li>
-    <%= link_to _("Resend Stomp msg for ALL MODELS"), {:action => :resend }, {:confirm => 'really?'} %>
+    <%= link_to ("Resend Stomp msg for ALL MODELS"), {:action => :resend }, {:confirm => 'really?'} %>
     (BE CAREFUL! for data sync only...)
   </li>
-  <li><%= link_to _("Rebuild Ferret Index"), {:action => :aaf_rebuild }, {:confirm => 'really?'} %></li>
-  <li><%= link_to _("bat_add_users"), {:action => :batch_add_users } %></li>
-  <li><%= link_to _("Run some code on all instances of Rails"), {:action => :edit_code } %></li>
-  <li><%= link_to _("Send site mail"), {:action => :new_site_mail } %></li>
-  <li><%= link_to _("Check big files"), {:action => :big_files } %></li>
+  <li><%= link_to ("Rebuild Ferret Index"), {:action => :aaf_rebuild }, {:confirm => 'really?'} %></li>
+  <li><%= link_to ("bat_add_users"), {:action => :batch_add_users } %></li>
+  <li><%= link_to ("Run some code on all instances of Rails"), {:action => :edit_code } %></li>
+  <li><%= link_to ("Send site mail"), {:action => :new_site_mail } %></li>
+  <li><%= link_to ("Check big files"), {:action => :big_files } %></li>
 </ul>
 <br/>
 
@@ -65,9 +58,3 @@ Agent: <%= request.user_agent%>
 </ul>
 <br/>
 
-<h2>NSC相關</h2>
-<ul>
-  <li><%= link_to _("Report status"), {:controller => '../nsc', :action => :report_status} %></li>
-  <li><%= link_to _("Download count"), {:controller => '../nsc', :action => :download_count} %></li>
-  <li><%= link_to _("Download List"), {:action => :nsc_download } %></li>
-</ul>
