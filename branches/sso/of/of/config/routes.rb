@@ -13,11 +13,15 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'site_admin', :controller => 'site_admin/site_admin'
 
   map.namespace :site_admin do |admin|
+    admin.resource :admin, :controller => 'site_admin',
+		   :member => [:resend, :aaf_rebuild, :batch_add_users, :edit_code, :new_site_mail, :big_files]
     admin.resources :projects,
                     :member => {:change_status_form => :any,
                                 :list => :any,
                                 :projects_upload => :any
                                 }
+    admin.resources :users
+    admin.resources :news
   end
   map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
   map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
