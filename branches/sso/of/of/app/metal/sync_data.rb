@@ -12,7 +12,7 @@ class SyncData
 
   def self.call(env)
 
-    if ( env["PATH_INFO"] =~ /^\/of\/sync_data/ ) and ( env["REMOTE_ADDR"] =~ /140.109.*/ )
+    if ( env["PATH_INFO"] =~ /^\/of\/sync_data/ ) and ( env["REMOTE_ADDR"] =~ /140.109.*|192.168.*/ )
 
 			if req = Rack::Request.new(env) and req.post? and req.params["data"]
 				userdata = JSON.parse(req.params["data"])["user"]
