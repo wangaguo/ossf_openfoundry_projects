@@ -557,6 +557,9 @@ zh_TW:
   "Post a Job": "提供接案消息"
   "Hi": "Hi"
   "Download Now": "下　　載"
+  user_relation:
+    no_partner: "目前該使用者並無專案夥伴"
+    no_project: "目前該使用者並無專案"
 
 # -------------------------------------------------------------------
 # rails-I18n default translation

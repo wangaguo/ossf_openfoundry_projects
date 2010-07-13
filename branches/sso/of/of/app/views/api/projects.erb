@@ -1,9 +1,13 @@
 <%if @user and @projects %>
   </dt>
   <dd>
-    <% @projects.each do |p| %>
-      <%= project_logo_link(p, {:with_name => true, :float => 'left', :rdf_tag => 'rev="doap:developer"'}) %>
+    <% if @projects.empty? %>
+      <%=t 'user_relation.no_project' %>
+    <% else %>
+      <% @projects.each do |p| %>
+        <%= project_logo_link(p, {:with_name => true, :float => 'left', :rdf_tag => 'rev="doap:developer"'}) %>
+      <% end %>
     <% end %>
     <br clear="all"/>
   </dd>
-  <% end %>:
+<% end %>

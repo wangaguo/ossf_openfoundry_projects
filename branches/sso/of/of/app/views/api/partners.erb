@@ -4,8 +4,12 @@
   </dt>
   <dd>
     <div>
-      <% @partners.each do |p| %>
-        <%=user_portrait_link(p, :float => 'left')%>
+      <% if @partners.empty? %>
+        <%=t 'user_relation.no_partner' %>  
+      <% else %>
+        <% @partners.each do |p| %>
+          <%=user_portrait_link(p, :float => 'left')%>
+        <% end %>
       <% end %>
       <br clear="all"/>
     </div>

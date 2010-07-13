@@ -555,3 +555,6 @@ en:
   "Post a Job": "Post a Job"
   "Hi": "Hi"
   "Download Now": "Download"
+  user_relation:
+    no_partner: "This user has no Partner."
+    no_project: "This user has no published Projects."
