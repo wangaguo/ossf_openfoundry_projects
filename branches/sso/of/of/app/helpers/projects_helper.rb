@@ -19,9 +19,9 @@ module ProjectsHelper
     "<div class=\"project_logo\" title=\"#{project.name}\"
     style=\"#{options[:float] ? "float:#{options[:float]};" : 'display:inline;'}
     height:#{options[:with_name] ? '55' : '32' }px;
-    width:#{options[:with_name] ? '75' : '32' }px;
+    width:#{options[:with_name] ? '80' : '32' }px;
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom;
-    white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px;\">
+    white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px; line-height: normal;\">
     <a href=\"#{options[:action] ? eval(options[:action]+"_project_path(project)") : project_path(project)}#self\" #{options[:rdf_tag]}>
     <img src=\"#{url_for(:controller => :images, :action => "cached_image",
                              :id => "#{project.icon}_#{options[:size]||32}")}\"
