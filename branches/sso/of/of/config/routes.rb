@@ -42,8 +42,14 @@ ActionController::Routing::Routes.draw do |map|
   #resources:
   #####################
   map.resources :openfoundry,
-                :collection => { :search => :any ,
-				 :foundry_sync => :any
+                :collection => { :search => :any, :download => :get, :is_project_name => :any,
+				 :foundry_dump => :any, :foundry_sync => :any,
+				 :redirect_rt_openfoundry_org => :any,
+				 :authentication_authorization => :any,
+				 :authentication_authorization_II => :any,
+				 :get_session_by_id => :any,
+				 :get_session_by_id2 => :any,
+				 :get_user_by_session_id => :any
 				}
   map.resources :category
   map.resources :projects,
