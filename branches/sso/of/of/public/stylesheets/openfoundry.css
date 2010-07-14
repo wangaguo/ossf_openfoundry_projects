@@ -125,7 +125,7 @@
   opacity:0.9; filter:alpha(opacity=90);
 }
 
-#of_module { width:750px; height:2000px;}
+#of_module { width:100%; height:2000px;}
 #module_content { min-height:450px; }
 
 /* rt */
