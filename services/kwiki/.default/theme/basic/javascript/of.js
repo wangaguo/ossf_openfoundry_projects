@@ -1,7 +1,7 @@
 <!-- Place in iframe content html file by wangaguo-->
 <!--
 //include jquery.js
-document.write("<" + "script src=\"/javascripts/jquery.js\"></" + "script>");
+document.write("<" + "script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js\"></" + "script>");
 function init()
 {
   if(parent.document.getElementById("of_module"))
@@ -19,10 +19,26 @@ else if(window.addEventListener)
   window.addEventListener('load',  init,  false);
 }
 
+function getCookie(c_name)
+{
+  if (document.cookie.length>0)
+    {
+    c_start=document.cookie.indexOf(c_name + "=");
+    if (c_start!=-1)
+      {
+      c_start=c_start + c_name.length+1;
+      c_end=document.cookie.indexOf(";",c_start);
+      if (c_end==-1) c_end=document.cookie.length;
+      return unescape(document.cookie.substring(c_start,c_end));
+      }
+    }
+  return "";
+}
+
 function multi_lang()
 {
   //get current language, default is zh_TW
-  var $l = parent.document.getElementById("lang")? parent.document.getElementById("lang").value : "en";
+  var $l = getCookie("oflang"); 
   //language resource
   var $r = 
   {
