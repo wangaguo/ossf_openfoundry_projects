@@ -465,7 +465,7 @@ class UserController < ApplicationController
     # My Issue Tracker
     #
     # the base request url for rt rdf
-    rturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=id>'0'"
+    rturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=id>'0'"
     # set the current user name
     @name = ( params[ :username ].nil? )? current_user().login : params[ :username ]
 

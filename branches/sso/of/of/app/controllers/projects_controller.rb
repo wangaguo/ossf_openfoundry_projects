@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
     when Project::VCS[:CVS]
       render :text => _("The WebSVN can't support CVS. Please use ViewVC.")
     when Project::VCS[:SUBVERSION]
-      @Path = OPENFOUNDRY_VIEWVC_SVN_URL + "listing.php?repname=" + @project.name
+      @Path = OPENFOUNDRY_WEBSVN_URL + "listing.php?repname=" + @project.name
       render :template => 'projects/viewvc'
     when Project::VCS[:REMOTE], Project::VCS[:NONE], Project::VCS[:SUBVERSION_CLOSE]
       vcs_access
@@ -153,7 +153,7 @@ class ProjectsController < ApplicationController
     #
     if @project.id
       # the base request url for rt rdf
-      prturl = "http://of.openfoundry.org/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
+      prturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
 
       # unsolved only
       prturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
