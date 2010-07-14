@@ -1,7 +1,7 @@
 <% if not rss.items.blank? %>
   <table>
     <% rss.items.each do | item | %>
-      <tr><td><a href='<%=item.link %>'><%=item.title %></a></td></tr>
+      <tr><td><a href='<%=item.link %>' target='_black'><%=item.title %></a></td></tr>
 
       <tr>
         <td>
