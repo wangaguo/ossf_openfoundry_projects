@@ -19,8 +19,8 @@ project_columns = ["status","name","summary","description","creator","statusreas
   
 <% for project in @projects %>
     <tr>
-      <td><%= link_to _('Show'), site_admin_project_path( :id => project), :target => '_blank' %></td>
-      <td><%= link_to _('Edit'), edit_site_admin_project_path( :id => project), :target => '_blank' %></td>
+      <td><%= link_to _('Show'), project_path( :id => project), :target => '_blank' %></td>
+      <td><%= link_to _('Edit'), edit_project_path( :id => project), :target => '_blank' %></td>
       <td>
         <%= link_to _('Change status'), change_status_form_site_admin_project_path( :id => project.id), :target => '_blank' %>
       </td>

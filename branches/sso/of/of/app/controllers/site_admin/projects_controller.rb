@@ -68,7 +68,7 @@ class SiteAdmin::ProjectsController < SiteAdmin
 
     if hr 
       flash[:notice] = "status changed! (#{params[:invoke].upcase})"
-      redirect_to :action => 'show', :controller => '../projects', :id => @project.id
+      redirect_to project_path(:id => @project.id)
     else
       @bad_project = @project   # bad project only for showing error messages
       @project = Project.find(params[:id])
