@@ -84,13 +84,13 @@ class SiteAdmin::SiteAdminController < SiteAdmin
         bcc[0] = @mail.to 
       when "all_valid_users", "all_valid_users_and_filter"
         if @mail.type == "all_valid_users" then
-          users = User.find(:all, :conditions => "#{User::verified_users}")
+          users = User.valid_users
         else
           @mail.filter = "'" + @mail.filter.gsub(/[^a-zA-Z0-9,_]/, '').gsub(/,/, "','") + "'"
           f = File.new(filter_file, "w")
           f.write(@mail.filter)
           f.close
-          users = User.find(:all, :conditions => "#{User::verified_users} and login not in(#{@mail.filter})")
+          users = User.find(:all, :conditions => "verified = 1 and login not in(#{@mail.filter})")
         end
         users.each do |user|
           if bcc[bcc_i].nil? then bcc[bcc_i] = "" else bcc[bcc_i] += ", " end
