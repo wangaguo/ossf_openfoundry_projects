@@ -8,6 +8,10 @@ class RtController < ApplicationController
   def index
     rt_init
   end
+
+  def report
+    rt_init
+  end
   
   def show
     rt_init
@@ -16,21 +20,11 @@ class RtController < ApplicationController
 
   def rt_init
     if login? == false
-      flash[:warning] = _("You have not logged in; please log in or register from the links in the top-left corner. If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved. ")
+      flash.now[:warning] = _("You have not logged in; please log in or register from the links in the top-left corner. If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved. ")
     end
     @rt_url = OPENFOUNDRY_RT_URL
-    @base_url = @rt_url + "Search/Results.html?" + 
-      "Format=%27%20%20%20%3Cb%3E%3Ca%20href%3D%22%2Frt%2FTicket%2FDisplay.html%3Fid%3D__id__%22%3E__id__%3C%2Fa%3E%3C%2Fb%3E%2FTITLE%3A%23%27%2C%0A%27%3Cb%3E%3Ca%20href%3D%22%2Frt%2FTicket%2FDisplay.html%3Fid%3D__id__%22%3E__Subject__%3C%2Fa%3E%3C%2Fb%3E%2FTITLE%3ASubject%27%2C" +
-      "'__Status__'," \
-      "'__QueueName__'," \
-      "'__OwnerName__'," \
-      "'__NEWLINE__'," \
-      "'<small>__CustomField.{Severity}__</small>'," \
-      "'<small>__Requestors__</small>'," \
-      "'<small>__CreatedRelative__</small>'," \
-      "'<small>__ToldRelative__</small>'," \
-      "'<small>__LastUpdatedRelative__</small>'" \
-      "&Order=DESC&OrderBy=LastUpdated&Query="
+    @base_url = @rt_url + "Search/Results.html?" +
+      "Order=DESC&OrderBy=LastUpdated&Query="
     if(@project != nil)
       @base_url += "Queue = '" + @project.id.to_s + "'"
     else
