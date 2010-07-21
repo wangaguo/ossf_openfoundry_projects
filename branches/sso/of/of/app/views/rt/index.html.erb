@@ -13,17 +13,23 @@
   function TicketSearch(){
     var SearchString = $('TicketSearchString').value;
     var TicketSearchOwner = $('TicketSearchOwner');
-    var TicketSearchTarget = $('TicketSearchTarget');
-    var TicketSearchFor = $('TicketSearchFor');
+    var TicketSearchTarget1 = $('TicketSearchTarget1');
+    var TicketSearchFor1 = $('TicketSearchFor1');
+    var TicketSearchTarget2 = $('TicketSearchTarget2');
+    var TicketSearchFor2 = $('TicketSearchFor2');
     var TicketSearchStatus = $('TicketSearchStatus');
     var TicketSearchOp = "";
    
     if( TicketSearchOwner.value != '' ) 
       SearchString += " AND Owner = '" + TicketSearchOwner.value + "'";
-    if( TicketSearchFor.value != '' ) {
-      if( TicketSearchTarget.selectedIndex <= 1 ) TicketSearchOp = " like "; else TicketSearchOp = " = ";
-      SearchString += " AND " + TicketSearchTarget[TicketSearchTarget.selectedIndex].value + TicketSearchOp +" '" + TicketSearchFor.value + "'";
+    if( TicketSearchFor1.value != '' ) {
+      if( TicketSearchTarget1.selectedIndex <= 1 ) TicketSearchOp = " like "; else TicketSearchOp = " = ";
+      SearchString += " AND " + TicketSearchTarget1[TicketSearchTarget1.selectedIndex].value + TicketSearchOp +" '" + TicketSearchFor1.value + "'";
     }
+    if( TicketSearchFor2.value != '' ) {
+      if( TicketSearchTarget2.selectedIndex <= 1 ) TicketSearchOp = " like "; else TicketSearchOp = " = ";
+      SearchString += " AND " + TicketSearchTarget2[TicketSearchTarget2.selectedIndex].value + TicketSearchOp +" '" + TicketSearchFor2.value + "'";
+    } 
     if( TicketSearchStatus.selectedIndex > 0 )
       SearchString += " AND " + TicketSearchStatus[TicketSearchStatus.selectedIndex].value;
  
@@ -59,9 +65,9 @@
 
 <div id="rt_function_bar">
   <%if(@project != nil)%>
-  <a href="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" class="bug_report">問題回報</a>
+  <a href="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" class="bug_report" title="問題回報"></a>
   <%end%>
-  &nbsp;&nbsp;<a href="javascript:hideDiv('TicketSearchForm');" class="search">查詢</a>
+  &nbsp;&nbsp;<a href="javascript:hideDiv('TicketSearchForm');" class="search" title="查詢"></a>
 <div style="" id="TicketSearchForm">
   <div style="text-align:right;">
     <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
@@ -71,27 +77,59 @@
       負責人<input type="text" value="" id="TicketSearchOwner"/>
     </li>
     <li>
-      <select id="TicketSearchTarget">
+      <select id="TicketSearchTarget1">
         <option selected="" value="Subject">主題</option>
         <option value="Content">內容</option>
         <option value="Id">編號</option>
         <option value="Creator">建立者</option>
         <option value="Requestor.Name">申請人</option>
         <option value="LastUpdatedBy">最後修改者</option>
+        <option value="CF.{Resolution}">Resolution</option>
+        <option value="CF.{Type}">Type</option>
+        <option value="CF.{Subcomponent}">Subcomponent</option>
+        <option value="CF.{Architecture}">Architecture</option>
+        <option value="CF.{Platform}">Platform</option>
+        <option value="CF.{Severity}">Severity</option>
+        <option value="CF.{Version}">Version</option>
+        <option value="CF.{TargetVersion}">TargetVersion</option>
       </select>
-      <input type="text" value="" id="TicketSearchFor"/>
+      <input type="text" value="" id="TicketSearchFor1"/>
+    </li>
+    <li>
+      <select id="TicketSearchTarget2">
+        <option selected="" value="Subject">主題</option>
+        <option value="Content">內容</option>
+        <option value="Id">編號</option>
+        <option value="Creator">建立者</option>
+        <option value="Requestor.Name">申請人</option>
+        <option value="LastUpdatedBy">最後修改者</option>
+        <option value="CF.{Resolution}">Resolution</option>
+        <option value="CF.{Type}">Type</option>
+        <option value="CF.{Subcomponent}">Subcomponent</option>
+        <option value="CF.{Architecture}">Architecture</option>
+        <option value="CF.{Platform}">Platform</option>
+        <option value="CF.{Severity}">Severity</option>
+        <option value="CF.{Version}">Version</option>
+        <option value="CF.{TargetVersion}">TargetVersion</option>
+      </select>
+      <input type="text" value="" id="TicketSearchFor2"/>
     </li>
     <li>
       處理情況
       <select style="width: 150px;" id="TicketSearchStatus">
-        <option value="" selected="">全部顯示</option>
-        <option value="(Status = 'open' OR Status = 'new' OR Status = 'stalled')">未處理</option>
+        <option value="">全部顯示</option>
+        <option value="(Status = 'open' OR Status = 'new' OR Status = 'stalled')" selected="selected">未處理</option>
         <option value="Status = 'resolved'">已處理</option>
       </select>
     </li>
   </ul>
   <input type="button" value="送出查詢" onclick="TicketSearch()" class="button"/>
 </div>
+| <a href="<%=@base_url%> AND (Status = 'open' OR Status = 'new' OR Status = 'stalled') " target="of_module">未處理</a>
+<%#if current_user.has_role?('Member',Project.find_by_id(params["project_id"])) -%>
+<% if fpermit?("rt_member", params[:project_id]) -%>
+  | <a href="<%=@base_url%> AND Owner = '<%=current_user.login%>' AND (Status = 'open' OR Status = 'new' OR Status = 'stalled') " target="of_module">我的未處理</a>
+<% end -%>
 </div>
 
 <input type="hidden" id="TicketSearchString" value="<%=@base_url%>" />
