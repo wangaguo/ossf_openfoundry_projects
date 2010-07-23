@@ -61,7 +61,7 @@ class SiteAdmin::ProjectsController < SiteAdmin
     raise "wrong params['invoke']: #{params['invoke']}" if not ['approve', 'reject', 'suspend', 'resume', 'pending'].include?(params['invoke'])
 
     if ['approve', 'reject', 'pending'].include?(params['invoke']) 
-      hr = @project.send(params[:invoke], "___ #{Time.now()} - #{current_user().login} ___\n\n" + params[:statusreason] , params[:replymessage])
+      hr = @project.send(params[:invoke], "___ #{Time.now.in_time_zone(current_user.timezone.to_f.hours).to_s(:rfc822)} - #{current_user().login} ___\n\n" + params[:statusreason] , params[:replymessage])
     else
       hr = @project.send(params[:invoke], params[:statusreason])
     end
