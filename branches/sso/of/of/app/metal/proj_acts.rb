@@ -114,7 +114,7 @@ class ProjActs
             # do nothing
           end
 
-          output.concat("<li><a href=\"#{url}\">#{row['project_name']}</a> #{h_stat[row['type']]['text']} #{h_stat[row['type']]['desc']}. <span class=\"published-date\">#{row['updated'].strftime('%Y-%m-%d')}</span></li>\n")
+          output.concat("<li><a href=\"#{url}\">#{row['project_name']}</a> #{h_stat[row['type']]['text']} #{h_stat[row['type']]['desc']}. <span class=\"published-date\">#{row['updated'].gmtime.in_time_zone.strftime('%Y-%m-%d')}</span></li>\n")
         }
 
         output.concat('</ul></div>')
