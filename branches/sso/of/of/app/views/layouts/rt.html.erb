@@ -1,5 +1,5 @@
 <% inside_layout 'application' do -%>
-  <% module_title = _('rt_issue_tracker') -%>
+  <% module_title = h(@module_name) %>
   <% module_tabs = capture do -%>
             <div id="module_nav_tab">
   <ul id="rt_nav" class="module_tab">
