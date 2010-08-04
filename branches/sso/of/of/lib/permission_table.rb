@@ -31,6 +31,7 @@ module OpenFoundry
       :role_users => :project_member,
       :member_change => :project_member,
       :member_delete => :project_member,
+      :permission_edit => :role_edit,
       #:sympa,
       #:the_rest,
       :update => :project_info,
