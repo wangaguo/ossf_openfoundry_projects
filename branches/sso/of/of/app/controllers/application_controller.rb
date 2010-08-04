@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   helper :projects
   require_dependency 'user'
 
-  #rescue_from ActionController::RoutingError, :with => :not_found
+  rescue_from ActionController::RoutingError, :with => :not_found
 
 
 #  before_filter :configure_charsets
@@ -326,8 +326,8 @@ THECODE
       pass = false
     ensure
       unless(pass)
-        flash[:warning] = _('you have no permission')+" [#{function_name} #{e}]!" 
-        redirect_to(request.referer || '/')
+        flash[:warning] = _('you have no permission')#+" [#{function_name} #{e}]!" 
+        redirect_to(request.referer || root_path)
       end
     end
     pass
@@ -355,12 +355,13 @@ THECODE
 
     @error_msg ||= ''
 
-    @error_msg += _("The project \"#{project}\" you are requesting does not exist.") %
-           {:project => CGI.escapeHTML(project_name)} unless @project
-    @error_msg += _("The release \"#{release}\" you are requesting does not exist.") %
-   {:release => CGI.escapeHTML(release_version)} unless @release
-    @error_msg += _("The file \"#{file_name}\" you are requesting does not exist.") %
-   {:file_name => CGI.escapeHTML(file_name)} unless @file
+    @error_msg += ("The project \"#{project_name}\" you are requesting does not exist.") unless @project
+#%
+#           {:project => CGI.escapeHTML(project_name)} unless @project
+    @error_msg += ("The release \"#{release_version}\" you are requesting does not exist.") unless @release #%
+  # {:release => CGI.escapeHTML(release_version)} unless @release
+    @error_msg += ("The file \"#{file_name}\" you are requesting does not exist.") unless @file #%
+ #  {:file_name => CGI.escapeHTML(file_name)} unless @file
   end
 
 
@@ -397,6 +398,7 @@ THECODE
 
     #this is our language selection priority:
     locale = ( params[:lang] || cookies[:oflang] || session[:lang] || scan_lang_from_browser || scan_lang_from_user || :zh_TW )
+    locale = locale[0] if Array === locale
     locale = :zh_TW if locale == ''
     #lang is not supported, use :zh_TW
     locale = :zh_TW unless(@locales.has_key? locale.to_sym)
