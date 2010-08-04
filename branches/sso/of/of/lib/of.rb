@@ -26,6 +26,12 @@ module OpenFoundry
       :project => 'project', 
       :user => 'user' , 
       :function => 'function'}.freeze
+      include ActiveMessaging::MessageSender
+      def send_msg(type, action, data)
+        publish(:ossf_msg, 
+          "#{YAML::dump({'type' => type, 'action' => action, 'data' => data})}"
+        )
+      end
 
     module ClassMethods
       include ActiveMessaging::MessageSender
