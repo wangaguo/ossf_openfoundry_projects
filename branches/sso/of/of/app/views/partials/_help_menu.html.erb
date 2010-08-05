@@ -1,16 +1,5 @@
+<% module_content = capture do -%>
 <div id="HomeLeft">
-
-<h3>OpenFoundry</h3>
-<ol>
-  <li><a href="/help">關於本手冊</a></li>
-</ol>
-
-<h3>國科會專案進駐說明</h3>
-<ol>
-  <li><a href="/help/nsc_project#RegisterUser">註冊使用者（計畫申請人）</a></li>
-  <li><a href="/help/nsc_project#RegisterProject">註冊專案</a></li>
-  <li><a href="/help/nsc_project#ProjectReview">專案審查</a></li>
-</ol>
 
 <h3>版本控制系統</h3>
 <ol>
@@ -35,3 +24,6 @@
 </ol>
 
 </div>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => ''}  %>
