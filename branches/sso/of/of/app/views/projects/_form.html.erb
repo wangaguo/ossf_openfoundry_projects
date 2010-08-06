@@ -49,7 +49,7 @@ AAA
   choosen_licenses = (@project.license || "").split(",").grep(/./).map(&:to_i)
   tmp_licenses = ""
   Project::LICENSE_DISPLAY_KEYS.each do |i|
-    tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) + ( i > 0 ? link_to( Project.license_to_s(i), _("url_link_for_#{Project.license_to_s(i)}"), :target =>"_blank" ) : Project.license_to_s(i) ) + "<br>\n"
+    tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) + ( i > 0 ? link_to( Project.license_to_s(i), _("url_link_for_#{Project.license_to_s(i).gsub('.', '_')}"), :target =>"_blank" ) : Project.license_to_s(i) ) + "<br>\n"
   end
   tmp_licenses = "<div style=\"height: 150px; overflow: auto\">#{tmp_licenses}</div>"
 %>
@@ -105,7 +105,7 @@ AAA
 
 <fieldset style="clear:both;">
   <legend><%= _("For NSC projects") %>:</legend>
-  <%= _("Please refer to the") %> <b><a href="/help/nsc-project" target="_blank"><%= _("help document") %></a></b>.<br/><br/>
+  <%= _("Please refer to the") %> <b><a href="/help/2322#field-note" target="_blank"><%= _("help document") %></a></b>.<br/><br/>
   <label for=\"project_nsccode\"><%= _('Project|Nsccode') %></label> (<%= _('comma seperated') %>)<br/>
   e.g. NSC97-2218-E-123-456
   <%= err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50)) %>
