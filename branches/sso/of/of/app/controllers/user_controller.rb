@@ -16,7 +16,7 @@ class UserController < ApplicationController
         id = params['user_alias'] if User.exists?(params['user_alias'])
       when User::LOGIN_REGEX 
         obj = User.find(:first, :select => :id, 
-                       :conditions => ["login = ?", params['user_alias'] ])
+                       :conditions => ["login = ? and #{User.verified_users}", params['user_alias'] ])
         id = obj.id if obj
       end
       if id
@@ -91,9 +91,9 @@ class UserController < ApplicationController
     if user and user.id
       @name = user.login
       @icon = user.icon
-      @realname = user.realname
-      @homepage = user.homepage
-      @bio = user.bio
+      @realname = user.realname || ''
+      @homepage = user.homepage || ''
+      @bio = user.bio || ''
       if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
         @conceal_realname = false
         @conceal_homepage = false
@@ -110,7 +110,7 @@ class UserController < ApplicationController
       @created_at = user.created_at
 			@pending_projects = Project.find(:all, :conditions => "#{Project.pending_projects()} and creator = '#{current_user().id}'")
 
-      @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} order by U.id")
+      @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} and #{User.verified_users(:alias => 'U')} order by U.id")
       @projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} and #{Project.in_used_projects(:alias => 'P')} order by P.id")
       #@partners = []
       #@projects=user.roles.map{|r| r.name}.uniq.map{|r| user.send("is_#{r}_of_what")}.flatten.uniq
@@ -131,7 +131,7 @@ class UserController < ApplicationController
       render :layout => false, :text => _( 'Username' ) + "#{ username }" + _( 'is invalid' )
       return
     end
-    if User.exists?([ "login = ? ", username ])
+    if User.exists?([ "login = ? and #{User.verified_users}", username ])
       render :layout => false, :text => _("Username '#{ username }' has already registed")
     else
       render :layout => false, :text => _("Username '#{ username }' is ready for use")
@@ -241,7 +241,7 @@ class UserController < ApplicationController
     #logout while su as somebody, and back to site_admin page
     if session[:effective_user]
       session[:effective_user] = nil
-      redirect_to '/site_admin'
+      redirect_to "#{ root_path }site_admin"
     else #normal user logout~
 
       # maintain an enumerable hash that include online users
@@ -258,7 +258,7 @@ class UserController < ApplicationController
 
 				flash[:message] = _('user_logout_succeeded')
 				redirect_to "#{ root_path }" 
-			end
+		else
 =begin
       session[:user] = nil
       #For "paranoid session store"
@@ -268,6 +268,8 @@ class UserController < ApplicationController
       flash[:message] = _('user_logout_succeeded')
       redirect_to '/'
 =end
+	redirect_to root_path
+			end
 		end
   end
 
@@ -445,7 +447,7 @@ class UserController < ApplicationController
     users = unless name.blank?
       User.find_by_sql(
         ["select id,icon,login,realname,email from users where 
-                          login like  ? limit ?","%#{name}%" ,limit])
+                          #{User.verified_users} and login like  ? limit ?","%#{name}%" ,limit])
     else
       []
     end
@@ -455,6 +457,9 @@ class UserController < ApplicationController
   end
 
   def dashboard
+    #VERY DIRTY, for rt sso refresh email, we delete rt cookie to force session reload
+    cookies.delete 'RT_SID_OpenFoundry.80', :path => '/rt'
+    cookies.delete 'RT_SID_OpenFoundry.80'.to_sym, :path => '/rt'
     # set user's object in session initially
     #login_by_sso if session[ :user ].nil?
     @module_name= t('dashboard')
@@ -489,8 +494,10 @@ class UserController < ApplicationController
     # connect to the rdf file
     require 'open-uri'
     content = ''
-    open( URI::escape( rturl ) ) do | f | content = f.read end
-
+    begin
+      open( URI::escape( rturl ) ) do | f | content = f.read end
+    rescue
+    end
     # parse the the rdf file
     require 'rss/1.0'
     require 'rss/2.0'
@@ -498,7 +505,8 @@ class UserController < ApplicationController
     require 'rss/content'
     begin
       @rss = RSS::Parser.parse( content, false, false )
-    rescue RSS::InvalidRSSError
+    #rescue RSS::InvalidRSSError
+    rescue
       @rss = nil
     end
 
