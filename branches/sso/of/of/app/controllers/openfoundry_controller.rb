@@ -38,10 +38,10 @@ class OpenfoundryController < ApplicationController
   end
 
   def get_user_by_session_id
-    s = get_session_by_id2(params['session_id'])
-    u = current_user(s) 
-    render :text => "#{u.id} #{u.login}",
-      :content_type => 'text/plain'
+     s = get_session_by_id2(params['session_id'])
+     u = current_user(s) 
+     render :text => "#{u.id} #{u.login}",
+       :content_type => 'text/plain'
   end
 
   # TODO: optimize!!!!!!!!!!
@@ -105,7 +105,7 @@ class OpenfoundryController < ApplicationController
     case module_ = params[:module]
     when "vcs"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users")
+      users = ActiveRecord::Base.connection.select_rows("select name as login, shadow_password as salted_password from sso_development.users where status = 1")
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
@@ -116,6 +116,7 @@ class OpenfoundryController < ApplicationController
             RU.role_id = R.id and 
             RU.user_id = U.id and
             P.vcs = #{Project::VCS[:CVS]} and
+            #{User.verified_users(:alias => 'U')} and
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -128,7 +129,7 @@ class OpenfoundryController < ApplicationController
     when "svn"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
       users = ActiveRecord::Base.connection.select_rows(
-	"select login, salted_password from users")
+	"select name as login, shadow_password as salted_password from sso_development.users where status = 1")
 
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
@@ -140,6 +141,7 @@ class OpenfoundryController < ApplicationController
             RU.role_id = R.id and 
             RU.user_id = U.id and 
             (P.vcs = #{Project::VCS[:SUBVERSION]} or P.vcs = #{Project::VCS[:SUBVERSION_CLOSE]}) and
+            #{User.verified_users(:alias => 'U')} and
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -151,8 +153,7 @@ class OpenfoundryController < ApplicationController
       end
     when "rt"
       projects = ActiveRecord::Base.connection.select_rows("select id, name, summary from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows(
-	 "select id, login, email from users")
+      users = ActiveRecord::Base.connection.select_rows("select id, login, email from users where #{User.verified_users()}")
       sql= "select distinct U.id, P.id, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
@@ -162,6 +163,7 @@ class OpenfoundryController < ApplicationController
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
             RU.user_id = U.id and 
+            #{User.verified_users(:alias => 'U')} and
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -174,7 +176,7 @@ class OpenfoundryController < ApplicationController
     when "sympa"
       users = {}
       ActiveRecord::Base.connection.select_rows(
-        "select id, email from users ").each do |i,e|
+        "select id, email from users where #{User.verified_users()}").each do |i,e|
         users[i] = e 
       end
       sql= "select distinct P.name, U.id from 
@@ -186,6 +188,7 @@ class OpenfoundryController < ApplicationController
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
             RU.user_id = U.id and 
+            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = 
@@ -209,7 +212,7 @@ class OpenfoundryController < ApplicationController
     end
 
     projects = Project.find(:all, :conditions => Project.in_used_projects())
-    users = User.find(:all)
+    users = User.find(:all, :conditions => User.verified_users())
 
     data = {
       :projects => projects.map { |p| { :id => p.id, :summary => p.summary , :name => p.name, :vcs => p.vcs } },
@@ -281,7 +284,7 @@ class OpenfoundryController < ApplicationController
       else
         @options[:models] = [Project]
       end
-    obj = @options[:models] == :all ? User : @options[:models].first
+    obj = @options[:models] == :all ? Project : @options[:models].first
     @results = obj.find_with_ferret(query, @options) 
     @lookup = RECORD_LOOKUP_TABLE
   end
@@ -300,9 +303,7 @@ class OpenfoundryController < ApplicationController
     end
     add_one_to_download_counter
 
-    download_path_saved = CGI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
-    #restore url encoding for slash(/)
-    download_path_saved.gsub!('%2F', '/')
+    download_path_saved = URI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
     #chech if file has a mandatory survey
     #TODO login user?
     if( survey_available? 
@@ -320,7 +321,7 @@ class OpenfoundryController < ApplicationController
       return
     end
 
-    redirect_to "#{request.protocol}#{SSO_HOST}download/#{download_path_saved}"
+    redirect_to "#{request.protocol}#{SSO_HOST}/of/download/#{download_path_saved}"
   end
 
   def redirect_rt_openfoundry_org
@@ -347,9 +348,9 @@ class OpenfoundryController < ApplicationController
           when /\/Attachment\/(\d+)\/(\d+)\/(.*)/i
             f = Fileentity.find_by_meta("#{$1},#{$2}")
             if f
-              redirect_to "#{request.protocol}#{SSO_HOST}download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+              redirect_to "#{request.protocol}#{SSO_HOST}/of/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
             else
-              redirect_to "#{request.protocol}#{SSO_HOST}releases/top"
+              redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"
             end
             return
           end
@@ -361,19 +362,19 @@ class OpenfoundryController < ApplicationController
         when /\/source(.*)/i
           action = :viewvc
         end
-        redirect_to "#{request.protocol}#{SSO_HOST}#{controller}/#{q}/#{action}"
+        redirect_to "#{request.protocol}#{SSO_HOST}/of/#{controller}/#{q}/#{action}"
       when /\/download(.*)/i
         case $1
         when /\/(\d+)\/(\d+)\/(.*)/
           f = Fileentity.find_by_meta("#{$1},#{$2}")
           logger.info("")
           if f
-            redirect_to "#{request.protocol}#{SSO_HOST}download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+            redirect_to "#{request.protocol}#{SSO_HOST}/of/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
           else
-            redirect_to "#{request.protocol}#{SSO_HOST}releases/top"            
+            redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"            
           end
         else
-          redirect_to "#{request.protocol}#{SSO_HOST}releases/top"
+          redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"
         end
       end   
     when /\/viewvc/i
