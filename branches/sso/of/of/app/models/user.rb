@@ -15,7 +15,18 @@ class User < ActiveRecord::Base
                             },
                  :single_index => true
                  }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
-                 
+
+  after_create :send_rt_create_msg
+  after_update :send_rt_update_msg
+
+  def send_rt_create_msg
+    send_msg("user", "create", {'id' => id, 'name' => login, 'email' => email})
+  end               
+
+  def send_rt_update_msg
+    send_msg("user", "update", {'id' => id, 'name' => login, 'email' => email})
+  end          
+
   # disable ferret search if not verified        
   def ferret_enabled?(is_bulk_index = false)
     (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
@@ -69,6 +80,13 @@ class User < ActiveRecord::Base
 
   def self.authenticate_by_sso(login)
   	find( :first, :conditions => ["login = ?", login] )
+  end
+
+  # User.find(:all, :conditions => User.verified_users).size
+  def self.verified_users(options = {})
+    a = options[:alias]
+    if a;a += '.';end
+    "(#{a}verified = 1)"
   end
 
   named_scope :valid_users, :conditions => { :verified => 1 }
