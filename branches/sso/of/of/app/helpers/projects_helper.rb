@@ -10,7 +10,7 @@ module ProjectsHelper
     when 7: ["by"            ]
     else []
     end.each do |x|
-      rtn += " <img src=\"/images/cc/#{x}_standard.gif\" width=\"16\"/>"
+      rtn += " <img src=\"/of/images/cc/#{x}_standard.gif\" width=\"16\"/>"
     end
     rtn
   end
