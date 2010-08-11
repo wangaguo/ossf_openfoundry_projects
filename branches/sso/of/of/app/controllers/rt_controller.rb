@@ -21,7 +21,7 @@ class RtController < ApplicationController
   def rt_init
     @module_name = _('rt_issue_tracker')
     if login? == false
-      flash.now[:warning] = _("You have not logged in; please log in or register from the links in the top-left corner. If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved. ")
+      flash.now[:warning] = t('msg.postrt_without_login')
     end
     @rt_url = OPENFOUNDRY_RT_URL
     @base_url = @rt_url + "Search/Results.html?" +
