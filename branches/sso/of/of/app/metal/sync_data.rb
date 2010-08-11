@@ -1,5 +1,6 @@
 # Allow the metal piece to run in isolation
 require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Rails)
+require 'action_pack'
 #
 #	post url
 # => http://ssodev.openfoundry.org/of/sync_data/ 
@@ -20,24 +21,37 @@ class SyncData
 
 				case req.params["action"]
 				when "create"
-					if User.find(:first, :conditions => {:login => userdata['name']})
+					if User.valid_users.find(:first, :conditions => {:login => userdata['name']})
 						[200, {"Content-Type" => "text/html"}, ["true"]]
 					else
-						syncuser = User.new(:login => userdata['name'])
+						syncuser = User.new(:login => userdata['name'], :verified => 1)
 						usertags = userdata.select{ |k, v| k=~ /^t_/ } || {}
 					
 						userdata.each { |k, v| syncuser.send(k + "=", v) if syncuser.respond_to? "#{k}=" }
-						(usertags.each { |k, v| syncuser.send(k + "=", v) } if syncuser.save)? 
-							[200, {"Content-Type" => "text/html"}, ["true"]] :
+						if syncuser.save
+							#ActionController::send_msg(
+							#	ActionController::TYPES[:user],
+							#	ActionController::ACTIONS[:create],
+							#	{'id' => syncuser.id, 'name' => syncuser.login, 'email' => syncuser.email})
+							usertags.each { |k, v| syncuser.send(k + "=", v) }
+							[200, {"Content-Type" => "text/html"}, ["true"]] 
+						else
 							[200, {"Content-Type" => "text/html"}, ["false"]]
+						end
 					end
 				when "update"
-					if syncuser	= User.find(:first, :conditions => {:login => userdata['name']})
+					if syncuser	= User.valid_users.find(:first, :conditions => {:login => userdata['name']})
 						userdata.delete('name')
-
-						(userdata.each { |k, v| syncuser.send(k + "=", v) if syncuser.respond_to? "#{k}=" }; syncuser.save if not userdata.empty?)?
-							[200, {"Content-Type" => "text/html"}, ["true"]] :
+						userdata.each { |k, v| syncuser.send(k + "=", v) if syncuser.respond_to? "#{k}=" } 
+						if syncuser.save 
+							#ActionController::send_msg(
+							#	ActionController::TYPES[:user],
+							#	ActionController::ACTIONS[:update],
+							#	{'id' => syncuser.id, 'name' => syncuser.login, 'email' => syncuser.email})
+							[200, {"Content-Type" => "text/html"}, ["true"]]
+						else
 							[200, {"Content-Type" => "text/html"}, ["false #{syncuser.errors}"]]
+						end
 					else
 						[200, {"Content-Type" => "text/html"}, ["false, not found: #{userdata["name"]}"]]
 					end
