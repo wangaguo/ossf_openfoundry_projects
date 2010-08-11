@@ -1,5 +1,5 @@
 var module = function(){};
-module.js_path = "http://of.openfoundry.org/of/javascripts/";
+module.js_path = "http://www.openfoundry.org/of/javascripts/";
 module.logo_path = "http://www.openfoundry.org/Powered-by-OSSF-180x50";
 module.site_path = "http://www.openfoundry.org/";
 
