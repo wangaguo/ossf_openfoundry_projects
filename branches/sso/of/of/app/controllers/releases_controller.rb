@@ -232,7 +232,7 @@ class ReleasesController < ApplicationController
   #用link_to_remote呼叫 將檔案加入專案發佈中
   def addfiles
     def bad_file(x)
-      x == ".." or x =~ /\//
+      x == '' or x == ".." or x =~ /\//
     end
 
     pass = true
@@ -277,7 +277,6 @@ class ReleasesController < ApplicationController
         next if not File.exist?(src_path)
 
         r.fileentity << make_file_entity(params[:id], basename, File.size(src_path))
-        
         if system("/home/openfoundry/bin/move_upload_files2", src_path, dest_dir) == 0
           added = true
         end
