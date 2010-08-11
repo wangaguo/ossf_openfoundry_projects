@@ -34,7 +34,9 @@
             </a>
           </td>
           <td class="txtarea">
-            <%= h project.description.mb_chars[0..130] + "#{'...' if project.description.mb_chars.length > 130 }" %></td>
+	    <% if project.description %>
+            	<%= h project.description.mb_chars[0..130] + "#{'...' if project.description.mb_chars.length > 130 }" %></td>
+	    <% end %>
         </tr>
       </table>
     </td>
