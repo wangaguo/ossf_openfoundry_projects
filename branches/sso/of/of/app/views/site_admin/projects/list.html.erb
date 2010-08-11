@@ -13,7 +13,7 @@ project_columns = ["status","name","summary","description","creator","statusreas
     <th></th>
     <th></th>
     <% for column in project_columns %>
-      <th><%= _(column) %></th>
+      <th><%= t "Project.#{ column }" %></th>
     <% end %>
   </tr>
   
