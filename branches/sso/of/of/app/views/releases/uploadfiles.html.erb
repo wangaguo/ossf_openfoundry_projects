@@ -71,10 +71,6 @@
           :confirm => 'Delete?', 
           :update => "uploadfiles_view"
         %>
-	<%= link_to _('Download'), download_url(:project_name => @project.name, 
-					       :release_version => @release.version,
-					       :file_name => f.path )
-        %>
     </div>
     <hr>
     <%end%>
