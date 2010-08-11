@@ -18,7 +18,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :projects,
                     :member => {:change_status_form => :any,
                                 :list => :any,
-                                :projects_upload => :any
+                                :projects_upload => :any,
+				:change_status => :any
                                 }
     admin.resources :users
     admin.resources :news
@@ -54,7 +55,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :category
   map.resources :projects,
                 :collection => { :list => :get, :applied => :get, 
-			         :tableizer => :get, :test_action => :any,
+			         :tableizer => :get,
                                  :new_projects_feed => :get},
                 :member => { :sympa => :get, :viewvc => :get, :websvn => :get, 
 			     :role_users => :any, 
@@ -63,8 +64,8 @@ ActionController::Routing::Routes.draw do |map|
                              :member_change => :post, :role_update => :any,
                              :group_update => :any,
                              :group_create => :any, :group_delete => :get,
-                             :role_new => :any, :role_create => :any, :vcs_access => :any,
-                             :test_action => :any}
+                             :role_new => :any, :role_create => :any, :vcs_access => :any
+                             }
   map.resources :news,
                 :singular => 'news1',
                 :collection => { :new_release => :any },
@@ -117,6 +118,7 @@ ActionController::Routing::Routes.draw do |map|
                 :path_prefix => '/projects/:project_id'
   map.resources :rt,
                 :singular => 'rt1',
+		:collection => { :report => :get },
                 :path_prefix => '/projects/:project_id'
   map.resources :rt,
                 :singular => 'rt1',
@@ -151,7 +153,7 @@ ActionController::Routing::Routes.draw do |map|
                 :collection => { :how_to_upload => :get }
   
   map.resources :help,
-                :collection => { :index => :any, :nsc_project => :any }
+                :collection => { :index => :any, :nsc_project => :any, :vcs => :any }
 
   #####################
   #misc:
@@ -160,9 +162,9 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'releases',
     :action => 'download'  
   # Install the default route as the lowest priority.
-  #map.connect ':controller/:action/:id.:format'
-  #map.connect ':controller/:action/:id'
-  #map.connect ':controller/:action.:format'
+  map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action.:format'
 
 
   #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 
