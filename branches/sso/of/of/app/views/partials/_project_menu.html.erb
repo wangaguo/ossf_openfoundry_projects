@@ -61,6 +61,7 @@
       </ul>
       </div>
 
+    <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
     <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
     <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
 
@@ -110,7 +111,6 @@
     <% end -%>
     <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
 
-    <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
     <% if is_nsc_project %>
     <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
     <% end %>
