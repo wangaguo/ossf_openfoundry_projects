@@ -3,7 +3,7 @@ case @vcs
 when Project::VCS[:SUBVERSION]
 -%>
 <p>
-  <%= _('Subversion Access|Description') %>
+  <%=t 'repository.use_svn_help'%>
   <br/><b><%= @src %></b>
 </p>
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
@@ -12,7 +12,7 @@ when Project::VCS[:SUBVERSION]
 <% when Project::VCS[:CVS] -%>
 <h1><%= _('Anonymous CVS Access') %></h1>
 <p>
-  <%= _('Subversion Access|Description') %>
+  <%= t 'repository.use_cvs_help'%>
   <br/><b><%= @src %></b>
 </p>
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
