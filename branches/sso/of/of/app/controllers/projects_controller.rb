@@ -124,7 +124,7 @@ class ProjectsController < ApplicationController
     
     projects = nil
     [params[:page], 1].each do |page|
-      projects = Project.paginate(:page => page, :per_page => 10, :conditions => query,
+      projects = Project.in_used.paginate(:page => page, :per_page => 10, #:conditions => query,
                  :include => [:releases],
                  :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
       break if not projects.out_of_bounds?
@@ -161,8 +161,10 @@ class ProjectsController < ApplicationController
       # connect to the rdf file 
       require 'open-uri'
       content = ''
-      open( URI::escape( prturl ) ) do | f | content = f.read end
-
+      begin
+        open( URI::escape( prturl ) ) do | f | content = f.read end
+      rescue
+      end
       # parse the rdf of project issues
       require 'rss/1.0'
       require 'rss/2.0'
@@ -170,7 +172,8 @@ class ProjectsController < ApplicationController
       require 'rss/content'
       begin
         @rss = RSS::Parser.parse( content, false, false )
-      rescue RSS::InvalidRSSError
+      #rescue RSS::InvalidRSSError
+      rescue
         @rss = nil
       end
     end
@@ -233,7 +236,7 @@ class ProjectsController < ApplicationController
 
       # send message to rt module for sync
       if @project.summary != old_summary
-        ApplicationController::send_msg(TYPES[:project], ACTIONS[:update], {'id' => @project.id, 'name' => @project.name, 'summary' => @project.summary})
+        ApplicationController::send_msg(TYPES[:project], ACTIONS[:update], {:id => @project.id, :name => @project.name, :summary => @project.summary})
       end 
 
       redirect_to :action => 'show', :id => @project
@@ -281,14 +284,14 @@ class ProjectsController < ApplicationController
             added = after - before
             removed = before - after
             added.each do |f|
-              ApplicationController::send_msg('function','create',
+              ApplicationController::send_msg(:function,:create,
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => r.authorizable_id
                                               })
             end
             removed.each do |f|
-              ApplicationController::send_msg('function','remove',
+              ApplicationController::send_msg(:function,:delete,
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => r.authorizable_id
@@ -307,7 +310,7 @@ class ProjectsController < ApplicationController
           after = u.functions_for(r.authorizable_id)
           added = after - before
           added.each do |f|
-            ApplicationController::send_msg('function','create',
+            ApplicationController::send_msg(:function,:create,
                                             {:function_name => f.name, 
                                               :user_id => u.id,
                                               :project_id => r.authorizable_id
@@ -357,21 +360,22 @@ class ProjectsController < ApplicationController
           r.save
           #u.roles.delete(r)
           #u.save
+	  u.reload
           after = u.functions_for(r.authorizable_id)
           removed = before -after
           flag_changed = true
           after = u.functions_for(r.authorizable_id)
           removed = before - after
           removed.each do |f|
-            ApplicationController::send_msg('function','remove',
+            ApplicationController::send_msg(:function,:delete,
                                             {:function_name => f.name, 
                                               :user_id => u.id,
                                               :project_id => r.authorizable_id
                                             })
           end
           flash.now[:notice] = 
-            _('Remove User "%{user}" from Group "%{role}"') % 
-          {:user => u.login, :role => r.name}
+            t('Remove User "{{user}}" from Group "{{role}}"', 
+               :user => u.login, :role => r.name)
         else
           flash.now[:warning] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
         end
@@ -447,14 +451,14 @@ class ProjectsController < ApplicationController
           project_id = role.authorizable_id
           role.users.each do |u|
             removed.each do |f|
-              ApplicationController::send_msg('function','remove',
+              ApplicationController::send_msg(:function,:delete,
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => project_id
                                               })
             end
             added.each do |f|
-              ApplicationController::send_msg('function','create',
+              ApplicationController::send_msg(:function,:create,
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => project_id
