@@ -35,8 +35,7 @@ end
 begin
   ENV['FERRET_USE_LOCAL_INDEX'] = 'true'
   ENV['RAILS_ENV'] = $ferret_server_options['environment']
-  #require(File.join(File.dirname(__FILE__), '../../../../config/environment'))
-  require(File.join(ENV['PWD'], 'config/environment'))
+  require(File.join(File.dirname(__FILE__), '../../../../config/environment'))
   require 'acts_as_ferret'
   ActsAsFerret::Remote::Server.new.send($ferret_server_action)
 rescue Exception => e
