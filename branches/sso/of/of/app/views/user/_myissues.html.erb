@@ -10,10 +10,10 @@
 
 <a id="mytickets"></a>
 <% module_content = capture do -%>
-<% if not rss.items.blank? %>
+<% if rss and not rss.items.blank? %>
     <table>
       <% rss.items.each do | item | %>
-        <tr><td><a href='<%=item.link %>'><%=item.title %></a></td></tr>
+        <tr><td><a href="http://<%=SSO_HOST %>/of/projects/<%=item.dc_description %>/rt/<%=item.link %>"><%=h item.title %></a></td></tr>
 
         <tr>
           <td>
