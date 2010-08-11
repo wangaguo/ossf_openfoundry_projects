@@ -77,7 +77,7 @@ class NewsController < ApplicationController
       release.fileentity.each do |file|
         @news.description += "* #{file.path} (#{file.description})\n"
       end
-      @news.description += "\n#{request.protocol}#{SSO_HOST}projects/#{params[:project_id]}/download"
+      @news.description += "\n#{request.protocol}#{SSO_HOST}/of/projects/#{params[:project_id]}/download"
       @news.status = News::STATUS[:Disabled]
       render :action => :new
     else
