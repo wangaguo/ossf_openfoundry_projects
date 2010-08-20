@@ -1,7 +1,7 @@
 #!/bin/sh
-CHECKOUT_PATH="FIX ME"
-SYNC_SECRET="FIX ME"
-SYNC_HOST="FIX ME"
+CHECKOUT_PATH="/usr/local/rt36"
+SYNC_SECRET="5f12117baa04ce58"
+SYNC_HOST="192.168.3.80:80"
 
 DUMP_LINK="http://${SYNC_HOST}/openfoundry/foundry_sync?secret=${SYNC_SECRET}&module=rt"
 
