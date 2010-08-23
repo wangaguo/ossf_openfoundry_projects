@@ -52,7 +52,7 @@
       <div id="bsc_menu1" style="display:none">
       <ul>
         <% if functions.include?('project_info') -%>
-          <li><%= link_to _('project_Basic_Information')+_('Edit'), edit_project_path(:id => project.id) %></li>
+          <li><%= link_to _('project_Basic_Info')+_(' Edit'), edit_project_path(:id => project.id) %></li>
         <% end -%>
 
         <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
