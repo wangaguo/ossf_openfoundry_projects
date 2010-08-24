@@ -596,6 +596,9 @@ sub LoadOrCreateByEmail {
 		$self->Load($email);
 	}
 	unless($self->Id) {
+            if ($email !~ /^[a-z0-9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-]+(?:\.[a-z0-9\!\#\$\%\&\'\*\+\/\=\?\^\_\`\{\|\}\~\-]+)*\@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i) {
+                return(0, $self->loc("[_1] is not a valid user. Please enter a correct user name or a valid e-mail.", $email));
+	    }
             ( $val, $message ) = $self->Create(
                 Name => $email,
                 EmailAddress => $email,
