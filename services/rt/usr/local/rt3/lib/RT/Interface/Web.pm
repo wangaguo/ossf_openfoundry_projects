@@ -379,7 +379,6 @@ sub CreateTicket {
         MIMEObj         => $MIMEObj
     );
 
-    my @results;
     my @temp_squelch;
     foreach my $type (qw(Requestors Cc AdminCc)) {
         my @tmp = map { $_->format } grep { $_->address} Mail::Address->parse( $ARGS{ $type } );
@@ -387,8 +386,8 @@ sub CreateTicket {
         $create_args{ $type } = [
             grep $_, map {
                 my $user = RT::User->new( $RT::SystemUser );
-		my ($pid, $msg) = $user->LoadOrCreateByEmail( $_ );
-		if ($pid == 0) { Abort($msg); }
+                my ($pid, $msg) = $user->LoadOrCreateByEmail( $_ );
+                if ($pid == 0) { Abort($msg); }
                 # convert to ids to avoid work later
                 $user->id;
             } @tmp
