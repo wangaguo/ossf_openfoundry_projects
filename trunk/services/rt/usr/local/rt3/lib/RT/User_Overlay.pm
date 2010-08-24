@@ -688,7 +688,6 @@ sub CanonicalizeEmailAddress {
     if ($RT::CanonicalizeEmailAddressMatch && $RT::CanonicalizeEmailAddressReplace ) {
         $email =~ s/$RT::CanonicalizeEmailAddressMatch/$RT::CanonicalizeEmailAddressReplace/gi;
     }
-    print("****************************" + $email);
     return ($email);
 }
 
