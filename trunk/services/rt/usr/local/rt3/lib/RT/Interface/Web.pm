@@ -387,7 +387,8 @@ sub CreateTicket {
         $create_args{ $type } = [
             grep $_, map {
                 my $user = RT::User->new( $RT::SystemUser );
-		$user->LoadOrCreateByEmail( $_ );
+		my ($pid, $msg) = $user->LoadOrCreateByEmail( $_ );
+		if ($pid == 0) { Abort($msg); }
                 # convert to ids to avoid work later
                 $user->id;
             } @tmp
