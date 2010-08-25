@@ -27,7 +27,7 @@ project_columns = ["status","name","summary","description","creator","statusreas
       <% for column in project_columns -%>
         <td style="<%= "white-space:nowrap;" if column == "license"%>">
           <%if column == 'creator' -%>
-            <a href="/user/home/<%=project.send(column)%>"><%=project.send(column)%></a>
+            <a href="<%= "#{ root_path }user/home/#{ project.send(column) }" %>"><%=project.send(column)%></a>
           <%elsif ['summary', 'description', 'licensingdescription', 'statusreason', 'vcsdescription'].include?(column) -%>
             <% if not project.send(column).nil? -%>
             <span title="<%=h project.send(column)%>"><%=h project.send(column).mb_chars[0..30]%></span>
