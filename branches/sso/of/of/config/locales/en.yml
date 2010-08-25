@@ -45,6 +45,7 @@ en:
   "breadcrumb|search": "Search"
   "breadcrumb|openfoundry": "OpenFoundry"
   "breadcrumb|files": "Files"
+  "breadcrumb|new_release": "New Release"
   "User|Login": "Login"
   "User|Email": "Email Address"
   "User|Realname": "Realname"
@@ -569,6 +570,7 @@ en:
   "Download Now": "Download"
   "Update User Information Successfully.": "Update User Information Successfully"
   "Project Applied": "Your project creating request has been submitted. Please wait 72 hours for approving. We will notify you by email. <br/> If you have any questions, please contact us at "
+  "Description": "Description"
   Fileentity:  "Files"
   user_relation:
     no_partner: "This user has no Partner."
