@@ -1,6 +1,6 @@
 <%
 vcs_check = false 
-nsc_by_name = false
+nsc_by_name = false 
 conditions = ""
 nscs = "'multicore','jvm','garcol','hmp','ssempp','eplmcs','rtscheduler','ecv ','aridps','vmc','vmcsubproject1','vmcpss','vmc97am','vmcsyn','vmctms','ebl','eblembsysbench','multicoretool','winlab97','esbs','nsc962218y1','wirelesssignal','mediacenter','gandalf4convert','nsc97webos','netanalyzer','eiptv','eips','inight168','roamingrobot','futurelife','emotionsystem','homesecure','scel9701','ppkb007','nsc97uhome','yangi','wimaxsystem','wimaxchn','wimaxmimo','wimaxphy2','wimaxphy1','wimax3subp5','wimaxqos001','video2008','lis2008 ','jcis4','wimaxspmt','oscha','asng2 ','yzudsp','highqualityvoip','sccs','qualityopc','coursewarereg','spam','gqs','monitoragent','ompd','dishes','disirer2008','glossator','soankers','robotagent001','jsim802154','rfidzigbee','middlewaremdbc','interactivesate','pvlan2008','viskitopc','powernoc','xdiva','medicinesbox','nsc97pskd','web2qop','uwardcare','qosphone','androidnavi','ivaspqrgps100','androidpim','nsysumt','nettv','pvas','sfer','android','rtgtalk','dmatgcaw','abcystem','avs','msvd','thirdpcc','cnlab','immrmcpt','nsc97jvm','u1097305131','sensor606618','mobiletraveling','nsc97obd','ismp'"
 
@@ -36,7 +36,7 @@ i = 0
   tmp_nsccode = project.tag_list.names.grep(/^NSC\d/).sort.join("<br/>")
   find_nsccode = ""
   if tmp_nsccode == ""
-    if project.description.match(/NSC/).nil? == false
+    if project.description and project.description.match(/NSC/).nil? == false
       find_nsccode = project.description.scan(/NSC[ ]?\d[\d\-E]+/).join("<br/>")
       if(find_nsccode == "" )
         find_nsccode = project.description.scan(/\d{2}-\d[\d\-E]+/).join("<br/>")
@@ -60,7 +60,7 @@ i = 0
       <%
         u = User.find_by_id(project.creator)
       %>
-      <%= u.login + "(" + u.realname + ")" %></td>
+      <%= "#{u.login} (#{u.realname})" %></td>
     <td><%= project.project_counter %></td>
     <td><%= Project.vcs_to_s(project.vcs) %></td>
     <td>
