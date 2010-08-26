@@ -58,3 +58,9 @@ Agent: <%= request.user_agent%>
 </ul>
 <br/>
 
+<h2>NSC相關</h2>
+<ul>
+  <li><%= link_to _("Report status"), {:controller => '/nsc', :action => :report_status} %></li>
+  <li><%= link_to _("Download count"), {:controller => '/nsc', :action => :download_count} %></li>
+  <li><%= link_to _("Download List"), {:action => :nsc_download } %></li>
+</ul>
