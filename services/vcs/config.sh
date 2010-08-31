@@ -6,6 +6,7 @@ OPENFOUNDRY_CHECKOUT="${OPENFOUNDRY_HOME}/checkout"
 OPENFOUNDRY_BIN="${OPENFOUNDRY_HOME}/bin"
 OPENFOUNDRY_PM_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/module"
 VCS_CHECKOUT="${OPENFOUNDRY_CHECKOUT}/vcs"
+PERL_VER=`perl -version | grep 'is perl' | awk '{ print $4 }' | sed 's/v//g'`
 
 mkdir -p "${OPENFOUNDRY_HOME}"
 mkdir -p "${OPENFOUNDRY_ETC}"
@@ -48,7 +49,7 @@ ln -sf "${VCS_CHECKOUT}/etc/rc.conf" /etc/
 # OpenFoundry
 export OPENFOUNDRY_ETC
 export OPENFOUNDRY_BIN
-replace "${OPENFOUNDRY_PM_CHECKOUT}/OpenFoundry.pm" /usr/local/lib/perl5/site_perl/5.8.8/
+replace "${OPENFOUNDRY_PM_CHECKOUT}/OpenFoundry.pm" "/usr/local/lib/perl5/site_perl/${PERL_VER}"
 
 # export conf to env
 envs=`perl -MOpenFoundry -e '%conf = %{OpenFoundry::loadConf()}; while (($k, $v) = each %conf) { print "$k=\"$v\"; export $k\n"}'`
@@ -85,10 +86,10 @@ ln -sf "${VCS_CHECKOUT}/cvs/CVSROOT/commitinfo" "$CVSROOT/CVSROOT/"
 ln -sf "${VCS_CHECKOUT}/etc/ssh/sshd_config" /etc/ssh/
 
 # svn
-mkdir $SVN_PARENT_PATH
-mkdir -p "$SVN_PARENT_PATH/.default/hooks"
-ln -sf "${VCS_CHECKOUT}/svn/hooks/pre-commit" "$SVN_PARENT_PATH/.default/hooks/"
-ln -sf "${VCS_CHECKOUT}/svn/hooks/pre-revprop-change" "$SVN_PARENT_PATH/.default/hooks/"
+#mkdir $SVN_PARENT_PATH
+#mkdir -p "$SVN_PARENT_PATH/.default/hooks"
+#ln -sf "${VCS_CHECKOUT}/svn/hooks/pre-commit" "$SVN_PARENT_PATH/.default/hooks/"
+#ln -sf "${VCS_CHECKOUT}/svn/hooks/pre-revprop-change" "$SVN_PARENT_PATH/.default/hooks/"
 
 ln -sf "${VCS_CHECKOUT}/usr/local/etc/apache22/httpd.conf" /usr/local/etc/apache22/
 replace "${VCS_CHECKOUT}/usr/local/etc/apache22/Includes/vcs.conf" /usr/local/etc/apache22/Includes/
