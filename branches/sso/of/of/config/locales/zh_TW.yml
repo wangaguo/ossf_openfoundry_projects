@@ -47,6 +47,8 @@ zh_TW:
   "breadcrumb|files": "files"
   "breadcrumb|report": "新增申請單"
   "breadcrumb|new_release": "新增發佈消息"
+  "breadcrumb|nsc" : "nsc"
+  "breadcrumb|nscreports" : "nscreports"
   "User|Login": "帳號名稱"
   "User|Email": "電子郵件"
   "User|Realname": "真實姓名"
