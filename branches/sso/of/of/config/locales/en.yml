@@ -46,6 +46,8 @@ en:
   "breadcrumb|openfoundry": "OpenFoundry"
   "breadcrumb|files": "Files"
   "breadcrumb|new_release": "New Release"
+  "breadcrumb|nscreports": "nscreports"
+  "breadcrumb|nsc" : "nsc"
   "User|Login": "Login"
   "User|Email": "Email Address"
   "User|Realname": "Realname"
