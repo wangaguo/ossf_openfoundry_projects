@@ -1,0 +1,11 @@
+<!--search hit-->
+<td>
+  <%= project_logo_link(record)%>
+</td>
+<td>
+  <a href="<%= project_url(:id => record.id) %>"><%= h record.name %></a>
+</td>
+<td>
+  <%= h record.summary %>
+</td>
+<!--search hit end-->

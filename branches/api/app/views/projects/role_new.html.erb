@@ -1,0 +1,10 @@
+  <% form_remote_tag :update => "roles_edit", :url => {:action => 'role_create', :id => @project} do  %>
+    <% for role in @roles %>
+    <%= link_to_remote( role.name, :update => "role_edit", :url => { :action => :role_edit, :id => @project.id, :role => role.id } ) %>
+    <% end %>
+    <br/>
+    <%= text_field_tag 'name', '' ,{:size => 20 } %> 
+    <%= submit_tag 'New' %>
+  <% end %>
+  <div id="role_edit">
+  </div>
