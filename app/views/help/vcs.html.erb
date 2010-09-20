@@ -1,0 +1,1235 @@
+<style>
+#BODY, P, DIV, H1, H2, H3, H4, H5, H6, ADDRESS, OL, UL, TITLE, TD, OPTION, SELECT {
+ font-family: Verdana;
+ 
+}
+
+#BODY, P, DIV, ADDRESS, OL, UL, LI, TITLE, TD, OPTION, SELECT {  
+  font-size: 10.0pt;
+  margin-top:0pt;  
+  margin-bottom:0pt;  
+} 
+
+#BODY, P {
+  margin-left:0pt; 
+  margin-right:0pt;
+}
+
+#BODY {
+  line-height: ;
+
+  margin: 6px;
+  padding: 0px;
+}
+
+h6 { font-size: 10pt }
+h5 { font-size: 11pt }
+h4 { font-size: 12pt }
+h3 { font-size: 13pt }
+h2 { font-size: 14pt }
+h1 { font-size: 16pt }
+
+blockquote {padding: 10px; border: 1px #DDDDDD dashed }
+
+a img {border: 0}
+
+a:link{ color:#666; text-decoration:none; }
+h1, h2, h3, h4, h5, h6 { color:#2867A5; }
+
+</style>
+
+
+
+
+<span revision="dcs6scgd_5zhst2b:968"/>
+
+<h1>
+  目錄
+</h1>
+<ol>
+  <li>
+    <a href=#%E5%89%8D%E8%A8%80 title=前言>前言</a>
+  </li>
+  <li>
+    <a href=#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%B5%B1%E6%83%B3%E8%A6%81%E8%A7%A3%E6%B1%BA%E7%9A%84%E5%95%8F%E9%A1%8C title=版本控制系統想要解決的問題>版本控制系統想要解決的問題</a>
+  </li>
+  <li>
+    <a href=#%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%B5%B1%E6%A6%82%E8%BF%B0_--_%E4%BB%A5_Subversion_%E7%82%BA%E4%BE%8B title="版本控制系統概述 -- 以 Subversion 為例">版本控制系統概述
+    -- 以 Subversion 為例</a>
+  </li>
+  <li>
+    <a href=#SVN_%E6%83%85%E5%A2%83%E5%B0%8E%E8%A6%BD title="SVN 情境導覽">SVN
+    情境導覽</a>
+  </li>
+  <li>
+    <a href=#%E9%91%84%E9%80%A0%E5%A0%B4%E6%8F%90%E4%BE%9B%E7%9A%84%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%9C%8D%E5%8B%99 title=鑄造場提供的版本控制服務>鑄造場提供的版本控制服務</a><br>
+    <ul>
+      <li>
+        &nbsp;<a href=#%E5%90%8D%E8%A9%9E%E7%B8%AE%E5%AF%AB title=名詞縮寫>名詞縮寫</a>
+      </li>
+      <li>
+        &nbsp;<a href=#%E9%81%B8%E6%93%87%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%B5%B1 title=選擇版本控制系統>選擇版本控制系統</a>
+      </li>
+      <li>
+        &nbsp;<a href=#%E9%80%8F%E9%81%8E%E5%91%BD%E4%BB%A4%E5%88%97%E5%AD%98%E5%8F%96SVN%E6%AA%94%E6%A1%88%E5%BA%AB title=透過命令列存取SVN檔案庫>透過命令列存取SVN檔案庫</a>
+      </li>
+      <li>
+        &nbsp;<a href=#%E7%B0%A1%E4%BB%8BSVN%E8%A6%96%E7%AA%97%E5%8C%96%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-_TortoiseSVN title="簡介SVN視窗化應用程式- TortoiseSVN">簡介SVN視窗化應用程式-
+        TortoiseSVN</a>
+      </li>
+      <li>
+        &nbsp;<a href=#%E9%80%8F%E9%81%8E%E5%91%BD%E4%BB%A4%E5%88%97%E5%AD%98%E5%8F%96CVS%E6%AA%94%E6%A1%88%E5%BA%AB id=nkp_ title=透過命令列存取CVS檔案庫>透過命令列存取CVS檔案庫</a>
+      </li>
+      <li>
+        &nbsp;<a href=#%E7%B0%A1%E4%BB%8BCVS%E8%A6%96%E7%AA%97%E5%8C%96%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-_WinCVS title="簡介CVS視窗化應用程式- WinCVS">簡介CVS視窗化應用程式-
+        WinCVS</a>
+      </li>
+      <li>
+        &nbsp;<a href=#%E4%BD%BF%E7%94%A8VIEWVC%E7%80%8F%E8%A6%BD%E9%91%84%E9%80%A0%E5%A0%B4%E6%AA%94%E6%A1%88%E5%BA%AB title=使用VIEWVC瀏覽鑄造場檔案庫>使用VIEWVC瀏覽鑄造場檔案庫</a>
+      </li>
+    </ul>
+    <div style=MARGIN-LEFT:40px>
+    </div>
+  </li>
+  <li>
+    <a href=#Subversion_book%E7%B8%BD%E8%A6%BD title="Subversion book總覽">Subversion
+    book總覽</a>
+  </li>
+  <li>
+    <a href=#SVN%E5%91%BD%E4%BB%A4%E4%B8%80%E8%A6%BD title=SVN命令一覽>SVN命令一覽</a>
+  </li>
+  <li>
+    <a href=#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99 title=參考資料>參考資料</a>
+  </li>
+  <li>
+    <a href=#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%BA%90 title=相關資源>相關資源</a>
+  </li>
+</ol>
+<br>
+<br>
+<h1>
+  <a name=前言></a> 前言
+</h1>
+<p>
+  這是一份版本控制系統的入門文件，適合完全沒有接觸過版本控制系統的讀者。
+</p>
+<p>
+  我們先描述處理檔案時可能遇到的問題，並在情境中以 Subversion
+  系統為範例，介紹版本控制系統如何解決這些問題，讀者可以在自由軟體鑄造場-專案開發平台(OpenFoundry) 所提供的環境中實際演練。我們也提供了
+  Subversion 的快速導覽與參考資料，作為讀者進階學習的起點。
+</p>
+<p>
+  <br>
+</p>
+<h1>
+  <a name=版本控制系統想要解決的問題></a> 版本控制系統想要解決的問題
+</h1>
+<p>
+  每個人的電腦裡，都有成千上萬個檔案。
+</p>
+<p>
+  不論是心得筆記，工作成果還是照片音樂，最常見的保存方式就是檔案。
+</p>
+<p>
+  在關機與開機之間想要保留先前的內容，第一個想到的也是存成檔案。
+</p>
+<p>
+  然而，"如何處理檔案" 這個問題常比我們直覺所想的複雜許多。
+</p>
+<p>
+  以下我們將從 "一個人/一台電腦/一個檔案" 開始逐步介紹到 "多個人/多台電腦/多台檔案"，
+</p>
+<p>
+  在這些情境下對檔案處理有哪些需求，傳統的方法在試圖滿足這些需求時又留下了哪些問題，
+</p>
+<p>
+  並在後面的章節中提出版本控制系統對這些需求與問題的解法。
+</p>
+<p>
+  <br>
+</p>
+<h2>
+  一個人 一台電腦 一個檔案
+</h2>
+<p>
+  <br>
+  當我們編輯檔案時，最常見的操作就是：
+</p>
+<p>
+  <br>
+  修改 -&gt; 存檔 -&gt; 修改 -&gt; 存檔 -&gt; 修改 ...。
+</p>
+<p>
+  <br>
+  每當我們存檔時，原始檔案的內容就被新的內容蓋過了。有時我們會遇到這樣的狀況："啊! 上週被刪掉那段的內容才是正確的! 要怎麼救回來?"
+  如果是幾小時內的修改，或許還有機會在編輯器關掉前用 "復原/Undo" 的方式找回來。對於更久之前的修改通常是無法這樣救回的。
+</p>
+<p>
+  <br>
+  為了避免將來無法找到現在的版本，最常見的解決方式就是：另存新檔。每當編輯告一個段落，覺得現在的內容值得保存，或者是要作不確定是否正確的修改時，便透過"另存新檔"的方式留下備份。
+</p>
+<p>
+  <br>
+  舉例來說，如果正在編輯的檔案是 "work.txt" 的話，我們可能會：
+</p>
+<p>
+  <br>
+  save work.txt to work_old.txt
+</p>
+<p>
+  save work.txt to work2.txt
+</p>
+<p>
+  save work.txt to work_02.txt
+</p>
+<p>
+  save work.txt to work_20070628.txt
+</p>
+<p>
+  save work.txt to work_20070628_04_44.txt
+</p>
+<p>
+  save work.txt to work_20070628_04_44_some_short_description.txt
+</p>
+<p>
+  <br>
+  這樣的作法相當自然。不過也有些問題：
+</p>
+<ul>
+  <li>
+    檔案多，可能為了備份一個檔案而生出數十個檔案
+  </li>
+  <li>
+    如果想要能夠照編輯的先後順序排列以便搜尋，可能的作法有
+  </li>
+  <ul>
+    <li>
+      依賴檔案的儲存時間。問題：時間資訊可能會在複製檔案時不小心遺失。
+    </li>
+    <li>
+      在檔名加上序號。問題：雖然保留了先後順序，但仍可能失去重要的時間資訊。
+    </li>
+    <li>
+      在檔名加上日期時間。問題：可以穩當的用檔名中的時間排序及幫助搜尋，但仍缺少為何修改為何存檔的資訊。
+    </li>
+    <li>
+      在檔名加上日期時間和描述。問題：檔名的空間不適合放太詳細的描述，時間久了對喚起記憶的幫助有限。
+    </li>
+  </ul>
+  <li>
+    如果想要從 work.txt 改名成 report.txt，得一次改數十個檔案
+  </li>
+  <li>
+    因為操作複雜，降低了常常另存新檔的意願，往往導致想要的版本沒被存到。
+  </li>
+</ul>
+<p>
+  <br>
+  以上是單一檔案的狀況，接著來看多檔案時的狀況。
+</p>
+<p>
+  <br>
+</p>
+<h2>
+  一個人 一台電腦 多個檔案
+</h2>
+<p>
+  <br>
+  當工作項目有相當的複雜度時，我們常需要多個檔案來儲存工作。這些檔案之間有時會彼此關連，舉例來說：
+</p>
+<p>
+  <br>
+</p>
+<ul>
+  <li>
+    文件的總目錄/索引/參考資料與各章節
+  </li>
+  <li>
+    網頁的 HTML 與其 CSS 樣式表
+  </li>
+  <li>
+    文件的文字描述與附圖的內容
+  </li>
+  <li>
+    程式中函數的呼叫者/被呼叫者，標頭檔/常數/設定檔與程式本文
+  </li>
+</ul>
+<p>
+  <br>
+  當檔案彼此間有關連時，我們需要拿出彼此匹配的版本以避免不一致的狀況發生。然而隨著時間過去，要從一堆檔案的一大串過往版本間找到彼此匹配的版本並不容易。面對這種需求，常見的方法就是：每當跨檔案的修改告一段落，便把整個目錄複製一份或存成壓縮檔。
+</p>
+<p>
+  <br>
+  這種方式也帶來了一些問題：
+</p>
+<ul>
+  <li>
+    常常連沒有改動的檔案也一併包進去了，浪費空間。
+  </li>
+  <li>
+    除非另外安裝工具，否則很難從兩份目錄樹中知道修改了哪些檔案的哪些地方。
+  </li>
+  <li>
+    前面單一檔案時會遇到的所有問題，這邊也都會遇到。
+  </li>
+</ul>
+<p>
+  <br>
+</p>
+<h2>
+  一個人 多台電腦 多個檔案<br>
+</h2>
+<p>
+  隨著電腦的普及化，一個人使用多台電腦的機會也越來越多。在學校與工作的地方有電腦，家裡也有電腦，隨身還帶著筆記型電腦。如果想在一台電腦上接續另外一台電腦上的工作，要如何取得最新的檔案呢？
+</p>
+<p>
+  <br>
+  可能的作法有：
+</p>
+<ul>
+  <li>
+    檔案只有唯一一份在其中一台機器上，其他台只是透過網路存取同一份檔案。這種作法的優點是在於只有一份檔案，所以每一台看到的都是最新的修改結果。但缺點是這台電腦必須一直在線上，而其他台電腦也要在有網路連線的地方才能存取資料，載入速度也受到網路的限制。
+  </li>
+  <li>
+    檔案在每一台都有一份，更新後將檔案複製到其他台電腦，或是下次到別台電腦時再去最後更新的電腦上將檔案複製過來。這種作法因為檔案在本地端有一份，載入儲存較快，也可以在離線時繼續更新本地的檔案，待上線時再互傳檔案。缺點是有時擁有最新更動的電腦離線而無法取得更動，或者是誤以為手上的舊版是新版而修改出重複或分岔的版本，甚至會發生不小心用舊版蓋掉新版的慘狀。
+  </li>
+  <li>
+    檔案只有唯一一份在隨身碟上。優點是內容一直保持最新，也不受網路的影響。缺點則是隨身碟往往空間有限，大容量的隨身碟則易損壞或較為昂貴。遺失的機會雖然不大，但是忘在家裡以致無法工作的情形也是偶爾會發生。
+  </li>
+</ul>
+<p>
+  &nbsp;
+</p>
+<p>
+  <br>
+</p>
+<h2>
+  多個人 多台電腦 多個檔案
+</h2>
+<p>
+  <br>
+  當一份工作需要多人完成時，常會編修同一組檔案。要如何讓每個人取得正確的版本？不止一個人同時修改同一個檔案時又要如何協調？
+</p>
+<p>
+  <br>
+  可能的作法有：
+</p>
+<ul>
+  <li>
+    每個人互相 copy / email
+    檔案。這種作法除了和前面所說的一樣不小心把舊版本的當成新的或新的當成舊的之外，還得時時彼此詢問是否有更動，或將更動傳給原本沒有必要知道的人，花去了許多額外的溝通成本。
+  </li>
+  <li>
+    放在一個共用的伺服器。這種作法得時時注意伺服器上的變更，並小心地從伺服器上複製檔案下來，以免蓋過了本地的更動。上傳時更要注意是否蓋過了別人的修改。
+  </li>
+</ul>
+<p>
+  <br>
+</p>
+<p>
+  <br>
+</p>
+<p>
+  由於在多人協同合作的情境下，會一再地面臨到上述的種種問題。因此，許多體會到這些問題的程式設計師便開發了程式來抒解這種困境，這些解決問題的程式，就是我們所要介紹的
+  "版本控制系統"。
+</p>
+<br>
+<h1>
+  <a name=版本控制系統概述_--_以_Subversion_為例></a> 版本控制系統概述 -- 以 Subversion 為例<br>
+</h1>
+<p>
+  在自由軟體社群所用的的開發工具中，有非常多種不同的版本控制系統。自由軟體鑄造場目前提供了其中兩套最被廣為應用的系統：Subversion 與
+  CVS。以下我們將以較新且功能較完整的 Subversion 為例，介紹版本控制系統的一些基本觀念，並探討這樣的系統如何幫助我們解決問題。<br>
+  <br>
+</p>
+<p>
+  Subversion 是一個自由/開放源碼的版本控制系統，管理著隨時間而改變的檔案。檔案放置在一個中央檔案庫 (repository)
+  中。這個檔案庫很像一個尋常的檔案伺服器，不過它會記住每一次檔案的變動。這樣你就可以把檔案回覆到舊的版本，或是瀏覽檔案的變動歷程。許多人會把版本控制系統想像成某種"時光機器"。每個使用者在自己的電腦擁有一或多份工作複本(working
+  copy)，在本地編輯檔案後，再透過用戶端程式(client)將檔案送回檔案庫，或要求用戶端程式從檔案庫取出其他人所寫入的資料。<br>
+</p>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:center">
+  <img src="OpenFoundry __images/dcs6scgd_7f66f8xfk.png">
+</div>
+<p>
+  &nbsp;
+</p>
+這樣做有什麼特別之處? 到目前為止，這些聽起來就像一個典型的檔案伺服器。事實上，檔案庫就是一種檔案伺服器，但是與你所見的不太相同。讓 Subversion
+檔案庫如此不同的原因，在於它會記住所有的更動：每個檔案的每一個更動，甚至是每一個目錄所作的更動，像是目錄與檔案的新增，刪除，以及重新編排。<br>
+<br>
+當一個用戶端自檔案庫讀取資料時，它通常只會看到最新版本的檔案樹。但是用戶端也可以看到早先的檔案。舉例來說，用戶端可以查詢過往的狀態，像是
+"上個星期三，這個目錄裡有什麼東西?"，或 "誰是最後一個更動這個檔案的人，而且作了哪些更動?"
+這就是任何版本控制系統的核心問題：記錄並追蹤隨著時間對資料所作的更動。<br>
+<br>
+<h1>
+  <a name=SVN_情境導覽></a> SVN 情境導覽
+</h1>
+市場上有一間名為歐奔的軟體公司，主要從事程式碼撰寫的工作，有一天，開始覺得團隊合作上有些問題，在版本控制上，容易做許多白工，因此專案經理史托<br>
+曼(小史)決定將現有的專案交由 SVN 版本控制來做，看了手冊後，將原本未在版本控制下的程式法，利用 svn import
+的方式匯入版本庫(repository)內。<br>
+svn import file:///tmp/repos/test team_project<br>
+<br>
+接下來將工作分配給予兩位工程師李納斯(小李)與畢斯迪(小畢)，兩位工程師分別先利用 svn checkout 下載程式碼後，開始進行小史交代的修改。<br>
+svn checkout file:///tmp/repos/test team_project<br>
+<br>
+小史交派小李的工作是撰寫一個math模組，於是小李新增一個了一個 math 目錄，放了 math.h 與 math.cpp，寫了交代的運算函式後，利用 svn
+add，將整個<br>
+math 目錄加入預計提交的清單中。<br>
+svn add math<br>
+<br>
+告一段落後，利用 svn commit 進行提交的動作。<br>
+svn commit<br>
+<br>
+同時間小畢在看完程式碼後，也要開始進行原專案 bug 修改工作，並將小李的 math 函式納入新版程式使用，於是利用 svn update
+先將最新的程式碼更新到<br>
+電腦中。<br>
+svn update file:///tmp/repos/test team_project<br>
+<br>
+程式碼修改告一段落後，也利用 svn commit 進行提交的動作。<br>
+svn commit<br>
+<br>
+好不容易，已完成進度的一半了，不過此時遇到了一些小麻煩，小李程式改一段落後，程式無法正常編譯了，但是上一版是可以的，因此小李利用 svn diff<br>
+終於找出程式錯誤的地方，原來是手滑多按了一個字母呀！改掉之後就回覆正常了。<br>
+svn diff<br>
+<br>
+經歷了長時間的修改，商品終於要完整開放出來了，於是利用 svn export，輸出一份不帶有版本控制相關檔案資訊的程式碼，進行釋出的動作。<br>
+svn export file:///tmp/repos/test release_project<br>
+<br>
+<h1 style=FONT-FAMILY:Arial>
+  <a name=鑄造場提供的版本控制服務></a>鑄造場提供的版本控制服務
+</h1>
+<h2>
+  <a name=名詞縮寫></a>名詞縮寫<br>
+</h2>
+<ul>
+  <li>
+    版本控制系統version control system以下稱"vcs"
+  </li>
+  <li>
+    <a href=http://subversion.tigris.org/ title=Subversion>Subversion</a>
+    ，一種opensource版本控制軟體，以下稱"svn"
+  </li>
+  <li>
+    <a href=http://www.nongnu.org/cvs/ title="Concurrent Versions System">Concurrent
+    Versions System</a> ，一種opensource版本控制軟體，以下稱"cvs"
+  </li>
+  <li>
+    <a href=http://rt.openfoundry.org/ title="OSSF OpenFoundry">OSSF
+    OpenFoundry</a> 鑄造場專案開發平台以下稱"鑄造場"
+  </li>
+  <li>
+    鑄造廠專案開發平台使用者以下稱"使用者"
+  </li>
+</ul>
+<br>
+<h3>
+  <a name=選擇版本控制系統></a>選擇版本控制系統
+</h3>
+鑄造場所提供的版本控制系統有Subversion 及 CVS，而在選擇版本控制時有以下五種選項：<br>
+<ol>
+  <li>
+    Subversion(讀寫)<br>
+    使用站內提供的svn(subversion)版本控制系統，專案則提供viewvc(專案的版本控制頁面)的web瀏覽。<br>
+  </li>
+  <li>
+    CVS(讀寫)<br>
+    使用站內提供的cvs(Concurrent Versions System)版本控制系統，專案則提供viewvc(專案的版本控制頁面)的web瀏覽。<br>
+  </li>
+  <li>
+    站外(讀寫) =&gt; Subversion(唯讀)<br>
+    使用站外版本庫，並複製到站內版本庫(唯讀)提供專案viewvc(專案的版本控制頁面)的web瀏覽，請輸入「站外版本庫」欄位的版本庫網址。<br>
+    ps.目前停止複製到站內，因此和使用「站外版本庫」選項是相同的。
+  </li>
+  <li>
+    站外版本庫<br>
+    使用站外版本庫，並請輸入「站外版本庫」欄位的版本庫網址。
+  </li>
+  <li>
+    （請選擇）<br>
+    不使用版本庫的意思
+  </li>
+</ol>
+<br>
+<br>
+<h3>
+  <a id=l5:a name=透過命令列存取SVN檔案庫></a>透過命令列存取SVN檔案庫
+</h3>
+<p style=FONT-FAMILY:Arial>
+  鑄造場所使用的svn版本為1.4，svn的安裝方式請參閱<a href=http://subversion.tigris.org/ title=svn官方網站>svn官方網站</a>。使用者有兩種方式連結svn檔案庫，一種為
+  http，此種方式可供讀取及寫入(read &amp; write)。 也可匿名讀取(anonymous read)，不需要帳號密碼，連結網址:
+  http://svn.openfoundry.org/[專案名稱]。
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+</p>
+<p style=FONT-FAMILY:Arial>
+  範例: 從鑄造場取出檔案至工作複本
+</p>
+<p style=FONT-FAMILY:Arial>
+  以下 [專案名稱]，'/home/checkout' 為範例文字，使用者可自行變更
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  我們可以透過 svn指令 checkout (簡寫: co ) 取出專案的工作複本
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令: svn co http://svn.openfoundry.org/[專案名稱] /home/checkout
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+</p>
+<p style=FONT-FAMILY:Arial>
+  範例: 檢視鑄造場svn檔案庫
+</p>
+<p style=FONT-FAMILY:Arial>
+  以下 [專案名稱]，[路徑] 為範例文字，使用者可自行變更
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  透過svn指令 list ( 簡寫: ls ) 檢視鑄造場svn檔案庫[路徑]下的內容。
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令: svn list http://svn.openfoundry.org/[專案名稱]/[路徑]
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  另一種為https，此種方式讀取寫入皆可(read &amp; write)，連結網址:
+  https://svn.openfoundry.org/[專案名稱]。
+</p>
+<p style=FONT-FAMILY:Arial>
+  注意：寫入檔案庫需要輸入帳號密碼，此組帳號密碼與鑄造場相同。變更密碼需稍待5分鍾後才會生效。<br>
+  注意：在此建議使用者以https的方式存取svn檔案庫，https是經過加密的連線，安全性較http高。原來使用http的工作複本也可以使用relocate指令重新指定檔案庫位址到https上，詳見FAQ。
+</p>
+<p style=FONT-FAMILY:Arial>
+  注意：在此之前請先匯入<a href=http://www.openfoundry.org/IIS.crt title=中研院資訊所的憑證>中研院資訊所的憑證</a>，以免出現警示訊息。<br>
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+</p>
+<p style=FONT-FAMILY:Arial>
+  範例: 提交工作複本到鑄造場svn檔案庫裡
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  提交svn工作複本不需要給額外的連結網址，svn會自動使用取出的時候的連結。
+</p>
+<p style=FONT-FAMILY:Arial>
+  我們可以透過 svn指令 commit (簡寫: ci ) 把工作複本的更動寫進鑄造場svn檔案庫
+</p>
+<p style=FONT-FAMILY:Arial>
+  以下 '/home/checkout'為範例文字，使用者可自行變更
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  加上 --username [帳號] 指定帳號，--password [密碼] 指定密碼
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令：svn ci /home/checkout
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  範例: 傳送未納入版本控制的專案到鑄造場svn
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  透過svn指令 import 檢視鑄造場svn儲存槽
+</p>
+<p style=FONT-FAMILY:Arial>
+  以下 [專案名稱]，[路徑]，'/home/myprog' 為範例文字，使用者可自行變更
+</p>
+<p style=FONT-FAMILY:Arial>
+  加上 --username [帳號] 指定帳號，--password [密碼] 指定密碼
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令：svn import /home/myprog https://svn.openfoundry.org/[專案名稱]/[路徑]
+</p>
+<h2>
+  <a name=簡介SVN視窗化應用程式-_TortoiseSVN></a>簡介SVN視窗化應用程式- TortoiseSVN
+</h2>
+<p>
+  安裝TortoiseSVN詳細步驟請參閱<a href=http://tortoisesvn.tigris.org/ title=官方網站>官方網站</a>。
+</p>
+範例:取出工作複本<br>
+操作01:在空白目錄下叫出右鍵選單，選"SVN Checkout..."<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_17g54k2sf3.png"><br>
+  操作02:在"URL of
+  respository"欄打上連結路徑"https://svn.openfoundry.org/testproject04"，其中testproject04為範例專案。<br>
+</div>
+<img src="OpenFoundry __images/dc8hxcrm_18rcrtrtg3.png"><br>
+操作03:完成，看的到取出的版本號。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_19g4j3g3ds.png">
+</div>
+範例:新增檔案至工作複本<br>
+操作01:在欲加入版本控制的檔案上叫出右鍵選單，選取"TortoiseSVN"-&gt;"Add"。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_20hd33djg8.png">
+</div>
+操作02:勾選要加入的檔案或目錄後，按下"OK"。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_22d6vnj4ch.png">
+</div>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+    操作03:完成，顯示加入了哪些檔案。<br>
+    <img src="OpenFoundry __images/dc8hxcrm_23cs6fkfgz.png">
+  </div>
+</div>
+<br>
+範例:把對工作複本所作的變更寫回檔案庫<br>
+操作01:在工作複本的目錄中叫出右鍵選單，選"SVN Commit..."。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_24f9swmmhk.png">
+</div>
+操作02:輸入版本更動的明細(可留白)，按下"OK"。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_25ggw39xdv.png">
+</div>
+操作03:因為是寫入，需要填入帳號密碼。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_26hgzd5vcx.png">
+</div>
+操作04:完成，顯示改了哪些檔案及目前的版本號。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_27f8vkdqdz.png">
+</div>
+<p>
+  &nbsp;
+</p>
+<p style=FONT-FAMILY:Arial>
+</p>
+<h3>
+  <a name=使用鑄造場的CVS檔案庫></a><a id=l7td name=透過命令列存取CVS檔案庫></a>透過命令列存取CVS檔案庫
+</h3>
+<p style=FONT-FAMILY:Arial>
+  使用者連結cvs僅提供ssh連線方式，此種方式讀取寫入皆可(read and write)，也可匿名讀取(anonymous
+  read)，鑄造場cvs檔案庫的匿名帳號: "cvs"。
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  基本指令: cvs -d :ext:[帳號]@cvs.openfoundry.org:/cvs [cvs指令]
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  範例: 從鑄造場取出檔案至工作複本
+</p>
+<p style=FONT-FAMILY:Arial>
+  以下 [專案名稱]，'/home/checkout' 為範例文字，使用者可自行變更
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  我們可以透過cvs指令 checkout (簡寫: co，get ) 取出專案的工作複本
+</p>
+<p style=FONT-FAMILY:Arial>
+  注意: 帳號"cvs"為匿名帳號。
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令: cvs -d :ext:cvs@cvs.openfoundry.org:/cvs co [專案名稱]
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  範例: 檢視鑄造場cvs檔案庫
+</p>
+<p style=FONT-FAMILY:Arial>
+  以下 [專案名稱]，[路徑] 為範例文字，使用者可自行變更
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  透過cvs指令 list ( 簡寫: ls ) 檢視鑄造場cvs檔案庫 (僅支援相容 CVSNT 指令的版本)
+</p>
+<p style=FONT-FAMILY:Arial>
+  注意: 帳號"cvs"為匿名帳號。
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令: cvs -d :ext:cvs@cvs.openfoundry.org:/cvs ls [專案名稱]/[路徑]<br>
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br style=FONT-WEIGHT:bold>
+  範例: 提交工作複本到鑄造場cvs檔案庫裡
+</p>
+<p style=FONT-FAMILY:Arial>
+  提交cvs工作複本不需要給額外的連結網址，cvs會自動使用取出的時候的連結。
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  我們可以透過 cvs指令 commit (簡寫: ci ) 把工作複本的更動寫進鑄造場cvs檔案庫
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令: cvs ci /home/checkout
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  範例: 傳送未納入版本控制的專案到鑄造場
+</p>
+<p style=FONT-FAMILY:Arial>
+  &nbsp;
+</p>
+<p style=FONT-FAMILY:Arial>
+  透過cvs指令 import 檢視鑄造場svn檔案庫
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  指令:&nbsp; cvs -d :ext:[帳號]@cvs.openfoundry.org:/cvs import [專案名稱]/[路徑]
+</p>
+<h2>
+  <a name=簡介CVS視窗化應用程式-_WinCVS></a>簡介CVS視窗化應用程式- WinCVS
+</h2>
+安裝WinCVS的詳細步驟請參閱<a href=http://www.wincvs.org/ title=官方網站>官方網站</a> 。<br>
+<br>
+範例:取出工作複本<br>
+操作01:選取選單"Remote"-&gt;"Checkout module..."。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_28d9md8qmc.png"><br>
+  操作02:在"Module name(s) and path on the
+  server"欄填入專案名稱，在此為測試專案testcvs，接著勾選"CVSROOT"，填入":extssh:kaworu@cvs.openfoundry.org:/cvs"，請"kaworu"將換成您的帳號名稱。<br>
+</div>
+<img src="OpenFoundry __images/dc8hxcrm_29gtm35hcx.png"><br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  操作03:輸入密碼。<br>
+  <img src="OpenFoundry __images/dc8hxcrm_30np2mvxj5.png">
+</div>
+操作04:完成，取出工作複本。<br>
+<img src="OpenFoundry __images/dc8hxcrm_317jdhtjgz.png"><br>
+<br>
+範例:新增檔案至工作複本<br>
+操作01:先左鍵選擇欲加入的檔案，接著按下工具列按鈕上的"Add selected"。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_32crnz5chp.png">
+</div>
+操作02:輸入密碼。<br>
+<img src="OpenFoundry __images/dc8hxcrm_33ff7txndw.png"><br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  操作03:新增完成，顯示檔案版本號０。<br>
+  <img src="OpenFoundry __images/dc8hxcrm_34hjg5xrdq.png">
+</div>
+<br>
+範例:把對工作複本所作的變更寫回檔案庫<br>
+操作01:左鍵選取欲寫入的檔案，按下工具列的按鈕"Commit selected"。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_35c2bcnxhp.png">
+</div>
+操作02:輸入版本變更的明細(可以空白)，按下"確定"。<br>
+<img src="OpenFoundry __images/dc8hxcrm_36c7kpx248.png"><br>
+操作03:輸入密碼。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_37d5nqhwt7.png">
+</div>
+操作04:成功，顯示版本號1.1。<br>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_38gnbbmn2n.png">
+</div>
+<p style=FONT-FAMILY:Arial>
+</p>
+<h3>
+  <a name=使用VIEWVC瀏覽鑄造場檔案庫></a>使用VIEWVC瀏覽鑄造場檔案庫
+</h3>
+<p style=FONT-FAMILY:Arial>
+  使用者欲使用viewvc瀏覽各個版本，可透過網址 http://viewvc.<%=SSO_HOST%>/viewvc
+</p>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  範例: 瀏覽svn檔案庫
+</p>
+<p style=FONT-FAMILY:Arial>
+  操作:使用瀏覽器開啟網址"http://viewvc.<%=SSO_HOST%>/viewvc"，接著在"Repository"中選擇欲瀏覽的專案。
+</p>
+<p style=FONT-FAMILY:Arial>
+</p>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_14g6hgnjd3.png">
+</div>
+<p style=FONT-FAMILY:Arial>
+  操作: 在"Sticky Revision"可輸入版本號。
+</p>
+<p style=FONT-FAMILY:Arial>
+</p>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_15g6xxwjds.png">
+</div>
+<p style=FONT-FAMILY:Arial>
+  範例: 瀏覽cvs檔案庫
+</p>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  操作:使用瀏覽器開啟網址"http://viewvc.of.oopenfoundry.org/viewvc"，並在"Repository"欄選"cvs"，再選擇欲瀏覽的專案。<br>
+  <img src="OpenFoundry __images/dc8hxcrm_12d5cn8n7s.png">
+</div>
+<p style=FONT-FAMILY:Arial>
+  可在"Sticky Tag"中選擇版本號。
+</p>
+<div style="PADDING:1em 0pt; TEXT-ALIGN:left">
+  <img src="OpenFoundry __images/dc8hxcrm_13d93v2hdf.png">
+</div>
+<p style=FONT-FAMILY:Arial>
+</p>
+<p style=FONT-FAMILY:Arial>
+</p>
+<h2>
+  FAQ
+</h2>
+<p style=FONT-FAMILY:Arial>
+  Q1:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  我使用的是svn檔案庫，我原本專案是從http://...的連結抓出來，如果我想改用https://...的連結比較安全，我該怎麼操作呢?
+</div>
+<p style=FONT-FAMILY:Arial>
+  A1:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  假設你想將連結從http://svn.openfoundry.org/alert，搬到https://svn.openfoudnry.org/alert，那麼請在你的工作複本的目錄底下打:
+  svn switch --relocate FROM TO
+  。其中的FROM即是http://svn.openfoundry.org/alert，TO即是https://svn.openfoudnry.org/alert.
+  你可以試著打svn info可以看到工作複本的路徑已經變更。 更詳細的說明請參考指令svn help switch。
+</div>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  Q2:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  我已經在鑄造場網頁上更改了密碼，為什麼在登入svn/cvs檔案庫時卻還是使用舊密碼呢?
+</div>
+<p style=FONT-FAMILY:Arial>
+  A2:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  在鑄造場網頁上更改密碼之後，請稍等5分鍾，待資料庫更新完畢，即可使用新密碼。
+</div>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  Q3:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  我想將鑄造場上的檔案庫搬到其他地方，或是從其他地方搬版本資料到鑄造場，我該怎麼做呢?
+</div>
+<p style=FONT-FAMILY:Arial>
+  A3:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  如果你是想要匯入或是匯出尚未納入版本資訊的檔案的話，請參閱Q4。
+  如果你是想要將檔案連同版本資訊一併搬動的話，建議的做法是將檔案庫轉存成文字檔，再將此文字檔存回其他檔案庫即可。
+  真的有需要的話，請<a href=mailto:contact@openfoundry.org title=聯絡鑄造場的維護人員>聯絡鑄造場的維護人員</a>，我們會為您操作。
+</div>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  Q4:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  我原本有在自己的電腦裡寫程式，想要試試鑄造場提供的檔案庫，我該怎麼將程式放入檔案庫裡?
+</div>
+<p style=FONT-FAMILY:Arial>
+  A4:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  以svn 為例，假設你的程式放在/myprog/裡面，尚未納入版本控制，想要將目錄下所有檔案都放入檔案庫，指令: svn import /myprog
+  https://svn.openfoundry.org/[專案名稱]，但是要記住，還要從檔案庫裡再取出一份有版本資訊的工作複本，你對工作複本所做
+  的變更才會有紀錄留下。<br>
+  而cvs為例，指令為: cvs -d :ext:[帳號]@cvs.openfoundry.org:/cvs import /myprog/&nbsp;<br>
+</div>
+<p style=FONT-FAMILY:Arial>
+  <br>
+  Q5:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  請問鑄造場有上的資料有備份嗎?
+</div>
+<p style=FONT-FAMILY:Arial>
+  A5:<br>
+</p>
+<div style=MARGIN-LEFT:40px>
+  有的，鑄造場系統的維護時間是UTC+8時區的3:00~4:00am，會備份當天的資料差異，那段時間之內的鑄造場系統操作會稍微慢一點。
+</div>
+<h1>
+  <a name=Subversion_book總覽></a> Subversion book總覽
+</h1>
+<p>
+  前面的教學主要講的內容在於Subversion Book前三章的內容，為了將來深入運用時能夠有些想法，在這裡說明第三章以後的基本概念！
+</p>
+<p>
+  而詳細的內容應閱讀Subversion book文件，如下:
+</p>
+<p>
+  Subversion book各語言列表 http://svnbook.red-bean.com/nightly/
+</p>
+<p>
+  Subversion book繁體中文版 http://svn.stu.edu.tw/svnbook/
+</p>
+<p>
+  依Browser的語言自動選擇對應語言的文件 http://svnbook.red-bean.com/
+</p>
+<p>
+  <br>
+  以下開始簡短補充尚未說明的部份！
+</p>
+<br>
+<h2>
+  分支與合併
+</h2>
+<p>
+  分支, 標記, 以及合併, 幾乎都是所有版本控制系統的共通概念. 如果你對這些概念不瞭解, 我們在這一章提供了一個不錯的介紹. 如果你熟悉這些概念的話,
+  那麼我們希望你能對 Subversion 如何實作這些概念的作法感到有興趣.
+</p>
+<p>
+  分支是版本控制的基本部份. 如果你要讓 Subversion 來管理你的資料, 那麼你一定會依賴這個功能. 本章假設你已經瞭解 Subversion
+  的基本概念.
+  (<a href=http://svn.stu.edu.tw/svnbook/book.html#svn-ch-2 title="Chapter 2. 基本概念">Chapter&nbsp;2,
+  基本概念</a>).
+</p>
+<br>
+<ul>
+  <li>
+    <p>
+      何謂分支?
+    </p>
+  </li>
+</ul>
+<blockquote>
+  <p>
+    假設你的工作是負責管理公司部門的文件, 某種使用手冊什麼的. 有一天, 另一個部門跟你要同一份使用手冊, 不過他們行事不同, 要的內容也有 '些微'
+    的不一樣.
+  </p>
+  <p>
+    在這種情況下, 你該怎麼辦? 你會使用直接了當的方法, 直接產生文件的第二份複本, 然後開始分別維護這兩份文件. 隨著各個部份要求你作些小修改,
+    你會將這些修改整入某一份, 或是另一份文件.
+  </p>
+  <p>
+    對這兩份文件, 你常會想要作同樣的修改. 舉個例子, 如果你在第一份複本裡看到一個錯字, 很有可能第二份複本裡也會有. 畢竟這兩份文件幾乎都一樣;
+    它們只有在特定的一小部份不一樣而已.
+  </p>
+  <p>
+    這就是 分支 的基本概念 — 換句話說, 有一條發展途徑與另一條是獨立的, 但是如果回溯的時間夠久, 你會發現它們都有共同的歷史紀錄.
+    一個分支都是以某樣東西的複本開始其生命週期, 然後就自行發展下去, 有著自己的歷史紀錄發生.<br>
+  </p>
+</blockquote>
+<ul>
+  <li>
+    在分支之間複製更動
+  </li>
+</ul>
+<blockquote>
+  <p>
+    現在你與 Sally 在同一專案的不同平行分支上工作: 你的是私有分支, 而 Sally 則是 主幹 (trunk), 也就是主要的發展線.
+  </p>
+  <p>
+    對於有眾多貢獻人員的專案來說, 大多數的人都有主幹的工作複本是很常見的. 要是有哪個人需要進行可能會妨礙到主幹的長期變動,
+    標準的作法是建立一個私有的分支, 然後將更動都送交至該分支, 直到工作結束為止.
+  </p>
+  <p>
+    所以, 好消息就是你和 Sally 兩個不會互相影響, 壞消息是這兩個很容易就跑得 太 遠了. 請記得 "與世隔絕" 策略的一個問題,
+    就是在你結束分支的工作之後, 幾乎不可能將你所作的更動, 在不產生大量衝突的情況下, 把它合併回主分支去.
+  </p>
+  <p>
+    相反地, 你和 Sally 應該在你工作時, 也一直分享彼此的更動. 哪些更動應該被分享, 完全由你來決定; Subversion 提供你在各個分支之間
+    "複製" 選擇性更動的能力. 而當你已經處理完你的分支時, 整個分支的所有更動就可以複製回主幹去.<br>
+  </p>
+</blockquote>
+<ul>
+  <li>
+    標記
+  </li>
+</ul>
+<blockquote>
+  <p>
+    另一個常見的版本控制概念, 就是 標記. 標記只是一個計劃在時間軸上的 "快照". 在 Subversion 中, 這個概念已經隨處都是了.
+    每一個檔案庫的修訂版, 就是檔案系統在每一次送交之後的快照.
+  </p>
+  <p>
+    但是呢, 人們通常會想要標記一個便於記憶的名稱, 像是 "release-1.0". 而且他們只想要的, 只是一部份檔案系統子目錄的快照而已.
+    要記住某一個軟體的 release-1.0 版, 對應的是修訂版 4822 裡的某個特定子目錄, 畢竟是不太容易的.
+  </p>
+</blockquote>
+<p>
+  &nbsp;
+</p>
+<p>
+  &nbsp;
+</p>
+<h2>
+  檔案庫管理
+</h2>
+<p>
+  Subversion 的檔案庫是個中央倉儲, 用來存放任意數量專案的受版本控管資料. 因為如此, 它成為管理員集中注意的焦點.
+  檔案庫一般並不需要太多的照顧, 但是瞭解如何適當地設定它, 照顧它是很重要的, 如此才能避免一些潛在性的問題, 而實際的問題得以安全地解決.
+</p>
+<p>
+  在本章中, 我們會討論如何建立與設定 Subversion 的檔案庫, 以及如何開放檔案庫的網路存取. 我們也會提到檔案庫的維護, 包括 svnlook 與
+  svnadmin 工具的使用方法 (它們都包含 Subversion 中). 我們也會說明常見的問題與錯誤, 並提供幾個如何安排檔案庫資料的建議.
+</p>
+<p>
+  如果你存取 Subversion 的檔案庫的目的, 只是打算成為一個單純將資料納入版本控管的使用者的話 (也就是透過 Subversion 用戶端),
+  那你可以完全跳過本章. 但是如果你是, 或想要成為 Subversion 的檔案庫管理員, 本章絕對是你要投注注意力的地方.
+</p>
+<p>
+  當然了, 一個人無法成為檔案庫的管理員, 除非他有檔案庫可管理.
+</p>
+<p>
+  <br>
+</p>
+<h2>
+  伺服器組態
+</h2>
+<p>
+  一個Subversion的版本庫可以和客戶端同時運行在同一個機器上，使用file:///訪問，但是一個典型的Subversion設置應該包括一個單獨的服務器，可以被辦公室的所有客戶端訪問—或者有可能是整個世界。
+</p>
+<p>
+  本小節描述了怎樣將一個Subversion的版本庫暴露給遠程客戶端，我們會覆蓋Subversion已存在的服務器機制，討論各種方式的配置和使用。經過閱讀本小節，你可以決定你需要哪種網絡設置，並且明白怎樣在你的主機上進行配置。
+</p>
+<p>
+  &nbsp;
+</p>
+<br>
+<h2>
+  進階主題
+</h2>
+<p>
+  如果你是從頭開始逐章閱讀本書的, 你應該已經知道如何使用 Subversion 用戶端, 進行大多數常見的版本控制作業. 你知道如何從 Subversion
+  檔案庫取出一份工作複本. 你已經習慣利用 svn commit 與 svn update 功能來送交與取得更動. 你甚至可能已經會反射性地使用 svn
+  status 命令而不自覺. 不管從哪個角度看, 你已經相當習慣使用 Subversion 了.
+</p>
+<p>
+  但是 Subversion 的功能不僅止於 "常見的版本控制作業".
+</p>
+<p>
+  本章著重於 Subversion 並不常用的功能. 在本章中, 我們會討論 Subversion 的性質 (或 「描述資料」) 支援, 如何透過修改
+  Subversion 的執行時期設定檔, 來改變它的預設行為. 我們會描述你要怎麼利用外部定義, 讓 Subversion 從多個檔案庫取得資料. 對於
+  Subversion 發行檔中的額外用戶端與伺服器端的工具, 我們也會有詳盡的解說.
+</p>
+<p>
+  在閱讀本章之前, 你應該已經熟悉 Subversion 的基本目錄與檔案能力. 如果你還沒看過這部份, 或是需要再重新熟悉一下, 我們建議你看看
+  <a href=http://svn.stu.edu.tw/svnbook/book.html#svn-ch-2 title="Chapter 2. 基本概念">Chapter&nbsp;2,
+  基本概念</a> 與
+  <a href=http://svn.stu.edu.tw/svnbook/book.html#svn-ch-3 title="Chapter 3. 導覽">Chapter&nbsp;3,
+  導覽</a>. 當你能夠駕馭基本的功能, 也瞭解本章的內容, 你就是 Subversion 的強力使用者了 — 無效退費!&nbsp;
+</p>
+<h2>
+  開發者資訊
+</h2>
+<p>
+  Subversion是一個開源的軟件項目，使用Apache樣式的軟件許可證。這個項目由位於加利福尼亞的CollabNet,
+  Inc.軟件開發公司資助。這個關於Subversion開發的社區一直歡迎新成員貢獻自己的時間和注意力。鼓勵志願者做他們能做的任何幫助，不管是發現
+  和診斷bug，精煉已存的代碼還是補充新的特性。
+</p>
+<p>
+  本章是為那些希望實際參與源代碼編寫來幫助Subversion不斷進步的人們準備的。我們要知道，在這裡我們會涉及到許多軟件
+  內在的細節，在開發Subversion本身—或利用Subversion庫開發全新工具時—所用到的許多核心技術。如果你無法預測你是否會以這種層級參
+  與到這個軟件中來，那麼也可以隨意跳過這一章，而你作為一個Subversion用戶的體驗不會受到任何影響。
+</p>
+<h2>
+  Subversion完整參考
+</h2>
+<p>
+  本章是用來作為 Subversion 的完整參考手冊，裡面包含了命令列用戶端 (svn) 與其所有的子命令，以及檔案庫管理程式 (svnadmin 與
+  svnlook) 與其子命令。
+</p>
+<br>
+<br>
+<h2>
+  <a name=SVN命令一覽></a> SVN命令一覽
+</h2>
+藉由先瀏覽過一次SVN命令的功能，以便在需要時能夠回想，再回頭翻閱書籍。<br>
+以下就開始介紹：<br>
+<br>
+使用命令列的svn --help指令，便會列出所有的svn子命令。<br>
+&gt; svn --help<br>
+Available subcommands:<br>
+&nbsp;&nbsp; add<br>
+&nbsp;&nbsp; blame (praise, annotate, ann)<br>
+&nbsp;&nbsp; cat<br>
+&nbsp;&nbsp; checkout (co)<br>
+&nbsp;&nbsp; cleanup<br>
+&nbsp;&nbsp; commit (ci)<br>
+&nbsp;&nbsp; copy (cp)<br>
+&nbsp;&nbsp; delete (del, remove, rm)<br>
+&nbsp;&nbsp; diff (di)<br>
+&nbsp;&nbsp; export<br>
+&nbsp;&nbsp; help (?, h)<br>
+&nbsp;&nbsp; import<br>
+&nbsp;&nbsp; info<br>
+&nbsp;&nbsp; list (ls)<br>
+&nbsp;&nbsp; lock<br>
+&nbsp;&nbsp; log<br>
+&nbsp;&nbsp; merge<br>
+&nbsp;&nbsp; mkdir<br>
+&nbsp;&nbsp; move (mv, rename, ren)<br>
+&nbsp;&nbsp; propdel (pdel, pd)<br>
+&nbsp;&nbsp; propedit (pedit, pe)<br>
+&nbsp;&nbsp; propget (pget, pg)<br>
+&nbsp;&nbsp; proplist (plist, pl)<br>
+&nbsp;&nbsp; propset (pset, ps)<br>
+&nbsp;&nbsp; resolved<br>
+&nbsp;&nbsp; revert<br>
+&nbsp;&nbsp; status (stat, st)<br>
+&nbsp;&nbsp; switch (sw)<br>
+&nbsp;&nbsp; unlock<br>
+&nbsp;&nbsp; update (up)<br>
+<br>
+大部份的子命令都還有其縮寫！<br>
+如：commit是ci<br>
+可再使用 svn [子命令] --help 以查看子命令的說明！<br>
+例如：<br>
+<div style=MARGIN-LEFT:40px>
+  svn add --help<br>
+  svn commit --help<br>
+</div>
+<br>
+再來開始敍述各個命令：<br>
+<ul>
+  <li>
+    svn add — 增加檔案、目錄或符號鏈結(symbolic link)。
+  </li>
+  <li>
+    svn blame — 顯示指定檔案或URL的作者和修訂版本資訊。
+  </li>
+  <li>
+    svn cat — 輸出指定檔案或 URL 的內容。<br>
+  </li>
+  <li>
+    svn checkout — 從檔案庫(Repository)取出一個工作複本(working copy)。
+  </li>
+  <li>
+    svn cleanup — 遞迴式地清理工作複本。<br>
+    <blockquote>
+      遞迴式地清理工作複本，移除未完成動作的鎖定，並恢復未完成的操作。如果你遇到了 「working copy locked」 (工作複本已鎖定)
+      的錯誤，執行這個命令以移除遺留下來的鎖定，讓工作複本再回覆到可用的狀態。
+    </blockquote>
+  </li>
+  <li>
+    svn commit — 從工作複本傳送更動至檔案庫。<br>
+  </li>
+  <li>
+    svn copy — 在工作複本或檔案庫中複製檔案或目錄。<br>
+    URL -&gt; URL&nbsp;&nbsp;&nbsp;&nbsp; 完成伺服器端的複製. 這通常是用來進行分支與標記.<br>
+  </li>
+  <li>
+    svn delete — 從工作複本或檔案庫刪除一個項目(刪除檔案或目錄)。
+  </li>
+  <li>
+    svn diff — 比較兩個路徑之間的差異(可以是比較兩個檔案或是兩個目錄)。
+  </li>
+  <li>
+    svn export — 匯出一個乾淨的目錄樹(指不包涵版本控制的系統檔案)。
+  </li>
+  <li>
+    svn help — 幫助！
+  </li>
+  <li>
+    svn import — 提交還沒有版本的檔案或目錄樹到檔案庫。
+  </li>
+</ul>
+<ul>
+  <li>
+    svn info — 顯示關於本地或遠端項目的資訊(指定的工作複本或URL的資訊)
+  </li>
+  <li>
+    svn list — 列出檔案庫中的目錄項目。<br>
+    <blockquote>
+      列出每個 TARGET 檔案與每個檔案庫裡的 TARGET 目錄. 如果 TARGET 是工作複本的路徑, 那麼相對應的檔案庫 URL
+      就會被拿來使用.<br>
+    </blockquote>
+  </li>
+  <li>
+    svn lock — 鎖定檔案庫的工作複本路徑或URL，所以沒有其他用戶可以提交這些檔案的修改。<br>
+  </li>
+  <li>
+    svn log — 顯示送交(commit)紀錄訊息(log)。<br>
+  </li>
+  <li>
+    svn merge — 將兩個來源之間的差異套用到工作複本路徑。
+  </li>
+</ul>
+<ul>
+  <li>
+    svn mkdir — 建立受版本控制的目錄。
+  </li>
+  <li>
+    svn move — 移動檔案或目錄。
+  </li>
+  <li>
+    svn propdel — 刪除項目中的屬性。
+  </li>
+  <li>
+    svn propedit — 修改一個或多個版本控制之下檔案的屬性。
+  </li>
+  <li>
+    svn propget — 印出某個屬性的值。
+  </li>
+  <li>
+    svn proplist — 列出所有的屬性。
+  </li>
+  <li>
+    svn propset — 設置文件、目錄或者修訂版本的屬性(PROPNAME)為屬性值(PROPVAL)。<br>
+    <blockquote>
+      <div>
+        $ svn propset owner sally foo.c<br>
+        property 'owner' set on 'foo.c'
+      </div>
+    </blockquote>
+  </li>
+  <li>
+    svn resolved — 移除工作複本檔案或目錄的「衝突」狀態。
+  </li>
+  <li>
+    svn revert — 復原本地編輯(如檔案修改錯誤時可以復原)。
+  </li>
+  <li>
+    svn status — 列出工作複本中檔案和目錄的狀態(如被修改過(M)、未加入檔案庫()、新增但尚未提交(A)。
+  </li>
+  <li>
+    svn switch — 把工作複本更新到別的URL。
+  </li>
+  <li>
+    svn unlock — 解鎖工作複本路徑或URL的鎖定。
+  </li>
+  <li>
+    svn update — 更新你的工作複本(當檔案庫有更動時)。<br>
+    <br>
+  </li>
+</ul>
+<h1>
+  <a name=參考資料></a> 參考資料
+</h1>
+<ul>
+  <li>
+    Version Control with Subversion, 一般被稱為"Subversion book"
+    (http://svnbook.red-bean.com/)
+  </li>
+  <li>
+    部分文字引用自 Plasmaball 所翻譯的 Subversion Book, Traditional Chinese Edition
+    (http://svn.stu.edu.tw/svnbook/)
+  </li>
+</ul>
+<h1>
+  <a name=相關資源></a> 相關資源
+</h1>
+<ul>
+  <li>
+    Subversion (http://subversion.tigris.org/)
+  </li>
+  <li>
+    Ximbiot - CVS Wiki (http://ximbiot.com/cvs/wiki/)<br>
+  </li>
+  <li>
+    Open Source Development with CVS, 3rd Edition (http://cvsbook.red-bean.com/)
+  </li>
+  <li>
+    Wikipedia: Subversion
+    (http://en.wikipedia.org/wiki/Subversion_%28software%29)
+  </li>
+  <li>
+    Wikipedia: Concurrent Versions System
+    (http://en.wikipedia.org/wiki/Concurrent_Versions_System)
+  </li>
+  <li>
+    Wikipedia: Version control system
+    (http://en.wikipedia.org/wiki/Version_control_system)
+  </li>
+</ul>
+<br>
+<br>
+<br>

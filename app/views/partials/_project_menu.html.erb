@@ -1,0 +1,122 @@
+
+<script>
+  document.observe("dom:loaded", project_leftmenu_init);
+</script>
+<%
+  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+  is_nsc_project = @project.is_nsc_project
+%>
+
+<% module_content = capture do -%>
+<div style="clear:both;">
+<% if functions.length == 0 -%>
+  <ul id="project_menu" class="menu">
+      <li class="parent"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('project_Info') %></a>
+        <div id="bsc_menu0" style="display:none">
+        <ul>
+          <li><%= link_to _('project_Basic_Information'), project_path(:id => project.id) %></li>
+          <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+          <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
+          <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+        </ul>
+        </div>
+      </li>
+
+      <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
+      <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+      <li class="parent"><a href='#' onclick="Effect.toggle('vcs_menu0','blind', {duration: 0.3}); return false"><%= _('Version Control') %></a>
+          <div id="vcs_menu0" style="display:none">
+          <ul>
+              <% if project.vcs == Project::VCS[:CVS] or project.vcs == Project::VCS[:SUBVERSION] %>
+              <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
+              <% end %>
+              <% if project.vcs == Project::VCS[:SUBVERSION] %>
+              <li><%= link_to _("WebSVN"), websvn_project_path(:id => project.id) %></li>
+              <% end %>
+              <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
+          </ul>
+          </div>
+      </li>
+      <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+      <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
+      <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
+      <% if is_nsc_project %>
+      <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+      <% end %>
+  </ul>
+  <% end -%>
+
+  <% if functions.length > 0 -%>
+  <ul id="project_admin_menu" class="menu">
+    <li class="parent"><a href='#' onclick="Effect.toggle('bsc_menu1','blind', {duration: 0.3}); return false"><%= _('project_Info') %></a></li>
+      <div id="bsc_menu1" style="display:none">
+      <ul>
+        <% if functions.include?('project_info') -%>
+          <li><%= link_to _('project_Basic_Info')+_(' Edit'), edit_project_path(:id => project.id) %></li>
+        <% end -%>
+
+        <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+        <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
+        <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+      </ul>
+      </div>
+
+    <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
+    <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
+    <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+
+    <% if functions.include?('release') -%>
+    <li class="parent"><a href='#' onclick="Effect.toggle('rls_menu','blind', {duration: 0.3}); return false"><%= _('release') %></a>
+      <div id="rls_menu" style="display:none">
+      <ul>
+        <li><%= link_to _('release_Edit'), releases_path(:project_id => project.id) %></li>
+        <li><%= link_to _('release_New'), new_release_path(:project_id => project.id) %></li>
+      </ul>
+      </div>
+    </li>
+    <% end -%>
+
+    <li class="parent"><a href='#' onclick="Effect.toggle('vcs_menu1','blind', {duration: 0.3}); return false"><%= _('Version Control') %></a>
+      <div id="vcs_menu1" style="display:none">
+      <ul>
+        <% if project.vcs == Project::VCS[:CVS] or project.vcs == Project::VCS[:SUBVERSION] %>
+          <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
+        <% end %>
+        <% if project.vcs == Project::VCS[:SUBVERSION] %>
+          <li><%= link_to _("WebSVN"), websvn_project_path(:id => project.id) %></li>
+        <% end %>
+        <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
+      </ul>
+      </div>
+    </li>
+
+    <li><%= link_to _('Mailing List'), sympa_project_path(:id => project.id) %></li>
+
+    <% if functions.include?('project_member') -%>
+      <li><%= link_to _('project_Member Control'), :controller => :projects, :action => "member_edit", :id =>@project%></li>
+    <% end -%>
+    <% if functions.include?('role_edit') -%>
+      <li><%= link_to _('project_Permission Control'), :controller => :projects, :action => "permission_edit", :id =>@project%></li>
+    <% end -%>
+
+    <% if functions.include?('survey') -%>
+      <li class="parent"><a href='#' onclick="Effect.toggle('svy_menu','blind', {duration: 0.3}); return false"><%= _('project menu|Surveys') %></a>
+        <div id="svy_menu" style="display:none">
+        <ul>
+          <li><%= link_to s_('project menu|Surveys Edit'), survey_index_path(:project_id => @project.id)%></li>
+          <li><%= link_to s_('project menu|Downloaders'), project_review_path(@project.id)%></li>
+        </ul>
+        </div>
+      </li>
+    <% end -%>
+    <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+
+    <% if is_nsc_project %>
+    <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+    <% end %>
+  </ul>
+<% end %>
+</div>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => ''}  %>
