@@ -3,29 +3,29 @@
 #------------------# 
 #  Generel config  #
 #------------------#
-ip_prefix = '140.109'
-host = 'ssodev.openfoundry.org'
-site_admin_mail = 'hyder.ossf@gmail.com'
+ip_prefix = '127.0.'
+host = 'api.openfoundry.org'
+site_admin_mail = 'mouse.kaworu@gmail.com'
 
 #-------------------#
 #  Session config
 #  in session_store.rb
 #-------------------#
-session_key = '_of_session_id'
+session_key = '_ossf_api_'
 session_domain = ".#{host}"
 session_store = ':mem_cache_store'
 
-session_memcache_namespace = 'of-#{RAILS_ENV}'
-session_memcache_server = "#{ip_prefix}.22.15:11211"
+session_memcache_namespace = 'api-#{RAILS_ENV}'
+session_memcache_server = "#{ip_prefix}.0.1:11211"
 
 #-------------------#
 #  Database config  #
 #-------------------#
-db_host = "#{ip_prefix}.22.140"
-db_name_dev  = 'of_development'
-db_name_test = 'of_test'
-db_name_prod = 'of_development'
-db_user = 'openfoundry'
+db_host = "#{ip_prefix}.0.1"
+db_name_dev  = 'api_development'
+db_name_test = 'api_test'
+db_name_prod = 'api_development'
+db_user = 'kaworu'
 
 #----------------------------#
 #  Rails environment config  #
@@ -36,15 +36,15 @@ rails_cache = ':memcache'
 #  Stomp server config
 #  in broker.yml
 #----------------------#
-stomp_host = "#{ip_prefix}.22.140"
-stomp_user = 'openfoundry'
+stomp_host = "#{ip_prefix}.0.1"
+stomp_user = 'stomp'
 
 
 #------------------------#
 #  Ferret server config
 #  in ferret_server.yml
 #------------------------#
-ferret_host = "#{ip_prefix}.22.15"
+ferret_host = "#{ip_prefix}.0.1"
 
 
 #------------------------#
@@ -53,7 +53,7 @@ ferret_host = "#{ip_prefix}.22.15"
 #------------------------#
 
 cache_server = "127.0.0.1:11211"
-cache_server_namespace = 'of-#{RAILS_ENV}'
+cache_server_namespace = 'api-#{RAILS_ENV}'
 
 
 #------------------------#
@@ -68,7 +68,7 @@ redis_server = "127.0.0.1"
 #  in sso.rb
 #------------------------#
 
-sso_ui_host = '140.109.22.20'
+sso_ui_host = '140.109..20'
 sso_of_auth_key = 'c1cac710-030f-012d-c173-0011254f08ff'
 
 #------------------------#
