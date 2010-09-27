@@ -49,7 +49,7 @@ class ImagesController < ApplicationController
     unless File.exists?(image_cache_file)
       image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
       ico = if(meta =~ /icon/); 'ico:' ;else '' ;end
-      unless `convert #{ico}#{image_data}'[#{size}x#{size}]' #{image_cache_file}` == 0
+      unless `/usr/local/bin/convert #{ico}#{image_data}'[#{size}x#{size}]' #{image_cache_file}` == 0
         logger.info("image convert error. cmd: 'convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}'")
       end
 
@@ -69,7 +69,7 @@ class ImagesController < ApplicationController
    
 
     unless File.exist?(filename)
-      command = 'convert'
+      command = '/usr/local/bin/convert'
       
       #image params
       text_size = 25
@@ -97,7 +97,7 @@ class ImagesController < ApplicationController
     generate_captcha_code unless params[:not_regenerate]
     code = session[:captcha_code] || generate_captcha_code
     dir = RAILS_ROOT + "/tmp/captcha/"
-    command = 'convert'
+    command = '/usr/local/bin/convert'
     
     #image params
     text_size = 50
