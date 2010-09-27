@@ -20,11 +20,11 @@ class User < ActiveRecord::Base
   after_update :send_rt_update_msg
 
   def send_rt_create_msg
-    send_msg("user", "create", {'id' => id, 'name' => login, 'email' => email})
+    send_msg(:user , :create , {:id  => id, :name  => login, :email  => email})
   end               
 
   def send_rt_update_msg
-    send_msg("user", "update", {'id' => id, 'name' => login, 'email' => email})
+    send_msg(:user , :update , {:id  => id, :name  => login, :email  => email})
   end          
 
   # disable ferret search if not verified        
