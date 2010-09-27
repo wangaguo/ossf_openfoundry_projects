@@ -523,7 +523,7 @@ class UserController < ApplicationController
                                        R.id = RU.role_id AND 
                                        U.login = '#{ @name }' AND 
                                        RU.user_id = U.id
-                                       ORDER BY P.id"
+                                       ORDER BY P.updated_at"
 
     render :layout => "application"
   end
