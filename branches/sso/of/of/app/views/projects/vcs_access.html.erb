@@ -36,6 +36,6 @@ when Project::VCS[:SUBVERSION]
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
 
 <% else -%>
-<h1><%= _('No Version Control System') %></h1>
+<h3><%= _('No Version Control System') %></h3>
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
 <% end -%>
