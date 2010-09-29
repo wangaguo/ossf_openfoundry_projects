@@ -37,8 +37,5 @@ when Project::VCS[:SUBVERSION]
 
 <% else -%>
 <h1><%= _('No Version Control System') %></h1>
-<p>
-  <%= _('This project is not using any version control system.') %>
-</p>
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
 <% end -%>
