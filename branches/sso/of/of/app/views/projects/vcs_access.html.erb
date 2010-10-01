@@ -22,7 +22,6 @@ when Project::VCS[:SUBVERSION]
 <% when Project::VCS[:SUBVERSION_CLOSE] -%>
 <h1><%= _('Subversion: Members Only') %></h1>
 <p>
-  <%= _('This project can only be accessed by members.') %>
   <br/><b><%= @src %></b> 
 </p>
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
@@ -30,9 +29,6 @@ when Project::VCS[:SUBVERSION]
 
 <% when Project::VCS[:REMOTE] -%>
 <h1><%= _('Remote Repository') %></h1>
-<p>
-  <%= _('This project is using a remote repository.') %>
-</p>
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
 
 <% else -%>
