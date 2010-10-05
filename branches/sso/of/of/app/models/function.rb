@@ -45,7 +45,7 @@ class Function < ActiveRecord::Base
     #if user is the admin of this project, allow it anyway
     return true if Role.count_by_sql(
       "select U.id from roles R, roles_users RU, users U, projects P  
-        where U.id = RU.user_id and R.id = RU.role_id and R.name = 'Admin' and
+        where U.id = RU.user_id and R.id = RU.role_id and R.name IN ('Admin','Member') and
               R.authorizable_id = '#{authorizable_id}' and 
               R.authorizable_type = 'Project' and 
               R.authorizable_id  = P.id and 
