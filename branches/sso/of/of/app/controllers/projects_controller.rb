@@ -225,6 +225,7 @@ class ProjectsController < ApplicationController
       if @project.status == Project::STATUS[:APPLYING] 
         ProjectNotify.deliver_project_reviewer(@project)
         redirect_to :action => 'applied'
+	return
       end
       flash[:notice] = _('Project was successfully updated.')
       changed = []
