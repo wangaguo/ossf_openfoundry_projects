@@ -124,7 +124,7 @@ class ProjectsController < ApplicationController
     
     projects = nil
     [params[:page], 1].each do |page|
-      projects = Project.in_used.paginate(:page => page, :per_page => 10, #:conditions => query,
+      projects = Project.in_used.paginate(:page => page, :per_page => 10, :conditions => query,
                  :include => [:releases],
                  :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
       break if not projects.out_of_bounds?
@@ -375,8 +375,8 @@ class ProjectsController < ApplicationController
                                             })
           end
           flash.now[:notice] = 
-            t('Remove User "{{user}}" from Group "{{role}}"', 
-               :user => u.login, :role => r.name)
+            _('Remove User from Group') 
+               
         else
           flash.now[:warning] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
         end
