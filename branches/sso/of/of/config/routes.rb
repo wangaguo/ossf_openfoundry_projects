@@ -63,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
                              :member_add => :post, :permission_edit => :get,
                              :member_change => :post, :role_update => :any,
                              :group_update => :any,
-                             :group_create => :any, :group_delete => :get,
+                             :group_create => :any, :group_delete => :any,
                              :role_new => :any, :role_create => :any, :vcs_access => :any
                              }
   map.resources :news,
