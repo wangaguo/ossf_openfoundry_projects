@@ -1,0 +1,35 @@
+<%
+  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+  is_nsc_project = @project.is_nsc_project
+%>
+<% module_title = capture do %>
+  <%=_('Basic Information') %>
+<% end %>
+<% module_content = capture do %>
+  <%= render :partial => "basic" %>
+<% end %>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
+
+<%# if functions.length == 0 -%>
+  <div>
+      <%= link_to "<span class='pj_download'>#{_('Download Now')}</span>", download1_path(:project_id => @project.id) %>
+      <%= link_to "<span class='pj_bugreport'>#{_('Bug Report')}</span>", report_rt_path(:project_id => @project.id) %>
+      <%#= link_to "<span>#{_('Bug Report')}</span>", "../../rt/Ticket/Create.html?Queue=#{@project.id}", :class => 'readon' %>
+  </div>
+<%# end -%>
+
+<% module_title = capture do %>
+  <%=_( 'Project Issues' ) %>
+<% end %>
+<% module_content = capture do %>
+  <%= render :partial => "project_issues", :locals => { :rss => @rss }%>
+<% end %>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
+
+<% module_title = capture do %>
+  <%= _('Project Participants') %>
+<% end %>
+<% module_content = capture do %>
+  <%=render :partial => 'member' %>
+<% end %>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>

@@ -1,0 +1,5 @@
+Please put local settings into environment_local.rb.
+
+=====
+OPENFOUNDRY_JSON_DUMP_PASSWORD = ''
+

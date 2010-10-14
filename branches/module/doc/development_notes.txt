@@ -1,0 +1,44 @@
+
+	Tab使用兩個空白
+
+統一欄位名稱:
+	created_at
+	updated_at
+	creator
+	
+	created_on
+	updated_on
+	
+看resource生的helper:
+	require "pp"
+  pp map.instance_eval("@set").instance_eval("@named_routes").instance_eval("@helpers").map {|x| x.to_s}.grep(/url/).select {|x| not x=~/^(hash|formatted)/}
+	
+ "projects_url",
+ "new_project_url",
+ "edit_project_url",
+ "project_url",
+ 
+ "users_url",
+ "new_user_url",
+ "edit_user_url",
+ "user_url",
+ 
+ "news_url",
+ "new_news1_url",
+ "edit_news1_url",
+ "news1_url"
+ 
+預設日期格式:
+  ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.update(:default => '%Y/%m/%d %H:%M:%S')
+  
+  
+News待辦事項:
+	增加Enable/Disable功能
+	新增/修改的欄位及permit
+	OpenFoundy新聞的WYSWYG
+
+
+application controller 上面定義 current_user()
+若已登入, 傳回已登入的使用者
+若未登入, 傳回 guest 物件
+是否登入則應該用獨立的 logged_in?()

@@ -1,0 +1,29 @@
+
+<script>
+  function validate(file_name, type) {
+    //var ext = /review/.test(type) ? "doc" : "pdf";
+    var ext = "(doc|pdf)"
+    var regex = new RegExp(ext + '$', 'i');
+    if (regex.test(file_name)) {
+      return "true"
+    } else {
+      alert('Please upload a ' + ext + ' file.');
+      return false;
+    }
+  }
+</script>
+<% if @types_write.size > 0 %>
+  Please upload your reports or reviews here (.doc or .pdf). <br/><br/>
+  <% @types_write.each do |x| %>
+    <% form_tag({:action => "create"}, {:multipart => true, :onSubmit => "return validate(this.the_file.value, '#{x}')"}) do %>
+      Year: <%= text_field_tag "year", NSC_CURRENT_YEAR, :readonly => true, :size => 30 %><br/>
+      Type: <%= text_field_tag "type", x, :readonly => true, :size => 30 %><br/>
+      File: <%= file_field_tag "the_file", :size => 30 %>
+      <%= submit_tag "Upload" %>
+    <% end %>
+    <hr/> 
+  <% end %>
+  
+<% else %>
+  You may not upload any report now. If you have any question, please contact "yuchun at cad.csie.ncku.edu.tw".
+<% end %>

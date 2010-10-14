@@ -1,0 +1,21 @@
+<% variation = variation || '' %>
+<% module_title = module_title || nil %>
+<% module_tabs = module_tabs || nil %>
+<div class="rt-block <%= variation %>">
+  <div class="rt-module-surround">
+    <div class="rt-module-top"><div class="rt-module-top2"><div class="rt-module-top3"></div></div></div>
+    <div class="rt-module-inner">
+      <% if module_tabs %>
+        <%= module_tabs %>
+      <% end %>
+      <% if module_title && !module_title.strip.empty? %>
+        <div class="module-title"><h2 class="title"><%= module_title %></h2></div>
+      <% end %>
+      <div class="clear"></div>
+      <div class="module-content">
+        <%= module_content %>
+      </div>
+    </div>
+    <div class="rt-module-bottom"><div class="rt-module-bottom2"><div class="rt-module-bottom3"></div></div></div>
+  </div>
+</div>
