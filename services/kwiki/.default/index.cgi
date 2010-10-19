@@ -9,11 +9,11 @@ use LWP::Simple qw(get);
 use CGI::Cookie ();
 
 
-my $SESSION_COOKIE_NAME = '_of_new_key_';
-my $OF_HOST = 'www.openfoundry.org';
+my $SESSION_COOKIE_NAME = '_of_session_id';
+my $OF_HOST = 'of.openfoundry.org';
 my $OF_PORT = '80';
 
-my $OF_SESSION_URL = "http://$OF_HOST:$OF_PORT/of/openfoundry/authentication_authorization_II?SID=%s&projectname=%s";
+my $OF_SESSION_URL = "http://$OF_HOST:$OF_PORT/openfoundry/authentication_authorization_II?SID=%s&projectname=%s";
 
 my $SID_COOKIE = (CGI::Cookie->fetch || {})->{$SESSION_COOKIE_NAME};
 my $SID = $SID_COOKIE ? $SID_COOKIE->value() : '';

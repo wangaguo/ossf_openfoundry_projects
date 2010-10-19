@@ -38,23 +38,23 @@ def process(msg)
   puts m.inspect
   puts "============================="
 
-  type = m[:type].to_sym
-  action = m[:action].to_sym
-  data = m[:data]
+  type = m['type']
+  action = m['action']
+  data = m['data']
 
   case [type, action]
-  when [:project, :create]
-    RTQueue.create_queue(data[:id], data[:name], data[:summary])
-  when [:project, :update]
-    RTQueue.update_queue(data[:id], data[:summary])
-  when [:user, :create]
-    RTUser.create_user_and_add_into_openfoundry_group(data[:id], data[:name], data[:email])
-  when [:user, :update]
-    RTUser.update_user(data[:id], data[:name], data[:email])
-  when [:function, :create]
-    RTUser.create_permission(data[:user_id], data[:project_id], data[:function_name])
-  when [:function, :delete]
-    RTUser.delete_permission(data[:user_id], data[:project_id], data[:function_name])
+  when ['project', 'create']
+    RTQueue.create_queue(data['id'], data['name'], data['summary'])
+  when ['project', 'update']
+    RTQueue.update_queue(data['id'], data['summary'])
+  when ['user', 'create']
+    RTUser.create_user_and_add_into_openfoundry_group(data['id'], data['name'], data['email'])
+  when ['user', 'update']
+    RTUser.update_user(data['id'], data['name'], data['email'])
+  when ['function', 'create']
+    RTUser.create_permission(data['user_id'], data['project_id'], data['function_name'])
+  when ['function', 'delete']
+    RTUser.delete_permission(data['user_id'], data['project_id'], data['function_name'])
   else
     raise "bad input!!"
   end
