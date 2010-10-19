@@ -1,0 +1,55 @@
+<fieldset>
+  <legend><%= _("By Project|Maturity") %></legend>
+  <ul>
+  <% Project::MATURITY.values.sort.each do |value| -%>
+    <li><%= link_to "#{Project::maturity_to_s(value)} (#{(@maturity[value] || 0).to_s})", :controller => :projects, :cat => 'maturity', :name => value %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("By Project|License") %></legend>
+  <ul>
+  <% normalize_values(Project::LICENSE_DISPLAY_KEYS.map(&:to_s), @license.keys)[0].each do |value| -%>
+    <li><%= link_to "#{Project::license_to_s(value)} (#{@license[value]})", :controller => :projects, :cat => 'license', :name => value %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("By Project|Contentlicense") %></legend>
+  <ul>
+  <% normalize_values(Project::CONTENT_LICENSE_DISPLAY_KEYS.map(&:to_s), @content_license.keys)[0].each do |value| -%>
+    <li><%= link_to "#{Project::content_license_to_s(value)} (#{@content_license[value]})", :controller => :projects, :cat => 'contentlicense', :name => value %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("By Project|Platform") %></legend>
+  <ul>
+  <% 
+  	keys = Project::PLATFORMS.sort + (@platform.keys - Project::PLATFORMS).sort
+  	keys.each do |key|
+  %>
+    <li><%= link_to "#{key} (#{(@platform[key] || 0).to_s})", :controller => :projects, :cat => 'platform', :name => key %></li>
+  <% end %>
+  </ul>
+</fieldset>
+
+<fieldset>
+  <legend><%= _("By Project|Programminglanguage") %></legend>
+  <ul>
+  <% 
+  	keys = Project::PROGRAMMING_LANGUAGES.sort + (@programming_language.keys - Project::PROGRAMMING_LANGUAGES).sort
+  	keys.each do |key|
+  -%>
+    <li><%= link_to "#{key} (#{(@programming_language[key] || 0).to_s})", :controller => :projects, :cat => 'programminglanguage', :name => key %></li>
+  <% end -%>
+  </ul>
+</fieldset>
+<div style="display:block;">
+<ul>
+</div>
+
+

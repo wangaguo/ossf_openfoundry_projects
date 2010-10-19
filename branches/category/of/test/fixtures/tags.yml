@@ -1,0 +1,8 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<%index=1%>
+<% %w(openfoundry home ossf oss osdc icos otaku henti).each do |tag| %>
+<%=tag%>:
+  id: <%=index%>
+  name: <%=tag%>
+<%index+=1%>
+<%end%>
