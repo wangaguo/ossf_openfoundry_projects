@@ -1,0 +1,27 @@
+#!/bin/sh
+
+. "/etc/rc.subr"
+
+# PROVIDE: 
+# REQUIRE: memcached 
+
+name="god"
+rcvar=`set_rcvar`
+
+extra_commands="reload"
+
+command="/usr/local/bin/god"
+command_interpreter="/usr/local/bin/ruby18"
+config_file="/home/openfoundry/of/misc/openfoundry.god.rb"
+command_args=""
+pidfile="/var/run/$name.pid"
+required_files="${config_file}"
+
+# read configuration and set defaults
+load_rc_config "$name"
+: ${god_enable="NO"}
+: ${god_flags="-P ${pidfile} -c ${config_file}"}
+: ${god_chdir="/home/openfoundry/of"}
+
+
+run_rc_command "$1"

@@ -1,0 +1,55 @@
+<%= error_messages_for 'project' %>
+
+<!--[form:project]-->
+<p><label for="project_name">name</label><br/>
+<%= text_field 'project', 'name'  %></p>
+
+<p><label for="project_summary">summary</label><br/>
+<%= text_field 'project', 'summary'  %></p>
+
+<p><label for="project_rationale">Rationale</label><br/>
+<%= text_area 'project', 'rationale'  %></p>
+
+<p><label for="project_description">description</label><br/>
+<%= text_area 'project', 'description'  %></p>
+
+<p><label for="project_contactinfo">Contactinfo</label><br/>
+<%= text_field 'project', 'contactinfo'  %></p>
+
+<p><label for="project_maturity">Maturity</label><br/>
+<%= text_field 'project', 'maturity'  %></p>
+
+<p><label for="project_license">License</label><br/>
+<%= text_field 'project', 'license'  %></p>
+
+<p><label for="project_contentlicense">Contentlicense</label><br/>
+<%= text_field 'project', 'contentlicense'  %></p>
+
+<p><label for="project_platform">Platform</label><br/>
+<%= text_field 'project', 'platform'  %></p>
+
+<p><label for="project_programminglanguage">Programminglanguage</label><br/>
+<%= text_field 'project', 'programminglanguage'  %></p>
+
+<p><label for="project_intendedaudience">Intendedaudience</label><br/>
+<%= text_field 'project', 'intendedaudience'  %></p>
+
+<p><label for="project_redirecturl">Redirecturl</label><br/>
+<%= text_field 'project', 'redirecturl'  %></p>
+
+<p><label for="project_vcs">Vcs</label><br/>
+<%= text_field 'project', 'vcs'  %></p>
+
+<p><label for="project_remotevcs">Remotevcs</label><br/>
+<%= text_field 'project', 'remotevcs'  %></p>
+
+<p><label for="project_creator">Creator</label><br/>
+<%= text_field 'project', 'creator'  %></p>
+
+<p><label for="project_status">Status</label><br/>
+<%= text_field 'project', 'status', :readonly => true %></p>
+
+<p><label for="project_statusreason">Statusreason</label><br/>
+<%= text_area 'project', 'statusreason', :readonly => true %></p>
+<!--[eoform:project]-->
+

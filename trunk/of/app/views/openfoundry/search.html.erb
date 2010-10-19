@@ -1,0 +1,19 @@
+<div id="search_result">
+  <h1><%= _('Search Result') %></h1>
+  <div id="search">
+    <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => true}%>	
+  </div>
+  <%unless @results.empty?%>
+  <%= paginate = will_paginate @results %>  
+  <table class='form-table'>
+    <% @results.each do |record| %>
+      <tr>
+        <%= render(:partial => "#{@lookup[record.class.class_name]}/search_hit", :layout => false, :locals => {:record => record}) %>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate %>  
+  <%else%>
+no record!
+  <%end%>
+</div>
