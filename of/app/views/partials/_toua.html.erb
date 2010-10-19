@@ -1,0 +1,17 @@
+<fieldset>
+  <legend> <%= _('Terms of Use Agreement') %> </legend>
+  <% form_tag submit_to do %>
+    <textarea style='height:300px; width:100%' readonly=true>
+      <% File.open(file_path, 'r').each do |line| %>
+        <%= line.chop -%>
+      <% end %>  
+    </textarea>
+    <%= radio_button_tag 'agree', '1' %> 
+    <%= _('I Agree') %>
+    <br/>
+    <%= radio_button_tag 'agree', '0' %> 
+    <%= _('I Do Not Agree') %>
+    <br/>
+    <%= submit_tag(_('submit')) %>
+  <%end%>
+</fieldset>
