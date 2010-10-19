@@ -1,0 +1,24 @@
+<h3>
+  <%=link_to( image_tag('atom.png', 
+       {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
+       {:controller => :news, :action => :new_project_news_feed, :format => :xml} )%>
+  <%= image_tag "of/icon05.gif", :align => "left" %>
+  <%=_('Project News')%>
+</h3>
+<ul>
+  <%for news in newsList %>
+  <li>
+    <%= link_to( 
+	h(news.project.summary + ' - ' + news.subject), 
+	news1_path(:id => news.id, :project_id => news.catid) )%>
+  </li>
+  <%end %>
+</ul>
+<%=link_to _('More...'), project_news_path(), :class => "more" %>
+<%=auto_discovery_link_tag(:rss,
+   {:format => :rss, :controller => :news, :action => :new_project_news_feed},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Project News'), :type => 'RSS'} }) %>
+<%=auto_discovery_link_tag(:atom,
+   {:format => :xml, :controller => :news, :action => :new_project_news_feed},
+   {:title => s_("Feed|%{name} %{type} Feed") % {:name => _("Project News"), :type => 'ATOM'} }) %>
+

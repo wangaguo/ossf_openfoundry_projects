@@ -1,0 +1,64 @@
+#logo_pane {
+    text-align: center;
+}
+    
+#logo_pane img {
+    width: 90px;
+}
+    
+#group {
+    width: 100%;
+}
+
+#group_1 {
+    vertical-align: top;
+}
+
+#group_2 {
+    vertical-align: top;
+    width: 0px;
+}
+
+body {
+    background:#fff;        
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0px;
+    padding: 0px;
+    font-weight: bold;
+}
+
+.error, .empty {
+    color: #f00;
+}
+
+div.navigation a:visited {
+    color: #00f;
+}
+
+/* for OpenFoundry below by wangaguo */
+img{/* limit image max width only for firefox*/
+    max-width: 95%;
+}
+
+textarea {
+    width: 95%;
+    height: 350px;
+}
+
+#widgets_pane{/* set page privacy at right-top */
+    font-size: 12px;
+    position: absolute;
+    width: 45px;
+    right: 45px;
+    white-space: nowrap;
+    line-height: 9px;
+}
+
+table.formatter_table {
+/*
+    width:300px;
+    word-wrap: break-word;
+*/
+}

@@ -1,0 +1,7 @@
+include_sql_query
+db_type mysql
+host 192.168.0.10
+user sympa
+passwd sympa
+db_name sympa
+sql_query SELECT DISTINCT email FROM foundry_owner where project_name = '[% param.0 %]'

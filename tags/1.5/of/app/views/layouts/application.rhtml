@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:doap="http://usefulinc.com/ns/doap#"
+      xmlns:foaf="http://xmlns.com/foaf/0.1/"
+      xmlns:of="http://of.openfoundry.org/ns#"
+      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+      xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>OpenFoundry -- <%= controller.action_name %><%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
+  <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
+  <% bundle :name => "prototype" do %>
+  <%= javascript_include_tag "prototype" %>
+  <% end %>
+  <% bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
+  <%= stylesheet_link_tag "scaffold", "openfoundry", "header", "transmenu" %>
+  <%= javascript_include_tag "effects", "transmenu", "application" %>
+  <%= javascript_include_tag 'calendar/calendar' %>
+  <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
+  <%= javascript_include_tag 'calendar/calendar-setup' %>
+  <%= stylesheet_link_tag 'calendar' %>
+  <% end %>
+  <%= render :partial => 'partials/top_menu_data' %>
+  <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
+   <script>alert('Please use Internet Explorer 6 or above.');</script>
+  <% end %>
+</head>
+
+<body >
+  
+<div id="header">
+	<a href="/" title="OpenFoundry......"><span id="logo">&nbsp;</span></a>
+	<div id="rightbg">&nbsp;</div>
+	<div id="header-toolbar">
+		<a href="http://www.openfoundry.org" target="_blank">OSSF</a> | 
+		<a href="http://whoswho.openfoundry.org" target="_blank">Who's Who</a> | 
+    <%= render :partial => 'partials/lang'%>
+	</div>
+	<div id="search">
+      <%= render :partial => 'partials/search', :locals =>{:size => 10}%>	
+  </div>
+</div>
+
+<div id="toolbar">
+  <div id="nav">
+    <div id="mtm_menu">
+      <a><%=_('menu_OpenFoundry')%></a>
+      <a><%=_('menu_Projects')%></a>
+      <a><%=_('menu_License Wizard')%></a>
+      <!--      <a><%=_('menu_Help')%></a> -->
+      <a><%=_('menu_Contact Us')%></a>
+    </div>
+  </div>
+  <div id="shortcut_area">
+    &nbsp;
+    <a href="javascript: HeaderOnOff()" title="Header On/Off">
+        <%= image_tag "HeaderOnOff_Off.gif", {:id => "HeaderOnOffImage" } %>
+    </a>
+  </div>
+</div>
+
+<div id="SiteMap">
+  <div id="Login"><%= render :partial => 'partials/login' %></div>
+  <div id="BreadCrumbs"><%= breadcrumbs %></div>
+</div>
+
+<div id="MiddlePane">
+  <div id="MainContent">
+    <div id="Flash"><%= show_flash %></div>
+    <%if params["project_id"] != nil%>
+      <h1><%= h(@project.summary) %></h1>
+    <%end%>
+    <%= yield :layout %>
+  </div>
+  <div id="LeftWidget">   
+    <%if params["project_id"] != nil%>
+      <div class="project_logo_border">
+        <div id='project_logo'>
+          <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
+            <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>"/>
+          </a>  
+        </div>
+        <br/>  
+          <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
+            <%= image_tag "green_arrow_right.gif" %> 
+            <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">
+                <%=_('Change Icon')%>
+            </a>
+          </span>
+          <%end%>
+      </div>
+          <%= render :partial => 'images/edit', :locals => 
+          {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) }%>
+    <%end%>
+
+  	<%if params["project_id"] != nil and @project.status != Project::STATUS[:PENDING] %>
+
+      <div id="LeftMenu">
+        <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+      </div>
+    <%elsif controller.controller_name == "help"%>
+      <%=render :partial => "partials/help_menu"%>
+    <%else%>
+      <div id="HomeLeft">
+        <%= render :partial => 'openfoundry/staticities', 
+                   :locals => {:userCount => User.count(:conditions => User.verified_users),
+                        :projectCount => Project.count(:conditions => Project.in_used_projects())
+                        } %>
+        <%= render :partial => 'releases/most_popular', :locals => {:downloadList => Release.top_download} %>
+        <%= render :partial => 'projects/new_projects', :locals => {:projectList => Project.new_projects} %>
+        
+        <h3><%= image_tag "of/icon01.gif", :align => "left" %><%=_('Steering Organization')%></h3>
+        <div style="text-align:center;">
+          <a href="http://www.citi.sinica.edu.tw/" target="_blank">
+            <img src="http://www.openfoundry.org/images/stories/ITIAS_LOGO.jpg" title="Research Center for Information Technology Innovation Academia Sinica"/>
+          </a>
+          <a href="http://web.nsc.gov.tw/default.asp" target="_blank">
+            <img src="http://www.openfoundry.org/images/stories/nsc.jpg" title="行政院國家科學委員會"/>
+          </a>
+        </div>
+
+      </div>
+    <%end%>
+  </div>
+</div>
+<br clear="all" />
+
+<div id="Footer">
+<hr/>
+OSSF Supports Software Freedom. For Optimum Result: IE5.5 or Firefox1.0 above. Resolution 1024*768.<br/>
+<a href="http://www.openfoundry.org/index.php?option=com_content&amp;task=view&amp;id=879&amp;Itemid=1">Privacy Policy</a> | <a href="http://www.openfoundry.org/index.php?option=com_content&amp;task=view&amp;id=880&amp;Itemid=1">Terms of Use</a>
+</div>
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try {
+    var pageTracker = _gat._getTracker("UA-5220412-1");
+    pageTracker._trackPageview();
+  } catch(err) {}
+</script>
+</body>
+</html>

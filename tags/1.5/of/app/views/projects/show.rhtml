@@ -1,0 +1,100 @@
+<%#= render( :partial => "tabnav" ) %>
+<% 
+  def show_with_seperator(v, tag) 
+    "#{v}".split(",").grep(/./).map { |ele|
+      content_tag(:span, ele, 
+                  :property => tag)
+    }.join(", ") 
+  end 
+%>
+<div id="ProjectBasic" about="#self" typeof="doap:Project">  
+
+<%
+  def rows(*data) #data is an array of size 2 * n
+    i = 0
+    rtn = ""
+    while ( ! data.empty? )
+      h = data.shift #property
+      d = data.shift #value
+
+      rtn += %Q!<tr class="#{["odd", "even"][i = 1 - i]}"><td class="td-left">#{h}</td><td class="td-right">#{d}</td></tr>\n!
+    end
+    # this displays nothing in the browser, but gives RDFa crawler useful
+    # info
+    rtn += %Q!<tr style="display:none" class="#{["odd", "even"][i = 1 - i]}"><td class="td-left">Downloads</td><td property="of:downloads" class="td-right">#{@project.project_counter}</td></tr>\n!
+   
+  end
+%>
+<style type="text/css">
+  .td-left { width: 20% }
+  .td-right { width: 80% }
+</style>
+<table xml:lang="" class="list-table">
+<%
+  tmp_nsccode = @project.tag_list.names.grep(/^NSC\d/).sort.join(", ")
+%>
+<%= rows(
+  * ([ 
+  _("Project|Name"), content_tag(:span, @project.name, 
+                                 :property => "doap:name"),
+  _("Project|Summary"), content_tag(:span, @project.summary,
+                                    :property => "doap:shortdesc"), 
+  _("Project|Description"), content_tag(:span, 
+                                        nl2br(h @project.description),
+                                        :property => "doap:description"), #br/
+  _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank", :rel => "doap:homepage"), 
+  _("Project|Contactinfo"), (h @project.contactinfo),  
+  _("Project|Maturity"), (h @project.maturity_to_s),
+  _("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
+  _("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
+  _("Project|Licensingdescription"), (h @project.licensingdescription), 
+  _("Project|Platform"), show_with_seperator(@project.platform,
+                                             "doap:platform"), 
+  _("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage, "doap:programming-language"),
+  _("Project|Vcs"), (h @project.vcs_to_s), 
+  _("Project|Vcsdescription"), (auto_link(simple_format(h @project.vcsdescription))),
+  _("Project|Creator"),  ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true) : ""),
+  _("Project|Created at"), content_tag(:span, 
+                                       tz_datetime(@project.created_at),
+                                       :property => "doap:created",
+                                       :content => tz_date(@project.created_at)),
+  ] +
+  (tmp_nsccode.empty?() ? [] : [ _("Project|Nsccode"), h(tmp_nsccode)])
+  ) )
+%>
+</table>
+
+
+
+<%
+  p_by_login = @participents.group_by { |p| p.login }
+  p_by_role = @participents.group_by { |p| p.role_name }
+%>
+
+<fieldset style="clear:both;">
+  <legend><%= _("Project Participants") %>:</legend>
+  <% p_by_login.keys.sort{|a,b| a.casecmp(b)}.each do |login| -%>
+    <%= user_portrait_link(p_by_login[login][0], :with_login => true, :float => 'left',
+						 :rdf_tag => 'rel="doap:developer"') %>
+  <% end -%>
+</fieldset>
+
+<fieldset style="clear:both;">
+  <legend><%= _("Project Participants (grouped by role)") %>:</legend>
+  <%
+    keys = ['Admin', 'Member'] | (p_by_role.keys.sort - ['Admin', 'Member'])
+    keys.each do |r|
+  %>
+    <%= r %>:
+    <div>
+    <% for p in (p_by_role[r] || []).sort{|a,b| a.login.casecmp(b.login)} -%>
+      <%=user_portrait_link(p, :with_login => true, :float => 'left')%>
+    <% end -%>
+    </div>
+    <br clear="all"/>
+  <% end -%>
+</fieldset>
+
+
+<%= (link_to _('Edit'), :action => 'edit', :id => @project ) if fpermit?("project_info", @project.id) %>
+</div>

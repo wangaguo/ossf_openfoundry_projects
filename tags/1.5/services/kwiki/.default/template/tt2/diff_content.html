@@ -1,0 +1,36 @@
+<!-- BEGIN diff_content -->
+[% INCLUDE diff_legend.html %]
+<table border="0" cellspacing="0" cellpadding="1" summary="A line-by-line difference between the current page and revision [% revision_id %]" class="diff">
+<colgroup><col width="50%"/><col width="50%"/></colgroup>
+<tr>
+    <th>Revision [% revision_id %]</th>
+    <th>Current</th>
+</tr>
+[% FOREACH line = diff -%]
+    [% IF line.0 == 'added' || line.0 == 'removed' %]
+        <tr>
+        [% IF line.1.length %]
+            <!-- line.1 length -->
+            <td class="lhs diff-[% line.0 %]">[% line.1 FILTER html %]</td>
+            <td class="rhs">&nbsp;</td>
+        [% ELSIF line.2.length %]
+            <!-- line.2 length -->
+            <td class="lhs">&nbsp;</td>
+            <td class="rhs diff-[% line.0 %]">[% line.2 FILTER html %]</td>
+        [% ELSE %]
+            <!-- neither length -->
+            <td class="lhs">&nbsp;</td>
+            <td class="rhs">&nbsp;</td>
+        [% END %]
+        </tr>
+    [% ELSE %]
+        <!-- not added or removed -->
+        <tr class="diff-[% line.0 %]">
+            <td class="lhs">[% line.1 FILTER html %] &nbsp;</td>
+            <td class="rhs">[% line.2 FILTER html %] &nbsp;</td>
+        </tr>
+    [% END %]
+[%- END %]
+</table>
+<!-- END diff_content.html -->
+

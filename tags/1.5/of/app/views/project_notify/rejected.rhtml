@@ -1,0 +1,14 @@
+Your project creation request "<%= @project_name %>" has been rejected!
+If you have any question, please contact us at <%= OPENFOUNDRY_SITE_ADMIN_EMAIL %>.
+
+<% if @replymessage != "" -%>
+-----------------------------------------------------------------------------------
+
+<%= @replymessage %>
+
+-----------------------------------------------------------------------------------
+<% end -%>
+
+Thank you.
+
+OpenFoundry
