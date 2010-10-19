@@ -1,8 +1,0 @@
-<h1><%=_('Add Citation')%></h1>
-
-<% form_tag url_for(:action => "create") do %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag _('Save') %>
-<% end %>
-
-<%= link_to _('List'), :action => 'index' %>
