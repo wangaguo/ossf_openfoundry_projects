@@ -4,7 +4,12 @@ class Project < ActiveRecord::Base
 	# category association
 	belongs_to :cattag, :class_name => 'Tagcloud', :foreign_key => 'category'
 	# tagcloud association 
-	has_and_belongs_to_many :tagclouds
+	has_and_belongs_to_many :alltags,
+													:class_name => 'Tagcloud',
+													:join_table => :tagclouds_projects,
+													:association_foreign_key => :tagcloud_id,
+												  :foreign_key => :project_id,
+												  :conditions	=> { :tagclouds => { :tag_type => 0, :status => 1 } }
 	has_many :tagcloudsprojects, :foreign_key => :project_id
 
 	# find the categorized projects
