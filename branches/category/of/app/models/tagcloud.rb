@@ -9,6 +9,9 @@ class Tagcloud < ActiveRecord::Base
 													:foreign_key => :tagcloud_id
 	has_many :tagcloudsprojects, :foreign_key => :tagcloud_id
 
+	# set tagcloud default values before saving
+	before_save :default_values
+
 	# update amount of tags with tagclouds_projects model changing ( call by tagclouds_projects model )
 	def update_count( update_data_id, mod_count )
 		Tagcloud.update_counters update_data_id, :tagged => mod_count
@@ -21,5 +24,12 @@ class Tagcloud < ActiveRecord::Base
 		  tag.searched += 1
 			tag.save	
 		end
+	end
+
+	# set default values for tagcloud AR object if some fields are nil
+	def default_values
+		self.status = 0 unless self.status
+		self.tagged = 0 unless self.tagged
+		self.searched = 0 unless self.searched
 	end
 end
