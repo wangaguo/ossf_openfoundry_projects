@@ -1,0 +1,9 @@
+<% module_title = capture do -%>
+  <%=t( 'tagcloud.title' )%>
+<% end -%>
+
+<% module_content = capture do -%>
+暫時保留
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
