@@ -1,7 +1,7 @@
 <script type="text/javascript">
 <!--
   window.onload=function(){
-    Effect.BlindUp('more');
+    $('more').hide();
   }
 //-->
 </script>
@@ -27,36 +27,46 @@ end %>
   <fieldset>
     <div id="basic">
     <table class="list-table">
-    <%= rows(0,
+      <tr class="even">
+	<td width="20%"><%= t("Project|Description") %></td>
+	<!--<td width="80%"><%= @project.description.mb_chars[0..149] %><span id="more"><%= @project.description.mb_chars[150..-1] %></span>-->
+	<td width="80%"><%= @project.description.mb_chars[0..149] + content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
+	<% if @project.description.mb_chars.length > 150 -%>
+	  <a id ="mr" href="#" onclick="$('more').show(); $('mr').hide(); $('le').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
+	  <a id ="le" href="#" onclick="$('more').hide(); $('mr').show(); $('le').hide(); return false" style="display:none;padding:8px;float:right"><%= t('Less...') %></a>
+	<% end -%>
+	</td>
+      </tr>
+    <%#= rows(0,
       * ([ 
-      _("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], _("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
-      _("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
-      _("Project|Contactinfo"), (h @project.contactinfo),  
+      _("Project|Description"), content_tag(:span, nl2br(h @project.description)),
       ] ) )
     %>
   </table>
   </div>
-  <div id="more">
+  <div id="more2">
     <table class="list-table">
     <%= rows(1, 
       * ([ 
-      _("Project|Name"), content_tag(:span, @project.name),
-      _("Project|Summary"), content_tag(:span, @project.summary),
-      _("Project|Description"), content_tag(:span, nl2br(h @project.description)),
-      _("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
-      _("Project|Maturity"), (h @project.maturity_to_s),
-      _("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
-      _("Project|Licensingdescription"), (h @project.licensingdescription), 
-      _("Project|Platform"), show_with_seperator(@project.platform),
-      _("Project|Vcs"), (h @project.vcs_to_s), 
-      _("Project|Vcsdescription"), (auto_link(simple_format(h @project.vcsdescription))),
-      _("Project|Creator"),  ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true) : ""),
-      _("Project|Created at"), content_tag(:span, tz_datetime(@project.created_at), :content => tz_date(@project.created_at)),
-      ] + (@nsccode.empty?() ? [] : [ _("Project|Nsccode"), h(@nsccode)]) ) )
+      t("Project|Category"), content_tag( :span, @category ),
+      t("Project|Tags"), content_tag( :a, 'balabababa, i\'m_love_it, McDonald' ),
+      t("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], t("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : t("#{i_s[1]}")}.join("<br/>\n"), 
+      t("Project|Platform"), show_with_seperator(@project.platform),
+      t("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
+      t("Project|Created at"), content_tag(:span, tz_datetime(@project.created_at), :content => tz_date(@project.created_at)),
+      #_("Project|Contactinfo"), (h @project.contactinfo),  
+      #_("Project|Name"), content_tag(:span, @project.name),
+      #_("Project|Summary"), content_tag(:span, @project.summary),
+      #_("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
+      #_("Project|Maturity"), (h @project.maturity_to_s),
+      #_("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
+      #_("Project|Licensingdescription"), (h @project.licensingdescription), 
+      #_("Project|Vcs"), (h @project.vcs_to_s), 
+      #_("Project|Vcsdescription"), (auto_link(simple_format(h @project.vcsdescription))),
+      #_("Project|Creator"),  ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true) : ""),
+      ] + (@nsccode.empty?() ? [] : [ t("Project|Nsccode"), h(@nsccode)]) ) )
     %>
   </table>
   </div>
-  <a id ="mr" href="#" onclick="Effect.BlindDown('more'); Effect.Fade('mr'); Effect.Grow('le', {direction:'center'}); return false" style="padding:8px;float:right"><%= _('More...') %></a>
-  <a id ="le" href="#" onclick="Effect.BlindUp('more'); Effect.Grow('mr', {direction:'bottom-left'}); Effect.Fade('le'); return false" style="display:none;padding:8px;float:right"><%= _('Less...') %></a>
   </fieldset>
 </div>
