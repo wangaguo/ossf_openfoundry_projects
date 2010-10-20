@@ -148,6 +148,8 @@ class ProjectsController < ApplicationController
     ")
     @p = @participents.group_by { |p| p.role_name }
 
+    @category = ( @project.category.nil? )? "nocategory" : Tagcloud.find_by_id( @project.category ).name
+
     #
     # for project issues
     #
