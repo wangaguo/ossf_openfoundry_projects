@@ -6,13 +6,14 @@
 <ul class="menu">
   <% if current_user.login != 'guest' -%>
     <li><%= link_to _('Create Project'), new_project_path() %></li>
-    <li><%= link_to _('Dashboard'), dashboard_user_path %></li>
+    <li><%#= link_to _('Dashboard'), dashboard_user_path %></li>
   <% end -%>
-  <li><%= link_to _('menu_Project Listing'), projects_path %></li>
-  <li><%= link_to _('menu_Project Category'), category_index_path  %></li>
+  <li><%#= link_to _('menu_Project Listing'), projects_path %></li>
+  <li><%#= link_to _('menu_Project Category'), category_index_path  %></li>
+	<li><%=link_to t( 'Menu.Category' ), list_category_path() %></li>
   <li><%= link_to _('menu_Project News'), project_news_path() %></li>
-  <li><%= link_to _('menu_Latest Releases'), latest_releases_path %></li>
-  <li><%= link_to _('menu_Top Downloads'), top_releases_path %></li>
+  <li><%#= link_to _('menu_Latest Releases'), latest_releases_path %></li>
+  <li><%#= link_to _('menu_Top Downloads'), top_releases_path %></li>
   <li><%= link_to _('menu_Help Wanted'), "#{ root_path }jobs" %> </li>
   <li><%= link_to _('menu_WebHosting'), "/tw/help/2356-openfoundry-web-hosting" %></li>
   <li class="parent active"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('Help') %></a>
