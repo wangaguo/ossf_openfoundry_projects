@@ -1,5 +1,15 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
+
+	# category association
+	belongs_to :cattag, :class_name => 'Tagcloud', :foreign_key => 'category'
+	# tagcloud association 
+	has_and_belongs_to_many :tagclouds
+	has_many :tagcloudsprojects, :foreign_key => :project_id
+
+	# find the categorized projects
+  named_scope :cated, lambda { | *args | { :conditions => [ 'category = ?', args.first ] } unless args.first.to_i == 0 }
+
   #redis counter settings
   acts_as_redis_counter :project_counter, :ttl => 5.minutes, :hits => 100
 
@@ -190,6 +200,9 @@ EOEO
   #
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3, :PENDING => 4 }.freeze
 
+	# find the ready projects
+	named_scope :in_used, :conditions => { :status => Project::STATUS[ :READY ] } 
+
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
@@ -233,6 +246,7 @@ EOEO
   #support Project-User relationship
   acts_as_authorizable
 
+	
   #add fulltext indexed SEARCH
   acts_as_ferret({
                  :fields => { 
@@ -242,10 +256,14 @@ EOEO
                               :summary => { :store => :yes,
                                             :index => :yes },
                               :description => { :store => :yes,
-                                                :index => :yes }                                                         
+                                                :index => :yes },                                                         
+															:cattag_name => {:store => :yes,
+																					:index => :yes }					
                             },
                  :single_index =>true
                  },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
+  def cattag_name;cattag.name;end
+  		
 
   def should_be_indexed?
     self.status == Project::STATUS[:READY]
@@ -264,7 +282,9 @@ EOEO
   
   #model relationships
   has_many :releases
-
+  has_many :ready_releases, :class_name => 'Release', 
+	   :conditions => { :status => Release::STATUS[ :RELEASED ] },
+	   :order => 'updated_at DESC'
 
   # field validations...
   # see also: http://rt.openfoundry.org/Edit/Queues/CustomField/?Queue=4
@@ -528,8 +548,6 @@ EOEO
     roles.find_by_name(role_name_string, :select => "id").users.valid_users
   end
   
-  named_scope :in_used, :conditions => { :status => Project::STATUS[:READY] } 
-
   def dump(options = {})
     file_type = options[:type]||:csv
     columns = self.class.content_columns.map{|c|c.name}
