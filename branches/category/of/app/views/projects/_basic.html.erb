@@ -49,7 +49,7 @@ end %>
     <%= rows(1, 
       * ([ 
       t("Project|Category"), content_tag( :span, @category ),
-      t("Project|Tags"), content_tag( :a, 'balabababa, i\'m_love_it, McDonald' ),
+			t("Project|Tags"), @project.alltags.map{ |t| t.name }.join( ', ' ),
       t("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], t("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : t("#{i_s[1]}")}.join("<br/>\n"), 
       t("Project|Platform"), show_with_seperator(@project.platform),
       t("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
