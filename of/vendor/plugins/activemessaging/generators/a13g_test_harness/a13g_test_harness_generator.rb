@@ -1,4 +1,4 @@
-class A13gTestHarnessGenerator < RubiGen::Base
+class A13gTestHarnessGenerator < Rails::Generator::Base
   def manifest
     record do |m|
 

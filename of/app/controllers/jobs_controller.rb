@@ -19,8 +19,8 @@ class JobsController < ApplicationController
   
   def list
     if params[:project_id].nil? 
-      @module_name = _('Project Help Wanted')
-      layout_name = "normal"
+      @head = _('Project Help Wanted')
+      layout_name = "application"
       conditions = "jobs.project_id>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
     else
@@ -45,12 +45,10 @@ class JobsController < ApplicationController
   
   def show
     @data_item.due = @data_item.due.strftime("%Y-%m-%d") if !@data_item.due.nil?
-    @module_name = @data_item.subject
   end
   
   def new
     @data_item = Job.new
-    @module_name = _('Add Job')
   end
   
   def create
@@ -71,7 +69,6 @@ class JobsController < ApplicationController
   
   def edit
     @data_item.due = @data_item.due.strftime("%Y-%m-%d") if !@data_item.due.nil?
-    @module_name = _('Edit')
   end
   
   def update

@@ -36,12 +36,15 @@ module ApplicationHelper
   end
   
   #TODO to be optimized! about this breadcrumb, see http://joshhuckabee.com/node/58
-  def breadcrumbs(module_name=nil)
-    html = "<a id='breadcrumbs-home' href='/'></a><span class=\"breadcrumbs pathway\"> \n"
+  def breadcrumbs(options={})
+    #TODO table or list?
+    html = "<table class=\"#{options[:class]}\"> \n<tr>\n"
     hierarchy = 1 
 
     url = request.path.split('?')  #remove extra query string parameters
-    levels = (url[0] || '' ).split('/') #break up url into different levels
+    levels = url[0].split('/') #break up url into different levels
+    #if not 'home' page, give a 'home' link
+    html << addcrumb( _('Home'), hierarchy, '/') unless levels.empty? 
     level_name=""
     level_class=nil
     level_title='name'
@@ -64,7 +67,7 @@ module ApplicationHelper
               _('Project Category'), Project, 'name'
           when 'news'
             level_name, level_class, level_title = 
-              _('News'), News, 'subject'
+              _('Project News'), News, 'subject'
           when 'jobs'
             level_name, level_class, level_title = 
               _('Help Wanted'), Job, 'subject'
@@ -92,31 +95,14 @@ module ApplicationHelper
           when 'survey'
             level_name, level_class, level_title = 
               _('Survey'), 'survey', nil
-          when 'webhosting'
-            level_name, level_class, level_title = 
-              _('menu_WebHosting'), 'webhosting', nil
           else
             if (["help"].include?(level_class)==true) 
               level_name = ''
             else
-              if ( _( "breadcrumb|" + level ) == "breadcrumb|" + level )
-                level_name = h( url_unescape(level).humanize.capitalize )
-              else
-                begin
-                  level_name_char = h(level)
-                  level_name = left_slice(level_name_char, 20)
-                  if level_name_char.length > level_name.length
-                    level_name += "..."
-                  else
-                    level_name = _( "breadcrumb|" + level )
-                  end
-                rescue
-                  level_name = _( "breadcrumb|" + level )
-                end
-              end
+              level_name = h( url_unescape(level).humanize.capitalize )
             end
           end
-        elsif level =~ /\d/# and level_class
+        elsif level =~ /\d/ and level_class
           if(["rt","help","survey"].include?(level_class)==false)
             begin
               level_name_char = h(level_class.find(level).send(level_title).mb_chars)
@@ -129,30 +115,22 @@ module ApplicationHelper
             end
           end
         end
-        if index == levels.size-1 
-          if (level_name.length > 20 or level_class == User)# or (level_name.length > 20 and level_class == User) 
-            html << addcrumb(level_name, hierarchy) unless (level_name.nil?)
-          else
-            unless (@module_name.nil?) then html << addcrumb(@module_name, hierarchy) else html << addcrumb(level_name, hierarchy) end
-          end
+        if index == levels.size-1 #|| 
+            #(level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
+          #html << "<td>#{level.gsub(/_/, ' ')}</td>\n" unless level.to_i > 0
+          html << addcrumb(level_name, hierarchy) unless (level_name.nil?) 
         else
-          link = "#{root_path}"+levels[1..index].join('/')
+          link='/'+levels[1..index].join('/')
           html << addcrumb(level_name, hierarchy, link)
         end
       end
     end
-    if levels.empty?
-        html << '<span class="no-link">' + _("Projects") + "</span>"
-    end
-    html << "\n</span>\n"
+    html << "</tr>\n</table>\n"
   end
   
   def addcrumb(name,level,path = nil)
-    if path
-      name = "<a class='pathway' href=\"#{path}\">#{name}</a>" unless path.nil?
-    else
-      name = "<span class='no-link'>#{name}</span>"
-    end
+    name = "<a href=\"#{path}\" id=\"bc-hierarchy-#{level}\">#{name}</a>" unless path.nil?
+    "<td>&raquo;#{name}</td>\n"
   end
 
   def arranged_select(tag_name, records, options = {})
@@ -286,12 +264,12 @@ module ApplicationHelper
   end
   
   def help_icon(tooltip)
-    '<img src="/of/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
+    '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
   end
   
   def required_icon
     t = _("required_icon")
-    %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/of/images/icon/star.gif"></em>!
+    %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
   end
 
   def tz_date(time_at)
@@ -336,10 +314,10 @@ module ApplicationHelper
 
     def required_icon
       t = _("required_icon")
-      %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/of/images/icon/star.gif"></em>!
+      %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/images/icon/star.gif"></em>!
     end
     def help_icon(tooltip)
-      '<img src="/of/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
+      '<img src="/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
     end
     
     def label(method, text = nil, options = {})
@@ -378,10 +356,6 @@ module ApplicationHelper
     def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
       "<td>#{super(@object_name, method, priority_zones, options.merge(:object => @object), html_options)}</td></tr>"
     end
-  end
-
-  def nl2br(htmlstring)
-    htmlstring.gsub("\n\r", "<br />").gsub("\r", "").gsub("\n", "<br />")
   end
 end
 

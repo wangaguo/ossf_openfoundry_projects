@@ -24,13 +24,13 @@ class NewsController < ApplicationController
   
   def list
     if @is_all_projects_news == true
-      @module_name = _('Project News')
-      layout_name = "normal"
+      @head = _('Project News')
+      layout_name = "application"
       conditions = "news.catid<>0 and #{Project.in_used_projects(:alias => 'projects')}"
       joins = :project
     elsif params[:project_id].nil? 
-      @module_name = _('Announcements')
-      layout_name = "normal"
+      @head = _('OpenFoundry News')
+      layout_name = "application"
       conditions = "catid=0"
     else
       @module_name = _('News')
@@ -54,19 +54,16 @@ class NewsController < ApplicationController
   
   def show
     if params[:project_id].nil? 
-      @module_name = _('OpenFoundry News')
-      layout_name = "normal"
+      layout_name = "application"
     else
       @module_name = _('project_News')
       layout_name = "module"
     end
-    @module_name = @news.subject
     render :layout => layout_name, :template => 'news/show'
   end
   
   def new
     @news = News.new
-    @module_name = _('Add News')
   end
 
   def new_release
@@ -77,7 +74,7 @@ class NewsController < ApplicationController
       release.fileentity.each do |file|
         @news.description += "* #{file.path} (#{file.description})\n"
       end
-      @news.description += "\n#{request.protocol}#{SSO_HOST}/of/projects/#{params[:project_id]}/download"
+      @news.description += "\nhttp://of.openfoundry.org/projects/#{params[:project_id]}/download"
       @news.status = News::STATUS[:Disabled]
       render :action => :new
     else
@@ -117,7 +114,6 @@ class NewsController < ApplicationController
   
   def edit
     @news.updated_at = @news.updated_at.strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
-    @module_name = _('Edit')
   end
   
   def update
@@ -153,13 +149,13 @@ class NewsController < ApplicationController
       :feed => {
         :title       => _("OpenFoundry: News"),
         :description => _("News about OpenFoundry"),
-        :link        => "#{SSO_HOST}",
+        :link        => 'of.openfoundry.org',
         :language    => 'UTF-8'
       },    
       :item => {
         :title => :subject,
         :description => :description,
-        :link => lambda { |n| site_news1_url(:id => n.id)}
+        :link => lambda { |n| news_url(:id => n.id, :project_id => n.catid)}
       }     
     }     
     respond_to do |format|
@@ -175,7 +171,7 @@ class NewsController < ApplicationController
       :feed => {
         :title       => _("OpenFoundry: Project News"),
         :description => _("Proejct news on OpenFoundry"),
-        :link        => "#{SSO_HOST}",
+        :link        => 'of.openfoundry.org',
         :language    => 'UTF-8'
       },    
       :item => {

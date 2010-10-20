@@ -1,0 +1,15 @@
+<h1></h1>
+<p class="date"><%=_('Last Updated')%>:&nbsp;<%=tz_datetime(@data_item.updated_at)%></p>
+<dl>
+  <dt><label><%= _('Reference|Source') %></label></dt>
+  <dd><%= h(@data_item.source).gsub("\n", '<br/>') %></dd>
+</dl>
+
+<% if fpermit?("reference", params["project_id"]) -%>
+<p>
+  <%= link_to _('Edit'), :action => 'edit', :id => @data_item %>
+  <%= link_to _('Delete'), { :action => 'destroy', :id => @data_item }, :confirm => _('Are you sure?'), :method => :delete %>
+</p>
+<% end %>
+
+<%= link_to _('List'), :action => 'index', :project_id => params[:project_id] %>

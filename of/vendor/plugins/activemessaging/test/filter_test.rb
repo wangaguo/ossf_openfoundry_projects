@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/test_helper'
-require 'activemessaging/filter'
 
 module ActiveMessaging #:nodoc:
   def self.reload_activemessaging

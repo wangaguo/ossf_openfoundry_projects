@@ -11,8 +11,6 @@ class OpenfoundryController < ApplicationController
                          'Reference' => 'references', 'Citation' => 'citations' }
   
   def index
-    @module_name = _('Projects')
-    render :layout => "application"
   end
 
   #class Session < ActiveRecord::Base; end # only used by get_session_by_id
@@ -38,10 +36,10 @@ class OpenfoundryController < ApplicationController
   end
 
   def get_user_by_session_id
-     s = get_session_by_id2(params['session_id'])
-     u = current_user(s) 
-     render :text => "#{u.id} #{u.login}",
-       :content_type => 'text/plain'
+    s = get_session_by_id2(params['session_id'])
+    u = current_user(s) 
+    render :text => "#{u.id} #{u.login}",
+      :content_type => 'text/plain'
   end
 
   # TODO: optimize!!!!!!!!!!
@@ -105,7 +103,7 @@ class OpenfoundryController < ApplicationController
     case module_ = params[:module]
     when "vcs"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows("select name as login, shadow_password as salted_password from sso_development.users where status = 1")
+      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
             where 
@@ -116,7 +114,7 @@ class OpenfoundryController < ApplicationController
             RU.role_id = R.id and 
             RU.user_id = U.id and
             P.vcs = #{Project::VCS[:CVS]} and
-            #{User.verified_users(:alias => 'U')} and
+            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -128,8 +126,7 @@ class OpenfoundryController < ApplicationController
       end
     when "svn"
       projects = ActiveRecord::Base.connection.select_rows("select name, vcs from projects where #{Project.in_used_projects()}")
-      users = ActiveRecord::Base.connection.select_rows(
-	"select name as login, shadow_password as salted_password from sso_development.users where status = 1")
+      users = ActiveRecord::Base.connection.select_rows("select login, salted_password from users where #{User.verified_users()}")
 
       sql= "select distinct U.login, P.name, F.name from 
             users U, projects P, roles_users RU, roles R, functions F, roles_functions RF 
@@ -141,7 +138,7 @@ class OpenfoundryController < ApplicationController
             RU.role_id = R.id and 
             RU.user_id = U.id and 
             (P.vcs = #{Project::VCS[:SUBVERSION]} or P.vcs = #{Project::VCS[:SUBVERSION_CLOSE]}) and
-            #{User.verified_users(:alias => 'U')} and
+            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -163,7 +160,7 @@ class OpenfoundryController < ApplicationController
             R.authorizable_type = 'Project' and 
             RU.role_id = R.id and 
             RU.user_id = U.id and 
-            #{User.verified_users(:alias => 'U')} and
+            #{User.verified_users(:alias => 'U')} and 
             #{Project.in_used_projects(:alias => 'P')}"
       #render :text => sql; return
       functions = {}
@@ -273,8 +270,6 @@ class OpenfoundryController < ApplicationController
   
   def search #for search!!! TODO: catalog and optimize?
     @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
-    query = (@query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
-      $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
     @options = {}
     @options[:per_page] = params[:per_page] || 20
     @options[:page] = params[:page] || 1
@@ -282,10 +277,10 @@ class OpenfoundryController < ApplicationController
       if params[:chk]
         params[:chk].keys.map{|k| Object.const_get(k)}
       else
-        @options[:models] = [Project]
+        :all
       end
-    obj = @options[:models] == :all ? Project : @options[:models].first
-    @results = obj.find_with_ferret(query, @options) 
+    obj = @options[:models] == :all ? User : @options[:models].first
+    @results = obj.find_with_ferret(@query, @options) 
     @lookup = RECORD_LOOKUP_TABLE
   end
   
@@ -297,21 +292,18 @@ class OpenfoundryController < ApplicationController
   def download
     #check if project-release-file is match
     check_download_consistancy
-    unless @error_msg.empty?
-      render :text => @error_msg
-      return
-    end
     add_one_to_download_counter
 
-    download_path_saved = URI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
+    download_path_saved = CGI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
+    #restore url encoding for slash(/)
+    download_path_saved.gsub!('%2F', '/')
     #chech if file has a mandatory survey
     #TODO login user?
     if( survey_available? 
         #and (session[:saved_download_path] != download_path_saved )
       )
-      #save directly download link to tmp session
-      #session[:saved_download_path] = download_path_saved
-      session[:tmp_path] = download_path_saved
+      #save directly download link!
+      session[:saved_download_path] = download_path_saved
 
       survey = @file.survey
 
@@ -321,7 +313,12 @@ class OpenfoundryController < ApplicationController
       return
     end
 
-    redirect_to "#{request.protocol}#{SSO_HOST}/of/download/#{download_path_saved}"
+    if @error_msg.empty? 
+      #session[:saved_download_path] = nil
+      redirect_to "#{request.protocol}of.openfoundry.org/download/#{download_path_saved}"
+    else
+      render :text => @error_msg
+    end
   end
 
   def redirect_rt_openfoundry_org
@@ -348,9 +345,9 @@ class OpenfoundryController < ApplicationController
           when /\/Attachment\/(\d+)\/(\d+)\/(.*)/i
             f = Fileentity.find_by_meta("#{$1},#{$2}")
             if f
-              redirect_to "#{request.protocol}#{SSO_HOST}/of/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+              redirect_to "http://of.openfoundry.org/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
             else
-              redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"
+              redirect_to "http://of.openfoundry.org/releases/top"
             end
             return
           end
@@ -362,24 +359,24 @@ class OpenfoundryController < ApplicationController
         when /\/source(.*)/i
           action = :viewvc
         end
-        redirect_to "#{request.protocol}#{SSO_HOST}/of/#{controller}/#{q}/#{action}"
+        redirect_to "http://of.openfoundry.org/#{controller}/#{q}/#{action}"
       when /\/download(.*)/i
         case $1
         when /\/(\d+)\/(\d+)\/(.*)/
           f = Fileentity.find_by_meta("#{$1},#{$2}")
           logger.info("")
           if f
-            redirect_to "#{request.protocol}#{SSO_HOST}/of/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+            redirect_to "http://of.openfoundry.org/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
           else
-            redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"            
+            redirect_to "http://of.openfoundry.org/releases/top"            
           end
         else
-          redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"
+          redirect_to "http://of.openfoundry.org/releases/top"
         end
       end   
     when /\/viewvc/i
     else
-      redirect_to "#{request.protocol}#{SSO_HOST}", :status => 307
+      redirect_to 'http://of.openfoundry.org/', :status => 307
     end
   end
 
@@ -391,14 +388,11 @@ class OpenfoundryController < ApplicationController
   end
 
   def add_one_to_download_counter
-     #ActiveRecord::Base.connection.execute("update `projects` set `project_counter` = 
-     #                   `project_counter` + 1 where `id` ='#{@project.id}'")
-     @project.redis_counter_project_counter_inc                   
-     #ActiveRecord::Base.connection.execute("update `releases` set `release_counter` = 
-     #                   `release_counter` + 1 where `id` = '#{@release.id}'")
-     @release.redis_counter_release_counter_inc                   
-     #ActiveRecord::Base.connection.execute("update `fileentities` set `file_counter` = 
-     #                   `file_counter` + 1 where `id` = #{@file.id}")
-     @file.redis_counter_file_counter_inc                   
+     ActiveRecord::Base.connection.execute("update `projects` set `project_counter` = 
+                        `project_counter` + 1 where `id` ='#{@project.id}'")
+     ActiveRecord::Base.connection.execute("update `releases` set `release_counter` = 
+                        `release_counter` + 1 where `id` = '#{@release.id}'")
+     ActiveRecord::Base.connection.execute("update `fileentities` set `file_counter` = 
+                        `file_counter` + 1 where `id` = #{@file.id}")
   end
 end

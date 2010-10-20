@@ -1,7 +1,5 @@
 require 'base64'
 require 'digest/md5'
-require 'rubygems'
-require 'curb'
 
 class UserController < ApplicationController
   require_dependency  'user'
@@ -22,7 +20,8 @@ class UserController < ApplicationController
       if id
         redirect_to "/user/home/#{id}" 
       else
-        flash[:warning] = _( 'user' ) + "#{ params[ 'user_alias' ] }" + _( "doesn\'t exist or be activated" )
+        flash[:warning] = 
+          _("User %{user} doesn't exist or be activated") % {:user => params['user_alias']}
         redirect_to "/"
       end
       return
@@ -33,7 +32,6 @@ class UserController < ApplicationController
   end
 
   def my_projects
-    @module_name = _('My Projects')
     reset_sortable_columns
     add_to_sortable_columns('listing', Project, 'summary', 'summary') 
     add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
@@ -72,14 +70,16 @@ class UserController < ApplicationController
   end
   
   def index
-    redirect_to :action => :dashboard
+    redirect_to :action => :home
   end
 
   def home
     # given uid to show other user's home
     # or goto login
     # TODO: redirect to login .... ok
-    @module_name = _('menu_Personal Homepage') 
+    # TODO: user may be empty!!!!!!!!!!!!!!!! .... guest account?
+    #logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 #{request.inspect}222222222222")
+    
     if params['id']
       user = User.find_by_id params['id']
       @my = ( current_user and (user.id == current_user.id) )
@@ -88,27 +88,14 @@ class UserController < ApplicationController
       @my =true
     end
 
-    if user and user.id
+    if user
       @name = user.login
       @icon = user.icon
-      @realname = user.realname || ''
-      @homepage = user.homepage || ''
-      @bio = user.bio || ''
-      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
-        @conceal_realname = false
-        @conceal_homepage = false
-        @conceal_bio = false
-        @conceal_email = false
-      else
-        @conceal_realname = user.t_conceal_realname
-        @conceal_homepage = user.t_conceal_homepage
-        @conceal_bio = user.t_conceal_bio
-        @conceal_email = user.t_conceal_email
-      end
+      @conceal_email = user.t_conceal_email
       session[:email_image] = user.email unless @conceal_email
       @email_md5 = Digest::MD5.hexdigest(user.email)
       @created_at = user.created_at
-			@pending_projects = Project.find(:all, :conditions => "#{Project.pending_projects()} and creator = '#{current_user().id}'")
+      #@status = user. unless user.t_conseal_status
 
       @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} and #{User.verified_users(:alias => 'U')} order by U.id")
       @projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} and #{Project.in_used_projects(:alias => 'P')} order by P.id")
@@ -121,37 +108,26 @@ class UserController < ApplicationController
       #@partners.flatten!.uniq!  
     else
       flash[:message] = "You are guest!!"
-      redirect_to "#{ root_path }" 
+      redirect_to :action => 'login'
     end
   end
 
   def username_availability_check
     username = params['username']
     unless username =~ User::LOGIN_REGEX
-      render :layout => false, :text => _( 'Username' ) + "#{ username }" + _( 'is invalid' )
+      render :layout => false, :text => _("Username '%{username}' is invalid") % {:username => username }
       return
     end
     if User.exists?([ "login = ? and #{User.verified_users}", username ])
-      render :layout => false, :text => _("Username '#{ username }' has already registed")
+      render :layout => false, :text => 
+      ( _("Username '%{username}' has already registed") % {:username => username } )
     else
-      render :layout => false, :text => _("Username '#{ username }' is ready for use")
+      render :layout => false, :text => _("Username '%{username}' is ready for use") % {:username => username }
     end
   end
 
   def login
-    if login?
-      cookies["lang"] = current_user.language
-			redirect_to :controller => :user, :action => :home
-    else
-      redirect_to SSO_LOGIN + "?return_url=" + SSO_OF_LOGIN
-    end
-=begin
     begin redirect_to :action => :home, :controller => :user ;return end if login?
-
-    if params['user'].nil? && !request.referer.nil? then 
-      session[:return_to] = request.referer
-    end
-
     # for OpenID Session
     if params['open_id_complete'] and session[:user] = open_id_authentication(nil)
       flash[:message] = _('OpenID Login Succeeded')
@@ -184,9 +160,6 @@ class UserController < ApplicationController
       # with a simple lock...
       Session.user_login(session[:user].id)
 
-      # set language for user's default preference
-      cookies["lang"] = current_user.language
-
       redirect_back_or_default :action => :home
       # For "paranoid session store"
       #self.app_user=session[:user]
@@ -199,7 +172,6 @@ class UserController < ApplicationController
     else
       flash[:message] = _('user_login_failed')  
     end
-=end
   end
 
   def signup
@@ -241,36 +213,20 @@ class UserController < ApplicationController
     #logout while su as somebody, and back to site_admin page
     if session[:effective_user]
       session[:effective_user] = nil
-      redirect_to "#{ root_path }site_admin"
+      redirect_to '/site_admin'
     else #normal user logout~
 
       # maintain an enumerable hash that include online users
       # with simple lock
-#      Session.user_logout(session[:user].id)
+      Session.user_logout(session[:user].id)
 
-			if cookies[:ossfauth]
-				curl = Curl::Easy.new(SSO_LOGOUT)
-				curl.cookies = "ossfauth=#{cookies[:ossfauth]};"
-				curl.http_post
-
-				cookies.delete :ossfauth
-        session[:user] = nil
-
-				flash[:message] = _('user_logout_succeeded')
-				redirect_to "#{ root_path }" 
-		else
-=begin
       session[:user] = nil
       #For "paranoid session store"
       #kill_login_key
       #rebuild_session
 
-      flash[:message] = _('user_logout_succeeded')
-      redirect_to '/'
-=end
-	redirect_to root_path
-			end
-		end
+      redirect_to :action => 'login'
+    end
   end
 
   def change_email
@@ -456,78 +412,6 @@ class UserController < ApplicationController
       :layout => false) 
   end
 
-  def dashboard
-    #VERY DIRTY, for rt sso refresh email, we delete rt cookie to force session reload
-    cookies.delete 'RT_SID_OpenFoundry.80', :path => '/rt'
-    cookies.delete 'RT_SID_OpenFoundry.80'.to_sym, :path => '/rt'
-    # set user's object in session initially
-    #login_by_sso if session[ :user ].nil?
-    @module_name= t('dashboard')
-
-    @allrtoptions = { "Owner" => "owner", "Creator" => "creator", "Requestor" => "requestor", "Last Updated" => "lastupdatedby" }
-
-    #
-    # My Issue Tracker
-    #
-    # the base request url for rt rdf
-    rturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=id>'0'"
-    # set the current user name
-    @name = ( params[ :username ].nil? )? current_user().login : params[ :username ]
-
-    # set the relation of rt with user 
-    case params[ :lookfor ]
-      when 'owner'
-        rturl += " AND Owner='" + @name + "'"
-      when 'creator'
-        rturl += " AND Creator='" + @name + "'"
-      when 'requestor'
-        rturl += " AND Requestor.Name='" + @name + "'"
-      when 'lastupdatedby'
-        rturl += " AND LastUpdatedBy='" + @name + "'"
-      else
-        rturl += " AND Owner='" + @name + "'"
-    end
-
-    # unsolved only
-    rturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
-
-    # connect to the rdf file
-    require 'open-uri'
-    content = ''
-    begin
-      open( URI::escape( rturl ) ) do | f | content = f.read end
-    rescue
-    end
-    # parse the the rdf file
-    require 'rss/1.0'
-    require 'rss/2.0'
-    require 'rss/dublincore'
-    require 'rss/content'
-    begin
-      @rss = RSS::Parser.parse( content, false, false )
-    #rescue RSS::InvalidRSSError
-    rescue
-      @rss = nil
-    end
-
-    #
-    # My Projects 
-    #
-    @my_projects = Project.find_by_sql "SELECT DISTINCT(P.id), P.icon, P.name, P.updated_at FROM projects P 
-                                       JOIN roles R 
-                                       JOIN roles_users RU 
-                                       JOIN users U WHERE
-                                       P.id = R.authorizable_id AND 
-                                       R.authorizable_type = 'Project' AND 
-                                       P.status = 2 AND 
-                                       R.id = RU.role_id AND 
-                                       U.login = '#{ @name }' AND 
-                                       RU.user_id = U.id
-                                       ORDER BY P.updated_at"
-
-    render :layout => "application"
-  end
-
   protected
 
   def destroy(user)
@@ -551,7 +435,7 @@ class UserController < ApplicationController
     when :get
       session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
-        :locals => {:submit_to => "#{ root_path }user/signup", 
+        :locals => {:submit_to => '/user/signup', 
                     :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
       return true
     when :post

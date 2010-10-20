@@ -2,25 +2,36 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
   before_filter :set_project
 
-  before_filter :project_check_permission
-  def project_check_permission
-    if @project and @project.status == Project::STATUS[:PENDING]
-    else
-      check_permission
-    end
-  end
-
+  before_filter :check_permission
   def set_project
     if params[:id]
-      @project = get_project_by_id_or_name(params[:id]) { |id| redirect_to :id => id }
+      @project = ProjectsController.get_project_by_id_or_name(params[:id], self) { |id| redirect_to :id => id }
     end
   end
+  def self.get_project_by_id_or_name(id_or_name, controller)
+    rtn = nil
+    case id_or_name
+    when /^\d+$/
+      rtn = Project.find_by_id(id_or_name, :conditions => Project.in_used_projects())
+    when Project::NAME_REGEX
+      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ? and #{Project.in_used_projects}", id_or_name])
+        yield rtn.id
+      end
+    end
+    if not rtn
+      controller.send(:flash)[:warning] = "Project '#{id_or_name}' does not exist, or it has be deactivated."
+      controller.send(:redirect_to, "/")
+    end
+    rtn
+  end
+
   
   def set_project_id
     params[:project_id] = params[:id]
+    @module_name = _('Basic Information')
   end
   
   def sympa
@@ -55,44 +66,17 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def websvn 
-    @module_name = _('Version Control')
-    case @project.vcs
-    when Project::VCS[:CVS]
-      render :text => _("The WebSVN can't support CVS. Please use ViewVC.")
-    when Project::VCS[:SUBVERSION]
-      @Path = OPENFOUNDRY_WEBSVN_URL + "listing.php?repname=" + @project.name
-      render :template => 'projects/viewvc'
-    when Project::VCS[:REMOTE], Project::VCS[:NONE], Project::VCS[:SUBVERSION_CLOSE]
-      vcs_access
-      render :template => 'projects/vcs_access'
-    else
-      render :text => _("System error. Please contact the site administrator.")
-    end
-  end
-
   def index
     list
     #render :action => 'list'
     logger.debug "session['user']: " + session[:user].inspect
   end
 
-  def list_n3 #it is a kind of rdf format that list all projects
-    txt="\t@prefix doap:<http://usefulinc.com/ns/doap#>.\n#{Project.in_used.find(:all).map{|p| 
-       "<#{project_url p.id}#self> a doap:Project."}.join("\n")}"
-    headers["Content-Type"] = "text/n3; charset=utf-8" 
-    render :text => txt
-  end
-  private :list_n3
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   #verify :method => :post, :only => [ :destroy, :create, :update ],
   #       :redirect_to => { :action => :list }
 
   def list
-    if(params[:format] == 'n3')
-      list_n3
-      return
-    end
     reset_sortable_columns
     add_to_sortable_columns('listing', Project, 'summary', 'summary') 
     add_to_sortable_columns('listing', Project, 'created_at', 'created_at')
@@ -124,65 +108,28 @@ class ProjectsController < ApplicationController
     
     projects = nil
     [params[:page], 1].each do |page|
-      projects = Project.in_used.paginate(:page => page, :per_page => 10, :conditions => query,
+      projects = Project.paginate(:page => page, :per_page => 10, :conditions => query,
                  :include => [:releases],
                  :order => sortable_order('listing', :model => Project, :field => 'summary', :sort_direction => :asc) )
       break if not projects.out_of_bounds?
     end
-    render(:partial => 'list', :layout => 'normal', :locals => { :projects => projects })
+    render(:partial => 'list', :layout => 'application', :locals => { :projects => projects })
   end
 
   def show
-    @module_name = _('Basic Information')
-    @nsccode = @project.tag_list.names.grep(/^NSC\d/).sort.join(", ")
-
     @participents = User.find_by_sql("
       select distinct U.id, U.login, U.icon, R.name as role_name
         from users U
           inner join roles_users RU on U.id = RU.user_id
           inner join roles R on RU.role_id = R.id
         where
-          R.authorizable_id = #{ @project.id } and
+          R.authorizable_id = #{@project.id} and
           R.authorizable_type= 'Project'
         order by U.id
-    ")
-    @p = @participents.group_by { |p| p.role_name }
-
-    #
-    # for project issues
-    #
-    if @project.id
-      # the base request url for rt rdf
-      prturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
-
-      # unsolved only
-      prturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
-
-      # connect to the rdf file 
-      require 'open-uri'
-      content = ''
-      begin
-        open( URI::escape( prturl ) ) do | f | content = f.read end
-      rescue
-      end
-      # parse the rdf of project issues
-      require 'rss/1.0'
-      require 'rss/2.0'
-      require 'rss/dublincore'
-      require 'rss/content'
-      begin
-        @rss = RSS::Parser.parse( content, false, false )
-      #rescue RSS::InvalidRSSError
-      rescue
-        @rss = nil
-      end
-    end
-
-    render :layout => "application"
+    ")    
   end
 
   def new
-    @module_name = _("Create Project")
     @project = Project.new
   end
 
@@ -217,27 +164,18 @@ class ProjectsController < ApplicationController
     old_redirecturl = @project.redirecturl
     old_vcs = @project.vcs
     old_summary = @project.summary
-    if @project.status == Project::STATUS[:PENDING] 
-      params[:project][:status] = Project::STATUS[:APPLYING]
-    end
-
     if @project.update_attributes(params[:project])
-      if @project.status == Project::STATUS[:APPLYING] 
-        ProjectNotify.deliver_project_reviewer(@project)
-        redirect_to :action => 'applied'
-	return
-      end
       flash[:notice] = _('Project was successfully updated.')
       changed = []
       changed << _("Project|Redirecturl") if @project.redirecturl != old_redirecturl
       changed << _("Project|Vcs") if @project.vcs != old_vcs
       if not changed.empty?
-        flash[:notice] +=  " " + _('It may take 5 minutes for settings to take effect.')
+        flash[:notice] +=  " " + _('It may take 5 minutes for %s settings to take effect.') % changed.join("/")
       end
 
       # send message to rt module for sync
       if @project.summary != old_summary
-        ApplicationController::send_msg(TYPES[:project], ACTIONS[:update], {:id => @project.id, :name => @project.name, :summary => @project.summary})
+        ApplicationController::send_msg(TYPES[:project], ACTIONS[:update], {'id' => @project.id, 'name' => @project.name, 'summary' => @project.summary})
       end 
 
       redirect_to :action => 'show', :id => @project
@@ -267,7 +205,7 @@ class ProjectsController < ApplicationController
           elsif r.authorizable_id == old_r.authorizable_id #the same project?
             old_r.users.delete(u)
             unless old_r.valid?
-              flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY.') 
+              flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY!') 
               old_r.users << u #TODO: better recovery
               member_edit #if flag_changed
               render :action => :member_edit, :layout => 'module_with_flash'
@@ -285,20 +223,22 @@ class ProjectsController < ApplicationController
             added = after - before
             removed = before - after
             added.each do |f|
-              ApplicationController::send_msg(:function,:create,
+              ApplicationController::send_msg('function','create',
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => r.authorizable_id
                                               })
             end
             removed.each do |f|
-              ApplicationController::send_msg(:function,:delete,
+              ApplicationController::send_msg('function','remove',
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => r.authorizable_id
                                               })
             end
-            flash.now[:notice] = _( 'Move User to Group' ) + " #{ r.name }" 
+            flash.now[:notice] = 
+              _('Move User "%{user}" from Group "%{old_role}" to Group "%{role}"') % 
+            {:user => u.login, :old_role => old_r.name, :role => r.name}
           else
             flash.now[:warning] = 
               _('You can\'t move User between Groups that belong to different Projects.')
@@ -311,19 +251,25 @@ class ProjectsController < ApplicationController
           after = u.functions_for(r.authorizable_id)
           added = after - before
           added.each do |f|
-            ApplicationController::send_msg(:function,:create,
+            ApplicationController::send_msg('function','create',
                                             {:function_name => f.name, 
                                               :user_id => u.id,
                                               :project_id => r.authorizable_id
                                             })
           end
-          flash.now[:notice] = _( 'Add User into Group' ) + " #{ r.name }"
+          flash.now[:notice] = 
+            _('Add User "%{user}" into Group "%{role}"') % 
+          {:user => u.login, :role => r.name} 
         end
       else
-        flash.now[:warn] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
-      end 
+        flash.now[:warn] = 
+          _('Group "%{role}" doesn\'t exist!') % 
+        {:role => r.name}
+      end
     else
-      flash.now[:warning] = _( 'User doesn\'t exist!' ) + ": #{ u.login }"
+      flash.now[:warning] = 
+        _('User "%{user}" doesn\'t exist!') % 
+      {:user => u.login}
     end
     member_edit #if flag_changed
     render :action => :member_edit, :layout => 'module_with_flash'
@@ -352,7 +298,7 @@ class ProjectsController < ApplicationController
           before = u.functions_for(r.authorizable_id)
           r.users.delete u
           unless r.valid?
-            flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY.')
+            flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY!')
             r.users << u #TODO: better recovery
             member_edit #if flag_changed
             render :action => :member_edit, :layout => 'module_with_flash'
@@ -361,27 +307,30 @@ class ProjectsController < ApplicationController
           r.save
           #u.roles.delete(r)
           #u.save
-	  u.reload
           after = u.functions_for(r.authorizable_id)
           removed = before -after
           flag_changed = true
           after = u.functions_for(r.authorizable_id)
           removed = before - after
           removed.each do |f|
-            ApplicationController::send_msg(:function,:delete,
+            ApplicationController::send_msg('function','remove',
                                             {:function_name => f.name, 
                                               :user_id => u.id,
                                               :project_id => r.authorizable_id
                                             })
           end
           flash.now[:notice] = 
-            _('Remove User from Group') 
-               
+            _('Remove User "%{user}" from Group "%{role}"') % 
+          {:user => u.login, :role => r.name}
         else
-          flash.now[:warning] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
+          flash.now[:warning] = 
+            _('Group "%{role}" doesn\'t exist!') % 
+          {:role => r.name}
         end
       else
-        flash.now[:warning] = _( 'User doesn\'t exist!' ) + ": #{ u.login }"
+        flash.now[:warning] = 
+          _('User "%{user}" doesn\'t exist!') % 
+        {:user => u.login}
       end
     end
     member_edit #if flag_changed
@@ -452,14 +401,14 @@ class ProjectsController < ApplicationController
           project_id = role.authorizable_id
           role.users.each do |u|
             removed.each do |f|
-              ApplicationController::send_msg(:function,:delete,
+              ApplicationController::send_msg('function','remove',
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => project_id
                                               })
             end
             added.each do |f|
-              ApplicationController::send_msg(:function,:create,
+              ApplicationController::send_msg('function','create',
                                               {:function_name => f.name, 
                                                 :user_id => u.id,
                                                 :project_id => project_id
@@ -488,7 +437,8 @@ class ProjectsController < ApplicationController
       if(role.name.upcase != "ADMIN" && role.name.upcase != "MEMBER")
         role.authorizable_type = "Project"
         if role.save
-          flash.now[:notice] = _( 'Role was successfully created.' ) + ": #{ role.name }"
+          flash.now[:notice] = _('Role "%{name}" was successfully created.') %
+            {:name => role.name}
         end
       end
     end
@@ -507,7 +457,8 @@ class ProjectsController < ApplicationController
     else
       @project.roles.delete role
       role.destroy
-      flash.now[:notice] = _( 'Role was successfully deleted.' ) + ": #{ role.name }"
+      flash.now[:notice] = _('Role "%{name}" was successfully deleted.') %
+            {:name => role.name}
 #      render :update do |page|
 #        page[:role_new].reload
 #      end  
@@ -526,7 +477,7 @@ class ProjectsController < ApplicationController
       :feed => {
         :title       => _("OpenFoundry: New Projects Feed"),
         :description => _("New projects on OpenFoundry"),
-        :link        => "#{SSO_HOST}",
+        :link        => 'of.openfoundry.org',
         :language    => 'UTF-8'
       },
       :item => {
@@ -550,7 +501,7 @@ class ProjectsController < ApplicationController
     when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE] 
       @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
     when Project::VCS[:CVS]
-      @src = "cvs -d :ssh:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
+      @src = "cvs -d :ext:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
     when Project::VCS[:REMOTE]
     else
     end
@@ -560,5 +511,4 @@ class ProjectsController < ApplicationController
   end
   def test_action
   end
-
 end

@@ -1,0 +1,111 @@
+<script>
+document.observe("dom:loaded", project_leftmenu_init);
+</script>
+<%
+  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+
+  is_nsc_project = @project.is_nsc_project
+%>
+<ul id="menu_tab">
+  <li onclick="project_leftmenu_onclick(1)" id="project_menu_tab"><%=_('project_menu_View')%></li>
+  <% if functions.length > 0 -%>
+  <li onclick="project_leftmenu_onclick(2)" id="project_admin_menu_tab"><%=_('project_menu_Admin')%></li>
+  <% end %>
+</ul>
+<div id="project_left_menu" style="clear:both;">
+  <ul id="project_menu">
+      <li><%= link_to _('project_Info'), project_path(:id => project.id), :class => 'subimg' %>
+          <ul>
+              <li><%= link_to _('project_Basic_Information'), project_path(:id => project.id) %></li>
+              <li><%= link_to _('project_Homepage'), "http://#{project.name}.openfoundry.org", :target => '_blank' %></li>
+              <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+              <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
+              <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
+              <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+          </ul>
+      </li>
+      <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id), :class => 'subimg' %>
+          <ul>
+              <li><%= link_to _('tracker_Overview'), rt_path(:project_id => project.id) %></li>
+              <li><%= link_to _('tracker_Defect'), rt1_path(:project_id => project.id, :id => 'defect') %></li>
+              <li><%= link_to _('tracker_Patch'), rt1_path(:project_id => project.id, :id => 'patch') %></li>
+              <li><%= link_to _('tracker_Task'), rt1_path(:project_id => project.id, :id => 'task') %></li>
+              <li><%= link_to _('tracker_Feature'), rt1_path(:project_id => project.id, :id => 'feature') %></li>
+              <li><%= link_to _('tracker_Enhancement'), rt1_path(:project_id => project.id, :id => 'enhancement') %></li>
+          </ul>
+      </li>
+      <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+      <li><%= link_to _('Version Control'), viewvc_project_path(:id => project.id), :class => 'subimg' %>
+          <ul>
+              <% if project.vcs == Project::VCS[:CVS] or project.vcs == Project::VCS[:SUBVERSION] %>
+              <li><%= link_to _("ViewVC"), viewvc_project_path(:id => project.id) %></li>
+              <% end %>
+              <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
+          </ul>
+      </li>
+      <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
+      <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+      <% if is_nsc_project %>
+      <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+      <% end %>
+  </ul>
+  <% if functions.length > 0 -%>
+  <ul id="project_admin_menu" style="display:none;">
+    <% if functions.grep(/project_info|citation|reference|news|job/).length > 0 -%>
+      <li><%= link_to _('project_Info'), edit_project_path(:id => project.id), :class => 'subimg' %>
+        <ul>
+          <% if functions.include?('project_info') -%>
+            <li><%= link_to _('project_Basic_Information'), edit_project_path(:id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('citation') -%>
+            <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('reference') -%>
+            <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('news') -%>
+            <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
+          <% end -%>
+          <% if functions.include?('job') -%>
+            <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+          <% end -%>
+        </ul>
+      </li>
+    <% end -%>
+    <% if functions.include?('rt_admin') -%>
+      <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('kwiki_manage') -%>
+      <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('sympa_manage') -%>
+      <li><%= link_to _('Mailing List'), sympa_project_path(:id => project.id) %></li>
+    <% end -%>
+    <% if functions.include?('release') -%>
+      <li><%= link_to _('release_Releases'), releases_path(:project_id => project.id), :class => 'subimg' %>
+        <ul>
+          <li><%= link_to _('release_Edit'), releases_path(:project_id => project.id) %></li>
+          <li><%= link_to _('release_New'), new_release_path(:project_id => project.id) %></li>
+        </ul>
+      </li>
+    <% end -%>
+    <% if functions.include?('project_member') -%>
+      <li><%= link_to _('project_Member Control'), :controller => :projects, :action => "member_edit", :id =>@project%></li>
+    <% end -%>
+    <% if functions.include?('role_edit') -%>
+      <li><%= link_to _('project_Permission Control'), :controller => :projects, :action => "permission_edit", :id =>@project%></li>
+    <% end -%>
+    <% if functions.include?('survey') -%>
+      <li><%= link_to s_('project menu|Surveys'), survey_index_path(:project_id => @project.id), :class => 'subimg'%>
+        <ul>
+          <li><%= link_to s_('project menu|Surveys Edit'), survey_index_path(:project_id => @project.id)%></li>
+          <li><%= link_to s_('project menu|Downloaders'), project_review_path(@project.id)%></li>
+        </ul>
+      </li>
+    <% end -%>
+    <% if is_nsc_project %>
+    <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>

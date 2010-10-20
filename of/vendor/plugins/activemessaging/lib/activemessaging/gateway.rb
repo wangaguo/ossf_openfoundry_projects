@@ -1,6 +1,4 @@
 require 'yaml'
-require 'ostruct'
-require 'erb'
 
 module ActiveMessaging
 
@@ -27,18 +25,15 @@ module ActiveMessaging
         # subscribe - creating connections along the way
         subscribe
 
-        # for each connection, start a thread
+        # for each conection, start a thread
         @@connections.each do |name, conn|
           @@connection_threads[name] = Thread.start do
             while @@running
               begin
                 Thread.current[:message] = nil
                 Thread.current[:message] = conn.receive
-              #catch these but then stop looping
-              rescue StopProcessingException=>spe
+              rescue StopProcessingException
                 ActiveMessaging.logger.error "ActiveMessaging: thread[#{name}]: Processing Stopped - receive interrupted, will process last message if already received"
-                # break
-              #catch all others, but go back and try and recieve again
               rescue Object=>exception
                 ActiveMessaging.logger.error "ActiveMessaging: thread[#{name}]: Exception from connection.receive: #{exception.message}\n" + exception.backtrace.join("\n\t")
               ensure
@@ -47,7 +42,6 @@ module ActiveMessaging
               end
               Thread.pass
             end
-            ActiveMessaging.logger.error "ActiveMessaging: thread[#{name}]: receive loop terminated"
           end
         end
         
@@ -90,7 +84,7 @@ module ActiveMessaging
                 msg = thread[:message]
                 thread.exit
                 thread = Thread.start do
-                  begin
+                  begin 
                     Thread.current[:message] = msg
                     dispatch Thread.current[:message]
                   ensure
@@ -143,7 +137,7 @@ module ActiveMessaging
               filter_obj = create_filter(filter, options)
               filter_obj.process(message, details)
             rescue ActiveMessaging::StopFilterException => sfe
-              ActiveMessaging.logger.error "Filter: #{filter_obj.inspect} threw StopFilterException: #{sfe.message}"
+              ActiveMessaging.logger.error "Filter: #{filter_obj.inspect} threw StopProcessingException: #{sfe.message}"
               return
             end
           end
@@ -188,16 +182,11 @@ module ActiveMessaging
       end
 
       def prepare_application
-        if defined? Rails
-          # Dispatcher.prepare_application_for_dispatch
-          ActiveRecord::Base.verify_active_connections!
-        end
+        Dispatcher.prepare_application_for_dispatch
       end
 
       def reset_application
-        if defined? Rails
-          # Dispatcher.reset_application_after_dispatch
-        end
+        Dispatcher.reset_application_after_dispatch
       end
       
       def dispatch(message)
@@ -364,11 +353,11 @@ module ActiveMessaging
       end
       
       def load_connection_configuration(label='default')
-        @broker_yml = YAML::load(ERB.new(IO.read(File.join(APP_ROOT, 'config', 'broker.yml'))).result) if @broker_yml.nil?
+        @broker_yml = YAML::load(ERB.new(IO.read(File.join(RAILS_ROOT, 'config', 'broker.yml'))).result) if @broker_yml.nil?
         if label == 'default'
-          config = @broker_yml[APP_ENV].symbolize_keys
+          config = @broker_yml[RAILS_ENV].symbolize_keys
         else
-          config = @broker_yml[APP_ENV][label].symbolize_keys
+          config = @broker_yml[RAILS_ENV][label].symbolize_keys
         end
         config[:adapter] = config[:adapter].to_sym if config[:adapter]
         config[:adapter] ||= :stomp
@@ -394,8 +383,6 @@ module ActiveMessaging
     def subscribe
       ActiveMessaging.logger.error "=> Subscribing to #{destination.value} (processed by #{processor_class})"
       Gateway.connection(@destination.broker_name).subscribe(@destination.value, subscribe_headers) 
-      # FIXME (uwe): Not sure why this needs to happen here
-      @processor = @processor_class.new
     end
 
     def unsubscribe

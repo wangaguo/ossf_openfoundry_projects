@@ -2,14 +2,15 @@ class RtController < ApplicationController
   layout 'rt'
   before_filter :get_project
   def get_project
-    @project = get_project_by_id_or_name(params[:project_id]) { |id| redirect_to :project_id => id }
+    if(params[:project_id] != nil)
+      @project = Project.find(:first, :conditions => "id = #{params[:project_id]}")
+      if(@project == nil)
+        redirect_to "http://of.openfoundry.org"
+      end
+    end
   end
-
+  
   def index
-    rt_init
-  end
-
-  def report
     rt_init
   end
   
@@ -19,13 +20,22 @@ class RtController < ApplicationController
   end
 
   def rt_init
-    @module_name = _('rt_issue_tracker')
     if login? == false
-      flash.now[:warning] = t('msg.postrt_without_login')
+      flash[:warning] = _("You have not logged in; please log in or register from the links in the top-left corner. If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved. ")
     end
     @rt_url = OPENFOUNDRY_RT_URL
-    @base_url = @rt_url + "Search/Results.html?" +
-      "Order=DESC&OrderBy=LastUpdated&Query="
+    @base_url = @rt_url + "Search/Results.html?" + 
+      "Format=%27%20%20%20%3Cb%3E%3Ca%20href%3D%22%2Frt%2FTicket%2FDisplay.html%3Fid%3D__id__%22%3E__id__%3C%2Fa%3E%3C%2Fb%3E%2FTITLE%3A%23%27%2C%0A%27%3Cb%3E%3Ca%20href%3D%22%2Frt%2FTicket%2FDisplay.html%3Fid%3D__id__%22%3E__Subject__%3C%2Fa%3E%3C%2Fb%3E%2FTITLE%3ASubject%27%2C" +
+      "'__Status__'," \
+      "'__QueueName__'," \
+      "'__OwnerName__'," \
+      "'__NEWLINE__'," \
+      "'<small>__CustomField.{Severity}__</small>'," \
+      "'<small>__Requestors__</small>'," \
+      "'<small>__CreatedRelative__</small>'," \
+      "'<small>__ToldRelative__</small>'," \
+      "'<small>__LastUpdatedRelative__</small>'" \
+      "&Order=DESC&OrderBy=LastUpdated&Query="
     if(@project != nil)
       @base_url += "Queue = '" + @project.id.to_s + "'"
     else

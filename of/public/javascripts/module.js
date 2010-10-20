@@ -1,13 +1,8 @@
-var module = function(){};
-module.js_path = "http://www.openfoundry.org/of/javascripts/";
-module.logo_path = "http://www.openfoundry.org/Powered-by-OSSF-180x50";
-module.site_path = "http://www.openfoundry.org/";
-
-importJS(module.js_path+"jquery.js", "jQuery", function(){
+importJS("http://of.openfoundry.org/javascripts/jquery.js", "jQuery", function(){
   var pathname = location.pathname;
   _OF(jQuery);
   if(pathname.match(/^\/rt\/ticket\/create.html/i) || pathname.match(/^\/c/i)) {
-    importJS(module.js_path+"jquery.validate.js", "jQuery.validator", function(){
+    importJS("http://of.openfoundry.org/javascripts/jquery.validate.js", "jQuery.validator", function(){
       jQuery(document).ready(function(){OF.onload();});
     });
   }
@@ -48,8 +43,6 @@ window.OF = {
       else if(pathname.match(/^\/rt\/Search\/Results.html/i)) this.RT.list();
       else if(pathname.match(/^\/rt\/Ticket\/Modify.html/i)) this.RT.modify();
       else if(pathname.match(/^\/rt\/Ticket\/Display.html/i)) this.RT.display();
-      else if(pathname.match(/^\/viewvc/i)) this.viewvc();
-      else if(pathname.match(/^\/websvn/i)) this.websvn();
       //else if(pathname.match(/^\/rt\/Search\/Results.html/i)) this.RT.create();
     }
     this.iframe_auto_height();
@@ -58,9 +51,9 @@ window.OF = {
       $("a[href*='http:']").attr("target","_top"); //external link
     }
     //不是openfoundry.org就加上ossf logo
-    if(parent == window || this.is_crosssite() || !parent.location.host.match(location.host))
+    if(parent == window || this.is_crosssite() || !parent.location.host.match(/of.openfoundry.org/))
     {
-      $("body").append('<a href="'+module.site_path+'" target="_blank"><img src="'+module.logo_path+'" style="border:none; float:right;"></a>');
+      $("body").append('<a href="http://www.openfoundry.org" target="_blank"><img src="http://www.openfoundry.org/Powered-by-OSSF-180x50" style="border:none; float:right;"></a>');
     }
   },
   
@@ -111,7 +104,7 @@ window.OF = {
       $("tr:has(small:contains('P3'))").css("background-color","#FFE8BF").prev().css("background-color","#FFE8BF");
       $("tr:has(small:contains('P4'))").css("background-color","#F9AFFF").prev().css("background-color","#F9AFFF");
       $("tr:has(small:contains('P5'))").css("background-color","#F35FFF").prev().css("background-color","#F35FFF");
-      $("tr").find("td:eq(2):contains('已處理'), td:eq(2):contains('已駁回'), td:eq(2):contains('rejected'), td:eq(2):contains('resolved')").parent().css("background-color","gray").next().css("background-color","gray");
+      $("tr:contains('已處理'), tr:contains('已駁回'), tr:contains('rejected'), tr:contains('resolved')").css("background-color","gray").next().css("background-color","gray");
       $("small:contains('P1')").css("background-color","#FF6F6F");
       $("small:contains('P2')").css("background-color","#FFAFAF");
       $("small:contains('P3')").css("background-color","#FFE8BF");
@@ -136,31 +129,8 @@ window.OF = {
   },//Kwiki end
   
   viewvc: function(){
-    $("a[title^='ViewVC']").css("display", "none"); //ViewVC Logo
-    if(parent != window){
-      $("div.vc_navheader").css("display", "none"); //nav bar
-    }
+    return "viewvc";
   },//viewvc end
-
-  websvn: function(){
-    if(parent != window){
-      switch($("select[name='templatechoice']").val())
-      {
-        case 'BlueGrey':
-          $("div#header, div#projects").css("display", "none");
-          break;
-        case 'calm':
-          $("div#select, h1").css("display", "none");
-          $("div#info").css({"width":"20%"});
-          $("div#wrap").css({"width":"75%", "margin-left":"23%"});
-          break;
-        case 'Elegant':
-          $("div#menus, h1").css("display", "none");
-          break;
-      }
-      $("#templateform").insertAfter($("#revisionform"));
-    }
-  },//websvn end
   
   iframe_auto_height: function(){
     if(!this.in_of()) return;

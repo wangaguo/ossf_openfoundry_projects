@@ -9,7 +9,6 @@ development:
     # Stomp Adapter Properties #
     ############################
     adapter: stomp
-
     # properties below are all defaults for this adapter
     # login: ""
     # passcode: ""
@@ -18,24 +17,12 @@ development:
     # reliable: true
     # reconnectDelay: 5
 
-    # NEW! enable stomp retry logic
-    #  will resend errored out messages to be retried when on_error throws ActiveMessaging::AbortMessageException
-    #
-    # Max number of times to retry an aborted message, for 0, will not retry (default)
-    # retryMax: 0
-    #
-    # If error still occurs after retryMax, send message to specified dead letter queue
-    # deadLetterQueue: '/queue/activemessaging/deadletter'
-
-    ################################
-    # Beanstalk Adapter Properties #
-    ################################
-    # adapter: beanstalk
-    # host: localhost
-
-    ## properties below are all defaults for this adapter
-    # port: 11300
-
+    ###################################
+    # Websphere MQ Adapter Properties #
+    ###################################
+    # adapter: wmq
+    # q_mgr_name: ""
+    # poll_interval: .1
 
     #################################
     # Amazon SQS Adapter Properties #
@@ -43,7 +30,6 @@ development:
     # adapter: asqs
     # access_key_id: XXXXXXXXXXXXXXXXXXXX
     # secret_access_key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
     ## properties below are all defaults for this adapter
     # host: queue.amazonaws.com
     # port: 80
@@ -54,26 +40,14 @@ development:
     # poll_interval: 1
     # cache_queue_list: true
 
-
     ########################################
     # ReliableMessaging Adapter Properties #
     ########################################
     # adapter: reliable_msg
-
     ## properties below are all defaults for this adapter
     # poll_interval: 1
-    # reliable: true
+    # reliable: true    
 
-
-    ###################################
-    # Websphere MQ Adapter Properties #
-    ###################################
-    # adapter: wmq
-    # q_mgr_name: ""
-    # poll_interval: .1
-
-
-    
 test:
     adapter: test
     reliable: false

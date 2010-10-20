@@ -1,8 +1,6 @@
 module ActiveMessaging
-  VERSION  = "0.6.1"
-  APP_ROOT = ENV['APP_ROOT'] || ENV['RAILS_ROOT'] || ((defined? RAILS_ROOT) && RAILS_ROOT) || File.dirname($0)
-  APP_ENV  = ENV['APP_ENV']  || ENV['RAILS_ENV']  || 'development'
-  ROOT     = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+
+  VERSION = "0.5" #maybe this should be higher, but I'll let others judge :)
 
   # Used to indicate that the processing for a thread shoud complete
   class StopProcessingException < Interrupt #:nodoc:
@@ -19,10 +17,8 @@ module ActiveMessaging
   end
 
   def ActiveMessaging.logger
-    @@logger = nil unless defined? @@logger
-    @@logger ||= RAILS_DEFAULT_LOGGER if defined? RAILS_DEFAULT_LOGGER
-    @@logger ||= ActiveRecord::Base.logger if defined? ActiveRecord
-    @@logger ||= Logger.new(STDOUT)
+    @@logger = ActiveRecord::Base.logger unless defined?(@@logger)
+    @@logger = Logger.new(STDOUT) unless defined?(@@logger)
     @@logger
   end
 
@@ -38,20 +34,18 @@ module ActiveMessaging
     require 'activemessaging/trace_filter'
 
     # load all under the adapters dir 
-    Dir[File.join(ROOT, 'lib', 'activemessaging', 'adapters', '*.rb')].each do |a| 
+    Dir[RAILS_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/adapters/*.rb'].each{|a| 
       begin
         adapter_name = File.basename(a, ".rb")
         require 'activemessaging/adapters/' + adapter_name
       rescue RuntimeError, LoadError => e
         logger.debug "ActiveMessaging: adapter #{adapter_name} not loaded: #{ e.message }"
       end
-    end
+    }
   end
 
   def self.load_config
-    p APP_ROOT
-    path = File.expand_path("#{APP_ROOT}/config/messaging.rb")
-    p path
+    path = File.expand_path("#{RAILS_ROOT}/config/messaging.rb")
     begin
       load path
     rescue MissingSourceFile
@@ -63,12 +57,12 @@ module ActiveMessaging
 
   def self.load_processors(first=true)
     #Load the parent processor.rb, then all child processor classes
-    load APP_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/message_sender.rb' unless defined?(ActiveMessaging::MessageSender)
-    load APP_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/processor.rb' unless defined?(ActiveMessaging::Processor)
-    load APP_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/filter.rb' unless defined?(ActiveMessaging::Filter)
-    logger.debug "ActiveMessaging: Loading #{APP_ROOT + '/app/processors/application.rb'}" if first
-    load APP_ROOT + '/app/processors/application.rb' if File.exist?("#{APP_ROOT}/app/processors/application.rb")
-    Dir[APP_ROOT + '/app/processors/*.rb'].each do |f|
+    load RAILS_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/message_sender.rb' unless defined?(ActiveMessaging::MessageSender)
+    load RAILS_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/processor.rb' unless defined?(ActiveMessaging::Processor)
+    load RAILS_ROOT + '/vendor/plugins/activemessaging/lib/activemessaging/filter.rb' unless defined?(ActiveMessaging::Filter)
+    logger.debug "ActiveMessaging: Loading #{RAILS_ROOT + '/app/processors/application.rb'}" if first
+    load RAILS_ROOT + '/app/processors/application.rb' if File.exist?("#{RAILS_ROOT}/app/processors/application.rb")
+    Dir[RAILS_ROOT + '/app/processors/*.rb'].each do |f|
       unless f.match(/\/application.rb/)
         logger.debug "ActiveMessaging: Loading #{f}" if first
         load f
@@ -119,15 +113,13 @@ end
 #load these once to start with
 ActiveMessaging.load_activemessaging
 
-# reload these on each Rails request - leveraging Dispatcher semantics for consistency
-if defined? Rails
-  ActiveMessaging.logger.info "Rails available: Adding dispatcher prepare callback."
-  require 'dispatcher' unless defined?(::Dispatcher)
-  
-  # add processors and config to on_prepare if supported (rails 1.2+)
-  if ::Dispatcher.respond_to? :to_prepare
-    ::Dispatcher.to_prepare :activemessaging do
-      ActiveMessaging.reload_activemessaging
-    end
+
+# reload these on each request - leveraging Dispatcher semantics for consistency
+require 'dispatcher' unless defined?(::Dispatcher)
+
+# add processors and config to on_prepare if supported (rails 1.2+)
+if ::Dispatcher.respond_to? :to_prepare
+  ::Dispatcher.to_prepare :activemessaging do
+    ActiveMessaging.reload_activemessaging
   end
 end

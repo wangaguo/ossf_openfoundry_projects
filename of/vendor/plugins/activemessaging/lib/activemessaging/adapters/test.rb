@@ -1,4 +1,3 @@
-require 'activemessaging/adapter'
 
 module ActiveMessaging
   module Adapters

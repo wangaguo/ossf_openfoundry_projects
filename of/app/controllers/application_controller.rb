@@ -5,12 +5,8 @@ require 'user_system'
 require 'of'
 require 'permission_table'
 require 'cgi_session_activerecord_store_hack'
-require 'hashit'
 
-#require 'gettext_rails'
-
-require 'rubygems'
-require 'curb'
+require 'gettext_rails'
 # For "paranoid session store"
 #require 'action_controller_cgi_request_hack'
 
@@ -24,7 +20,6 @@ class ApplicationController < ActionController::Base
 
   around_filter :touch_session
   before_filter :set_time_zone
-  before_filter :set_locale
 
   #for permission table
   include OpenFoundry::PermissionTable
@@ -40,9 +35,6 @@ class ApplicationController < ActionController::Base
   helper :projects
   require_dependency 'user'
 
-  rescue_from ActionController::RoutingError, :with => :not_found
-
-
 #  before_filter :configure_charsets
 #
 #  def configure_charsets
@@ -54,53 +46,20 @@ class ApplicationController < ActionController::Base
 #        end
 #  end
   #set locale for each request
-  #before_init_gettext :set_gettext_locale
-  #after_init_gettext :set_will_paginate_lang
-  #init_gettext "openfoundry"
-  layout 'normal'
-  def not_found
-    flash[:error] = 'not_found'
-    redirect_to not_found_rescue_path
-  end
+  before_init_gettext :set_gettext_locale
+  after_init_gettext :set_will_paginate_lang
+  init_gettext "openfoundry"
 
   protected
-#  def set_gettext_locale 
+  def set_gettext_locale 
     # guest's language should be nil, because "" is true. 
     # request.preferred_language_from is plugin, return value is zh-TW, gettext need zh_TW.
-#    cookies[:oflang] = set_locale( (params[:lang] || cookies[:oflang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
-#  end
+    cookies[:lang] = set_locale( (params[:lang] || cookies[:oflang] || current_user.language || request.preferred_language_from(['en', 'zh-TW']) || 'en').gsub('-','_') )
+  end
 
   # also being invoked when a user changes his/her language preference
-#  def set_locale_for_gettext!(lang)
-#    cookies[:oflang] = set_locale(lang||"en")
-#  end
-
-  def get_project_by_id_or_name(id_or_name)
-    rtn = nil
-    if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') then
-      in_used_projects = ""
-    else
-      in_used_projects = "(#{Project.in_used_projects()} or #{Project.pending_projects()})" #include pending projects for pending status.
-    end
-
-    case id_or_name
-    when /^\d+$/
-      rtn = Project.find_by_id(id_or_name, :conditions => in_used_projects)
-    when Project::NAME_REGEX
-      in_used_projects = " and #{in_used_projects}" if(in_used_projects != "")
-      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ? #{in_used_projects}", id_or_name])
-        yield rtn.id
-        return
-      end
-    end
-
-    if not rtn or (rtn.status == Project::STATUS[:PENDING] and in_used_projects != "" and (rtn.creator != current_user().id or controller_name != 'projects' or (action_name != 'edit' and action_name != 'update'))) #project not ready. pending and not allow actions.
-      flash[:warning] = "Project '#{id_or_name}' does not exist, or it has be deactivated."
-      redirect_to "/"
-    elsif in_used_projects == "" and rtn.status != Project::STATUS[:READY] #admin & reviewer messages
-      flash.now[:warning] = "Project is not READY. Status is #{Project.status_to_s(rtn.status)}."
-    end
-    rtn
+  def set_locale_for_gettext!(lang)
+    cookies[:oflang] = set_locale(lang||"en")
   end
 
   def set_will_paginate_lang
@@ -110,37 +69,13 @@ class ApplicationController < ActionController::Base
   end
   
   #before_filter :login_required
-  def current_user(session = session() )
-    session[:effective_user] || session[:user] || User.find_by_login('guest')
+  def current_user(session = session())
+    session[:effective_user] || session[:user] || User.find_by_login('guest') 
     #effective_user for site_admin 'su' to others 
     #user is your 'normal login user'
   end
   def login?
-		login_by_sso
     current_user().login != 'guest' 
-  end
-  def login_by_sso
-    if cookies['ossfauth']
-      chk = Curl::Easy.http_post(SSO_FETCH,
-                                 Curl::PostField.content('regist_key', SSO_OF_REGIST_KEY),
-                                 Curl::PostField.content('session_key', cookies['ossfauth']))
-
-      if chk.body_str != "Error, no such session"
-        user_data = Hash[*(chk.body_str.split(/: |, /))]
-        session[:user] = User.authenticate_by_sso(user_data['name'])
-
-        # prevent the account is not exist at OF Database only
-        # 1) remove the login status here!!
-        # 2) record this error!!
-        if session[:user].nil?
-          cookies.delete :ossfauth
-          cookies[:sync_error_at_of] = user_data['name']
-        end
-			else
-				cookies.delete :ossfauth
-				session[:user] = nil
-      end
-    end
   end
   helper_method :current_user
   helper_method :login?
@@ -236,7 +171,7 @@ class ApplicationController < ActionController::Base
             else                                      # good
               if not @#{parent} = #{parent_class_name}.find_by_id(pid_child, :conditions => #{parent_conditions})
                 flash[:warning] = "#{parent} '\#{pid_child}' does not exist, or it has be deactivated."
-                redirect_to root_path
+                redirect_to '/'
               else
                 # ok !
               end
@@ -248,13 +183,13 @@ class ApplicationController < ActionController::Base
           if @#{parent} = #{parent_class_name}.find_by_id(pid_param, :conditions => #{parent_conditions})
             redirect_to :#{parent}_id => pid_param, :id => nil, :action => 'index'
           else
-            redirect_to root_path
+            redirect_to '/' # TODO: root ?
           end
         end
       elsif pid_param # example: /projects/100/news
         if not @#{parent} = #{parent_class_name}.find_by_id(pid_param, :conditions => #{parent_conditions})
           flash[:warning] = _("The resource #{parent}(\#{pid_param}) does not exist.")
-          redirect_to root_path
+          redirect_to '/' # TODO: root ?
         else
           # do nothing. ok.
         end
@@ -326,8 +261,8 @@ THECODE
       pass = false
     ensure
       unless(pass)
-        flash[:warning] = _('you have no permission')#+" [#{function_name} #{e}]!" 
-        redirect_to(request.referer || root_path)
+        flash[:warning] = _('you have no permission')+" [#{function_name} #{e}]!" 
+        redirect_to(request.referer || '/')
       end
     end
     pass
@@ -344,24 +279,26 @@ THECODE
     file_name = params["file_name"]
 
     @project = Project.find_by_name( 
-             project_name, :include => [:releases], 
+             project_name, :select => 'id, name', 
+                           :include => [:releases], 
                            :conditions => Project.in_used_projects )
     @release = @project.releases.find_by_version( 
-             release_version, :include => [:fileentity],
+             release_version, :select => 'id, version', 
+                              :include => [:fileentity],
                               :conditions => Release.published_releases(:alias => 'releases') ) if @project
     @file = @release.fileentity.find_by_path( 
-             file_name, :include => [:survey],
+             file_name, :select => 'id, path',
+                        :include => [:survey],
                         :conditions => Fileentity.published_files(:alias => 'fileentities') ) if @release
 
     @error_msg ||= ''
 
-    @error_msg += ("The project \"#{project_name}\" you are requesting does not exist.") unless @project
-#%
-#           {:project => CGI.escapeHTML(project_name)} unless @project
-    @error_msg += ("The release \"#{release_version}\" you are requesting does not exist.") unless @release #%
-  # {:release => CGI.escapeHTML(release_version)} unless @release
-    @error_msg += ("The file \"#{file_name}\" you are requesting does not exist.") unless @file #%
- #  {:file_name => CGI.escapeHTML(file_name)} unless @file
+    @error_msg += _('The project "%{project}" you are requesting does not exist.') %
+           {:project => CGI.escapeHTML(project_name)} unless @project
+    @error_msg += _('The release "%{release}" you are requesting does not exist.') %
+   {:release => CGI.escapeHTML(release_version)} unless @release
+    @error_msg += _('The file "%{file_name}" you are requesting does not exist.') %
+   {:file_name => CGI.escapeHTML(file_name)} unless @file
   end
 
 
@@ -379,40 +316,4 @@ THECODE
         Time.zone = current_user.timezone
       end
     end
-
-    def s_(key)
-      I18n.t key
-    end
-    helper_method :s_
-    def _(key)
-      I18n.t key
-    end
-    helper_method :_
-
-  #####################
-  # locale setting
-  #####################
-  def set_locale
-    #what language we support
-    @locales = {:en => 'English', :zh_TW => '繁體中文'}
-
-    #this is our language selection priority:
-    locale = ( params[:lang] || cookies[:oflang] || session[:lang] || scan_lang_from_browser || scan_lang_from_user || :zh_TW )
-    locale = locale[0] if Array === locale
-    locale = :zh_TW if locale == ''
-    #lang is not supported, use :zh_TW
-    locale = :zh_TW unless(@locales.has_key? locale.to_sym)
-
-    #set lang to session, cookie, and I18n
-    I18n.locale = session[:lang] = cookies[:oflang] = locale
-  end
-
-  def scan_lang_from_browser
-    ( request.env['HTTP_ACCEPT_LANGUAGE'] || '' ).scan(/^[a-z]{2}/).first
-  end
-
-  def scan_lang_from_user
-    session[:user].lang if session[:user]
-  end
-
 end

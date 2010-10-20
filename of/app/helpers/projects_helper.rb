@@ -10,7 +10,7 @@ module ProjectsHelper
     when 7: ["by"            ]
     else []
     end.each do |x|
-      rtn += " <img src=\"/of/images/cc/#{x}_standard.gif\" width=\"16\"/>"
+      rtn += " <img src=\"/images/cc/#{x}_standard.gif\" width=\"16\">"
     end
     rtn
   end
@@ -19,13 +19,13 @@ module ProjectsHelper
     "<div class=\"project_logo\" title=\"#{project.name}\"
     style=\"#{options[:float] ? "float:#{options[:float]};" : 'display:inline;'}
     height:#{options[:with_name] ? '55' : '32' }px;
-    width:#{options[:with_name] ? '80' : '32' }px;
+    width:#{options[:with_name] ? '75' : '32' }px;
     border:dotted 1px #eee; text-align:center; vertical-align:text-bottom;
-    white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px; line-height: normal;\">
-    <a href=\"#{options[:action] ? eval(options[:action]+"_project_path(project)") : project_path(project)}#self\" #{options[:rdf_tag]}>
+    white-space:normal; word-break:break-all; overflow:hidden; margin-bottom:3px;\">
+    <a href=\"/projects/#{project.id}\">
     <img src=\"#{url_for(:controller => :images, :action => "cached_image",
                              :id => "#{project.icon}_#{options[:size]||32}")}\"
-             title=\"#{project.name}\" align=\"#{options[:align]||:middle}\" />
+             title=\"#{project.name}\" align=#{options[:align]||:middle} />
      #{options[:with_name] ? "<br/> #{project.name}" : '' }
     </a></div>"
   end

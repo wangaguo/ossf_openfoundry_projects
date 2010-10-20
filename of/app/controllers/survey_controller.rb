@@ -1,5 +1,5 @@
 class SurveyController < ApplicationController
-  layout 'module'
+  layout 'application'
   #see lib/permission_table.rb
   before_filter :find_resource_project
   before_filter :check_permission
@@ -12,7 +12,6 @@ class SurveyController < ApplicationController
   private :find_resource_project
 
   def review
-    @module_name = s_('project menu|Downloaders')
     unless Project.exists?(params[:id])
       render :text => 'Project not found'
     end
@@ -90,8 +89,6 @@ class SurveyController < ApplicationController
   end
 
   def index
-    @module_name = s_('project menu|Surveys Edit')
-
     project_id = params[:project_id]
     unless Project.exists?(project_id)
       render :text => 'Project not found'
@@ -114,10 +111,6 @@ class SurveyController < ApplicationController
       @downloader = Downloader.new(params['downloader'])
     elsif request.method == :post
       #TODO login user?
-     
-      #save formal download path to session if the survey submit button is clicked
-      session[:saved_download_path] = session[:tmp_path]
-      session[:tmp_path] = nil
       
       #goto download_path if no file in session! 
       unless session[:saved_download_path] 

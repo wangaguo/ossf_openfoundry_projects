@@ -182,11 +182,7 @@ module WillPaginate
         ]
       end
     end
-    
-    if respond_to? :safe_helper
-      safe_helper :will_paginate, :paginated_section, :page_entries_info
-    end
-    
+
     def self.total_pages_for_collection(collection) #:nodoc:
       if collection.respond_to?('page_count') and !collection.respond_to?('total_pages')
         WillPaginate::Deprecation.warn %{
@@ -238,7 +234,6 @@ module WillPaginate
       links.push    page_link_or_span(@collection.next_page,     'disabled next_page', @options[:next_label])
       
       html = links.join(@options[:separator])
-      html = html.html_safe if html.respond_to? :html_safe
       @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
     end
 
@@ -298,7 +293,6 @@ module WillPaginate
     
     def page_link_or_span(page, span_class, text = nil)
       text ||= page.to_s
-      text = text.html_safe if text.respond_to? :html_safe
       
       if page and page != current_page
         classnames = span_class && span_class.index(' ') && span_class.split(' ', 2).last
@@ -338,21 +332,21 @@ module WillPaginate
         return url if page_one
         
         if complex
-          @url_string = url.sub(%r!((?:\?|&amp;)#{CGI.escape param_name}=)#{page}!, "\\1\0")
+          @url_string = url.sub(%r!((?:\?|&amp;)#{CGI.escape param_name}=)#{page}!, '\1@')
           return url
         else
           @url_string = url
           @url_params[param_name] = 3
           @template.url_for(@url_params).split(//).each_with_index do |char, i|
             if char == '3' and url[i, 1] == '2'
-              @url_string[i] = "\0"
+              @url_string[i] = '@'
               break
             end
           end
         end
       end
       # finally!
-      @url_string.sub "\0", page.to_s
+      @url_string.sub '@', page.to_s
     end
 
   private
@@ -392,18 +386,16 @@ module WillPaginate
     end
 
     def parse_query_parameters(params)
-      if defined? Rack::Utils
-        # For Rails > 2.3
-        Rack::Utils.parse_nested_query(params)
+      if defined?(CGIMethods)
+        CGIMethods.parse_query_parameters(params)
       elsif defined?(ActionController::AbstractRequest)
         ActionController::AbstractRequest.parse_query_parameters(params)
       elsif defined?(ActionController::UrlEncodedPairParser)
         # For Rails > 2.2
         ActionController::UrlEncodedPairParser.parse_query_parameters(params)
-      elsif defined?(CGIMethods)
-        CGIMethods.parse_query_parameters(params)
       else
-        raise "unsupported ActionPack version"
+        # For Rails > 2.3
+        Rack::Utils.parse_nested_query(params)
       end
     end
   end

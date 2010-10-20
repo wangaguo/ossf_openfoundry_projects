@@ -12,10 +12,10 @@
 <%- open(rss_link) do |raw| rss = RSS::Parser.parse(raw.read, false) end %>
 
 <h3>
-  <%= image_tag "of/main_icon01.gif", :align => "left" %>
-  <%=link_to( image_tag('atom.png', 
+	<img src="/images/of/main_icon01.gif" align="left" />
+  <%=link_to image_tag('/images/atom.png', 
          {:alt => 'rss', :width => '20px', :style => 'padding:8px;float:right'}),
-	       rss_link )%>
+	       rss_link %>
 	<%=_('Daily News')%>
 </h3>
 <div id='<%= div_id %>'>
@@ -33,6 +33,6 @@
   <%=link_to _('More...'), more_link, :class => "more" %>
 </div>
 <%=auto_discovery_link_tag(:rss, rss_link,
-  { :title => s_( "Feed|#{ _( 'Daily News' ) } RSS Feed" ) } ) %>
+  {:title => s_("Feed|%{name} %{type} Feed") % {:name => _('Daily News'), :type => 'RSS'} }) %>
 <% rescue %>
 <% end %>

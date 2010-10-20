@@ -1,6 +1,6 @@
-<fieldset style="width:48%; height:400px; float:left; margin-right:5px;">
+<fieldset style="overflow:auto;height:400px;width:400px;float:left">
   <legend><%= s_('survey|Project Contents')%></legend>
-  <div class="" id="ProjectTree" style="height:380px; overflow:auto;"> 
+  <div class="" id="ProjectTree" style="overflow:auto;height:380px;width:400px"> 
 <ul>
   <%@releases.each do |release| -%>
     <li>
@@ -20,7 +20,7 @@
 </div>
 </fieldset>
 
-<fieldset style="width:48%; height:400px;">
+<fieldset style="float:left;overflow:auto;height:400px;width:300px">
   <legend>
     <%= s_('survey|Project Surveys')%>
     <img id="Survey_Loading" width="15px" height="15px" src="/images/ajax-loader.gif" style="display:none"/>
@@ -28,18 +28,17 @@
   <input type="button" value="<%= s_('survey|Apply') %>" onclick="applySurvey();">
   <input type="button" value="<%= s_('survey|Remove') %>" onclick="removeSurvey();">
   <input type="button" value="<%= s_('survey|Reset') %>" onclick="resetSurvey();">
-  <div class="" id="ProjectSurvey" style="overflow:auto; height:360px;">
+  <div class="" id="ProjectSurvey" style="overflow:auto;height:360px;width:300px">
     <%= render :file => 'app/views/survey/show.html.erb', :layout => false,
       :locals => {:survey_items => @survey_items, :item_status => @item_status,
         :files => @files, :resource => @resource,:prompt => ''}%>
   </div>
 </fieldset>
 <script>
-  var survey_path = '<%=project_path(:id => @project)%>/survey/';
   function reloadSurvey(){
     $("Survey_Loading").show();
     ids = collectFileID();
-    new Ajax.Updater('ProjectSurvey', survey_path+ids, {method:'get', asynchronous:false, evalScripts:true});
+    new Ajax.Updater('ProjectSurvey', '/projects/<%=@project.id%>/survey/'+ids, {method:'get', asynchronous:false, evalScripts:true});
     $("Survey_Loading").hide();
   }
   function toggleRelease(rid){
@@ -62,17 +61,16 @@
     //resource=collectResource();
     //_prompt=$$("textarea.SurveyPrompt")[0].value
     //alert(resource);
-    new Ajax.Updater('ProjectSurvey', survey_path+ids+'/delete', {method:'post', asynchronous:false, evalScripts:true});
+    new Ajax.Updater('ProjectSurvey', '/projects/<%=@project.id%>/survey/'+ids+'/delete', {method:'post', asynchronous:false, evalScripts:true});
     $("Survey_Loading").hide();
   }
   function applySurvey(){
-    alert(ids);
     $("Survey_Loading").show();
     ids = collectFileID();
     resource=collectResource();
     _prompt=$$("textarea.SurveyPrompt")[0].value
     //alert(resource);
-    new Ajax.Updater('ProjectSurvey', survey_path+ids+'/update', {method:'post', asynchronous:false, evalScripts:true, parameters:'?resource='+resource+'&prompt='+_prompt});
+    new Ajax.Updater('ProjectSurvey', '/projects/<%=@project.id%>/survey/'+ids+'/update', {method:'post', asynchronous:false, evalScripts:true, parameters:'?resource='+resource+'&prompt='+_prompt});
     $("Survey_Loading").hide();
   }
   function collectFileID(){

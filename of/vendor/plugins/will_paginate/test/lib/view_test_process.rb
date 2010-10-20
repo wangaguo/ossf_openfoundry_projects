@@ -1,4 +1,3 @@
-require 'will_paginate/core_ext'
 require 'action_controller'
 require 'action_controller/test_process'
 

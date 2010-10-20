@@ -11,11 +11,6 @@ module ActiveMessaging
       end
     end
 
-    def logger()
-      @@logger = ActiveMessaging.logger unless defined?(@@logger)
-      @@logger
-    end
-
   end
 
 end

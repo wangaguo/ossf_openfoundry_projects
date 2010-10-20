@@ -1,8 +1,6 @@
 class Fileentity < ActiveRecord::Base
   belongs_to :release
   has_one :survey 
-  #redis counter settings
-  acts_as_redis_counter :file_counter, :ttl => 5.minutes, :hits => 100
   #add fulltext indexed SEARCH
   acts_as_ferret({
                  :fields => { 

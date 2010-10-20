@@ -45,12 +45,10 @@ class CitationsController < ApplicationController
   
   def show
     @data_item.release_date = @data_item.release_date.strftime("%Y-%m-%d") if !@data_item.release_date.nil?
-    @module_name = @data_item.project_title
   end
   
   def new
     @data_item = Citation.new
-    @module_name = _('Add Citation')
   end
   
   def create
@@ -74,7 +72,6 @@ class CitationsController < ApplicationController
   
   def edit
     @data_item.release_date = @data_item.release_date.strftime("%Y-%m-%d") if !@data_item.release_date.nil?
-    @module_name = _('Edit')
   end
   
   def update

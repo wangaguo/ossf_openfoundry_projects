@@ -1,0 +1,11 @@
+<% form_for(:mail, :url => {:action => "send_site_mail"}, :html => { :method => :put }) do |f| %>
+
+<p><label for="subject"><%=_('Subject')%></label><br/>
+<%= text_field 'news', 'subject', :value => '[OpenFoundry]', :size => 100 %></p>
+<p><label for="message"><%=_('Message Content')%></label><br/>
+<%= javascript_include_tag 'fckeditor/fckeditor.js' %>
+<%= fckeditor_textarea( 'news', 'message', :height => 400 ) %>
+
+<%= submit_tag _('Send Mail') %>
+
+<% end %>

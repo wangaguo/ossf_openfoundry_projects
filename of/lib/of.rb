@@ -2,14 +2,6 @@
 require 'yaml'
 
 module OpenFoundry
-  module VeryDirty
-    def _(key)
-      key
-    end  
-    def N_(key)
-      key
-    end  
-  end
   module Message
     def self.included(base)
       base.extend(ClassMethods)
@@ -17,21 +9,15 @@ module OpenFoundry
 
     # for deliver ACTIONS, like CRUD
     ACTIONS = {
-      :create => :create, 
-      :update => :update, 
-      :delete => :delete}.freeze
+      :create => 'create', 
+      :update => 'update', 
+      :delete => 'delete'}.freeze
     
     # for delivery TYPE, like object type
     TYPES = {
-      :project => :project, 
-      :user => :user , 
-      :function => :function}.freeze
-      include ActiveMessaging::MessageSender
-      def send_msg(type, action, data)
-        publish(:ossf_msg, 
-          "#{YAML::dump({:type => type, :action => action, :data => data})}"
-        )
-      end
+      :project => 'project', 
+      :user => 'user' , 
+      :function => 'function'}.freeze
 
     module ClassMethods
       include ActiveMessaging::MessageSender
@@ -40,7 +26,7 @@ module OpenFoundry
      
       def send_msg(type, action, data)
         publish(:ossf_msg, 
-          "#{YAML::dump({:type => type, :action => action, :data => data})}"
+          "#{YAML::dump({'type' => type, 'action' => action, 'data' => data})}"
         )
       end
     end
@@ -48,8 +34,6 @@ module OpenFoundry
 end
 
 ActiveRecord::Base.send(:include, OpenFoundry::Message)
-ActiveRecord::Base.send(:include, OpenFoundry::VeryDirty)
-ActiveRecord::Base.send(:extend, OpenFoundry::VeryDirty)
 
 
 # (a, b) = normalize_values(%w[Ruby Perl JavaScript], %w[c Javascript perl]) {|x| x.downcase }

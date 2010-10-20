@@ -1,4 +1,4 @@
-class TracerGenerator < RubiGen::Base
+class TracerGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
       path = 'app/controllers'

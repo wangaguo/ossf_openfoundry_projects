@@ -1,7 +1,5 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
-  #redis counter settings
-  acts_as_redis_counter :project_counter, :ttl => 5.minutes, :hits => 100
 
   # single selection 
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
@@ -188,14 +186,14 @@ EOEO
   #
   # important INTERNAL status
   #
-  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3, :PENDING => 4 }.freeze
+  STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3 }.freeze
 
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
 
   # name validation
-  NAME_REGEX = /^[a-z][0-9a-z-]{2,13}[0-9a-z]$/ # lengh = 15
+  NAME_REGEX = /^[a-z][0-9a-z]{2,14}$/ # lengh = 15
   
   def self.status_to_s(int_status)
     _(STATUS.index(int_status).to_s)
@@ -272,7 +270,7 @@ EOEO
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => NAME_REGEX, :message => _('Format|Project Name')
+  validates_format_of :name, :with => NAME_REGEX, :message => _('由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字')
     validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => _("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
@@ -300,11 +298,9 @@ EOEO
   ##end
 
   def validate
-    if status != Project::STATUS[:REJECTED]
-      cond = ["name = ? and #{Project.approved_projects}", name]
-      cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
-      errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
-    end
+    cond = ["name = ? and #{Project.approved_projects}", name]
+    cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
+    errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
 
     ls = "#{license}".split(",").grep(/./).map(&:to_i)
     if ls.length == 0
@@ -375,10 +371,9 @@ EOEO
   end
 
   # reason: string
-  def approve(reason, replymessage)
-    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:PENDING], Project::STATUS[:REJECTED]].include?(self.status)
+  def approve(reason)
+    raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
 
-    reason = replymessage + "\n" + reason
     if not update_attributes(:status => Project::STATUS[:READY], :statusreason => reason)
       return false
     end
@@ -395,33 +390,32 @@ EOEO
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
     # TODO: hook / listener / callback / ...
-    ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {:id => self.id, :name => self.name, :summary => self.summary})
+    ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {'id' => self.id, 'name' => self.name, 'summary' => self.summary})
     # send admin function creation msg
     Function.find(:all).each do |f|
-      ApplicationController::send_msg(:function,:create,
+      ApplicationController::send_msg('function','create',
                         {:function_name => f.name, 
                           :user_id => self.creator,
                           :project_id => self.id 
                         })
     end
     Release::build_path(self.name, self.id)
-    ProjectNotify.deliver_approved(self, replymessage)
+    ProjectNotify.deliver_approved(self)
   end
   # reason: string
-  def reject(reason, replymessage)
-    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:PENDING]].include?(self.status)
+  def reject(reason)
+    raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:APPLYING]
     self.status = Project::STATUS[:REJECTED]
-    self.statusreason = replymessage + "\n" + reason
-    if save!
-      ProjectNotify.deliver_rejected(self, replymessage)
-    end
+    self.statusreason = reason
+    save
+    ProjectNotify.deliver_rejected(self)
   end
   # reason: string
   def suspend(reason)
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:READY]
     self.status = Project::STATUS[:SUSPENDED]
     self.statusreason = reason
-    save!
+    save
     # TODO: notify by email
   end
   # reason: string
@@ -429,18 +423,8 @@ EOEO
     raise "current status is wrong: #{self.status}" if self.status != Project::STATUS[:SUSPENDED]
     self.status = Project::STATUS[:READY]
     self.statusreason = reason
-    save!
+    save
     # TODO: notify by email
-  end
-  # reason: string
-  def pending(reason, replymessage)
-    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:REJECTED]].include?(self.status) 
-    self.status = Project::STATUS[:PENDING]
-    self.statusreason = replymessage + "\n" + reason
-    save!
-    if save!
-      ProjectNotify.deliver_pending(self, replymessage)
-    end
   end
 
   # Project.find(:first, :conditions => ["name = ? and #{Project.in_used_projects}", 'openfoundry'])
@@ -458,10 +442,6 @@ EOEO
   def self.approved_projects(options = {})
     a = options[:alias] ? options[:alias] + "." : ""
     "(#{a}status = #{Project::STATUS[:READY]} or #{a}status = #{Project::STATUS[:SUSPENDED]})"
-  end
-  def self.pending_projects(options = {})
-    a = options[:alias] ? options[:alias] + "." : ""
-    "(#{a}status = #{Project::STATUS[:PENDING]})"
   end
 
   def self.new_projects

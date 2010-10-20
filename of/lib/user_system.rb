@@ -65,9 +65,8 @@ module UserSystem
   # example use :
   # a popup window might just close itself for instance
   def access_denied
-  #  flash[:notice] = _('You have to login OpenFoundry first.')
-  #  redirect_to '/user/login'
-     redirect_to SSO_LOGIN
+    flash[:notice] = _('You have to login OpenFoundry first.')
+    redirect_to '/user/login'
   end  
   
   # store current uri in  the session.
@@ -88,7 +87,6 @@ module UserSystem
 
   def user?
     # First, is the user already authenticated?
-    login_by_sso
     return true if session[:user] and (not params[:s])
 
     # If not, is the user being authenticated by a token?

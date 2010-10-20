@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -18,14 +18,15 @@ Rails::Initializer.run do |config|
 
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
-  config.plugins = %W(tolk authorization  activemessaging acts_as_redis_counter acts_as_taggable_on_steroids bundle-fu fckeditor http_accept_language nested_layouts resource_feeder run_later simply_helpful sortable_column_headers spandex_mem_cache_store validates_timeliness will_paginate)
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
-  config.cache_store = [ :mem_cache_store, '127.0.0.1:11211',
+  config.log_level = :info
+  config.threadsafe!
+  config.cache_store = [ :mem_cache_store, '192.168.0.20:11211:',
     {:namespace => "of-#{RAILS_ENV}", :timeout => nil } ]
    
   # Use SQL instead of Active Record's schema dumper when creating the test database.
@@ -47,27 +48,22 @@ Rails::Initializer.run do |config|
 
   # add required gems 
   config.gem 'cgi_multipart_eof_fix', :version => '>= 2.5.0'
-  config.gem 'acts_as_ferret', :version => '= 0.4.3'
-  #config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
+  config.gem 'acts_as_ferret', :version => '>= 0.4.3'
+  config.gem 'acts_as_taggable', :version => ">= 2.0.2" 
   config.gem 'ferret', :version => ">= 0.11.6" 
   # for gettext 2.0.0
-  #config.gem "locale"
-  #config.gem "locale_rails"
-  #config.gem "gettext"
-  #config.gem "gettext_activerecord"
-  #config.gem "gettext_rails"
-  #config.gem "sdsykes-read_from_slave", :lib =>"read_from_slave", :source => "http://gems.github.com"
-  config.gem "SyslogLogger", :lib => "syslog_logger"
+  config.gem "locale"
+  config.gem "locale_rails"
+  config.gem "gettext"
+  config.gem "gettext_activerecord"
+  config.gem "gettext_rails"
+
   config.gem 'json', :version => ">= 1.1.2" 
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 
   config.gem 'packr', :version =>  ">= 3.1.0" 
-  config.gem 'redis'
 
   config.time_zone = 'Taipei' 
-
-  config.i18n.load_path = [Dir[File.join(RAILS_ROOT, 'config', 'locales', '{en,zh_TW}.{yml}')] ]
-  config.i18n.default_locale = "zh_TW"
 
   # Add new inflection rules using the following format 
   # (all these examples are active by default):
@@ -96,9 +92,6 @@ Rails::Initializer.run do |config|
     GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
     DEFAULT_FIELD = [:name, :summary, 
 	    :subject, :description, :requirement, :description_without_tag, :login]
-    #for redis connection
-    REDIS = Redis.new :host => '127.0.0.1'
-
 
     #require "lib/memory.rb"
     #require "lib/mongrel_size_limit.rb"
@@ -108,23 +101,22 @@ Rails::Initializer.run do |config|
   }
 
     # For Project Upload
-#    OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
+    OPENFOUNDRY_PROJECT_UPLOAD_PATH = '/usr/upload'
 
     # TODO: better naming
-#    OPENFOUNDRY_SITEMAIL_BATCH_MAX = 500 
-#    OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
-#    OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
-#    OPENFOUNDRY_VIEWVC_CVS_URL =  'http://of.openfoundry.org/viewvc-cvs/'
-#    OPENFOUNDRY_OF_URL = 'http://of.openfoundry.org'
-#    OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
-#    OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
-#    OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
-#    OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
-#    OPENFOUNDRY_FTP_URL = 'ftp://ftp.of.openfoundry.org/'
+    OPENFOUNDRY_SITE_ADMIN_EMAIL = 'contact@openfoundry.org'
+    OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
+    OPENFOUNDRY_VIEWVC_SVN_URL =  'http://of.openfoundry.org/viewvc-svn/'
+    OPENFOUNDRY_VIEWVC_CVS_URL =  'http://of.openfoundry.org/viewvc-cvs/'
+    OPENFOUNDRY_OF_URL = 'http://of.openfoundry.org'
+    OPENFOUNDRY_RT_URL = 'http://of.openfoundry.org/rt/'
+    OPENFOUNDRY_SYMPA_URL = 'http://of.openfoundry.org/sympa/'
+    OPENFOUNDRY_KWIKI_URL = 'http://of.openfoundry.org/kwiki/'
+    OPENFOUNDRY_HOMEPAGE_URL = 'http://%s.openfoundry.org'
 
-#    OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH = "#{RAILS_ROOT}/tmp/run_code.rb"
+    OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH = "#{RAILS_ROOT}/tmp/run_code.rb"
     # an Enumerable object.  TODO: not only ports but also addresses ?
-#    OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PORTS = (8000 .. 8005)
+    OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PORTS = (8000 .. 8005)
 
     #
     # important password! leak it may leak all your user data!!
@@ -140,9 +132,7 @@ Rails::Initializer.run do |config|
                                     # you may override it in initializers/environment_local.rb
     NSC_UPLOAD_FROM = "2009/01/01 00:00"
     NSC_UPLOAD_TO = "2009/12/31 23:59"
-    NSC_CURRENT_YEAR = "98"
+    NSC_CURRENT_YEAR = "97"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
-    
-    config.action_controller.relative_url_root = "/of"
 end

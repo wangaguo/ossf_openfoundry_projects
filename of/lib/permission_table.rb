@@ -31,7 +31,6 @@ module OpenFoundry
       :role_users => :project_member,
       :member_change => :project_member,
       :member_delete => :project_member,
-      :permission_edit => :role_edit,
       #:sympa,
       #:the_rest,
       :update => :project_info,
@@ -99,7 +98,7 @@ module OpenFoundry
     :survey => survey_pt = {
       :index => :survey,
       :show => :survey,
-      #:apply => :survey,
+      :apply => :survey,
       :review => :survey,
       :update => :survey
     }

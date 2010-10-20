@@ -1,0 +1,45 @@
+<div id="ReleaseBasic">
+  <table class=list-table>
+  <% @releases.each do |release|%>
+    <tr>
+      <th style="text-align: left">
+        <B><%= "<a name=\"#{h(release.version)}\"></a>" + 
+          h(release.version) + 
+          " (" + release.updated_at.strftime("%Y/%m/%d") + ")" %>
+        </B>
+      </th>
+      <% if @permissions.include?(:survey) %>
+        <th style="text-align: right;">
+          <%= link_to s_('survey|Downloader Reviews'),
+            release_review_path(@project.id, release.version) %>
+        </th>
+      <% end %>
+    </tr>
+    <% @files = release.fileentity %>
+    <% @files.each do |file| %>
+    <tr>
+      <td><h2><%= link_to h(file.path), download_url(:project_name => @project_name, 
+					       :release_version => release.version,
+					       :file_name => file.path ) %></h2>
+      <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits ") + file.file_counter.to_s %><br>
+        <%= h(file.description) %>
+      </td>
+      <% if @permissions.include?(:survey)%>
+        <td style="text-align: right;">
+          <%= link_to s_('survey|Downloader Reviews'), 
+            file_review_path(@project.id, release.version, file.path) %>
+        </td>
+      <% end %>
+    </tr>
+    <% end %>
+  <% end %>
+  </table>
+</div>
+<% if @rdr_download_url %>
+  <script>
+    Event.observe(window,'load',redirect_download);
+    function redirect_download(){
+      window.location = "<%= @rdr_download_url %>";
+    }
+  </script>
+<% end %>

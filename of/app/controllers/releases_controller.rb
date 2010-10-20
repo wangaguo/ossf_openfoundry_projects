@@ -4,7 +4,6 @@ class ReleasesController < ApplicationController
     :parent_id_method => 'project_id')
   layout 'module'
   #see lib/permission_table.rb
-  before_filter :login_required, :only => [ :show ]
   before_filter :check_permission
   before_filter :default_module_name
 
@@ -36,7 +35,6 @@ class ReleasesController < ApplicationController
   
   #list all release for a given :project_id
   def list
-    @module_name = _('release_Edit')
     @project_id = params[:project_id]
     @releases = Release.find :all,
       :conditions => "project_id = #{params[:project_id]}", :order => 'due desc'
@@ -86,15 +84,10 @@ class ReleasesController < ApplicationController
       @permissions << :survey
     end
 
-    #for IE activeX download redirect
-    @rdr_download_url = session[:tmp_download_path] if session[:tmp_download_path] and request.referer.nil? and session[:tmp_download_path].include? "of.openfoundry.org/download/#{@project_name}" 
-    session[:tmp_download_path] = nil
-
     #use session to rememer FILE after SURVEY form filled...
     if session[:saved_download_path]
       @rdr_download_url = "#{request.protocol}of.openfoundry.org/download/#{session[:saved_download_path]}" 
       session[:saved_download_path] = nil
-      session[:tmp_download_path] = @rdr_download_url
     end
   end
   
@@ -114,7 +107,6 @@ class ReleasesController < ApplicationController
   end
   
   def new
-    @module_name = _('release_New')
     if request.get?
       @release = Release.new
       @release.status = 0
@@ -200,39 +192,11 @@ class ReleasesController < ApplicationController
       render :layout => false   
     end
   end
-
-  def web_upload
-    for i in 1..5
-      file = 'upload_file_'+i.to_s
-      if !params[file].nil?
-        upload_an_file(params[file])
-      end
-    end
-    redirect_to url_for(:project_id => params[:project_id],
-      :action => :show, :id => params[:id])
-  end
-
-  def upload_an_file(uploaded_file)
-    save_as = File.join(Project::PROJECT_UPLOAD_PATH, @project.name , 'upload', uploaded_file.original_path)
-
-    File.open( save_as.to_s, 'w' ) do |file|
-      file.write( uploaded_file.read )
-    end
-    return true
-  end
-
-  def delete_files
-    params[:uploadfiles].each do |f|
-      file_path = "#{Project::PROJECT_UPLOAD_PATH}/#{@project.name}/upload/#{f}"
-      File.delete(file_path) if File.exist?(file_path)
-    end
-    reload
-  end
   
   #用link_to_remote呼叫 將檔案加入專案發佈中
   def addfiles
     def bad_file(x)
-      x == '' or x == ".." or x =~ /\//
+      x == ".." or x =~ /\//
     end
 
     pass = true
@@ -245,7 +209,7 @@ class ReleasesController < ApplicationController
       project_name = project.name
       # paranoid ...
       if bad_file(project_name)
-        flash[:error] = _( 'Bad project name' ) + ": #{ project_name }"
+        flash[:error] = _('Bad project name: #{project_name}')
         pass = false
       end
     else
@@ -260,7 +224,7 @@ class ReleasesController < ApplicationController
 
     # paranoid ...
     if bad_file(r.version)
-      flash[:error] = _( 'Bad version' ) + ": #{ r.version }"
+      flash[:error] = _('Bad version: #{r.version}')
       pass = false
     end
 
@@ -277,6 +241,7 @@ class ReleasesController < ApplicationController
         next if not File.exist?(src_path)
 
         r.fileentity << make_file_entity(params[:id], basename, File.size(src_path))
+        
         if system("/home/openfoundry/bin/move_upload_files2", src_path, dest_dir) == 0
           added = true
         end

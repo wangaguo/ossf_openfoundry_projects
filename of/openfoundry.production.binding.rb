@@ -3,29 +3,27 @@
 #------------------# 
 #  Generel config  #
 #------------------#
-ip_prefix = '140.109'
-host = 'ssodev.openfoundry.org'
-site_admin_mail = 'hyder.ossf@gmail.com'
+ip_prefix = '192.168.6'
+host = 'dev.openfoundry.org'
 
 #-------------------#
-#  Session config
-#  in session_store.rb
+#  Session config   #
 #-------------------#
 session_key = '_of_session_id'
 session_domain = ".#{host}"
 session_store = ':mem_cache_store'
 
 session_memcache_namespace = 'of-#{RAILS_ENV}'
-session_memcache_server = "#{ip_prefix}.22.15:11211"
+session_memcache_server = "#{ip_prefix}.1:11211"
 
 #-------------------#
 #  Database config  #
 #-------------------#
-db_host = "#{ip_prefix}.22.140"
-db_name_dev  = 'of_development'
+db_host = "#{ip_prefix}.10"
+db_name_dev  = 'ofdev'
 db_name_test = 'of_test'
-db_name_prod = 'of_development'
-db_user = 'openfoundry'
+db_name_prod = 'ofdev'
+db_user = 'ossf'
 
 #----------------------------#
 #  Rails environment config  #
@@ -33,46 +31,16 @@ db_user = 'openfoundry'
 rails_cache = ':memcache'
 
 #----------------------#
-#  Stomp server config
-#  in broker.yml
+#  Stomp server config  #
 #----------------------#
-stomp_host = "#{ip_prefix}.22.140"
+stomp_host = "#{ip_prefix}.1"
 stomp_user = 'openfoundry'
 
 
 #------------------------#
-#  Ferret server config
-#  in ferret_server.yml
+#  Ferret server config  #
 #------------------------#
-ferret_host = "#{ip_prefix}.22.15"
+ferret_host = "#{ip_prefix}.20"
 
 
-#------------------------#
-#  Environment config
-#  in environment.rb
-#------------------------#
 
-cache_server = "127.0.0.1:11211"
-cache_server_namespace = 'of-#{RAILS_ENV}'
-
-
-#------------------------#
-#  Redis server config
-#  in environment.rb
-#------------------------#
-
-redis_server = "127.0.0.1"
-
-#------------------------#
-#  sso config
-#  in sso.rb
-#------------------------#
-
-sso_ui_host = '140.109.22.20'
-sso_of_auth_key = 'c1cac710-030f-012d-c173-0011254f08ff'
-
-#------------------------#
-#  sso config
-#  in sso.rb
-#------------------------#
-tolk_user = 'ossf_trans'

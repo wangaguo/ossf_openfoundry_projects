@@ -43,17 +43,10 @@ class ReferencesController < ApplicationController
   end
   
   def show
-    data_item = @data_item.source
-    if data_item.length > 20
-      data_item = left_slice(data_item, 20)
-      data_item += "..."
-    end
-    @module_name = data_item
   end
   
   def new
     @data_item = Reference.new
-    @module_name = _('Add Reference')
   end
   
   def create
@@ -71,7 +64,6 @@ class ReferencesController < ApplicationController
   end
   
   def edit
-    @module_name = _('Edit')
   end
   
   def update

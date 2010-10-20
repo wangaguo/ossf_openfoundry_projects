@@ -1,6 +1,4 @@
-require File.dirname(__FILE__) + '/../../lib/activemessaging/named_base'
-
-class ProcessorGenerator < NamedBase
+class ProcessorGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
       path = 'app/processors'
@@ -20,7 +18,6 @@ class ProcessorGenerator < NamedBase
       m.template 'messaging.rb', File.join('config', "messaging.rb")
       m.file 'broker.yml', File.join('config', "broker.yml")
       m.file 'application.rb', File.join(path, "application.rb")
-      m.file 'poller.rb', File.join('lib', "poller.rb")
       if defined?(JRUBY_VERSION)
         m.file 'jruby_poller', File.join('script', "jruby_poller"), { :chmod => 0755 }
       else

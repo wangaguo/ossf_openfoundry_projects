@@ -1,0 +1,46 @@
+<%
+ conditions = "(summary like '%nsc%' or description like '%nsc%')" 
+ #releases = Project.find(:all, :conditions => conditions + " AND " + Project.in_used_projects(:alias => "projects"))
+ projects = Project.find(:all, :conditions => Project.in_used_projects(:alias => "projects"), :order => "project_counter desc")
+ i = 0
+%>
+<div id="ReleaseList">
+<h1><%= _('Release Listing') %></h1>
+
+<table class=list-table>
+  <tr>
+    <th align=left>編號</th>
+    <th align=left>計畫編號</th>
+    <th align=left>OpenFoundry專案代號(專案名稱)</th>
+    <th align=left>計畫名稱</th>
+    <th align=left>建立日期</th>
+    <th align=left>下載次數</th>
+  </tr>
+
+<% for project in projects %>
+<%
+  tmp_nsccode = project.tag_list.names.grep(/^NSC\d/).sort.join("<br/>")
+  find_nsccode = ""
+  if(tmp_nsccode == '')
+    if(project.summary.match(/NSC/).nil? == true && project.description.match(/NSC/).nil? == true)
+      next
+    else
+      find_nsccode = project.description.scan(/NSC[ ]?\d[\d\-E]+/).join("<br/>")
+      if(find_nsccode == "" )
+        find_nsccode = project.description.scan(/\d{2}-\d[\d\-E]+/).join("<br/>")
+      end
+    end
+  end
+%>
+ <%if i % 2 == 0; class_name="odd"; else; class_name="even"; end; -%>
+  <tr class="<%= class_name %>">
+    <td><%= (i+=1).to_s %></td>
+    <td><%= tmp_nsccode + " " + find_nsccode %></td>
+    <td><%= project.name %></td>
+    <td><%= project.summary %></td>
+    <td><%= project.created_at %></td>
+    <td><%= project.project_counter %></td>
+  </tr>
+<% end %>
+</table>
+</div>

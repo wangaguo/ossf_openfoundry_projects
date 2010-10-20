@@ -30,7 +30,6 @@ namespace 'openfoundry' do
     task 'stomp' do
       puts "\x1b[38;5;9m---start stompserver configure---\x1b[0m"
       replace_template('config/broker.yml')
-      replace_template('config/messaging.rb')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
@@ -44,33 +43,11 @@ namespace 'openfoundry' do
     desc 'OpenFoundry Module Configure'
     task 'module' do
       puts "\x1b[38;5;9m---start module configure---\x1b[0m"
-      replace_template('config/initializers/openfoundry.rb')
-      puts "\x1b[38;5;9m---done---\x1b[0m"
-    end
-
-    desc 'OpenFoundry Environment Configure'
-    task 'environment' do
-      puts "\x1b[38;5;9m---start Environment configure---\x1b[0m"
-      replace_template('config/environment.rb')
-      puts "\x1b[38;5;9m---done---\x1b[0m"
-    end
-
-    desc 'OpenFoundry Translation Configure'
-    task 'translation' do
-      puts "\x1b[38;5;9m---start translation configure---\x1b[0m"
-      replace_template('config/initializers/tolk.rb')
-      puts "\x1b[38;5;9m---done---\x1b[0m"
-    end
-
-    desc 'OpenFoundry SSO Configure'
-    task 'sso' do
-      puts "\x1b[38;5;9m---start sso configure---\x1b[0m"
-      replace_template('config/initializers/sso.rb')
+      replace_template('config/initializes/openfoundry.yml')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
   end
-  task :config => ['config:db', 'config:memcache', 'config:sso', 'config:translation',
-            'config:stomp', 'config:ferret','config:module', 'config:environment']
+  task :config => ['config:db', 'config:memcache', 'config:stomp']
 end
 
 def replace_template(fname, opt ={} )
@@ -107,7 +84,7 @@ end
 def check_missing_binding(template, opt ={})
   begin
     ERB.new(File.open(template).read).result(opt[:binding])
-  rescue NameError => e
+  rescue Exception => e
     return e.name
   end
   return nil
