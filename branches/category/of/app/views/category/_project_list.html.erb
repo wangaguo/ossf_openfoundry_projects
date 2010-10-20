@@ -1,0 +1,31 @@
+<div id='ProjectFilterList' name='ProjectFilterList'>
+
+	<%=paginate = will_paginate cat_projects, :params => { :cat => params[ :cat ], :nsc_or_not => params[ :nsc_or_not ], :cat_query => params[ :cat_query ] }
+  	 # make each page with the value of select and checkbox
+  %>
+	
+	  <table class='ProjectList'>
+		<tr>
+			<th><%=link_to 'Project Name', sort_param( 'listing', Project, 'name', 'name' ) %></th>
+			<th><%=link_to 'Summary', sort_param( 'listing', Project, 'summary', 'summary' ) %></th>
+			<th><%=link_to 'Category', sort_param( 'listing', Project, 'category', 'category' ) %></th>
+			<th><%=link_to 'Created At', sort_param( 'listing', Project, 'created_at', 'created_at' ) %></th>
+		</tr>
+
+		<% i = 0; class_name = ''; -%> 
+		<% for project in cat_projects -%> 
+			<% i = 1 - i -%> 
+			<% if i == 1; class_name = 'odd'; else; class_name = 'even'; end; -%> 
+
+			<tr class="item_h <%=class_name %>">
+		  	<td><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
+				<td><%=h( project.summary ) %></a></td>
+				<td><%=h( project.cattag.name ) unless project.cattag.nil? %></a></td>
+			  <td><%=h( tz_date( project.created_at ) ) %></td>
+   		</tr>
+	  <% end -%> 
+    </table>
+
+	<%=paginate %>
+
+</div>

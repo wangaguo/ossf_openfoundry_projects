@@ -1,0 +1,41 @@
+<% @module_name = capture do -%>
+  <%='Project Category' %>
+<% end -%>
+
+<div id="ProjectSelect" name="ProjectSelect">
+
+  <%=select( 'category', 'id',
+						 Tagcloud.find( :all, :conditions => { :status => 1, :tag_type => 1 } ).collect { | c | [ c.name, c.id ] },
+						 { :include_blank => true, :selected => params[ :cat ].to_i } )
+		 # :selected is stored last status of checkbox ( it must be string!! )
+  %>
+  <%=observe_field 'category_id',
+ 		 							 :url => { :controller => :category, :action => :list },
+							     :update => 'ProjectFilterList',
+									 :with => "'cat=' + escape( $( 'category_id' ).value ) + '&nsc_or_not=' + escape( $( 'is_nsc_validated' ).checked ) + '&cat_query=' + escape( $( 'cat_query' ).value )"
+	   # post both of select, checkbox, and search
+  %>
+
+	<%=check_box( 'is_nsc', 'validated', :checked => ( params[ :nsc_or_not ] == 'true' ) ) + 'NSC Project' %>
+  <%=observe_field 'is_nsc_validated',
+		 							 :url => { :controller => :category, :action => :list },
+		 							 :update => 'ProjectFilterList',
+		 							 :with => "'cat=' + escape( $( 'category_id' ).value ) + '&nsc_or_not=' + escape( $( 'is_nsc_validated' ).checked ) + '&cat_query=' + escape( $( 'cat_query' ).value )"
+	   # post both of select, checkbox, and search
+  %><br>
+
+	<%=text_field_tag( 'cat_query', params[ :cat_query ], :autocomplete => 'off' ) %>
+	<%=observe_field 'cat_query',
+									 :url => { :controller => :category, :action => :list },
+		               :frequency => 0.5,
+									 :update => 'ProjectFilterList',
+									 :loading => "Element.show( 'Search_Loading' )",
+									 :loaded => "Element.hide( 'Search_Loading' )",
+		               :with => "'cat=' + escape( $( 'category_id' ).value ) + '&nsc_or_not=' + escape( $( 'is_nsc_validated' ).checked ) + '&cat_query=' + escape( $( 'cat_query' ).value )"
+	   # post both of select, checkbox, and search
+%>
+
+<a href="<%="#{ root_path }openfoundry/search?adv_cat=&query=" %>"><%=t( 'Advanced Options' ) %></a>
+<img id="Search_Loading" width="15px" height="15px" src="../images/ajax-loader.gif" style="display:none"/>
+
+</div>
