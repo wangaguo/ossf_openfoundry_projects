@@ -12,6 +12,10 @@ class Tagcloud < ActiveRecord::Base
 	# set tagcloud default values before saving
 	before_save :default_values
 
+  # definitions for status flags
+  TYPE = { :TAG => 0, :CATEGORY => 1 }.freeze
+  STATUS = { :PENDING => 0, :READY => 1 }.freeze
+  
 	# update amount of tags with tagclouds_projects model changing ( call by tagclouds_projects model )
 	def update_count( update_data_id, mod_count )
 		Tagcloud.update_counters update_data_id, :tagged => mod_count

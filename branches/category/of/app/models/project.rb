@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
 													:join_table => :tagclouds_projects,
 													:association_foreign_key => :tagcloud_id,
 												  :foreign_key => :project_id,
-												  :conditions	=> { :tagclouds => { :tag_type => 0, :status => 1 } }
+												  :conditions	=> { :tagclouds => { :tag_type => Tagcloud::TYPE[ :TAG ], :status => Tagcloud::STATUS[ :READY ] } }
 	has_many :tagcloudsprojects, :foreign_key => :project_id
 
 	# find the categorized projects
