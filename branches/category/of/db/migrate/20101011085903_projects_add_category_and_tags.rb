@@ -5,8 +5,8 @@ class ProjectsAddCategoryAndTags < ActiveRecord::Migration
 
     create_table :tagclouds do | t |
       t.string   :name
-      t.integer  :tag_type		# the tag is a pure tag or a category
-      t.integer  :status			# the tag is ready or pending
+      t.integer  :tag_type		# the tag is a pure tag or a category ( 0: tag, 1: category )
+      t.integer  :status			# the tag is pending or ready ( 0: pending, 1:ready )
       t.datetime :created_at
       t.integer  :tagged			# how many times of the tag is tagged
       t.integer  :searched    # how many times of the tag is searched 
