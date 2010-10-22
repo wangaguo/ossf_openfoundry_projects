@@ -25,9 +25,15 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "file_counter", :default => 0,  :null => false
     end
 
-    add_index "fileentities", ["path"], :name => "index_fileentities_path", :unique => true
+    add_index "fileentities", ["path"], :unique => true
+    add_index "fileentities", ["release_id"]
+    add_index "fileentities", ["size"]
+    add_index "fileentities", ["creator"]
+    add_index "fileentities", ["created_at"]
+    add_index "fileentities", ["updated_at"]
+    add_index "fileentities", ["file_counter"]
 
-    create_table "functions", :force => true do |t|
+    create_table "permissions", :force => true do |t|
       t.string   "name",        :limit => 50
       t.string   "module",      :limit => 20
       t.string   "description", :limit => 100
@@ -35,6 +41,10 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at"
       t.integer  "updated_by"
     end
+    add_index "permissions", ["name"]
+    add_index "permissions", ["created_at"]
+    add_index "permissions", ["updated_at"]
+    add_index "permissions", ["module"]
 
     create_table "images", :force => true do |t|
       t.string "name",    :default => "upload_img", :null => false
@@ -42,6 +52,7 @@ class CreateTables < ActiveRecord::Migration
       t.string "comment"
       t.binary "data",  :size => 2**24
     end
+    add_index "images", ["name"]
 
     create_table "news", :force => true do |t|
       t.string   "subject",     :limit => 100,  :default => "", :null => false
@@ -54,6 +65,10 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                                  :null => false
       t.integer  "updated_by"
     end
+    add_index "news", ["catid"]
+    add_index "news", ["status"]
+    add_index "news", ["updated_at"]
+    add_index "news", ["created_at"]
     
     create_table "jobs", :force => true do |t|
       t.string   "subject",     :limit => 255,  :default => "", :null => false
@@ -67,6 +82,12 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                                  :null => false
       t.integer  "updated_by"
     end
+    add_index "jobs", ["project_id"]
+    add_index "jobs", ["status"]
+    add_index "jobs", ["creator"]
+    add_index "jobs", ["updated_at"]
+    add_index "jobs", ["updated_by"]
+    add_index "jobs", ["created_at"]
     
     create_table "citations", :force => true do |t|
       t.string   "primary_authors",  :limit => 255,  :default => "", :null => false
@@ -82,6 +103,12 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                                       :null => false
       t.integer  "updated_by"
     end
+    add_index "citations", ["project_id"]
+    add_index "citations", ["status"]
+    add_index "citations", ["creator"]
+    add_index "citations", ["updated_at"]
+    add_index "citations", ["updated_by"]
+    add_index "citations", ["created_at"]
     
     create_table "references", :force => true do |t|
       t.string   "source",     :limit => 4000,  :default => "", :null => false
@@ -92,6 +119,12 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                                  :null => false
       t.integer  "updated_by"
     end
+    add_index "references", ["project_id"]
+    add_index "references", ["status"]
+    add_index "references", ["creator"]
+    add_index "references", ["updated_at"]
+    add_index "references", ["updated_by"]
+    add_index "references", ["created_at"]
     
     create_table "events", :force => true do |t|
       t.string   "subject",    :limit => 255,  :default => "", :null => false
@@ -124,6 +157,11 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                                 :null => false
       t.integer  "updated_by"
     end
+    add_index "downloaders", ["project_id"]
+    add_index "downloaders", ["creator"]
+    add_index "downloaders", ["updated_at"]
+    add_index "downloaders", ["updated_by"]
+    add_index "downloaders", ["created_at"]
 
     # see also: app/models/project.rb
     # the limit is specified in lengh of unicode characters, not bytes
@@ -153,6 +191,16 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "updated_at",                        :null => false
       t.integer  "updated_by"
     end
+    add_index "projects", ["icon"]
+    add_index "projects", ["name"]
+    add_index "projects", ["status"]
+    add_index "projects", ["creator"]
+    add_index "projects", ["updated_at"]
+    add_index "projects", ["updated_by"]
+    add_index "projects", ["created_at"]
+    add_index "projects", ["project_counter"]
+    add_index "projects", ["vcs"]
+    add_index "projects", ["maturity"]
 
     create_table "releases", :force => true do |t|
       t.integer  "icon",            :default => 0,  :null => false
@@ -168,6 +216,16 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "release_counter", :default => 0,  :null => false
       t.integer  "updated_by"
     end
+    add_index "releases", "icon"
+    add_index "releases", "project_id"
+    add_index "releases", "name"
+    add_index "releases", "version"
+    add_index "releases", "due"
+    add_index "releases", "release_counter"
+    add_index "releases", ["creator"]
+    add_index "releases", ["updated_at"]
+    add_index "releases", ["updated_by"]
+    add_index "releases", ["created_at"]
 
     create_table "roles", :force => true do |t|
       t.string   "name",              :limit => 40
@@ -178,13 +236,23 @@ class CreateTables < ActiveRecord::Migration
       t.integer  "creator"
       t.integer  "updated_by"
     end
+    add_index "roles", "name"
+    add_index "roles", "authorizable_id"
+    add_index "roles", "authorizable_type"
+    add_index "roles", ["creator"]
+    add_index "roles", ["updated_at"]
+    add_index "roles", ["updated_by"]
+    add_index "roles", ["created_at"]
 
-    create_table "roles_functions", :id => false, :force => true do |t|
+    create_table "roles_permissions", :id => false, :force => true do |t|
       t.integer  "role_id"
-      t.integer  "function_id"
+      t.integer  "permission_id"
       t.datetime "created_at"
       t.datetime "updated_at"
     end
+    add_index "roles_permissions", ["role_id", "permission_id"]
+    add_index "roles_permissions", ["updated_at"]
+    add_index "roles_permissions", ["created_at"]
 
     create_table "roles_users", :id => false, :force => true do |t|
       t.integer  "user_id"
@@ -192,6 +260,9 @@ class CreateTables < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
+    add_index "roles_users", ["role_id", "user_id"]
+    add_index "roles_users", ["updated_at"]
+    add_index "roles_users", ["created_at"]
 
     create_table :sessions, :force => true do |t|
       t.string :session_id, :null => false
@@ -262,7 +333,7 @@ class CreateTables < ActiveRecord::Migration
 
   def self.down
     %w(users projects tags taggings categories
-    sessions roles roles_users roles_functions functions
+    sessions roles roles_users roles_permissions permissions
     releases news jobs citations references events 
     downloaders fileentities images 
     open_id_authentication_associations 
