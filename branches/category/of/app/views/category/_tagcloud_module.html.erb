@@ -1,0 +1,11 @@
+<% module_title = capture do -%>
+  <%=t( 'tagcloud.title' )%>
+<% end -%>
+
+<% module_content = capture do -%>
+  <% Tagcloud.tags_assign_font_size( '' ).each do | s | -%>
+    <%="<a href=\"#\"><font style=\"font-size: #{ s[ :font ] }px;\">#{ s[ :name ] }</font></a>(#{ s[ :tagged ] }) " %>
+  <% end -%>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
