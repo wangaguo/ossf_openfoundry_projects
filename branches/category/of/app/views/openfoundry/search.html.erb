@@ -16,4 +16,12 @@
   <%else%>
 no record!
   <%end%>
+
+  <br/><br/>
+  <p>
+  <%=t( 'tagcloud.title' ) %><br/>
+    <% Tagcloud.tags_assign_font_size( 'ALL' ).each do | s | -%>
+      <%="<a href=\"#\"><font style=\"font-size: #{ s[ :font ] }px;\">#{ s[ :name ] }</font></a>(#{ s[ :tagged ] }) " %>
+    <% end -%>
+  </p>
 </div>
