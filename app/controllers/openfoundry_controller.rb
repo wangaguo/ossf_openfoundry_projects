@@ -83,7 +83,7 @@ class OpenfoundryController < ApplicationController
       the_session_data = get_session_by_id(session_id)
       user = the_session_data[:user]
       project_id = Project.find_by_name(project_name, :select => "id").id
-      function_names = Function.functions(:authorizable_id => project_id, :user_id => user.id)
+      function_names = Permission.functions(:authorizable_id => project_id, :user_id => user.id)
 
       rtn = { :name => user.login, :email => user.email, :function_names => function_names }
     rescue Exception => ex
