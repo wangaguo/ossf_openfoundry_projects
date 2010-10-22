@@ -29,8 +29,7 @@ end %>
     <table class="list-table">
       <tr class="even">
 	<td width="20%"><%= t("Project|Description") %></td>
-	<!--<td width="80%"><%= @project.description.mb_chars[0..149] %><span id="more"><%= @project.description.mb_chars[150..-1] %></span>-->
-	<td width="80%"><%= @project.description.mb_chars[0..149] + content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
+  <td width="80%"><%=h @project.description.mb_chars[0..149] %><%=content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
 	<% if @project.description.mb_chars.length > 150 -%>
 	  <a id ="mr" href="#" onclick="$('more').show(); $('mr').hide(); $('le').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
 	  <a id ="le" href="#" onclick="$('more').hide(); $('mr').show(); $('le').hide(); return false" style="display:none;padding:8px;float:right"><%= t('Less...') %></a>
