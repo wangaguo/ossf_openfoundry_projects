@@ -1,4 +1,32 @@
 class ApiController < ApplicationController
+  def get
+    resources = parse_resources 
+    ids = parse_ids
+    
+    dataset = parse_dataset
+    if dataset
+      @found = resources.valid.find ids, :select => dataset.columns
+      render :text => @found.to_json
+    else
+      render :text => "no dataset found! debug: "+params.inspect
+    end
+  end
+  
+  def sync
+    resources = parse_resources 
+    period = parse_period
+    
+    dataset = parse_dataset 
+    if dataset
+      @found = resources.valid.find :all, :select => dataset.columns, 
+      	:conditions => ["updated_at > ?", period],
+	:order => "updated_at DESC"
+      render :text => @found.to_json
+    else
+      render :text => "no dataset found! debug: "+params.inspect
+    end
+  end
+
   def user
     case params[:do]
     
@@ -16,6 +44,51 @@ class ApiController < ApplicationController
 
   def project
     
+  end
+  private
+  def parse_dataset
+    DataSet.find_by_model params[:resources]
+  end
+ 
+  def parse_resources
+    params[:resources].camelize.singularize.constantize
+  end
+
+  def parse_ids
+    ids = params[:ids]
+    #TODO handle resources that take name as primary-key
+    case ids
+      #empty = get all resources
+      when nil then :all
+      #only one resource
+      when /^\d+$/ then ids
+      #1,2,3,4,5 => make it [1,2,3,4,5]
+      when /^\d+,\d+(,\d+)*$/ then ids.split(',')	    
+      #sorry, no such id, just give not-found
+      else raise ActiveRecord::RecordNotFound	    
+    end  
+  end
+ 
+  def parse_period
+    n = params[:number]
+    if n 
+      # give xxx (y/d/h/m) ago	    
+      n.to_i.send(params[:period_type]).ago
+    elsif params[:year]
+      #TODO handle timezone, system is UTC
+      # give a datetime
+      DateTime.civil(
+         params[:year].to_i,
+	#no zero-month 
+        (params[:month]||1).to_i,
+        #no zero-day
+	(params[:day]||1).to_i,
+        (params[:hour]||0).to_i,
+	(params[:minute]||0).to_i,0,0
+      )	
+    else 
+      0
+    end  
   end
 
   def api_render
