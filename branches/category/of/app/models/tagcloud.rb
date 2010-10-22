@@ -25,7 +25,7 @@ class Tagcloud < ActiveRecord::Base
 
 	# increase tag if it is searched
 	def self.increase_searched_tag( tagname )
-		tag = self.find( :first, :conditions => { :name => tagname } )
+		tag = self.onlytags.find( :first, :conditions => { :name => tagname } )
 		unless tag.nil?
 		  tag.searched += 1
 			tag.save	
