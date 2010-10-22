@@ -6,71 +6,71 @@ class AddSiteData < ActiveRecord::Migration
     #Project
     desc = ['Modify Project Information', 'Add/Remove Project Members']
     %w(info member).each_with_index do |name, i|
-      Function.create :name => "project_#{name}", :module => 'Project', 
+      Permission.create :name => "project_#{name}", :module => 'Project', 
         :description => desc[i]
     end
     desc = ['Edit Role Permissions']
     #Role
     %w(edit).each_with_index do |name, i|
-      Function.create :name => "role_#{name}", :module => 'Role', 
+      Permission.create :name => "role_#{name}", :module => 'Role', 
         :description => desc[i]
     end
     
     #Release
     desc = ['Manage Releases']
-      Function.create :name => "release", :module => 'Release', 
+      Permission.create :name => "release", :module => 'Release', 
         :description => desc[0]
     
     #News
     desc = ['Manage News']
-      Function.create :name => "news", :module => 'News', 
+      Permission.create :name => "news", :module => 'News', 
         :description => desc[0]
         
     #Job
     desc = ['Manage Help Wanted']
-      Function.create :name => "job", :module => 'Job', 
+      Permission.create :name => "job", :module => 'Job', 
         :description => desc[0]
         
     #Citation
     desc = ['Manage Citations']
-      Function.create :name => "citation", :module => 'Citation', 
+      Permission.create :name => "citation", :module => 'Citation', 
         :description => desc[0]
         
     #Reference
     desc = ['Manage References']
-      Function.create :name => "reference", :module => 'Reference', 
+      Permission.create :name => "reference", :module => 'Reference', 
         :description => desc[0]
     
     #Kwiki
     desc = ['Manage Kwiki Pages']
     %w(manage).each_with_index do |name, i|
-      Function.create :name => "kwiki_#{name}", :module => 'Wiki', 
+      Permission.create :name => "kwiki_#{name}", :module => 'Wiki', 
         :description => desc[i]
     end
     
     #Issue Tracker
     desc = ['Set As Tracker Admin', 'Set As Tracker CC']
     %w(admin member).each_with_index do |name, i|
-      Function.create :name => "rt_#{name}", :module => 'Tracker', 
+      Permission.create :name => "rt_#{name}", :module => 'Tracker', 
         :description => desc[i]
     end
     
     #Sympa
     desc = ['Manage Sympa Mailing Lists']
     %w(manage).each_with_index do |name, i|
-      Function.create :name => "sympa_#{name}", :module => 'Forums', 
+      Permission.create :name => "sympa_#{name}", :module => 'Forums', 
         :description => desc[i]
     end
     
     #VCS
     desc = ['Commit Changes']
     %w(commit).each_with_index do |name, i|
-      Function.create :name => "vcs_#{name}", :module => 'Vcs', 
+      Permission.create :name => "vcs_#{name}", :module => 'Vcs', 
         :description => desc[i]
     end
     
     #FTP
-    Function.create :name => 'ftp_access', :module => 'Ftp', :description => 'Ftp Access'
+    Permission.create :name => 'ftp_access', :module => 'Ftp', :description => 'Ftp Access'
     #--------------
     #建立User 
     #--------------
@@ -85,7 +85,7 @@ class AddSiteData < ActiveRecord::Migration
   end
 
   def self.down
-    Function.delete_all
+    Permission.delete_all
     User.delete_all
     Role.delete_all
   end

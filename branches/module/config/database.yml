@@ -1,0 +1,8 @@
+development: &ref
+  adapter: sqlite3
+  database: db/development
+  encoding: utf8
+
+test: *ref
+
+production: *ref
