@@ -413,14 +413,14 @@ class ProjectsController < ApplicationController
   def permission_edit
     @module_name = _('project_Permission Control')
     @roles = @project.roles.reject{|r| !(r.editable? )}
-    @functions_map = @roles.collect{|r| r.functions.collect{|f| f.id } }
-    @all_functions = Function.find :all
+    @functions_map = @roles.collect{|r| r.permissions.collect{|f| f.id } }
+    @all_functions = Permission.find :all
   end  
     
   def role_edit
     @role = Role.find(params[:role])
     @role_functions = @role.functions
-    @functions = Function.find(:all)
+    @functions = Permission.find(:all)
     #page[:role_new].hide
     #render :layout => false
     if(@role.name.upcase == "ADMIN" || @role.name.upcase == "MEMBER")
@@ -440,7 +440,7 @@ class ProjectsController < ApplicationController
       if (role.name.upcase != "ADMIN" && role.save)
         updated = params[:functions] || {}
         unless( updated.keys == role.functions.map{|f| f.id} )
-          after = updated.keys.collect{|id| Function.find(id)}
+          after = updated.keys.collect{|id| Permission.find(id)}
           before = role.functions
           added = after - before
           removed = before - after

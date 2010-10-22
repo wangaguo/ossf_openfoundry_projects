@@ -272,7 +272,7 @@ THECODE
   end
   
   def fpermit?(function_name, authorizable_id, authorizable_type = 'Project')
-    Function.function_permit(current_user, function_name, authorizable_id, authorizable_type)
+    Permission.function_permit(current_user, function_name, authorizable_id, authorizable_type)
   end
   helper_method :fpermit?
   

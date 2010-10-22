@@ -1,5 +1,5 @@
 <%
-  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+  functions = Permission::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
   is_nsc_project = @project.is_nsc_project
 %>
 <% module_title = capture do %>
