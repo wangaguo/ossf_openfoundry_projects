@@ -7,17 +7,15 @@ class Release < ActiveRecord::Base
   validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,255}$/
 
   #add fulltext indexed SEARCH
-  acts_as_ferret({ :fields => { 
-                              :name => { :boost => 1.5,
-                                          :store => :yes
-                                          },
-                              :description => { :store => :yes,
-                                             :index => :yes }                                                         
-                            },
-                 :single_index => true
-                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
-  N_('PREPARING')
-  N_('RELEASED')
+  #acts_as_ferret({ :fields => { 
+  #                            :name => { :boost => 1.5,
+  #                                        :store => :yes
+  #                                        },
+  #                            :description => { :store => :yes,
+  #                                           :index => :yes }                                                         
+  #                          },
+  #               :single_index => true
+  #               },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   STATUS = { :PREPARING => 0, :RELEASED => 1}.freeze
   
   def should_be_indexed?

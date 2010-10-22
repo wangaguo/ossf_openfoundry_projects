@@ -4,7 +4,7 @@
 # or without any specification at all.
 class Role < ActiveRecord::Base
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :functions, :join_table => 'roles_functions'
+  has_and_belongs_to_many :permissions, :join_table => 'roles_permissions'
   belongs_to :authorizable, :polymorphic => true
 
   def validate
@@ -28,11 +28,11 @@ class Role < ActiveRecord::Base
   def self.set_default_privileges_for(role)
     case role.name.downcase
     when 'admin'
-      role.functions << Function.find(:all)
+      role.permissions << Permission.find(:all)
     when 'member'
-      role.functions << Function.find(13) #vcs_commit
-      role.functions << Function.find(9) #kwiki_manage
-      role.functions << Function.find(11) #rt_member
+      role.permissions << Permission.find(13) #vcs_commit
+      role.permissions << Permission.find(9) #kwiki_manage
+      role.permissions << Permission.find(11) #rt_member
     end
   end
 
@@ -41,6 +41,4 @@ class Role < ActiveRecord::Base
   end
 
   #for ajax i18n
-  N_('This will remove User from this Group, are you sure?')
-  N_('This will add User to this Group, are you sure?')
 end

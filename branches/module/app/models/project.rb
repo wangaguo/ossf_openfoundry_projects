@@ -5,14 +5,6 @@ class Project < ActiveRecord::Base
 
   # single selection 
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
-  N_("IDEA")
-  N_("PREALPHA")
-  N_("ALPHA")
-  N_("BETA")
-  N_("RELEASED")
-  N_("MATURE")
-  N_("STANDARD")
-
 
   # [ [1, "OSI: Academic Free License"],
   #   [2, "OSI: Affero GNU Public License"] ]
@@ -58,57 +50,12 @@ class Project < ActiveRecord::Base
 -1 Other licenses
 EOEO
   # referenced by: licenses
-  N_("url_link_for_OSI: Academic Free License")
-  N_("url_link_for_OSI: GNU Affero General Public License v3 (AGPL3)")
-  N_("url_link_for_OSI: Adaptive Public License")
-  N_("url_link_for_OSI: Apache License 2.0")
-  N_("url_link_for_OSI: Artistic License 2.0")
-  N_("url_link_for_OSI: Attribution Assurance Licenses")
-  N_("url_link_for_OSI: BSD License (New and Simplified BSD License)")
-  N_("url_link_for_OSI: Boost Software License (BSL1.0)")
-  N_("url_link_for_OSI: Common Development and Distribution License (CDDL)")
-  N_("url_link_for_OSI: Common Public Attribution License 1.0 (CPAL)")
-  N_("url_link_for_OSI: Common Public License 1.0")
-  N_("url_link_for_OSI: Eclipse Public License")
-  N_("url_link_for_OSI: Educational Community License 2.0")
-  N_("url_link_for_OSI: Eiffel Forum License 2.0")
-  N_("url_link_for_OSI: Fair License")
-  N_("url_link_for_OSI: GNU General Public License 2.0 (GPLv2)")
-  N_("url_link_for_OSI: GNU General Public License 3.0 (GPLv3)")
-  N_("url_link_for_OSI: GNU Library or \"Lesser\" General Public License 2.1 (LGPLv2)")
-  N_("url_link_for_OSI: GNU Library or \"Lesser\" General Public License 3.0 (LGPLv3)")
-  N_("url_link_for_OSI: ISC License")
-  N_("url_link_for_OSI: Lucent Public License 1.02")
-  N_("url_link_for_OSI: Microsoft Public License (Ms-PL)")
-  N_("url_link_for_OSI: Microsoft Reciprocal License (Ms-RL)")
-  N_("url_link_for_OSI: MIT License")
-  N_("url_link_for_OSI: Mozilla Public License 1.1 (MPL)")
-  N_("url_link_for_OSI: NASA Open Source Agreement 1.3")
-  N_("url_link_for_OSI: NTP License")
-  N_("url_link_for_OSI: Open Group Test Suite License")
-  N_("url_link_for_OSI: Open Software License")
-  N_("url_link_for_OSI: Qt Public License (QPL)")
-  N_("url_link_for_OSI: Simple Public License 2.0")
-  N_("url_link_for_OSI: Sleepycat License")
-  N_("url_link_for_OSI: University of Illinois/NCSA Open Source License")
-  N_("url_link_for_OSI: zlib/libpng License")
-  N_("url_link_for_GNU Free Documentation License")
-  N_("url_link_for_Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)")
-  N_("url_link_for_Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)")
-  N_("url_link_for_Creative Commons: Attribution Non-commercial (by-nc)")
-  N_("url_link_for_Creative Commons: Attribution No Derivatives (by-nd)")
-  N_("url_link_for_Creative Commons: Attribution Share Alike (by-sa)")
-  N_("url_link_for_Creative Commons: Attribution (by)")
 
 
-  # referenced by: project validation
-  N_("Public Domain")
-  N_("This project contains no code")
-  N_("Other licenses")
   LICENSES = Hash[ * LICENSE_DATA.flatten ].freeze
   LICENSE_DISPLAY_KEYS = LICENSE_DATA.map(&:first).map(&:to_i).freeze
   def self.license_to_s(i_or_s)
-    _(LICENSES[i_or_s.to_i])
+    LICENSES[i_or_s.to_i]
   end
   # ",5,1," => [ [1, "xx"], [5, "oo"] ]
   def self.licenses_to_s(licenses_with_delimiter)
@@ -145,14 +92,10 @@ EOEO
 -1 Other licenses
 EOEO
   # referenced by: project validation / _form
-  N_("Public Domain")
-  N_("Same license as code")
-  N_("Project contains only code")
-  N_("Other licenses")
   CONTENT_LICENSES = Hash[ * CONTENT_LICENSE_DATA.flatten ].freeze
   CONTENT_LICENSE_DISPLAY_KEYS = CONTENT_LICENSE_DATA.map(&:first).map(&:to_i).freeze
   def self.content_license_to_s(i_or_s)
-    _(CONTENT_LICENSES[i_or_s.to_i])
+    CONTENT_LICENSES[i_or_s.to_i]
   end
   # ",5,1," => [ [1, "xx"], [5, "oo"] ]
   def self.content_licenses_to_s(licenses_with_delimiter)
@@ -191,17 +134,17 @@ EOEO
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3, :PENDING => 4 }.freeze
 
   #for releases ftp upload and web download...
-  PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
+  PROJECT_UPLOAD_PATH = ''#OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
   PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
 
   # name validation
   NAME_REGEX = /^[a-z][0-9a-z-]{2,13}[0-9a-z]$/ # lengh = 15
   
   def self.status_to_s(int_status)
-    _(STATUS.index(int_status).to_s)
+    STATUS.index(int_status.to_s)
   end
   def self.maturity_to_s(int_maturity)
-    _(MATURITY.index(int_maturity).to_s)
+    MATURITY.index(int_maturity.to_s)
   end
   def maturity_to_s
     Project.maturity_to_s(maturity)
@@ -212,17 +155,17 @@ EOEO
     i = (Symbol === vcs) ? VCS[vcs] : vcs.to_i
     case i
     when VCS[:CVS]
-      _("CVS")
+      "CVS"
     when VCS[:SUBVERSION]
-      _("Subversion")
+      "Subversion"
     when VCS[:SUBVERSION_CLOSE]
-      _("Subversion: members only")
+      "Subversion: members only"
     when VCS[:REMOTE]
-      _("This project uses a version control system at other site.")
+      "This project uses a version control system at other site."
     when VCS[:NONE]
-      _("This project does not use any version control system.")
+      "This project does not use any version control system."
     else
-      _("System Error. Please contact the site administrator.")
+      "System Error. Please contact the site administrator."
     end
   end
   def vcs_to_s
@@ -234,18 +177,18 @@ EOEO
   acts_as_authorizable
 
   #add fulltext indexed SEARCH
-  acts_as_ferret({
-                 :fields => { 
-                              :name => { :boost => 1.5,
-                                         :store => :yes
-                                         },
-                              :summary => { :store => :yes,
-                                            :index => :yes },
-                              :description => { :store => :yes,
-                                                :index => :yes }                                                         
-                            },
-                 :single_index =>true
-                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
+  #acts_as_ferret({
+  #               :fields => { 
+  #                            :name => { :boost => 1.5,
+  #                                       :store => :yes
+  #                                       },
+  #                            :summary => { :store => :yes,
+  #                                          :index => :yes },
+  #                            :description => { :store => :yes,
+  #                                              :index => :yes }                                                         
+  #                          },
+  #               :single_index =>true
+  #               },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
 
   def should_be_indexed?
     self.status == Project::STATUS[:READY]
@@ -272,16 +215,16 @@ EOEO
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => NAME_REGEX, :message => _('Format|Project Name')
-    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => _("This name is reserved by the system.")
+  validates_format_of :name, :with => NAME_REGEX, :message => 'Format|Project Name'
+    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => "This name is reserved by the system."
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
   validates_length_of :description, :within => 3 .. 4000
   validates_length_of :contactinfo, :maximum => 255
   validates_inclusion_of :maturity, :in => MATURITY.values
-  validates_length_of :license, :maximum => 50, :message => _('You have choosen too many licenses.')
+  validates_length_of :license, :maximum => 50, :message => 'You have choosen too many licenses.'
     validates_format_of :license, :with => /,(-?\d+)*,/
-  validates_length_of :contentlicense, :maximum => 50, :message => _('You have choosen too many content licenses.')
+  validates_length_of :contentlicense, :maximum => 50, :message => 'You have choosen too many content licenses.'
     validates_format_of :contentlicense, :with => /,(-?\d+)*,/
   validates_length_of :licensingdescription, :maximum => 1000
   validates_length_of :platform, :maximum => 100
@@ -295,7 +238,7 @@ EOEO
   ### also invoked by approve()
   ##def validate_on_create
   ##  if Project.exists?(Project.in_used_projects(['name = ?', name]))
-  ##    errors.add(:name, _("'#{name}' has already been taken"))
+  ##    errors.add(:name, "'#{name}' has already been taken")
   ##  end
   ##end
 
@@ -303,42 +246,42 @@ EOEO
     if status != Project::STATUS[:REJECTED]
       cond = ["name = ? and #{Project.approved_projects}", name]
       cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
-      errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
+      errors.add(:name, "'#{name}' has already been taken") if Project.exists?(cond)
     end
 
     ls = "#{license}".split(",").grep(/./).map(&:to_i)
     if ls.length == 0
-      errors.add(:license, _("Please choose at least one code license."))
+      errors.add(:license, "Please choose at least one code license.")
     end
     if ls.include?(0) and ls != [0] 
-      errors.add(:license, _("If this project contains no code, then you may not choose any other license."))
+      errors.add(:license, "If this project contains no code, then you may not choose any other license.")
     end
 
     cls = "#{contentlicense}".split(",").grep(/./).map(&:to_i)
     if cls.length == 0
-      errors.add(:contentlicense, _("Please choose at least one content license."))
+      errors.add(:contentlicense, "Please choose at least one content license.")
     end
     if cls.include?(0) and cls != [0] 
-      errors.add(:contentlicense, _("If this project contains only code, then you may not choose any other content license."))
+      errors.add(:contentlicense, "If this project contains only code, then you may not choose any other content license.")
     end
     if cls.include?(-3) and cls != [-3] 
-      errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose any other content license."))
+      errors.add(:contentlicense, "If the content license is the same with the code license, then you may not choose any other content license.")
     end
 
     if cls == [-3] and ls == [0] 
-      errors.add(:contentlicense, _("You have to choose a code license.")) # TODO: better wording
+      errors.add(:contentlicense, "You have to choose a code license.") # TODO: better wording
     end
 
     if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
-      errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"."))
+      errors.add(:licensingdescription, "You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\".")
     end
 
     if "#{platform}".split(",").grep(/./).empty?
-      errors.add(:platform, _("Please choose at least one platform."))
+      errors.add(:platform, "Please choose at least one platform.")
     end
 
     if "#{programminglanguage}".split(",").grep(/./).empty?
-      errors.add(:programminglanguage, _("Please choose at least one programming language."))
+      errors.add(:programminglanguage, "Please choose at least one programming language.")
     end
   end
   
@@ -397,7 +340,7 @@ EOEO
     # TODO: hook / listener / callback / ...
     ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {:id => self.id, :name => self.name, :summary => self.summary})
     # send admin function creation msg
-    Function.find(:all).each do |f|
+    Permission.find(:all).each do |f|
       ApplicationController::send_msg(:function,:create,
                         {:function_name => f.name, 
                           :user_id => self.creator,
