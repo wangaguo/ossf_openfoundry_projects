@@ -581,4 +581,8 @@ EOEO
     }\""}.join(options[:split]||',') 
     end
   end
+  # find all tags of a project and combine them to a string for ferret search
+  def self.tags_string_for_ferret( pid )
+    self.find( pid ).alltags.map{ | s | s.name }.join( ',' )
+  end
 end
