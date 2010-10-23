@@ -82,13 +82,7 @@
     </div>
     <div id="LeftWidget" class="rt-grid-3 rt-pull-9">   
     	<%if params["project_id"] != nil%>
-          <% module_title = capture do %>
-            <%= _('News') %>
-          <% end %>
-          <% module_content = capture do%>
-            <%=render :partial => "news/news_list", :locals => {:project => @project}%>
-          <% end %>
-          <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
+          <%=render :partial => "news/news_list", :locals => {:project => @project}%>
           <%#=render :partial => "partials/project_logo", :locals => {:project => @project}%>
         <div id="LeftMenu">
 		<%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
