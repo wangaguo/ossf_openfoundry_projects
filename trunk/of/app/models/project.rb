@@ -437,8 +437,7 @@ EOEO
     raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:REJECTED], Project::STATUS[:PENDING]].include?(self.status) 
     self.status = Project::STATUS[:PENDING]
     self.statusreason = replymessage + "\n" + reason
-    save!
-    if save!
+    if save
       ProjectNotify.deliver_pending(self, replymessage)
     end
   end
