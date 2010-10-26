@@ -301,7 +301,7 @@ EOEO
 
   def validate
     if status != Project::STATUS[:REJECTED]
-      cond = ["name = ? and #{Project.approved_projects}", name]
+      cond = ["name = ? and `status` <> #{Project::STATUS[:REJECTED]} ", name]
       cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
       errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
     end
