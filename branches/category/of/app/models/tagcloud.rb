@@ -16,17 +16,12 @@ class Tagcloud < ActiveRecord::Base
   TYPE = { :TAG => 0, :CATEGORY => 1 }.freeze
   STATUS = { :PENDING => 0, :READY => 1 }.freeze
 
-  named_scope :onlytags, :conditions => { :status => STATUS[ :READY ], :tag_type => TYPE[ :TAG ] }
+  named_scope :readytags, :conditions => { :status => STATUS[ :READY ] }
   
-	# update amount of tags with tagclouds_projects model changing ( call by tagclouds_projects model )
-	def update_count( update_data_id, mod_count )
-		Tagcloud.update_counters update_data_id, :tagged => mod_count
-	end
-
 	# increase tag if it is searched
 	def self.increase_searched_tag( tagname )
-		tag = self.onlytags.find( :first, :conditions => { :name => tagname } )
-		unless tag.nil?
+		tag = self.readytags.find( :first, :conditions => { :name => tagname } )
+		unless tag.nil? || tag.tagged == 0  # CANNOT increase the search hits for a tag is not tagged!!
 		  tag.searched += 1
 			tag.save	
 		end
@@ -42,11 +37,11 @@ class Tagcloud < ActiveRecord::Base
   # evaluate the weight for all validated tags
   def self.all_tags_with_weight
     # select fields needed order by weight
-    tags = self.onlytags.map { | set | 
+    tags = self.readytags.map { | set | 
       { :id => set.id, 
         :name => set.name, 
         :tagged => set.tagged, 
-        :weight => set.tagged * 0.7 + set.searched * 0.3 }
+        :weight => set.tagged * 0.6 + set.searched * 0.4 }
       }
 
     # normalize each weight for tags

@@ -3,17 +3,26 @@ class TagcloudsProject < ActiveRecord::Base
 	belongs_to :project, :foreign_key => :project_id
 	belongs_to :tagcloud, :foreign_key => :tagcloud_id
 
-	# re-count tagclouds by tagclouds_projects table changing
+  # re-count tagclouds after tagclouds_projects table changing
 	after_save :increase_tagcloud_count
 	after_destroy :decrease_tagcloud_count
 
-	# call the method in the tagclouds model to change the tagged field ( amount of tags ) in tagclouds table
-	# here CANNOT combine to one method ( increase, decrease ) !!
+  # increase the count when the tag is tagged
   def increase_tagcloud_count
-		tagcloud.update_count self.tagcloud_id, 1
+    tc = Tagcloud.find_by_id self.tagcloud_id
+    tc.tagged += 1
+    tc.save
 	end
 
+  # decrease the count when the tag is un-tagged
 	def decrease_tagcloud_count
-	 	tagcloud.update_count self.tagcloud_id, -1	
+    tc = Tagcloud.find_by_id self.tagcloud_id
+    tc.tagged -= 1
+    
+    # clear the searched count if a tag is not tagged by any project
+    # prevent someone to gain the search hits!!
+    tc.searched = 0 if tc.tagged == 0
+
+    tc.save
 	end
 end
