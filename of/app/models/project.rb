@@ -434,7 +434,7 @@ EOEO
   end
   # reason: string
   def pending(reason, replymessage)
-    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:REJECTED]].include?(self.status) 
+    raise "current status is wrong: #{self.status}" if not [Project::STATUS[:APPLYING], Project::STATUS[:REJECTED], Project::STATUS[:PENDING]].include?(self.status) 
     self.status = Project::STATUS[:PENDING]
     self.statusreason = replymessage + "\n" + reason
     save!

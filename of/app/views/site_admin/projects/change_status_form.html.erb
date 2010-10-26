@@ -20,6 +20,7 @@ Current status is: <%= Project.status_to_s(@project.status) %>
   <% end %>
   <% if @project.status == Project::STATUS[:PENDING] %>
     <%= submit_tag 'approve', :name => 'invoke' %>
+    <%= submit_tag 'pending', :name => 'invoke' %>
     <%= submit_tag 'reject', :name => 'invoke' %>
   <% end %>
   <% if @project.status == Project::STATUS[:READY] %>
