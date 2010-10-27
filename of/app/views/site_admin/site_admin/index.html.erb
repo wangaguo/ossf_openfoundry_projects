@@ -28,6 +28,7 @@ Agent: <%= request.user_agent%>
   <li><%= link_to ("Project"), site_admin_projects_path %></li>
   <li><%= link_to ("News"), site_admin_news_index_path %></li>
   <li><%= link_to ("User"), site_admin_users_path %></li>
+  <li><%= link_to ("Site Member Control"), {:action => :member_edit } %></li>
   <li>
     切換使用者
     <input id="switch_user_search" size="25" type="text">

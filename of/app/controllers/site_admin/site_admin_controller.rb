@@ -138,4 +138,94 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     headers["Content-Type"] = "text/plain" 
     render :text => "load '#{OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH}' ok\n#{$run_code_result}"
   end
+
+  def member_change
+    flag_changed = false
+    params['u'] =~ /role_(\d+)_user_(\d+)/
+    drag_role_id = $1
+    user_id = $2
+    params['r'] =~ /role_(\d+)/
+    drop_role_id = $1
+    if u=User.find(user_id)
+      if r=Role.find(drop_role_id)
+        #remember functions before
+        if drag_role_id.to_i !=0 and old_r=Role.find(drag_role_id)
+          if drag_role_id == drop_role_id #fom A to A => nothing happen
+            flash.now[:warning] = _('No Operation...')
+          elsif r.authorizable_id == old_r.authorizable_id #the same project?
+            old_r.users.delete(u)
+            unless old_r.valid?
+              flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY.')
+              old_r.users << u #TODO: better recovery
+              member_edit #if flag_changed
+              render :action => :member_edit, :layout => 'module_with_flash'
+              return
+            end
+            old_r.save
+            r.users << u unless r.users.include? u
+            r.save
+
+            flag_changed = true
+            flash.now[:notice] = _( 'Move User to Group' ) + " #{ r.name }"
+          else
+            flash.now[:warning] =
+              _('You can\'t move User between Groups that belong to different Projects.')
+          end
+        else
+          u.roles << r unless u.roles.include? r
+          u.save
+          flag_changed = true
+          flash.now[:notice] = _( 'Add User into Group' ) + " #{ r.name }"
+        end
+      else
+        flash.now[:warn] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
+      end
+    else
+      flash.now[:warning] = _( 'User doesn\'t exist!' ) + ": #{ u.login }"
+    end
+    member_edit #if flag_changed
+    render :action => :member_edit, :layout => 'module_with_flash'
+  end
+
+  def member_delete
+    flag_changed = false
+    params['u'] =~ /role_(\d+)_user_(\d+)/
+    role_id = $1
+    if role_id.to_i < 1 #drag 'new user' 
+      flash.now[:warning] =
+          _('You can\'t delete User belongs to This Group!')
+    else
+      user_id = $2
+      if u=User.find(user_id)
+        if r=Role.find(role_id)
+          #remember functions before
+          r.users.delete u
+          unless r.valid?
+            flash.now[:warning] = _('Group "Admin" CAN NOT be EMPTY.')
+            r.users << u #TODO: better recovery
+            member_edit #if flag_changed
+            render :action => :member_edit, :layout => 'module_with_flash'
+            return
+          end
+          r.save
+          flag_changed = true
+          flash.now[:notice] =
+            _('Remove User from Group')
+
+        else
+          flash.now[:warning] = _( 'Group doesn\'t exist!' ) + ": #{ r.name }"
+        end
+      else
+        flash.now[:warning] = _( 'User doesn\'t exist!' ) + ": #{ u.login }"
+      end
+    end
+    member_edit #if flag_changed
+    render :action => :member_edit, :layout => 'module_with_flash'
+  end
+
+  def member_edit
+    @module_name = _('Site Member Control')
+    @roles = Role.find_all_by_authorizable_type("site")
+    @users_map = @roles.collect{|r| r.users}
+  end
 end
