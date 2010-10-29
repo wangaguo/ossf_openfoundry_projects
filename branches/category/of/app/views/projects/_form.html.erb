@@ -75,6 +75,10 @@ AAA
   # rationale
   foo("description", true, _("Project|Description|Help")),
     text_area('project', 'description'),
+  foo( 'category', false, t( 'Title.Category' ) ),
+    select( 'project', 'category', 
+            Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, :include_blank => '- Select Category -' ) + 
+            ' ' + mail_to( 'contact@openfoundry.org', 'New Category?' ),
   foo("contactinfo", false, _("Project|Contactinfo|Help")),
     text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
   foo("maturity", true, _("Project|Maturity|Help")),

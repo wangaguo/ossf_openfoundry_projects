@@ -17,7 +17,9 @@ class Tagcloud < ActiveRecord::Base
   STATUS = { :PENDING => 0, :READY => 1 }.freeze
 
   named_scope :readytags, :conditions => [ "status = ? AND tagged <> 0", STATUS[ :READY ] ]
-  
+
+  named_scope :onlycategory, :conditions => { :status => 1, :tag_type => 1 }, :order => 'id'
+
 	# increase tag if it is searched
 	def self.increase_searched_tag( tagname )
 		tag = self.readytags.find( :first, :conditions => { :name => tagname } )
