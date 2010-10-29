@@ -19,6 +19,7 @@ class ProjectsAddCategoryAndTags < ActiveRecord::Migration
       t.integer  :tagcloud_id
       t.integer  :project_id
     end
+    add_index    :tagclouds_projects, [ :tagcloud_id, :project_id ], :unique => true
     add_index    :tagclouds_projects, :tagcloud_id
     add_index    :tagclouds_projects, :project_id
   end
