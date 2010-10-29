@@ -9,20 +9,22 @@ class TagcloudsProject < ActiveRecord::Base
 
   # increase the count when the tag is tagged
   def increase_tagcloud_count
-    tc = Tagcloud.find_by_id self.tagcloud_id
-    tc.tagged += 1
-    tc.save
+    if tc = Tagcloud.find_by_id self.tagcloud_id
+      tc.tagged += 1
+      tc.save
+    end
 	end
 
   # decrease the count when the tag is un-tagged
 	def decrease_tagcloud_count
-    tc = Tagcloud.find_by_id self.tagcloud_id
-    tc.tagged -= 1
+    if tc = Tagcloud.find_by_id self.tagcloud_id
+      tc.tagged -= 1
     
-    # clear the searched count if a tag is not tagged by any project
-    # prevent someone to gain the search hits!!
-    tc.searched = 0 if tc.tagged == 0
+      # clear the searched count if a tag is not tagged by any project
+      # prevent someone to gain the search hits!!
+      tc.searched = 0 if tc.tagged == 0
 
-    tc.save
+      tc.save
+    end
 	end
 end
