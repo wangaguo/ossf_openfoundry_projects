@@ -272,6 +272,11 @@ class OpenfoundryController < ApplicationController
   end
   
   def search #for search!!! TODO: catalog and optimize?
+    reset_sortable_columns
+    add_to_sortable_columns( 'listing', Project, 'name', 'name' )
+    add_to_sortable_columns( 'listing', Project, 'summary', 'summary' )
+    add_to_sortable_columns( 'listing', Project, 'category', 'category' )
+
     @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
     query = (@query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
       $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
@@ -285,7 +290,29 @@ class OpenfoundryController < ApplicationController
         @options[:models] = [Project]
       end
     obj = @options[:models] == :all ? Project : @options[:models].first
-    @results = obj.find_with_ferret(query, @options) 
+
+    if params[:adv_cat]
+      unless params[:project].blank?
+        filter_select = params[:project] 
+        query += " category_index:'#{filter_select[:category]}' " unless filter_select.fetch(:category).blank?
+        query += " maturity_index:'#{filter_select[:maturity]}' " unless filter_select.fetch(:maturity).blank?
+        query += " license:'#{filter_select[:license]}' " unless filter_select.fetch(:license).blank?
+        query += " platform:'#{filter_select[:platform]}' " unless filter_select.fetch(:platform).blank?
+        query += " programminglanguage:'#{filter_select[:programminglanguage]}' " unless filter_select.fetch(:programminglanguage).blank?
+        @filter_blank_or_not = query
+      end
+      @results = Project.find_with_ferret(query, :limit => :all)
+      @final_project_list = @results.paginate(
+        :per_page => 20,
+        :order => sortable_order( 'listing', :model => Project, :field => 'name', :sort_direction => :desc ) )
+
+      params[:adv_cat]=''
+    else
+      @filter_blank_or_not = query
+      @results = obj.find_with_ferret(query, @options) 
+      @final_project_list = @results
+    end
+
     @lookup = RECORD_LOOKUP_TABLE
   end
   

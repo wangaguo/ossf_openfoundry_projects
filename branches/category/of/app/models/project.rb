@@ -261,13 +261,28 @@ EOEO
                               :summary => { :store => :yes,
                                             :index => :yes },
                               :description => { :store => :yes,
-                                                :index => :yes },                                                         
+                                                :index => :yes },
 															:cattag_name => {:store => :yes,
-																					:index => :yes }					
+																					:index => :yes },
+															:maturity_index => {:store => :yes,
+																						:index => :yes},
+															:license => {:store => :yes,
+																					 :index => :yes },
+															:platform => {:store => :yes,
+																						:index => :yes },
+															:programminglanguage => { :store => :yes,
+																				 								:index => :yes},
+															:category_index => { :store => :yes,
+																				 					 :index => :yes},
+                              :alltags_string => { :store => :yes,
+                                            :index => :yes}
                             },
                  :single_index =>true
                  },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
   def cattag_name;cattag.name;end
+  def alltag_string;self.alltags.map{|m|m.name}.join(", ");end
+  def maturity_index;self.maturity.to_s;end
+  def category_index;self.category.to_s;end
   		
 
   def should_be_indexed?
@@ -580,10 +595,5 @@ EOEO
       end
     }\""}.join(options[:split]||',') 
     end
-  end
-
-  # find all tags of a project and combine them to a string for ferret search
-  def self.tags_string_for_ferret( pid )
-    self.find( pid ).alltags.map{ | s | s.name }.join( ',' )
   end
 end
