@@ -23,7 +23,7 @@
             <td><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
             <td><%=h( project.summary ) %></td>
             <td><%=h( project.cattag.name ) unless project.cattag.nil? %></td>
-            <td><%=h( project.alltags.map{|m| m.name}.join(", ") ) unless project.alltags.nil? %></td>
+            <td><%=h( project.alltags.map(&:name).join(", ") ) unless project.alltags.nil? %></td>
           </tr>
       <% end %>
       </table>

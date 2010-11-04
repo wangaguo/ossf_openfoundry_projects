@@ -255,13 +255,15 @@ EOEO
   #add fulltext indexed SEARCH
   acts_as_ferret({
                  :fields => { 
-                              :name => { :boost => 1.5,
+                              :name => { :boost => 2.0,
                                          :store => :yes
                                          },
-                              :summary => { :store => :yes,
-                                            :index => :yes },
-                              :description => { :store => :yes,
-                                                :index => :yes },
+                              :summary => { :boost => 2.5,
+                                            :store => :yes,
+                                            :index => :untokenized },
+                              :description => { :boost => 1.5, 
+                                                :store => :yes,
+                                                :index => :untokenized },
 															:cattag_name => {:store => :yes,
 																					:index => :yes },
 															:maturity_index => {:store => :yes,
@@ -274,13 +276,14 @@ EOEO
 																				 								:index => :yes},
 															:category_index => { :store => :yes,
 																				 					 :index => :yes},
-                              :alltags_string => { :store => :yes,
-                                            :index => :yes}
+                              :alltags_string => { :boost => 3.0,
+                                                   :store => :yes,
+																				 					 :index => :untokenized}
                             },
                  :single_index =>true
                  },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
   def cattag_name;cattag.name;end
-  def alltag_string;self.alltags.map{|m|m.name}.join(", ");end
+  def alltags_string;alltags.map(&:name).join(", ");end
   def maturity_index;self.maturity.to_s;end
   def category_index;self.category.to_s;end
   		
