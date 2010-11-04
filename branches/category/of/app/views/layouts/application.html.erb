@@ -57,7 +57,7 @@
             <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=48 />
 	  </a>
        </div>
-       <div >
+       <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
           <h3>
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
             <%= h(@project.name) %>
