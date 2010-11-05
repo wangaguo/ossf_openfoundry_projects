@@ -303,6 +303,7 @@ en:
   "Creator": "Creator"
   "Requestor": "Requestor"
   "LastUpdatedBy": "New Update"
+  "Filter" : "Filter"
   "menu_License Wizard": "License Wizard"
   "menu_LW_manual_link": "http://www.openfoundry.org/license-wizard/"
   "License Wizard": "License Wizard"
