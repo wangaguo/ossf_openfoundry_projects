@@ -41,7 +41,7 @@
             <%= link_to_remote _("Delete"), :update => 'MainContent',
               :url => { :action => 'group_delete', :id => @project.id,
               :role => role.id },
-              :condition => "confirm('#{_('Are you sure')}?')" if role.deletable? %>
+              :condition => "confirm('#{_('Are you sure?')}?')" if role.deletable? %>
         </fieldset>
           <% end %>
         </div>
