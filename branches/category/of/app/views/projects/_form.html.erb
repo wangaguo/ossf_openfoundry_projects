@@ -1,6 +1,79 @@
 <%# https://sourceforge.net/register-project %>
 <%# http://code.google.com/hosting/createProject %>
 
+<%=stylesheet_link_tag 'jquery.autocomplete' %>
+<%=javascript_include_tag 'jquery', 'jquery.autocomplete' %>
+
+<style type="text/css">
+  .tagged
+  {
+    display: inline-block;
+    padding: 2px;
+    border: 1px solid #ccccdd;
+    margin: 2px 2px;
+    font: 12px bold;
+  }
+
+  .tagged:hover
+  {
+    background-color: #e8e8f0;
+    border: 1px solid #777788;
+    text-decoration: line-through;
+  }
+</style>
+
+<script type="text/javascript">
+  var $j = jQuery.noConflict();
+
+  // check added tag is duplicated or not
+  function add_to_tags_list()
+  {
+    // Pre-Process: trim the input
+    var input_tag = $j.trim( $j( '#Tags_Ctrl' ).val() );
+    $j( '#Tags_Ctrl' ).val( '' );
+
+    if( input_tag != '' )
+    {
+      // prevent the chinese words
+      var rege = /^[a-zA-Z0-9 ]+$/;
+      if( !rege.test( input_tag ) )
+      {
+        alert( "<%=t( 'Msg.Limited_Input' ) %>" );
+        return false;
+      }
+
+      var dupchk = false;
+      var divhead = '<div class="tagged" onclick="javascript: $( this ).remove();">';
+
+      // prevent the duplicated tag to be tagged
+      $j( '#Tags_List div' ).each(
+        function()
+        {
+          if( $j( this ).text() == input_tag )
+          {
+            alert( "<%=t( 'Msg.Tag_Duplicated' ) %>" );
+            dupchk = true;
+            return false;
+          }
+        }
+      );
+
+      // append the tag to page
+      if( dupchk == false )
+        $j( '#Tags_List' ).append( divhead + input_tag + '</div>' );
+    }
+  }
+
+  // enhance the input with auto-complete
+  $j( document ).ready(
+    function()
+    {
+      var data = [ '<%=Tagcloud.cachedtags.map{ | t | t.name }.join( "','" ) %>' ];
+      $j( '#Tags_Ctrl' ).autocomplete( data, { matchContains: false } );
+    }
+  );
+</script>
+
 <%= error_messages_for 'project' %>
 
 <!--[form:project]-->
@@ -75,10 +148,14 @@ AAA
   # rationale
   foo("description", true, _("Project|Description|Help")),
     text_area('project', 'description'),
-  foo( 'category', false, t( 'Title.Category' ) ),
+  foo( 'category', false, t( 'CreateHelp.Project_Category' ) ),
     select( 'project', 'category', 
             Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, :include_blank => '- Select Category -' ) + 
             ' ' + mail_to( 'contact@openfoundry.org', 'New Category?' ),
+  foo( 'Tags', false, t( 'CreateHelp.Project_Tags' ) ),
+    "<div id=\"Tags_List\"><div></div>#{ @tagspan }</div>" + 
+    text_field_tag( 'Tags_Ctrl', '', :size => 20 ) + 
+    "<input type='button' value='#{ t( 'Button.AddTags' ) }' onclick='javascript: add_to_tags_list();'>",
   foo("contactinfo", false, _("Project|Contactinfo|Help")),
     text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
   foo("maturity", true, _("Project|Maturity|Help")),
@@ -114,7 +191,5 @@ AAA
   e.g. NSC97-2218-E-123-456
   <%= err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50)) %>
 </fieldset>
-
-
 <!--[eoform:project]-->
 
