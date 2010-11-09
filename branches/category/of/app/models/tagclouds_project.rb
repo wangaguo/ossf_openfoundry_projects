@@ -1,7 +1,7 @@
 class TagcloudsProject < ActiveRecord::Base
 	# tagcloud association
-	belongs_to :project, :foreign_key => :project_id
-	belongs_to :tagcloud, :foreign_key => :tagcloud_id
+	belongs_to :project
+	belongs_to :tagcloud
 
   # re-count tagclouds after tagclouds_projects table changing
 	after_save :increase_tagcloud_count
@@ -17,7 +17,7 @@ class TagcloudsProject < ActiveRecord::Base
 
   # decrease the count when the tag is un-tagged
 	def decrease_tagcloud_count
-    if tc = Tagcloud.find_by_idi( self.tagcloud_id )
+    if tc = Tagcloud.find_by_id( self.tagcloud_id )
       tc.tagged -= 1
     
       # clear the searched count if a tag is not tagged by any project
@@ -27,4 +27,40 @@ class TagcloudsProject < ActiveRecord::Base
       tc.save
     end
 	end
+
+  # append tags to a project
+  def self.append_tags_to_project( pid, tlist )
+    tg = tlist.split( ',' )
+    tg.each{ | t |
+      tc = Tagcloud.find :first, :conditions => { :name => t }
+      tid = nil
+      if( tc.nil? )
+        # new tag
+        ntc = Tagcloud.new
+        ntc.name = t.titleize
+        ntc.tag_type = Tagcloud::TYPE[ :TAG ] 
+        ntc.save
+
+        tid = ntc.id
+      else
+        tid = tc.id
+      end
+
+      # build association between a project and tags
+      tp = TagcloudsProject.new
+      tp.project_id = pid
+      tp.tagcloud_id = tid
+      tp.save
+    }
+  end
+
+  # delete all tags for a project
+  def self.delete_project_alltags( pid )
+    tgs = Project.find_by_id( pid ).alltags_without_check
+    tgs.each{ | t |
+      tid = Tagcloud.find_by_name( t.name ).id
+      deltag = TagcloudsProject.find :first, :conditions => { :tagcloud_id => tid, :project_id => pid }
+      deltag.destroy
+    }
+  end
 end
