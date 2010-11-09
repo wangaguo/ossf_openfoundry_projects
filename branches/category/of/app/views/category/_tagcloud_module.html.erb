@@ -1,6 +1,6 @@
 <% module_content = capture do -%>
   <% Tagcloud.tags_assign_font_size( '' ).each do | s | -%>
-    <%=link_to "#{ s[ :name ] }", list_category_path( :cat_query => "#{ s[ :name ] }" ), :style => "font-size: #{ s[ :font ] }px;" %><%="(#{ s[ :tagged ] })" %>
+    <%=link_to "#{ s[ :name ] }", list_category_path( :cat_query => "#{ s[ :name ] }" ), :style => "font-size: #{ s[ :font ] }px;" %>
   <% end -%>
 <% end -%>
 
