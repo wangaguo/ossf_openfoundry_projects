@@ -1,8 +1,22 @@
+<script type="text/javascript">
+  function __premark()
+  {
+    var data = '';
+    $j( '#Tags_List div' ).each(
+      function()
+      {
+        data += ',' + $j( this ).text();
+      }
+    );
+    
+    $j( '#__clibeanna' ).val( data.substring( 2 ) );
+  }
+</script>
 <div id="ProjectEdit">
-
 <% form_tag url_for(:action => 'update', :id => @project), :method => 'put' do %>
   <%= render :partial => 'form', :locals => { :is_edit => true } %>
-  <%= submit_tag _('Save') %>
+  <%=hidden_field_tag '__clibeanna' %>
+  <%=button_to _("Save"), {}, { :onclick => "javascript: __premark(); this.submit();" } %>
 <% end %>
 
 <!-- tags was here ... -->
