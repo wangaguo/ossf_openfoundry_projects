@@ -7,10 +7,16 @@ class Project < ActiveRecord::Base
 	has_and_belongs_to_many :alltags,
 													:class_name => 'Tagcloud',
 													:join_table => :tagclouds_projects,
-													:association_foreign_key => :tagcloud_id,
+                          :association_foreign_key => :tagcloud_id,
 												  :foreign_key => :project_id,
-												  :conditions	=> { :tagclouds => { :tag_type => Tagcloud::TYPE[ :TAG ], :status => Tagcloud::STATUS[ :READY ] } }
-	has_many :tagcloudsprojects, :foreign_key => :project_id
+												  :conditions	=> { :tagclouds => { :status => Tagcloud::STATUS[ :READY ] } }
+  #	has_many :tagcloudsprojects, :foreign_key => :project_id
+  # tagcloud association include tags without checking 
+	has_and_belongs_to_many :alltags_without_check,
+													:class_name => 'Tagcloud',
+													:join_table => :tagclouds_projects,
+													:association_foreign_key => :tagcloud_id,
+												  :foreign_key => :project_id
 
 	# find the categorized projects
   named_scope :cated, lambda { | *args | { :conditions => [ 'category = ?', args.first ] } unless args.first.to_i == 0 }
