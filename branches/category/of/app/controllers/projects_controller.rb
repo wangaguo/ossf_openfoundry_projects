@@ -202,6 +202,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
+      TagcloudsProject.append_tags_to_project @project.id, params[ :__clibeanna ] if params[ :__clibeanna ]
       redirect_to :action => 'applied'
     else
       render :action => 'new'
@@ -209,6 +210,16 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    # find all tags for projects
+    @tagspan = ''
+    allrawtags = @project.alltags_without_check
+    # build tags with span tags
+    unless allrawtags.empty?
+      divhead = '<div class="tagged" onclick="javascript: $( this ).remove();">'
+      allrawtags.each{ | t |
+        @tagspan += divhead + t.name + '</div>'
+      }
+    end
   end
 
   def update
@@ -222,6 +233,10 @@ class ProjectsController < ApplicationController
     if @project.status == Project::STATUS[:PENDING] 
       params[:project][:status] = Project::STATUS[:APPLYING]
     end
+
+    # update project tags
+    TagcloudsProject.delete_project_alltags @project.id
+    TagcloudsProject.append_tags_to_project @project.id, params[ :__clibeanna ] if params[ :__clibeanna ]
 
     if @project.update_attributes(params[:project])
       if @project.status == Project::STATUS[:APPLYING] 
