@@ -7,7 +7,7 @@ class Tagcloud < ActiveRecord::Base
 												  :join_table => :tagclouds_projects, 
 												  :association_foreign_key => :project_id, 
 													:foreign_key => :tagcloud_id
-	has_many :tagcloudsprojects, :foreign_key => :tagcloud_id
+#	has_many :tagcloudsprojects, :foreign_key => :tagcloud_id
 
 	# set tagcloud default values before saving
 	before_save :default_values
@@ -86,5 +86,12 @@ class Tagcloud < ActiveRecord::Base
         :font => ( set[ :weight ] * ( max_font_size - min_font_size ) + min_font_size ).round
       }
     }.sort_by { | set | set[ :name ] }
+  end
+
+  # throw tags to memory cache
+  def self.cachedtags
+    Rails.cache.fetch( 'tmptags', :expires_in => 1.hour ) do
+      Tagcloud.find :all, :select => 'name', :conditions => { :status => STATUS[ :READY ] }
+    end
   end
 end
