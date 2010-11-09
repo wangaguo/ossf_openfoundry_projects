@@ -1,7 +1,23 @@
+<script type="text/javascript">
+  function __premark()
+  {
+    var data = '';
+    $j( '#Tags_List div' ).each(
+      function()
+      {
+        data += ',' + $j( this ).text();
+      }
+    );
+    
+    $j( '#__clibeanna' ).val( data.substring( 2 ) );
+  }
+</script>
+
 <div id="ProjectNew">
 <%= "<em>(" + required_icon() + _("required_icon") + ")</em>"%>
 <% form_tag :action => 'create' do %>
   <%= render :partial => 'form', :locals => { :is_edit => false } %>
-  <%= submit_tag _("Create") %>
+  <%=hidden_field_tag '__clibeanna' %>
+  <%=button_to _("Create"), {}, { :onclick => "javascript: __premark(); this.submit();" } %>
 <% end %>
 </div>
