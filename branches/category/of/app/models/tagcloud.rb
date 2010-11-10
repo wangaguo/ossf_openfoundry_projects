@@ -90,7 +90,7 @@ class Tagcloud < ActiveRecord::Base
 
   # throw tags to memory cache
   def self.cachedtags
-    Rails.cache.fetch( 'tmptags', :expires_in => 1.minute ) do
+    Rails.cache.fetch( 'tmptags', :expires_in => 1.hour ) do
       Tagcloud.find :all, :conditions => { :status => STATUS[ :READY ] }
     end
   end
