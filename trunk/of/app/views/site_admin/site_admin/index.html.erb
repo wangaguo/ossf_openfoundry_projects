@@ -1,28 +1,3 @@
-<h2><%=_('App Information')%></h2>
-<b>my PID: <%= $$ %></b>
-<p>
-Ruby Version: <%= `ruby -v`%>
-<br/>
-Rails Version: <%= Rails.version %>
-<br/>
-Rails Environment: <%= Rails.env.inspect %>
-<br/>
-Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
-<br/>
-Actived Plugins: <%= Rails.configuration.plugins%>
-<br/>
-Timezone: <%= Rails.configuration.time_zone%>
-<br/>
-Logger: <%= Rails.logger.class.to_s%>
-</p>
-
-<h2><%=('Client Information')%></h2>
-<p>
-IP: <%= request.remote_ip%>
-<br/>
-Agent: <%= request.user_agent%>
-</p>
-
 <h2>網站管理</h2>
 <ul>
   <li><%= link_to ("Project"), site_admin_projects_path %></li>
@@ -65,3 +40,28 @@ Agent: <%= request.user_agent%>
   <li><%= link_to _("Download count"), {:controller => '/nsc', :action => :download_count} %></li>
   <li><%= link_to _("Download List"), {:action => :nsc_download } %></li>
 </ul>
+<h2><%=_('App Information')%></h2>
+<b>my PID: <%= $$ %></b>
+<p>
+Ruby Version: <%= `ruby -v`%>
+<br/>
+Rails Version: <%= Rails.version %>
+<br/>
+Rails Environment: <%= Rails.env.inspect %>
+<br/>
+Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
+<br/>
+Actived Plugins: <%= Rails.configuration.plugins%>
+<br/>
+Timezone: <%= Rails.configuration.time_zone%>
+<br/>
+Logger: <%= Rails.logger.class.to_s%>
+</p>
+
+<h2><%=('Client Information')%></h2>
+<p>
+IP: <%= request.remote_ip%>
+<br/>
+Agent: <%= request.user_agent%>
+</p>
+
