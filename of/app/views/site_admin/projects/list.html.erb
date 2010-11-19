@@ -1,25 +1,23 @@
 <h1>Listing projects</h1>
-<style type="text/css">
-#project_list {border-collapse:collapse;}
-#project_list, #project_list th, #project_list td  {border:solid 1px black;}
-</style>
-<%
-project_columns = ["status","name","summary","description","creator","statusreason","licensingdescription","license","contentlicense","contactinfo","maturity","platform","programminglanguage","intendedaudience","rationale","redirecturl","vcs","vcsdescription","project_counter","created_at","updated_at","updated_by","icon"]
-%>
+<form name="sform" action="" style="display:inline;" >
+  <label for="item_name">Filter by Name or Description: </label>
+  <%= text_field_tag("query", params['query'], :sortcolumn=>@sort, :sortorder=>@direction ,:size => 17 ) %>
+</form>
+<% form_tag ({:action => :csv, :selection=>params[:query], :sortorder=>@direction, :sortcolumn=>@sort}, :style=> "display:inline" ) do -%><%= submit_tag 'Export to CSV' %><%end -%>
+<% project_columns = ["status","name","summary","description","creator","statusreason","contactinfo","created_at","updated_at",] -%>
 <%= paginate = will_paginate @projects %>
-<table id="project_list">
+<table id="customers">
   <tr>
     <th></th>
     <th></th>
-    <th></th>
-    <% for column in project_columns %>
-      <th><%= t "Project.#{ column }" %></th>
-    <% end %>
+    <% for column in project_columns -%>
+      <th>
+        <%= link_to (t "Project.#{column}"), :sortcolumn=>(column), :sortorder=>@direction, :query =>@query %>
+      </th>
+    <% end -%>
   </tr>
-  
-<% for project in @projects %>
-    <tr>
-      <td><%= link_to _('Show'), project_path( :id => project), :target => '_blank' %></td>
+  <% for project in @projects -%>
+    <tr class="<%= cycle('even','alt') %>" >
       <td><%= link_to _('Edit'), edit_project_path( :id => project), :target => '_blank' %></td>
       <td>
         <%= link_to _('Change status'), change_status_form_site_admin_project_path( :id => project.id), :target => '_blank' %>
@@ -28,7 +26,7 @@ project_columns = ["status","name","summary","description","creator","statusreas
         <td style="<%= "white-space:nowrap;" if column == "license"%>">
           <%if column == 'creator' -%>
             <a href="<%= "#{ root_path }user/home/#{ project.send(column) }" %>"><%=project.send(column)%></a>
-          <%elsif ['summary', 'description', 'licensingdescription', 'statusreason', 'vcsdescription'].include?(column) -%>
+          <%elsif ['summary', 'description', 'statusreason', 'vcsdescription'].include?(column) -%>
             <% if not project.send(column).nil? -%>
             <span title="<%=h project.send(column)%>"><%=h project.send(column).mb_chars[0..30]%></span>
             <% end -%>
@@ -44,13 +42,19 @@ project_columns = ["status","name","summary","description","creator","statusreas
                %><span style="color:bule"><%
             end %> 
             <%= "#{Project.status_to_s(project.status)}" %>
-            </span>
+          </span>
+          <%elsif column == 'name' -%>
+            <%= link_to project.send(column), project_path( :id => project), :target => '_blank' %>
           <%elsif column == 'license' -%>
             <%= "#{Project.licenses_to_s(project.license).join('<br/>')}" %>
           <%elsif column == 'contentlicense' -%>
             <%= "#{Project.content_licenses_to_s(project.contentlicense)}" %>
           <%elsif column == 'vcs' -%>
             <%= "#{Project.vcs_to_s(project.vcs)}" %>
+          <%elsif column == 'created_at' -%>
+            <%= "#{(project.created_at).strftime("%Y-%m-%d %H:%M:%S")}" %>
+          <%elsif column == 'updated_at' -%>
+            <%= "#{(project.updated_at).strftime("%Y-%m-%d %H:%M:%S")}" %>
           <%else -%>
             <%=h project.send(column) %>
           <%end -%>

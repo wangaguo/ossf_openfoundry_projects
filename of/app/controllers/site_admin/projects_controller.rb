@@ -1,6 +1,6 @@
 class SiteAdmin::ProjectsController < SiteAdmin
   layout 'application'
-
+  require 'fastercsv'
   def index
     list
     render :action => 'list'
@@ -11,7 +11,7 @@ class SiteAdmin::ProjectsController < SiteAdmin
          :redirect_to => { :action => :list }
 
   def list
-    @projects = Project.paginate(:page => params[:page], :per_page => 100, :order => 'created_at desc')
+    @projects = Project.paginate(:page => params[:page], :per_page => 100, :order => (sort_column + ' ' + sort_by), :conditions => ["description LIKE ? OR name LIKE ?", "%#{query}%", "%#{query}%"])
   end
 
   def show
@@ -75,7 +75,27 @@ class SiteAdmin::ProjectsController < SiteAdmin
       render :action => 'change_status_form'
     end
   end
-
+  def sort_column
+    @sort = (params[:sortcolumn] || "name")
+  end
+  def sort_by
+    @direction = (params[:sortorder] == "asc" ? "desc" : "asc")
+  end
+  def query
+    @query = params[:query]
+  end
+  def csv
+    qt = params[:selection]
+    @lists = Project.find(:all, :order=> (params[:sortcolumn] + ' ' + params[:sortorder]), :conditions =>  ["name LIKE ? OR description LIKE ?", "%#{qt}%", "%#{qt}%"])
+    csv_string = FasterCSV.generate(:encoding => 'u') do |csv|
+      csv << ["Status","Name","Summary","Description","Creator","Status Reason","Contact Information","Created Date","Updated Date"]
+      @lists.each do |project|
+        csv << [Project.status_to_s(project.status), project.name, project.summary, project.description, project.creator, project.statusreason, project.contactinfo, (project.created_at).strftime("%Y-%m-%d %H:%M:%S"), (project.updated_at).strftime("%Y-%m-%d %H:%M:%S")]
+      end
+    end
+    filename = Time.now.strftime("%Y-%m-%d") + ".csv"
+    send_data(csv_string,:type => 'text/csv; charset=UTF-8; header=present',:filename => filename)
+  end
 #  def approve
 #    Project.find(params[:id]).approve
 #    redirect_to :action => 'show', :id => @project.id
