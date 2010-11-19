@@ -71,12 +71,21 @@
        </div>
       <%end%>
     </div>
-
-    <div id="MainContent" class="rt-grid-9 rt-push-3">
+    <% string = request.path -%>
+    <% match = !string.match(/site_admin/).nil?-%>
+    <% if match == true -%> 
+      <div id="MainContent" class="rt-grid-12">
+    <% else -%> 
+      <div id="MainContent" class="rt-grid-9 rt-push-3">
+   <% end -%>    
       <div id="Flash"><%= show_flash %></div>
       <%= yield :layout %>
     </div>
-    <div id="LeftWidget" class="rt-grid-3 rt-pull-9">   
+    <% if match == true -%> 
+        <div id="LeftWidget" style="display:none;">
+    <% else -%> 
+        <div id="LeftWidget" class="rt-grid-3 rt-pull-9">
+    <% end -%> 
     	<%if params["project_id"] != nil%>
           <%#=render :partial => "partials/project_logo", :locals => {:project => @project}%>
         <div id="LeftMenu">
