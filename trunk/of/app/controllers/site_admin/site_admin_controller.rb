@@ -126,7 +126,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
 
       if File.exist?(filter_file) then
         File.readlines(filter_file).each do |line|
-          @mail.filter = line
+          @mail.filter = line.gsub(/[' ]/, "")
           break
         end
       end
