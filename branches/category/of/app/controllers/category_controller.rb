@@ -56,9 +56,7 @@ class CategoryController < ApplicationController
 				$0
 			}
 
-			@options = {}
-			@options[ :per_page ] = 2000
-			@results = @pcs_projects.find_with_ferret( query, @options )
+			@results = @pcs_projects.find_with_ferret( query, :limit => :all )
 			@pcs_projects = @results
 
 			# increase the search times for tags
@@ -67,7 +65,10 @@ class CategoryController < ApplicationController
 		end
 
 		# with nsc filter
-    @pcs_projects = @pcs_projects.select{ |p| p.is_nsc_project } if params[ :nsc_or_not ] == 'true'
+    if params[ :nsc_or_not ] == 'true'
+      @pcs_projects = @pcs_projects.find(:all, :order => sortable_order( 'listing')) 
+      @pcs_projects = @pcs_projects.select{ |p| p.is_nsc_project }
+    end
 
 		# with paginate process
     @final_project_list = nil
