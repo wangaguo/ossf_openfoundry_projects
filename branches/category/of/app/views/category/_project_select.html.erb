@@ -32,6 +32,8 @@
   <%=observe_field 'is_nsc_validated',
 		 							 :url => { :controller => :category, :action => :list },
 		 							 :update => 'ProjectFilterList',
+									 :loading => "Element.show( 'Search_Loading' )",
+									 :loaded => "Element.hide( 'Search_Loading' )",
 		 							 :with => "'cat=' + escape( $( 'category_id' ).value ) + '&nsc_or_not=' + escape( $( 'is_nsc_validated' ).checked ) + '&cat_query=' + escape( $( 'cat_query' ).value )"
 	   # post both of select, checkbox, and search
   %>
