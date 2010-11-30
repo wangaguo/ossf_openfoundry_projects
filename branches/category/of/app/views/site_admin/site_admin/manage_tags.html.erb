@@ -1,0 +1,192 @@
+<%=stylesheet_link_tag 'jquery.tablesorter.pager' %>
+<%=javascript_include_tag 'jquery' %>
+<%=javascript_include_tag 'jquery.tablesorter' %>
+<%=javascript_include_tag 'jquery.tablesorter.pager' %>
+
+<style type="text/css">
+  td.operator div img
+  {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+</style>
+
+<script type="text/javascript">
+  var bgcolor_click  = 'rgb(205, 183, 181)';
+  var bgcolor_over   = 'rgb(238, 232, 176)';
+  var bgcolor_odd    = 'rgb(240, 240, 246)';
+  var bgcolor_even   = 'rgb(255, 255, 255)';
+
+  var $j = jQuery.noConflict();
+  $j( document ).ready
+  (
+    function()
+    {
+      $j( '#pdtable' )
+      .tablesorter( { widthFixed: true, widgets: ['zebra'] } )
+      .tablesorterPager( { container: $j( '#pdpager' ), positionFixed: false } );
+
+      $j( '#rdtable' )
+      .tablesorter( { widthFixed: true, widgets: ['zebra'] } )
+      .tablesorterPager( { container: $j( '#rdpager' ), positionFixed: false } );
+
+      $j( '.operator img' ).click
+      (
+        function()
+        {
+          $j( '#pdtable tbody tr' ).each
+          (
+            function()
+            {
+              if( $j( this ).find( 'td' ).css( 'background-color' ) == bgcolor_click )
+                alert( $j( this ).find( 'td' ).attr( 'name' ) );
+
+              //var action = $j( this ).attr( 'class' );
+              //var data = '';
+              //$j.ajax
+              //(
+              //  {
+              //    async: false,
+              //    cache: false,
+              //    data: 'action=' + action + '&data=123',
+              //    dataType: 'text',
+              //    global: false,
+              //    processData: false,
+              //    type: 'POST',
+              //    url: '/of/site_admin/tags/new',
+              //    success: function( msg ){ alert( msg ); }
+              //  }
+              //);
+            }
+          );
+        }
+      );
+    }
+  );
+</script>
+
+<div style="margin: 20px 0px 30px 50px;"><font style="font-size: 20px; font-weight: bold;">標籤管理模組</font></div>
+<div id="distable" style="width: 100%;">
+  <center>
+  <table>
+
+    <tr><td>Pending Tags</td><td></td><td>Ready Tags</td></tr>
+
+    <tr>
+      <td width="400">
+        <table cellspacing="1" id="pdtable" class="tablesorter">
+          <thead><tr><th>Name</th><th>Date</th></tr></thead>
+
+          <tbody>
+            <% Tagcloud.find( :all, :conditions => { :status => Tagcloud::STATUS[ :PENDING ] } ).each do | tg | -%> 
+              <tr>
+                <td name="<%=tg.id %>"><%=tg.name %></td>
+                <td><%=tg.created_at %></td>
+              </tr>
+            <% end -%>
+          </tbody>
+
+          <tfoot>
+          </tfoot>
+        </table>
+      </td>
+
+      <td rowspan="2" class="operator">
+        <div><img src="/of/images/tagmsg/add.png" title="新增" class="toadd"></div>
+        <div><img src="/of/images/tagmsg/delete.png" title="刪除" class="todel"></div>
+        <div><img src="/of/images/tagmsg/edit.png" title="編輯" class="toedit"></div>
+        <div><img src="/of/images/tagmsg/toready.png" title="READY" class="toready"></div>
+        <div><img src="/of/images/tagmsg/topending.png" title="PENDING" class="topending"></div>
+        <div><img src="/of/images/tagmsg/replace.png" title="取代" class="toreplace"></div>
+      </td>
+
+      <td width="400">
+        <table cellspacing="1" id="rdtable" class="tablesorter">
+          <thead><tr><th>Name</th><th>Date</th></tr></thead>
+
+          <tbody>
+            <% Tagcloud.find( :all, :conditions => { :status => Tagcloud::STATUS[ :READY ] } ).each do | tg | -%> 
+              <tr>
+                <td><font <%="style=\"text-decoration: underline\"" if tg.tag_type == 1 %>><%=tg.name %></font></td>
+                <td><%=tg.created_at %></td>
+              </tr>
+            <% end -%>
+          </tbody>
+
+          <tfoot>
+          </tfoot>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div id="pdpager" class="pager">
+          <div class="pagedisplay" style="float: left;"></div>
+          <div style="text-align: right;">
+            <img src="/of/images/tablepager/first.png" class="first"/>
+            <img src="/of/images/tablepager/prev.png" class="prev"/>
+            <img src="/of/images/tablepager/next.png" class="next"/>
+            <img src="/of/images/tablepager/last.png" class="last"/>
+            <input type="hidden" class="pagesize" value="10">
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div id="rdpager" class="pager">
+          <div class="pagedisplay" style="float: left;"></div>
+          <div style="text-align: right;">
+            <img src="/of/images/tablepager/first.png" class="first"/>
+            <img src="/of/images/tablepager/prev.png" class="prev"/>
+            <img src="/of/images/tablepager/next.png" class="next"/>
+            <img src="/of/images/tablepager/last.png" class="last"/>
+            <input type="hidden" class="pagesize" value="10">
+          </div>
+        </div>
+      </td>
+    </tr>
+
+  </table>
+  </center>
+</div>
+
+<script type="text/javascript">
+
+  var trows = $j( '#pdtable tbody tr, #rdtable tbody tr' );
+
+  // EVENT: mouseover, mouseout
+  trows.hover
+  (
+    function()
+    {
+      $j( this ).data( 'bgcolor', $j( this ).find( 'td' ).css( 'background-color' ) )
+                .find( 'td' ).css( 'background-color', bgcolor_over );
+    },
+    function()
+    {
+      $j( this ).find( 'td' ).css( 'background-color', $j( this ).data( 'bgcolor' ) );
+    }
+  );
+
+  // EVENT: click, click again
+  trows.toggle
+  (
+    function()
+    {
+      $j( this ).find( 'td' ).css( 'background-color', bgcolor_click );
+      $j( this ).data( 'bgcolor', bgcolor_click );
+    },
+    function()
+    {
+      if( $j( this ).find( '.odd' ) )
+        $j( this ).find( 'td' ).css( 'background-color', bgcolor_odd );
+      else
+        $j( this ).find( 'td' ).css( 'background-color', bgcolor_even );
+
+      $j( this ).data( 'bgcolor', $j( this ).find( 'td' ).css( 'background-color' ) );
+    }
+  );
+
+</script>
