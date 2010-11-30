@@ -1,6 +1,6 @@
 <% module_content = capture do -%>
   <% Tagcloud.tags_assign_font_size( '' ).each do | s | -%>
-    <%=link_to "#{ s[ :name ] }", list_category_path( :cat_query => "#{ s[ :name ] }" ), :style => "font-size: #{ s[ :font ] }px;" %>
+    <%=link_to "#{ s[ :name ] }", search_openfoundry_path( :query => "tag:#{ s[ :name ] }", :commit => 'search' ), :style => "font-size: #{ s[ :font ] }px;" %>
   <% end -%>
 <% end -%>
 

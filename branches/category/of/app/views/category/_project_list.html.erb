@@ -17,10 +17,10 @@
 			<% i = 1 - i -%> 
 			<% if i == 1; class_name = 'odd'; else; class_name = 'even'; end; -%> 
 
-			<tr class="item_h <%=class_name %>">
+      <tr class="item_h <%=class_name %>">
 		  	<td><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
-				<td><%=h( project.summary ) %></a></td>
-				<td><%=h( project.cattag.name ) unless project.cattag.nil? %></a></td>
+        <td><%=unless (project.summary.length < 30) then h( left_slice(project.summary, 30) + "..." ) else h( project.summary ) end%></td>
+				<td><%=h( project.cattag.name ) unless project.cattag.nil? %></td>
 			  <td><%=h( tz_date( project.created_at ) ) %></td>
    		</tr>
 	  <% end -%> 

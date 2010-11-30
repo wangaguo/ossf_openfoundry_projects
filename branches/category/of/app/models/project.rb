@@ -261,30 +261,27 @@ EOEO
   #add fulltext indexed SEARCH
   acts_as_ferret({
                  :fields => { 
+                              :alltags_string => { :boost => 3.0,
+                                                   :store => :yes},
                               :name => { :boost => 2.0,
                                          :store => :yes
                                          },
-                              :summary => { :boost => 2.5,
-                                            :store => :yes,
-                                            :index => :untokenized },
-                              :description => { :boost => 1.5, 
-                                                :store => :yes,
-                                                :index => :untokenized },
+                              :summary => { :index => :yes,
+                                            :store => :yes},
+                              :description => { :index => :yes,
+                                                :store => :yes},
 															:cattag_name => {:store => :yes,
-																					:index => :yes },
+																					:index => :yes},
 															:maturity_index => {:store => :yes,
 																						:index => :yes},
 															:license => {:store => :yes,
-																					 :index => :yes },
+																					 :index => :yes},
 															:platform => {:store => :yes,
-																						:index => :yes },
+																						:index => :yes},
 															:programminglanguage => { :store => :yes,
 																				 								:index => :yes},
 															:category_index => { :store => :yes,
-																				 					 :index => :yes},
-                              :alltags_string => { :boost => 3.0,
-                                                   :store => :yes,
-																				 					 :index => :untokenized}
+																				 					 :index => :yes}
                             },
                  :single_index =>true
                  },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})

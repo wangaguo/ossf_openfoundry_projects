@@ -383,6 +383,11 @@ module ApplicationHelper
   def nl2br(htmlstring)
     htmlstring.gsub("\n\r", "<br />").gsub("\r", "").gsub("\n", "<br />")
   end
+
+  def ts(st)
+    st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+  end
+
 end
 
    

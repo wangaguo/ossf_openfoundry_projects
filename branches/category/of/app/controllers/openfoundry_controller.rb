@@ -5,7 +5,7 @@ require "json"
 require 'base64'
 
 class OpenfoundryController < ApplicationController
-  RECORD_LOOKUP_TABLE = {'User' => 'user', 'Project' => 'projects',
+  RECORD_LOOKUP_TABLE = {'Project' => 'projects',
                          'News' => 'news', 'Release' => 'releases', 
                          'Fileentity' => 'fileentity', 'Job' => 'jobs',
                          'Reference' => 'references', 'Citation' => 'citations' }
@@ -273,11 +273,13 @@ class OpenfoundryController < ApplicationController
   
   def search #for search!!! TODO: catalog and optimize?
     reset_sortable_columns
-    add_to_sortable_columns( 'listing', Project, 'name', 'name' )
-    add_to_sortable_columns( 'listing', Project, 'summary', 'summary' )
-    add_to_sortable_columns( 'listing', Project, 'category', 'category' )
+    add_to_sortable_columns( 'searched', Project, 'name', 'name' )
+    add_to_sortable_columns( 'searched', Project, 'summary', 'summary' )
+    add_to_sortable_columns( 'searched', Project, 'category', 'category' )
 
+    start_time = DateTime.now
     @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
+    @keyword= @query
     query = (@query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
       $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
     @options = {}
@@ -289,31 +291,47 @@ class OpenfoundryController < ApplicationController
       else
         @options[:models] = [Project]
       end
+    @chk = params[:chk]
     obj = @options[:models] == :all ? Project : @options[:models].first
 
+    query= " alltags_string:'#{@query.split(/:/)[1]}' " if @query.include?("tag:")
     if params[:adv_cat]
       unless params[:project].blank?
         filter_select = params[:project] 
-        query += " category_index:'#{filter_select[:category]}' " unless filter_select.fetch(:category).blank?
-        query += " maturity_index:'#{filter_select[:maturity]}' " unless filter_select.fetch(:maturity).blank?
-        query += " license:'#{filter_select[:license]}' " unless filter_select.fetch(:license).blank?
-        query += " platform:'#{filter_select[:platform]}' " unless filter_select.fetch(:platform).blank?
-        query += " programminglanguage:'#{filter_select[:programminglanguage]}' " unless filter_select.fetch(:programminglanguage).blank?
+        query += " category_index:'#{filter_select[:category]}' " unless filter_select.fetch(:category).nil?
+        query += " category_index:'#{filter_select[:category]}' " unless filter_select.fetch(:category).nil?
+        query += " maturity_index:'#{filter_select[:maturity]}' " unless filter_select.fetch(:maturity).nil?
+        query += " license:'#{filter_select[:license]}' " unless filter_select.fetch(:license).nil?
+        query += " platform:'#{filter_select[:platform]}' " unless filter_select.fetch(:platform).nil?
+        query += " programminglanguage:'#{filter_select[:programminglanguage]}' " unless filter_select.fetch(:programminglanguage).nil?
         @filter_blank_or_not = query
       end
-      @results = Project.find_with_ferret(query, :limit => :all)
+      # with nsc filter
+      @final_query=query
+      #sort_by_tags = Ferret::Search::SortField.new(:alltags_string, :type => :string, :reverse => false)
+      #sort_by_name = Ferret::Search::SortField.new(:name, :type => :string, :reverse => false)
+      #sorts = Ferret::Search::Sort.new([sort_by_tags, sort_by_name])
+      @results = Project.find_with_ferret(query, { :limit => :all, :page => params[:page] },
+                                                 { :order => sortable_order('searched', :model => Project, :field => 'Name', :sort_direction => :desc) })
+      @results = @results.select{ |p| p.is_nsc_project } if params[ :is_nsc ] == '1'
       @final_project_list = @results.paginate(
-        :per_page => 20,
-        :order => sortable_order( 'listing', :model => Project, :field => 'name', :sort_direction => :desc ) )
-
-      params[:adv_cat]=''
+                    		     :page => params[:page],
+                    		     :per_page => 20,
+                    		     :order => sortable_order( 'listing', :model => Project, :field => 'Name', :sort_direction => :desc ) ) 
     else
       @filter_blank_or_not = query
       @results = obj.find_with_ferret(query, @options) 
       @final_project_list = @results
+      @lookup = RECORD_LOOKUP_TABLE
     end
+    end_time=DateTime.now
+    @elapsed_seconds = format("%.2f", (end_time.to_f - start_time.to_f))
 
-    @lookup = RECORD_LOOKUP_TABLE
+    # increase the search times for tags
+    Tagcloud.increase_searched_tag( @keyword ) if session[ :search_keyword ] != @keyword
+    session[ :search_keyword ] = @keyword
+
+    render :layout => "application"
   end
   
 #  def tag #for displaying taggalbe objects~
@@ -428,4 +446,5 @@ class OpenfoundryController < ApplicationController
      #                   `file_counter` + 1 where `id` = #{@file.id}")
      @file.redis_counter_file_counter_inc                   
   end
+
 end

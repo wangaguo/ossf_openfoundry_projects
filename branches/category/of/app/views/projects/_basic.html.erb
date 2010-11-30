@@ -1,11 +1,3 @@
-<script type="text/javascript">
-<!--
-  window.onload=function(){
-    $('more').hide();
-  }
-//-->
-</script>
-
 <%  def rows(i = 0, *data)
     rtn = ""
     while ( ! data.empty? )
@@ -29,40 +21,39 @@ end %>
     <table class="list-table" style="table-layout: fixed">
       <tr class="even">
 	<td width="20%"><%= t("Project|Description") %></td>
-  <td width="80%" style="word-wrap: break-word; word-break: break-all;"><%=h @project.description.mb_chars[0..149] %><%=content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
+  <td width="80%" style="word-wrap: break-word; word-break: break-all;"><%=content_tag(:span, @project.description.mb_chars[0..149], :id => "more_head") %><%=content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
 	<% if @project.description.mb_chars.length > 150 -%>
-	  <a id ="mr" href="#" onclick="$('more').show(); $('mr').hide(); $('le').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
-	  <a id ="le" href="#" onclick="$('more').hide(); $('mr').show(); $('le').hide(); return false" style="display:none;padding:8px;float:right"><%= t('Less...') %></a>
+  <span id="showMoreLink">
+    ...
+    <br/>
+    <a id ="mr" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.2}); $('showMoreLink').hide(); $('showLessLink').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
+  </span>
+  <span id="showLessLink" style="display: none;">
+    <a id ="le" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.2}); $('showMoreLink').show(); $('showLessLink').hide(); return false" style="padding:8px;float:right"><%= t('Less...') %></a>
+  </span>
 	<% end -%>
 	</td>
       </tr>
-    <%#= rows(0,
-      * ([ 
-      _("Project|Description"), content_tag(:span, nl2br(h @project.description)),
-      ] ) )
-    %>
   </table>
   </div>
+  <%
+    alltaglist = [ 
+      @pjtags.map{ | t | t.name if t.status == 1 }.compact.join( ', ' ), 
+      @pjtags.map{ | t | "<span title='#{ t( 'Msg.New_Added_Tag' ) }'><font color='#c0c0c0'>" +
+                         t.name +
+                         '</font></span>' if t.status == 0 }.compact.join( ', ' )
+    ].delete_if{ | s | s == '' }.join( ', ' )
+  %>
   <div id="more2">
     <table class="list-table">
     <%= rows(1, 
       * ([ 
       t("Project|Category"), content_tag( :span, @category ),
-			t("Project|Tags"), @project.alltags.map{ |t| t.name }.join( ', ' ),
+			t("Project|Tags"), alltaglist,
       t("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], t("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : t("#{i_s[1]}")}.join("<br/>\n"), 
       t("Project|Platform"), show_with_seperator(@project.platform),
       t("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
       t("Project|Created at"), content_tag(:span, tz_datetime(@project.created_at), :content => tz_date(@project.created_at)),
-      #_("Project|Contactinfo"), (h @project.contactinfo),  
-      #_("Project|Name"), content_tag(:span, @project.name),
-      #_("Project|Summary"), content_tag(:span, @project.summary),
-      #_("Project|HOMEPAGE"), (url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"),
-      #_("Project|Maturity"), (h @project.maturity_to_s),
-      #_("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1] + " " + cc_images(i_s[0]), _("url_link_for_#{i_s[1]}"), :target => "_blank") : _("#{i_s[1]}")}.join("<br/>\n"), 
-      #_("Project|Licensingdescription"), (h @project.licensingdescription), 
-      #_("Project|Vcs"), (h @project.vcs_to_s), 
-      #_("Project|Vcsdescription"), (auto_link(simple_format(h @project.vcsdescription))),
-      #_("Project|Creator"),  ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true) : ""),
       ] + (@nsccode.empty?() ? [] : [ t("Project|Nsccode"), h(@nsccode)]) ) )
     %>
   </table>

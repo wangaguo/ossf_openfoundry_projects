@@ -1,43 +1,65 @@
 <div id="search_result">
+  <% module_content = capture do -%>
+    <%#= @final_query %>
+    <div id="search">
+      <h1><%= _('search') %></h1>
+      <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => true}%>	
+    </div>
+  <% end -%>
+  <%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'} %>
+  <% module_content = capture do -%>
   <h1><%= _('Search Result') %></h1>
-  <div id="search">
-    <%= render :partial => 'partials/search', :locals =>{:size => 45, :adv => true}%>	
-  </div>
   <%unless @results.empty?%>
-    <%unless @filter_blank_or_not.blank?%>
-    <%= paginate = will_paginate @final_project_list %>  
-    <table class='form-table'>
-      <tr>
-        <th><%= "Logo" %></th>
-        <th><%= link_to "Name", sort_param( 'listing', Project, 'name', 'name' ) %></th>
-        <th><%=link_to 'Summary', sort_param( 'listing', Project, 'summary', 'summary' ) %></th>
-        <th><%=link_to 'Category', sort_param( 'listing', Project, 'category', 'category' ) %></th>
-        <th><%= "Tags" %></th>
-      </tr>
-      <% i = 0; class_name = ''; -%> 
-      <% for project in @final_project_list -%> 
-        <% i = 1 - i -%> 
-        <% if i == 1; class_name = 'odd'; else; class_name = 'even'; end; -%> 
-          <tr class="item_h <%=class_name %>">
-            <td><%= project_logo_link(project)%></td>
-            <td><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
-            <td><%=h( project.summary ) %></td>
-            <td><%=h( project.cattag.name ) unless project.cattag.nil? %></td>
-            <td><%=h( project.alltags.map(&:name).join(", ") ) unless project.alltags.nil? %></td>
+    <%if params[:chk] %>
+      <%= paginate = will_paginate @results %>
+      <table class='form-table'>
+        <% @results.each do |record| %>
+          <tr>
+            <%= render(:partial => "#{@lookup[record.class.class_name]}/search_hit", :layout => false, :locals => {:record => record}) %>
           </tr>
-      <% end %>
+        <% end %>
       </table>
       <%= paginate %>
     <% else -%>
-      input some keywords!
-    <% end -%>
+      <%unless @filter_blank_or_not.blank? or @keyword.blank? %>
+        <%= 'About ' + ts(@results.total_hits.to_s) + ' projects (' + @elapsed_seconds.to_s + ' seconds.)'%>
+        <%= paginate = will_paginate @final_project_list %>  
+        <table class='form-table'>
+          <tr>
+            <th><u><%="Logo" %></u></th>
+            <th><%#=link_to "Name", sort_param( 'searched', Project, 'name', 'name' ) %><u>Name</u></th>
+            <th><%#=link_to 'Summary', sort_param( 'searched', Project, 'summary', 'summary' ) %><u>Summary</u></th>
+            <th><%#=link_to 'Category', sort_param( 'searched', Project, 'category', 'category' ) %><u>Catgory</u></th>
+            <th><%= "Tags" %></th>
+          </tr>
+          <% i = 0; class_name = ''; -%> 
+          <% for project in @final_project_list -%> 
+            <% i = 1 - i -%> 
+            <% if i == 1; class_name = 'odd'; else; class_name = 'even'; end; -%> 
+              <tr class="item_h <%=class_name %>">
+                <td><%= project_logo_link(project)%></td>
+                <td><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
+                <% @query = @query.split(/:/)[1] if @query.include?('tag:') -%>
+                <% highlight_keyword = @query -%>
+                <td><%=highlight(h( truncate(project.summary, :length => 25, :separator => ' ') ), highlight_keyword ) %></td>
+                <td><%=highlight(h( project.cattag.name ), highlight_keyword ) unless project.cattag.nil? %></td>
+                <td><%=highlight(h( project.alltags.map(&:name).join(", ") ), highlight_keyword ) unless project.alltags.nil? %></td>
+              </tr>
+            <% end %>
+          </table>
+          <%= paginate %>
+        <% else -%>
+          input some keywords!
+        <% end -%>
+      <% end -%>
     <%else-%>
       no record!
     <%end-%>
-    <br/><br/>
-    <p>
-    <% Tagcloud.tags_assign_font_size( 'ALL' ).each do | s | -%>
-      <%=link_to "#{ s[ :name ] }", list_category_path( :cat_query => "#{ s[ :name ] }" ), :style => "font-size: #{ s[ :font ] }px;" %>
-    <% end -%>
-    </p>
-  </div>
+  <% end -%>
+  <%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'} %>
+</div>
+  <% module_content = capture do -%>
+      <%= render :partial => 'partials/tagcloud'%>	
+  <% end -%>
+  <%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'} %>
+
