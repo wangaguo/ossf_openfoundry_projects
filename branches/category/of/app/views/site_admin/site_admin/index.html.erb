@@ -49,6 +49,7 @@ Agent: <%= request.user_agent%>
   <li><%= link_to ("Run some code on all instances of Rails"), {:action => :edit_code } %></li>
   <li><%= link_to ("Send site mail"), {:action => :new_site_mail } %></li>
   <li><%= link_to ("Check big files"), {:action => :big_files } %></li>
+  <li><%=link_to ( 'Manage Tags' ), { :action => :manage_tags } %></li>
 </ul>
 <br/>
 
