@@ -134,14 +134,23 @@ $.Autocompleter = function(input, options) {
 			
 			// matches also semicolon
 			case options.multiple && $.trim(options.multipleSeparator) == "," && KEY.COMMA:
+      case KEY.COMMA:
 			case KEY.TAB:
-			case KEY.RETURN:
+      case KEY.RETURN:
 				if( selectCurrent() ) {
 					// stop default to prevent a form submit, Opera needs special handling
 					event.preventDefault();
 					blockSubmit = true;
 					return false;
 				}
+        
+        // HACKED by river
+        // START -------------------------
+        add_to_tags_list();
+        tag_notify();
+        if( event.keyCode == KEY.RETURN || event.keyCode == KEY.COMMA )
+          return false;
+        // END ---------------------------
 				break;
 				
 			case KEY.ESC:
@@ -231,6 +240,11 @@ $.Autocompleter = function(input, options) {
 		}
 		
 		$input.val(v);
+    // HACKED by river
+    // START -----------------------
+    add_to_tags_list();
+    tag_notify();
+    // END   -----------------------
 		hideResultsNow();
 		$input.trigger("result", [selected.data, selected.value]);
 		return true;
@@ -241,9 +255,9 @@ $.Autocompleter = function(input, options) {
 			select.hide();
 			return;
 		}
-		
+
 		var currentValue = $input.val();
-		
+
 		if ( !skipPrevCheck && currentValue == previousValue )
 			return;
 		
