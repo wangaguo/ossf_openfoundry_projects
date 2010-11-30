@@ -56,7 +56,8 @@ class CategoryController < ApplicationController
 				$0
 			}
 
-			@results = @pcs_projects.find_with_ferret( query, :limit => :all )
+#			@results = @pcs_projects.find_with_ferret( query, :limit => :all).instance_values["results"]
+			@results = @pcs_projects.find(:all, :conditions => ["summary LIKE ? OR name LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing'))
 			@pcs_projects = @results
 
 			# increase the search times for tags
@@ -66,7 +67,7 @@ class CategoryController < ApplicationController
 
 		# with nsc filter
     if params[ :nsc_or_not ] == 'true'
-      @pcs_projects = @pcs_projects.find(:all, :order => sortable_order( 'listing')) 
+      @pcs_projects = @pcs_projects.find(:all, :order => sortable_order( 'listing')) if params[ :cat_query ].blank?
       @pcs_projects = @pcs_projects.select{ |p| p.is_nsc_project }
     end
 
@@ -78,6 +79,9 @@ class CategoryController < ApplicationController
 		     :per_page => 10,
 		     :include => [ :ready_releases ],
 		     :order => sortable_order( 'listing', :model => Release, :field => 'updated_at', :sort_direction => :desc ) ) 
+      logger.debug "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      logger.debug @final_project_list.inspect
+      logger.debug "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
       break if not @final_project_list.out_of_bounds?
     end
