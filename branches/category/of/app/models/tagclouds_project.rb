@@ -30,14 +30,18 @@ class TagcloudsProject < ActiveRecord::Base
 
   # append tags to a project
   def self.append_tags_to_project( pid, tlist )
+    # set regular expression for protecting write tags to DB 
     tg = tlist.split( ',' )
+    tg = tg.map{ | v | v.downcase }.select{ | v | v =~ /^[#+.!a-zA-Z0-9 ]+$/ }.uniq
+
     tg.each{ | t |
-      tc = Tagcloud.find :first, :conditions => { :name => t }
+      titlename = t.titleize
+      tc = Tagcloud.find :first, :conditions => { :name => titlename }
       tid = nil
       if( tc.nil? )
         # new tag
         ntc = Tagcloud.new
-        ntc.name = t.titleize
+        ntc.name = titlename
         ntc.tag_type = Tagcloud::TYPE[ :TAG ] 
         ntc.save
 
