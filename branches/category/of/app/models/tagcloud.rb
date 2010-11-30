@@ -71,9 +71,8 @@ class Tagcloud < ActiveRecord::Base
 
   # assign the font size for the tags of the tagcloud
   def self.tags_assign_font_size( options )
-    # select font size
-    max_font_size = 30
-    min_font_size = 8 
+    # font size optional range
+    font_size_set = [ 10, 16, 22, 28 ]
 
     # select a tags sample
     tags = ( options == 'ALL' )? all_tags_with_weight : select_tags_with_weight
@@ -83,7 +82,7 @@ class Tagcloud < ActiveRecord::Base
       { :id => set[ :id ],
         :name => set[ :name ],
         :tagged => set[ :tagged ],
-        :font => ( set[ :weight ] * ( max_font_size - min_font_size ) + min_font_size ).round
+        :font => font_size_set[ ( set[ :weight ] * ( font_size_set.length - 1 ) ).round ]
       }
     }.sort_by { | set | set[ :name ] }
   end
