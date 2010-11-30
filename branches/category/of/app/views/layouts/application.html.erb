@@ -76,8 +76,12 @@
       <%end%>
     </div>
 
-    <div id="MainContent" <%="class=\"rt-grid-9 rt-push-3\"" unless controller.controller_name == 'openfoundry' && controller.action_name == 'search' %>>
-      <div id="Flash"><%= show_flash %></div>
+    <% if ( controller.controller_name == 'openfoundry' && controller.action_name == 'search' ) -%>
+      <div id="MainContent" <%="class=\"rt-grid-12\"" %>>
+    <% else -%>
+        <div id="MainContent" <%="class=\"rt-grid-9 rt-push-3\"" unless ( controller.controller_name == 'site_admin' && controller.action_name == 'manage_tags' ) %>>
+    <% end -%>
+    <div id="Flash"><%= show_flash %></div>
       <%= yield :layout %>
     </div>
     <div id="LeftWidget" class="rt-grid-3 rt-pull-9">   
@@ -101,7 +105,7 @@
       <%elsif controller.controller_name == "help"%>
         <%=render :partial => "partials/help_menu"%>
       <%else%>
-        <%=render :partial => "partials/homeleft" unless controller.controller_name == 'openfoundry' && controller.action_name == 'search' %>
+        <%=render :partial => "partials/homeleft" unless ( controller.controller_name == 'openfoundry' && controller.action_name == 'search' ) || ( controller.controller_name == 'site_admin' && controller.action_name == 'manage_tags' )  %>
       <%end%>
     </div>
   </div>
