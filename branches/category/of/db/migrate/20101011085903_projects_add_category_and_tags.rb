@@ -11,7 +11,7 @@ class ProjectsAddCategoryAndTags < ActiveRecord::Migration
       t.integer  :tagged			# how many times of the tag is tagged
       t.integer  :searched    # how many times of the tag is searched 
     end
-    add_index    :tagclouds, [ :id, :name ], :unique => true
+    add_index    :tagclouds, :id, :unique => true
     add_index    :tagclouds, :tag_type
     add_index    :tagclouds, :status
 
