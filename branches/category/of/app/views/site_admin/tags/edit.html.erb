@@ -1,0 +1,13 @@
+<%form_tag(:action => :edit) do%>
+  <h3>edit a tag by old name search</h3>
+  tag old name:
+  <%= text_field_tag :tag_old_name %>
+  tag new name:
+  <%= text_field_tag :tag_new_name %>
+  <br/>
+  tag new status:
+  <%= text_field_tag :tag_status %>
+  tag new type:
+  <%= text_field_tag :tag_type %>
+  <%= submit_tag :submit %>
+<%end%>
