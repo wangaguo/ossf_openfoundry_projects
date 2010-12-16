@@ -1,5 +1,6 @@
 class SiteAdmin::SiteAdminController < SiteAdmin
   layout 'application'
+  require 'fastercsv'
 
   def switch_user_search #search for user, use in 'Project Add Member'
     name = params['username']
