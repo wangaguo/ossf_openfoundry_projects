@@ -1,9 +1,14 @@
 <h1>Listing projects</h1>
-<form name="sform" action="" style="display:inline;" >
-  <label for="item_name">Filter by Name or Description: </label>
-  <%= text_field_tag("query", params['query'], :sortcolumn=>@sort, :sortorder=>@direction ,:size => 17 ) %>
+<form name="filter" action="" style="display:inline" >
+  <label for="filter">Filter by Name or Description: </label>
+  <%= text_field_tag "query", params['query'] %>
+  <label for="status">Filter by Status:</label>
+  <%= select_tag('sortstatus', options_for_select([ "Show All", "Ready", "Applying", "Suspended", "Pending"] , params[:sortstatus])) %>
+  <%= submit_tag 'Search' %>
 </form>
-<% form_tag ({:action => :csv, :selection=>params[:query], :sortorder=>@direction, :sortcolumn=>@sort}, :style=> "display:inline" ) do -%><%= submit_tag 'Export to CSV' %><%end -%>
+<% form_tag ({:action => :csv, :selection=>params[:query], :status=>@statusorder, :sortorder=>@direction, :sortcolumn=>@sort}, :style=> "display:inline" ) do -%>
+  <%= submit_tag 'Export to CSV' -%>
+<% end -%>
 <% project_columns = ["status","name","summary","description","creator","statusreason","contactinfo","created_at","updated_at",] -%>
 <%= paginate = will_paginate @projects %>
 <table id="customers">
@@ -12,15 +17,15 @@
     <th></th>
     <% for column in project_columns -%>
       <th>
-        <%= link_to (t "Project.#{column}"), :sortcolumn=>(column), :sortorder=>@direction, :query =>@query %>
+        <%= link_to (t "Project.#{column}"), :query =>@query, :sortstatus=>params[:sortstatus],  :sortorder=>@direction, :sortcolumn=>(column) %>
       </th>
     <% end -%>
   </tr>
   <% for project in @projects -%>
-    <tr class="<%= cycle('even','alt') %>" >
-      <td><%= link_to _('Edit'), edit_project_path( :id => project), :target => '_blank' %></td>
+    <tr class="<%= cycle('even','alt') -%>" >
+      <td><%= link_to _('Edit'), edit_project_path( :id => project), :target => '_blank' -%></td>
       <td>
-        <%= link_to _('Change status'), change_status_form_site_admin_project_path( :id => project.id), :target => '_blank' %>
+        <%= link_to _('Change status'), change_status_form_site_admin_project_path( :id => project.id), :target => '_blank' -%>
       </td>
       <% for column in project_columns -%>
         <td style="<%= "white-space:nowrap;" if column == "license"%>">
@@ -33,14 +38,14 @@
           <%elsif column == 'status' -%>
             <% case project.status
                 when Project::STATUS[:APPLYING] 
-               %><span style="color:red"><%
+               -%><span style="color:red"><%
                 when Project::STATUS[:PENDING] 
-               %><span style="color:orange"><%
+               -%><span style="color:orange"><%
                 when Project::STATUS[:REJECTED] 
-               %><span style="color:green"><%
+               -%><span style="color:green"><%
                 when Project::STATUS[:SUSPENDED] 
-               %><span style="color:bule"><%
-            end %> 
+               -%><span style="color:blue"><%
+            end -%> 
             <%= "#{Project.status_to_s(project.status)}" %>
           </span>
           <%elsif column == 'name' -%>
@@ -63,10 +68,10 @@
   
     </tr>
   
-  <% end %>
+  <% end -%>
 </table>
 
-<%= paginate %>
+<%= paginate -%>
 <br />
 
-<%= link_to 'New project', :action => 'new' %>
+<%= link_to 'New project', :action => 'new' -%>

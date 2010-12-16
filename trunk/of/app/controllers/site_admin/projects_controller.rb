@@ -11,7 +11,7 @@ class SiteAdmin::ProjectsController < SiteAdmin
          :redirect_to => { :action => :list }
 
   def list
-    @projects = Project.paginate(:page => params[:page], :per_page => 100, :order => (sort_column + ' ' + sort_by), :conditions => ["description LIKE ? OR name LIKE ?", "%#{query}%", "%#{query}%"])
+    @projects = Project.paginate(:page => params[:page], :per_page => 100, :order => (sort_column + ' ' + sort_by), :conditions => ["(description LIKE ? OR name LIKE ?) AND status LIKE ?", "%#{query}%", "%#{query}%","%#{sort_status}%" ])
   end
 
   def show
@@ -86,7 +86,8 @@ class SiteAdmin::ProjectsController < SiteAdmin
   end
   def csv
     qt = params[:selection]
-    @lists = Project.find(:all, :order=> (params[:sortcolumn] + ' ' + params[:sortorder]), :conditions =>  ["name LIKE ? OR description LIKE ?", "%#{qt}%", "%#{qt}%"])
+    status = params[:status]
+    @lists = Project.find(:all, :order=> (params[:sortcolumn] + ' ' + params[:sortorder]), :conditions =>  ["(description LIKE ? OR name LIKE ?) AND status LIKE ?", "%#{qt}%", "%#{qt}%","%#{status}%"])
     csv_string = FasterCSV.generate(:encoding => 'u') do |csv|
       csv << ["Status","Name","Summary","Description","Creator","Status Reason","Contact Information","Created Date","Updated Date"]
       @lists.each do |project|
@@ -96,6 +97,20 @@ class SiteAdmin::ProjectsController < SiteAdmin
     filename = Time.now.strftime("%Y-%m-%d") + ".csv"
     send_data(csv_string,:type => 'text/csv; charset=UTF-8; header=present',:filename => filename)
   end
+  def sort_status
+    if params[:sortstatus] == "Show All"
+      @statusorder = ""
+    elsif params[:sortstatus] == "Applying"
+      @statusorder = "0"
+    elsif params[:sortstatus] == "Suspended"
+      @statusorder = "3"
+    elsif params[:sortstatus] == "Pending"
+      @statusorder = "4"
+    elsif params[:sortstatus] == "Ready"
+      @statusorder = "2"
+    end
+  end
+
 #  def approve
 #    Project.find(params[:id]).approve
 #    redirect_to :action => 'show', :id => @project.id
