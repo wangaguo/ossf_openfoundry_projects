@@ -228,4 +228,25 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     @roles = Role.find_all_by_authorizable_type("site")
     @users_map = @roles.collect{|r| r.users}
   end
+  def csv
+    qt = params[:selection]
+    conditions = params[:nscconditions]
+    vcs_check = params[:vcscheck]    
+    i = 0
+    @lists = Project.find(:all, :joins=>:tags, :conditions => [conditions + "AND (projects.name LIKE ? OR projects.description LIKE ? OR tags.name LIKE ?)", "%#{qt}%", "%#{qt}%", "%#{qt}%"])
+    csv_string = FasterCSV.generate(:encoding => 'u') do |csv|
+      csv << ["編號", "計畫編號","專案ID","OpenFoundry專案代號(專案名稱)","計畫名稱","專案描述", "成熟度", "建立日期", "建立者", "下載次數", "VCS", "VCS Info"]
+      @lists.each do |project|
+        if vcs_check == 'true'
+          abc = system "svn info http://svn.openfoundry.org/#{project.name} > /tmp/nsc_svn.log"
+          log = ""
+          File.open("/tmp/nsc_svn.log").each{|line| log += "#{line}<br/>"}
+        end
+        u = User.find_by_id(project.creator)
+        csv << [(i+=1).to_s, project.tag_list.names , project.id, project.name, project.summary, project.description, project.maturity_to_s, (project.created_at).strftime("%Y-%m-%d"), "#{u.login} (#{u.realname})" , project.project_counter, Project.vcs_to_s(project.vcs), log]
+      end
+    end
+    filename = Time.now.strftime("%Y-%m-%d") + ".csv"
+    send_data(csv_string, :type => 'text/csv; charset=UTF-8; header=present',:filename => filename)
+  end
 end
