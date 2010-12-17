@@ -42,7 +42,7 @@ i = 0
   </tr>
   <% for project in projects %>
     <%
-      tmp_nsccode = project.tag_list.names.grep(/^NSC\d/).sort.join("<br/>")
+      tmp_nsccode = project.tag_list.names.grep(/^NSC[ ]*\d/).sort.join("<br/>")
       find_nsccode = ""
       if tmp_nsccode == ""
         if project.description and project.description.match(/NSC/).nil? == false
