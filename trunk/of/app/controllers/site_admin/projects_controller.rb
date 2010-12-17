@@ -76,10 +76,10 @@ class SiteAdmin::ProjectsController < SiteAdmin
     end
   end
   def sort_column
-    @sort = (params[:sortcolumn] || "name")
+    @sort = (params[:sortcolumn] || "created_at")
   end
   def sort_by
-    @direction = (params[:sortorder] == "asc" ? "desc" : "asc")
+    @direction = (params[:sortorder] == "desc" ? "asc" : "desc")
   end
   def query
     @query = params[:query]
