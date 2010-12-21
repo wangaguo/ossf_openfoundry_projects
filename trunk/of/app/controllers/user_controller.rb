@@ -8,6 +8,21 @@ class UserController < ApplicationController
   before_filter :set_user_id, :except => [:login, :signup, :forgot_password, :welcome, :username_availability_check]
   before_filter :login_required, :except => [:login, :home, :signup, :forgot_password, :welcome, :username_availability_check]
 
+  def ajax_update_project_list
+    ProjectList.delete_all("user_name = '#{current_user.login}'")
+    order=params[:project_list].length
+    params[:project_list].each{|project|
+      ProjectList.create(
+        :project_id => project,
+        :user_name => current_user.login,
+        :order => order
+      )
+      order -= 1
+    }
+
+    render :layout => false, :text => nil 
+  end
+
   def set_user_id
     if params['user_alias']
       id = nil
@@ -464,13 +479,13 @@ class UserController < ApplicationController
     #login_by_sso if session[ :user ].nil?
     @module_name= t('dashboard')
 
-    @allrtoptions = { "Owner" => "owner", "Creator" => "creator", "Requestor" => "requestor", "Last Updated" => "lastupdatedby" }
+    @allrtoptions = { _("Owner") => "owner", _("Creator") => "creator", _("Requestor") => "requestor", _("Last Updated") => "lastupdatedby" }
 
     #
     # My Issue Tracker
     #
     # the base request url for rt rdf
-    rturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=id>'0'"
+    rturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=id>'0'"
     # set the current user name
     @name = ( params[ :username ].nil? )? current_user().login : params[ :username ]
 
@@ -513,17 +528,19 @@ class UserController < ApplicationController
     #
     # My Projects 
     #
-    @my_projects = Project.find_by_sql "SELECT DISTINCT(P.id), P.icon, P.name, P.updated_at FROM projects P 
-                                       JOIN roles R 
-                                       JOIN roles_users RU 
-                                       JOIN users U WHERE
-                                       P.id = R.authorizable_id AND 
-                                       R.authorizable_type = 'Project' AND 
-                                       P.status = 2 AND 
-                                       R.id = RU.role_id AND 
-                                       U.login = '#{ @name }' AND 
-                                       RU.user_id = U.id
-                                       ORDER BY P.updated_at"
+    @my_projects = Project.find_by_sql "SELECT DISTINCT (P.id), P.icon, P.name, P.updated_at, project_lists.order 
+    FROM projects P
+    JOIN roles R
+    JOIN roles_users RU
+    JOIN users U
+    LEFT JOIN project_lists ON P.id = project_lists.project_id AND project_lists.user_name = '#{ @name }'
+    WHERE P.id = R.authorizable_id
+    AND R.authorizable_type = 'Project'
+    AND P.status =2
+    AND R.id = RU.role_id
+    AND U.login = '#{ @name }'
+    AND RU.user_id = U.id
+    ORDER BY project_lists.order DESC"
 
     render :layout => "application"
   end
