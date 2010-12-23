@@ -89,9 +89,9 @@ class SiteAdmin::ProjectsController < SiteAdmin
     status = params[:status]
     @lists = Project.find(:all, :order=> (params[:sortcolumn] + ' ' + params[:sortorder]), :conditions =>  ["(description LIKE ? OR name LIKE ?) AND status LIKE ?", "%#{qt}%", "%#{qt}%","%#{status}%"])
     csv_string = FasterCSV.generate(:encoding => 'u') do |csv|
-      csv << ["Status","Name","Summary","Description","Creator","Status Reason","Contact Information","Created Date","Updated Date"]
+      csv << ["Status","Name", "Id" ,"Summary","Description","Creator","Status Reason","Contact Information","Created Date","Updated Date"]
       @lists.each do |project|
-        csv << [Project.status_to_s(project.status), project.name, project.summary, project.description, project.creator, project.statusreason, project.contactinfo, (project.created_at).strftime("%Y-%m-%d %H:%M:%S"), (project.updated_at).strftime("%Y-%m-%d %H:%M:%S")]
+        csv << [Project.status_to_s(project.status), project.name , project.id, project.summary, project.description, project.creator, project.statusreason, project.contactinfo, (project.created_at).strftime("%Y-%m-%d %H:%M:%S"), (project.updated_at).strftime("%Y-%m-%d %H:%M:%S")]
       end
     end
     filename = Time.now.strftime("%Y-%m-%d") + ".csv"
