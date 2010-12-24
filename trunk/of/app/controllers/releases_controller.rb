@@ -13,7 +13,8 @@ class ReleasesController < ApplicationController
   end
   
   def index
-    redirect_to '/of/releases/latest'
+    list
+    render :action => :list
   end
   
   #show all releases with given project id
