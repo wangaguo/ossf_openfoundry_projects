@@ -13,6 +13,7 @@ class OpenfoundryController < ApplicationController
   def index
     @module_name = _('Projects')
     render :layout => "application"
+    #redirect_to projects_path
   end
 
   #class Session < ActiveRecord::Base; end # only used by get_session_by_id
@@ -272,13 +273,9 @@ class OpenfoundryController < ApplicationController
   end
   
   def search #for search!!! TODO: catalog and optimize?
-    reset_sortable_columns
-    add_to_sortable_columns( 'searched', Project, 'name', 'name' )
-    add_to_sortable_columns( 'searched', Project, 'summary', 'summary' )
-    add_to_sortable_columns( 'searched', Project, 'category', 'category' )
-
     start_time = DateTime.now
-    @query = params[:query_adv] || params[:query]#.split(' ').join(' OR ')
+
+    @query = params[:query_adv] || params[:query] || ""
     @keyword= @query
     query = (@query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
       $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
@@ -294,26 +291,18 @@ class OpenfoundryController < ApplicationController
     @chk = params[:chk]
     obj = @options[:models] == :all ? Project : @options[:models].first
 
-    query= " alltags_string:'#{@query.split(/:/)[1]}' " if @query.include?("tag:")
+    query= " alltags_string:'#{@keyword.split(/:/)[1]}' " if @keyword.include?("tag:")
     if params[:adv_cat]
       unless params[:project].blank?
         filter_select = params[:project] 
-        query += " category_index:'#{filter_select[:category]}' " unless filter_select.fetch(:category).nil?
-        query += " category_index:'#{filter_select[:category]}' " unless filter_select.fetch(:category).nil?
-        query += " maturity_index:'#{filter_select[:maturity]}' " unless filter_select.fetch(:maturity).nil?
-        query += " license:'#{filter_select[:license]}' " unless filter_select.fetch(:license).nil?
-        query += " platform:'#{filter_select[:platform]}' " unless filter_select.fetch(:platform).nil?
-        query += " programminglanguage:'#{filter_select[:programminglanguage]}' " unless filter_select.fetch(:programminglanguage).nil?
+    #TODO: Refine the query string
+        query += " category_index:'#{filter_select[:category] unless filter_select.fetch(:category).nil?}' maturity_index:'#{filter_select[:maturity] unless filter_select.fetch(:maturity).nil?}' license:'#{filter_select[:license] unless filter_select.fetch(:license).nil?}' platform:'#{filter_select[:platform] unless filter_select.fetch(:platform).nil?}' programminglanguage:'#{filter_select[:programminglanguage] unless filter_select.fetch(:programminglanguage).nil?}' " 
         @filter_blank_or_not = query
       end
-      # with nsc filter
       @final_query=query
-      #sort_by_tags = Ferret::Search::SortField.new(:alltags_string, :type => :string, :reverse => false)
-      #sort_by_name = Ferret::Search::SortField.new(:name, :type => :string, :reverse => false)
-      #sorts = Ferret::Search::Sort.new([sort_by_tags, sort_by_name])
-      @results = Project.find_with_ferret(query, { :limit => :all, :page => params[:page] },
-                                                 { :order => sortable_order('searched', :model => Project, :field => 'Name', :sort_direction => :desc) })
-      @results = @results.select{ |p| p.is_nsc_project } if params[ :is_nsc ] == '1'
+
+      @results = Project.find_with_ferret(query, { :limit => :all, :page => params[:page] })
+      @results = @results.select(&:is_nsc_project) if params[ :is_nsc ] == '1'
       @final_project_list = @results.paginate(
                     		     :page => params[:page],
                     		     :per_page => 20,
@@ -324,6 +313,7 @@ class OpenfoundryController < ApplicationController
       @final_project_list = @results
       @lookup = RECORD_LOOKUP_TABLE
     end
+
     end_time=DateTime.now
     @elapsed_seconds = format("%.2f", (end_time.to_f - start_time.to_f))
 
