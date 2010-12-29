@@ -1,33 +1,23 @@
 require "json"
 class SiteAdmin::TagsController < ApplicationController
 
-  # testing NEW action view
   def create
     if request.post?
-      new(params[:tag_new_name].strip, params[:tag_status], params[:tag_type])
-      redirect_to "/of/site_admin/site_admin/manage_tags"
+      new(params[:tag_new_name], params[:tag_status], params[:tag_type]) unless params[:tag_new_name].blank?
+      redirect_to "#{root_path}site_admin/site_admin/manage_tags"
     end
   end
 
-  # testing UPDATE action view
   def edit
     if request.post?
-      update(params[:tag_old_name], params[:tag_new_name], params[:tag_status], params[:tag_type])
-      session[:tmsg] = "Updated."
-      redirect_to "/of/site_admin/site_admin/manage_tags"
+      update(params[:tag_old_name], params[:tag_new_name], params[:tag_status], params[:tag_type]) unless params[:tag_new_name].blank?
+      redirect_to "#{root_path}site_admin/site_admin/manage_tags"
     end
   end
 
-  # testing DESTROY action view by mutiple tag ids
   def delete
     if request.post?
-      if params[:tag_id].include?(",")
-        params[:tag_id].split(",").each{ |tid| destroy(tid.strip) }
-        redirect_to "/of/site_admin/site_admin/manage_tags"
-      else
-        destroy(params[:tag_id])
-        redirect_to "/of/site_admin/site_admin/manage_tags"
-      end
+      params[:tag_id].split(",").each{ |tid| destroy(tid.strip) }
       session[:tmsg] = "Deleted."
     end
   end
@@ -52,7 +42,6 @@ class SiteAdmin::TagsController < ApplicationController
         @ready_tag.save
       end
       session[:tmsg] = "Ready Ok!"
-      redirect_to "/of/site_admin/site_admin/manage_tags"
     end
   end
 
@@ -60,24 +49,20 @@ class SiteAdmin::TagsController < ApplicationController
     if request.post?
       params[:tag_id].split(",").each do |tid| 
         @pending_tag = Tagcloud.find_by_id(tid)
-        @pending_tag.status = 0 if @pending_tag.status == 1
+        @pending_tag.status = 0 if ( @pending_tag.status == 1 && @pending_tag.tag_type == 0 )
         @pending_tag.save
       end
-      session[:tmsg] = "Pending Ok!"
-      redirect_to "/of/site_admin/site_admin/manage_tags"
+      session[:tmsg] = "Pending Ok! (But category could not be pending.)"
     end
   end
 
-  def new(tname, tstatus, ttype)
-    @tag = Tagcloud.find_by_name(tname)
-    @tag_id = @tag.id unless @tag.nil?
-    if @tag.nil?
+  def new(tname, tstatus, ttype) 
+    if Tagcloud.find_by_name(tname.squeeze(' ').strip.titleize).nil?
       @new_tag = Tagcloud.new
-      @new_tag.name = tname.strip
-      @new_tag.tag_type = ttype
-      @new_tag.status = tstatus
-      @tag_id = @new_tag.id if @new_tag.save
-      session[:ided] = "#{@tag_id.to_s}"
+      @new_tag.name = tname.squeeze(' ').strip.titleize
+      @new_tag.tag_type = ttype.strip
+      @new_tag.status = tstatus.strip
+      session[:ided] = "#{@new_tag.id.to_s}" if @new_tag.save
       session[:tmsg] = "'#{tname}' added."
     else
       session[:tmsg] = "#{tname} was already exists."
@@ -87,15 +72,12 @@ class SiteAdmin::TagsController < ApplicationController
   def update(oldname, newname, newstatus, newtype)
     @tag = Tagcloud.find_by_name( oldname )
     unless @tag.nil?
-      begin
-        @tag.name = newname
-        @tag.status = newstatus
-        @tag.tag_type = newtype
-        session[:tmsg] = @tag.to_json if @tag.save
-        session[:ided] = "#{@tag.id.to_s}"
-      rescue
-        session[:tmsg] = "Something wrong man~"
-      end
+      @tag.name = newname.squeeze(' ').strip.titleize if Tagcloud.find_by_name( newname.squeeze(' ').strip.titleize ).nil?
+      @tag.status = newstatus.strip
+      @tag.tag_type = newtype.strip
+      session[:ided] = "#{@tag.id.to_s}" if @tag.save
+      Project.find_with_ferret("alltags_string:'#{oldname}'").map(&:save)
+      session[:tmsg] = "Updated."
     end
   end
 
@@ -103,7 +85,7 @@ class SiteAdmin::TagsController < ApplicationController
   def destroy(tid)
     t = Tagcloud.find_by_id( tid )
     t.destroy if t
-    Project.find_with_ferret("alltags_string:'#{t.name.to_s}'").map{|p| p.save}
+    Project.find_with_ferret("alltags_string:'#{t.name}'").map(&:save)
   end
 
 end
