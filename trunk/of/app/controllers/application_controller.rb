@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
       rtn = Project.find_by_id(id_or_name, :conditions => in_used_projects)
     when Project::NAME_REGEX
       in_used_projects = " and #{in_used_projects}" if(in_used_projects != "")
-      if rtn = Project.find(:first, :select => 'id', :conditions => ["name = ? #{in_used_projects}", id_or_name])
+      if rtn = Project.in_used.find(:first, :select => 'id', :conditions => ["name = ? #{in_used_projects}", id_or_name])
         yield rtn.id
         return
       end
