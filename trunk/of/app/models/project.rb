@@ -272,16 +272,16 @@ EOEO
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => NAME_REGEX, :message => _('Format|Project Name')
-    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => _("This name is reserved by the system.")
+  validates_format_of :name, :with => NAME_REGEX, :message => I18n.t('Format|Project Name')
+    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => I18n.t("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
   validates_length_of :description, :within => 3 .. 4000
   validates_length_of :contactinfo, :maximum => 255
   validates_inclusion_of :maturity, :in => MATURITY.values
-  validates_length_of :license, :maximum => 50, :message => _('You have choosen too many licenses.')
+  validates_length_of :license, :maximum => 50, :message => I18n.t('You have choosen too many licenses.')
     validates_format_of :license, :with => /,(-?\d+)*,/
-  validates_length_of :contentlicense, :maximum => 50, :message => _('You have choosen too many content licenses.')
+  validates_length_of :contentlicense, :maximum => 50, :message => I18n.t('You have choosen too many content licenses.')
     validates_format_of :contentlicense, :with => /,(-?\d+)*,/
   validates_length_of :licensingdescription, :maximum => 1000
   validates_length_of :platform, :maximum => 100
@@ -303,42 +303,42 @@ EOEO
     if status != Project::STATUS[:REJECTED]
       cond = ["name = ? and `status` <> #{Project::STATUS[:REJECTED]} ", name]
       cond = [cond[0] + "and id <> ?", cond[1], id] if not new_record? # for "approve"
-      errors.add(:name, _("'#{name}' has already been taken")) if Project.exists?(cond)
+      errors.add(:name, I18n.t("'#{name}' has already been taken")) if Project.exists?(cond)
     end
 
     ls = "#{license}".split(",").grep(/./).map(&:to_i)
     if ls.length == 0
-      errors.add(:license, _("Please choose at least one code license."))
+      errors.add(:license, I18n.t("Please choose at least one code license"))
     end
     if ls.include?(0) and ls != [0] 
-      errors.add(:license, _("If this project contains no code, then you may not choose any other license."))
+      errors.add(:license, I18n.t("If this project contains no code, then you may not choose any other license"))
     end
 
     cls = "#{contentlicense}".split(",").grep(/./).map(&:to_i)
     if cls.length == 0
-      errors.add(:contentlicense, _("Please choose at least one content license."))
+      errors.add(:contentlicense, I18n.t("Please choose at least one content license"))
     end
     if cls.include?(0) and cls != [0] 
-      errors.add(:contentlicense, _("If this project contains only code, then you may not choose any other content license."))
+      errors.add(:contentlicense, I18n.t("If this project contains only code, then you may not choose any other content license."))
     end
     if cls.include?(-3) and cls != [-3] 
-      errors.add(:contentlicense, _("If the content license is the same with the code license, then you may not choose any other content license."))
+      errors.add(:contentlicense, I18n.t("If the content license is the same with the code license, then you may not choose any other content license."))
     end
 
     if cls == [-3] and ls == [0] 
-      errors.add(:contentlicense, _("You have to choose a code license.")) # TODO: better wording
+      errors.add(:contentlicense, I18n.t("You have to choose a code license.")) # TODO: better wording
     end
 
     if (ls.include?(-1) or cls.include?(-1)) and "#{licensingdescription}".strip.blank?
-      errors.add(:licensingdescription, _("You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"."))
+      errors.add(:licensingdescription, I18n.t("You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"."))
     end
 
     if "#{platform}".split(",").grep(/./).empty?
-      errors.add(:platform, _("Please choose at least one platform."))
+      errors.add(:platform, I18n.t("Please choose at least one platform."))
     end
 
     if "#{programminglanguage}".split(",").grep(/./).empty?
-      errors.add(:programminglanguage, _("Please choose at least one programming language."))
+      errors.add(:programminglanguage, I18n.t("Please choose at least one programming language."))
     end
   end
   
