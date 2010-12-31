@@ -13,8 +13,12 @@ class ReleasesController < ApplicationController
   end
   
   def index
-    list
-    render :action => :list
+    if params[:project_id].nil?
+      redirect_to root_path + 'releases/latest'
+    else
+      list
+      render :action => :list
+    end
   end
   
   #show all releases with given project id
