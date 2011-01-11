@@ -41,11 +41,13 @@ class Tagcloud < ActiveRecord::Base
   def self.all_tags_with_weight
     # select fields needed order by weight
     tags = self.readytags.map { | set | 
-      { :id => set.id, 
+      {
+        :id => set.id, 
         :name => set.name, 
         :tagged => set.tagged, 
-        :weight => set.tagged * 0.6 + set.searched * 0.4 }
+        :weight => set.tagged * 0.6 + set.searched * 0.4
       }
+    }
 
     # normalize each weight for tags
     maxweight = tags.max_by { | set | set[ :weight ] }[ :weight ]
@@ -75,7 +77,8 @@ class Tagcloud < ActiveRecord::Base
 
     # assign font size to selected tags and order by the tag name
     tags.map { | set |
-      { :id => set[ :id ],
+      {
+        :id => set[ :id ],
         :name => set[ :name ],
         :tagged => set[ :tagged ],
         :font => font_size_set[ ( set[ :weight ] * ( font_size_set.length - 1 ) ).round ]
