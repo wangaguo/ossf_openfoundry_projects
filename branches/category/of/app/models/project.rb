@@ -262,10 +262,11 @@ EOEO
   acts_as_ferret({
                  :fields => { 
                               :alltags_string => { :boost => 3.0,
+                                                   :index => :yes,
                                                    :store => :yes},
                               :name => { :boost => 2.0,
-                                         :store => :yes
-                                         },
+                                         :store => :yes,
+                                         :index => :yes},
                               :summary => { :index => :yes,
                                             :store => :yes},
                               :description => { :index => :yes,
@@ -281,14 +282,17 @@ EOEO
 															:programminglanguage => { :store => :yes,
 																				 								:index => :yes},
 															:category_index => { :store => :yes,
-																				 					 :index => :yes}
+																				 					 :index => :yes},
+                              :name_for_sort => {:index => :untokenized,
+                                                 :store => :yes}
                             },
                  :single_index =>true
                  },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
   def cattag_name;cattag.name;end
-  def alltags_string;alltags.map(&:name).join(", ");end
+  def alltags_string;alltags_without_check.map(&:name).join(", ");end
   def maturity_index;self.maturity.to_s;end
   def category_index;self.category.to_s;end
+  def name_for_sort;self.name;end
   		
 
   def should_be_indexed?
@@ -311,6 +315,10 @@ EOEO
   has_many :ready_releases, :class_name => 'Release', 
 	   :conditions => { :status => Release::STATUS[ :RELEASED ] },
 	   :order => 'updated_at DESC'
+  has_many :last_release, :class_name => 'Release',
+     :conditions => { :status => Release::STATUS[ :RELEASED ] },
+     :order => 'updated_at DESC',
+     :limit => 1
 
   # field validations...
   # see also: http://rt.openfoundry.org/Edit/Queues/CustomField/?Queue=4
