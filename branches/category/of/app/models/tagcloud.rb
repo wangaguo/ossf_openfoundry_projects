@@ -53,19 +53,15 @@ class Tagcloud < ActiveRecord::Base
   end
 
   # select the tags with the HEAD and LAST options
-  def self.select_tags_with_weight
-    # select options
-    max_head_num = 3
-    min_last_num = 3
+  def self.select_tags_with_weight( tsize )
+    # random all tags 
+    tags = all_tags_with_weight.sort_by { rand }
 
-    # order the tags with their weights
-    tags = all_tags_with_weight.sort_by { | set | set[ :weight ] }
-
-    # select tags with the options
-    if tags.count <= max_head_num + min_last_num
+    # choose the header tags with optional size
+    if tags.count <= tsize 
       tags
     else
-      tags[ 0..max_head_num - 1 ] + tags[ 0 - min_last_num..-1 ]
+      tags[ 0..tsize - 1 ]
     end
   end
 
