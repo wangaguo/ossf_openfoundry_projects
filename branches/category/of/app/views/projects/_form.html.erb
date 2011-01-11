@@ -106,7 +106,7 @@
     $j( '#__clibeanna' ).val( data.substring( 2 ) );
   }
 
-  // enhance the input with auto-complete
+  // enhance the input with autocomplete
   $j( document ).ready(
     function()
     {
@@ -199,11 +199,12 @@ AAA
   foo( 'category', false, t( 'CreateHelp.Project_Category' ) ),
     select( 'project', 'category', 
             Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, :include_blank => '- Select Category -' ) + 
-            ' ' + mail_to( 'contact@openfoundry.org', 'New Category?' ),
+            ' ' + mail_to( 'contact@openfoundry.org', t('Text.New_Category') ),
   foo( 'Tags', false, t( 'CreateHelp.Project_Tags' ) ),
     "<div id=\"Tags_List\"><div></div>#{ @tagspan }</div>" + 
     text_field_tag( 'Tags_Ctrl', '', { :size => 20 } ) + 
-    "#{ t( 'Msg.Send_A_Tag' ) }" + 
+    "<input type=\"button\" value=\"#{ t('Text.OK') }\" onclick=\"javascript: add_to_tags_list(); tag_notify();\">" + 
+    "<br>#{ t( 'Msg.Send_A_Tag' ) }" + 
     "<div id=\"Tags_Remove\"><font color='#ff0000'>#{ t( 'Msg.Click_Remove' ) }</font></div>",
   foo("contactinfo", false, _("Project|Contactinfo|Help")),
     text_field('project', 'contactinfo', :maxlength => 255, :size => 50),

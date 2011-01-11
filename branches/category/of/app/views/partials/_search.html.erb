@@ -1,5 +1,6 @@
 <% adv ||= false %> 
 <% form_tag url_for(:controller => :openfoundry, :action => :search), :method => :get do -%>
+  <div id="advanced_search">
 	<% if params[:adv_cat] %>
   <input name="adv_cat" type="hidden" value="">
   <%= select( 'project', 'category',
@@ -31,11 +32,18 @@
 	%>
 	<br/>
 	<% end %>
+  </div>
 
   <%= text_field_tag( (if adv;'query_adv';else'query';end), @query, :size => (if adv and params[:adv_cat].nil?;size;end) ) %>
   <%= submit_tag _('search'), :class => 'button' %>
 
-  <%if adv and params[:adv_cat].nil? %>
+
+  <% if adv and params[:adv_cat].nil? -%>
+    <a href="<%="#{ root_path }openfoundry/search?adv_cat=&query=" %>"><%=t( 'Advanced Options' ) %></a>
+  <% end -%>
+
+  <!-- hidden field for old search news and files -->
+  <%if adv and params[:adv_cat].nil? and params[:show_old_option] %>
     <a href="#" onclick="Effect.toggle('search_chk','appear');Effect.toggle('search_inc','appear');
      document.getElementById('query_adv').value=''; return false">
     <%=_('Advanced Options')%>
