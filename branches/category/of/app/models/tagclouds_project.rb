@@ -32,7 +32,7 @@ class TagcloudsProject < ActiveRecord::Base
   def self.append_tags_to_project( pid, tlist )
     # set regular expression for protecting write tags to DB 
     tg = tlist.split( ',' )
-    tg = tg.map{ | v | v.downcase }.select{ | v | v =~ /^[#+.!a-zA-Z0-9 ]+$/ }.uniq
+    tg = tg.map{ | v | v.downcase.squeeze( ' ' ).strip }.select{ | v | v =~ /^[#+.!a-zA-Z0-9 ]+$/ }.uniq
 
     tg.each{ | t |
       titlename = t.titleize
