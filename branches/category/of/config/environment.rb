@@ -18,7 +18,7 @@ Rails::Initializer.run do |config|
 
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
-  config.plugins = %W(tolk authorization  activemessaging acts_as_redis_counter acts_as_taggable_on_steroids bundle-fu fckeditor http_accept_language nested_layouts resource_feeder run_later simply_helpful sortable_column_headers spandex_mem_cache_store validates_timeliness will_paginate)
+  config.plugins = %W(tolk authorization  activemessaging acts_as_redis_counter acts_as_taggable_on_steroids bundle-fu fckeditor http_accept_language nested_layouts resource_feeder run_later simply_helpful sortable_column_headers spandex_mem_cache_store validates_timeliness will_paginate qrcode)
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
@@ -62,11 +62,10 @@ Rails::Initializer.run do |config|
   config.gem 'mongrel', :version =>  ">= 1.1.3" 
   config.gem 'rake', :version =>  ">= 0.8.1" 
   config.gem 'packr', :version =>  ">= 3.1.0" 
-  config.gem 'redis'
+  config.gem 'redis', :version => "=0.1.2"
 
   config.time_zone = 'Taipei' 
 
-  config.i18n.load_path = [Dir[File.join(RAILS_ROOT, 'config', 'locales', '{en,zh_TW}.{yml}')] ]
   config.i18n.default_locale = "zh_TW"
 
   # Add new inflection rules using the following format 
@@ -89,13 +88,13 @@ Rails::Initializer.run do |config|
 
 
   config.after_initialize {
+    require 'of'
     # add fulltext indexed SEARCH
     # for search in UTF-8
     UTF8_ANALYSIS_REGEX = 
       /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
     GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
-    DEFAULT_FIELD = [:name, :summary, 
-	    :subject, :description, :requirement, :description_without_tag, :login]
+    DEFAULT_FIELD = [:alltags_string, :name, :summary, :cattag_name, :maturity_index, :license, :platform, :programminglanguage, :category_index, :subject, :description, :requirement, :description_without_tag, :name_for_sort]
     #for redis connection
     REDIS = Redis.new :host => '127.0.0.1'
 
@@ -143,6 +142,9 @@ Rails::Initializer.run do |config|
     NSC_CURRENT_YEAR = "98"
     NSC_REVIEW_OPENED = false
     NSC_ADMIN_ACCOUNT = "nsc_admin"
+
+    OPENFOUNDRY_JSON_DUMP_PASSWORD = '5f12117baa04ce58'
     
     config.action_controller.relative_url_root = "/of"
+
 end
