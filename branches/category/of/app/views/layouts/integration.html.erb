@@ -124,7 +124,12 @@
                 </li>
                 <li class="item root">
                   <a class="orphan item bullet" href="/about"><span><%=_('About')%></span></a>
-                </li>
+                  </li>
+                <%- if current_user.has_role?('site_admin') %>
+                  <li class="item root">
+                    <a class="orphan item bullet" href="/of/site_admin"><span></span></a>
+                  </li>
+                <% end -%>
               </ul>
               <div class="clear"></div>
             </div>

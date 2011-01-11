@@ -14,10 +14,9 @@
     <%# } -%>
   </div>
   -->
+  <h3 class="title"><%= _('All time most popular tags')%></h3><a name="alltags"></a>
   <div id="tag_cloud">
-    <p>
-    <% Tagcloud.tags_assign_font_size( 'ALL' ).each do | s | -%>
+    <% Tagcloud.tags_assign_font_size( 0 ).each do | s | -%>
       <%=link_to "#{ s[ :name ] }", search_openfoundry_path( :query => "tag:#{ s[ :name ] }", :commit => 'search' ), :style => "font-size: #{ s[ :font ] }px;" %>
     <% end -%>
-    </p>
   </div>

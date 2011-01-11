@@ -64,7 +64,7 @@
           </a>
           </h3>
 	  <h6>
-		  <%= h(@project.summary) %>
+		  <%= truncate(h(@project.summary), 50) %>
           </h6>
         <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
           <%= image_tag "green_arrow_right.gif" %>

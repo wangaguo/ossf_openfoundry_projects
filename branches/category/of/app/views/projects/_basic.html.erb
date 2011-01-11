@@ -4,7 +4,7 @@
       h = data.shift
       d = data.shift
 
-      rtn += %Q!<tr class="#{["odd", "even"][i = 1 - i]}"><td width="20%">#{h}</td><td width="80%">#{d}</td></tr>\n!
+      rtn += %Q!<tr><td width="20%" class="fieldstyle">#{h}：</td><td width="80%">#{d}</td></tr>\n!
     end
     rtn
 end %>
@@ -16,20 +16,21 @@ end %>
 end %>
 
 <div id="ProjectBasic">  
-  <fieldset>
     <div id="basic">
-    <table class="list-table" style="table-layout: fixed">
-      <tr class="even">
-	<td width="20%"><%= t("Project|Description") %></td>
-  <td width="80%" style="word-wrap: break-word; word-break: break-all;"><%=content_tag(:span, @project.description.mb_chars[0..149], :id => "more_head") %><%=content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
-	<% if @project.description.mb_chars.length > 150 -%>
+    <table class="list-table" >
+      <tr >
+        <td width="20%" class="fieldstyle"><%= t("Project|Description") %>：</td>
+  <td width="80%" style="word-wrap: break-word; word-break: break-all;">
+    <%=content_tag(:span, @project.description.mb_chars[0..149], :id => "more_head") %>
+    <%=content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
+  <% if @project.description.mb_chars.length > 150 -%>
   <span id="showMoreLink">
     ...
     <br/>
-    <a id ="mr" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.2}); $('showMoreLink').hide(); $('showLessLink').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
+    <a id ="mr" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.3}); $('showMoreLink').hide(); $('showLessLink').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
   </span>
   <span id="showLessLink" style="display: none;">
-    <a id ="le" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.2}); $('showMoreLink').show(); $('showLessLink').hide(); return false" style="padding:8px;float:right"><%= t('Less...') %></a>
+    <a id ="le" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.3}); $('showMoreLink').show(); $('showLessLink').hide(); return false" style="padding:8px;float:right"><%= t('Less...') %></a>
   </span>
 	<% end -%>
 	</td>
@@ -38,7 +39,7 @@ end %>
   </div>
   <%
     alltaglist = [ 
-      @pjtags.map{ | t | t.name if t.status == 1 }.compact.join( ', ' ), 
+      @pjtags.map{ | t | link_to(t.name, search_openfoundry_path( :query => "tag:#{ t.name }", :commit => 'search' )) if t.status == 1 }.compact.join( ', ' ), 
       @pjtags.map{ | t | "<span title='#{ t( 'Msg.New_Added_Tag' ) }'><font color='#c0c0c0'>" +
                          t.name +
                          '</font></span>' if t.status == 0 }.compact.join( ', ' )
@@ -48,7 +49,7 @@ end %>
     <table class="list-table">
     <%= rows(1, 
       * ([ 
-      t("Project|Category"), content_tag( :span, @category ),
+      t("Project|Category"), link_to(@category, list_category_path( :cat => @project.category )),
 			t("Project|Tags"), alltaglist,
       t("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], t("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : t("#{i_s[1]}")}.join("<br/>\n"), 
       t("Project|Platform"), show_with_seperator(@project.platform),
@@ -58,5 +59,4 @@ end %>
     %>
   </table>
   </div>
-  </fieldset>
 </div>
