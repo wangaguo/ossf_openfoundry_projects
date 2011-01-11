@@ -11,6 +11,8 @@ class Tagcloud < ActiveRecord::Base
 
 	# set tagcloud default values before saving
 	before_save :default_values
+  # disconnect the relations before destroying tags
+  before_destroy :break_relations
 
   # definitions for status flags
   TYPE = { :TAG => 0, :CATEGORY => 1 }.freeze
@@ -92,6 +94,20 @@ class Tagcloud < ActiveRecord::Base
   def self.cachedtags
     Rails.cache.fetch( 'tmptags', :expires_in => 1.hour ) do
       Tagcloud.find :all, :conditions => { :status => STATUS[ :READY ] }
+    end
+  end
+
+  # disconnect the relations between projects and destroyed tags
+  def break_relations
+    # delete the relations between projects and tags
+    # ( category is also be a kind of tags )
+    dtp = TagcloudsProject.find :all, :conditions => { :tagcloud_id => self.id }
+    dtp.each { | dp | dp.destroy } unless dtp.empty?
+
+    # remove the categories of projects
+    if self.tag_type == Tagcloud::TYPE[ :CATEGORY ]
+      projs = Project.find :all, :conditions => { :category => self.id }
+      projs.each { | p | p.category = nil; p.save }
     end
   end
 end
