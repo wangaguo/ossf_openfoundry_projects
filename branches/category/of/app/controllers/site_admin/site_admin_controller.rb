@@ -138,4 +138,9 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     headers["Content-Type"] = "text/plain" 
     render :text => "load '#{OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH}' ok\n#{$run_code_result}"
   end
+
+  def manage_tags
+    flash.now[ :notice ] = session[ :tmsg ] unless session[ :tmsg ].nil?
+    session[ :tmsg ] = nil
+  end
 end
