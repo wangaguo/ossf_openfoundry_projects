@@ -224,7 +224,7 @@ class ProjectsController < ApplicationController
     allrawtags = @project.alltags_without_check
     # build tags with span tags
     unless allrawtags.empty?
-      divhead = '<div class="tagged" onclick="javascript: $( this ).remove();">'
+      divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">'
       allrawtags.each{ | t |
         @tagspan += divhead + t.name + '</div>'
       }
