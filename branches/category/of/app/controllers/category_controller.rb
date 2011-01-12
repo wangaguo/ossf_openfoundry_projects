@@ -35,8 +35,9 @@ class CategoryController < ApplicationController
     add_to_sortable_columns( 'listing', Project, 'name', 'name' )
     add_to_sortable_columns( 'listing', Project, 'summary', 'summary' )
     add_to_sortable_columns( 'listing', Project, 'category', 'category' )
-    add_to_sortable_columns( 'listing', Project, 'created_at', 'created_at' )
+    add_to_sortable_columns( 'listing', Release, 'updated_at', 'updated_at' )
 
+    start_time = DateTime.now
 		# all used projects
 		@pcs_projects = Project.in_used
 
@@ -56,9 +57,9 @@ class CategoryController < ApplicationController
 				$0
 			}
 
-#			@results = @pcs_projects.find_with_ferret( query, :limit => :all).instance_values["results"]
-			@results = @pcs_projects.find(:all, :conditions => ["summary LIKE ? OR name LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing'))
-			@pcs_projects = @results
+      s = Ferret::Search::SortField.new(:name_for_sort, :reverse => false)
+      @pcs_projects = @pcs_projects.find_with_ferret( query, {:limit => :all} ).instance_values["results"]
+#			@pcs_projects = @pcs_projects.find(:all, :conditions => ["name LIKE ? OR summary LIKE ? OR description LIKE ? OR programminglanguage LIKE ? OR platform LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing', :field => 'name', :sort_direction => :asc ))
 
 			# increase the search times for tags
 			Tagcloud.increase_searched_tag( keyword ) if session[ :search_keyword ] != keyword
@@ -68,7 +69,7 @@ class CategoryController < ApplicationController
 		# with nsc filter
     if params[ :nsc_or_not ] == 'true'
       @pcs_projects = @pcs_projects.find(:all, :order => sortable_order( 'listing')) if params[ :cat_query ].blank?
-      @pcs_projects = @pcs_projects.select{ |p| p.is_nsc_project }
+      @pcs_projects = @pcs_projects.select(&:is_nsc_project)
     end
 
 		# with paginate process
@@ -76,15 +77,14 @@ class CategoryController < ApplicationController
     [ params[ :page ], 1 ].each do | page |
       @final_project_list = @pcs_projects.paginate(
 		     :page => page,
-		     :per_page => 10,
+		     :per_page => 20,
 		     :include => [ :ready_releases ],
 		     :order => sortable_order( 'listing', :model => Release, :field => 'updated_at', :sort_direction => :desc ) ) 
-      logger.debug "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-      logger.debug @final_project_list.inspect
-      logger.debug "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
       break if not @final_project_list.out_of_bounds?
     end
+    end_time=DateTime.now
+    @elapsed_seconds = format("%.2f", (end_time.to_f - start_time.to_f))
 
    	render :layout => false if request.xhr?
   end
