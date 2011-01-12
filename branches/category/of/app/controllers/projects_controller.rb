@@ -197,6 +197,15 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    # preserve the tags for validation error
+    @tagspan = ''
+    unless params[ :__clibeanna ].empty?
+      divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">'
+      params[ :__clibeanna ].split( ',' ).each{ | t |
+        @tagspan += divhead + t + '</div>'
+      }
+    end
+
     join_with_separator
     params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
 
@@ -223,6 +232,15 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    # preserve the tags for validation error
+    @tagspan = ''
+    unless params[ :__clibeanna ].empty?
+      divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">'
+      params[ :__clibeanna ].split( ',' ).each{ | t |
+        @tagspan += divhead + t + '</div>'
+      }
+    end
+
     params[:project].delete(:name)
     join_with_separator
     params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
