@@ -72,7 +72,8 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    list
+    redirect_to :controller => 'category', :action => 'list'
+    #list
     #render :action => 'list'
     logger.debug "session['user']: " + session[:user].inspect
   end
