@@ -149,6 +149,7 @@ class ProjectsController < ApplicationController
     @p = @participents.group_by { |p| p.role_name }
 
     @category = ( @project.category.nil? )? "" : Tagcloud.find_by_id( @project.category ).name
+    @pjtags = @project.alltags_without_check
 
     #
     # for project issues
