@@ -72,7 +72,8 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    list
+    redirect_to :controller => 'category', :action => 'list'
+    #list
     #render :action => 'list'
     logger.debug "session['user']: " + session[:user].inspect
   end
@@ -148,6 +149,9 @@ class ProjectsController < ApplicationController
     ")
     @p = @participents.group_by { |p| p.role_name }
 
+    @category = ( @project.category.nil? )? "" : Tagcloud.find_by_id( @project.category ).name
+    @pjtags = @project.alltags_without_check
+
     #
     # for project issues
     #
@@ -195,11 +199,21 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    # preserve the tags for validation error
+    @tagspan = ''
+    unless params[ :__clibeanna ].empty?
+      divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">'
+      params[ :__clibeanna ].split( ',' ).each{ | t |
+        @tagspan += divhead + t + '</div>'
+      }
+    end
+
     join_with_separator
     params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
+      TagcloudsProject.append_tags_to_project @project.id, params[ :__clibeanna ] if params[ :__clibeanna ]
       redirect_to :action => 'applied'
     else
       render :action => 'new'
@@ -207,9 +221,28 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    # find all tags for projects
+    @tagspan = ''
+    allrawtags = @project.alltags_without_check
+    # build tags with span tags
+    unless allrawtags.empty?
+      divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">'
+      allrawtags.each{ | t |
+        @tagspan += divhead + t.name + '</div>'
+      }
+    end
   end
 
   def update
+    # preserve the tags for validation error
+    @tagspan = ''
+    unless params[ :__clibeanna ].empty?
+      divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">'
+      params[ :__clibeanna ].split( ',' ).each{ | t |
+        @tagspan += divhead + t + '</div>'
+      }
+    end
+
     params[:project].delete(:name)
     join_with_separator
     params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
@@ -220,6 +253,10 @@ class ProjectsController < ApplicationController
     if @project.status == Project::STATUS[:PENDING] 
       params[:project][:status] = Project::STATUS[:APPLYING]
     end
+
+    # update project tags
+    TagcloudsProject.delete_project_alltags @project.id
+    TagcloudsProject.append_tags_to_project @project.id, params[ :__clibeanna ] if params[ :__clibeanna ]
 
     if @project.update_attributes(params[:project])
       if @project.status == Project::STATUS[:APPLYING] 

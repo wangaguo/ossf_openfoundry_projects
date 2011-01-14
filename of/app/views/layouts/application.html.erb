@@ -14,6 +14,7 @@
   <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
   <%= javascript_include_tag 'calendar/calendar-setup' %>
   <%= javascript_include_tag 'langsync' %>
+  <%= javascript_include_tag 'qrcode' %>
   <%= stylesheet_link_tag 'calendar' %>
   <%# end %>
   <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
@@ -54,56 +55,62 @@
        <div class="pj_logo" >
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
             <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=48 />
-          </a>
+	  </a>
        </div>
-       <div >
+       <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
           <h3>
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
-            <%= h(@project.summary) %>
+            <%= h(@project.name) %>
           </a>
           </h3>
+	  <h6>
+		  <%= truncate(h(@project.summary), 50) %>
+          </h6>
         <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
           <%= image_tag "green_arrow_right.gif" %>
           <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a>
         <%end%>
           <%= render :partial => 'images/edit', :locals =>
-          {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) } %>
+	  {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) } %>
        </div>
       <%end%>
     </div>
     <% string = request.path -%>
     <% match = !string.match(/site_admin/).nil?-%>
-    <% if match == true -%> 
+    <% if match == true || ( controller.controller_name == 'openfoundry' && controller.action_name == 'search' ) -%> 
       <div id="MainContent" class="rt-grid-12">
     <% else -%> 
       <div id="MainContent" class="rt-grid-9 rt-push-3">
-   <% end -%>    
-      <div id="Flash"><%= show_flash %></div>
-      <%= yield :layout %>
-    </div>
+    <% end -%>    
+        <div id="Flash"><%= show_flash %></div>
+        <%= yield :layout %>
+      </div>
     <% if match == true -%> 
         <div id="LeftWidget" style="display:none;">
     <% else -%> 
         <div id="LeftWidget" class="rt-grid-3 rt-pull-9">
     <% end -%> 
     	<%if params["project_id"] != nil%>
+          <%=render :partial => "news/news_list", :locals => {:project => @project}%>
           <%#=render :partial => "partials/project_logo", :locals => {:project => @project}%>
         <div id="LeftMenu">
-          <%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+		<%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+		<%=render :partial => "partials/qrcode_project", :locals => {:project => @project}%>
+		<%#= qrcode("http://www.openfoundry.org/of/projects/#{@project.id}", 2, 8, h(@project.summary)) %>
         </div>
-          <% module_title = capture do %>
-            <%= _('News') %>
-          <% end %>
-          <% module_content = capture do%>
-            <%=render :partial => "news/news_list", :locals => {:project => @project}%>
-          <% end %>
-          <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
+          <%# module_title = capture do %>
+            <%#= _('News') %>
+          <%# end %>
+          <%# module_content = capture do%>
+            <%#=render :partial => "news/news_list", :locals => {:project => @project}%>
+          <%# end %>
+          <%#= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
       <%elsif controller.controller_name == "user"%>
           <%=render :partial => "partials/dashboard_menu", :locals => {:project => @project}%>
       <%elsif controller.controller_name == "help"%>
         <%=render :partial => "partials/help_menu"%>
       <%else%>
-        <%=render :partial => "partials/homeleft"%>
+        <%=render :partial => "partials/homeleft" unless ( controller.controller_name == 'openfoundry' && controller.action_name == 'search' ) || ( controller.controller_name == 'site_admin' && controller.action_name == 'manage_tags' )  %><%#TODO CodeReview! (2011/01/13)%>
       <%end%>
     </div>
   </div>

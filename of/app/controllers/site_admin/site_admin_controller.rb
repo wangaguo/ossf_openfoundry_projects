@@ -250,4 +250,9 @@ class SiteAdmin::SiteAdminController < SiteAdmin
     filename = Time.now.strftime("%Y-%m-%d") + ".csv"
     send_data(csv_string, :type => 'text/csv; charset=UTF-8; header=present',:filename => filename)
   end
+
+  def manage_tags
+    flash.now[ :notice ] = session[ :tmsg ] unless session[ :tmsg ].nil?
+    session[ :tmsg ] = nil
+  end
 end

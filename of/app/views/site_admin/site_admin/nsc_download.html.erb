@@ -10,6 +10,7 @@ else
 end
 projects = Project.find(:all, :joins=>:tags, :conditions => [conditions + "AND (projects.name LIKE ? OR projects.description LIKE ? OR tags.name LIKE ?)", "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%"])
 i = 0
+
 %>
 <div id="ReleaseList">
   <h1><%= _('Release Listing') %></h1>

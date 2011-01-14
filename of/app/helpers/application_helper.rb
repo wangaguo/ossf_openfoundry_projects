@@ -61,7 +61,7 @@ module ApplicationHelper
               _('Project Listing'), Project, 'name'
           when 'category'
             level_name, level_class, level_title = 
-              _('Project Category'), Project, 'name'
+              _('Project Listing'), Project, 'name'
           when 'news'
             level_name, level_class, level_title = 
               _('News'), News, 'subject'
@@ -383,6 +383,11 @@ module ApplicationHelper
   def nl2br(htmlstring)
     htmlstring.gsub("\n\r", "<br />").gsub("\r", "").gsub("\n", "<br />")
   end
+
+  def ts(st)
+    st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+  end
+
 end
 
    
