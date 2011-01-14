@@ -52,7 +52,8 @@ ActionController::Routing::Routes.draw do |map|
 				 :get_session_by_id2 => :any,
 				 :get_user_by_session_id => :any
 				}
-  map.resources :category
+  map.resources :category,
+  		:collection => { :list => :get }
   map.resources :projects,
                 :collection => { :list => :get, :applied => :get, 
 			         :tableizer => :get,

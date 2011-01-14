@@ -1,4 +1,9 @@
 <div id="ProjectMember">
+  <%= 'Creator:' %>
+  <div>
+    <%= ((u = User.find_by_id(@project.creator)) ? user_portrait_link(u, :with_login => true, :float => 'left') : "") %>
+  </div>
+  <br/><br/><br/>
   <%
     keys = ['Admin', 'Member'] | (@p.keys.sort - ['Admin', 'Member'])
     keys.each do |role|

@@ -1,0 +1,33 @@
+<div id='ProjectFilterList' name='ProjectFilterList'>
+
+  <%= "About #{ts(@pcs_projects.count)} projects (#{@elapsed_seconds.to_s} seconds.)"%>
+	<%=paginate = will_paginate cat_projects, :params => { :cat => params[ :cat ], :nsc_or_not => params[ :nsc_or_not ], :cat_query => params[ :cat_query ] }
+  	 # make each page with the value of select and checkbox
+  %>
+	
+	  <table class='ProjectList'>
+		<tr>
+			<th width='20%'><%=link_to 'Project Name', sort_param( 'listing', Project, 'name', 'name' ) %></th>
+			<th width='53%'><%=link_to 'Summary', sort_param( 'listing', Project, 'summary', 'summary' ) %></th>
+			<th width='15%'><%=link_to 'Category', sort_param( 'listing', Project, 'category', 'category' ) %></th>
+			<th width='12%'><%=link_to 'Release At', sort_param( 'listing', Release, 'updated_at', 'updated_at' ) %></th>
+		</tr>
+
+    <% highlight_keyword = params[:cat_query].to_s.split(' ') -%>
+		<% i = 0; class_name = ''; -%> 
+		<% for project in cat_projects -%> 
+			<% i = 1 - i -%> 
+			<% if i == 1; class_name = 'odd'; else; class_name = 'even'; end; -%> 
+
+      <tr class="item_h <%=class_name %>">
+		  	<td class="pj_name"><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
+        <td><%=highlight(h( project.summary ), highlight_keyword) unless project.summary.nil? %></td>
+				<td><%=highlight(h( project.cattag.name ), highlight_keyword) unless project.cattag.nil? %></td>
+			  <td><%=h( tz_date( project.last_release[ 0 ].updated_at ) ) unless project.last_release.empty? %></td>
+   		</tr>
+	  <% end -%> 
+    </table>
+
+	<%=paginate %>
+
+</div>

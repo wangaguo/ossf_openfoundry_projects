@@ -1,6 +1,127 @@
 <%# https://sourceforge.net/register-project %>
 <%# http://code.google.com/hosting/createProject %>
 
+<%=stylesheet_link_tag 'jquery.autocomplete', 'jquery.simpledialog' %>
+<%=javascript_include_tag 'jquery', 'jquery.autocomplete', 'jquery.simpledialog' %>
+
+<style type="text/css">
+  .tagged
+  {
+    display: inline-block;
+    padding: 2px;
+    border: 1px solid #ccccdd;
+    margin: 2px 2px;
+    font: 12px bold;
+  }
+
+  .tagged:hover
+  {
+    background-color: #e8e8f0;
+    border: 1px solid #777788;
+    text-decoration: line-through;
+  }
+</style>
+
+<script type="text/javascript">
+  var $j = jQuery.noConflict();
+
+  // check added tag is duplicated or not
+  function add_to_tags_list()
+  {
+    // Pre-Process: trim the input
+    var input_tag = $j.trim( $j( '#Tags_Ctrl' ).val() );
+    $j( '#Tags_Ctrl' ).val( '' );
+
+    if( input_tag != '' )
+    {
+      // prevent the chinese words
+      var rege = /^[#+.!a-zA-Z0-9 ]+$/;
+      if( !rege.test( input_tag ) )
+      {
+        // simple dialog
+        $j( '#msgbox p' ).text( "<%=t( 'Msg.Limited_Input' ) %>" );
+        $j( '#msg' ).click();
+
+        return false;
+      }
+
+      var dupchk = false;
+      var divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">';
+
+      // prevent the duplicated tag to be tagged
+      $j( '#Tags_List div' ).each(
+        function()
+        {
+          if( $j( this ).text().toLowerCase() == input_tag.toLowerCase() )
+          {
+            // simple dialog
+            $j( '#msgbox p' ).text( "<%=t( 'Msg.Tag_Duplicated' ) %>" );
+            $j( '#Tags_Ctrl' ).blur();
+            $j( '#msg' ).click();
+
+            // mark the tag is duplicated
+            dupchk = true;
+
+            return false;
+          }
+        }
+      );
+
+      // append the tag to page
+      if( dupchk == false )
+        $j( '#Tags_List' ).append( divhead + input_tag + '</div>' );
+    }
+  }
+
+  // notification: how to remove tags
+  function tag_notify()
+  {
+    if( $j( '#Tags_List div' ).length > 1 )
+      $j( '#Tags_Remove' ).show();
+    else
+      $j( '#Tags_Remove' ).hide();
+
+    // clean input for google chrome
+    $j( '#Tags_Ctrl' ).val( '' );
+  }
+  
+  // determine the notification to display or not when removing a tag
+  function remove_tag( delobj )
+  {
+    delobj.remove();
+    tag_notify();
+  }
+
+  // pre-process for tags list before post the form
+  function __premark()
+  {
+    var data = '';
+    $j( '#Tags_List div' ).each(
+      function()
+      {
+        data += ',' + $j( this ).text();
+      }
+    );
+  
+    $j( '#__clibeanna' ).val( data.substring( 2 ) );
+  }
+
+  // enhance the input with autocomplete
+  $j( document ).ready(
+    function()
+    {
+      tag_notify();
+
+      // initial autocomplete
+      var data = [ '<%=Tagcloud.cachedtags.map{ | t | t.name }.join( "','" ) %>' ];
+      $j( '#Tags_Ctrl' ).autocomplete( data, { matchContains: false } );
+
+      // initial simpledialog
+      $j( '#msg' ).simpleDialog( { showCloseLabel: false } );
+    }
+  );
+</script>
+
 <%= error_messages_for 'project' %>
 
 <!--[form:project]-->
@@ -75,6 +196,16 @@ AAA
   # rationale
   foo("description", true, _("Project|Description|Help")),
     text_area('project', 'description'),
+  foo( 'category', false, t( 'CreateHelp.Project_Category' ) ),
+    select( 'project', 'category', 
+            Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, :include_blank => '- Select Category -' ) + 
+            ' ' + mail_to( 'contact@openfoundry.org', t('Text.New_Category') ),
+  foo( 'Tags', false, t( 'CreateHelp.Project_Tags' ) ),
+    "<div id=\"Tags_List\"><div></div>#{ @tagspan }</div>" + 
+    text_field_tag( 'Tags_Ctrl', '', { :size => 20 } ) + 
+    "<input type=\"button\" value=\"#{ t('Text.OK') }\" onclick=\"javascript: add_to_tags_list(); tag_notify();\">" + 
+    "<br>#{ t( 'Msg.Send_A_Tag' ) }" + 
+    "<div id=\"Tags_Remove\"><font color='#ff0000'>#{ t( 'Msg.Click_Remove' ) }</font></div>",
   foo("contactinfo", false, _("Project|Contactinfo|Help")),
     text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
   foo("maturity", true, _("Project|Maturity|Help")),
@@ -110,7 +241,10 @@ AAA
   e.g. NSC97-2218-E-123-456
   <%= err(@project, :nsccode, text_field_tag('project[nsccode]', tmp_nsccode, :size => 50)) %>
 </fieldset>
-
-
 <!--[eoform:project]-->
 
+<a href="#" id="msg" class="medium" rel="msgbox" style="display: none;"></a>
+<div id="msgbox" style="display: none;">
+  <p></p>
+  <a href="#" class="close">close</a>
+</div>

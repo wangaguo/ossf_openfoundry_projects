@@ -1,8 +1,8 @@
 en:
   "Project Releases": "Project Releases"
   "user": "User"
-  "Project Listing": "Project Listing"
-  "Project Category": "Project Category"
+  "Project Listing": "Project"
+  "Project Category": "Project List"
   "Project News": "Project News"
   "Help Wanted": "Help Wanted"
   "Citations": "Citations"
@@ -44,11 +44,12 @@ en:
   "breadcrumb|member_edit": "Member Control"
   "breadcrumb|reviews": "Survey"
   "breadcrumb|search": "Search"
-  "breadcrumb|openfoundry": "OpenFoundry"
+  "breadcrumb|openfoundry": "Projects"
   "breadcrumb|files": "Files"
   "breadcrumb|new_release": "New Release"
   "breadcrumb|nscreports": "nscreports"
   "breadcrumb|nsc" : "nsc"
+  "breadcrumb|list" : "Project List"
   "User|Login": "Login"
   "User|Email": "Email Address"
   "User|Realname": "Realname"
@@ -110,6 +111,8 @@ en:
   "Project|Vcsdescription": "Version Control System Description "
   "Project|Creator": "Creator"
   "Project|Created at": "Created at"
+  "Project|Category": "Category"
+  "Project|Tags": "Tags"
   "IDEA": "Idea"
   "PREALPHA": "Pre-Alpha"
   "ALPHA": "Alpha"
@@ -124,9 +127,9 @@ en:
   "url_link_for_OSI: Attribution Assurance Licenses": "http://www.opensource.org/licenses/attribution.php"
   "url_link_for_OSI: BSD License (New and Simplified BSD License)": "http://www.openfoundry.org/licenses/31"
   "url_link_for_OSI: Boost Software License (BSL1_0)": "http://www.opensource.org/licenses/bsl1.0.html"
-  "url_link_for_OSI: Common Development and Distribution License (CDDL)": "http://www.openfoundry.org/licenses/2061-cddl" 
+  "url_link_for_OSI: Common Development and Distribution License (CDDL)": "http://www.openfoundry.org/licenses/2061-cddl"
   "url_link_for_OSI: Common Public Attribution License 1_0 (CPAL)": "http://www.opensource.org/licenses/cpal_1.0"
-  "url_link_for_OSI: Common Public License 1_0": "http://www.openfoundry.org/licenses/754" 
+  "url_link_for_OSI: Common Public License 1_0": "http://www.openfoundry.org/licenses/754"
   "url_link_for_OSI: Eclipse Public License": "http://www.openfoundry.org/licenses/2062-cpl-and-epl"
   "url_link_for_OSI: Educational Community License 2_0": "http://www.opensource.org/licenses/ecl2.php"
   "url_link_for_OSI: Eiffel Forum License 2_0": "http://www.opensource.org/licenses/ver2_eiffel.php"
@@ -139,7 +142,7 @@ en:
   "url_link_for_OSI: Lucent Public License 1_02": "http://www.opensource.org/licenses/lucent1.02.php"
   "url_link_for_OSI: Microsoft Public License (Ms-PL)": "http://www.opensource.org/licenses/ms-pl.html"
   "url_link_for_OSI: Microsoft Reciprocal License (Ms-RL)": "http://www.opensource.org/licenses/ms-rl.html"
-  "url_link_for_OSI: MIT License": "http://www.openfoundry.org/licenses/34" 
+  "url_link_for_OSI: MIT License": "http://www.openfoundry.org/licenses/34"
   "url_link_for_OSI: Mozilla Public License 1_1 (MPL)": "http://www.openfoundry.org/licenses/33"
   "url_link_for_OSI: NASA Open Source Agreement 1_3": "http://www.opensource.org/licenses/nasa1.3.php"
   "url_link_for_OSI: NTP License": "http://www.opensource.org/licenses/ntp-license.php"
@@ -153,7 +156,7 @@ en:
   "url_link_for_GNU Free Documentation License": "http://www.fsf.org/licensing/licenses/fdl.html"
   "url_link_for_Creative Commons: Attribution Non-commercial No Derivatives (by-nc-nd)": "http://creativecommons.org/licenses/by-nc-nd/3.0/"
   "url_link_for_Creative Commons: Attribution Non-commercial Share Alike (by-nc-sa)": "http://creativecommons.org/licenses/by-nc-sa/3.0/"
-  "url_link_for_Creative Commons: Attribution Non-commercial (by-nc)": "http://creativecommons.org/licenses/by-nc/3.0/" 
+  "url_link_for_Creative Commons: Attribution Non-commercial (by-nc)": "http://creativecommons.org/licenses/by-nc/3.0/"
   "url_link_for_Creative Commons: Attribution No Derivatives (by-nd)": "http://creativecommons.org/licenses/by-nd/3.0/"
   "url_link_for_Creative Commons: Attribution Share Alike (by-sa)": "http://creativecommons.org/licenses/by-sa/3.0/"
   "url_link_for_Creative Commons: Attribution (by)": "http://creativecommons.org/licenses/by/3.0/"
@@ -192,7 +195,7 @@ en:
   "Announcements": "Announcements"
   "News": "News"
   "OpenFoundry News": "OpenFoundry News"
-  "project_News": "Project News"
+  "project_News": "Project Bulletin"
   "Add News": "Add News"
   "No this release.": "No this release."
   "Add Successful": "Add Sucessful"
@@ -329,7 +332,10 @@ en:
   "Tag Cloud": "Tag Cloud"
   "Please keyin according the image": "Please keyin according the image"
   "search": "Search"
+  "All time most popular tags": "All time most popular tags"
   "Advanced Options": "Advanced Options"
+  "No record": "Sorry! Can't find any project, please try again."
+  "Please input some keyword": "Please input some keyword to help you find project."
   "Search in Class": "Search in Class"
   "Search Include ALL of the List": "Search Include ALL of the List"
   "Search Include ANY of the List": "Search Include ANY of the List"
@@ -465,6 +471,7 @@ en:
   "Release Name": "Release name"
   "Release Date": "Release Date"
   "survey|Downloader Reviews": "Downloader Reviews"
+  "survey|Toggle Description": "Toggle"
   "Downloads Hits": "Hits"
   "[Edit]": "Edit"
   "[Delete]": "Delete"
@@ -609,3 +616,171 @@ en:
     use_cvs_help: "This project's CVS repository can be checked out through anonymous (pserver) CVS with the following instruction set:"
   msg:
     postrt_without_login: "You have not logged in; please log in or register from the links in the top-right corner, If you really want to submit a ticket as guest, please leave your contact information, such as email address, in the ticket body, so the developers can contact you when the issue is resolved."
+  Menu:
+    Category: "Project List"
+  Option:
+    Select_Category: "Select Category"
+    All_Category: "All Category"
+  CreateHelp:
+    Project_Category: "Project Category"
+    Project_Tags: "Project Tags"
+  Msg:
+    Tag_Duplicated: "The tag is used."
+    Limited_Input: "Alphanumeric and blank only."
+    Click_Remove: "If you want to remove the tags, you can click them to remove." 
+    New_Added_Tag: "New Added Tag"
+    Send_A_Tag: "Tags about this project: ex. Android, Ruby, Medication Box"
+  Text:
+    NSC_Project: "國科會專案"
+    New_Category: "建議新分類?"
+    OK: "確認"
+
+
+# -------------------------------------------------------------------
+# rails-I18n default translation
+# -------------------------------------------------------------------
+# Chinese (Taiwan) translations for Ruby on Rails
+# by tsechingho (http://github.com/tsechingho)
+
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b%d日"
+      long: "%Y年%b%d日"
+    day_names: [星期日, 星期一, 星期二, 星期三, 星期四, 星期五, 星期六]
+    abbr_day_names: [日, 一, 二, 三, 四, 五, 六]
+    month_names: [~, 一月, 二月, 三月, 四月, 五月, 六月, 七月, 八月, 九月, 十月, 十一月, 十二月]
+    abbr_month_names: [~, 1月, 2月, 3月, 4月, 5月, 6月, 7月, 8月, 9月, 10月, 11月, 12月]
+    order: [ :year, :month, :day ]
+  
+  time:
+    formats:
+      default: "%Y年%b%d日 %A %H:%M:%S %Z"
+      short: "%b%d日 %H:%M"
+      long: "%Y年%b%d日 %H:%M"
+    am: "上午"
+    pm: "下午"
+  
+  datetime:
+    distance_in_words:
+      half_a_minute: "半分鐘"
+      less_than_x_seconds:
+        one: "不到一秒"
+        other: "不到 {{count}} 秒"
+      x_seconds:
+        one: "一秒"
+        other: "{{count}} 秒"
+      less_than_x_minutes:
+        one: "不到一分鐘"
+        other: "不到 {{count}} 分鐘"
+      x_minutes:
+        one: "一分鐘"
+        other: "{{count}} 分鐘"
+      about_x_hours:
+        one: "大約一小時"
+        other: "大約 {{count}} 小時"
+      x_days:
+        one: "一天"
+        other: "{{count}} 天"
+      about_x_months:
+        one: "大約一個月"
+        other: "大約 {{count}} 個月"
+      x_months:
+        one: "一個月"
+        other: "{{count}} 個月"
+      about_x_years:
+        one: "大約一年"
+        other: "大約 {{count}} 年"
+      over_x_years:
+        one: "一年多"
+        other: "{{count}} 年多"
+      almost_x_years:
+        one: "接近一年"
+        other: "接近 {{count}} 年"
+    prompts:
+      year: "年"
+      month: "月"
+      day: "日"
+      hour: "時"
+      minute: "分"
+      second: "秒"
+  
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+    currency:
+      format:
+        format: "%u %n"
+        unit: "NT$"
+        separator: "."
+        delimiter: ","
+        precision: 2
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+  
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " 和 "
+      last_word_connector: ", 和 "
+    select:
+      prompt: "請選擇"
+  
+  activerecord:
+    errors:
+      template: # ~ 2.3.5 backward compatible
+        header:
+          one: "有 1 個錯誤發生使得「{{model}}」無法被儲存。"
+          other: "有 {{count}} 個錯誤發生使得「{{model}}」無法被儲存。"
+        body: "以下欄位發生問題："
+      messages:
+        inclusion: "沒有包含在列表中"
+        exclusion: "是被保留的關鍵字"
+        invalid: "是無效的"
+        confirmation: "不符合確認值"
+        accepted: "必須是可被接受的"
+        empty: "不能留空"
+        blank: "不能是空白字元"
+        too_long: "過長（最長是 {{count}} 個字）"
+        too_short: "過短（最短是 {{count}} 個字）"
+        wrong_length: "字數錯誤（必須是 {{count}} 個字）"
+        taken: "已經被使用"
+        not_a_number: "不是數字"
+        not_an_integer: "必須是整數"
+        greater_than: "必須大於 {{count}}"
+        greater_than_or_equal_to: "必須大於或等於 {{count}}"
+        equal_to: "必須等於 {{count}}"
+        less_than: "必須小於 {{count}}"
+        less_than_or_equal_to: "必須小於或等於 {{count}}"
+        odd: "必須是奇數"
+        even: "必須是偶數"
+        record_invalid: "校驗失敗: {{errors}}"
+  
+  activemodel:
+    errors:
+      template:
+        header:
+          one: "有 1 個錯誤發生使得「{{model}}」無法被儲存。"
+          other: "有 {{count}} 個錯誤發生使得「{{model}}」無法被儲存。"
+        body: "以下欄位發生問題："
+

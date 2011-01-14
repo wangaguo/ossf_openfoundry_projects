@@ -7,24 +7,24 @@ class User < ActiveRecord::Base
   acts_as_authorized_user
 
   #add fulltext indexed SEARCH
-  acts_as_ferret({
-                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
-                             #:firstname => {:boost => 0.8,:store => :yes}, 
-                             #:lastname => {:boost => 0.8,:store => :yes}, 
-                             :name => {:boost => 0.8,:store => :yes} 
-                            },
-                 :single_index => true
-                 }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
+#  acts_as_ferret({
+#                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
+#                             #:firstname => {:boost => 0.8,:store => :yes}, 
+#                             #:lastname => {:boost => 0.8,:store => :yes}, 
+#                             :name => {:boost => 0.8,:store => :yes} 
+#                            },
+#                 :single_index => true
+#                 }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
 
   after_create :send_rt_create_msg
   after_update :send_rt_update_msg
 
   def send_rt_create_msg
-    send_msg(:user , :create , {:id  => id, :name  => login, :email  => email})
+    send_msg(:user, :create, {:id => id, :name => login, :email => email})
   end               
 
   def send_rt_update_msg
-    send_msg(:user , :update , {:id  => id, :name  => login, :email  => email})
+    send_msg(:user, :update, {:id => id, :name => login, :email => email})
   end          
 
   # disable ferret search if not verified        

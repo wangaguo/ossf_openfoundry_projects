@@ -2,7 +2,7 @@
 #of-body fieldset legend { font-weight:bold; color:#4265DE; }
 #of-body textarea { height:100px; width:500px; } 
 #of-body .odd { }
-#of-body .even { background-color:#EFF4FF; }
+#of-body .even { background-color:#F4F4F4; }
 #of-body dl>dt { font-weight:bold; }
 #of-body dl>dd { margin-left:35px; }
 #of-body .more { display:block; text-align:right; }
@@ -80,12 +80,33 @@
 #ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset, .form-padding
   { padding-left:20px; }
 /*#ProjectList img { width:32px; height:32px; display:none; }*/
-.ProjectList { border-collapse:collapse; width:99%; margin:2px; }
-.ProjectList th { background-color:#DEE7FF; }
-.ProjectList .item_h td { }
+.ProjectList { border-collapse:collapse; width:100%; margin:0.4em;table-layout:fixed;word-wrap: break-word; }
+.ProjectList th a { color:#3d3a3a;}
+.ProjectList th { 
+    background-color:#EFEFEF;
+    padding:0.4em;    
+    border-bottom: 1px solid #E5E5E5;
+    border-right: 1px solid #E5E5E5;
+}
+.ProjectList .item_h td {
+    padding: 0.4em;
+    vertical-align: top;
+    border: 1px solid #E5E5E5;
+ }
+.ProjectList .pj_name {font-size:14px;font-weight:bold;}
 .ProjectList .item_b { height:75px;  border-bottom:solid 1px grey; }
 .ProjectList .item_b td .imgarea { width:64px; height:64px; text-align:center; }
 .ProjectList .item_b td .txtarea { margin-left:20px; width:580px; height:64px; padding-left:20px; text-align:left; vertical-align:top; }
+
+/*For tag cloud */
+#tag_cloud {
+  padding:15px;
+}
+#tag_cloud a {
+  padding:5px;
+}
+.highlight {color: #ff8716;}
+
 
 /* module */
 .module_tab { float:right;  }
@@ -148,7 +169,7 @@
 #ReleaseBasic table {border:solid 2px #DEE7FF;width:100%}
 
 /* For Form Data */
-.form-table { width:95%; }
+.form-table { width:100%; }
 .form-table th { font-weight:bold; height:20px; background:#EFF4FF; }
 .form-table td { border-bottom:solid 1px #DFE9FF; height:20px; }
 #user_edit .form-table th { width:150px; }
@@ -158,10 +179,10 @@
 .form-data-dl dd { float:left; width:65%; line-height:20px; margin:1px;}
 
 /* For List Table */
-.list-table { border-collapse:collapse; width:99%; margin:2px; }
+.list-table { border-collapse:collapse; width:99%; margin:2px; table-layout: fixed;}
 .list-table th { background-color:#DEE7FF; }
-.list-table td { border-bottom:solid 1px #DFE9FF; }
-
+.list-table td { border-bottom:solid 1px #cccccc;padding:0.4em; word-wrap: break-word;}
+td.fieldstyle  { font-weight: bold; text-align: right;}
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {
