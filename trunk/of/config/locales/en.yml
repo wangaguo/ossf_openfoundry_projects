@@ -631,9 +631,9 @@ en:
     New_Added_Tag: "New Added Tag"
     Send_A_Tag: "Tags about this project: ex. Android, Ruby, Medication Box"
   Text:
-    NSC_Project: "國科會專案"
-    New_Category: "建議新分類?"
-    OK: "確認"
+    NSC_Project: "NSC Project"
+    New_Category: "Category Suggestion"
+    OK: "OK"
 
 
 # -------------------------------------------------------------------
