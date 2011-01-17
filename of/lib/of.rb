@@ -116,3 +116,7 @@ def right_slice(data, max_length)
   end
   data_chars[i+1 .. -1]
 end
+
+def real_title(word)
+  word.squeeze(' ').strip.gsub(/\b('?[a-z])/){$1.capitalize}
+end
