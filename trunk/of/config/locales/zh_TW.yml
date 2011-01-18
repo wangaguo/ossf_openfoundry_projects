@@ -176,7 +176,13 @@ zh_TW:
   "You have choosen too many licenses.": "您選擇了太多種程式碼授權方式"
   "You have choosen too many content licenses.": "您選擇了太多種圖文授權方式"
   "Please choose at least one code license": "請選擇至少一種程式碼授權方式"
+  "If this project contains no code, then you may not choose any other license": |
+    您在程式碼授權欄位已勾選此專案不包含程式碼 ，因此不可勾選其他程式授權條款。
   "Please choose at least one content license": "請選擇至少一種圖文授權方式"
+  "If this project contains only code, then you may not choose any other content license": |
+    您在圖文授權欄位已勾選此專案不包含圖文內容 ，因此不可勾選其他圖文授權條款。
+  "If the content license is the same with the code license, then you may not choose any other content license": |
+    您在圖文授權欄位已勾選同程式碼授權，已此不可再勾選其他圖文授權條款。
   "You have to choose a code license": "請選擇程式碼授權方式"
   "Please choose at least one platform": "請選擇至少一種作業環境"
   "Please choose at least one programming language": "請選擇至少一種程式語言"
