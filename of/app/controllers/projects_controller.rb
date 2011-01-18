@@ -209,7 +209,16 @@ class ProjectsController < ApplicationController
     end
 
     join_with_separator
-    params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
+    # params[:project][:nsccode] format:
+    # "nsccode" => [
+    #   {"0"=>"NSC100", "1"=>"2222", "2"=>"3", "3"=>"444", "4"=>"555"},
+    #   {"0"=>"NSC666", "1"=>"7777", "2"=>"8", "3"=>"999", "4"=>"000"}
+    # ],
+    # map to the origin format ["NSC100-2222-3-444-555", "NSC666-7777-8-999-000"]
+    @nsccodes = params[:project][:nsccode].map { |i| (0..4).map(&:to_s).map { |j| i[j] } }
+    params[:project][:nsccode] = params[:project][:nsccode].map do |hsh|
+      (0..4).map { |i| hsh[i.to_s] }.join('-')
+    end
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
@@ -231,6 +240,7 @@ class ProjectsController < ApplicationController
         @tagspan += divhead + t.name + '</div>'
       }
     end
+    @nsccodes = @project.tags.map(&:name).grep(/NSC/).map { |t| t.split('-') }
   end
 
   def update
@@ -245,7 +255,16 @@ class ProjectsController < ApplicationController
 
     params[:project].delete(:name)
     join_with_separator
-    params[:project][:nsccode] = params[:project][:nsccode].split(/,/).map(&:strip).map(&:upcase).grep(/^NSC/)
+    # params[:project][:nsccode] format:
+    # "nsccode" => [
+    #   {"0"=>"NSC100", "1"=>"2222", "2"=>"3", "3"=>"444", "4"=>"555"},
+    #   {"0"=>"NSC666", "1"=>"7777", "2"=>"8", "3"=>"999", "4"=>"000"}
+    # ],
+    # map to the origin format ["NSC100-2222-3-444-555", "NSC666-7777-8-999-000"]
+    @nsccodes = params[:project][:nsccode].map { |i| (0..4).map(&:to_s).map { |j| i[j] } }
+    params[:project][:nsccode].map! do |hsh|
+      (0..4).map { |i| hsh[i.to_s] }.join('-')
+    end
 
     old_redirecturl = @project.redirecturl
     old_vcs = @project.vcs

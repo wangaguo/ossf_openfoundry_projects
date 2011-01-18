@@ -203,3 +203,96 @@ function iframe_auto_height(fid)
   }
   catch(e){}
 }
+
+document.observe('dom:loaded', function() {
+  var releaseBasic = $('ReleaseBasic');
+  if (releaseBasic) {
+    releaseBasic.select('.toggle-description').each(function(elem) {
+      elem.observe('click', function() {
+        var fileId = this.readAttribute('data-file-id');
+        $('file-' + fileId).toggle();
+      });
+    });
+  }
+
+  var projectRoot = $('ProjectNew') || $('ProjectEdit');
+  if (projectRoot) {
+    var addCode = function(e) {
+      e.preventDefault();
+      var nsccode = projectRoot.select('.nsccode').last();
+      var newCode = nsccode.cloneNode(true);
+      newCode.select('input').each(function(e) { e.value = ''; });
+      nsccode.insert({ after: newCode });
+      newCode.select('input').first().focus();
+      newCode.select('button.add').first().observe('click', addCode);
+      newCode.select('button.remove').first().observe('click', removeCode);
+      refreshDisplay();
+    }
+
+    var removeCode = function(e) {
+      e.preventDefault();
+      if (projectRoot.select('.nsccode').length > 1) {
+        e.target.parentNode.remove();
+      } else {
+        e.target.parentNode.select('input').each(function(e) { e.value = ''; });
+      }
+      refreshDisplay();
+    };
+
+    var refreshDisplay = function() {
+      var nsccodes = projectRoot.select('.nsccode');
+      if (nsccodes.length > 1) {
+        var firstCode = nsccodes.shift();
+        firstCode.select('.add').first().show();
+        nsccodes.each(function(nsccode) {
+          nsccode.select('.add').first().hide();
+        });
+      } else {
+        var firstCode = nsccodes.shift();
+        firstCode.select('.add').first().show();
+      }
+    }
+    
+    refreshDisplay();
+
+    projectRoot.select('button.add').each(function(add) {
+      add.observe('click', addCode);
+    });
+
+    projectRoot.select('button.remove').each(function(remove) {
+      remove.observe('click', removeCode);
+    });
+
+    nsccodeFormat = [/NSC\d{2,3}/, /\d{4}/, /.{1}/, /\d{3}/, /\d{3}/];
+
+    projectRoot.select('form').first().observe('submit', function(e) {
+      __premark();
+      projectRoot.select('.nsccode').each(function(nsccode) {
+        inputs = nsccode.select('input');
+
+        isNSC = false;
+        for (var i = 0; i < 4; i++) {
+          if (inputs[i].value != "") {
+            isNSC = true;
+          }
+        }
+
+        if (isNSC) {
+          var showError = false;
+          for (var i = 0; i < 4; i++) {
+            if (!showError) {
+              if (inputs[i].value.match(nsccodeFormat[i]) == null) {
+                showError = true;
+                alert('國科會計畫編號格式錯誤!');
+                inputs[i].select();
+                inputs[i].focus();
+                e.preventDefault();
+                throw $break;
+              }
+            }
+          }
+        }
+      });
+    });
+  }
+});
