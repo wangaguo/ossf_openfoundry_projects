@@ -176,7 +176,13 @@ en:
   "You have choosen too many licenses.": "You have choosen too many licenses"
   "You have choosen too many content licenses.": "You have choosen too many content licenses."
   "Please choose at least one code license": "Please choose at least one code license."
+  "If this project contains no code, then you may not choose any other license": |
+    If this project contains no code, then you may not choose any other license.
   "Please choose at least one content license": "Please choose at least one content license."
+  "If this project contains only code, then you may not choose any other content license": |
+    If this project contains only code, then you may not choose any other content license.
+  "If the content license is the same with the code license, then you may not choose any other content license": |
+    If the content license is the same with the code license, then you may not choose any other content license.
   "You have to choose a code license": "You have to choose a code license"
   "Please choose at least one platform": "Please choose at least one platform."
   "Please choose at least one programming language": "Please choose at least one programming language."
