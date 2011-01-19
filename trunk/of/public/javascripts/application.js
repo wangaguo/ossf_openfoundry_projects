@@ -217,6 +217,14 @@ document.observe('dom:loaded', function() {
 
   var projectRoot = $('ProjectNew') || $('ProjectEdit');
   if (projectRoot) {
+    projectRoot.observe('keydown', function(e) {
+      if (e.target && e.target.type == 'text') {
+        if (e.keyCode == 13) {
+          e.preventDefault();
+        }
+      }
+    });
+
     var addCode = function(e) {
       e.preventDefault();
       var nsccode = projectRoot.select('.nsccode').last();

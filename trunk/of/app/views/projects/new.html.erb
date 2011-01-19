@@ -3,7 +3,6 @@
 <% form_tag :action => 'create' do %>
   <%= render :partial => 'form', :locals => { :is_edit => false } %>
   <%=hidden_field_tag '__clibeanna' %>
-  <input type="button" value="<%=_( 'Create' ) %>" onclick="javascript: __premark(); submit();">
-  <%#= submit_tag _('Create') %>
+  <%= submit_tag _('Create') %>
 <% end %>
 </div>
