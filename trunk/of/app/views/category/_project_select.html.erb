@@ -5,7 +5,7 @@
 <div id="ProjectSelect" name="ProjectSelect">
 
   <%=select( 'category', 'id',
-						 Tagcloud.find( :all, :conditions => { :status => 1, :tag_type => 1 } ).collect { | c | [ c.name, c.id ] },
+						 Tagcloud.find( :all, :conditions => { :status => 1, :tag_type => 1 } ).collect { | c | [ c.name, c.id ] }.drop(1).sort.push([Tagcloud.first.name, 1]),
 						 { :include_blank => 'All Category', :selected => params[ :cat ].to_i } )
 		 # :selected is stored last status of checkbox ( it must be string!! )
   %>

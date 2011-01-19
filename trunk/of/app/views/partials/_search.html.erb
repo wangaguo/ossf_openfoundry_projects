@@ -4,7 +4,7 @@
 	<% if params[:adv_cat] %>
   <input name="adv_cat" type="hidden" value="">
   <%= select( 'project', 'category',
-						 Tagcloud.find( :all, :conditions => { :status => 1, :tag_type => 1 } ).collect { | c | [ c.name, c.id ] },
+						 Tagcloud.find( :all, :conditions => { :status => 1, :tag_type => 1 } ).collect { | c | [ c.name, c.id ] }.drop(1).sort.push([Tagcloud.first.name, 1]),
              { :include_blank => '(Category)' , :selected => (params[:project][:category].to_i unless params[:project].blank? || params[:project].fetch(:category).blank?) }  )
   %>
 
