@@ -72,7 +72,7 @@ class SiteAdmin::TagsController < ApplicationController
   def update(oldname, newname, newstatus, newtype)
     @tag = Tagcloud.find_by_name( oldname )
     unless @tag.nil?
-      @tag.name = real_title(newname) if Tagcloud.find_by_name( real_title(newname) ).nil?
+      @tag.name = newname if Tagcloud.find_by_name( newname ).nil?
       @tag.status = newstatus.strip
       @tag.tag_type = newtype.strip
       session[:ided] = "#{@tag.id.to_s}" if @tag.save
