@@ -155,32 +155,32 @@ class ProjectsController < ApplicationController
     #
     # for project issues
     #
-    if @project.id
-      # the base request url for rt rdf
-      prturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
+    #if @project.id
+    #  # the base request url for rt rdf
+    #  prturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
 
-      # unsolved only
-      prturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
+    #  # unsolved only
+    #  prturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
 
-      # connect to the rdf file 
-      require 'open-uri'
-      content = ''
-      begin
-        open( URI::escape( prturl ) ) do | f | content = f.read end
-      rescue
-      end
-      # parse the rdf of project issues
-      require 'rss/1.0'
-      require 'rss/2.0'
-      require 'rss/dublincore'
-      require 'rss/content'
-      begin
-        @rss = RSS::Parser.parse( content, false, false )
-      #rescue RSS::InvalidRSSError
-      rescue
-        @rss = nil
-      end
-    end
+    #  # connect to the rdf file 
+    #  require 'open-uri'
+    #  content = ''
+    #  begin
+    #    open( URI::escape( prturl ) ) do | f | content = f.read end
+    #  rescue
+    #  end
+    #  # parse the rdf of project issues
+    #  require 'rss/1.0'
+    #  require 'rss/2.0'
+    #  require 'rss/dublincore'
+    #  require 'rss/content'
+    #  begin
+    #    @rss = RSS::Parser.parse( content, false, false )
+    #  #rescue RSS::InvalidRSSError
+    #  rescue
+    #    @rss = nil
+    #  end
+    #end
 
     render :layout => "application"
   end
