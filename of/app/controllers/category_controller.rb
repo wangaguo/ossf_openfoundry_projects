@@ -35,7 +35,7 @@ class CategoryController < ApplicationController
     add_to_sortable_columns( 'listing', Project, 'name', 'name' )
     add_to_sortable_columns( 'listing', Project, 'summary', 'summary' )
     add_to_sortable_columns( 'listing', Project, 'category', 'category' )
-    add_to_sortable_columns( 'listing', Release, 'updated_at', 'updated_at' )
+    add_to_sortable_columns( 'listing', Project, 'created_at', 'created_at' )
 
     start_time = DateTime.now
 		# all used projects
@@ -79,7 +79,7 @@ class CategoryController < ApplicationController
 		     :page => page,
 		     :per_page => 20,
 		     :include => [ :ready_releases ],
-		     :order => sortable_order( 'listing', :model => Release, :field => 'updated_at', :sort_direction => :desc ) ) 
+		     :order => sortable_order( 'listing', :model => Project, :field => 'created_at', :sort_direction => :desc ) ) 
 
       break if not @final_project_list.out_of_bounds?
     end
