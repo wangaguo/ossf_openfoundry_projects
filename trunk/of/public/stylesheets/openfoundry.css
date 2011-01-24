@@ -325,3 +325,7 @@ table#project_list {
 .sort { margin-bottom: 5px; }
 li.news_list { border-bottom: solid 1px grey; margin-bottom: 10px; }
 
+h3 span.maturity {
+  color: gray;
+  font-size: 0.8em;
+}

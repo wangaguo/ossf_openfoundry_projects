@@ -62,7 +62,7 @@
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
             <%= h(@project.name) %>
           </a>
-          <span class="maturity" style="color: gray; font-size: 0.8em;">
+          <span class="maturity">
             (<%= (t Project.maturity_to_s(@project.maturity)).gsub(/\(.+\)/, '') %>)
           </span>
           </h3>
