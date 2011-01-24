@@ -329,3 +329,11 @@ h3 span.maturity {
   color: gray;
   font-size: 0.8em;
 }
+
+.project-links {
+  float: right;
+}
+
+.project-links ul {
+  list-style: none;
+}

@@ -58,6 +58,11 @@
 	  </a>
        </div>
        <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
+         <div class="project-links">
+           <ul>
+             <li><a href="http://<%= @project.name %>.openfoundry.org" target="_blank">[<%= t('project_Homepage') %>]</a></li>
+           </ul>
+         </div>
           <h3>
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
             <%= h(@project.name) %>
