@@ -4,7 +4,7 @@
       h = data.shift
       d = data.shift
 
-      rtn += %Q!<tr><td width="20%" class="fieldstyle">#{h}：</td><td width="80%">#{d}</td></tr>\n!
+      rtn += %Q!<tr><td width="20%" class="fieldstyle">#{h}：</td><td width="80%">#{d}</td></tr>\n! if not strip_tags(d).blank?
     end
     rtn
 end %>
