@@ -51,9 +51,13 @@ end %>
       * ([ 
       t("Project|Category"), link_to(@category, list_category_path( :cat => @project.category )),
 			t("Project|Tags"), alltaglist,
+			t("Project|Contactinfo"), @project.contactinfo,
       t("Project|License"), @project.licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], t("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : t("#{i_s[1]}")}.join("<br/>\n"), 
+      t("Project|Contentlicense"), @project.content_licenses_to_s.map {|i_s| i_s[0] > 0 ? link_to(i_s[1], t("url_link_for_#{i_s[1].gsub('.', '_')}"), :target => "_blank") : t("#{i_s[1]}")}.join("<br/>\n"), 
+      t("Project|Licensingdescription"), @project.licensingdescription, 
       t("Project|Platform"), show_with_seperator(@project.platform),
       t("Project|Programminglanguage"), show_with_seperator(@project.programminglanguage),
+      t("Project|Vcs"), @project.vcs_to_s,
       t("Project|Created at"), content_tag(:span, tz_datetime(@project.created_at), :content => tz_date(@project.created_at)),
       ] + (@nsccode.empty?() ? [] : [ t("Project|Nsccode"), h(@nsccode)]) ) )
     %>
