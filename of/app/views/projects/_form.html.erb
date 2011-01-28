@@ -199,7 +199,9 @@ AAA
     text_area('project', 'description'),
   foo( 'category', false, t( 'CreateHelp.Project_Category' ) ),
     select( 'project', 'category', 
-            Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, :include_blank => '- Select Category -' ) + 
+           Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, 
+             :include_blank => '- Select Category -',
+             :selected => @project.category || 1) + 
             ' ' + link_to(t('Text.New_Category'), '/category-suggestion'),
   foo( 'Tags', false, t( 'CreateHelp.Project_Tags' ) ),
     "<div id=\"Tags_List\"><div></div>#{ @tagspan }</div>" + 
