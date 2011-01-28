@@ -200,7 +200,7 @@ AAA
   foo( 'category', false, t( 'CreateHelp.Project_Category' ) ),
     select( 'project', 'category', 
             Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, :include_blank => '- Select Category -' ) + 
-            ' ' + mail_to( 'contact@openfoundry.org', t('Text.New_Category') ),
+            ' ' + link_to(t('Text.New_Category'), '/category-suggestion'),
   foo( 'Tags', false, t( 'CreateHelp.Project_Tags' ) ),
     "<div id=\"Tags_List\"><div></div>#{ @tagspan }</div>" + 
     text_field_tag( 'Tags_Ctrl', '', { :size => 20 } ) + 
