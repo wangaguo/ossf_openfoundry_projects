@@ -337,3 +337,7 @@ h3 span.maturity {
 .project-links ul {
   list-style: none;
 }
+
+.project-links ul li {
+  text-align: right;
+}
