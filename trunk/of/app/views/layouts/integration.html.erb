@@ -7,6 +7,7 @@
     <% if @project %>
       <meta name="title" content="<%= @project.summary %> - <%= @project.name %> - OpenFoundry" />
       <meta name="description" content="<%= @project.description %>"/>
+      <meta name="og:image" content="<%= cached_image_images_url(:id => @project.icon) %>" />
     <% else %>
       <meta name="title" content="Projects - OpenFoundry" />
       <meta name="author" content="ossf"/>
@@ -219,6 +220,10 @@
       </div>
 
     </div>
+    <% if @use_add_this %>
+      <script type="text/javascript"
+        src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
+    <% end %>
   </body>
 </html>
 
