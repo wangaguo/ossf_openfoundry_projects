@@ -271,7 +271,7 @@ document.observe('dom:loaded', function() {
       remove.observe('click', removeCode);
     });
 
-    nsccodeFormat = [/NSC\d{2,3}/, /\d{4}/, /.{1}/, /\d{3}/, /\d{3}/];
+    nsccodeFormat = [/NSC\d{2,3}/, /\d{4}/, /.{1}/, /\d{3}/, /\d{3}.{0,3}/];
 
     projectRoot.select('form').first().observe('submit', function(e) {
       __premark();
