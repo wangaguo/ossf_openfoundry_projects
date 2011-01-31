@@ -781,6 +781,7 @@ zh_TW:
         odd: "必須是奇數"
         even: "必須是偶數"
         record_invalid: "校驗失敗: {{errors}}"
+        incorrect_project_name_format: "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
   
   activemodel:
     errors:
