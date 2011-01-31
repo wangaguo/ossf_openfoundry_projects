@@ -326,7 +326,7 @@ EOEO
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => NAME_REGEX, :message => I18n.t('Format|Project Name')
+  validates_format_of :name, :with => NAME_REGEX, :message => 'incorrect_project_name_format'
     validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => I18n.t("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
@@ -373,10 +373,10 @@ EOEO
       errors.add(:contentlicense, I18n.t("Please choose at least one content license"))
     end
     if cls.include?(0) and cls != [0] 
-      errors.add(:contentlicense, I18n.t("If this project contains only code, then you may not choose any other content license."))
+      errors.add(:contentlicense, I18n.t("If this project contains only code, then you may not choose any other content license"))
     end
     if cls.include?(-3) and cls != [-3] 
-      errors.add(:contentlicense, I18n.t("If the content license is the same with the code license, then you may not choose any other content license."))
+      errors.add(:contentlicense, I18n.t("If the content license is the same with the code license, then you may not choose any other content license"))
     end
 
     if cls == [-3] and ls == [0] 
