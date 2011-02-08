@@ -80,7 +80,7 @@
             <%= h(@project.name) %>
           </a>
           <span class="maturity">
-            (<%= (t Project.maturity_to_s(@project.maturity)).gsub(/\(.+\)/, '') %>)
+            <%= t(Project.maturity_to_s(@project.maturity)) %>
           </span>
           </h3>
 	  <h6>
