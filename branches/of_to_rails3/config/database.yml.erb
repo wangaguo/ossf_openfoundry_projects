@@ -1,0 +1,11 @@
+development: &ref
+  adapter: mysql
+  database: <%=db_name_dev%>
+  username: <%=db_user%>
+  password: <%=db_pass%>
+  host: <%=db_host%>
+  encoding: utf8
+
+test: *ref
+
+production: *ref

@@ -1,0 +1,141 @@
+<% content_for :head_content do -%>
+  <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
+  <title><%= @module_name || controller.action_name %> 
+         <%= (@project ? '- '+(@project.name||'') : '') %>
+         - OpenFoundry
+         <%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
+  <%# bundle :name => "prototype" do %>
+  <%= javascript_include_tag "prototype" %>
+  <%# end %>
+  <%# bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
+  <%= stylesheet_link_tag "scaffold", "openfoundry" %>
+  <%= javascript_include_tag "effects", "application" %>
+  <%= javascript_include_tag 'calendar/calendar' %>
+  <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
+  <%= javascript_include_tag 'calendar/calendar-setup' %>
+  <%= javascript_include_tag 'langsync' %>
+  <%= javascript_include_tag 'qrcode' %>
+  <%= stylesheet_link_tag 'calendar' %>
+  <%# end %>
+  <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
+   <script>alert('Please use Internet Explorer 6 or above.');</script>
+  <% end %>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-5220412-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+<% end -%>
+
+<% content_for :header_content do -%>
+  <div id="header-toolbar">
+    <div id="Login">
+    <%= render :partial => 'partials/login' %>
+    &nbsp;|&nbsp;
+    <%= render :partial => 'partials/lang'%>
+    </div>
+  </div>
+<% end -%>
+
+<% content_for :breadcrumbs_content do -%>
+  <%= breadcrumbs(@module_name) %>
+<% end -%>
+
+<% content_for :body_content do -%>
+<div id="of-body">
+  <div id="MiddlePane">
+    <div class="rt-grid-12">
+      <%if params["project_id"] != nil%>
+       <div class="pj_logo" >
+          <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
+            <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=48 />
+	  </a>
+       </div>
+       <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
+         <div class="project-links">
+           <ul>
+             <li><a href="http://<%= @project.name %>.openfoundry.org" target="_blank">[<%= t('project_Homepage') %>]</a></li>
+             <li>
+               <% @use_add_this = true %>
+               <!-- AddThis Button BEGIN -->
+               <div class="addthis_toolbox addthis_default_style ">
+                 <a
+                   href="http://www.addthis.com/bookmark.php?v=250&amp;username=openfoundry" class="addthis_button_compact">Share</a>
+               </div>
+               <script type="text/javascript">var addthis_config =
+                 {"data_track_clickback":true};</script>
+               <script type="text/javascript"
+                 src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
+               <!-- AddThis Button END -->
+             </li>
+           </ul>
+         </div>
+          <h3>
+          <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
+            <%= h(@project.name) %>
+          </a>
+          <span class="maturity">
+            <%= t(Project.maturity_to_s(@project.maturity)) %>
+          </span>
+          </h3>
+	  <h6>
+		  <%= h(@project.summary) %>
+          </h6>
+        <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
+          <%= image_tag "green_arrow_right.gif" %>
+          <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a>
+        <%end%>
+          <%= render :partial => 'images/edit', :locals =>
+	  {:image_id => @project.icon, :id => @project.id, :type => 'Project', :back_to => project_path(@project) } %>
+       </div>
+      <%end%>
+    </div>
+    <% string = request.path -%>
+    <% match = !string.match(/site_admin/).nil?-%>
+    <% if match == true || ( controller.controller_name == 'openfoundry' && controller.action_name == 'search' ) -%> 
+      <div id="MainContent" class="rt-grid-12">
+    <% else -%> 
+      <div id="MainContent" class="rt-grid-9 rt-push-3">
+    <% end -%>    
+        <div id="Flash"><%= show_flash %></div>
+        <%= yield :layout %>
+      </div>
+    <% if match == true -%> 
+        <div id="LeftWidget" style="display:none;">
+    <% else -%> 
+        <div id="LeftWidget" class="rt-grid-3 rt-pull-9">
+    <% end -%> 
+    	<%if params["project_id"] != nil%>
+          <%=render :partial => "news/news_list", :locals => {:project => @project}%>
+          <%#=render :partial => "partials/project_logo", :locals => {:project => @project}%>
+        <div id="LeftMenu">
+		<%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
+		<%=render :partial => "partials/qrcode_project", :locals => {:project => @project}%>
+		<%#= qrcode("http://www.openfoundry.org/of/projects/#{@project.id}", 2, 8, h(@project.summary)) %>
+        </div>
+          <%# module_title = capture do %>
+            <%#= _('News') %>
+          <%# end %>
+          <%# module_content = capture do%>
+            <%#=render :partial => "news/news_list", :locals => {:project => @project}%>
+          <%# end %>
+          <%#= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
+      <%elsif controller.controller_name == "user"%>
+          <%=render :partial => "partials/dashboard_menu", :locals => {:project => @project}%>
+      <%elsif controller.controller_name == "help"%>
+        <%=render :partial => "partials/help_menu"%>
+      <%else%>
+        <%=render :partial => "partials/homeleft" unless ( controller.controller_name == 'openfoundry' && controller.action_name == 'search' ) || ( controller.controller_name == 'site_admin' && controller.action_name == 'manage_tags' )  %><%#TODO CodeReview! (2011/01/13)%>
+      <%end%>
+    </div>
+  </div>
+  <br clear="all" />
+</div>
+<% end -%>
+<%= render :file => 'layouts/integration' %> 

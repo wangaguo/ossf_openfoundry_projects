@@ -1,0 +1,39 @@
+<%= error_messages_for 'bad_project', :object_name => 'project' %>
+
+<h1>Change Status</h1>
+Current status is: <%= Project.status_to_s(@project.status) %>
+<p>
+
+<% form_tag :action => 'change_status', :id => @project do %>
+  <p><label for="statusreason">Status Reason</label><br/>
+  <%= text_area_tag 'statusreason', @project.statusreason %></p>
+
+  <% if [Project::STATUS[:APPLYING], Project::STATUS[:PENDING], Project::STATUS[:REJECTED]].include?(@project.status) %>
+    <p><label for="replymessage">Reply Message</label><br/>
+    <%= text_area_tag 'replymessage' %></p>
+  <% end %>
+
+  <% if @project.status == Project::STATUS[:APPLYING] %>
+    <%= submit_tag 'approve', :name => 'invoke' %>
+    <%= submit_tag 'pending', :name => 'invoke' %>
+    <%= submit_tag 'reject', :name => 'invoke' %>
+  <% end %>
+  <% if @project.status == Project::STATUS[:PENDING] %>
+    <%= submit_tag 'approve', :name => 'invoke' %>
+    <%= submit_tag 'pending', :name => 'invoke' %>
+    <%= submit_tag 'reject', :name => 'invoke' %>
+  <% end %>
+  <% if @project.status == Project::STATUS[:READY] %>
+    <%= submit_tag 'suspend', :name => 'invoke' %>
+  <% end %>
+  <% if @project.status == Project::STATUS[:SUSPENDED] %>
+    <%= submit_tag 'resume', :name => 'invoke' %>
+  <% end %>
+  <% if @project.status == Project::STATUS[:REJECTED] %>
+    <%= submit_tag 'approve', :name => 'invoke' %>
+    <%= submit_tag 'pending', :name => 'invoke' %>
+  <% end %>
+<% end %>
+<%= link_to _('List'), :controller => 'project' %> |
+<%= link_to _('Show'), project_path(:id => @project.id), :target => '_blank' %> |
+<%= link_to _('Edit'), edit_project_path(:id => @project.id), :target => '_blank' %>
