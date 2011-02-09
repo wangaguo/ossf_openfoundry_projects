@@ -59,22 +59,16 @@
        </div>
        <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
          <div class="project-links">
-           <ul>
-             <li><a href="http://<%= @project.name %>.openfoundry.org" target="_blank">[<%= t('project_Homepage') %>]</a></li>
-             <li>
-               <% @use_add_this = true %>
-               <!-- AddThis Button BEGIN -->
-               <div class="addthis_toolbox addthis_default_style ">
-                 <a
-                   href="http://www.addthis.com/bookmark.php?v=250&amp;username=openfoundry" class="addthis_button_compact">Share</a>
-               </div>
-               <script type="text/javascript">var addthis_config =
-                 {"data_track_clickback":true};</script>
-               <script type="text/javascript"
-                 src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
-               <!-- AddThis Button END -->
-             </li>
-           </ul>
+           <% if false # Ally said to disable AddThis at 2/9 9:28 %>
+             <% @use_add_this = true %>
+             <!-- AddThis Button BEGIN -->
+             <div class="addthis_toolbox addthis_default_style ">
+               <a class="addthis_counter addthis_pill_style"></a>
+             </div>
+             <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
+             <!-- AddThis Button END -->
+           <% end %>
          </div>
           <h3>
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
