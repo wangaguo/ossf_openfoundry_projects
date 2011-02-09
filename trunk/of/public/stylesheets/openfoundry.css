@@ -325,13 +325,17 @@ table#project_list {
 .sort { margin-bottom: 5px; }
 li.news_list { border-bottom: solid 1px grey; margin-bottom: 10px; }
 
-h3 span.maturity {
-  color: gray;
-  font-size: 0.8em;
+span.maturity {
+  color: #5c5f5f;
+  font-size: 0.5em;
+  background: none repeat scroll 0 0 #cccccc;
+  padding:2px 5px;
+  
 }
 
 .project-links {
   float: right;
+  padding: 8px;
 }
 
 .project-links ul {
