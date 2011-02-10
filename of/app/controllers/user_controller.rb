@@ -104,29 +104,30 @@ class UserController < ApplicationController
     end
 
     if user and user.id
-      @name = user.login
-      @icon = user.icon
-      @realname = user.realname || ''
-      @homepage = user.homepage || ''
-      @bio = user.bio || ''
-      if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
-        @conceal_realname = false
-        @conceal_homepage = false
-        @conceal_bio = false
-        @conceal_email = false
-      else
-        @conceal_realname = user.t_conceal_realname
-        @conceal_homepage = user.t_conceal_homepage
-        @conceal_bio = user.t_conceal_bio
-        @conceal_email = user.t_conceal_email
-      end
-      session[:email_image] = user.email unless @conceal_email
-      @email_md5 = Digest::MD5.hexdigest(user.email)
-      @created_at = user.created_at
-			@pending_projects = Project.find(:all, :conditions => "#{Project.pending_projects()} and creator = '#{current_user().id}'")
+      redirect_to "/community/userprofile/#{user.login}"
+      #@name = user.login
+      #@icon = user.icon
+      #@realname = user.realname || ''
+      #@homepage = user.homepage || ''
+      #@bio = user.bio || ''
+      #if fpermit?('site_admin', nil) || current_user().has_role?('project_reviewer') || @my then 
+      #  @conceal_realname = false
+      #  @conceal_homepage = false
+      #  @conceal_bio = false
+      #  @conceal_email = false
+      #else
+      #  @conceal_realname = user.t_conceal_realname
+      #  @conceal_homepage = user.t_conceal_homepage
+      #  @conceal_bio = user.t_conceal_bio
+      #  @conceal_email = user.t_conceal_email
+      #end
+      #session[:email_image] = user.email unless @conceal_email
+      #@email_md5 = Digest::MD5.hexdigest(user.email)
+      #@created_at = user.created_at
+			#@pending_projects = Project.find(:all, :conditions => "#{Project.pending_projects()} and creator = '#{current_user().id}'")
 
-      @partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} and #{User.verified_users(:alias => 'U')} order by U.id")
-      @projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} and #{Project.in_used_projects(:alias => 'P')} order by P.id")
+      #@partners = User.find_by_sql("select distinct(U.id),U.icon,U.login from users U join roles_users RU join roles R join roles R2 join roles_users RU2 where U.id = RU.user_id and RU.role_id = R.id and R.authorizable_id = R2.authorizable_id and R.authorizable_type = 'Project' and R2.authorizable_type = 'Project' and RU2.role_id = R2.id and RU2.user_id =#{user.id} and U.id != #{user.id} and #{User.verified_users(:alias => 'U')} order by U.id")
+      #@projects = Project.find_by_sql("select distinct(P.id),P.icon,P.name from projects P join roles R join roles_users RU where P.id = R.authorizable_id and R.authorizable_type = 'Project' and R.id = RU.role_id and RU.user_id = #{user.id} and #{Project.in_used_projects(:alias => 'P')} order by P.id")
       #@partners = []
       #@projects=user.roles.map{|r| r.name}.uniq.map{|r| user.send("is_#{r}_of_what")}.flatten.uniq
       #@projects.reject!{|p| not ActiveRecord::Base === p}
@@ -487,7 +488,7 @@ class UserController < ApplicationController
     # the base request url for rt rdf
     rturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=id>'0'"
     # set the current user name
-    @name = ( params[ :username ].nil? )? current_user().login : params[ :username ]
+    @name = current_user.login
 
     # set the relation of rt with user 
     case params[ :lookfor ]
