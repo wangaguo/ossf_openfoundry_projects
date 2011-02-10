@@ -19,7 +19,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
    
   def switch_user
     session[:effective_user] = User.find_by_id(params[:id])
-    redirect_to '/user/home'
+    redirect_to "#{root_path}user/dashboard"
   end
 
   def index

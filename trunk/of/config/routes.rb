@@ -140,7 +140,7 @@ ActionController::Routing::Routes.draw do |map|
     :only => [:logout, :login, :index],
     :controller => :user,
     :collection => {:dashboard => :get},
-    :member => {:home => :get,:index => :get,  
+    :member => {:index => :get,  
                 :login => :get, :logout => :get, 
                 :search => :post}
   map.connect '/user', :controller => :user, :action => :index
