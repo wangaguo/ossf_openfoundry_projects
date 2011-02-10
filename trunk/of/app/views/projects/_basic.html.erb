@@ -21,6 +21,7 @@ end %>
       <tr >
         <td width="20%" class="fieldstyle"><%= t("Project|Description") %>：</td>
   <td width="80%" style="word-wrap: break-word; word-break: break-all;">
+  <% unless @project.description.blank? -%>
     <%=content_tag(:span, @project.description.mb_chars[0..149], :id => "more_head") %>
     <%=content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
   <% if @project.description.mb_chars.length > 150 -%>
@@ -32,6 +33,7 @@ end %>
   <span id="showLessLink" style="display: none;">
     <a id ="le" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.3}); $('showMoreLink').show(); $('showLessLink').hide(); return false" style="padding:8px;float:right"><%= t('Less...') %></a>
   </span>
+	<% end -%>
 	<% end -%>
 	</td>
       </tr>
@@ -49,6 +51,7 @@ end %>
     <table class="list-table">
     <%= rows(1, 
       * ([ 
+      t('project_Homepage'),(url = OPENFOUNDRY_HOMEPAGE_URL % @project.name; link_to url, url, :target => "_blank"), 
       t("Project|Category"), link_to(@category, list_category_path( :cat => @project.category )),
 			t("Project|Tags"), alltaglist,
 			t("Project|Contactinfo"), @project.contactinfo,
