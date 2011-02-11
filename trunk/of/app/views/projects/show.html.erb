@@ -3,10 +3,15 @@
   is_nsc_project = @project.is_nsc_project
 %>
 <% module_title = capture do %>
-    <%= t("Basic Information") %>
-    <div style="float: right;">    <%= link_to "<span class='pj_download'>#{t('Download Now')}</span>", download1_path(:project_id => @project.id) %>
-	    <%= link_to "<span class='pj_bugreport'>#{t('Bug Report')}</span>", report_rt_path(:project_id => @project.id) %>
-	    </div>
+  <%= t("Basic Information") %>
+  <div style="float: right;">
+    <span class='pj_download'>
+      <%= link_to t('Download Now'), download1_path(:project_id => @project.id) %>
+    </span>
+    <span class='pj_bugreport'>
+      <%= link_to t('Bug Report'), report_rt_path(:project_id => @project.id) %>
+    </span>
+  </div>
 <% end %>
 <% module_content = capture do %>
   <%= render :partial => "basic" %>
