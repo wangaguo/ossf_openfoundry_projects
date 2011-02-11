@@ -40,7 +40,7 @@ module OpenFoundry
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.root_path = "/3of"
+    config.root_path = "/of"
     config.action_controller.asset_path = "#{config.root_path}%s"
 
     # Include your application configuration below
