@@ -85,7 +85,9 @@ OpenFoundry::Application.routes.draw do |map|
   #####################
   map.resources :jobs,
                 :path_prefix => base_url+'/projects/:project_id'
-  map.connect '/jobs', :controller => :jobs, :action => :index, :path_prefix => base_url
+  scope base_url do
+    get '/jobs', :controller => :jobs, :action => :index, :path_prefix => base_url, :as => :jobs_index
+  end
   map.resources :jobs,
                 :collection => { :list => :get }, :path_prefix => base_url
   #####################
