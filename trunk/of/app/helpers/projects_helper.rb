@@ -29,4 +29,12 @@ module ProjectsHelper
      #{options[:with_name] ? "<br/> #{project.name}" : '' }
     </a></div>"
   end
+
+  def show_with_seperator(v) 
+    raw v.split(/,/).
+      map(&:strip).     # remove spaces around string
+      reject(&:blank?). # remove blank element like '', nil, ...
+      map { |elem| content_tag(:span, elem) }.
+      join(', ')
+  end
 end
