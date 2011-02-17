@@ -29,24 +29,4 @@ module ProjectsHelper
      #{options[:with_name] ? "<br/> #{project.name}" : '' }
     </a></div>"
   end
-
-  # This method will generate tr>td tags if value is present
-  def row_for(title, &value_block)
-    # http://asciicasts.com/episodes/208-erb-blocks-in-rails-3
-    value = with_output_buffer(&value_block).strip
-    if strip_tags(value).present?
-      content_tag(:tr) do
-        content_tag(:td, "#{title}：", :class => 'fieldstyle') +
-          content_tag(:td, value)
-      end
-    end
-  end
-
-  def show_with_seperator(v) 
-    raw v.split(/,/).
-      map(&:strip).     # remove spaces around string
-      reject(&:blank?). # remove blank element like '', nil, ...
-      map { |elem| content_tag(:span, elem) }.
-      join(', ')
-  end
 end

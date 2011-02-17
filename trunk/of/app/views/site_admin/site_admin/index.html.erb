@@ -54,7 +54,7 @@ Rails Version: <%= Rails.version %>
 <br/>
 Rails Environment: <%= Rails.env.inspect %>
 <br/>
-Actived Gems: <%= Bundler.environment.current_dependencies.map(&:name).join(', ') %>
+Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
 <br/>
 Actived Plugins: <%= Rails.configuration.plugins%>
 <br/>
