@@ -4,10 +4,19 @@
          <%= (@project ? '- '+(@project.name||'') : '') %>
          - OpenFoundry
          <%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
-  <%= stylesheet_link_tag "scaffold", "openfoundry", "calendar", :cache => '_all' %>
-  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" %>
-  <%= javascript_include_tag "prototype", "effects", "application", "rails", "langsync", "qrcode", :cache => '_all' %>
-  <%= javascript_include_tag "calendar/calendar", "calendar/lang/calendar-en", "calendar/calendar-setup", :cache => '_calendar' %>
+  <%# bundle :name => "prototype" do %>
+  <%= javascript_include_tag "prototype" %>
+  <%# end %>
+  <%# bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
+  <%= stylesheet_link_tag "scaffold", "openfoundry" %>
+  <%= javascript_include_tag "effects", "application" %>
+  <%= javascript_include_tag 'calendar/calendar' %>
+  <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
+  <%= javascript_include_tag 'calendar/calendar-setup' %>
+  <%= javascript_include_tag 'langsync' %>
+  <%= javascript_include_tag 'qrcode' %>
+  <%= stylesheet_link_tag 'calendar' %>
+  <%# end %>
   <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
    <script>alert('Please use Internet Explorer 6 or above.');</script>
   <% end %>
@@ -34,9 +43,9 @@
   </div>
 <% end -%>
 
-<% content_for :breadcrumbs_content do %>
-  <%=raw breadcrumbs(@module_name) %>
-<% end %>
+<% content_for :breadcrumbs_content do -%>
+  <%= breadcrumbs(@module_name) %>
+<% end -%>
 
 <% content_for :body_content do -%>
 <div id="of-body">
@@ -69,8 +78,8 @@
             <%= t(Project.maturity_to_s(@project.maturity)) %>
           </span>
           </h3>
-          <h6>
-            <%= truncate(h(@project.summary), :length => 50) %>
+	  <h6>
+		  <%= h(@project.summary) %>
           </h6>
         <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
           <%= image_tag "green_arrow_right.gif" %>
@@ -89,7 +98,7 @@
       <div id="MainContent" class="rt-grid-9 rt-push-3">
     <% end -%>    
         <div id="Flash"><%= show_flash %></div>
-        <%= content_for?(:module) ? yield(:module) : yield %>
+        <%= yield :layout %>
       </div>
     <% if match == true -%> 
         <div id="LeftWidget" style="display:none;">
@@ -102,7 +111,15 @@
         <div id="LeftMenu">
 		<%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
 		<%=render :partial => "partials/qrcode_project", :locals => {:project => @project}%>
+		<%#= qrcode("http://www.openfoundry.org/of/projects/#{@project.id}", 2, 8, h(@project.summary)) %>
         </div>
+          <%# module_title = capture do %>
+            <%#= _('News') %>
+          <%# end %>
+          <%# module_content = capture do%>
+            <%#=render :partial => "news/news_list", :locals => {:project => @project}%>
+          <%# end %>
+          <%#= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
       <%elsif controller.controller_name == "user"%>
           <%=render :partial => "partials/dashboard_menu", :locals => {:project => @project}%>
       <%elsif controller.controller_name == "help"%>

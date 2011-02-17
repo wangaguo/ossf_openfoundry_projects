@@ -1,4 +1,4 @@
-<% content_for :module do -%>
+<% inside_layout 'application' do -%>
   <% module_title = h(@module_name) %>
   <% module_tabs = capture do -%>
             <div id="module_nav_tab">
@@ -27,4 +27,3 @@
   <% end -%>
   <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_tabs =>module_tabs, :module_content => module_content, :variation => 'square1'}  %>
 <% end -%>
-<%= render :file => 'layouts/application'%>
