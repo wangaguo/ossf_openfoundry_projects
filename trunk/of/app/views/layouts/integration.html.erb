@@ -42,11 +42,8 @@
     <![endif]-->
     <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/fusionmenu.css" type="text/css" />
     <%= yield :head_content %>
-    <%= yield :page_head %>
-    <script type="text/javascript">
-    <%= yield :ujs %>
-    </script>
     <script type="text/javascript" src="http://<%=UI_SCHEMA_CSS_HOST%>/modules/mod_ofssologin/js/ofssologin.js"></script>
+    <%= javascript_include_tag 'langsync.js' %>
   </head>
 
   <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
@@ -185,7 +182,7 @@
 
                         <div class="module-content">
                           <p>
-                            <%=raw _('template_footer_content')%>
+                            <%=_('template_footer_content')%>
                           </p>
                         </div>
 
