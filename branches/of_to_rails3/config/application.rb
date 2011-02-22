@@ -46,5 +46,6 @@ module OpenFoundry
     # Include your application configuration below
     require 'user_environment'
     require 'of'
+    require 'dirty'
   end
 end
