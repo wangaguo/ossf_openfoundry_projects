@@ -30,7 +30,7 @@ namespace 'openfoundry' do
     task 'stomp' do
       puts "\x1b[38;5;9m---start stompserver configure---\x1b[0m"
       replace_template('config/broker.yml')
-      replace_template('config/messaging.rb')
+#      replace_template('config/messaging.rb')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
@@ -48,19 +48,19 @@ namespace 'openfoundry' do
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
-    desc 'OpenFoundry Environment Configure'
-    task 'environment' do
-      puts "\x1b[38;5;9m---start Environment configure---\x1b[0m"
-      replace_template('config/environment.rb')
-      puts "\x1b[38;5;9m---done---\x1b[0m"
-    end
+#    desc 'OpenFoundry Environment Configure'
+#    task 'environment' do
+#      puts "\x1b[38;5;9m---start Environment configure---\x1b[0m"
+#      replace_template('config/environment.rb')
+#      puts "\x1b[38;5;9m---done---\x1b[0m"
+#    end
 
-    desc 'OpenFoundry Translation Configure'
-    task 'translation' do
-      puts "\x1b[38;5;9m---start translation configure---\x1b[0m"
-      replace_template('config/initializers/tolk.rb')
-      puts "\x1b[38;5;9m---done---\x1b[0m"
-    end
+#    desc 'OpenFoundry Translation Configure'
+#    task 'translation' do
+#      puts "\x1b[38;5;9m---start translation configure---\x1b[0m"
+#      replace_template('config/initializers/tolk.rb')
+#      puts "\x1b[38;5;9m---done---\x1b[0m"
+#    end
 
     desc 'OpenFoundry SSO Configure'
     task 'sso' do
