@@ -207,7 +207,7 @@ class RTUser < RTModel
     else
       return
     end
-    gid = RTGroup.find(:first, :conditions => "Type = '#{type}' and Instance = #{pid}").id
+    gid = RTGroup.find(:first, :conditions => "Type = '#{type}' and Instance = #{pid} and Domain = 'RT::Queue-Role'").id
     RTGroupMember.add_user_into_group(uid, gid)
   end
   def self.delete_permission(uid, pid, type)
@@ -220,7 +220,7 @@ class RTUser < RTModel
     else
       return
     end
-    gid = RTGroup.find(:first, :conditions => "Type = '#{type}' and Instance = #{pid}").id
+    gid = RTGroup.find(:first, :conditions => "Type = '#{type}' and Instance = #{pid} and Domain = 'RT::Queue-Role'").id
     #cache_id = RTCachedGroupMember.find(:first, :conditions => "MemberId = #{gid}").id
 
     # TODO: accuracy ?
