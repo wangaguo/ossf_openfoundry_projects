@@ -1,3 +1,4 @@
+<% content_for :page_head do%>
 <%=stylesheet_link_tag 'jquery.tablesorter.pager', 'jquery.color' %>
 <%=javascript_include_tag 'jquery' %>
 <%=javascript_include_tag 'jquery.tablesorter' %>
@@ -18,7 +19,7 @@
   var bgcolor_odd    = 'rgb(240, 240, 246)';
   var bgcolor_even   = 'rgb(255, 255, 255)';
 
-  var $j = jQuery.noConflict();
+  var $j = jQuery;
   $j( document ).ready
   (
     function()
@@ -97,7 +98,7 @@
                 global: false,
                 processData: false,
                 type: 'POST',
-                url: '/of/site_admin/tags/' + act,
+                url: '<%="#{root_path}"%>/site_admin/tags/' + act,
                 success: function( msg ){ ajaxrspd = msg; }
               }
             );
@@ -152,6 +153,7 @@
             case 'create':
               if( cfunc == 'create' )
               {
+                cfunc = '';
                 $j( '#tag_type_row, #tag_stat_row' ).show();
                 $j( '#clrbtn' ).click();
               }
