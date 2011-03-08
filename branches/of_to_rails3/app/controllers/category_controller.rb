@@ -58,7 +58,7 @@ class CategoryController < ApplicationController
 			}
 
       s = Ferret::Search::SortField.new(:name_for_sort, :reverse => false)
-      @pcs_projects = @pcs_projects.find_with_ferret( query, {:limit => :all} ).instance_values["results"]
+      @pcs_projects = @pcs_projects.find_with_ferret( query, {:limit => :all} )
 #			@pcs_projects = @pcs_projects.find(:all, :conditions => ["name LIKE ? OR summary LIKE ? OR description LIKE ? OR programminglanguage LIKE ? OR platform LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing', :field => 'name', :sort_direction => :asc ))
 
 			# increase the search times for tags
@@ -78,7 +78,6 @@ class CategoryController < ApplicationController
       @final_project_list = @pcs_projects.paginate(
 		     :page => page,
 		     :per_page => 20,
-		     :include => [ :ready_releases ],
 		     :order => sortable_order( 'listing', :model => Project, :field => 'created_at', :sort_direction => :desc ) ) 
 
       break if not @final_project_list.out_of_bounds?

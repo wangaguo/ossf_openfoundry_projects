@@ -4,22 +4,25 @@ class Project < ActiveRecord::Base
 	# category association
 	belongs_to :cattag, :class_name => 'Tagcloud', :foreign_key => 'category'
 	# tagcloud association 
-	has_and_belongs_to_many :alltags,
-													:class_name => 'Tagcloud',
-													:join_table => :tagclouds_projects,
-                          :association_foreign_key => :tagcloud_id,
-												  :foreign_key => :project_id,
-												  :conditions	=> { :tagclouds => { :status => Tagcloud::STATUS[ :READY ] } }
-  #	has_many :tagcloudsprojects, :foreign_key => :project_id
-  # tagcloud association include tags without checking 
-	has_and_belongs_to_many :alltags_without_check,
-													:class_name => 'Tagcloud',
-													:join_table => :tagclouds_projects,
-													:association_foreign_key => :tagcloud_id,
-												  :foreign_key => :project_id
+	#has_and_belongs_to_many :alltags,
+	#												:class_name => 'Tagcloud',
+	#												:join_table => :tagclouds_projects,
+  #                        :association_foreign_key => :tagcloud_id,
+	#											  :foreign_key => :project_id,
+	#											  :conditions	=> { :tagclouds => { :status => Tagcloud::STATUS[ :READY ] } }
+  ##	has_many :tagcloudsprojects, :foreign_key => :project_id
+  ## tagcloud association include tags without checking 
+	#has_and_belongs_to_many :alltags_without_check,
+	#												:class_name => 'Tagcloud',
+	#												:join_table => :tagclouds_projects,
+	#												:association_foreign_key => :tagcloud_id,
+	#											  :foreign_key => :project_id
+  has_many :tagclouds_projects
+  has_many :alltags, :through => :tagclouds_projects, :source => :tagcloud, :conditions => { :tagclouds => { :status => Tagcloud::STATUS[ :READY ] } }
+  has_many :alltags_without_check, :through => :tagclouds_projects, :source => :tagcloud
 
 	# find the categorized projects
-  named_scope :cated, lambda { | *args | { :conditions => [ 'category = ?', args.first ] } unless args.first.to_i == 0 }
+  scope :cated, lambda { |*args| { :conditions => [ 'category = ?', args.first ] } unless args.first.to_i == 0 }
 
   #redis counter settings
   acts_as_redis_counter :project_counter, :ttl => 5.minutes, :hits => 100
@@ -212,14 +215,14 @@ EOEO
   STATUS = { :APPLYING => 0, :REJECTED => 1, :READY => 2, :SUSPENDED => 3, :PENDING => 4 }.freeze
 
 	# find the ready projects
-	named_scope :in_used, :conditions => { :status => Project::STATUS[ :READY ] } 
+	scope :in_used, where(:status => Project::STATUS[:READY])
 
   #for releases ftp upload and web download...
   PROJECT_UPLOAD_PATH = OPENFOUNDRY_PROJECT_UPLOAD_PATH.freeze
-  PROJECT_DOWNLOAD_PATH = "#{RAILS_ROOT}/public/download".freeze  
+  PROJECT_DOWNLOAD_PATH = "#{Rails.root.to_s}/public/download".freeze  
 
   # name validation
-  NAME_REGEX = /^[a-z][0-9a-z-]{1,13}[0-9a-z]$/ # lengh = 15
+  NAME_REGEX = /^[a-z][0-9a-z-]{2,13}[0-9a-z]$/ # lengh = 15
   
   def self.status_to_s(int_status)
     _(STATUS.index(int_status).to_s)
@@ -259,35 +262,38 @@ EOEO
 
 	
   #add fulltext indexed SEARCH
-  acts_as_ferret({
-                 :fields => { 
-                              :alltags_string => { :boost => 3.0,
-                                                   :index => :yes,
-                                                   :store => :yes},
-                              :name => { :boost => 2.0,
-                                         :store => :yes,
-                                         :index => :yes},
-                              :summary => { :index => :yes,
-                                            :store => :yes},
-                              :description => { :index => :yes,
-                                                :store => :yes},
-															:cattag_name => {:store => :yes,
-																					:index => :yes},
-															:maturity_index => {:store => :yes,
-																						:index => :yes},
-															:license => {:store => :yes,
-																					 :index => :yes},
-															:platform => {:store => :yes,
-																						:index => :yes},
-															:programminglanguage => { :store => :yes,
-																				 								:index => :yes},
-															:category_index => { :store => :yes,
-																				 					 :index => :yes},
-                              :name_for_sort => {:index => :untokenized,
-                                                 :store => :yes}
-                            },
-                 :single_index =>true
-                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
+#  acts_as_ferret({
+#                 :fields => { 
+#                              :alltags_string => { :boost => 3.0,
+#                                                   :index => :yes,
+#                                                   :store => :yes},
+#                              :name => { :boost => 2.0,
+#                                         :store => :yes,
+#                                         :index => :yes},
+#                              :summary => { :index => :yes,
+#                                            :store => :yes},
+#                              :description => { :index => :yes,
+#                                                :store => :yes},
+#															:cattag_name => {:store => :yes,
+#																					:index => :yes},
+#															:maturity_index => {:store => :yes,
+#																						:index => :yes},
+#															:license => {:store => :yes,
+#																					 :index => :yes},
+#															:platform => {:store => :yes,
+#																						:index => :yes},
+#															:programminglanguage => { :store => :yes,
+#																				 								:index => :yes},
+#															:category_index => { :store => :yes,
+#																				 					 :index => :yes},
+#                              :name_for_sort => {:index => :untokenized,
+#                                                 :store => :yes}
+#                            },
+#                 :single_index =>true,
+#                 :analyzer => GENERIC_ANALYZER,
+#                 :default_field => DEFAULT_FIELD
+#                 })
+                 #},{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
   def cattag_name;cattag.name;end
   def alltags_string;alltags_without_check.map(&:name).join(", ");end
   def maturity_index;self.maturity.to_s;end
@@ -326,7 +332,7 @@ EOEO
   # Don't forget to modify "db/migrate/001_create_tables.rb"
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
-  validates_format_of :name, :with => NAME_REGEX, :message => 'incorrect_project_name_format'
+  validates_format_of :name, :with => NAME_REGEX, :message => I18n.t('Format|Project Name')
     validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => I18n.t("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility

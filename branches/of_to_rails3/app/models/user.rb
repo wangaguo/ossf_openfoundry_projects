@@ -89,6 +89,6 @@ class User < ActiveRecord::Base
     "(#{a}verified = 1)"
   end
 
-  named_scope :valid_users, :conditions => { :verified => 1 }
+  scope :valid_users, :conditions => { :verified => 1 }
 end
 

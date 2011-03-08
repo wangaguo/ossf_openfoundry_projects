@@ -1,5 +1,5 @@
 <div id="<%= params[:div_id] %>">
-  <% form_remote_tag :update => "uploadfiles_view", :url => updatefile_release_url( { 
+  <% form_remote_tag :update => "uploadfiles_view", :url => updatefile_project_release_path( { 
         :updatefile_id => @file.id  }) do |f| -%>
 <table class=FileItem >
 <tr>
@@ -16,7 +16,7 @@
 </tr>
 
 </table> <!-- "FileItem"-->
-    <%= submit_tag _("Update") %> <%= submit_to_remote 'cancel_button', _('Cancel'), :url => viewfile_release_url({
+    <%= submit_tag _("Update") %> <%= submit_to_remote 'cancel_button', _('Cancel'), :url => viewfile_project_release_path({
             :project_id => @project.id,
             :id => @release.id,
             :div_id =>  params[:div_id],

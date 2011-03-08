@@ -1,6 +1,4 @@
-<% bundle :name => "dragdrop", :packr_options => {:shrink_vars => true, :base62 => true} do %>
 <%= javascript_include_tag "dragdrop"  %>
-<% end %>
 <div id="ProjectMemberEdit">
     <table class="list-table">
       <th style="text-align:left">
@@ -21,19 +19,18 @@
     <div class='<%= drop_class %>' id='<%= drop_id %>'>
       <%= _('Drop People Here to Remove Them from the group') %>
     </div>
-    <%= drop_receiving_element drop_id,
-      :onDrop => "function(drag_element, drop_element, event){
-    if (confirm(\"#{escape_javascript(_('This will remove User from this Group, are you sure?'))}\"))
-    {#{remote_function(:update => 'ProjectMemberEdit',
-    :url => {:controller => :site_admin,
-    :action => :member_delete,
-    :id => 1},
-    :with => "'u=' + encodeURIComponent(drag_element.id)"
-    )};}
-    }",
+    <%= drop_receiving_element(drop_id, :onDrop =>
+      %%function(drag_element, drop_element, event){
+        if (confirm("#{escape_javascript(_('This will remove User from this Group, are you sure?'))}")) {
+          #{
+            remote_function(:update => 'ProjectMemberEdit',
+                            :url => member_delete_project_path(1),
+                            :with => "'u=' + encodeURIComponent(drag_element.id)")
+          };
+        }
+      }%,
       :accept => 'RolesUsersSelection',
-      :hoverclass => "#{drop_class}_active"
-  %>
+      :hoverclass => "#{drop_class}_active") %>
     <% @roles.each_with_index do |role, i| %>
       <% drop_id = "role_#{role.id}" %>
       <% drop_class = "ProjectRoleDrop" %>
@@ -52,20 +49,19 @@
           <br clear="all"/>
         </div>
       </div>
-      <%= drop_receiving_element drop_id,
-        :onDrop => "function(drag_element, drop_element, event){
-      if (confirm(\"#{escape_javascript(_('This will add User to this Group, are you sure?'))}\"))
-      {#{remote_function(:update => 'ProjectMemberEdit',
-      :url => {:controller => :site_admin,
-      :action => :member_change,
-      :id => 1},
-      :with => "'u=' + encodeURIComponent(drag_element.id) + '&r=' + encodeURIComponent(drop_element.id)"
-      )};}
-      }",
+      <%= drop_receiving_element(drop_id, :onDrop => 
+        %%function(drag_element, drop_element, event){
+          if (confirm(\"#{escape_javascript(_('This will add User to this Group, are you sure?'))}\")) {
+            #{
+              remote_function(:update => 'ProjectMemberEdit',
+                              :url => site_admin_admin_member_change_path(1),
+                              :with => "'u=' + encodeURIComponent(drag_element.id) + '&r=' + encodeURIComponent(drop_element.id)")
+            };
+          }
+        }%,
         :accept => 'RolesUsersSelection',
         :update => 'roles_edit',
         :url => {:controller => :projects, :action => :role_user_update},
-        :hoverclass => "#{drop_class}_active"
-    %>      
+        :hoverclass => "#{drop_class}_active") %>      
     <% end %>
 </div>

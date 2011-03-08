@@ -4,25 +4,27 @@
 
 <a id="myprojects"></a>
 <% module_content = capture do -%>
-  <% if not my_projects.blank? %>
-    <script type="text/javascript" src="/of/javascripts/jquery.tablednd.js"></script>
-    <script type="text/javascript">
-      jQuery(function() {
-       // Initialise the table
-          jQuery("#project_list").tableDnD({
-            onDrop: function(table, row) {
-                jQuery.get("/of/user/ajax_update_project_list?"+jQuery.tableDnD.serialize());
-                //alert(jQuery.tableDnD.serialize());
-              }  
-            });
-         jQuery("#project_list tr").hover(function() {
-          jQuery(this.cells[1]).addClass('showDragHandle');
-          }, function() {
-          jQuery(this.cells[1]).removeClass('showDragHandle');
-         });
-
+<% if not my_projects.blank? %>
+  <% content_for :page_head do %>
+    <script type="text/javascript" src="<%=root_path%>/javascripts/jquery.tablednd.js"></script>
+  <% end %>
+  <% content_for :ujs do %>
+    jQuery(function(){
+    // Initialise the table
+      jQuery("#project_list").tableDnD({
+        onDrop: function(table, row) {
+        jQuery.get("<%="#{root_path}"%>/user/ajax_update_project_list?"+jQuery.tableDnD.serialize());
+          //alert(jQuery.tableDnD.serialize());
+        }  
       });
-    </script>
+      jQuery("#project_list tr").hover(function() {
+        jQuery(this.cells[1]).addClass('showDragHandle');
+        }, function() {
+          jQuery(this.cells[1]).removeClass('showDragHandle');
+      });
+
+    });
+  <% end %>
     <table id="project_list">
       <% my_projects.each do | p | %>
         <tr id="<%=p.id-%>">
@@ -34,13 +36,13 @@
           <td>
             <h3><a href="<%=project_url( p.id ) %>"><%="#{ p.name }" %></a></h3>
             <p>
-            <a href="<%="#{ root_path }projects/#{ p.id }/rt" %>">Issue Tracker</a>
-            <a href="<%="#{ root_path }projects/#{ p.id }/kwiki" %>">Wiki</a>
-            <a href="<%="#{ root_path }projects/#{ p.id }/download" %>">Release</a>
-            <a href="<%="#{ root_path }projects/#{ p.id }/member_edit" %>">Member</a>
-            <a href="<%="#{ root_path }projects/#{ p.id }/permission_edit/" %>">Permission</a>
-            <a href="<%="#{ root_path }projects/#{ p.id }/viewvc" %>">Version Control</a>
-            <a href="<%="#{ root_path }projects/#{ p.id }/survey" %>">Surveys</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/rt" %>">Issue Tracker</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/kwiki" %>">Wiki</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/download" %>">Release</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/member_edit" %>">Member</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/permission_edit/" %>">Permission</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/viewvc" %>">Version Control</a>
+            <a href="<%="#{ root_path }/projects/#{ p.id }/survey" %>">Surveys</a>
             </p>
           </td>    
         </tr>

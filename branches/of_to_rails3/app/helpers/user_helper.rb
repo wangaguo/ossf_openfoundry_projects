@@ -33,6 +33,6 @@ module UserHelper
       align=\"#{options[:align]||:middle}\" width=32/>
      #{options[:with_login] ? "<br/> #{user.login}" : '' }
     #{options[:link]? "</a>":'' }
-    </div>"
+    </div>".html_safe
   end
 end

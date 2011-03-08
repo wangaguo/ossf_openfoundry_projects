@@ -74,7 +74,7 @@ class OpenfoundryController < ApplicationController
     render :text => "#{@name} #{@role} #{@email}" , :layout => false
   end
 
-  # http://of.openfoundry.org/openfoundry/authentication_authorization_II?SID=2702bb3cee31729e29ab61eb8dbce8d9&projectname=openfoundry
+  # http:/#{root_path}.openfoundry.org/openfoundry/authentication_authorization_II?SID=2702bb3cee31729e29ab61eb8dbce8d9&projectname=openfoundry
   def authentication_authorization_II
     #TODO: filter localhost
     #self.class.layout(nil)
@@ -339,6 +339,7 @@ class OpenfoundryController < ApplicationController
     add_one_to_download_counter
 
     download_path_saved = URI::escape( "#{@project.name}/#{@release.version}/#{@file.path}" )
+
     #chech if file has a mandatory survey
     #TODO login user?
     if( survey_available? 
@@ -351,12 +352,12 @@ class OpenfoundryController < ApplicationController
       survey = @file.survey
 
       #go to fill downloader form
-      redirect_to( downloader_path( @project.name, @release.version, @file.path, survey.id )) 
+      redirect_to downloader_path(@project.name, @release.version, @file.path, survey.id) 
 
       return
     end
 
-    redirect_to "#{request.protocol}#{SSO_HOST}/of/download/#{download_path_saved}"
+    redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download/#{download_path_saved}"
   end
 
   def redirect_rt_openfoundry_org
@@ -383,9 +384,9 @@ class OpenfoundryController < ApplicationController
           when /\/Attachment\/(\d+)\/(\d+)\/(.*)/i
             f = Fileentity.find_by_meta("#{$1},#{$2}")
             if f
-              redirect_to "#{request.protocol}#{SSO_HOST}/of/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+              redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
             else
-              redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"
+              redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/releases/top"
             end
             return
           end
@@ -397,24 +398,24 @@ class OpenfoundryController < ApplicationController
         when /\/source(.*)/i
           action = :viewvc
         end
-        redirect_to "#{request.protocol}#{SSO_HOST}/of/#{controller}/#{q}/#{action}"
+        redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/#{controller}/#{q}/#{action}"
       when /\/download(.*)/i
         case $1
         when /\/(\d+)\/(\d+)\/(.*)/
           f = Fileentity.find_by_meta("#{$1},#{$2}")
           logger.info("")
           if f
-            redirect_to "#{request.protocol}#{SSO_HOST}/of/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
+            redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
           else
-            redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"            
+            redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/releases/top"            
           end
         else
-          redirect_to "#{request.protocol}#{SSO_HOST}/of/releases/top"
+          redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/releases/top"
         end
       end   
     when /\/viewvc/i
     else
-      redirect_to "#{request.protocol}#{SSO_HOST}", :status => 307
+      redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}", :status => 307
     end
   end
 

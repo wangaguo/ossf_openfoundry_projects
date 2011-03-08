@@ -40,7 +40,7 @@
             <% i = 1 - i -%> 
             <% if i == 1; class_name = 'odd'; else; class_name = 'even'; end; -%> 
               <tr class="item_h <%=class_name %>">
-                <td><%= project_logo_link(project)%></td>
+                <td><%= raw project_logo_link(project) %></td>
                 <td class='pj_name'><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
                 <td><%=highlight(h( project.summary ), highlight_keyword ) %></td>
                 <td><%=highlight(h( project.cattag.name ), highlight_keyword ) unless project.cattag.nil? %></td>

@@ -110,11 +110,11 @@ class SurveyController < ApplicationController
       return  
     end
     @survey = Survey.find_by_id params['id']
-    if request.method == :get
+    if request.method == 'GET' 
       @downloader = Downloader.new(params['downloader'])
-    elsif request.method == :post
+    elsif request.method == 'POST'
       #TODO login user?
-     
+
       #save formal download path to session if the survey submit button is clicked
       session[:saved_download_path] = session[:tmp_path]
       session[:tmp_path] = nil
@@ -123,7 +123,7 @@ class SurveyController < ApplicationController
       unless session[:saved_download_path] 
         #missing filename in session
         #back to 'download'
-        redirect_to(download1_path @project)
+        redirect_to project_download_path(@project)
         return
       end
 
@@ -138,7 +138,8 @@ class SurveyController < ApplicationController
       @downloader.fileentity = @file
       @downloader.release = @release
       @downloader.save
-      redirect_to(download1_path @project)
+      #redirect_to download_path(@project.name, @release.version, @file.path)
+      redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download/" + URI::escape("#{@project.name}/#{@release.version}/#{@file.path}")
       return
     end
 

@@ -9,10 +9,7 @@
 <ul>
   <%for download in downloadList %>
     <li>
-      <%= link_to( 
-	h(download.project.summary), 
-	download1_path(:project_id => download.project_id) 
-	) %>
+      <%= link_to(h(download.project.summary), project_download_path(download.project)) %>
       (<%= download.release_counter %>)
     </li>
   <%end %>

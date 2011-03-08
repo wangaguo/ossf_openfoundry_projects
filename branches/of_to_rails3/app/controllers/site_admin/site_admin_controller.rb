@@ -18,8 +18,8 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
    
   def switch_user
-    session[:effective_user] = User.find_by_id(params[:id])
-    redirect_to '/user/home'
+    session[:effective_user] = User.find(params[:id])
+    redirect_to dashboard_user_path
   end
 
   def index
@@ -32,7 +32,8 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def aaf_rebuild
-    User.rebuild_index(Project,Release,News,Fileentity)
+    #User.rebuild_index(Project,Release,News,Fileentity)
+    Project.rebuild_index
     redirect_to :action => :index
   end
 
@@ -104,7 +105,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
         end
       end
 
-      mail = UserNotify.create_site_mail(@mail.subject, @mail.message)
+      mail = UserNotify.create_site_mail(@mail.subject, @mail.message.html_safe)
       mail_check = UserNotify.create_site_mail(@mail.subject, "")
       bcc_i = 0
 
@@ -254,5 +255,8 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   def manage_tags
     flash.now[ :notice ] = session[ :tmsg ] unless session[ :tmsg ].nil?
     session[ :tmsg ] = nil
+  end
+
+  def nsc_download
   end
 end

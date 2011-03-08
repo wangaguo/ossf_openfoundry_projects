@@ -26,13 +26,13 @@ class ProjectsController < ApplicationController
   def sympa
     @module_name = _('Mailing List')
     if (params[:path] != nil)
-      @Path = OPENFOUNDRY_OF_URL + "#{params[:path]}" 
+      @Path = OPENFOUNDRY_ROOT_URL + "#{params[:path]}" 
     else
       @Path = OPENFOUNDRY_SYMPA_URL + "lists_by_project/" + @project.name
     end
 
     if (params[:projectUnixName] != nil)
-      @sympa_new_url = "/projects/" + Project.find_by_name("#{params[:projectUnixName]}", :select => 'id').id.to_s + "/sympa"
+      @sympa_new_url = "#{root_path}/projects/" + Project.find_by_name("#{params[:projectUnixName]}", :select => 'id').id.to_s + "/sympa"
       
       @sympa_new_url += "?path=#{params[:path]}" if !(params[:path] =~ /(info)/).nil?
       
@@ -157,7 +157,7 @@ class ProjectsController < ApplicationController
     #
     #if @project.id
     #  # the base request url for rt rdf
-    #  prturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
+    #  prturl = "http://#{OPENFOUNDRY_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Limit=5&Query=Queue = '#{ @project.id }'"
 
     #  # unsolved only
     #  prturl += " AND ( Status='open' OR Status='new' OR Status='stalled' )"
@@ -575,27 +575,27 @@ class ProjectsController < ApplicationController
     render :action => 'permission_edit', :layout => 'module_with_flash'
   end
    
-  def new_projects_feed
-    new_projects = Project.find(:all, :conditions => Project.in_used_projects , :order => "created_at desc", :limit => 10)
-
-    feed_options = {
-      :feed => {
-        :title       => _("OpenFoundry: New Projects Feed"),
-        :description => _("New projects on OpenFoundry"),
-        :link        => "#{SSO_HOST}",
-        :language    => 'UTF-8'
-      },
-      :item => {
-        :title => :summary,
-        :description => :description,
-        :link => lambda { |p| project_url(:id => p.id)}
-      }
-    }
-    respond_to do |format|
-      format.rss { render_rss_feed_for new_projects, feed_options }
-      format.xml { render_atom_feed_for new_projects, feed_options }
-    end
-  end
+#  def new_projects_feed
+#    new_projects = Project.find(:all, :conditions => Project.in_used_projects , :order => "created_at desc", :limit => 10)
+#
+#    feed_options = {
+#      :feed => {
+#        :title       => _("OpenFoundry: New Projects Feed"),
+#        :description => _("New projects on OpenFoundry"),
+#        :link        => "#{OPENFOUNDRY_HOST}",
+#        :language    => 'UTF-8'
+#      },
+#      :item => {
+#        :title => :summary,
+#        :description => :description,
+#        :link => lambda { |p| project_url(:id => p.id)}
+#      }
+#    }
+#    respond_to do |format|
+#      format.rss { render_rss_feed_for new_projects, feed_options }
+#      format.xml { render_atom_feed_for new_projects, feed_options }
+#    end
+#  end
   
   def vcs_access
     @module_name = _('Version Control System: How to Access')

@@ -96,7 +96,7 @@ class ImagesController < ApplicationController
     #about imagick 'convert' command, see http://www.imagemagick.org/script/convert.php
     generate_captcha_code unless params[:not_regenerate]
     code = session[:captcha_code] || generate_captcha_code
-    dir = RAILS_ROOT + "/tmp/captcha/"
+    dir = Rails.root.to_s + "/tmp/captcha/"
     command = '/usr/local/bin/convert'
     
     #image params
@@ -163,6 +163,12 @@ class ImagesController < ApplicationController
       allow = fpermit?("project_info", params[:id])
     end
    
+    if params[:images].blank? # upload no files
+      flash[:message] = _("image_upload_error")
+      redirect_to params[:back_to]
+      return
+    end
+
     if params[:images]['image'].size > Image::IMAGE_UPLOAD_SIZE_LIMIT
       flash[:message] = _("Image size is too big( > #{Image::IMAGE_UPLOAD_SIZE_LIMIT} )")
       redirect_to params[:back_to]

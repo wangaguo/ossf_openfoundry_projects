@@ -13,7 +13,7 @@ class Downloader < ActiveRecord::Base
     return true
   end
 
-  named_scope :file_reviews, (
+  scope :file_reviews, (
     lambda { |pid, r_version, f_path|
     {
       :include => [:release, :fileentity],
@@ -21,17 +21,17 @@ class Downloader < ActiveRecord::Base
        pid, r_version, f_path ]}
     }
     )
-  named_scope :release_reviews, (
+  scope :release_reviews, (
     lambda { |pid, r_version|
     {
       :include => :release,
       :conditions => [ 'downloaders.project_id = ? and releases.version = ?', pid, r_version ]}
     }
   )
-  named_scope :project_reviews, (
+  scope :project_reviews, (
     lambda { |pid|
     {:conditions => [ 'project_id = ?', pid ]}
     }
   )
-  named_scope :recent, lambda{|ago| {:conditions => ['updated_at > ?', ago||1.day.ago] }}
+  scope :recent, lambda{|ago| {:conditions => ['updated_at > ?', ago||1.day.ago] }}
 end

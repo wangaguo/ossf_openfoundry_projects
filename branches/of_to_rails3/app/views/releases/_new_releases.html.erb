@@ -10,7 +10,7 @@
 <ul>
   <% for release in newReleasesList -%>
   <li>
-    <%= link_to h(release.project.summary + " " + release.version), download1_path(:project_id => release.project_id) + "##{release.version}" %>
+    <%= link_to h(release.project.summary + " " + release.version), project_download_path(release.project) + "##{release.version}" %>
     <%= release.created_at.strftime "%Y-%m-%d" %>
   </li>
   <% end -%>

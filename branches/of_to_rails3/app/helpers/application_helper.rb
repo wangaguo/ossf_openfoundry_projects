@@ -40,8 +40,11 @@ module ApplicationHelper
     html = "<a id='breadcrumbs-home' href='/'></a><span class=\"breadcrumbs pathway\"> \n"
     hierarchy = 1 
 
-    url = request.path.split('?')  #remove extra query string parameters
+    url = request.path.gsub(ROOT_PATH, '').split('?')  #remove extra query string parameters # url remove ROOT_PATH for Rails 3
     levels = (url[0] || '' ).split('/') #break up url into different levels
+    if levels[1] == 'download_path'
+      levels = [ '', 'projects', Project.find_by_name(levels[2]).id.to_s, 'download', levels[4] ]
+    end
     level_name=""
     level_class=nil
     level_title='name'
@@ -77,7 +80,7 @@ module ApplicationHelper
           when 'rt'
             level_name, level_class, level_title = 
               _('Issue Tracker'), "rt", 'subject'
-          when 'download_path'
+          when 'download_path', 'download'
             level_name, level_class, level_title = 
               _('Downloads'), nil, nil
           when 'top'
@@ -99,7 +102,13 @@ module ApplicationHelper
             if (["help"].include?(level_class)==true) 
               level_name = ''
             else
+                logger.error "!!!!!"+level+"!!!"+ROOT_PATH
+              if hierarchy == 2 and "/#{level}" == ROOT_PATH
+                level = "of" 
+                logger.error "!!!!!"+level+"!!!"+ROOT_PATH
+              end
               if ( _( "breadcrumb|" + level ) == "breadcrumb|" + level )
+                logger.error "!!!!!"+url_unescape(level).humanize.capitalize
                 level_name = h( url_unescape(level).humanize.capitalize )
               else
                 begin
@@ -136,7 +145,7 @@ module ApplicationHelper
             unless (@module_name.nil?) then html << addcrumb(@module_name, hierarchy) else html << addcrumb(level_name, hierarchy) end
           end
         else
-          link = "#{root_path}"+levels[1..index].join('/')
+          link = "/"+levels[1..index].join('/')
           html << addcrumb(level_name, hierarchy, link)
         end
       end
@@ -149,7 +158,7 @@ module ApplicationHelper
   
   def addcrumb(name,level,path = nil)
     if path
-      name = "<a class='pathway' href=\"#{path}\">#{name}</a>" unless path.nil?
+      name = "<a class='pathway' href=\"#{root_path}#{path}\">#{name}</a>" unless path.nil?
     else
       name = "<span class='no-link'>#{name}</span>"
     end
@@ -275,9 +284,19 @@ module ApplicationHelper
   
   def show_flash
     keys  = [:error, :warning, :notice, :message]
-    keys.collect { |key| content_tag(:p, flash[key],
-                                     :class => "flash#{key}") if flash[key] 
-                 }.join
+    keys.collect { |key|
+      if flash[key] 
+        # 原先的版本只吃字串訊息,
+        # 修正後的版本可以處理塞在 flash 中的陣列 (any_model.errors.full_message), 輸出成 ul>li*n 的樣式.
+        if flash[key].is_a? Array
+          content_tag(:div, 
+                      content_tag(:ul, flash[key].map { |msg| content_tag(:li, msg) }.join), 
+                      :class => "flash#{key}") 
+        else
+          content_tag(:div, flash[key].to_s, :class => "flash#{key}") 
+        end
+      end
+    }.join
   end
 
   def language_select(name, selected, options = {})
@@ -286,12 +305,12 @@ module ApplicationHelper
   end
   
   def help_icon(tooltip)
-    '<img src="/of/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
+    '<img src="' + root_path + '/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
   end
   
   def required_icon
     t = _("required_icon")
-    %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/of/images/icon/star.gif"></em>!
+    content_tag(:em, image_tag('icon/star.gif', :alt => t, :title => t), :class => 'required')
   end
 
   def tz_date(time_at)
@@ -336,10 +355,10 @@ module ApplicationHelper
 
     def required_icon
       t = _("required_icon")
-      %Q!<em class="required"><img alt="#{t}" title="#{t}" src="/of/images/icon/star.gif"></em>!
+      content_tag(:em, image_tag('icon/star.gif', :alt => t, :title => t), :class => 'required')
     end
     def help_icon(tooltip)
-      '<img src="/of/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
+      '<img src="' + root_path + '/images/icon/help.gif" alt="' + tooltip + '" title="' + tooltip + '"/>'
     end
     
     def label(method, text = nil, options = {})
@@ -372,7 +391,7 @@ module ApplicationHelper
     end
     
     def select_tag(name, option_tags = nil, options = {})
-      "<td>#{content_tag :select, option_tags, { "name" => name, "id" => name }.update(options.stringify_keys)}</td></tr>"
+      "<td>#{content_tag :select, option_tags, { "name" => name, "id" => name }.update(options)}</td></tr>"
     end
 
     def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})

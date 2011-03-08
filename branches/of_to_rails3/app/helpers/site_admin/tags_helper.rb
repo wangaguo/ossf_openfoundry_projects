@@ -1,2 +1,0 @@
-module SiteAdmin::TagsHelper
-end

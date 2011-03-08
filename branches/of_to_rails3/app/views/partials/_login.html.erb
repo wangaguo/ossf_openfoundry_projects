@@ -1,5 +1,5 @@
 <% if(login?) -%>
-  <%=_('Hi')%>,<%= link_to current_user.login, '/user/userprofile' %>
+  <%=_('Hi')%>,<%= link_to current_user[:login], '/user/userprofile' %>
   &nbsp;|&nbsp; 
   <%= link_to _('Dashboard'), dashboard_user_path %>
   &nbsp;|&nbsp; 

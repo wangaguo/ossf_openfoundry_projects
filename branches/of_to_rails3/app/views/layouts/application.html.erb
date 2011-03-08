@@ -4,23 +4,17 @@
          <%= (@project ? '- '+(@project.name||'') : '') %>
          - OpenFoundry
          <%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
-  <%# bundle :name => "prototype" do %>
-  <%= javascript_include_tag "prototype" %>
-  <%# end %>
-  <%# bundle :name => "all", :packr_options => {:shrink_vars => true, :base62 => false} do %>
-  <%= stylesheet_link_tag "scaffold", "openfoundry" %>
-  <%= javascript_include_tag "effects", "application" %>
-  <%= javascript_include_tag 'calendar/calendar' %>
-  <%= javascript_include_tag "calendar/lang/calendar-en.js" %>
-  <%= javascript_include_tag 'calendar/calendar-setup' %>
-  <%= javascript_include_tag 'langsync' %>
-  <%= javascript_include_tag 'qrcode' %>
-  <%= stylesheet_link_tag 'calendar' %>
-  <%# end %>
+  <%= stylesheet_link_tag "scaffold", "openfoundry", "calendar", :cache => '_all' %>
+  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" %>
+  <%= javascript_include_tag "prototype", "effects", "application", "rails", "langsync", "qrcode", :cache => '_all' %>
+  <%= javascript_include_tag "calendar/calendar", "calendar/lang/calendar-en", "calendar/calendar-setup", :cache => '_calendar' %>
+  <%= csrf_meta_tag %>
   <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
    <script>alert('Please use Internet Explorer 6 or above.');</script>
   <% end %>
   <script type="text/javascript">
+    window.OF = function(){};
+    OF.root_path = '<%= root_path%>';
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-5220412-1']);
     _gaq.push(['_trackPageview']);
@@ -43,38 +37,32 @@
   </div>
 <% end -%>
 
-<% content_for :breadcrumbs_content do -%>
-  <%= breadcrumbs(@module_name) %>
-<% end -%>
+<% content_for :breadcrumbs_content do %>
+  <%=raw breadcrumbs(@module_name) %>
+<% end %>
 
 <% content_for :body_content do -%>
 <div id="of-body">
   <div id="MiddlePane">
     <div class="rt-grid-12">
-      <%if params["project_id"] != nil%>
+      <% if @project.try(:persisted?) %>
        <div class="pj_logo" >
-          <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
-            <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" style="vertical-align: middle;" width=48 />
+          <a href="<%= projects_path(@project) %>">
+            <img src="<%= cached_image_images_path(:id => @project.icon) %>" style="vertical-align: middle;" width=48 />
 	  </a>
        </div>
        <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
          <div class="project-links">
-           <ul>
-             <li><a href="http://<%= @project.name %>.openfoundry.org" target="_blank">[<%= t('project_Homepage') %>]</a></li>
-             <li>
-               <% @use_add_this = true %>
-               <!-- AddThis Button BEGIN -->
-               <div class="addthis_toolbox addthis_default_style ">
-                 <a
-                   href="http://www.addthis.com/bookmark.php?v=250&amp;username=openfoundry" class="addthis_button_compact">Share</a>
-               </div>
-               <script type="text/javascript">var addthis_config =
-                 {"data_track_clickback":true};</script>
-               <script type="text/javascript"
-                 src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
-               <!-- AddThis Button END -->
-             </li>
-           </ul>
+           <% if false # Ally said to disable AddThis at 2/9 9:28 %>
+             <% @use_add_this = true %>
+             <!-- AddThis Button BEGIN -->
+             <div class="addthis_toolbox addthis_default_style ">
+               <a class="addthis_counter addthis_pill_style"></a>
+             </div>
+             <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
+             <!-- AddThis Button END -->
+           <% end %>
          </div>
           <h3>
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
@@ -84,8 +72,8 @@
             <%= t(Project.maturity_to_s(@project.maturity)) %>
           </span>
           </h3>
-	  <h6>
-		  <%= h(@project.summary) %>
+          <h6>
+            <%= truncate(h(@project.summary), :length => 50) %>
           </h6>
         <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
           <%= image_tag "green_arrow_right.gif" %>
@@ -103,29 +91,21 @@
     <% else -%> 
       <div id="MainContent" class="rt-grid-9 rt-push-3">
     <% end -%>    
-        <div id="Flash"><%= show_flash %></div>
-        <%= yield :layout %>
+        <div id="Flash"><%= raw show_flash %></div>
+        <%= content_for?(:module) ? yield(:module) : yield %>
       </div>
     <% if match == true -%> 
         <div id="LeftWidget" style="display:none;">
     <% else -%> 
         <div id="LeftWidget" class="rt-grid-3 rt-pull-9">
     <% end -%> 
-    	<%if params["project_id"] != nil%>
+    	<% if @project.try(:persisted?) # Ensure there is a project entity and it is persisted %>
           <%=render :partial => "news/news_list", :locals => {:project => @project}%>
           <%#=render :partial => "partials/project_logo", :locals => {:project => @project}%>
         <div id="LeftMenu">
 		<%=render :partial => "partials/project_menu", :locals => {:project => @project}%>
 		<%=render :partial => "partials/qrcode_project", :locals => {:project => @project}%>
-		<%#= qrcode("http://www.openfoundry.org/of/projects/#{@project.id}", 2, 8, h(@project.summary)) %>
         </div>
-          <%# module_title = capture do %>
-            <%#= _('News') %>
-          <%# end %>
-          <%# module_content = capture do%>
-            <%#=render :partial => "news/news_list", :locals => {:project => @project}%>
-          <%# end %>
-          <%#= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
       <%elsif controller.controller_name == "user"%>
           <%=render :partial => "partials/dashboard_menu", :locals => {:project => @project}%>
       <%elsif controller.controller_name == "help"%>
@@ -137,5 +117,9 @@
   </div>
   <br clear="all" />
 </div>
+<!--This is for Apture testing-->
+<script id="aptureScript">
+  (function (){var a=document.createElement("script");a.defer="true";a.src="http://www.apture.com/js/apture.js?siteToken=PnRZMif";document.getElementsByTagName("head")[0].appendChild(a);})();
+</script>
 <% end -%>
 <%= render :file => 'layouts/integration' %> 

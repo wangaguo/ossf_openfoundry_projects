@@ -1,7 +1,7 @@
 <!--search hit-->
 <td>
   <% if record.catid == 0 %>
-  <%= link_to h(record.subject), site_news1_path(:id => record.id) %>
+  <%= link_to h(record.subject), news_path(record) %>
   <% else %>
     <%= link_to h(record.subject), news1_path(:id => record.id, :project_id => record.catid) %>
   <% end %>

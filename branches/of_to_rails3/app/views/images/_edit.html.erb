@@ -3,7 +3,7 @@
   <%#= form_remote_tag(:update => 'UserImage', :url => 
       {:controller => :images, :action => 'upload'},
     :multipart => true) %>
-  <% form_tag({:controller => :images, :action => 'upload'}, :multipart => true) do %>
+  <%= form_tag({:controller => :images, :action => 'upload'}, :multipart => true) do %>
   <%= hidden_field_tag 'type', type %>
   <%= hidden_field_tag 'id', id %>
   <%= hidden_field_tag 'back_to', back_to %>

@@ -3,13 +3,13 @@
 <ul>
   <li><%= link_to ("Projects"), site_admin_projects_path %></li>
   <li><%= link_to ("News"), site_admin_news_index_path %></li>
-  <li><%= link_to ("User"), site_admin_users_path %></li>
-  <li><%= link_to ("Site Member Control"), {:action => :member_edit } %></li>
+  <li><%= link_to ("User"), site_admin_user_index_path %></li>
+  <li><%= link_to ("Site Member Control"), site_admin_admin_member_edit_path %></li>
   <li>
     切換使用者
     <input id="switch_user_search" size="25" type="text">
     <%= observe_field "switch_user_search",
-        :url =>"#{root_path}site_admin/site_admin/switch_user_search",
+        :url => site_admin_admin_switch_user_search_path,
         :frequency => 0.5,
         :update => 'ProjectMemberNew',
         :with => :username
@@ -41,9 +41,9 @@
 
 <h2>NSC相關</h2>
 <ul>
-  <li><%= link_to _("Report status"), {:controller => '/nsc', :action => :report_status} %></li>
-  <li><%= link_to _("Download count"), {:controller => '/nsc', :action => :download_count} %></li>
-  <li><%= link_to _("Download List"), {:action => :nsc_download } %></li>
+  <li><%= link_to _("Report status"), nsc_report_status_path %></li>
+  <li><%= link_to _("Download count"), nsc_download_count_path %></li>
+  <li><%= link_to _("Download List"), site_admin_admin_nsc_download_path %></li>
 </ul>
 <h2><%=_('App Information')%></h2>
 <b>my PID: <%= $$ %></b>
@@ -54,9 +54,9 @@ Rails Version: <%= Rails.version %>
 <br/>
 Rails Environment: <%= Rails.env.inspect %>
 <br/>
-Actived Gems: <%= Rails.configuration.gems.map{|g| g.name}.join(' ')%>
+Actived Gems: <%= Bundler.environment.current_dependencies.map(&:name).join(', ') %>
 <br/>
-Actived Plugins: <%= Rails.configuration.plugins%>
+Actived Plugins: <%= Rails.configuration.plugins.inspect %>
 <br/>
 Timezone: <%= Rails.configuration.time_zone%>
 <br/>
