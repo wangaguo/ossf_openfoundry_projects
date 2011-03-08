@@ -250,7 +250,7 @@
               <% rtg.each do | tg | -%> 
                 <tr>
                   <td name="<%=tg.id %>">
-                    <font <%="style=\"text-decoration: underline\"" if tg.tag_type == Tagcloud::TYPE[ :CATEGORY ] %>>
+                    <font <%=raw "style=\"text-decoration: underline\"" if tg.tag_type == Tagcloud::TYPE[ :CATEGORY ] %>>
                       <%=tg.name %>
                     </font>
                   </td>
