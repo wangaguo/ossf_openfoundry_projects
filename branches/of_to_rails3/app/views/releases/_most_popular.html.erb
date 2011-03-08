@@ -1,7 +1,7 @@
 <% module_title = capture do -%>
   <%=link_to( image_tag('atom.png', 
          {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
-         {:controller => :releases, :action => :top_download_feed, :format => :xml} ) %>
+         {:controller => :rss, :format => :rss, :cont => 'top_download'} ) %>
   <%=_('Top Download')%>
 <% end -%>
 
@@ -19,10 +19,10 @@
 </ul>
 <%= link_to( _("More..."), {:controller => 'releases', :action => 'top'}, :class => "more" ) %>
 <%=auto_discovery_link_tag(:rss, 
-   {:format => :rss, :controller => :releases, :action => "top_download_feed"},
+   {:controller => :rss, :format => :rss, :cont => 'top_download'},
    { :title => s_( "Feed|#{ _('Top Download') } RSS Feed" ) } ) %>
 <%=auto_discovery_link_tag(:atom, 
-   {:format => :xml, :controller => :releases, :action => "top_download_feed"},
+   {:controller => :rss, :format => :atom, :cont => 'top_download'},
    { :title => s_( "Feed|#{ _('Top Download') } ATOM Feed" ) } ) %>
 <% end -%>
 

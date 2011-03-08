@@ -1,8 +1,7 @@
 <% showDescr == showDescr || true -%> 
 <% module_title = capture do -%>
-  <%=link_to( image_tag('atom.png', 
-             {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
-             new_openfoundry_news_feed_site_news_path( :format => :xml) )%>
+  <%= link_to(image_tag('atom.png', :alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'),
+              rss_path(:format => :rss, :cont => 'site_news')) %>
   <%=_('Announcements')%>
 <% end -%>
 
@@ -25,12 +24,12 @@
   <% end -%>
 </ul>
 <%=link_to( _('More...'), site_news_path, :class => "more" )%>
-<%=auto_discovery_link_tag(:rss,
-   new_openfoundry_news_feed_site_news_path({:format => :rss}),
-   { :title => s_( "Feed|#{ _( 'OpenFoundry News' ) } RSS Feed" ) } ) %>
-<%=auto_discovery_link_tag(:atom,
-   new_openfoundry_news_feed_site_news_path({:format => :xml}),
-   { :title => s_( "Feed|#{ _( 'OpenFoundry News' ) } ATOM Feed" ) } ) %>
+<%= auto_discovery_link_tag(:rss,
+                            rss_path(:format => :rss, :cont => 'site_news'),
+                            {:title => s_("Feed|#{_('OpenFoundry News')} RSS Feed")}) %>
+<%= auto_discovery_link_tag(:atom,
+                            rss_path(:format => :atom, :cont => 'site_news'),
+                            {:title => s_("Feed|#{_('OpenFoundry News')} ATOM Feed")}) %>
 <% end -%>
 
 <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
