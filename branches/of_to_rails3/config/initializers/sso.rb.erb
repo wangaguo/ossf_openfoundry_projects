@@ -4,10 +4,10 @@ UI_SCHEMA_CSS_HOST = '<%=sso_ui_host%>'
 # sso testing variables
 #
 SSO_HOST = '<%=host%>'
-SSO_LOGIN = "http://#{SSO_HOST}/sso/user/login"
-SSO_LOGOUT = "http://#{SSO_HOST}/sso/user/logout"
-SSO_FETCH = "http://#{SSO_HOST}/sso/site/fetch"
+SSO_URL = "http://#{SSO_HOST}/sso"
+SSO_LOGIN = "#{SSO_URL}/user/login"
+SSO_LOGOUT = "#{SSO_URL}/user/logout"
+SSO_FETCH = "#{SSO_URL}/site/fetch"
 SSO_OF_REGIST_KEY = '<%=sso_of_auth_key%>'
 SSO_OF_LOGIN = "http://#{SSO_HOST}#{ROOT_PATH}/user/login"
-SSO_PERIOD_SYNC = "http://#{SSO_HOST}/sso/sync.json"
-
+SSO_PERIOD_SYNC = "#{SSO_URL}/sync.json"
