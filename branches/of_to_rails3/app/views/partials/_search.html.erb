@@ -39,7 +39,7 @@
 
 
   <% if adv and params[:adv_cat].nil? -%>
-    <a href="<%="#{ root_path }openfoundry/search?adv_cat=&query=" %>"><%=t( 'Advanced Options' ) %></a>
+    <a href="<%=openfoundry_search_path(:adv_cat => '', :query => '')%>"><%=t( 'Advanced Options' ) %></a>
   <% end -%>
 
   <!-- hidden field for old search news and files -->
