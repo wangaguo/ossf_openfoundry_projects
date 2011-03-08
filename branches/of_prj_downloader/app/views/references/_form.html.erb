@@ -1,0 +1,15 @@
+<%= error_messages_for 'data_item', :object_name => 'reference' %>
+
+<table class='form-table'>
+  <tr>
+    <th><label for="data_item_source"><%=_('Reference|Source')%></label><%=required_icon%></th>
+    <td><%= text_area("data_item", "source") %></td>
+  </tr>
+  <tr>
+    <th><label for="data_item_status"><%=_('Status')%></label></th>
+    <td>
+      <%= radio_button("data_item", "status", Reference::STATUS[:Enabled]) %><%=_('Enabled')%>
+      <%= radio_button("data_item", "status", Reference::STATUS[:Disabled]) %><%=_('Disabled')%>
+    </td>
+  </tr>
+</table>

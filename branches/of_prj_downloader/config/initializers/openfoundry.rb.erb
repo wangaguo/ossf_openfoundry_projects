@@ -1,0 +1,47 @@
+# For Project Upload
+OPENFOUNDRY_PROJECT_UPLOAD_PATH = '<%=projects_upload_path%>'
+
+# TODO: better naming
+
+OPENFOUNDRY_HOST = '<%=host%>'
+OPENFOUNDRY_SITE_NAME = '<%=site_name%>'
+OPENFOUNDRY_SITE_ADMIN_EMAIL = '<%=site_admin_mail%>'
+OPENFOUNDRY_SITEMAIL_BATCH_MAX = 500
+OPENFOUNDRY_SESSION_EXPIRES_AFTER = 8 * 60 * 60 # in seconds
+OPENFOUNDRY_WEBSVN_URL =  "http://#{OPENFOUNDRY_HOST}/websvn/"
+OPENFOUNDRY_VIEWVC_SVN_URL =  "http://#{OPENFOUNDRY_HOST}/viewvc-svn/"
+OPENFOUNDRY_VIEWVC_CVS_URL =  "http://#{OPENFOUNDRY_HOST}/viewvc-cvs/"
+OPENFOUNDRY_ROOT_URL = "http://#{OPENFOUNDRY_HOST}/"
+OPENFOUNDRY_OF_URL = "http://#{OPENFOUNDRY_HOST}#{ROOT_PATH}/"
+OPENFOUNDRY_RT_URL = "http://#{OPENFOUNDRY_HOST}/rt/"
+OPENFOUNDRY_SYMPA_URL = "http://#{OPENFOUNDRY_HOST}/sympa/"
+OPENFOUNDRY_KWIKI_URL = "http://#{OPENFOUNDRY_HOST}/kwiki/"
+OPENFOUNDRY_HOMEPAGE_URL = "http://%s.openfoundry.org"
+OPENFOUNDRY_FTP_URL = "ftp://ftp.openfoundry.org/"
+
+OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH = "#{Rails.root.to_s}/tmp/run_code.rb"
+# an Enumerable object.  TODO: not only ports but also addresses ?
+OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PORTS = (8000 .. 8005)
+OPENFOUNDRY_JSON_DUMP_PASSWORD = '5f12117baa04ce58'
+
+#for NSC
+NSC_UPLOAD_DIR = "#{Rails.root.to_s}/nsc_upload_dir" # don't forget to mkdir
+NSC_REVIEWERS_FILE = "#{NSC_UPLOAD_DIR}/reviewers.txt" # p u mapping
+NSC_REVIEWERS_LOGIN_FILTER = /^nscreviewer\d\d$/ # only accounts that can pass this filter
+                                                   # may possiblely be a valid reviewer
+NSC_CURRENT_UPLOAD_FILTER = /./ # only types that match this filter can be uploaded
+NSC_UPLOAD_FROM = "2009/01/01 00:00"
+NSC_UPLOAD_TO = "2009/12/31 23:59"
+NSC_CURRENT_YEAR = "98"
+NSC_REVIEW_OPENED = false
+NSC_ADMIN_ACCOUNT = "nsc_admin"
+
+#for redis connection
+REDIS = Redis.new :host => '<%=redis_server%>'
+
+# add fulltext indexed SEARCH
+# for search in UTF-8
+UTF8_ANALYSIS_REGEX =
+  /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
+GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
+DEFAULT_FIELD = [:alltags_string, :name, :summary, :cattag_name, :maturity_index, :license, :platform, :programminglanguage, :category_index, :subject, :description, :requirement, :description_without_tag, :name_for_sort]

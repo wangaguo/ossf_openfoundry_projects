@@ -1,0 +1,8 @@
+<div id="ProjectNew">
+  <em><%= raw "(#{required_icon()}#{_("required_icon")})" %></em>
+  <% form_tag :action => 'create' do %>
+    <%= render :partial => 'form', :locals => { :is_edit => false } %>
+    <%=hidden_field_tag '__clibeanna' %>
+    <%= submit_tag _('Create') %>
+  <% end %>
+</div>
