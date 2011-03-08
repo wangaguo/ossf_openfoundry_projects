@@ -1,0 +1,14 @@
+<div id="category_<%= @category.id %>">
+        <%= link_to_remote @category.name, :url => { :controller => 'category', :action => 'close', :id => @category.id}, :update => "category_#{@category.id}" -%>
+        <ul>
+        <%@contents.each { |subitem| -%>
+                         <li>
+                         <div id="category_<%=subitem.id%>">
+                         <%= link_to_remote subitem.name, :url => { :controller => 'category', :action => 'open', :id => subitem.id}, :update => "category_#{subitem.id}" -%>
+                         </div>
+
+                         </li>
+        <% } -%>
+        </ul>
+</div>
+
