@@ -1,2 +1,0 @@
-/media/sda3/_work/vcs/config.sh 265A9D1F-B262-0049-C27D-9AE4A8D8E51E zlib
-/media/sda3/_work/vcs/install.sh 2642F637-B5BB-5A2A-59D8-0015159628AF zlib

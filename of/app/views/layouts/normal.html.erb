@@ -1,7 +1,0 @@
-<% inside_layout 'application' do -%> 
-  <% module_title = @module_name %>
-  <% module_content = capture do -%>
-      <%= yield %>
-  <% end -%>
-  <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'}  %>
-<% end -%>
