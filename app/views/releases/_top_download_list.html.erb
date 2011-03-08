@@ -1,0 +1,22 @@
+<div id="ReleaseList">
+<table class=list-table>
+  <tr>
+    <th align=left></th>
+    <th align=left nowrap><%= _('Rank') %></th>
+    <th align=left><%= _('Release Name') %></th>
+    <th align=left><%= _('Release Date') %></th>
+  </tr>
+  
+<% i=(@page-1)*100 %>
+<% for release in releases %>
+ <%if i % 2 == 0; class_name="odd"; else; class_name="even"; end; -%>
+  <tr class="<%= class_name %>">
+    <td><img src="<%= cached_image_images_path(:id => "#{Project.find(release.project_id).icon}_16") %>"/></td>
+    <td><%= (i+=1).to_s %></td>
+    <td><%= link_to h(release.project.summary), project_download_path(:project_id => release.project_id) %></td>
+    <td><%= release.created_at.strftime("%Y/%m/%d") if !release.due.nil? %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate releases %>
+</div>

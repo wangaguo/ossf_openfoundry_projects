@@ -1,0 +1,40 @@
+<% code_file = OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PATH %>
+<%
+# write the code to file
+if request.post?
+  f = File.new(code_file, "w")
+  f.write("# last edited by #{current_user.login} on #{Time.new} from #{request.remote_ip}\n")
+  f.write(params[:code])
+  f.close
+  require "open3"
+  syntax_check = ""
+  Open3.popen3("ruby -c #{code_file}") do |stdin, stdout, stderr|
+    syntax_check = stdout.read + stderr.read
+  end
+end
+%>
+
+<% form_tag do %>
+  code to run:<br/>
+<pre>
+<%= syntax_check %>
+</pre>
+  <%= text_area_tag(:code, File.exist?(code_file) ? File.new(code_file).read : "# put your code here" ) %><br/>
+  <%= submit_tag "Save to #{h(code_file)}" %>
+<% end %>
+
+<% url = "http://#{request.env["SERVER_NAME"]}:%d#{url_for(:action => 'run_code')}" %>
+<% content_for :ujs do %>
+jQuery.noConflict();
+function trigger_run_code()
+{
+<% OPENFOUNDRY_SITE_ADMIN_RUN_CODE_PORTS.each do |port| %>
+  jQuery('#blah').append('<iframe src="<%= url % port %>"></iframe>');
+<% end %>
+}
+<% end %>
+
+
+<button onclick="trigger_run_code()">Run!</button>
+<div id="blah"></div>
+

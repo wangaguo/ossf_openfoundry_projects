@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Who's Who, whoswho, opensource, Open Source, People, people, Community, 社群, Group, group, Taiwan, taiwan, 台灣, workshop, 工作坊, OSSF, 自由軟體鑄造場， 自由軟體，人才，產業，Linux, GNU, 人群,工作坊,分享,學習,法律,授權,GPL,資源表列,討論區,專案開發平台,OpenFoundry,自由軟體人才資料庫,開放源碼, 專案, 軟體, Web Hosting, 網站代管, Subversion, CVS, Issue Tracker, 待辨事項, Wiki, 共同筆記， Project Management, 專案管理, Release, 釋出, Version Control, 版本釋出, tw,TW, Open Foundry, Open, 中央研究院，資訊科學研究所, 自由軟體電子報" />
+    <% if @project %>
+      <meta name="title" content="<%= @project.summary %> - <%= @project.name %> - OpenFoundry" />
+      <meta name="description" content="<%= @project.description %>"/>
+      <meta name="og:image" content="<%= cached_image_images_url(:id => @project.icon) %>" />
+    <% else %>
+      <meta name="title" content="Projects - OpenFoundry" />
+      <meta name="author" content="ossf"/>
+      <meta name="description" content="OpenFoundry provides essential tools and services through its service platform for users to develop Open Source Software Projects, the operating funds comes from the National Science Council and the Research Center for Information Technology Innovation of Academia Sinica Taiwan." /> 
+    <% end %>
+
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/components/com_gantry/css/gantry.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/light-body-ie6.css" type="text/css" />
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/components/com_gantry/css/gantry-ie6.css" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/components/com_gantry/css/grid-12.css" type="text/css" />
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/components/com_gantry/css/joomla.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/components/com_gantry/css/joomla-ie6.css" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/joomla.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/suckerfish.css" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/style1.css" type="text/css" />
+
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/light-body.css" type="text/css" />
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/template.css" type="text/css" />
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/template-ie6.css" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/typography.css" type="text/css" />
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/joomla-ie7.css" type="text/css" />
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/template-ie7.css" type="text/css" />
+    <![endif]-->
+    <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/fusionmenu.css" type="text/css" />
+    <%= yield :head_content %>
+    <%= yield :page_head %>
+    <script type="text/javascript">
+    <%= yield :ujs %>
+    </script>
+    <script type="text/javascript" src="http://<%=UI_SCHEMA_CSS_HOST%>/modules/mod_ofssologin/js/ofssologin.js"></script>
+  </head>
+
+  <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
+    <div id="rt-main-background">
+      <div class="rt-container">
+        <!-- header Start -->
+        <div id="rt-header">
+          <!-- Logo -->
+          <div class="rt-grid-7 rt-alpha">
+
+            <div class="rt-block">
+
+              <a href="/" id="rt-logo" name="rt-logo"></a>
+            </div>
+          </div>
+          <div class="rt-grid-5 rt-omega">
+            <!-- Input Account Login and Logout and Search -->
+            <div class="square9">
+              <div class="rt-block">
+                <div class="rt-module-surround">
+
+                  <div class="rt-module-top">
+                    <div class="rt-module-top2">
+                      <div class="rt-module-top3"></div>
+                    </div>
+                  </div>
+                  <div class="rt-module-inner">
+                    <div class="module-content">
+                      <div class="ofssologin_square9">
+                        <%= yield :header_content %>
+                        <div class="ofssologin_search_square9">
+                          <form id="of_search" action="<%= openfoundry_search_path %>" method="get" onsubmit="of_search(); return false;">
+                            <select id="of_search_type">
+                              <option value="Projects"><%=_('Projects')%></option>
+                              <option value="Content"><%=_('Content')%></option>
+                              <option value="People"><%=_('People')%></option>
+                            </select>
+                            <input id="query" name="query" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="28" value="search..."  onblur="if(this.value=='') this.value='search...';" onfocus="if(this.value=='search...') this.value='';" />
+                            <input type="hidden" name="commit" value="search" />
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rt-module-bottom">
+
+                    <div class="rt-module-bottom2">
+
+                      <div class="rt-module-bottom3"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
+
+        </div><!-- header END-->
+        <!-- MainMenu Start-->
+        <div id="rt-navigation">
+          <div id="rt-navigation2">
+            <div id="rt-navigation3">
+              <ul class="menutop level1">
+                <li class="item root">
+                  <a class="orphan item bullet" href="/"><span><%=_('Home')%></span></a>
+                </li>
+                <li class="item root active">
+                  <a class="orphan item bullet" href="<%="#{ root_path }" %>"><span><%=_('Projects')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/community"><span><%=_('Community')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/news"><span><%=_('News')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/law-and-licenses"><span><%=_('Law and Licenses')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/workshop"><span><%=_('Workshop')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/resourcecatalog"><span><%=_('Resource Catalog')%></span></a>
+                </li>
+                <li class="item root">
+                  <a class="orphan item bullet" href="/about"><span><%=_('About')%></span></a>
+                  </li>
+                <%- if current_user.has_role?('site_admin') %>
+                  <li class="item root">
+                  <a class="orphan item bullet" href="<%= site_admin_root_path %>"><span></span></a>
+                  </li>
+                <% end -%>
+              </ul>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div><!-- MainMenu END-->
+        <!-- MainBody Start-->
+        <div class="rt-surround">
+          <div class="rt-surround2">
+            <div class="rt-surround3">
+
+              <div id="rt-main-surround">
+
+                <!--Pathway Start -->
+                <div id="rt-breadcrumbs">
+                  <div class="rt-breadcrumb-surround">
+                    <%= yield :breadcrumbs_content %>
+                  </div>
+                  <div class="clear"></div>
+
+                </div><!--Pathway END -->
+
+                <!--MainBody Full Area Header Start-->
+                <div id="rt-main" class="mb12">
+                  <div class="rt-main-inner">
+                    <!--MainBody Full Area Header End-->
+                    <!--Input OF main body here -->
+                    <%= yield :body_content %>
+                    <div class="clear"></div>
+                  </div>
+                </div>
+              </div><!--Footer Start -->
+              <div id="rt-copyright">
+
+                <div class="rt-grid-12 rt-alpha rt-omega">
+                  <div class="rt-block">
+                    <div class="rt-module-surround">
+                      <div class="rt-module-top">
+
+                        <div class="rt-module-top2">
+                          <div class="rt-module-top3"></div>
+                        </div>
+                      </div>
+                      <div class="rt-module-inner">
+
+                        <div class="module-content">
+                          <p>
+                            <%=raw _('template_footer_content')%>
+                          </p>
+                        </div>
+
+                      </div>
+                      <div class="rt-module-bottom">
+                        <div class="rt-module-bottom2">
+
+                          <div class="rt-module-bottom3"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="clear"></div>
+              </div>
+
+              <div class="rt-footer-bottom-wrap">
+                <div class="rt-footer-bottom">
+                  <div class="rt-footer-bottom2">
+                    <div class="rt-footer-bottom3"></div>
+                  </div>
+                </div>
+              </div><!--Footer End -->
+
+            </div>
+
+          </div>
+        </div><!--MainBody Footer Start-->
+        <div class="rt-surround-bottom">
+          <div class="rt-surround-bottom2">
+            <div class="rt-surround-bottom3"></div>
+          </div>
+        </div><!--MainBody Footer End-->
+      </div>
+
+    </div>
+  </body>
+</html>
+
