@@ -45,7 +45,7 @@
 <div id="of-body">
   <div id="MiddlePane">
     <div class="rt-grid-12">
-      <% if @project.try(:persisted?) %>
+      <% if @project.try(:persisted?) && !controller.action_name['change_status_form'] %>
        <div class="pj_logo" >
           <a href="<%= projects_path(@project) %>">
             <img src="<%= cached_image_images_path(:id => @project.icon) %>" style="vertical-align: middle;" width=48 />
@@ -117,9 +117,9 @@
   </div>
   <br clear="all" />
 </div>
-<!--This is for Apture testing-->
+<!--This is for Apture testing
 <script id="aptureScript">
   (function (){var a=document.createElement("script");a.defer="true";a.src="http://www.apture.com/js/apture.js?siteToken=PnRZMif";document.getElementsByTagName("head")[0].appendChild(a);})();
-</script>
+</script>-->
 <% end -%>
 <%= render :file => 'layouts/integration' %> 
