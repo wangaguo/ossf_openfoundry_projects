@@ -45,7 +45,7 @@ class Release < ActiveRecord::Base
   end
 
   def self.new_releases
-    Release.joins(:project).find(:all, :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 5)
+    Release.joins(:project).where("releases.status = 1").where(Project.in_used_projects(:alias => "projects")).order("releases.created_at desc").limit(5)
   end
 
   def self.published_releases(options = {})
