@@ -73,9 +73,6 @@ class ProjectsController < ApplicationController
 
   def index
     redirect_to :controller => 'category', :action => 'list'
-    #list
-    #render :action => 'list'
-    logger.debug "session['user']: " + session[:user].inspect
   end
 
   def list_n3 #it is a kind of rdf format that list all projects

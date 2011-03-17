@@ -102,13 +102,10 @@ module ApplicationHelper
             if (["help"].include?(level_class)==true) 
               level_name = ''
             else
-                logger.error "!!!!!"+level+"!!!"+ROOT_PATH
               if hierarchy == 2 and "/#{level}" == ROOT_PATH
                 level = "of" 
-                logger.error "!!!!!"+level+"!!!"+ROOT_PATH
               end
               if ( _( "breadcrumb|" + level ) == "breadcrumb|" + level )
-                logger.error "!!!!!"+url_unescape(level).humanize.capitalize
                 level_name = h( url_unescape(level).humanize.capitalize )
               else
                 begin

@@ -219,7 +219,6 @@ class ReleasesController < ApplicationController
   end
 
   def upload_an_file(uploaded_file)
-    #logger.error "###"+uploaded_file.methods.inspect
     save_as = File.join(Project::PROJECT_UPLOAD_PATH, @project.name , 'upload', uploaded_file.original_filename)
 
     File.open( save_as.to_s, 'w' ) do |file|
@@ -333,16 +332,12 @@ class ReleasesController < ApplicationController
   #用link_to_remote呼叫 編輯檔案
   def editfile
     r = Release.find params[:id]
-    logger.error "!!!!i12345"
     return if r.nil?
-    logger.error "#####!!!!"
     @file = Fileentity.find_by_id params[:editfile_id]
     respond_to do |format|
       format.html {render :partial => 'file_edit', :layout => false, :local => @file}
-      #format.js {render :partial => 'file_edit', :layout => false, :local => @file}
       format.js
     end
-    #render :partial => 'file_edit', :layout => false, :local => @file
   end
   
   def viewfile

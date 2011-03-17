@@ -303,7 +303,6 @@ THECODE
   end
 
   def check_permission
-    #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
     pass = false
     function_name = PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym]
     begin
