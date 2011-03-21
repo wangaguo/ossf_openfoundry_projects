@@ -6,31 +6,9 @@ class Release < ActiveRecord::Base
   
   validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,255}$/
 
-  #add fulltext indexed SEARCH
-  #acts_as_ferret({ :fields => { 
-  #                            :name => { :boost => 1.5,
-  #                                        :store => :yes
-  #                                        },
-  #                            :description => { :store => :yes,
-  #                                           :index => :yes }                                                         
-  #                          },
-  #               :single_index => true
-  #               },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   N_('PREPARING')
   N_('RELEASED')
   STATUS = { :PREPARING => 0, :RELEASED => 1}.freeze
-  
-  #def should_be_indexed?
-  #  self.status == Release::STATUS[:RELEASED]
-  #end
-  #def ferret_enabled?(is_bulk_index = false)
-  #  should_be_indexed? && #super(is_bulk_index) # TODO: super will cause recursive call..
-  #    (@ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?))
-  #end
-  #def destroy_ferret_index_when_not_ready
-  #  ferret_destroy if not should_be_indexed?
-  #end
-  #after_save :destroy_ferret_index_when_not_ready
   
   def self.status_to_s(int_status)
     _(STATUS.index(int_status).to_s)
