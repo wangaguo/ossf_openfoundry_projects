@@ -1,0 +1,29 @@
+#!/bin/sh
+# PROVIDE: openfoundry
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following line to /etc/rc.conf to enable OpenFoundry:
+#
+#  openfoundry_enable="YES"
+#  # optional
+#  openfoundry_user="openfoundry"
+#  openfoundry_group="openfoundry"
+
+. "/etc/rc.subr"
+
+# Set some defaults
+openfoundry_enable=${openfoundry_enable:-"YES"}
+openfoundry_user=${openfoundry_user:-"openfoundry"}
+openfoundry_group=${openfoundry_group:-"openfoundry"}
+
+pidfile=/home/openfoundry/of/of.pid
+procname='ruby'
+name=openfoundry
+rcvar=`set_rcvar`
+load_rc_config $name
+command=/home/openfoundry/of/of.sh
+command_args=""
+
+run_rc_command "$1"

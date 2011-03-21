@@ -1,0 +1,100 @@
+<script type="text/javascript">
+  function hideDiv(target)
+  {
+    target = $(target);
+    if (target.style.display == 'none' || target.style.display == '') {
+      target.style.display = 'block';
+    }
+    else {
+      target.style.display = 'none';
+    }
+  }
+  
+  function TicketSearch(){
+    var SearchString = $('TicketSearchString').value;
+    var TicketSearchOwner = $('TicketSearchOwner');
+    var TicketSearchTarget = $('TicketSearchTarget');
+    var TicketSearchFor = $('TicketSearchFor');
+    var TicketSearchStatus = $('TicketSearchStatus');
+    var TicketSearchOp = "";
+   
+    if( TicketSearchOwner.value != '' ) 
+      SearchString += " AND Owner = '" + TicketSearchOwner.value + "'";
+    if( TicketSearchFor.value != '' ) {
+      if( TicketSearchTarget.selectedIndex <= 1 ) TicketSearchOp = " like "; else TicketSearchOp = " = ";
+      SearchString += " AND " + TicketSearchTarget[TicketSearchTarget.selectedIndex].value + TicketSearchOp +" '" + TicketSearchFor.value + "'";
+    }
+    if( TicketSearchStatus.selectedIndex > 0 )
+      SearchString += " AND " + TicketSearchStatus[TicketSearchStatus.selectedIndex].value;
+ 
+    $('of_module').src = SearchString;
+    hideDiv('TicketSearchForm');
+  }
+  
+  function rt_nav(tab)
+  {
+    var ul = tab.parentNode.getElementsByTagName("li");
+    for(i=0; i<ul.length; i++ )
+    {
+      ul[i].className = "off";
+    }
+    tab.className = "on";
+  }
+  
+  function page_load()
+  {
+    var type = ['defect', 'patch', 'task', 'feature', 'enhancement'];
+    for(i=0; i<type.length; i++)
+    {
+      if (location.pathname.indexOf(type[i]) > 0) {
+        rt_nav($("type_" + type[i]));
+        return;
+      }
+    }
+    rt_nav($("type_all"));
+  }
+
+  Event.observe(window, 'load', page_load);
+</script>
+
+<div id="rt_function_bar">
+  <%if(@project != nil)%>
+  <a href="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" class="bug_report">問題回報</a>
+  <%end%>
+  &nbsp;&nbsp;<a href="javascript:hideDiv('TicketSearchForm');" class="search">查詢</a>
+<div style="" id="TicketSearchForm">
+  <div style="text-align:right;">
+    <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
+  </div>
+  <ul>
+    <li>
+      負責人<input type="text" value="" id="TicketSearchOwner"/>
+    </li>
+    <li>
+      <select id="TicketSearchTarget">
+        <option selected="" value="Subject">主題</option>
+        <option value="Content">內容</option>
+        <option value="Id">編號</option>
+        <option value="Creator">建立者</option>
+        <option value="Requestor.Name">申請人</option>
+        <option value="LastUpdatedBy">最後修改者</option>
+      </select>
+      <input type="text" value="" id="TicketSearchFor"/>
+    </li>
+    <li>
+      處理情況
+      <select style="width: 150px;" id="TicketSearchStatus">
+        <option value="" selected="">全部顯示</option>
+        <option value="(Status = 'open' OR Status = 'new' OR Status = 'stalled')">未處理</option>
+        <option value="Status = 'resolved'">已處理</option>
+      </select>
+    </li>
+  </ul>
+  <input type="button" value="送出查詢" onclick="TicketSearch()" class="button"/>
+</div>
+</div>
+
+<input type="hidden" id="TicketSearchString" value="<%=@base_url%>" />
+
+<iframe src="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" 
+     id="of_module" name="of_module" width="100%" frameborder="0" style="width: 100%" onload="iframe_auto_height(this);"></iframe>

@@ -1,0 +1,56 @@
+#header {
+	position: relative; 
+	height: 96px;
+	overflow: hidden;
+	background: #232833 url(../images/of/top_bg01.gif) repeat-x; 
+}
+
+#header #logo {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: block;
+	width:397px;
+	height: 96px;
+	z-index:1;
+	background: url(../images/logo.gif) no-repeat; 
+}
+
+#header #rightbg {
+	position: absolute;
+	right:0px;
+	width:541px;
+  height:96px;
+	top:0px;
+  background: url(../images/of/top_bg02.gif) no-repeat;
+	z-index:0;
+}
+
+#header #header-toolbar {
+  z-index:3;
+	position: absolute;
+  top:5px;
+	right:5px;
+	height:25px;
+	overflow: hidden;
+}
+
+#header #search {
+	z-index:2;
+  position:absolute;
+  top:50px;
+	right:50px;
+	overflow: hidden;
+}
+
+#header #search #query {
+  width:150px;
+}
+
+#header a {
+	background-color:transparent;
+  text-decoration: none;
+  border-bottom:none;
+  font-size:12px;
+}
+
