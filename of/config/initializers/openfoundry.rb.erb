@@ -41,7 +41,7 @@ REDIS = Redis.new :host => '<%=redis_server%>'
 
 # add fulltext indexed SEARCH
 # for search in UTF-8
-UTF8_ANALYSIS_REGEX =
-  /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
-GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
-DEFAULT_FIELD = [:alltags_string, :name, :summary, :cattag_name, :maturity_index, :license, :platform, :programminglanguage, :category_index, :subject, :description, :requirement, :description_without_tag, :name_for_sort]
+#UTF8_ANALYSIS_REGEX =
+#  /([a-zA-Z]|[\xc0-\xdf][\x80-\xbf])+|[0-9]+|[\xe0-\xef][\x80-\xbf][\x80-\xbf]/
+#GENERIC_ANALYZER = Ferret::Analysis::RegExpAnalyzer.new(UTF8_ANALYSIS_REGEX, true)
+#DEFAULT_FIELD = [:alltags_string, :name, :summary, :cattag_name, :maturity_index, :license, :platform, :programminglanguage, :category_index, :subject, :description, :requirement, :description_without_tag, :name_for_sort]

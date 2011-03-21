@@ -3,9 +3,9 @@
 #------------------# 
 #  Generel config  #
 #------------------#
-ip_prefix = '140.109'
-host = 'beta.openfoundry.org'
-site_admin_mail = 'hyder.ossf@gmail.com'
+ip_prefix = '192.168'
+host = 'www.openfoundry.org'
+site_admin_mail = 'contact@openfoundry.org'
 
 #-------------------#
 #  Session config
@@ -21,7 +21,7 @@ session_memcache_server = "#{ip_prefix}.22.15:11211"
 #-------------------#
 #  Database config  #
 #-------------------#
-db_host = "#{ip_prefix}.22.140"
+db_host = "#{ip_prefix}.3.10"
 db_name_dev  = 'of_development'
 db_name_test = 'of_test'
 db_name_prod = 'of_development'
@@ -36,7 +36,7 @@ db_user = 'openfoundry'
 #  Stomp server config
 #  in broker.yml
 #----------------------#
-stomp_host = "#{ip_prefix}.22.140"
+stomp_host = "#{ip_prefix}.3.83"
 stomp_user = 'openfoundry'
 
 
@@ -44,7 +44,7 @@ stomp_user = 'openfoundry'
 #  Ferret server config
 #  in ferret_server.yml
 #------------------------#
-ferret_host = "#{ip_prefix}.22.15"
+ferret_host = "#{ip_prefix}.3.80"
 
 
 ##------------------------#
@@ -61,14 +61,14 @@ ferret_host = "#{ip_prefix}.22.15"
 #  in environment.rb
 #------------------------#
 
-redis_server = "127.0.0.1"
+redis_server = "#{ip_prefix}.3.83"
 
 #------------------------#
 #  sso config
 #  in sso.rb
 #------------------------#
 
-sso_ui_host = '140.109.22.20'
+sso_ui_host = "#{ip_prefix}.3.81"
 sso_of_auth_key = 'c1cac710-030f-012d-c173-0011254f08ff'
 
 #------------------------#
