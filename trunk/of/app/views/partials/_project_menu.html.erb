@@ -3,7 +3,7 @@
   document.observe("dom:loaded", project_leftmenu_init);
 </script>
 <%
-  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+  functions = Function::functions(:authorizable_id => @project.id, :user_id => current_user.id)
   is_nsc_project = @project.is_nsc_project
 %>
 
@@ -14,17 +14,16 @@
       <li class="parent"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('project_Info') %></a>
         <div id="bsc_menu0" style="display:none">
         <ul>
-          <li><%= link_to _('project_Basic_Information'), project_path(:id => project.id) %></li>
-          <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
-          <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
-          <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+          <li><%= link_to _('project_Basic_Information'), project_path(project) %></li>
+          <li><%= link_to _('Citations'), project_citations_path(project) %></li>
+          <li><%= link_to _('References'), project_references_path(project) %></li>
+          <li><%= link_to _('Help Wanted'), project_jobs_path(project) %></li>
         </ul>
         </div>
       </li>
-      <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
-
-      <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
-      <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+      <li><%= link_to _('project_News'), project_news_index_path(project) %></li>
+      <li><%= link_to _('project_Tracker'), project_rt_index_path(project) %></li>
+      <li><%= link_to _('Wiki'), project_kwiki_index_path(project) %></li>
       <li class="parent"><a href='#' onclick="Effect.toggle('vcs_menu0','blind', {duration: 0.3}); return false"><%= _('Version Control') %></a>
           <div id="vcs_menu0" style="display:none">
           <ul>
@@ -38,10 +37,10 @@
           </ul>
           </div>
       </li>
-      <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+      <li><%= link_to _('Downloads'), project_download_path(project) %></li>
       <li><%=link_to _('Mailing List'), sympa_project_path(:id => project.id)%></li>
       <% if is_nsc_project %>
-      <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+      <li><%= link_to _('NSC project'), project_nscreports_path(project) %></li>
       <% end %>
   </ul>
   <% end -%>
@@ -52,25 +51,25 @@
       <div id="bsc_menu1" style="display:none">
       <ul>
         <% if functions.include?('project_info') -%>
-          <li><%= link_to _('project_Basic_Info')+_(' Edit'), edit_project_path(:id => project.id) %></li>
+          <li><%= link_to _('project_Basic_Info')+_(' Edit'), edit_project_path(project) %></li>
         <% end -%>
 
-        <li><%= link_to _('Citations'), citations_path(:project_id => project.id) %></li>
-        <li><%= link_to _('References'), references_path(:project_id => project.id) %></li>
-        <li><%= link_to _('Help Wanted'), jobs_path(:project_id => project.id) %></li>
+        <li><%= link_to _('Citations'), project_citations_path(project) %></li>
+        <li><%= link_to _('References'), project_references_path(project) %></li>
+        <li><%= link_to _('Help Wanted'), project_jobs_path(project) %></li>
       </ul>
       </div>
 
-    <li><%= link_to _('project_News'), news_path(:project_id => project.id) %></li>
-    <li><%= link_to _('project_Tracker'), rt_path(:project_id => project.id) %></li>
-    <li><%= link_to _('Wiki'), kwiki_path(:project_id => project.id) %></li>
+    <li><%= link_to _('project_News'), project_news_index_path(project) %></li>
+    <li><%= link_to _('project_Tracker'), project_rt_index_path(project) %></li>
+    <li><%= link_to _('Wiki'), project_kwiki_index_path(project) %></li>
 
     <% if functions.include?('release') -%>
     <li class="parent"><a href='#' onclick="Effect.toggle('rls_menu','blind', {duration: 0.3}); return false"><%= _('release') %></a>
       <div id="rls_menu" style="display:none">
       <ul>
-        <li><%= link_to _('release_Edit'), releases_path(:project_id => project.id) %></li>
-        <li><%= link_to _('release_New'), new_release_path(:project_id => project.id) %></li>
+        <li><%= link_to _('release_Edit'), project_releases_path(project) %></li>
+        <li><%= link_to _('release_New'), new_project_release_path(project) %></li>
       </ul>
       </div>
     </li>
@@ -103,16 +102,16 @@
       <li class="parent"><a href='#' onclick="Effect.toggle('svy_menu','blind', {duration: 0.3}); return false"><%= _('project menu|Surveys') %></a>
         <div id="svy_menu" style="display:none">
         <ul>
-          <li><%= link_to s_('project menu|Surveys Edit'), survey_index_path(:project_id => @project.id)%></li>
+          <li><%= link_to s_('project menu|Surveys Edit'), project_survey_index_path(@project)%></li>
           <li><%= link_to s_('project menu|Downloaders'), project_review_path(@project.id)%></li>
         </ul>
         </div>
       </li>
     <% end -%>
-    <li><%= link_to _('Downloads'), download1_path(:project_id => project.id) %></li>
+    <li><%= link_to _('Downloads'), project_download_path(project) %></li>
 
     <% if is_nsc_project %>
-    <li><%= link_to _('NSC project'), nscreports_path(:project_id => project.id) %></li>
+    <li><%= link_to _('NSC project'), project_nscreports_path(project) %></li>
     <% end %>
   </ul>
 <% end %>

@@ -21,7 +21,7 @@ module ActsAsRedisCounter #:nodoc:
             key = redis_counter_key(attribute)
 
             send("redis_counter_load_#{attribute}")
-            REDIS.incr(key, n)
+            REDIS.incrby(key, n)
             send("redis_counter_flush_#{attribute}")
             REDIS[key]
           end
@@ -50,11 +50,10 @@ module ActsAsRedisCounter #:nodoc:
 
             # save to db
             if (redis_value - db_value) > hits or expired
-              send(:write_attribute, attribute, redis_value)
-              update_without_callbacks
+              send(:update_attribute, attribute, redis_value)
 
               # set ttl key expiration
-              REDIS.set(ttl_key, 1, options[:ttl].to_i)
+              REDIS.setex(ttl_key, options[:ttl].to_i, 1)
             end
           end
 

@@ -4,14 +4,14 @@ class SiteAdmin::TagsController < ApplicationController
   def create
     if request.post?
       new(params[:tag_new_name], params[:tag_status], params[:tag_type]) unless params[:tag_new_name].blank?
-      redirect_to "#{root_path}site_admin/site_admin/manage_tags"
+      redirect_to "#{root_path}/site_admin/admin/manage_tags"
     end
   end
 
   def edit
     if request.post?
       update(params[:tag_old_name], params[:tag_new_name], params[:tag_status], params[:tag_type]) unless params[:tag_new_name].blank?
-      redirect_to "#{root_path}site_admin/site_admin/manage_tags"
+      redirect_to "#{root_path}/site_admin/admin/manage_tags"
     end
   end
 

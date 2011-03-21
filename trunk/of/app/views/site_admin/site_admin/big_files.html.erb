@@ -1,14 +1,15 @@
-<link rel="stylesheet" href="http://tablesorter.com/themes/blue/style.css" />
-<%= javascript_include_tag "jquery" %>
-<script type="text/javascript" src="http://tablesorter.com/jquery.tablesorter.js"></script>
-<script type="text/javascript">
+<% content_for :page_head do %>
+  <link rel="stylesheet" href="http://tablesorter.com/themes/blue/style.css" />
+  <script type="text/javascript" src="http://tablesorter.com/jquery.tablesorter.js"></script>
+<% end %>
+<% content_for :ujs do %>
   var $j = jQuery.noConflict();
   $j(document).ready(function() {
     $j("table").tablesorter({
       sortList: [[1,1]]
     });
   });
-</script>
+<% end %>
 
 <h2>Find big files<h2>
 <%

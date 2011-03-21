@@ -4,7 +4,7 @@
 #  Generel config  #
 #------------------#
 ip_prefix = '140.109'
-host = 'ssodev.openfoundry.org'
+host = 'beta.openfoundry.org'
 site_admin_mail = 'hyder.ossf@gmail.com'
 
 #-------------------#
@@ -15,7 +15,7 @@ session_key = '_of_session_id'
 session_domain = ".#{host}"
 session_store = ':mem_cache_store'
 
-session_memcache_namespace = 'of-#{RAILS_ENV}'
+session_memcache_namespace = 'of-#{Rails.env}'
 session_memcache_server = "#{ip_prefix}.22.15:11211"
 
 #-------------------#
@@ -27,10 +27,10 @@ db_name_test = 'of_test'
 db_name_prod = 'of_development'
 db_user = 'openfoundry'
 
-#----------------------------#
-#  Rails environment config  #
-#----------------------------#
-rails_cache = ':memcache'
+##----------------------------#
+##  Rails environment config  #
+##----------------------------#
+#rails_cache = ':memcache'
 
 #----------------------#
 #  Stomp server config
@@ -47,13 +47,13 @@ stomp_user = 'openfoundry'
 ferret_host = "#{ip_prefix}.22.15"
 
 
-#------------------------#
-#  Environment config
-#  in environment.rb
-#------------------------#
-
-cache_server = "127.0.0.1:11211"
-cache_server_namespace = 'of-#{RAILS_ENV}'
+##------------------------#
+##  Environment config
+##  in environment.rb
+##------------------------#
+#
+#cache_server = "127.0.0.1:11211"
+#cache_server_namespace = 'of-#{Rails.env}'
 
 
 #------------------------#

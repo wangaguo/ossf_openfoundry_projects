@@ -11,18 +11,7 @@
   <td><%= Release.status_to_s(release.status) %></td>
 </tr>
 </table>
-    <%= link_to '[Edit]', release_url(
-      :project_id => @project_id,
-      :id => release.id
-    )
-    %>
-    <%= link_to '[Delete]', delete_release_url(
-      {
-        :project_id => @project_id, 
-        :id => release.id
-      }), 
-      :confirm => 'Delete?', 
-      :method => :post
-    %>
+    <%= link_to '[Edit]', project_release_url(@project, release) %>
+    <%= link_to '[Delete]', delete_project_release_url(@project, release), :confirm => 'Delete?', :method => :post %>
   <% end %>
 </div>

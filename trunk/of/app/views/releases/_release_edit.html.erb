@@ -1,12 +1,11 @@
 <div id="editrelease_view">
-  <% form_remote_tag :update => "editrelease_view", :url => updaterelease_release_url( { 
-        :id => @release.id  }) do |f| -%>
+  <% form_remote_tag :update => "editrelease_view", :url => updaterelease_project_release_path(@project, @release) do |f| -%>
     <table class=ReleaseNew >
 <tr><th><em class='require'>*</em><%= Release.columns_hash['version'].human_name  -%> : </th>
   <td><%= text_field(:release, :version, :size => 20, :readonly => true) %></td>
 </tr>
 <tr><th><%= Release.columns_hash['due'].human_name  -%> : </th>
-<td><%= text_field(:release, :due, :size => 20) %><img alt="Calendar" class="calendar-trigger" id="release_due_trigger" src="/images/calendar.gif" /><script type="text/javascript">
+  <td><%= text_field(:release, :due, :size => 20) %><img alt="Calendar" class="calendar-trigger" id="release_due_trigger" src="<%=root_path%>/images/calendar.gif" /><script type="text/javascript">
 //<![CDATA[
 Calendar.setup({inputField : 'release_due', ifFormat : '%Y-%m-%d', button : 'release_due_trigger' });
 //]]>
@@ -16,9 +15,6 @@ Calendar.setup({inputField : 'release_due', ifFormat : '%Y-%m-%d', button : 'rel
 <td><%= select( "release", "status", @release_status) %></td>
 </tr>
 </table>
-    <%= submit_tag _("Update") %>  <%= submit_to_remote 'cancel_button', _('Cancel'), :url => viewrelease_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-          }), :update => 'editrelease_view' %>
+    <%= submit_tag _("Update") %>  <%= submit_to_remote 'cancel_button', _('Cancel'), :url => viewrelease_project_release_url(@project, @release), :update => 'editrelease_view' %>
    <% end %>
 </div>

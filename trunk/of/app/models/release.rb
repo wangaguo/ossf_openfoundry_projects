@@ -6,31 +6,9 @@ class Release < ActiveRecord::Base
   
   validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,255}$/
 
-  #add fulltext indexed SEARCH
-  acts_as_ferret({ :fields => { 
-                              :name => { :boost => 1.5,
-                                          :store => :yes
-                                          },
-                              :description => { :store => :yes,
-                                             :index => :yes }                                                         
-                            },
-                 :single_index => true
-                 },{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD })
   N_('PREPARING')
   N_('RELEASED')
   STATUS = { :PREPARING => 0, :RELEASED => 1}.freeze
-  
-  def should_be_indexed?
-    self.status == Release::STATUS[:RELEASED]
-  end
-  def ferret_enabled?(is_bulk_index = false)
-    should_be_indexed? && #super(is_bulk_index) # TODO: super will cause recursive call..
-      (@ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?))
-  end
-  def destroy_ferret_index_when_not_ready
-    ferret_destroy if not should_be_indexed?
-  end
-  after_save :destroy_ferret_index_when_not_ready
   
   def self.status_to_s(int_status)
     _(STATUS.index(int_status).to_s)
@@ -41,11 +19,11 @@ class Release < ActiveRecord::Base
   end
 
   def self.top_download
-    Release.find(:all, :group => 'project_id', :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => 5)
+    Release.joins(:project).find(:all, :group => 'project_id', :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => 5)
   end
 
   def self.new_releases
-    Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 5)
+    Release.joins(:project).where("releases.status = 1").where(Project.in_used_projects(:alias => "projects")).order("releases.created_at desc").limit(5)
   end
 
   def self.published_releases(options = {})
@@ -54,7 +32,7 @@ class Release < ActiveRecord::Base
     "(#{a}status = 1)"    
   end
 
-  named_scope :inactive, :conditions => ['status = 0']
-  named_scope :active, :conditions => ['status = 1']
-  named_scope :latest, :order => ['due desc']
+  scope :inactive, :conditions => ['status = 0']
+  scope :active, :conditions => ['status = 1']
+  scope :latest, :order => ['due desc']
 end

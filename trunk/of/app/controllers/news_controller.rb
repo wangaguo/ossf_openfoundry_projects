@@ -1,5 +1,5 @@
 class NewsController < ApplicationController 
-  find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid', :parent_conditions => 'fpermit?("site_admin", nil) ? "true" : Project.in_used_projects() '
+  #find_resources :parent => 'project', :child => 'news', :parent_id_method => 'catid', :parent_conditions => 'fpermit?("site_admin", nil) ? "true" : Project.in_used_projects() '
   before_filter :controller_load
   before_filter :check_permission
 
@@ -23,6 +23,7 @@ class NewsController < ApplicationController
 #  verify :method => :post, :only => [ :destroy, :create, :update ], :redirect_to => { :action => :list }
   
   def list
+    @project = Project.find(params[:project_id]) rescue nil
     if @is_all_projects_news == true
       @module_name = _('Project News')
       layout_name = "normal"
@@ -33,7 +34,7 @@ class NewsController < ApplicationController
       layout_name = "normal"
       conditions = "catid=0"
     else
-      @module_name = _('News')
+      @module_name = _('Project News List')
       layout_name = "module"
       conditions = "catid=#{params[:project_id]}"
     end
@@ -53,6 +54,12 @@ class NewsController < ApplicationController
   end
   
   def show
+    begin
+      @project = Project.find(params[:project_id])
+    rescue ActiveRecord::RecordNotFound
+    ensure
+      @news = News.find(params[:id])
+    end
     if params[:project_id].nil? 
       @module_name = _('OpenFoundry News')
       layout_name = "normal"
@@ -65,25 +72,9 @@ class NewsController < ApplicationController
   end
   
   def new
+    @project = Project.find(params[:project_id])
     @news = News.new
     @module_name = _('Add News')
-  end
-
-  def new_release
-    release = Release.find_by_id(params[:release_id])
-    if !release.nil? && params[:project_id] == release.project_id.to_s
-      @news = News.new
-      @news.subject = "New release: " + release.version
-      release.fileentity.each do |file|
-        @news.description += "* #{file.path} (#{file.description})\n"
-      end
-      @news.description += "\n#{request.protocol}#{SSO_HOST}/of/projects/#{params[:project_id]}/download"
-      @news.status = News::STATUS[:Disabled]
-      render :action => :new
-    else
-      flash[:error] = _('No this release.')
-      redirect_to(request.referer || '/')
-    end
   end
   
   def create
@@ -91,12 +82,10 @@ class NewsController < ApplicationController
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
     @news.status = params[:news][:status]
-    if params[:project_id].nil? 
-      project_id = 0
-    else
-      project_id = params[:project_id]
+    if params[:project_id]
+      @project = Project.find(params[:project_id])
     end
-    @news.catid = project_id
+    @news.project = @project
     
     if(params[:news][:updated_at] != "" && params[:news][:updated_at] != nil)
       @news.tags = params[:news][:tags]
@@ -116,11 +105,15 @@ class NewsController < ApplicationController
   end
   
   def edit
+    @project = Project.find(params[:project_id]) rescue nil
+    @news = News.find(params[:id])
     @news.updated_at = @news.updated_at.strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
     @module_name = _('Edit')
   end
   
   def update
+    @project = Project.find(params[:project_id]) rescue nil
+    @news = News.find(params[:id])
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
     @news.status = params[:news][:status]
@@ -134,59 +127,64 @@ class NewsController < ApplicationController
 
     if @news.save
       flash[:notice] = _('Edit Successful')
-      redirect_to :action => 'show', :id => @news
+      if @project
+        redirect_to project_news_path(@project, @news)
+      else
+        redirect_to news_path(@news)
+      end
     else
       render :action => 'edit'
     end
   end
   
   def destroy
+    @news = News.find(params[:id])
     @news.destroy
     flash[:notice] = _('Delete Successful')
     redirect_to :action => 'index'
   end
 
-  def new_openfoundry_news_feed
-    new_news = News.find(:all, :conditions => ["catid=0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 10)
+#  def new_openfoundry_news_feed
+#    new_news = News.find(:all, :conditions => ["catid=0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 10)
+#
+#    feed_options = {
+#      :feed => {
+#        :title       => _("OpenFoundry: News"),
+#        :description => _("News about OpenFoundry"),
+#        :link        => "#{OPENFOUNDRY_HOST}",
+#        :language    => 'UTF-8'
+#      },    
+#      :item => {
+#        :title => :subject,
+#        :description => :description,
+#        :link => lambda { |n| news_url(n) }
+#      }     
+#    }     
+#    respond_to do |format|
+#      format.rss { render_rss_feed_for new_news, feed_options }
+#      format.xml { render_atom_feed_for new_news, feed_options }
+#    end
+#  end
 
-    feed_options = {
-      :feed => {
-        :title       => _("OpenFoundry: News"),
-        :description => _("News about OpenFoundry"),
-        :link        => "#{SSO_HOST}",
-        :language    => 'UTF-8'
-      },    
-      :item => {
-        :title => :subject,
-        :description => :description,
-        :link => lambda { |n| site_news1_url(:id => n.id)}
-      }     
-    }     
-    respond_to do |format|
-      format.rss { render_rss_feed_for new_news, feed_options }
-      format.xml { render_atom_feed_for new_news, feed_options }
-    end
-  end
-
-  def new_project_news_feed
-    new_release = News.find(:all, :conditions => ["catid<>0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 10)
-
-    feed_options = {
-      :feed => {
-        :title       => _("OpenFoundry: Project News"),
-        :description => _("Proejct news on OpenFoundry"),
-        :link        => "#{SSO_HOST}",
-        :language    => 'UTF-8'
-      },    
-      :item => {
-        :title => :subject,
-        :description => :description,
-        :link => lambda { |n| news_url(:id => n.id, :project_id => n.catid)}
-      }     
-    }     
-    respond_to do |format|
-      format.rss { render_rss_feed_for new_release, feed_options }
-      format.xml { render_atom_feed_for new_release, feed_options }
-    end
-  end
+#  def new_project_news_feed
+#    new_release = News.find(:all, :conditions => ["catid<>0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 10)
+#
+#    feed_options = {
+#      :feed => {
+#        :title       => _("OpenFoundry: Project News"),
+#        :description => _("Proejct news on OpenFoundry"),
+#        :link        => "#{OPENFOUNDRY_HOST}",
+#        :language    => 'UTF-8'
+#      },    
+#      :item => {
+#        :title => :subject,
+#        :description => :description,
+#        :link => lambda { |n| news_url(:id => n.id, :project_id => n.catid)}
+#      }     
+#    }     
+#    respond_to do |format|
+#      format.rss { render_rss_feed_for new_release, feed_options }
+#      format.xml { render_atom_feed_for new_release, feed_options }
+#    end
+#  end
 end

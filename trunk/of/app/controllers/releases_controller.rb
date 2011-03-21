@@ -3,8 +3,9 @@ class ReleasesController < ApplicationController
     :child => 'release', 
     :parent_id_method => 'project_id')
   layout 'module'
+
   #see lib/permission_table.rb
-  before_filter :login_required, :only => [ :show ]
+  #before_filter :login_required, :only => [ :show ]
   before_filter :check_permission
   before_filter :default_module_name
 
@@ -60,7 +61,7 @@ class ReleasesController < ApplicationController
       releases = Release.paginate(:page => 1, :per_page => 100)
       @page = 1
     end
-    render(:partial => 'top_download_list', :layout => true, :locals => { :releases => releases, :page => @page })
+    render(:template => 'releases/_top_download_list', :locals => { :releases => releases, :page => @page })
   end
 
   def latest
@@ -74,14 +75,15 @@ class ReleasesController < ApplicationController
       releases = Release.paginate(:page => 1, :per_page => 100)
       @page = 1
     end
-    render(:partial => 'top_download_list', :layout => true, :locals => { :releases => releases, :page => @page })
+
+    render(:template => 'releases/_top_download_list', :locals => { :releases => releases, :page => @page })
   end
   
   def download
     @module_name = _("Downloads")
     @project_id = params[:project_id]
     @project_name = Project.find(params[:project_id]).name
-    @releases = Release.find :all,
+    @releases = Release.paginate :page => params[:page], :per_page => 5,
       :conditions => "project_id = #{params[:project_id]} AND status = 1", :order => "due desc" 
 
     #check if user has survey permission
@@ -91,17 +93,17 @@ class ReleasesController < ApplicationController
     end
 
     #for IE activeX download redirect
-    @rdr_download_url = session[:tmp_download_path] if session[:tmp_download_path] and request.referer.nil? and session[:tmp_download_path].include? "of.openfoundry.org/download/#{@project_name}" 
-    session[:tmp_download_path] = nil
+#    @rdr_download_url = session[:tmp_download_path] if session[:tmp_download_path] and request.referer.nil? and session[:tmp_download_path].include? "#{OPENFOUNDRY_HOST}#{root_path}/download/#{@project_name}" 
+#    session[:tmp_download_path] = nil
 
     #use session to rememer FILE after SURVEY form filled...
     if session[:saved_download_path]
-      @rdr_download_url = "#{request.protocol}of.openfoundry.org/download/#{session[:saved_download_path]}" 
+      @rdr_download_url = "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download/#{session[:saved_download_path]}" 
       session[:saved_download_path] = nil
-      session[:tmp_download_path] = @rdr_download_url
+#      session[:tmp_download_path] = @rdr_download_url
     end
   end
-  
+
   def create
     if request.post?
       r=Release.new(:attributes => params[:release] )
@@ -217,7 +219,7 @@ class ReleasesController < ApplicationController
   end
 
   def upload_an_file(uploaded_file)
-    save_as = File.join(Project::PROJECT_UPLOAD_PATH, @project.name , 'upload', uploaded_file.original_path)
+    save_as = File.join(Project::PROJECT_UPLOAD_PATH, @project.name , 'upload', uploaded_file.original_filename)
 
     File.open( save_as.to_s, 'w' ) do |file|
       file.write( uploaded_file.read )
@@ -281,7 +283,7 @@ class ReleasesController < ApplicationController
         next if not File.exist?(src_path)
 
         r.fileentity << make_file_entity(params[:id], basename, File.size(src_path))
-        if system("/home/openfoundry/bin/move_upload_files2", src_path, dest_dir) == 0
+        if system("/home/openfoundry/bin/move_upload_files2", src_path, dest_dir) == true
           added = true
         end
       end
@@ -332,7 +334,10 @@ class ReleasesController < ApplicationController
     r = Release.find params[:id]
     return if r.nil?
     @file = Fileentity.find_by_id params[:editfile_id]
-    render :partial => 'file_edit', :layout => false, :local => @file
+    respond_to do |format|
+      format.html {render :partial => 'file_edit', :layout => false, :local => @file}
+      format.js
+    end
   end
   
   def viewfile
@@ -354,49 +359,66 @@ class ReleasesController < ApplicationController
       :action => :uploadfiles, :id => params[:id], :layout =>'false')
   end
 
-  def top_download_feed
-    top_releases = Release.find(:all, :group => 'project_id', :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => 10)
-
-    feed_options = {
-      :feed => {
-        :title       => _("OpenFoundry: Top Download"),
-        :description => _("Top download on OpenFoundry"),
-        :link        => 'of.openfoundry.org',
-        :language    => 'UTF-8'
-      },
-      :item => {
-        :title => lambda { |r| "#{r.project.summary} #{r.version}"},
-        :description => lambda {|r| "#{r.project.description}"},
-        :link => lambda { |r| download1_url(:project_id => r.project.id)+"##{r.version}" }
-      }
-    }
-    respond_to do |format|
-      format.rss { render_rss_feed_for top_releases, feed_options }
-      format.xml { render_atom_feed_for top_releases, feed_options }
+  def new_releases
+    project = Project.find(params[:project_id])
+    release = Release.find(params[:id])
+    if !release.nil? && project == release.project
+      @news = News.new
+      @news.subject = "New release: " + release.version
+      release.fileentity.each do |file|
+        @news.description += "* #{file.path} (#{file.description})\n"
+      end
+      @news.description += project_download_url(project, :host => OPENFOUNDRY_HOST)
+      @news.status = News::STATUS[:Disabled]
+    else
+      flash[:error] = _('No this release.')
+      redirect_to(request.referer || '/')
     end
   end
 
-  def new_release_feed
-    new_release = Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 10)
+#  def top_download_feed
+#    top_releases = Release.find(:all, :group => 'project_id', :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => 10)
+#
+#    feed_options = {
+#      :feed => {
+#        :title       => _("OpenFoundry: Top Download"),
+#        :description => _("Top download on OpenFoundry"),
+#        :link        => 'of.openfoundry.org',
+#        :language    => 'UTF-8'
+#      },
+#      :item => {
+#        :title => lambda { |r| "#{r.project.summary} #{r.version}"},
+#        :description => lambda {|r| "#{r.project.description}"},
+#        :link => lambda { |r| download1_url(:project_id => r.project.id)+"##{r.version}" }
+#      }
+#    }
+#    respond_to do |format|
+#      format.rss { render_rss_feed_for top_releases, feed_options }
+#      format.xml { render_atom_feed_for top_releases, feed_options }
+#    end
+#  end
 
-    feed_options = {
-      :feed => {
-        :title       => _("OpenFoundry: Latest Releases"),
-        :description => _("Latest releases on OpenFoundry"),
-        :link        => 'of.openfoundry.org',
-        :language    => 'UTF-8'
-      },
-      :item => {
-        :title => lambda { |r| "#{r.project.summary} #{r.version}"},
-        :description => lambda {|r| "#{r.project.description}"},
-        :link => lambda { |r| download1_url(:project_id => r.project.id)+"##{r.version}" }
-      }
-    }
-    respond_to do |format|
-      format.rss { render_rss_feed_for new_release, feed_options }
-      format.xml { render_atom_feed_for new_release, feed_options }
-    end
-  end
+#  def new_release_feed
+#    new_release = Release.find(:all, :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "releases.created_at desc", :limit => 10)
+#
+#    feed_options = {
+#      :feed => {
+#        :title       => _("OpenFoundry: Latest Releases"),
+#        :description => _("Latest releases on OpenFoundry"),
+#        :link        => 'of.openfoundry.org',
+#        :language    => 'UTF-8'
+#      },
+#      :item => {
+#        :title => lambda { |r| "#{r.project.summary} #{r.version}"},
+#        :description => lambda {|r| "#{r.project.description}"},
+#        :link => lambda { |r| download1_url(:project_id => r.project.id)+"##{r.version}" }
+#      }
+#    }
+#    respond_to do |format|
+#      format.rss { render_rss_feed_for new_release, feed_options }
+#      format.xml { render_atom_feed_for new_release, feed_options }
+#    end
+#  end
 
   private
   

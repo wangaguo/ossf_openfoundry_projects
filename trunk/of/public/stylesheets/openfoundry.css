@@ -80,7 +80,7 @@
 #ProjectNew p, #ProjectEdit p, #ProjectEdit fieldset, .form-padding
   { padding-left:20px; }
 /*#ProjectList img { width:32px; height:32px; display:none; }*/
-.ProjectList { border-collapse:collapse; width:100%; margin:0.4em;table-layout:fixed;word-wrap: break-word; }
+.ProjectList { border-collapse:collapse; width:100%; margin:0.4em; word-wrap: break-word; }
 .ProjectList th a { color:#3d3a3a;}
 .ProjectList th { 
     background-color:#EFEFEF;
@@ -105,7 +105,7 @@
 #tag_cloud a {
   padding:5px;
 }
-.highlight {color: #ff8716;}
+.highlight, .match {color: #ff8716;}
 
 
 /* module */
@@ -179,10 +179,10 @@
 .form-data-dl dd { float:left; width:65%; line-height:20px; margin:1px;}
 
 /* For List Table */
-.list-table { border-collapse:collapse; width:99%; margin:2px; table-layout: fixed;}
+.list-table { border-collapse:collapse; width:99%; margin:2px; }
 .list-table th { background-color:#DEE7FF; }
 .list-table td { border-bottom:solid 1px #cccccc;padding:0.4em; word-wrap: break-word;}
-td.fieldstyle  { font-weight: bold; text-align: right;}
+td.fieldstyle  { font-weight: bold; text-align: right; width: 20%; }
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {

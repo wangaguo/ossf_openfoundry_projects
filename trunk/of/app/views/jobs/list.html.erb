@@ -6,9 +6,9 @@
 <ul>
   <%for data_item in @data_items %>
   <li>
-    <%= link_to h(data_item.subject), job_path(:id => data_item.id, :project_id => data_item.project_id) %>
+    <%= link_to h(data_item.subject), project_job_path(data_item.project, data_item) %>
     <%=data_item.updated_at.strftime("(%Y/%m/%d)")%>
-    <p><%=h data_item.description.mb_chars[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;(<%=link_to (_('Read More'), job_path(:id => data_item.id, :project_id => data_item.project_id) ) %>)</p>
+    <p><%=h data_item.description.mb_chars[0..270].gsub(/<[^>]*>/,' ') %>...&nbsp;(<%=link_to _('Read More'), project_job_path(data_item.project, data_item) %>)</p>
     <% if fpermit?("job", params[:project_id]) -%>
     <p>
       <label><%=_('Status')%>:</label>
@@ -17,8 +17,8 @@
       <% else %>
 	      <%=_('Disabled')%>
       <% end %>
-      <%= link_to _('Edit'), :action => 'edit', :id => data_item %>
-      <%= link_to _('Delete'), { :action => 'destroy', :id => data_item }, :confirm => _('Are you sure?'), :method => :delete %>
+      <%= link_to _('Edit'), edit_project_job_path(data_item.project, data_item) %>
+      <%= link_to _('Delete'), project_job_path(data_item.project, data_item), :confirm => _('Are you sure?'), :method => :delete %>
     </p>
     <% end %>
   </li>

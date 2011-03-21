@@ -6,7 +6,7 @@
 <td><%= text_field(:release, :version, :size => 20) %></td>
 </tr>
 <tr><th><%= Release.columns_hash['due'].human_name  -%> : </th>
-<td><%= text_field(:release, :due, :size => 20) %><img alt="Calendar" class="calendar-trigger" id="release_due_trigger" src="/of/images/calendar.gif" /><script type="text/javascript">
+  <td><%= text_field(:release, :due, :size => 20) %><img alt="Calendar" class="calendar-trigger" id="release_due_trigger" src="<%=root_path%>/images/calendar.gif" /><script type="text/javascript">
 //<![CDATA[
 Calendar.setup({inputField : 'release_due', ifFormat : '%Y-%m-%d', button : 'release_due_trigger' });
 //]]>

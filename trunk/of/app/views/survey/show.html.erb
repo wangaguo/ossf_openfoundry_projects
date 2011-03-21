@@ -1,6 +1,8 @@
 <% if files %>
 <ul>
-  <%=files.map{|f| '<li>'+f.path+'</li>'}%>
+  <% files.each do |f| %>
+    <li><%= f.path %></li>
+  <% end %>
 </ul>
 <%end%>
 

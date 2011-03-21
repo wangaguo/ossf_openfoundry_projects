@@ -12,7 +12,7 @@
 <%- open(rss_link) do |raw| rss = RSS::Parser.parse(raw.read, false) end %>
 
 <h3>
-  <%= image_tag "of/main_icon01.gif", :align => "left" %>
+  <%= image_tag "#{root_path}/main_icon01.gif", :align => "left" %>
   <%=link_to( image_tag('atom.png', 
          {:alt => 'rss', :width => '20px', :style => 'padding:8px;float:right'}),
 	       rss_link )%>

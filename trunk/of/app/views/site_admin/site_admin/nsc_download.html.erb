@@ -23,7 +23,9 @@ i = 0
     <%= select_tag('nscname', options_for_select(['false','true'] , params[:nscname])) %>
     <%= submit_tag 'Search' %>
   </form>
-  <% form_tag ({:action => :csv, :selection=>params[:query], :nscconditions=>conditions, :vcscheck=>@vcs_check}, :style=> "display:inline" ) do -%>
+  <% form_tag csv_site_admin_projects_path(:selection => params[:query], 
+                                           :nscconditions => conditions,
+                                           :vcscheck => @vcs_check), :style=> "display:inline" do -%>
     <%= submit_tag 'Export to CSV' -%>
   <% end -%>
   <table id="customers">

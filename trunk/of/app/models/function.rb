@@ -53,7 +53,6 @@ class Function < ActiveRecord::Base
               U.login = '#{user.login}' and 
               #{User.verified_users(:alias => 'U')}
         ") > 0
-    
     #else check every permission carefully!
     if(0 < Function.count_by_sql("" +
         "select count(*) from roles, roles_users, users, roles_functions, functions, projects " +
