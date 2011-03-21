@@ -4,9 +4,9 @@ class Image < ActiveRecord::Base
   IMAGE_DEFAULT_USER_ICON = 1
   IMAGE_DEFAULT_PROJECT_ICON = 2
   IMAGE_DEFAULT_SIZE = 128
-  IMAGE_CACHES_DIR = "#{RAILS_ROOT}/public/images/cached_image"
-  IMAGE_DATA_DIR = "#{RAILS_ROOT}/tmp/image_data"
-  IMAGE_EMAIL_DIR = "#{RAILS_ROOT}/public/images/email_image"
+  IMAGE_CACHES_DIR = "#{Rails.root.to_s}/public/images/cached_image"
+  IMAGE_DATA_DIR = "#{Rails.root.to_s}/tmp/image_data"
+  IMAGE_EMAIL_DIR = "#{Rails.root.to_s}/public/images/email_image"
 
   validates_format_of :meta, :with => /^image/,
     :message => _("Image|Picture only")

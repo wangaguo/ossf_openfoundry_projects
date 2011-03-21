@@ -1,15 +1,8 @@
 #OpenFoundry lib
 require 'yaml'
+require 'activemessaging/processor'
 
 module OpenFoundry
-  module VeryDirty
-    def _(key)
-      key
-    end  
-    def N_(key)
-      key
-    end  
-  end
   module Message
     def self.included(base)
       base.extend(ClassMethods)
@@ -46,10 +39,10 @@ module OpenFoundry
     end
   end
 end
-
+ActiveMessaging::Gateway.define do |s|
+ # s.destination 'ossf_msg', '/topic/OSSF.MSG'
+end
 ActiveRecord::Base.send(:include, OpenFoundry::Message)
-ActiveRecord::Base.send(:include, OpenFoundry::VeryDirty)
-ActiveRecord::Base.send(:extend, OpenFoundry::VeryDirty)
 
 
 # (a, b) = normalize_values(%w[Ruby Perl JavaScript], %w[c Javascript perl]) {|x| x.downcase }

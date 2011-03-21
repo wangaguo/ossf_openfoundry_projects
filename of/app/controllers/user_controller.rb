@@ -159,7 +159,7 @@ class UserController < ApplicationController
       cookies["lang"] = current_user.language
 			redirect_to :controller => :user, :action => :home
     else
-      redirect_to SSO_LOGIN + "?return_url=" + SSO_OF_LOGIN
+      redirect_to SSO_LOGIN + "?return_url=" + request.referer
     end
 =begin
     begin redirect_to :action => :home, :controller => :user ;return end if login?
@@ -257,7 +257,7 @@ class UserController < ApplicationController
     #logout while su as somebody, and back to site_admin page
     if session[:effective_user]
       session[:effective_user] = nil
-      redirect_to "#{ root_path }site_admin"
+      redirect_to "#{ root_path }/site_admin"
     else #normal user logout~
 
       # maintain an enumerable hash that include online users
@@ -486,9 +486,10 @@ class UserController < ApplicationController
     # My Issue Tracker
     #
     # the base request url for rt rdf
-    rturl = "http://#{SSO_HOST}/rt/Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=id>'0'"
+    rturl = "#{OPENFOUNDRY_RT_URL}Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=id>'0'"
     # set the current user name
     @name = current_user.login
+    @name = @current_user.login
 
     # set the relation of rt with user 
     case params[ :lookfor ]
@@ -570,7 +571,7 @@ class UserController < ApplicationController
       session[:toua] = :show
       render :partial => 'partials/toua', :layout => true, 
         :locals => {:submit_to => "#{ root_path }user/signup", 
-                    :file_path => "#{RAILS_ROOT}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
+                    :file_path => "#{Rails.root.to_s}/public/terms_of_use_agreement.#{GetText.locale.to_s}.txt"}
       return true
     when :post
       if( session[:toua] == :show )

@@ -1,7 +1,7 @@
 <fieldset style='float:right'>
   <legend><%= _('User Icon') %></legend>
   <center>
-    <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @icon) %>"/>
+    <img src="<%= cached_image_images_path(:id => @icon) %>"/>
   </center>
   <% if(@my)%>
     <br/>

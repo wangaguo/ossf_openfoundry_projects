@@ -4,7 +4,7 @@
 <% module_content = capture do -%>
 <ul class="menu">
   <li><%= link_to _('Create Project'), new_project_path() %></li>
-  <li><%= link_to _('menu_My Projects'), "#{ root_path }user/dashboard#myprojects"%></li>
+  <li><%= link_to _('menu_My Projects'), "#{dashboard_user_path}#myprojects" %></li>
   <li><%= link_to _('menu_My Tickets'),"#mytickets",:class => 'ticket_button' %></li>
   <li><%#= link_to _('menu_My Messages'), "/#{ I18n.locale.to_s[ -2..-1 ].downcase }/my-message"%></li>
   <li class="parent"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('Help') %></a>

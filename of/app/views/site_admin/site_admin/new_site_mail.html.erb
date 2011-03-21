@@ -1,5 +1,4 @@
-<%= javascript_include_tag "jquery" %>
-<script type="text/javascript">
+<% content_for :ujs do %>
   var $j = jQuery.noConflict();
   $j(document).ready(function() {
     $j("#mail_form").attr("onsubmit", "return check()");
@@ -19,9 +18,9 @@
     }
     else if(confirm('Are you sure to send the mail?')==false) return(false);
   }
-</script>
+<% end %>
 
-<% form_for(:mail, :url => {:action => "new_site_mail"}, :html => { :id => "mail_form", :method => :post }) do |f| %>
+<% form_for(:mail, :url => site_admin_admin_new_site_mail_path, :html => { :id => "mail_form", :method => :post }) do |f| %>
   <%= f.radio_button("type", "to" ) %>To:
   <%= f.text_field("to", :size => 30) %><br/>
   <%= f.radio_button("type", "all_valid_users") %>All valid users<br/>
@@ -33,8 +32,8 @@
   </p>
   <p>
     <%=f.label("message", _('Message Content')) %><br/>
-    <%= javascript_include_tag 'fckeditor/fckeditor.js' %>
-    <%= fckeditor_textarea( 'mail', 'message', :height => 400 ) %>
+    <%= javascript_include_tag :ckeditor %>
+    <%= ckeditor_textarea( 'mail', 'message', :height => 400 ) %>
   </p>
 
   <%= submit_tag _('Send Mail') %>

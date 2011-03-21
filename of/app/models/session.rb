@@ -1,4 +1,4 @@
-require 'memcache'
+#require 'memcache'
 class Session < ActiveRecord::Base
   class << self
     def user_login(user_id)

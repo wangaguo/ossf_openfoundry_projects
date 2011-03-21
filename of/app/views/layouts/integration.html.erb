@@ -42,8 +42,11 @@
     <![endif]-->
     <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/fusionmenu.css" type="text/css" />
     <%= yield :head_content %>
+    <%= yield :page_head %>
+    <script type="text/javascript">
+    <%= yield :ujs %>
+    </script>
     <script type="text/javascript" src="http://<%=UI_SCHEMA_CSS_HOST%>/modules/mod_ofssologin/js/ofssologin.js"></script>
-    <%= javascript_include_tag 'langsync.js' %>
   </head>
 
   <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
@@ -75,7 +78,7 @@
                       <div class="ofssologin_square9">
                         <%= yield :header_content %>
                         <div class="ofssologin_search_square9">
-                          <form id="of_search" action="<%="#{ root_path }openfoundry/search" %>" method="get" onsubmit="of_search(); return false;">
+                          <form id="of_search" action="<%= openfoundry_search_path %>" method="get" onsubmit="of_search(); return false;">
                             <select id="of_search_type">
                               <option value="Projects"><%=_('Projects')%></option>
                               <option value="Content"><%=_('Content')%></option>
@@ -133,7 +136,7 @@
                   </li>
                 <%- if current_user.has_role?('site_admin') %>
                   <li class="item root">
-                    <a class="orphan item bullet" href="/of/site_admin"><span></span></a>
+                  <a class="orphan item bullet" href="<%= site_admin_root_path %>"><span></span></a>
                   </li>
                 <% end -%>
               </ul>
@@ -182,7 +185,7 @@
 
                         <div class="module-content">
                           <p>
-                            <%=_('template_footer_content')%>
+                            <%=raw _('template_footer_content')%>
                           </p>
                         </div>
 

@@ -6,16 +6,6 @@ class User < ActiveRecord::Base
   composed_of :tz, :class_name => 'TimeZone', :mapping => %w( timezone timezone )
   acts_as_authorized_user
 
-  #add fulltext indexed SEARCH
-#  acts_as_ferret({
-#                 :fields => {:login => {:boost => 1.5,:store => :yes}, 
-#                             #:firstname => {:boost => 0.8,:store => :yes}, 
-#                             #:lastname => {:boost => 0.8,:store => :yes}, 
-#                             :name => {:boost => 0.8,:store => :yes} 
-#                            },
-#                 :single_index => true
-#                 }, { :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD } )
-
   after_create :send_rt_create_msg
   after_update :send_rt_update_msg
 
@@ -26,11 +16,6 @@ class User < ActiveRecord::Base
   def send_rt_update_msg
     send_msg(:user, :update, {:id => id, :name => login, :email => email})
   end          
-
-  # disable ferret search if not verified        
-  def ferret_enabled?(is_bulk_index = false)
-    (verified == 1) && @ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?)
-  end
 
   def functions_for(authorizable_id, authorizable_type = 'Project')
     rtn = []
@@ -89,6 +74,6 @@ class User < ActiveRecord::Base
     "(#{a}verified = 1)"
   end
 
-  named_scope :valid_users, :conditions => { :verified => 1 }
+  scope :valid_users, :conditions => { :verified => 1 }
 end
 

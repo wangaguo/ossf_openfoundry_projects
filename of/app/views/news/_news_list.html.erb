@@ -1,4 +1,4 @@
-<% @news = News.find( :all, :conditions => "catid=#{ @project.id } and status = #{ News::STATUS[ :Enabled ] } ", :order => "updated_at desc", :limit => 3 ) %>
+<% @news = News.where(:catid => @project.try(:id), :status => News::STATUS[:Enabled]).order('updated_at desc').limit(3) %>
 
 <% if @news.size > 0 %>
 <% module_title = capture do %>
@@ -9,13 +9,13 @@
   <ul>
     <% for news in @news %>
       <li>
-        <%=link_to h( news.subject ), news1_path( :id => news.id, :project_id => news.catid ), :class => "news_subject" %>
-        <%=news.updated_at.try(:strftime, "%Y-%m-%d") %>
+        <%= link_to h(news.subject), project_news_path(news.project, news), :class => "news_subject" %>
+        <%=news.updated_at.strftime "%Y-%m-%d" unless news.updated_at.blank? %>
       </li>
     <% end %>
   </ul>
 
-  <%=link_to _( 'More...' ), news_path( :project_id => @project.id ), :class => "more" %>
+  <%= link_to _('More...'), project_news_index_path(@project), :class => "more" %>
 <% end %>
 
 <%=render :file => 'layouts/rt_module', :locals => { :module_title => module_title, :module_content => module_content, :variation => 'square1' } %>

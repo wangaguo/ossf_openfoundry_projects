@@ -5,7 +5,7 @@
       <td align=center>
         <div id='project_logo'>
           <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
-            <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @project.icon) %>" width=50% /></a>
+            <img src="<%= cached_image_images_path(:id => @project.icon) %>" width=50% /></a>
         </div>
       </td>
       <td align=center>

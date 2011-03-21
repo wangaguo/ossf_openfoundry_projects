@@ -1,22 +1,6 @@
-<!--<div class="tag_cloud">
-  <h3><%#= image_tag("of/icon01.gif", :align => "left") %> <%#= _('Tag Cloud') %></h3>
-  <%# tag_counts=User.tag_counts() %>
-  <%# tag_counts.sort! { |a,b| a.count <=> b.count}%>
-    <%# sum=0 %>
-    <%# tag_counts.each { |tag| -%>
-      <%# sum=sum+tag.count %>
-    <%# } -%>
-  
-    <%# tag_counts.each { |tag| -%>
-      <font size=<%#= (10.0*tag.count/sum).to_i %> >
-            <%#= link_to tag.name, {:action => "tag", :id=> tag.name} %>
-            </font> &nbsp;
-    <%# } -%>
-  </div>
-  -->
   <h3 class="title"><%= _('All time most popular tags')%></h3><a name="alltags"></a>
   <div id="tag_cloud">
     <% Tagcloud.tags_assign_font_size( 0 ).each do | s | -%>
-      <%=link_to "#{ s[ :name ] }", search_openfoundry_path( :query => "tag:#{ s[ :name ] }", :commit => 'search' ), :style => "font-size: #{ s[ :font ] }px; color: #{ s[ :color ] }", :onmouseover => "this.style.color='#65960b'", :onmouseout => "this.style.color='#{ s[ :color ] }'" %>
+      <%=link_to "#{ s[ :name ] }", openfoundry_search_path( :query => "tag:#{ s[ :name ] }", :commit => 'search' ), :style => "font-size: #{ s[ :font ] }px; color: #{ s[ :color ] }", :onmouseover => "this.style.color='#65960b'", :onmouseout => "this.style.color='#{ s[ :color ] }'" %>
     <% end -%>
   </div>

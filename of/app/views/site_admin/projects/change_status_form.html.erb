@@ -34,6 +34,6 @@ Current status is: <%= Project.status_to_s(@project.status) %>
     <%= submit_tag 'pending', :name => 'invoke' %>
   <% end %>
 <% end %>
-<%= link_to _('List'), :controller => 'project' %> |
+<%= link_to _('List'), site_admin_projects_path %> |
 <%= link_to _('Show'), project_path(:id => @project.id), :target => '_blank' %> |
 <%= link_to _('Edit'), edit_project_path(:id => @project.id), :target => '_blank' %>

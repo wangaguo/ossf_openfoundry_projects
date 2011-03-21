@@ -43,6 +43,6 @@ module UserSystem
     :delayed_delete_days => 7,
 
     # Server environment
-    :server_env => "#{RAILS_ENV}"
+    :server_env => Rails.env
   }
 end

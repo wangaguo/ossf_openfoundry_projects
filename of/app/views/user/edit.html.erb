@@ -4,7 +4,7 @@
   <fieldset style='float:right'>
     <legend><%= _('Change User Icon') %></legend>
     <center>
-      <img src="<%= url_for(:controller => :images, :action => "cached_image", :id => @user.icon) %>"/>
+      <img src="<%= cached_image_images_path(:id => @user.icon) %>"/>
     </center>
     <br/>
     <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false">

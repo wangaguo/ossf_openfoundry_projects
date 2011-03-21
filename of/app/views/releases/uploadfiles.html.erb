@@ -1,137 +1,106 @@
 <div id=uploadfiles_view>
   <% unless flash.now[:message].nil? -%>
     <h1> <%= flash.now[:message]%> </h1>
-    <% end -%>
-    <fieldset>
+  <% end -%>
+  <fieldset>
     <div id="editrelease_view">
-    <table class=ReleaseShow >
-<tr><th> <%= Release.columns_hash['version'].human_name  -%> : </th>
-<td> <%= h(@release.version) %> </td>
-</tr>
-<tr><th> <%= Release.columns_hash['due'].human_name  -%> : </th>
+      <table class=ReleaseShow >
+        <tr><th> <%= Release.columns_hash['version'].human_name  -%> : </th>
+          <td> <%= h(@release.version) %> </td>
+        </tr>
+        <tr><th> <%= Release.columns_hash['due'].human_name  -%> : </th>
 
-<td> <%= h(@release.due) %> </td>
-</tr>
-<tr><th> <%= Release.columns_hash['status'].human_name  -%> : </th>
-<td> <%= h(Release.status_to_s(@release.status)) %> </td>
-</tr>
-</table>
-        <%= link_to_remote _('[Edit]'),:url => editrelease_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-          }), :update => "editrelease_view"
-        %>
-        <%= link_to _('[Delete]'), delete_release_url(
-          {
-            :project_id => @project.id, 
-            :id => @release.id
-          }), 
-            :confirm => "#{_('[Delete]')}?", 
-          :method => :post
-        %>
-        <%= link_to _('[Add release news]'), new_release_news_url({
-            :release_id => @release.id,
-          })
-        %>
-    </div>
-    </fieldset>
-    <fieldset>
-    <h1>Files: </h1>
-    <% if @release.fileentity.empty? -%>
-      <h3>No File in Release</h3>
-    <%end%>
-    <% @release.fileentity.each_with_index do |f, i|%>
+          <td> <%= h(@release.due) %> </td>
+        </tr>
+        <tr><th> <%= Release.columns_hash['status'].human_name  -%> : </th>
+          <td> <%= h(Release.status_to_s(@release.status)) %> </td>
+        </tr>
+      </table>
+      <%= link_to_remote _('[Edit]'), :url => editrelease_project_release_path(@project, @release),
+                                      :update => "editrelease_view" %>
+      <%= link_to _('[Delete]'), delete_project_release_path(@project, @release), :confirm => "#{_('[Delete]')}?",
+                                                                                  :method => :post %>
+      <%= link_to _('[Add release news]'), new_releases_project_release_path(@project, @release) %>
+  </div>
+</fieldset>
+<fieldset>
+  <h1>Files: </h1>
+  <% if @release.fileentity.empty? -%>
+    <h3>No File in Release</h3>
+  <%end%>
+  <% @release.fileentity.each_with_index do |f, i|%>
     <div id=<%= "editfiles_view#{i}" %>>
-<table class=FileItem >
-<tr>
-<th> <%=  Fileentity.columns_hash['path'].human_name -%> : </th>
-<td> <%= h(f.path) %> </td>
-</tr>
-<tr>
-<th> <%=  Fileentity.columns_hash['description'].human_name -%> : </th>
-<td> <%= h(f.description) %>  </td>
-</tr>
-<tr>
-<th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
-<td> <%= number_to_human_size(f.size) %> </td>
-</tr>
-</table>
-        <%= link_to_remote _('[Edit]'),:url => editfile_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-            :editfile_id => f.id,
-            :div_id => "editfiles_view#{i}",
-          }), :update => "editfiles_view#{i}"
-        %>
-        <%= link_to_remote _('[Delete]'),:url => removefile_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-            :removefile_id => f.id
-          }),
+      <table class=FileItem >
+        <tr>
+          <th> <%=  Fileentity.columns_hash['path'].human_name -%> : </th>
+          <td> <%= h(f.path) %> </td>
+        </tr>
+        <tr>
+          <th> <%=  Fileentity.columns_hash['description'].human_name -%> : </th>
+          <td> <%= h(f.description) %>  </td>
+        </tr>
+        <tr>
+          <th> <%=  Fileentity.columns_hash['size'].human_name -%> : </th>
+          <td> <%= number_to_human_size(f.size) %> </td>
+        </tr>
+      </table>
+        <%= link_to _('[Edit]'), editfile_project_release_url(@project, @release, :editfile_id => f.id, :div_id => "editfiles_view#{i}"), :remote => true %>
+        <%= link_to_remote _('[Delete]'), :url => removefile_project_release_path(@project, @release, :removefile_id => f.id) ,
           :confirm => 'Delete?', 
-          :update => "uploadfiles_view"
-        %>
-    </div>
-    <hr>
-    <%end%>
+          :update => "uploadfiles_view" %>
+  </div>
+  <hr>
+<%end%>
     </fieldset>
     <fieldset>
-    <% form_remote_tag :update => "uploadfiles_view", :url => addfiles_release_url( { 
-        :project_id => @project.id, 
-        :id => @release.id  }) do -%>
-  
-      <h2><%=_('Project Upload Repository')%></h2>
-      <h3><%=_('Current Dir')%>: <%= @current_dir %> </h3>
-  
-        <div id=Uploadfile_selection>
-        <%= submit_to_remote 'reload_button', _('Reload'), :url => reload_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-           }), :update => "uploadfiles_view" %>
-        <%=submit_tag _('Add File') %>
-        <%= submit_to_remote 'delete_files', _('Delete'), :url => delete_files_release_url({
-            :project_id => @project.id,
-            :id => @release.id,
-           }), :update => "uploadfiles_view" %>
+      <% form_remote_tag :update => "uploadfiles_view", :url => addfiles_project_release_url(@project, @release) do -%>
 
-        <% unless @uploadfiles.empty? -%>
-          <select name=uploadfiles[] id=release_file_selection multiple size=10>
-      
-            <% @uploadfiles.sort.each do |file| -%>
-              <option id=release_file value="<%= h(file) -%>">  
-                <%= h(file) %>
-              </option>
-      
-            <% end -%>  
-      
-          </select>
-        <% else -%>
-          <h5><%=  _('File_not_found') %></h5>
-        <%end -%>
-      </div>
-    <% end -%>
+          <h2><%=_('Project Upload Repository')%></h2>
+          <h3><%=_('Current Dir')%>: <%= @current_dir %> </h3>
 
-<ol>
-  <li>您必需先上傳檔案，才能將檔案加入此釋出版本。</li>
-  <li>上傳檔案有兩個方式
-    <ul>
-      <li>Web上傳(若檔案較大或網路頻寬不足時，請使用FTP方式上傳)。<br/>
-<% form_tag ({:project_id => @project.id, :id => @release.id, :action => 'web_upload'}, :multipart => true) do %>
-  <% for i in 1..5 %>
-    <%= file_field_tag("upload_file_#{i}") %><br/>
-  <% end %>
-  <%= submit_tag _("Upload") %>
-  <%= submit_tag _("Reset"), :type => 'reset' %> 
-<% end %>
-      </li>
-      <li>FTP(<%= link_to OPENFOUNDRY_FTP_URL+@current_dir, OPENFOUNDRY_FTP_URL+@current_dir, {:target => '_blank'} %>)，FTP上傳後請先「更新清單」。<br/>
-      參閱[<%= link_to _("How to Upload?"), webhosting_index_path %>]
-      </li>
-    </ul>
-  </li>
-  <li>上傳後請選擇右方清單檔案，並按「加入檔案」。</li>
-</ol>  
+          <div id=Uploadfile_selection>
+            <%= submit_to_remote 'reload_button', _('Reload'), :url => reload_project_release_url(@project, @release), :update => "uploadfiles_view" %>
+            <%=submit_tag _('Add File') %>
+            <%= submit_to_remote 'delete_files', _('Delete'), :url => delete_files_project_release_url(@project, @release), :update => "uploadfiles_view" %>
+
+            <% unless @uploadfiles.empty? -%>
+              <select name=uploadfiles[] id=release_file_selection multiple size=10>
+
+                <% @uploadfiles.sort.each do |file| -%>
+                  <option id=release_file value="<%= h(file) -%>">  
+                  <%= h(file) %>
+                  </option>
+
+                <% end -%>  
+
+              </select>
+            <% else -%>
+              <h5><%=  _('File_not_found') %></h5>
+            <%end -%>
+          </div>
+        <% end -%>
+
+        <ol>
+          <li>您必需先上傳檔案，才能將檔案加入此釋出版本。</li>
+          <li>上傳檔案有兩個方式
+          <ul>
+            <li>Web上傳(若檔案較大或網路頻寬不足時，請使用FTP方式上傳)。<br/>
+            <% form_tag ({:project_id => @project.id, :id => @release.id, :action => 'web_upload'}, :multipart => true) do %>
+              <% for i in 1..5 %>
+                <%= file_field_tag("upload_file_#{i}") %><br/>
+              <% end %>
+              <%= submit_tag _("Upload") %>
+              <%= submit_tag _("Reset"), :type => 'reset' %> 
+            <% end %>
+            </li>
+            <li>FTP(<%= link_to OPENFOUNDRY_FTP_URL+@current_dir, OPENFOUNDRY_FTP_URL+@current_dir, {:target => '_blank'} %>)，FTP上傳後請先「更新清單」。<br/>
+            參閱[<%= link_to _("How to Upload?"), webhosting_path %>]
+            </li>
+          </ul>
+          </li>
+          <li>上傳後請選擇右方清單檔案，並按「加入檔案」。</li>
+        </ol>  
 
       </fieldset>
-  
-  </div>
+
+    </div>

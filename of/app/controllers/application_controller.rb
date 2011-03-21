@@ -40,9 +40,6 @@ class ApplicationController < ActionController::Base
   helper :projects
   require_dependency 'user'
 
-  rescue_from ActionController::RoutingError, :with => :not_found
-
-
 #  before_filter :configure_charsets
 #
 #  def configure_charsets
@@ -58,10 +55,6 @@ class ApplicationController < ActionController::Base
   #after_init_gettext :set_will_paginate_lang
   #init_gettext "openfoundry"
   layout 'normal'
-  def not_found
-    flash[:error] = 'not_found'
-    redirect_to not_found_rescue_path
-  end
 
   protected
 #  def set_gettext_locale 
@@ -96,7 +89,7 @@ class ApplicationController < ActionController::Base
 
     if not rtn or (rtn.status == Project::STATUS[:PENDING] and in_used_projects != "" and (rtn.creator != current_user().id or controller_name != 'projects' or (action_name != 'edit' and action_name != 'update'))) #project not ready. pending and not allow actions.
       flash[:warning] = "Project '#{id_or_name}' does not exist, or it has be deactivated."
-      redirect_to "/"
+      redirect_to root_path
     elsif in_used_projects == "" and rtn.status != Project::STATUS[:READY] #admin & reviewer messages
       flash.now[:warning] = "Project is not READY. Status is #{Project.status_to_s(rtn.status)}."
     end
@@ -112,6 +105,7 @@ class ApplicationController < ActionController::Base
   #before_filter :login_required
   def current_user(session = session() )
     session[:effective_user] || session[:user] || User.find_by_login('guest')
+    @current_user = session[:effective_user] || session[:user] || User.find_by_login('guest')
     #effective_user for site_admin 'su' to others 
     #user is your 'normal login user'
   end
@@ -265,9 +259,6 @@ class ApplicationController < ActionController::Base
     before_filter :find_resources_before_filter
 THECODE
 
-    #puts "##############"
-    #puts code
-    #puts "##############"
     module_eval code
   end
   
@@ -312,7 +303,6 @@ THECODE
   end
 
   def check_permission
-    #logger.info("99999999999999999controller: #{controller_name}, action: #{action_name}")
     pass = false
     function_name = PERMISSION_TABLE[controller_name.to_sym][action_name.to_sym]
     begin
@@ -367,8 +357,6 @@ THECODE
 
   private
     def touch_session
-      #logger.info("77777777777777#{session[:host]}77777777777777")
-      #logger.info("77777777777777#{request.remote_ip}77777777777777")
       session[:host] = request.remote_ip
       yield
       session[:host] = request.remote_ip

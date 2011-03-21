@@ -2,11 +2,13 @@ class Tagcloud < ActiveRecord::Base
 	# category association
   has_many :projects, :foreign_key => :category
 	# tagcloud association 
-	has_and_belongs_to_many :tagged_projects, 
-                       	  :class_name => 'Project',
-												  :join_table => :tagclouds_projects, 
-												  :association_foreign_key => :project_id, 
-													:foreign_key => :tagcloud_id
+	#has_and_belongs_to_many :tagged_projects, 
+  #                     	  :class_name => 'Project',
+	#											  :join_table => :tagclouds_projects, 
+	#											  :association_foreign_key => :project_id, 
+	#												:foreign_key => :tagcloud_id
+  has_many :tagclouds_projects
+  has_many :taged_projects, :through => :tagclouds_projects, :source => :project
 #	has_many :tagcloudsprojects, :foreign_key => :tagcloud_id
 
 	# set tagcloud default values before saving
@@ -19,9 +21,9 @@ class Tagcloud < ActiveRecord::Base
   STATUS = { :PENDING => 0, :READY => 1 }.freeze
 
   # find all ready tags
-  named_scope :readytags, :conditions => [ "status = ? AND tagged <> 0", STATUS[ :READY ] ]
+  scope :readytags, :conditions => [ "status = ? AND tagged <> 0", STATUS[ :READY ] ]
   # find all category tags
-  named_scope :onlycategory, :conditions => { :status => STATUS[ :READY ], :tag_type => TYPE[ :CATEGORY ] }, :order => 'id'
+  scope :onlycategory, :conditions => { :status => STATUS[ :READY ], :tag_type => TYPE[ :CATEGORY ] }, :order => 'id'
 
 	# increase tag if it is searched
 	def self.increase_searched_tag( tagname )

@@ -1,185 +1,255 @@
-ActionController::Routing::Routes.draw do |map|
+# To see what changes, do this:
+# $ cd /home/openfoundry/of
+# $ vimdiff sorted_old_routes sorted_new_routes
+# and PLEASE DON'T MODIFY THESE TWO FILE!!!
 
-  map.root :controller => 'openfoundry'
-  #####################
-  # API!!
-  #####################
-  map.resource :api,
-    :controller => :api, :only => [:user,:project],
-    :member => {:user => :get, :project => :get}
-  #####################
-  #administration:
-  #####################
-  map.connect 'site_admin', :controller => 'site_admin/site_admin'
+OpenFoundry::Application.routes.draw do |map|
 
-  map.namespace :site_admin do |admin|
-    admin.resource :admin, :controller => 'site_admin',
-		   :member => [:resend, :aaf_rebuild, :batch_add_users, :edit_code, :new_site_mail, :big_files]
-    admin.resources :projects,
-                    :member => {:change_status_form => :any,
-                                :list => :any,
-                                :projects_upload => :any,
-				:change_status => :any
-                                }
-    admin.resources :users
-    admin.resources :news
+  base_url = OpenFoundry::Application.config.root_path
+
+  scope base_url do
+    root :to => 'openfoundry#index'
+
+    #####################
+    # Metal:
+    #####################
+    match '/projacts' => 'projacts#index'
+
+    #####################
+    # RSS:
+    #####################
+    get '/rss' => 'rss#index'
+
+    #####################
+    # API!!
+    #####################
+    namespace :api do
+      get :project
+      get :user
+    end
+
+    #####################
+    #administration:
+    #####################
+    namespace :site_admin do
+      root :to => 'site_admin#index'
+      namespace :site_admin, :path => :admin, :as => :admin do
+        get '/' => :index
+        get :resend
+        get :aaf_rebuild
+        get :batch_add_users
+        get :edit_code
+        match :new_site_mail
+        get :big_files
+        get :manage_tags
+        get :tag_status
+        get :member_edit
+        get :nsc_download
+        post :switch_user_search
+        get '/switch_user/:id' => :switch_user, :as => :switch_user
+        post :member_change
+      end
+
+      resources :projects do
+        member do
+          # FIXME: There is no 'any' method in rails 3 i think, so these settings may cause not found error. (aya
+          # I'll mark ANY at future routes, if it's method is not GET, just feel free to modify it
+          get :change_status_form # ANY
+          get :list               # ANY
+          get :projects_upload    # ANY
+          post :change_status      # ANY
+        end
+        match :csv, :on => :collection
+      end
+      resources :user
+      resources :news
+      resources :tags do
+        collection do
+          match :fetch
+          match :edit
+          match :delete
+          match :ready
+          match :pending
+        end
+      end
+    end
+
+    #####################
+    # projects:
+    #####################
+    get '/projects/jobs' => 'jobs#project_jobs', :as => :home_project_jobs
+    get '/projects/news' => 'news#project_news', :as => :home_project_news
+
+    resources :projects do
+      collection do
+        get :list
+        get :applied
+        get :tableizer
+#        get :new_projects_feed
+      end
+
+      member do
+        # FIXME: 'any' will use get by my default. (aya
+        get :sympa
+        get :viewvc
+        get :websvn
+        get :role_users      # ANY, UGLY... Need a role controller in future. (aya
+        get :member_edit     # ANY
+        post :member_delete  # UGLY... Need a member controller in future. (aya
+        post :member_add
+        get :permission_edit
+        post :member_change
+        get :role_update     # ANY
+        post :group_update    # ANY, UGLY... Need a group controller in future. (aya
+        post :group_create    # ANY
+        post :group_delete    # ANY
+        get :role_new        # ANY
+        get :role_create     # ANY
+        get :vcs_access      # ANY
+        get :new_release, :path => '/news/new_release', :controller => 'news'
+      end
+
+      # in resource projects
+
+      resources :releases do
+        collection do
+          get :download          # ANY
+        end
+
+        member do
+          get :uploadfiles    # ANY, UGLY... Need a file controller in future. (aya
+          post :delete
+          post :addfiles
+          post :removefile
+          get :editfile       # ANY
+          post :updatefile
+          post :editrelease
+          post :updaterelease
+          post :viewrelease
+          post :viewfile
+          post :reload
+          post :web_upload
+          post :delete_files
+          get :download       # ANY
+          get :new_releases   # ANY
+        end
+      end
+
+      # in resource projects
+
+      resources :news
+      resources :jobs
+      resources :citations
+      resources :references
+      resources :kwiki
+      resources :rt do
+        collection do
+          get :report
+        end
+      end
+      resources :survey do
+        member do
+          post :update
+          get :apply # ANY
+          post :delete
+        end
+      end
+      resources :nscreports, :path => '/nsc/nscreports'
+
+      get '/download' => 'releases#download'
+    end
+
+    resources :releases, :only => [] do
+      collection do
+        get :latest            # ANY
+        get :top               # ANY
+      end
+    end
+
+    resources :category do
+      collection do
+        match :list
+      end
+    end
+
+    namespace :openfoundry do
+      get :search                          # ANY
+      get :download
+      get :is_project_name                 # ANY
+      get :foundry_dump                    # ANY
+      get :foundry_sync                    # ANY
+      get :redirect_rt_openfoundry_org     # ANY
+      get :authentication_authorization    # ANY
+      get :authentication_authorization_II # ANY
+      get :get_session_by_id               # ANY
+      get :get_session_by_id2              # ANY
+      get :get_user_by_session_id          # ANY
+    end
+
+    resources :news
+
+    get '/jobs' => 'jobs#index'
+
+    resources :jobs do
+      collection do
+        get :list
+      end
+    end
+
+    resources :images, :only => [] do
+      collection do
+        get '/cached_image/:id', :action => :cached_image, :as => :cached_image
+        get '/email_image/:id', :action => :email_image, :as => :email_image
+        post :upload # ANY
+      end
+    end
+
+    resource :user, :only => [], :controller => 'user' do
+      get :dashboard
+      get :home
+      get :index
+      get :login
+      get :logout
+      post :search
+    end
+
+    get '/user' => 'user#index'
+
+    namespace :rescue do
+      get :not_found
+    end
+
+    namespace :webhosting do
+      get '/', :action => :index
+      get :how_to_upload
+    end
+
+    namespace :help do
+      get '/', :action => 'index' # ANY
+      get :nsc_project # ANY
+      get :vcs # ANY
+    end
+
+    namespace :nsc do
+      get :report_status
+      get :download_count
+    end
+
+    # NOTE: why not just put in projects/releases as a resource?
+    match '/download_path/:project_name/:release_version/:file_name/survey/:id' => 'survey#apply',
+      :as => :downloader,
+      :constraints => { :file_name => /.+/, :release_version => /.+/ },
+      :via => [:get, :post]
+    get '/download_path/:project_name/:release_version/:file_name' => 'openfoundry#download', 
+      :as => :download,
+      :constraints => { :file_name => /.+/, :release_version => /.+/ }
+    get '/projects/:id/releases/:version/files/:path/reviews' => 'survey#review', :as => :file_review,
+      :constraints => { :version => /.+/, :path => /.+/ }
+    get '/projects/:id/releases/:version/reviews' => 'survey#review', :as => :release_review,
+      :constraints => { :version => /.+/ }
+    get '/projects/:id/reviews' => 'survey#review', :as => :project_review
+    # NOTE: Legacy route (remove it if possible)
+    #match '/:controller(/:action(/:id))'
   end
-  map.project_jobs '/projects/jobs', :controller => 'jobs', :action => 'project_jobs'
-  map.project_news '/projects/news', :controller => 'news', :action => 'project_news'
-
-  #####################
-  #downloaders' reviews: for project, release, and file
-  #####################
-  map.file_review '/projects/:id/releases/:version/files/:path/reviews',
-                      :controller => 'survey', :action => 'review',
-                      :requirements => {:path => /.+/, :version => /.+/}
-  map.release_review '/projects/:id/releases/:version/reviews',
-                      :controller => 'survey', :action => 'review',
-                      :requirements => {:version => /.+/}
-  map.project_review '/projects/:id/reviews', 
-                      :controller => 'survey', :action => 'review'
-
-  #####################
-  #resources:
-  #####################
-  map.resources :openfoundry,
-                :collection => { :search => :any, :download => :get, :is_project_name => :any,
-				 :foundry_dump => :any, :foundry_sync => :any,
-				 :redirect_rt_openfoundry_org => :any,
-				 :authentication_authorization => :any,
-				 :authentication_authorization_II => :any,
-				 :get_session_by_id => :any,
-				 :get_session_by_id2 => :any,
-				 :get_user_by_session_id => :any
-				}
-  map.resources :category,
-  		:collection => { :list => :get }
-  map.resources :projects,
-                :collection => { :list => :get, :applied => :get, 
-			         :tableizer => :get,
-                                 :new_projects_feed => :get},
-                :member => { :sympa => :get, :viewvc => :get, :websvn => :get, 
-			     :role_users => :any, 
-                             :member_edit => :any, :member_delete => :post,
-                             :member_add => :post, :permission_edit => :get,
-                             :member_change => :post, :role_update => :any,
-                             :group_update => :any,
-                             :group_create => :any, :group_delete => :any,
-                             :role_new => :any, :role_create => :any, :vcs_access => :any
-                             }
-  map.resources :news,
-                :singular => 'news1',
-                :collection => { :new_release => :any },
-                :path_prefix => '/projects/:project_id'
-  map.resources :news,
-                :singular => 'news1',
-                :collection => {:new_openfoundry_news_feed => :get,:new_project_news_feed => :get},
-                :name_prefix => 'site_'
-
-  #####################
-  #resources: jobs
-  #####################
-  map.resources :jobs,
-                :path_prefix => '/projects/:project_id'
-  map.connect '/jobs', :controller => :jobs, :action => :index
-  map.resources :jobs,
-                :collection => { :list => :get }
-  #####################
-  #resources: citations
-  #####################
-  map.resources :citations,
-                :path_prefix => '/projects/:project_id'
-  #####################
-  #resources: references
-  #####################
-  map.resources :references,
-                :path_prefix => '/projects/:project_id'
-  #####################
-  #resources: releases
-  #####################
-  map.resources :releases,
-    :path_prefix => '/projects/:project_id',
-    :collection => {:download => :any} ,
-    :member => { :uploadfiles => :any, :delete => :post, 
-                 :addfiles => :post, :removefile => :post,
-                 :editfile => :post, :updatefile => :post,
-                 :editrelease => :post, :updaterelease => :post,
-                 :viewrelease => :post, :viewfile => :post,
-                 :reload => :post,
-                 :web_upload => :post, :delete_files => :post,
-                 :download => :any, :new_releases => :any },
-    :singular => :release
-  map.resources :releases,
-    :collection => {:latest => :any, :top => :any,:new_release_feed => :get, :top_download_feed => :get }
-  #####################
-  #resources: other...
-  #####################
-  map.resources :kwiki,
-                :singular => 'kwiki1',
-                :path_prefix => '/projects/:project_id'
-  map.resources :rt,
-                :singular => 'rt1',
-		:collection => { :report => :get },
-                :path_prefix => '/projects/:project_id'
-  map.resources :rt,
-                :singular => 'rt1',
-                :name_prefix => 'site_'
-  map.resources :survey,
-                :path_prefix => '/projects/:project_id',
-                :member => {:update => :post, :apply => :any, :delete => :post}
-
-  map.resources :nscreports,
-                :controller => 'nscreports',
-                :path_prefix => '/projects/:project_id/nsc'
-  map.resources :images,
-                :only => [:cached_image, :upload, :email_image],
-                :collection => {:cached_image => :get, :upload => :any,
-                                :email_image => :get}
-
-  map.resource :user,
-    :only => [:logout, :login, :index],
-    :controller => :user,
-    :collection => {:dashboard => :get},
-    :member => {:index => :get,  
-                :login => :get, :logout => :get, 
-                :search => :post}
-  map.connect '/user', :controller => :user, :action => :index
-
-  map.resource :rescue,
-    :only => [:not_found],
-    :controller => :rescue,
-    :member => {:not_found => :get}
-
-  map.resources :webhosting,
-                :collection => { :how_to_upload => :get }
-  
-  map.resources :help,
-                :collection => { :index => :any, :nsc_project => :any, :vcs => :any }
-
-  #####################
-  #misc:
-  #####################
-  map.download1 '/projects/:project_id/download',
-    :controller => 'releases',
-    :action => 'download'  
-  # Install the default route as the lowest priority.
-  map.connect ':controller/:action/:id.:format'
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action.:format'
-
-
-  #for ~user home, eg: /~tim goes to :controller => :user, :id => 'tim' 
-  #map.connect '~:user_alias', :controller => 'user', :action => 'home'
-
-  #for downloader survey 
-  map.downloader 'download_path/:project_name/:release_version/:file_name/survey/:id',
-    :controller => 'survey',
-    :action => 'apply',
-    :requirements => {:file_name => /.+/, :release_version => /.+/}
-
-  #for download area~
-  map.download 'download_path/:project_name/:release_version/:file_name',
-    :controller => 'openfoundry',
-    :action => 'download',
-    :requirements => {:file_name => /.+/, :release_version => /.+/}
+  match '*path' => 'rescue#rescue_routing_error' 
 end

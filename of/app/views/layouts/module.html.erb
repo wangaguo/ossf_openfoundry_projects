@@ -1,4 +1,4 @@
-<% inside_layout 'application' do -%> 
+<% content_for :module do %> 
   <% module_title = h(@module_name) %>
   <% module_content = capture do -%>
     <div id="module_rt">
@@ -12,9 +12,10 @@
         </div>
       </div>
       <div id="module_content">
-      <%= yield %>
+      <%= yield :layout %>
       </div>
     </div>
   <% end -%>
   <%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'}  %>
 <% end -%>
+<%= render :file => 'layouts/application' %>

@@ -4,9 +4,8 @@
     
     <div id="Group_edit">
       
-      <% form_remote_tag :update => "MainContent",
-        :url => {:action => 'group_create', :id => @project} do  %>
-       <%= _('Create new Group') %> :
+      <% form_remote_tag :url => group_create_project_path(@project), :update => "module_content" do %>
+        <%= _('Create new Group') %> :
         <%= text_field_tag 'name', '' ,{:size => 20 } %> 
         <%= submit_tag _('New') %>
       <% end %>
@@ -15,7 +14,7 @@
       </p>
       <% @roles.each_with_index do |role, i| %>
         <div class='ProjectPermissionSelection' style="float:left"> 
-          <% form_remote_tag :update => "MainContent", :url => { :action => 'group_update', :id => @project } do %>
+          <% form_remote_tag :url => group_update_project_path(@project), :update => "module_content" do %>
           <fieldset>
             <legend>
             <%= text_field_tag 'name', role.name, {:size => 20,
@@ -37,8 +36,8 @@
             </ul>
         
             <%= submit_tag _('Update') if role.editable? %>
-            <%= " <input type=reset value=\"#{_('Reset')}\">" if role.editable? %>
-            <%= link_to_remote _("Delete"), :update => 'MainContent',
+            <%= tag(:input, :type => :reset, :value => t('Reset')) if role.editable? %>
+            <%= link_to_remote _("Delete"), :update => 'module_content',
               :url => { :action => 'group_delete', :id => @project.id,
               :role => role.id },
               :condition => "confirm('#{_('Are you sure?')}?')" if role.deletable? %>
