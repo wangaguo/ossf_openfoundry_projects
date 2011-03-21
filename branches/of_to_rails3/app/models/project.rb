@@ -260,59 +260,35 @@ EOEO
   #support Project-User relationship
   acts_as_authorizable
 
-	
-  #add fulltext indexed SEARCH
-#  acts_as_ferret({
-#                 :fields => { 
-#                              :alltags_string => { :boost => 3.0,
-#                                                   :index => :yes,
-#                                                   :store => :yes},
-#                              :name => { :boost => 2.0,
-#                                         :store => :yes,
-#                                         :index => :yes},
-#                              :summary => { :index => :yes,
-#                                            :store => :yes},
-#                              :description => { :index => :yes,
-#                                                :store => :yes},
-#															:cattag_name => {:store => :yes,
-#																					:index => :yes},
-#															:maturity_index => {:store => :yes,
-#																						:index => :yes},
-#															:license => {:store => :yes,
-#																					 :index => :yes},
-#															:platform => {:store => :yes,
-#																						:index => :yes},
-#															:programminglanguage => { :store => :yes,
-#																				 								:index => :yes},
-#															:category_index => { :store => :yes,
-#																				 					 :index => :yes},
-#                              :name_for_sort => {:index => :untokenized,
-#                                                 :store => :yes}
-#                            },
-#                 :single_index =>true,
-#                 :analyzer => GENERIC_ANALYZER,
-#                 :default_field => DEFAULT_FIELD
-#                 })
-                 #},{ :analyzer => GENERIC_ANALYZER, :default_field => DEFAULT_FIELD})
-  def cattag_name;cattag.name;end
-  def alltags_string;alltags_without_check.map(&:name).join(", ");end
-  def maturity_index;self.maturity.to_s;end
-  def category_index;self.category.to_s;end
-  def name_for_sort;self.name;end
-  		
+  # Thinking Sphinx
+  define_index do
+    # fields
+    indexes name, :sortable => true
+    indexes description
+    indexes summary
+    indexes maturity
+    indexes license
+    indexes platform
+    indexes programminglanguage
+    indexes alltags_without_check(:name), :as => :prj_tags
+    indexes cattag.name, :as => :cattag_name
+    indexes category
+    indexes tags.name, :as => :nsc_tag
+    where "projects.status = #{Project::STATUS[:READY]}"
 
-  def should_be_indexed?
-    self.status == Project::STATUS[:READY]
+    # attributes
+    has created_at, updated_at, status
+
+#    set_property :enable_star => true
+#    set_property :min_prefix_len => 1
+#    set_property :delta => true
+    set_property :delta => :datetime
   end
-  def ferret_enabled?(is_bulk_index = false)
-    should_be_indexed? && #super(is_bulk_index) # TODO: super will cause recursive call..
-      (@ferret_disabled.nil? && (is_bulk_index || self.class.ferret_enabled?))
-  end
-  def destroy_ferret_index_when_not_ready
-    ferret_destroy if not should_be_indexed?
-  end
-  after_save :destroy_ferret_index_when_not_ready
-    
+
+#   sphinx_scope(:ts_in_used) { 
+#        {:conditions => {:status => Project::STATUS[:READY]}}
+#   }
+
   #add tags
   acts_as_taggable
   
@@ -524,7 +500,7 @@ EOEO
   end
 
   def self.new_projects
-    Project.find(:all, :conditions => Project.in_used_projects(), :order => "created_at desc", :limit => 5)
+    Project.where(Project.in_used_projects()).order("created_at desc").limit(5)
   end
 
   def self.assign_default_role
