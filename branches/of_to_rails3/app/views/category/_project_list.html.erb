@@ -1,6 +1,6 @@
 <div id='ProjectFilterList' name='ProjectFilterList'>
 
-  <%= "About #{ts(@pcs_projects.count)} projects (#{@elapsed_seconds.to_s} seconds.)"%>
+  <%= "About #{ts(@pcs_projects_count || @all_projects_count)} projects (#{@elapsed_seconds.to_s} seconds.)"%>
 	<%=paginate = will_paginate cat_projects, :params => { :cat => params[ :cat ], :nsc_or_not => params[ :nsc_or_not ], :cat_query => params[ :cat_query ] }
   	 # make each page with the value of select and checkbox
   %>
@@ -21,7 +21,7 @@
 
       <tr class="item_h <%=class_name %>">
 		  	<td class="pj_name"><a href = "<%=url_for( :controller => 'projects', :action => 'show', :id => project.id ) %>"><%=h( project.name ) %></a></td>
-        <td><%=highlight(h( project.summary ), highlight_keyword) unless project.summary.nil? %></td>
+        <td><%=raw( project.excerpts.summary ) unless project.summary.nil? %></td>
 				<td><%=highlight(h( project.cattag.name ), highlight_keyword) unless project.cattag.nil? %></td>
 			  <td><%=h( tz_date( project.created_at ) ) unless project.created_at.nil? %></td>
    		</tr>

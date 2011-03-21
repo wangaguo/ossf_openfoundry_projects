@@ -35,9 +35,9 @@ namespace 'openfoundry' do
     end
 
     desc 'Index Server Configure'
-    task 'ferret' do
-      puts "\x1b[38;5;9m---start ferret server configure---\x1b[0m"
-      replace_template('config/ferret_server.yml')
+    task 'sphinx' do
+      puts "\x1b[38;5;9m---start sphinx server configure---\x1b[0m"
+      replace_template('config/sphinx.yml')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
@@ -70,7 +70,7 @@ namespace 'openfoundry' do
     end
   end
   task :config => ['config:db', 'config:memcache', 'config:sso', 'config:translation',
-            'config:stomp', 'config:ferret','config:module', 'config:environment']
+            'config:stomp', 'config:sphinx', 'config:module', 'config:environment']
 end
 
 def replace_template(fname, opt ={} )

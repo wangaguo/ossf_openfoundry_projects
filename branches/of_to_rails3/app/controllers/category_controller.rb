@@ -33,55 +33,59 @@ class CategoryController < ApplicationController
 #      "#{p.programminglanguage}".split(",").grep(/./).each{|x| @programming_language[x] = (@programming_language[x] || 0) + 1}
     reset_sortable_columns
     add_to_sortable_columns( 'listing', Project, 'name', 'name' )
-    add_to_sortable_columns( 'listing', Project, 'summary', 'summary' )
+    add_to_sortable_columns( 'listing', Project, 'summarhy', 'summary' )
     add_to_sortable_columns( 'listing', Project, 'category', 'category' )
     add_to_sortable_columns( 'listing', Project, 'created_at', 'created_at' )
 
     start_time = DateTime.now
 		# all used projects
-		@pcs_projects = Project.in_used
+		@all_projects = Project.search()
+		@all_projects_count = @all_projects.total_entries
+
+    @pcs_projects_conditions = {} 
 
 		# with category filter
     params[ :cat ] = '0' if params[ :cat ].blank?
-    @pcs_projects = @pcs_projects.cated( params[ :cat ] )
+    @pcs_projects = @all_projects
+
+    @pcs_projects_conditions[:nsc_tag] = '*NSC*' if params[:nsc_or_not] == 'true'
 
 		# with search filter
-		unless params[ :cat_query ].blank?
-			keyword = params[ :cat_query ]
-			query = ( keyword + ' ' ).gsub( /([a-z0-9])+[\s]+/i ) { | m |
-				$0 = '';
-			  m.scan( /[a-z]+|\d+/i ).each{ | q |
-				  q.match( /^[a-z]+$/i ) ? $0 += " *#{q}* " : $0 += " #{q} "
-			  }
-		
-				$0
-			}
+    keyword = params[ :cat_query ]
+    query = keyword || ""
+    @pcs_projects_conditions[:category] = params[:cat] unless params[:cat] == '0'
+    @pcs_projects = Project.search( Riddle.escape(query), :star => true, :page => params[:page], :per_page => 20, :conditions => @pcs_projects_conditions )
+    @pcs_projects_count = @pcs_projects.total_entries
+    #			@pcs_projects = @pcs_projects.find(:all, :conditions => ["name LIKE ? OR summary LIKE ? OR description LIKE ? OR programminglanguage LIKE ? OR platform LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing', :field => 'name', :sort_direction => :asc ))
 
-      s = Ferret::Search::SortField.new(:name_for_sort, :reverse => false)
-      @pcs_projects = @pcs_projects.find_with_ferret( query, {:limit => :all} )
-#			@pcs_projects = @pcs_projects.find(:all, :conditions => ["name LIKE ? OR summary LIKE ? OR description LIKE ? OR programminglanguage LIKE ? OR platform LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing', :field => 'name', :sort_direction => :asc ))
-
-			# increase the search times for tags
-			Tagcloud.increase_searched_tag( keyword ) if session[ :search_keyword ] != keyword
-			session[ :search_keyword ] = keyword
-		end
+    # increase the search times for tags
+    Tagcloud.increase_searched_tag( keyword ) if session[ :search_keyword ] != keyword
+    session[ :search_keyword ] = keyword
 
 		# with nsc filter
-    if params[ :nsc_or_not ] == 'true'
-      @pcs_projects = @pcs_projects.find(:all, :order => sortable_order( 'listing')) if params[ :cat_query ].blank?
-      @pcs_projects = @pcs_projects.select(&:is_nsc_project)
-    end
+#    if params[ :nsc_or_not ] == 'true'
+#      if params[:cat_query].blank?
+#        @pcs_projects = @pcs_projects.find(:all, :order => sortable_order( 'listing'))
+#        @pcs_projects = @pcs_projects.select(&:is_nsc_project)
+#      else
+#        tmp_final_project_list = []
+#        @pcs_projects.each {|ep| tmp_final_project_list.push(ep) if ep.is_nsc_project}
+#        @pcs_projects = tmp_final_project_list
+#      end
+#    end
 
 		# with paginate process
-    @final_project_list = nil
-    [ params[ :page ], 1 ].each do | page |
-      @final_project_list = @pcs_projects.paginate(
-		     :page => page,
-		     :per_page => 20,
-		     :order => sortable_order( 'listing', :model => Project, :field => 'created_at', :sort_direction => :desc ) ) 
-
-      break if not @final_project_list.out_of_bounds?
-    end
+#    @final_project_list = nil
+#    if params[:cat_query].blank?
+#      @final_project_list = @pcs_projects.paginate(
+#        :page => params[:page],
+#        :per_page => 20,
+#        :order => sortable_order( 'listing', :model => Project, :field => 'created_at', :sort_direction => :desc ) ) 
+#    else
+logger.error @pcs_projects.class
+logger.error '========================================================================='
+      @final_project_list = @pcs_projects
+#    end
     end_time=DateTime.now
     @elapsed_seconds = format("%.2f", (end_time.to_f - start_time.to_f))
 

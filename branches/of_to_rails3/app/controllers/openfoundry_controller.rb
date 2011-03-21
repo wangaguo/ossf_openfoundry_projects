@@ -273,48 +273,56 @@ class OpenfoundryController < ApplicationController
   end
   
   def search #for search!!! TODO: catalog and optimize?
+    #search start_time
     start_time = DateTime.now
 
+    #original query keywords
     @query = params[:query_adv] || params[:query] || ""
+    
+    #just query keywords
     @keyword= @query
+
+    #process the keywords like "key words" output to "*key* *words*"
     query = (@query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
       $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
-    @options = {}
-    @options[:per_page] = params[:per_page] || 20
-    @options[:page] = params[:page] || 1
-    @options[:models] = 
-      if params[:chk]
-        params[:chk].keys.map{|k| Object.const_get(k)}
-      else
-        @options[:models] = [Project]
-      end
-    @chk = params[:chk]
-    obj = @options[:models] == :all ? Project : @options[:models].first
 
-    query= " alltags_string:'#{@keyword.split(/:/)[1]}' " if @keyword.include?("tag:")
-    if params[:adv_cat]
-      unless params[:project].blank?
-        filter_select = params[:project] 
-    #TODO: Refine the query string
-        query += " category_index:'#{filter_select[:category] unless filter_select.fetch(:category).nil?}' maturity_index:'#{filter_select[:maturity] unless filter_select.fetch(:maturity).nil?}' license:'#{filter_select[:license] unless filter_select.fetch(:license).nil?}' platform:'#{filter_select[:platform] unless filter_select.fetch(:platform).nil?}' programminglanguage:'#{filter_select[:programminglanguage] unless filter_select.fetch(:programminglanguage).nil?}' " 
-        @filter_blank_or_not = query
-      end
-      @final_query=query
-
-      @results = Project.find_with_ferret(query, { :limit => :all, :page => params[:page] })
-      @results = @results.select(&:is_nsc_project) if params[ :is_nsc ] == '1'
-      @final_project_list = @results.paginate(
-                    		     :page => params[:page],
-                    		     :per_page => 20,
-                    		     :order => sortable_order( 'listing', :model => Project, :field => 'Name', :sort_direction => :desc ) ) 
-    else
-      @filter_blank_or_not = query
-      @results = obj.find_with_ferret(query, @options) 
-      @final_project_list = @results
-      @lookup = RECORD_LOOKUP_TABLE
+    #add conditions for sphinx by seaching tags
+    @query_conditions={}
+    if @keyword.include?("tag:")
+      query = @keyword.split(/:/)[1]
+      @query_conditions[:prj_tags] = Riddle.escape(query)
     end
 
+    # for advanced-search drop-down menu filter
+    unless params[:project].blank?
+      # the drop-down menu object array
+      filter_select = params[:project] 
+
+      #TODO: Refine the query string
+      #  query += " category_index:'#{filter_select[:category] unless filter_select.fetch(:category).nil?}' maturity_index:'#{filter_select[:maturity] unless filter_select.fetch(:maturity).nil?}' license:'#{filter_select[:license] unless filter_select.fetch(:license).nil?}' platform:'#{filter_select[:platform] unless filter_select.fetch(:platform).nil?}' programminglanguage:'#{filter_select[:programminglanguage] unless filter_select.fetch(:programminglanguage).nil?}' " 
+      @query_conditions[:category] = "#{filter_select[:category]}" unless filter_select.fetch(:category).blank?
+      @query_conditions[:maturity] = "#{filter_select[:maturity]}" unless filter_select.fetch(:maturity).blank?
+      @query_conditions[:license] = "#{filter_select[:license]}" unless filter_select.fetch(:license).blank?
+      @query_conditions[:platform] = "#{filter_select[:platform]}" unless filter_select.fetch(:platform).blank?
+      @query_conditions[:programminglanguage] = "#{filter_select[:programminglanguage]}" unless filter_select.fetch(:programminglanguage).blank?
+    end
+    
+    #add conditions for sphinx by seaching projects about NSC
+    @query_conditions[:nsc_tag] = '*NSC*' if params[ :is_nsc ] == '1'
+
+    #sphinx search
+    @results = Project.search(Riddle.escape(query), :conditions => @query_conditions, :page => params[:page], :per_page => 20)
+
+    #sphinx search_count
+    @results_count = @results.total_entries
+
+    #final project results
+    @final_project_list = @results
+
+    #search end_time
     end_time=DateTime.now
+
+    #search delta_time
     @elapsed_seconds = format("%.2f", (end_time.to_f - start_time.to_f))
 
     # increase the search times for tags
@@ -403,7 +411,6 @@ class OpenfoundryController < ApplicationController
         case $1
         when /\/(\d+)\/(\d+)\/(.*)/
           f = Fileentity.find_by_meta("#{$1},#{$2}")
-          logger.info("")
           if f
             redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download_path/#{f.release.project.name}/#{f.release.version}/#{f.path}"
           else
