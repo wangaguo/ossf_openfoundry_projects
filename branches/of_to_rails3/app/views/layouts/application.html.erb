@@ -8,6 +8,7 @@
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" %>
   <%= javascript_include_tag "prototype", "effects", "application", "rails", "langsync", "qrcode", :cache => '_all' %>
   <%= javascript_include_tag "calendar/calendar", "calendar/lang/calendar-en", "calendar/calendar-setup", :cache => '_calendar' %>
+  <%= javascript_include_tag "http://www.apture.com/js/apture.js?siteToken=PnRZMif", :defer => 'defer' %>
   <%= csrf_meta_tag %>
   <% if request.user_agent =~ /(msie 2|msie 3|msie 4|msie 5)/i %>
    <script>alert('Please use Internet Explorer 6 or above.');</script>
@@ -47,7 +48,7 @@
     <div class="rt-grid-12">
       <% if @project.try(:persisted?) && !controller.action_name['change_status_form'] %>
        <div class="pj_logo" >
-          <a href="<%= projects_path(@project) %>">
+          <a href="<%= project_path(@project) %>">
             <img src="<%= cached_image_images_path(:id => @project.icon) %>" style="vertical-align: middle;" width=48 />
 	  </a>
        </div>
@@ -65,7 +66,7 @@
            <% end %>
          </div>
           <h3>
-          <a href="<%= url_for(:controller => 'projects', :action => 'show', :id => @project.id) %>">
+            <a href="<%= project_path(@project) %>">
             <%= h(@project.name) %>
           </a>
           <span class="maturity">
@@ -117,9 +118,5 @@
   </div>
   <br clear="all" />
 </div>
-<!--This is for Apture testing
-<script id="aptureScript">
-  (function (){var a=document.createElement("script");a.defer="true";a.src="http://www.apture.com/js/apture.js?siteToken=PnRZMif";document.getElementsByTagName("head")[0].appendChild(a);})();
-</script>-->
 <% end -%>
 <%= render :file => 'layouts/integration' %> 
