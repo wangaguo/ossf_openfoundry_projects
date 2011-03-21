@@ -69,8 +69,8 @@ namespace 'openfoundry' do
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
   end
-  task :config => ['config:db', 'config:memcache', 'config:sso', 'config:translation',
-            'config:stomp', 'config:sphinx', 'config:module', 'config:environment']
+  task :config => ['config:db', 'config:memcache', 'config:sso',
+            'config:stomp', 'config:sphinx', 'config:module']
 end
 
 def replace_template(fname, opt ={} )
