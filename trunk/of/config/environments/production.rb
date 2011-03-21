@@ -11,12 +11,13 @@ config.cache_classes = true
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 
+config.logger = Logger.new(config.log_path, 'daily')
 # See everything in the log (default is :info)
 # config.log_level = :debug
 
 # Use a different logger for distributed setups
-require 'syslog_logger'
-config.logger = SyslogLogger.new
+#require 'syslog_logger'
+#config.logger = SyslogLogger.new
 
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"
