@@ -16,7 +16,7 @@ session_domain = ".#{host}"
 session_store = ':mem_cache_store'
 
 session_memcache_namespace = 'of-#{Rails.env}'
-session_memcache_server = "#{ip_prefix}.22.15:11211"
+session_memcache_server = "#{ip_prefix}.3.83:11211"
 
 #-------------------#
 #  Database config  #
