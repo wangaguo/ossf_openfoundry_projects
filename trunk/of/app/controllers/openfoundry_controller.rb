@@ -30,9 +30,10 @@ class OpenfoundryController < ApplicationController
   def get_session_by_id2(session_id)
     begin
       return {} if session_id !~ /^[0-9a-f]*$/ 
-      #rows = ActiveRecord::Base.connection.select_rows("select data from sessions where session_id = '#{session_id}'")
-      #return Marshal.load(Base64.decode64(rows[0][0]))
-      ::Rails.cache.read("#{session_id}") || {}
+      new_session = {}
+      new_session[:user] = Rails.cache.read("#{session_id}")["user"]
+      new_session[:effective_user] = Rails.cache.read("#{session_id}")["effective_user"]
+      new_session
     rescue
       {}
     end
