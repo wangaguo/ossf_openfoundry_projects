@@ -14,6 +14,7 @@ OpenFoundry::Application.routes.draw do |map|
     # Metal:
     #####################
     match '/projacts' => 'projacts#index'
+    match '/sync_data', :to => SyncData, :as => :sync_data
 
     #####################
     # RSS:
@@ -172,6 +173,8 @@ OpenFoundry::Application.routes.draw do |map|
       end
     end
 
+    get '/openfoundry' => 'openfoundry#index'
+
     namespace :openfoundry do
       get :search                          # ANY
       get :download
@@ -211,6 +214,7 @@ OpenFoundry::Application.routes.draw do |map|
       get :login
       get :logout
       post :search
+      get :ajax_update_project_list
     end
 
     get '/user' => 'user#index'
