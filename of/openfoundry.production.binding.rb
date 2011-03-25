@@ -11,7 +11,7 @@ site_admin_mail = 'contact@openfoundry.org'
 #  Session config
 #  in session_store.rb
 #-------------------#
-session_key = '_of_session_id'
+session_key = '_of_new_key_'
 session_domain = ".#{host}"
 session_store = ':mem_cache_store'
 

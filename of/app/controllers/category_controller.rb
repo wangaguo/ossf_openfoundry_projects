@@ -32,14 +32,15 @@ class CategoryController < ApplicationController
 #      "#{p.platform}".split(",").grep(/./).each{|x| @platform[x] = (@platform[x] || 0) + 1}
 #      "#{p.programminglanguage}".split(",").grep(/./).each{|x| @programming_language[x] = (@programming_language[x] || 0) + 1}
     reset_sortable_columns
-    add_to_sortable_columns( 'listing', Project, 'name', 'name' )
-    add_to_sortable_columns( 'listing', Project, 'summarhy', 'summary' )
-    add_to_sortable_columns( 'listing', Project, 'category', 'category' )
-    add_to_sortable_columns( 'listing', Project, 'created_at', 'created_at' )
+    add_to_sortable_columns( 'listing', :name, 'name' )
+    add_to_sortable_columns( 'listing', :summary, 'summary' )
+    add_to_sortable_columns( 'listing', :category, 'category' )
+    add_to_sortable_columns( 'listing', :created_at, 'created_at' )
+    @sortable = sortable_order('listing', :field => 'updated_at', :sort_direction => :desc)
 
     start_time = DateTime.now
 		# all used projects
-		@all_projects = Project.search()
+		@all_projects = Project.search('', :order => @sortable, :sort_mode => :extended)
 		@all_projects_count = @all_projects.total_entries
 
     @pcs_projects_conditions = {} 
@@ -54,7 +55,7 @@ class CategoryController < ApplicationController
     keyword = params[ :cat_query ]
     query = keyword || ""
     @pcs_projects_conditions[:category] = params[:cat] unless params[:cat] == '0'
-    @pcs_projects = Project.search( Riddle.escape(query), :star => true, :page => params[:page], :per_page => 20, :conditions => @pcs_projects_conditions )
+    @pcs_projects = Project.search( Riddle.escape(query), :star => true, :page => params[:page], :per_page => 20, :conditions => @pcs_projects_conditions ,:order => @sortable)
     @pcs_projects_count = @pcs_projects.total_entries
     #			@pcs_projects = @pcs_projects.find(:all, :conditions => ["name LIKE ? OR summary LIKE ? OR description LIKE ? OR programminglanguage LIKE ? OR platform LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing', :field => 'name', :sort_direction => :asc ))
 
