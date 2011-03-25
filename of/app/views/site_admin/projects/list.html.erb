@@ -3,7 +3,7 @@
   <label for="filter">Filter by Name or Description: </label>
   <%= text_field_tag "query", params['query'] %>
   <label for="status">Filter by Status:</label>
-  <%= select_tag('sortstatus', options_for_select([ "Show All", "Ready", "Applying", "Suspended", "Pending"] , params[:sortstatus])) %>
+  <%= select_tag('sortstatus', options_for_select([ "Show All", "Ready", "Applying", "Suspended", "Pending", "Rejected"] , params[:sortstatus])) %>
   <%= submit_tag 'Search' %>
 </form>
 <% form_tag ({:action => :csv, :selection=>params[:query], :status=>@statusorder, :sortorder=>@direction, :sortcolumn=>@sort}, :style=> "display:inline" ) do -%>
