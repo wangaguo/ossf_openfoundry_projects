@@ -48,7 +48,7 @@ class ProjactsController < ActionController::Metal
       # other needed variables
       data_array = []
       of_domain = OPENFOUNDRY_HOST
-      project_url = "http://#{of_domain}#{root_path}/projects/"
+      project_url = "#{OPENFOUNDRY_OF_URL}/projects/"
       h_stat = {
         'new_project'  => {
           'text' => '<span class="pa_new">New</span>',
