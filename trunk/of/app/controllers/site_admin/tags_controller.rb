@@ -76,7 +76,6 @@ class SiteAdmin::TagsController < ApplicationController
       @tag.status = newstatus.strip
       @tag.tag_type = newtype.strip
       session[:ided] = "#{@tag.id.to_s}" if @tag.save
-      Project.find_with_ferret("alltags_string:'#{oldname}'").map(&:save)
       session[:tmsg] = "Updated."
     end
   end
@@ -85,7 +84,6 @@ class SiteAdmin::TagsController < ApplicationController
   def destroy(tid)
     t = Tagcloud.find_by_id( tid )
     t.destroy if t
-    Project.find_with_ferret("alltags_string:'#{t.name}'").map(&:save)
   end
 
 end

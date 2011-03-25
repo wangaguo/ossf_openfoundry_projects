@@ -265,14 +265,14 @@ EOEO
     # fields
     indexes name, :sortable => true
     indexes description
-    indexes summary
+    indexes summary, :sortable => true
     indexes maturity
     indexes license
     indexes platform
     indexes programminglanguage
     indexes alltags_without_check(:name), :as => :prj_tags
-    indexes cattag.name, :as => :cattag_name
-    indexes category
+    indexes cattag.name, :as => :cattag_name, :sortable => true
+    indexes category, :sortable => true
     indexes tags.name, :as => :nsc_tag
     where "projects.status = #{Project::STATUS[:READY]}"
 
