@@ -47,4 +47,12 @@ OpenFoundry::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # Configure for dalli connecting to the memcached server
+#  config.cache_store = :dalli_store, '192.168.3.83:11211',
+#    { :namespace => "of-#{Rails.env}", :expires_in => 8.hours, :compress => true, :compress_threshold => 64*1024 }
+
+  # Configure for memcache-client connecting to the memcached server
+#  config.cache_store = :mem_cache_store, '192.168.3.83:11211',
+#    { :namespace => "of-#{Rails.env}", :expires_in => 8.hours, :compress => true, :compress_threshold => 64*1024 }
 end
