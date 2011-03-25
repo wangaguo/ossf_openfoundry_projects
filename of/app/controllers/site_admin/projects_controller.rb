@@ -108,6 +108,8 @@ class SiteAdmin::ProjectsController < SiteAdmin
       @statusorder = "4"
     elsif params[:sortstatus] == "Ready"
       @statusorder = "2"
+    elsif params[:sortstatus] == "Rejected"
+      @statusorder = "1"
     end
   end
 
