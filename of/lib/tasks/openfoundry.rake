@@ -48,12 +48,12 @@ namespace 'openfoundry' do
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
 
-#    desc 'OpenFoundry Environment Configure'
-#    task 'environment' do
-#      puts "\x1b[38;5;9m---start Environment configure---\x1b[0m"
-#      replace_template('config/environment.rb')
-#      puts "\x1b[38;5;9m---done---\x1b[0m"
-#    end
+    desc 'OpenFoundry Application Configure'
+    task 'application' do
+      puts "\x1b[38;5;9m---start Application configure---\x1b[0m"
+      replace_template('config/application.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
 
 #    desc 'OpenFoundry Translation Configure'
 #    task 'translation' do
@@ -70,7 +70,7 @@ namespace 'openfoundry' do
     end
   end
   task :config => ['config:db', 'config:memcache', 'config:sso',
-            'config:stomp', 'config:sphinx', 'config:module']
+            'config:stomp', 'config:sphinx', 'config:module', 'config:application']
 end
 
 def replace_template(fname, opt ={} )
