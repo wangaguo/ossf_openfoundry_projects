@@ -1,9 +1,17 @@
 <% content_for :head_content do -%>
-  <link rel="shortcut icon" href="http://www.openfoundry.org/images/favicon.ico" />
   <title><%= @module_name || controller.action_name %> 
          <%= (@project ? '- '+(@project.name||'') : '') %>
          - OpenFoundry
          <%= " __#{$$}__" if current_user.has_role?('site_admin')%></title>
+  <% if @project %>
+    <meta name="title" content="<%= @project.summary %> - <%= @project.name %> - OpenFoundry" />
+    <meta name="description" content="<%= @project.description %>"/>
+    <meta name="og:image" content="<%= cached_image_images_url(:id => @project.icon) %>" />
+  <% else %>
+    <meta name="title" content="Projects - OpenFoundry" />
+    <meta name="author" content="ossf"/>
+    <meta name="description" content="OpenFoundry provides essential tools and services through its service platform for users to develop Open Source Software Projects, the operating funds comes from the National Science Council and the Research Center for Information Technology Innovation of Academia Sinica Taiwan." /> 
+  <% end %>
   <%= stylesheet_link_tag "scaffold", "openfoundry", "calendar", :cache => '_all' %>
   <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js" %>
   <%= javascript_include_tag "prototype", "effects", "application", "rails", "langsync", "qrcode", :cache => '_all' %>

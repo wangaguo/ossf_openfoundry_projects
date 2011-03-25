@@ -4,16 +4,6 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Who's Who, whoswho, opensource, Open Source, People, people, Community, 社群, Group, group, Taiwan, taiwan, 台灣, workshop, 工作坊, OSSF, 自由軟體鑄造場， 自由軟體，人才，產業，Linux, GNU, 人群,工作坊,分享,學習,法律,授權,GPL,資源表列,討論區,專案開發平台,OpenFoundry,自由軟體人才資料庫,開放源碼, 專案, 軟體, Web Hosting, 網站代管, Subversion, CVS, Issue Tracker, 待辨事項, Wiki, 共同筆記， Project Management, 專案管理, Release, 釋出, Version Control, 版本釋出, tw,TW, Open Foundry, Open, 中央研究院，資訊科學研究所, 自由軟體電子報" />
-    <% if @project %>
-      <meta name="title" content="<%= @project.summary %> - <%= @project.name %> - OpenFoundry" />
-      <meta name="description" content="<%= @project.description %>"/>
-      <meta name="og:image" content="<%= cached_image_images_url(:id => @project.icon) %>" />
-    <% else %>
-      <meta name="title" content="Projects - OpenFoundry" />
-      <meta name="author" content="ossf"/>
-      <meta name="description" content="OpenFoundry provides essential tools and services through its service platform for users to develop Open Source Software Projects, the operating funds comes from the National Science Council and the Research Center for Information Technology Innovation of Academia Sinica Taiwan." /> 
-    <% end %>
-
     <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/components/com_gantry/css/gantry.css" type="text/css" />
     <!--[if lte IE 6]>
     <link rel="stylesheet" href="http://<%=UI_SCHEMA_CSS_HOST%>/templates/rt_quantive_j15/css/light-body-ie6.css" type="text/css" />
@@ -47,6 +37,7 @@
     <%= yield :ujs %>
     </script>
     <script type="text/javascript" src="http://<%=UI_SCHEMA_CSS_HOST%>/modules/mod_ofssologin/js/ofssologin.js"></script>
+    <link rel="shortcut icon" href="http://<%=UI_SCHEMA_CSS_HOST%>/images/favicon.ico" />
   </head>
 
   <body class="backgroundlevel-low backgroundstyle-style8 bodylevel-med bodystyle-light cssstyle-style1 logostyle-dark font-family-helvetica font-size-is-default menu-type-fusionmenu col12">
