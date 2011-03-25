@@ -489,7 +489,6 @@ class UserController < ApplicationController
     rturl = "#{OPENFOUNDRY_RT_URL}Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=id>'0'"
     # set the current user name
     @name = current_user.login
-    @name = @current_user.login
 
     # set the relation of rt with user 
     case params[ :lookfor ]
