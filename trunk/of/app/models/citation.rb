@@ -8,5 +8,18 @@ class Citation < ActiveRecord::Base
   validates_length_of :url, :within => 0..255, :too_long => _("Length range is ") + "0-255", :too_short => _("Length range is ") + "0-255"
   validates_length_of :release_version, :within => 0..255, :too_long => _("Length range is ") + "0-255", :too_short => _("Length range is ") + "0-255"
   validates_inclusion_of :status, :in => STATUS.values, :message => _("Not a valid value")
-  validates_exclusion_of :release_date, :in => [nil], :message => _("is an invalid datetime")
+
+  def release_date_string
+     release_date.try(:to_date).to_s
+  end
+
+  def release_date_string=(release_date_str)
+     self.release_date = relase_date_str.blank? ? "" : DateTime.parse(release_date_str).try(:to_date)
+  rescue ArgumentError
+     @release_date_invalid = true
+  end
+ 
+  def validate
+    errors.add(:release_date, "is an invalid date") if @release_date_invalid
+  end 
 end
