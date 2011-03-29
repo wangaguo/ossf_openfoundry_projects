@@ -1,35 +1,37 @@
-<%= error_messages_for 'data_item', :object_name => 'citation' %>
-
-<table class='form-table'>
-  <tr>
-    <th><label for="data_item_primary_authors"><%=_('Citation|Primary authors')%></label></th>
-    <td><%= text_field 'data_item', 'primary_authors' %></td>
-  </tr>
-  <tr>
-    <th><label for="data_item_project_title"><%=_('Citation|Project title')%></label><%=required_icon%></th>
-    <td><%= text_field 'data_item', 'project_title' %></td>
-  </tr>
-  <tr>
-    <th><label for="data_item_license"><%=_('Citation|License')%></label></th>
-    <td><%= text_field 'data_item', 'license' %></td>
-  </tr>
-  <tr>
-    <th><label for="data_item_url"><%=_('Citation|Url')%></label></th>
-    <td><%= text_field 'data_item', 'url' %></td>
-  </tr>
-  <tr>
-    <th><label for="data_item_release_date"><%=_('Citation|Release date')%></label></th>
-    <td><%= text_field 'data_item', 'release_date' %></td>
-  </tr>
-  <tr>
-    <th><label for="data_item_release_version"><%=_('Citation|Release version')%></label></th>
-    <td><%= text_field 'data_item', 'release_version' %></td>
-  </tr>
-  <tr>
-    <th><label for="data_item_status"><%=_('Status')%></label></th>
-    <td>
-      <%= radio_button("data_item", "status", Citation::STATUS[:Enabled]) %><%=_('Enabled')%>
-      <%= radio_button("data_item", "status", Citation::STATUS[:Disabled]) %><%=_('Disabled')%>
-    </td>
-  </tr>
-</table>
+<% form_for([@project, @data_item], :as => :data_item) do |f| %>
+  <%= error_messages_for :data_item, :object_name => :citation %>
+  <table class='form-table'>
+    <tr>
+      <th><label for="data_item_primary_authors"><%=_('Citation|Primary authors')%></label></th>
+      <td><%= f.text_field :primary_authors %></td>
+    </tr>
+    <tr>
+      <th><label for="data_item_project_title"><%=_('Citation|Project title')%></label><%=required_icon%></th>
+      <td><%= f.text_field :project_title %></td>
+    </tr>
+    <tr>
+      <th><label for="data_item_license"><%=_('Citation|License')%></label></th>
+      <td><%= f.text_field :license %></td>
+    </tr>
+    <tr>
+      <th><label for="data_item_url"><%=_('Citation|Url')%></label></th>
+      <td><%= f.text_field :url %></td>
+    </tr>
+    <tr>
+      <th><label for="data_item_release_date"><%=_('Citation|Release date')%></label></th>
+      <td><%= f.text_field :release_date_string %></td>
+    </tr>
+    <tr>
+      <th><label for="data_item_release_version"><%=_('Citation|Release version')%></label></th>
+      <td><%= f.text_field :release_version %></td>
+    </tr>
+    <tr>
+      <th><label for="data_item_status"><%=_('Status')%></label></th>
+      <td>
+        <%= f.radio_button(:status, Citation::STATUS[:Enabled]) %><%=_('Enabled')%>
+        <%= f.radio_button(:status, Citation::STATUS[:Disabled]) %><%=_('Disabled')%>
+      </td>
+    </tr>
+  </table>
+  <%= submit_tag _('Save') %>
+<% end %>

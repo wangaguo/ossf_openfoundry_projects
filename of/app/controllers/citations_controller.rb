@@ -44,7 +44,6 @@ class CitationsController < ApplicationController
   end
   
   def show
-    @data_item.release_date = @data_item.release_date.strftime("%Y-%m-%d") if !@data_item.release_date.nil?
     @module_name = @data_item.project_title
   end
   
@@ -54,16 +53,8 @@ class CitationsController < ApplicationController
   end
   
   def create
-    @data_item = Citation.new
-    @data_item.primary_authors = params[:data_item][:primary_authors]
-    @data_item.project_title = params[:data_item][:project_title]
-    @data_item.license = params[:data_item][:license]
-    @data_item.url = params[:data_item][:url]
-    @data_item.release_date = params[:data_item][:release_date]
-    @data_item.release_version = params[:data_item][:release_version]
-    
+    @data_item = Citation.new(params[:data_item])
     @data_item.project_id = params[:project_id]
-    @data_item.status = params[:data_item][:status]
     if @data_item.save
       flash[:notice] = _('Add Successful')
       redirect_to :action => 'index'
@@ -73,20 +64,11 @@ class CitationsController < ApplicationController
   end
   
   def edit
-    @data_item.release_date = @data_item.release_date.strftime("%Y-%m-%d") if !@data_item.release_date.nil?
     @module_name = _('Edit')
   end
   
   def update
-    @data_item.primary_authors = params[:data_item][:primary_authors]
-    @data_item.project_title = params[:data_item][:project_title]
-    @data_item.license = params[:data_item][:license]
-    @data_item.url = params[:data_item][:url]
-    @data_item.release_date = params[:data_item][:release_date]
-    @data_item.release_version = params[:data_item][:release_version]
-    
-    @data_item.status = params[:data_item][:status]
-    if @data_item.save
+    if @data_item.update_attributes(params[:data_item])
       flash[:notice] = _('Edit Successful')
       redirect_to :action => 'show', :id => @data_item
     else
