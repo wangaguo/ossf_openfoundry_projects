@@ -22,7 +22,7 @@ class ImagesController < ApplicationController
     end
     # user/project icon?
     if $1 == ''
-      #got image id
+      # got image id
       id = $2.to_i
     else
       # user icon
@@ -32,29 +32,25 @@ class ImagesController < ApplicationController
       need_redirect = true
     end
 
-    # redirect image url because of u/p id or bad size or cache_name mismatch
-    if need_redirect or "#{id}_#{size}" != cache_name
-      redirect_to :id => "#{id}_#{size}"
-      return
-    end
-
     begin
       id = Image::IMAGE_UNKNOWN_ID unless Image.exists?(id)
     rescue
       id = Image::IMAGE_UNKNOWN_ID
     end
 
-    image_cache_file = "#{Image::IMAGE_CACHES_DIR}/#{cache_name}"
-    meta = Image.find(id).meta
-    unless File.exists?(image_cache_file)
-      image_data = "#{Image::IMAGE_DATA_DIR}/#{id}"
-      ico = if(meta =~ /icon/); 'ico:' ;else '' ;end
-      unless `/usr/local/bin/convert #{ico}#{image_data}'[#{size}x#{size}]' #{image_cache_file}` == 0
-        logger.info("image convert error. cmd: 'convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}'")
-      end
-
+    # redirect image url because of u/p id or bad size or cache_name mismatch
+    if need_redirect or "#{id}_#{size}" != cache_name
+      redirect_to :id => "#{id}_#{size}"
+      return
     end
-    send_file(image_cache_file, :type => meta, :disposition => "inline") 
+
+    img = Image.find(id)
+    if img.convert_to_cache(size) # Convert success then redirect, Browser able to show the picture.  
+      redirect_to :id => "#{cache_name}"
+      return
+    end
+    image_cache_file = "#{Image::IMAGE_CACHES_DIR}/#{cache_name}"
+    send_file(image_cache_file, :type => img.meta, :disposition => "inline") 
   end
   
   def reload_code_image
@@ -181,7 +177,7 @@ class ImagesController < ApplicationController
           @image = Image.new(params[:images])
           @image.save!
           
-          @image.save_to_file
+          @image.convert_image
           type = Object.const_get(params[:type])
           obj = type.find(params[:id])
           old_id = obj.icon
