@@ -86,6 +86,7 @@ OpenFoundry::Application.routes.draw do |map|
         get :list
         get :applied
         get :tableizer
+        match :icon_album
 #        get :new_projects_feed
       end
 
