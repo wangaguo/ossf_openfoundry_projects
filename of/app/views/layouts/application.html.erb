@@ -57,7 +57,7 @@
       <% if @project.try(:persisted?) && !controller.action_name['change_status_form'] %>
        <div class="pj_logo" >
           <a href="<%= project_path(@project) %>">
-            <img src="<%= cached_image_images_path(:id => @project.icon + "_64") %>" style="vertical-align: middle;" width=48 />
+            <img src="<%= cached_image_images_path(:id => "#{@project.icon}_64") %>" style="vertical-align: middle;" width=48 />
 	  </a>
        </div>
        <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
