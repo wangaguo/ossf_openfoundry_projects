@@ -6,6 +6,7 @@
 ip_prefix = '192.168'
 host = 'www.openfoundry.org'
 site_admin_mail = 'contact@openfoundry.org'
+projects_upload_path = '/usr/upload'
 
 #-------------------#
 #  Session config
@@ -68,7 +69,7 @@ redis_server = "#{ip_prefix}.3.83"
 #  in sso.rb
 #------------------------#
 
-sso_ui_host = "#{ip_prefix}.3.81"
+sso_ui_host = host
 sso_of_auth_key = 'c1cac710-030f-012d-c173-0011254f08ff'
 
 #------------------------#
