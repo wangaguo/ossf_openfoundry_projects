@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed, :icon_album]
   before_filter :set_project
 
   before_filter :project_check_permission
@@ -608,6 +608,12 @@ class ProjectsController < ApplicationController
     else
     end
   end
+
+  def icon_album
+    @size = (params[:size] || 32).to_i
+    @projects = Project.select("id, name, icon").in_used.where("icon > 2") 
+  end
+
   def the_rest
     render :text => 'ohoh'
   end
