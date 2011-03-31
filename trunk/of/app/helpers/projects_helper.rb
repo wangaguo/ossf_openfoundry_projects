@@ -26,7 +26,7 @@ module ProjectsHelper
     <img src=\"#{cached_image_images_path(:id => "#{project.icon}_#{options[:size]||32}")}\"
              title=\"#{project.name}\" align=\"#{options[:align]||:middle}\" />
      #{options[:with_name] ? "<br/> #{project.name}" : '' }
-    </a></div>"
+    </a></div>".html_safe
   end
 
   # This method will generate tr>td tags if value is present
