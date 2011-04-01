@@ -187,7 +187,7 @@ class ImagesController < ApplicationController
             current_user.reload
           end
           if(Image.exists?(old_id) and !site_reserved_image_id.include?(old_id))
-            #TODO delete cache
+            system("rm #{Image::IMAGE_CACHES_DIR}/#{old_id}_*")
             Image.find(old_id).destroy
           end
         end
