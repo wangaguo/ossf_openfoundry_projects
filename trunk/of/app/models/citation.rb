@@ -14,7 +14,7 @@ class Citation < ActiveRecord::Base
   end
 
   def release_date_string=(release_date_str)
-     self.release_date = relase_date_str.blank? ? "" : DateTime.parse(release_date_str).try(:to_date)
+     self.release_date = release_date_str.blank? ? "" : DateTime.parse(release_date_str).try(:to_date)
   rescue ArgumentError
      @release_date_invalid = true
   end
