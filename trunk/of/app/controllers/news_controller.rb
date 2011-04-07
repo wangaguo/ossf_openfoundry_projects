@@ -23,7 +23,6 @@ class NewsController < ApplicationController
 #  verify :method => :post, :only => [ :destroy, :create, :update ], :redirect_to => { :action => :list }
   
   def list
-    @project = Project.find(params[:project_id]) rescue nil
     if @is_all_projects_news == true
       @module_name = _('Project News')
       layout_name = "normal"
@@ -54,12 +53,6 @@ class NewsController < ApplicationController
   end
   
   def show
-    begin
-      @project = Project.find(params[:project_id])
-    rescue ActiveRecord::RecordNotFound
-    ensure
-      @news = News.find(params[:id])
-    end
     if params[:project_id].nil? 
       @module_name = _('OpenFoundry News')
       layout_name = "normal"
@@ -72,7 +65,6 @@ class NewsController < ApplicationController
   end
   
   def new
-    @project = Project.find(params[:project_id])
     @news = News.new
     @module_name = _('Add News')
   end
@@ -82,10 +74,7 @@ class NewsController < ApplicationController
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
     @news.status = params[:news][:status]
-    if params[:project_id]
-      @project = Project.find(params[:project_id])
-    end
-    @news.project = @project
+    @news.catid = params[:project_id].nil? ? 0 : params[:project_id]
     
     if(params[:news][:updated_at] != "" && params[:news][:updated_at] != nil)
       @news.tags = params[:news][:tags]
@@ -105,14 +94,12 @@ class NewsController < ApplicationController
   end
   
   def edit
-    @project = Project.find(params[:project_id]) rescue nil
     @news = News.find(params[:id])
     @news.updated_at = @news.updated_at.strftime("%Y-%m-%d %H:%M") if @news.updated_at != nil
     @module_name = _('Edit')
   end
   
   def update
-    @project = Project.find(params[:project_id]) rescue nil
     @news = News.find(params[:id])
     @news.subject = params[:news][:subject]
     @news.description = params[:news][:description]
@@ -138,53 +125,9 @@ class NewsController < ApplicationController
   end
   
   def destroy
-    @news = News.find(params[:id])
     @news.destroy
     flash[:notice] = _('Delete Successful')
     redirect_to :action => 'index'
   end
 
-#  def new_openfoundry_news_feed
-#    new_news = News.find(:all, :conditions => ["catid=0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 10)
-#
-#    feed_options = {
-#      :feed => {
-#        :title       => _("OpenFoundry: News"),
-#        :description => _("News about OpenFoundry"),
-#        :link        => "#{OPENFOUNDRY_HOST}",
-#        :language    => 'UTF-8'
-#      },    
-#      :item => {
-#        :title => :subject,
-#        :description => :description,
-#        :link => lambda { |n| news_url(n) }
-#      }     
-#    }     
-#    respond_to do |format|
-#      format.rss { render_rss_feed_for new_news, feed_options }
-#      format.xml { render_atom_feed_for new_news, feed_options }
-#    end
-#  end
-
-#  def new_project_news_feed
-#    new_release = News.find(:all, :conditions => ["catid<>0 and status = #{News::STATUS[:Enabled]}"], :order => "updated_at desc", :limit => 10)
-#
-#    feed_options = {
-#      :feed => {
-#        :title       => _("OpenFoundry: Project News"),
-#        :description => _("Proejct news on OpenFoundry"),
-#        :link        => "#{OPENFOUNDRY_HOST}",
-#        :language    => 'UTF-8'
-#      },    
-#      :item => {
-#        :title => :subject,
-#        :description => :description,
-#        :link => lambda { |n| news_url(:id => n.id, :project_id => n.catid)}
-#      }     
-#    }     
-#    respond_to do |format|
-#      format.rss { render_rss_feed_for new_release, feed_options }
-#      format.xml { render_atom_feed_for new_release, feed_options }
-#    end
-#  end
 end
