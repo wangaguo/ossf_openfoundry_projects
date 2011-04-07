@@ -16,18 +16,7 @@ class OpenfoundryController < ApplicationController
     #redirect_to projects_path
   end
 
-  #class Session < ActiveRecord::Base; end # only used by get_session_by_id
   def get_session_by_id(session_id)
-    begin
-      #Marshal.load(Base64.decode64(Session.find_by_session_id(session_id).data))
-      ::Rails.cache.read("#{session_id}") || {}
-    rescue
-      {}
-    end
-  end
-  private :get_session_by_id
-
-  def get_session_by_id2(session_id)
     begin
       return {} if session_id !~ /^[0-9a-f]*$/ 
       new_session = {}
@@ -38,9 +27,10 @@ class OpenfoundryController < ApplicationController
       {}
     end
   end
+  private :get_session_by_id
 
   def get_user_by_session_id
-     s = get_session_by_id2(params['session_id'])
+     s = get_session_by_id(params['session_id'])
      u = current_user(s) 
      render :text => "#{u.id} #{u.login}",
        :content_type => 'text/plain'
