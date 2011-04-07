@@ -7,6 +7,6 @@
       :onmouseout => "this.style.color='#{s[:color]}'" %>
   <% end -%>
 
-  <%=link_to _( 'More...' ), openfoundry_search_path(:query => '#alltags') , :class => "more" %>
+  <%=link_to _( 'More...' ), openfoundry_search_path() , :class => "more" %>
 <% end -%>
 <%= render :file => 'layouts/rt_module', :locals => { :module_content => module_content, :variation => 'square1' } %>
