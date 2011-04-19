@@ -112,6 +112,11 @@ class SurveyController < ApplicationController
     @survey = Survey.find_by_id params['id']
     if request.method == 'GET' 
       @downloader = Downloader.new(params['downloader'])
+     
+      # prevent survey id is not existed 
+      unless @survey
+        redirect_to "#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}/download/" + URI::escape("#{@project.name}/#{@release.version}/#{@file.path}")
+      end
     elsif request.method == 'POST'
       #TODO login user?
 
