@@ -29,10 +29,19 @@ NSC_UPLOAD_DIR = "#{Rails.root.to_s}/nsc_upload_dir" # don't forget to mkdir
 NSC_REVIEWERS_FILE = "#{NSC_UPLOAD_DIR}/reviewers.txt" # p u mapping
 NSC_REVIEWERS_LOGIN_FILTER = /^nscreviewer\d\d$/ # only accounts that can pass this filter
                                                    # may possiblely be a valid reviewer
-NSC_CURRENT_UPLOAD_FILTER = /./ # only types that match this filter can be uploaded
-NSC_UPLOAD_FROM = "2009/01/01 00:00"
-NSC_UPLOAD_TO = "2009/12/31 23:59"
-NSC_CURRENT_YEAR = "98"
+
+# see app/controllers/nscreports_controller.rb, match then open.
+#NSC_CURRENT_UPLOAD_FILTER = /plan|requirement|design|testing/
+#NSC_CURRENT_UPLOAD_FILTER = /^$/ #close all
+#NSC_CURRENT_UPLOAD_FILTER = /^.+$/ #open all
+#NSC_UPLOAD_FROM = "2009/07/15 00:00"
+#NSC_UPLOAD_TO = "2019/09/04 16:00"
+
+NSC_CURRENT_UPLOAD_FILTER = /testing/
+NSC_UPLOAD_FROM = "2011/05/01 00:00"
+NSC_UPLOAD_TO = "2011/06/20 23:59"
+NSC_CURRENT_YEAR = "99"
+
 NSC_REVIEW_OPENED = false
 NSC_ADMIN_ACCOUNT = "nsc_admin"
 
