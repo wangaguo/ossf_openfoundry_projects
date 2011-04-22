@@ -617,4 +617,10 @@ class ProjectsController < ApplicationController
   def test_action
   end
 
+  def find_by_id_or_name
+    @project = Project.find_by_id(params[:key]) || Project.find_by_name(params[:key])
+    respond_to do |f|
+      f.json { render :json => @project.try(:id) }
+    end
+  end
 end

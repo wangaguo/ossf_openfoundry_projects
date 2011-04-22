@@ -31,7 +31,7 @@
                                                   :release_version => release.version,
                                                   :file_name => file.path ) %></b><br/>
                <div id="file-<%= file.id %>" class="description" style="display: none">
-          <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits") + file.file_counter.to_s %><br/>
+          <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits") + file.counter.counter.to_s %><br/>
           <%= h(file.description) %>
         </div>
       </td>

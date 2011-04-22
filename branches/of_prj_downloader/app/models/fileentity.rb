@@ -2,7 +2,19 @@ class Fileentity < ActiveRecord::Base
   belongs_to :release
   has_one :survey 
   #redis counter settings
-  acts_as_redis_counter :file_counter, :ttl => 5.minutes, :hits => 100
+  #acts_as_redis_counter :file_counter, :ttl => 5.minutes, :hits => 100
+  def counter
+    @counter ||= Counter.find(:item_id => self.id, :item_class => 'Fileentity').first
+    if @counter.nil?           
+      @counter = Counter.create(:item_id => self.id,
+                                :item_class => 'Fileentity',
+                                :item_counter_attribute => 'file_counter',
+                                :flushed_at => Time.now.to_i)   
+      @counter.incr(:counter, self.file_counter)             
+    end
+    @counter
+  end 
+
 #  #add fulltext indexed SEARCH
 #  acts_as_ferret({
 #                 :fields => { 

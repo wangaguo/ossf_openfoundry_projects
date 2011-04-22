@@ -2,7 +2,18 @@ class Release < ActiveRecord::Base
   belongs_to :project
   has_many :fileentity
   #redis counter settings
-  acts_as_redis_counter :release_counter, :ttl => 5.minutes, :hits => 100
+  #acts_as_redis_counter :release_counter, :ttl => 5.minutes, :hits => 100
+  def counter
+    @counter ||= Counter.find(:item_id => self.id, :item_class => 'Release').first
+    if @counter.nil?           
+      @counter = Counter.create(:item_id => self.id,
+                                :item_class => 'Release',
+                                :item_counter_attribute => 'release_counter',
+                                :flushed_at => Time.now.to_i)   
+      @counter.incr(:counter, self.release_counter)             
+    end
+    @counter
+  end 
   
   validates_format_of :version, :with => /^[0-9_\-a-zA-Z\.]{1,255}$/
 

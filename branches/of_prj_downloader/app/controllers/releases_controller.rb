@@ -15,10 +15,20 @@ class ReleasesController < ApplicationController
   
   def index
     if params[:project_id].nil?
-      redirect_to root_path + 'releases/latest'
+      respond_to do |f|
+        f.html { redirect_to root_path + 'releases/latest' }
+        f.json { render :json => @releases.map { |r| 
+          {:id => r.id, :name => r.version} 
+        } }
+      end
     else
       list
-      render :action => :list
+      respond_to do |f|
+        f.html { render :action => :list }
+        f.json { render :json => @releases.map { |r| 
+          {:id => r.id, :name => r.version} 
+        } }
+      end
     end
   end
   
@@ -425,6 +435,11 @@ class ReleasesController < ApplicationController
 #    end
 #  end
 
+  def files
+    release = Release.find(params[:id])
+    render :json => release.fileentity.map { |f| {:id => f.id, :name => f.path} }
+  end
+
   private
   
   #建立檔案的database entry, 會連結到外部ftp hook
@@ -436,5 +451,4 @@ class ReleasesController < ApplicationController
       Fileentity.create( :attributes => {:path => path, :size => size} )
     end
   end
-
 end

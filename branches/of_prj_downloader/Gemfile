@@ -22,3 +22,7 @@ gem 'json', '1.5.1'
 gem 'curb', '0.7.10'
 gem 'SystemTimer', '1.2.2' # make sure the Redis client will not hang.
 gem 'run_later', '0.0.1', :git => 'git://github.com/jkraemer/run_later.git'
+
+gem 'ohm'
+gem 'ohm-contrib'
+gem 'meta_where'
