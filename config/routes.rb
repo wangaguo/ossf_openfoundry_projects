@@ -15,6 +15,9 @@ OpenFoundry::Application.routes.draw do |map|
     #####################
     match '/projacts' => 'projacts#index'
 
+    # remember add `curl http://host/of/counter_log_flusher` to cron please
+    match '/counter_log_flusher' => CounterLogFlusher.action(:index)
+
     #####################
     # RSS:
     #####################
@@ -48,6 +51,8 @@ OpenFoundry::Application.routes.draw do |map|
         post :switch_user_search
         get '/switch_user/:id' => :switch_user, :as => :switch_user
         post :member_change
+        get '/counter_logs/search' => :search_counter_logs_index, :as => :search_counter_logs_index
+        post '/counter_logs(.:format)' => :search_counter_logs, :as => :search_counter_logs
       end
 
       resources :projects do
@@ -86,6 +91,7 @@ OpenFoundry::Application.routes.draw do |map|
         get :applied
         get :tableizer
 #        get :new_projects_feed
+        get :find_by_id_or_name
       end
 
       member do
@@ -132,6 +138,7 @@ OpenFoundry::Application.routes.draw do |map|
           post :delete_files
           get :download       # ANY
           get :new_releases   # ANY
+          get :files
         end
       end
 

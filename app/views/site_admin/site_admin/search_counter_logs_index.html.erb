@@ -1,0 +1,224 @@
+<h2>國科會檔案下載來源 IP 記錄</h2>
+
+<% content_for :page_head do %>
+  <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+<% end %>
+<% content_for :ujs do %>
+  jQuery(function($) {
+    // 日期輸入
+    Calendar.setup({inputField : 'q_from', ifFormat : '%Y-%m-%d', button : 'q_from_trigger' });
+    Calendar.setup({inputField : 'q_to', ifFormat : '%Y-%m-%d', button : 'q_to_trigger' });
+
+    // 掛載路徑
+    var prefix = <%= raw root_path.to_json %>;
+
+    // 用來方便產生 HTML 用的樣版, JS 也要搞 MVC XD
+    var tmpl = {
+      condition: $('#tmpl-condition'),
+      option: $('#tmpl-option')
+    }
+
+    // key 可以是字串或數字, 尋找指定的專案名稱/代號是否有對應的專案存在, 若存在則傳回其代號
+    var find_project_id = function(key) {
+      return $.ajax({
+        type: 'get',
+        url: prefix + '/projects/find_by_id_or_name',
+        dataType: 'json',
+        data: {key: key},
+        async: false
+      }).responseText
+    }
+
+    // 取得指定專案所有的 Release
+    var releases_of = function(project_id) {
+      return JSON.parse($.ajax({
+        type: 'get',
+        url: prefix + '/projects/' + project_id + '/releases',
+        dataType: 'json',
+        async: false
+      }).responseText)
+    }
+
+    // 取得指定 Release 所有的 FileEntity
+    var files_of = function(project_id, release_id) {
+      return JSON.parse($.ajax({
+        type: 'get',
+        url: prefix + '/projects/' + project_id + '/releases/' + release_id + '/files',
+        dataType: 'json',
+        async: false
+      }).responseText)
+    }
+
+    // 列出前次的搜尋結果...
+    <% if htc(params, :q, :conditions) %>
+      var conditions = <%= raw htc(params, :q, :conditions).to_json %>;
+      conditions.forEach(function(condition) {
+        var condition_line = tmpl.condition.tmpl(condition)
+        $('#add-condition').parent().before(condition_line)
+
+        if (condition.project_key != '') {
+          var project_key = condition_line.find('input.project_key')
+          var pid = find_project_id(project_key.val())
+          var release_select = project_key.next('select.release_id')
+
+          // 移除除了 "全部" 以外的 Release
+          release_select.find('option:gt(0)').remove();
+
+          if (pid == 'null') {
+            // 找不到專案, id 應為空值 (表示全部)
+            project_key.removeAttr('data-id')
+          } else {
+            // 專案存在, 將搜尋條件代入
+            project_key.attr('data-id', pid)
+            // 取得該專案所有的 Release, 並選擇搜尋條件指定的項目
+            releases_of(pid).forEach(function(release) {
+              release_select.append(tmpl.option.tmpl({value: release.id, title: release.name}));
+            });
+            release_select.val(condition.release_id)
+            release_select.change()
+          }
+        }
+
+        // 行為類似上半部, 將 Release 的檔案取出, 加入清單, 並選擇條件所指定的項目
+        if (condition.release_id != '') {
+          var project_key = condition_line.find('input.project_key')
+          var release_select = project_key.next('select.release_id')
+          var file_select = release_select.next('select.file_id')
+          file_select.find('option:gt(0)').remove();
+          files_of(pid, release_select.val()).forEach(function(file) {
+            file_select.append(tmpl.option.tmpl({value: file.id, title: file.name}));
+          });
+          file_select.val(condition.file_id)
+        }
+      })
+    <% else %>
+      // 沒有查詢 = 剛點進這頁面, 給一個空的條件列
+      $('#conditions').after(tmpl.condition.tmpl())
+    <% end %>
+    // 移除 "請稍等" 的提示
+    $('#processing').remove();
+
+    // 新增條件
+    $('#add-condition').live('click', function(e) {
+      e.preventDefault();
+      $(this).parent().before(tmpl.condition.tmpl());
+    })
+
+    // 移除條件
+    $('.remove-condition').live('click', function(e) {
+      e.preventDefault();
+      $(this).parent().remove();
+    })
+
+    // 在輸入完專案 key 後, 自動更新 Release 清單
+    $('.project_key').live('keypress', function(e) {
+      // 這裡要畫圖才好解釋清楚...
+      var self = $(this);
+      clearTimeout(parseInt(self.attr('data-timer')));
+      self.attr('data-timer', setTimeout(function() {
+        var pid = find_project_id(self.val())
+        // 重設 Release/FileEntity 清單
+        var release_select = self.next('select.release_id')
+        release_select.find('option:gt(0)').remove();
+        var file_select = release_select.next('select.file_id')
+        file_select.find('option:gt(0)').remove();
+
+        if (pid == 'null') {
+          self.removeAttr('data-id')
+        } else {
+          self.attr('data-id', pid)
+          // 加入所有的 Release
+          releases_of(pid).forEach(function(release) {
+            release_select.append(tmpl.option.tmpl({value: release.id, title: release.name}));
+          });
+        }
+      }, 500));
+    })
+
+    // 在選擇指定的 Release 後, 自動更新 FileEntity 清單
+    $('.release_id').live('change', function() {
+      var self = $(this);
+      var file_select = self.next('select.file_id')
+      file_select.find('option:gt(0)').remove();
+      pid = self.prev('input.project_key').attr('data-id')
+      files_of(pid, self.val()).forEach(function(file) {
+        file_select.append(tmpl.option.tmpl({value: file.id, title: file.name}));
+      });
+    })
+  })
+<% end %>
+
+<% form_tag site_admin_admin_search_counter_logs_path, :method => 'post', :id => 'counter_logs_search_form' do %>
+  <dl>
+    <dt>日期</dt>
+    <dd>
+    從 <input type="text" id="q_from" name="q[from]" value="<%= htc(params, :q, :from) %>" placeholder="很久很久以前" />
+    <%= image_tag('calendar.gif', :id => 'q_from_trigger') %>
+    到 <input type="text" id="q_to" name="q[to]" value="<%= htc(params, :q, :to) %>" placeholder="當下" />
+    <%= image_tag('calendar.gif', :id => 'q_to_trigger') %>
+    </dd>
+    <dt id="conditions">條件</dt>
+    <dd id="processing">請稍等...</dd>
+    <dd><button id="add-condition">新增</button></dd>
+    <dt>查詢</dt>
+    <dd>
+    <%= submit_tag :count %>
+    <%= submit_tag :full %>
+    <%= submit_tag :to_csv %>
+    </dd>
+  </dl>
+<% end %>
+<div id="result">
+  <h3>Result</h3>
+  <% if @count %>
+    <p>一共有 <%= @count %> 筆記錄</p>
+  <% end %>
+  <% if @logs %>
+    <table>
+      <tr>
+        <th>PId</th>
+        <th>PName</th>
+        <th>RId</th>
+        <th>RVersion</th>
+        <th>FId</th>
+        <th>FPath</th>
+        <th>IP</th>
+        <th>Time</th>
+      </tr>
+      <% @logs.each do |log| %>
+        <% Rails.logger.debug log.inspect %>
+        <tr>
+          <td><%= link_to log.project.id, project_path(log.project) %></td>
+          <td><%= link_to log.project.name, project_path(log.project) %></td>
+          <td><%= link_to log.release.id, project_release_path(log.project, log.release) %></td>
+          <td><%= link_to log.release.version, project_release_path(log.project, log.release) %></td>
+          <td><%= log.file_entity.id %></td>
+          <td><%= log.file_entity.path %></td>
+          <td><%= log.ip %></td>
+          <td><%= log.created_at %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+</div>
+<pre><%#= params.to_yaml %></pre>
+<script id="tmpl-condition" type="text/x-jquery-tmpl">
+  <dd>
+  專案名稱或 ID:
+  <input type="text" class="project_key" name="q[conditions][][project_key]" value="${project_key}" size="15" placeholder="全部" />
+  釋出:
+  <select class="release_id" name="q[conditions][][release_id]" value="${release_id}">
+  <option value="">全部</option>
+  </select>
+  檔案:
+  <select class="file_id" name="q[conditions][][file_id]" value="${file_id}">
+  <option value="">全部</option>
+  </select>
+  來源 (開頭):
+  <input type="text" class="source" name="q[conditions][][source]" value="${source}" size="10" placeholder="全部" />
+  <button class="remove-condition">移除</button>
+  </dd>
+</script>
+<script id="tmpl-option" type="text/x-jquery-tmpl">
+  <option value="${value}">${title}</option>
+</script>
