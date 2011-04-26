@@ -259,4 +259,66 @@ class SiteAdmin::SiteAdminController < SiteAdmin
 
   def nsc_download
   end
+
+  def search_counter_logs_index
+  end
+
+  def search_counter_logs
+    @scoped = ArchivedCounterLog.includes(:project, :release, :file_entity)
+    @scoped = @scoped.where(:created_at.gte => params[:q][:from]) if params[:q][:from].present?
+    @scoped = @scoped.where(:created_at.lte => params[:q][:to]) if params[:q][:to].present?
+    # 現在 @scoped 表示從指定日期到指定日期的所有紀錄
+
+    chained_scope = nil
+
+    params[:q][:conditions].each do |condition|
+      local_scope = @scoped
+
+      project = Project.find_by_id(condition[:project_key]) || Project.find_by_name(condition[:project_key])
+      if project
+        local_scope = local_scope.where(:project_id => project.id)
+        local_scope = local_scope.where(:release_id => condition[:release_id]) if condition[:release_id].present?
+        local_scope = local_scope.where(:file_entity_id => condition[:file_id]) if condition[:file_id].present?
+        local_scope = local_scope.where(:ip.like => "#{condition[:source]}%") if condition[:source].present?
+      end
+
+      if chained_scope.nil?
+        chained_scope = local_scope
+      else
+        # 注意這裡 ActiveRecord 並不會使用 SQL OR 進行查詢, 而是使用多次的 Select,
+        # 但是請放心傳回來的資料是不會有重複的 Model...
+        chained_scope = chained_scope | local_scope
+      end
+    end
+
+    case params[:commit]
+    when 'count'
+      @count = chained_scope.count
+      render :file => 'site_admin/site_admin/search_counter_logs_index'
+    when 'full'
+      @logs = chained_scope
+      @count = @logs.count
+      render :file => 'site_admin/site_admin/search_counter_logs_index'
+    when 'to_csv'
+      @csv = FasterCSV.generate do |csv|
+        csv << ['PId', 'PName', 'RId', 'RVersion', 'FId', 'FPath', 'IP', 'Time']
+        
+        chained_scope.each do |log|
+          csv << [
+            log.project.id,
+            log.project.name,
+            log.release.id,
+            log.release.version,
+            log.file_entity.id,
+            log.file_entity.path,
+            log.ip,
+            log.created_at
+          ]
+        end
+      end
+      send_data(@csv,
+                :type => 'text/csv; charset=utf-8; header=present',
+                :disposition => 'attachment; filename=result.csv')
+    end
+  end
 end

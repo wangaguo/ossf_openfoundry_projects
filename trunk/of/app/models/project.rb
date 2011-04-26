@@ -25,7 +25,18 @@ class Project < ActiveRecord::Base
   scope :cated, lambda { |*args| { :conditions => [ 'category = ?', args.first ] } unless args.first.to_i == 0 }
 
   #redis counter settings
-  acts_as_redis_counter :project_counter, :ttl => 5.minutes, :hits => 100
+  #acts_as_redis_counter :project_counter, :ttl => 5.minutes, :hits => 100
+  def counter
+    @counter ||= Counter.find(:item_id => self.id, :item_class => 'Project').first
+    if @counter.nil?           
+      @counter = Counter.create(:item_id => self.id,
+                                :item_class => 'Project',
+                                :item_counter_attribute => 'project_counter',
+                                :flushed_at => Time.now.to_i)   
+      @counter.incr(:counter, self.project_counter)             
+    end
+    @counter
+  end 
 
   # single selection 
   MATURITY = { :IDEA => 0, :PREALPHA => 1, :ALPHA => 2, :BETA => 3, :RELEASED => 4, :MATURE => 5, :STANDARD => 6 }.freeze
@@ -284,10 +295,6 @@ EOEO
 #    set_property :delta => true
     set_property :delta => :datetime
   end
-
-#   sphinx_scope(:ts_in_used) { 
-#        {:conditions => {:status => Project::STATUS[:READY]}}
-#   }
 
   #add tags
   acts_as_taggable
