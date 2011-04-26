@@ -404,6 +404,12 @@ module ApplicationHelper
     st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
   end
 
+  def hash_try_chain(hash, *keys)
+    keys.inject(hash) { |h, k| h.try(:[], k) }
+  end
+
+  alias :htc :hash_try_chain
+
 end
 
    

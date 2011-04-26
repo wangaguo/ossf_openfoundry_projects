@@ -345,3 +345,20 @@ span.maturity {
 .project-links ul li {
   text-align: right;
 }
+
+#counter_logs_search_form dt {
+  float: left;
+}
+
+#counter_logs_search_form select {
+  max-width: 200px;
+}
+
+#processing {
+  color: red;
+}
+
+#result table tr td {
+  border-top: 1px solid #ddd;
+  padding: 1px 4px;
+}
