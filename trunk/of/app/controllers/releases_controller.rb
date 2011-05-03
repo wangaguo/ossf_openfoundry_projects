@@ -120,11 +120,10 @@ class ReleasesController < ApplicationController
       r.project_id = params[:project_id]
       if r.save
         flash[:message] = 'Create New Release Successfully!'
-        redirect_to(url_for(:project_id => params[:project_id], :action => :index)) 
+        redirect_to(project_releases_path(:project_id => params[:project_id])) 
       else
-        #flash[:message] = 'Faild to Create New Release!'
         flash[:warning] = 'Invalid version format!'
-        redirect_to(new_release_url(:project_id => params[:project_id], :action => :new)) 
+        redirect_to(new_project_release_path(:project_id => params[:project_id])) 
       end
     end
   end
