@@ -33,9 +33,7 @@ class Counter < Ohm::Model
   end
 
   def add_log(hash)
-    counter_log = CounterLog.new(hash.merge(:counter_id => self.id, :created_at => Time.now.to_i))
-    counter_log.save
-    self.logs << counter_log
+    CounterLog.new(hash.merge(:created_at => Time.now.to_i)).save
   end
 
   def flush!

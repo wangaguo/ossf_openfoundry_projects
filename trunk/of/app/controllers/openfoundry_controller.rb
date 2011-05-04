@@ -426,11 +426,12 @@ class OpenfoundryController < ApplicationController
 
   def add_one_to_download_counter
     @project.counter.increase
-    @project.counter.add_log(:ip => request.remote_ip)
     @release.counter.increase
-    @release.counter.add_log(:ip => request.remote_ip)
     @file.counter.increase
-    @file.counter.add_log(:ip => request.remote_ip)
+    @project.counter.add_log(:project_id => @project.id,
+                             :release_id => @release.id,
+                             :file_id => @file.id,
+                             :ip => request.remote_ip)
   end
 
 end

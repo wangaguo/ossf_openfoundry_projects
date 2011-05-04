@@ -1,5 +1,7 @@
 class CounterLog < Ohm::Model
-  reference :counter, Counter
+  attribute :project_id
+  attribute :release_id
+  attribute :file_id
   attribute :ip
   attribute :created_at
 end
