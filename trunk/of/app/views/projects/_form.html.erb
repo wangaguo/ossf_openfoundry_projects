@@ -38,7 +38,7 @@
     if( input_tag != '' )
     {
       // prevent the chinese words
-      var rege = /^[#+-.!a-zA-Z0-9 ]+$/;
+      var rege = /^[#+-.!\/a-zA-Z0-9 ]+$/;
       if( !rege.test( input_tag ) )
       {
         // simple dialog
@@ -115,8 +115,8 @@
     {
       tag_notify();
 
-      // initial autocomplete
-      var data = [ '<%=Tagcloud.cachedtags.map{ | t | t.name }.join( "','" ) %>' ];
+      // initial autocomplete (remove the category: Other / Unlisted Topic)
+      var data = [ '<%=Tagcloud.cachedtags.map{ | t | t.name }.drop(1).join( "','" ) %>' ];
       $j( '#Tags_Ctrl' ).autocomplete( data, { matchContains: false } );
 
       // initial simpledialog
