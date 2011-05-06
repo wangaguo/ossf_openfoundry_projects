@@ -4,7 +4,6 @@ class Counter < Ohm::Model
   attribute :item_counter_attribute
   counter :counter
   attribute :flushed_at # should store time as integer
-  collection :logs, CounterLog
 
   index :id
   index :item_id
@@ -34,6 +33,10 @@ class Counter < Ohm::Model
 
   def add_log(hash)
     CounterLog.new(hash.merge(:created_at => Time.now.to_i)).save
+  end
+
+  def logs
+    CounterLog.find("#{item_class.downcase}_id".to_sym => item_id)
   end
 
   def flush!

@@ -428,10 +428,12 @@ class OpenfoundryController < ApplicationController
     @project.counter.increase
     @release.counter.increase
     @file.counter.increase
-    @project.counter.add_log(:project_id => @project.id,
+    if @release.version !~ /feed/ and @file.path !~ /feed/
+      @project.counter.add_log(:project_id => @project.id,
                              :release_id => @release.id,
                              :file_id => @file.id,
                              :ip => request.remote_ip)
+    end
   end
 
 end
