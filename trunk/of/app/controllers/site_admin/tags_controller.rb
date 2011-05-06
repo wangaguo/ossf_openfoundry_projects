@@ -1,5 +1,5 @@
 require "json"
-class SiteAdmin::TagsController < ApplicationController
+class SiteAdmin::TagsController < SiteAdmin
 
   def create
     if request.post?
