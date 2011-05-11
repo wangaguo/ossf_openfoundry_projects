@@ -1,0 +1,20 @@
+<% if @user and @partners %>
+<dl>
+  <dt>
+  </dt>
+  <dd>
+    <div>
+      <% if @partners.empty? %>
+        <%=t 'user_relation.no_partner' %>  
+      <% else %>
+        <% @partners.each do |p| %>
+          <%=user_portrait_link(p, :float => 'left')%>
+        <% end %>
+      <% end %>
+      <br clear="all"/>
+    </div>
+  </dd>
+</dl>
+<%else%>
+  <%=t 'user_relation.no_partner' %>
+<%end%>

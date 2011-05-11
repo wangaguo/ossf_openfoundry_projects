@@ -1,0 +1,8 @@
+<% reload ||= 0 -%>
+<p><%= _("Please keyin according the image")%>:</p>
+<input name=captcha_code />
+<%= link_to_remote "[#{_('reload')}#{("("+reload.to_s+")") if reload > 0}]", 
+  :url => {:controller => :images, :action => :reload_code_image,
+    :reload => reload }, :update => "generate_captcha_image" %>
+<br/>
+<img src="<%= url_for(:controller => :images,:action => "code_image", :reload => reload) %>"/>

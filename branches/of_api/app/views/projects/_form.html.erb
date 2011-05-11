@@ -1,0 +1,279 @@
+<%# https://sourceforge.net/register-project %>
+<%# http://code.google.com/hosting/createProject %>
+
+<% content_for :page_head do %>
+  <%=stylesheet_link_tag 'jquery.autocomplete', 'jquery.simpledialog' %>
+  <%=javascript_include_tag 'jquery.autocomplete', 'jquery.simpledialog' %>
+<% end %>
+
+<style type="text/css">
+  .tagged
+  {
+    display: inline-block;
+    padding: 2px;
+    border: 1px solid #ccccdd;
+    margin: 2px 2px;
+    font: 12px bold;
+    text-transform: capitalize;
+  }
+
+  .tagged:hover
+  {
+    background-color: #e8e8f0;
+    border: 1px solid #777788;
+    text-decoration: line-through;
+  }
+</style>
+
+<script type="text/javascript">
+  var $j = jQuery;
+
+  // check added tag is duplicated or not
+  function add_to_tags_list()
+  {
+    // Pre-Process: trim the input
+    var input_tag = $j.trim( $j( '#Tags_Ctrl' ).val() );
+    $j( '#Tags_Ctrl' ).val( '' );
+
+    if( input_tag != '' )
+    {
+      // prevent the chinese words
+      var rege = /^[#+-.!\/a-zA-Z0-9 ]+$/;
+      if( !rege.test( input_tag ) )
+      {
+        // simple dialog
+        $j( '#msgbox p' ).text( "<%=t( 'Msg.Limited_Input' ) %>" );
+        $j( '#msg' ).click();
+
+        return false;
+      }
+
+      var dupchk = false;
+      var divhead = '<div class="tagged" onclick="javascript: remove_tag( $j( this ) );">';
+
+      // prevent the duplicated tag to be tagged
+      $j( '#Tags_List div' ).each(
+        function()
+        {
+          if( $j( this ).text().toLowerCase() == input_tag.toLowerCase() )
+          {
+            // simple dialog
+            $j( '#msgbox p' ).text( "<%=t( 'Msg.Tag_Duplicated' ) %>" );
+            $j( '#Tags_Ctrl' ).blur();
+            $j( '#msg' ).click();
+
+            // mark the tag is duplicated
+            dupchk = true;
+
+            return false;
+          }
+        }
+      );
+
+      // append the tag to page
+      if( dupchk == false )
+        $j( '#Tags_List' ).append( divhead + input_tag + '</div>' );
+    }
+  }
+
+  // notification: how to remove tags
+  function tag_notify()
+  {
+    if( $j( '#Tags_List div' ).length > 1 )
+      $j( '#Tags_Remove' ).show();
+    else
+      $j( '#Tags_Remove' ).hide();
+
+    // clean input for google chrome
+    $j( '#Tags_Ctrl' ).val( '' );
+  }
+  
+  // determine the notification to display or not when removing a tag
+  function remove_tag( delobj )
+  {
+    delobj.remove();
+    tag_notify();
+  }
+
+  // pre-process for tags list before post the form
+  function __premark()
+  {
+    var data = '';
+    $j( '#Tags_List div' ).each(
+      function()
+      {
+        data += ',' + $j( this ).text();
+      }
+    );
+  
+    $j( '#__clibeanna' ).val( data.substring( 2 ) );
+  }
+
+  // enhance the input with autocomplete
+  $j( document ).ready(
+    function()
+    {
+      tag_notify();
+
+      // initial autocomplete (remove the category: Other / Unlisted Topic)
+      var data = [ '<%=Tagcloud.cachedtags.map{ | t | t.name }.drop(1).join( "','" ) %>' ];
+      $j( '#Tags_Ctrl' ).autocomplete( data, { matchContains: false } );
+
+      // initial simpledialog
+      $j( '#msg' ).simpleDialog( { showCloseLabel: false } );
+    }
+  );
+</script>
+
+<%= error_messages_for 'project' %>
+
+<!--[form:project]-->
+<%
+  def foo(col, req, help)
+    return <<"AAA"
+    <label for="project_#{col}">
+      #{_("Project|#{col.capitalize}")}
+    </label>
+    #{ required_icon() if req }
+    #{ help_icon(help) if help }
+AAA
+  end
+
+  def rows(*data)
+    rtn = ""
+    while ( ! data.empty? )
+      h = data.shift
+      d = data.shift
+      rtn += %Q!<tr><th>#{h}</th><td>#{d}</td></tr>!
+    end
+    rtn
+  end
+
+  def to_select(h)
+    h.values.sort.map {|x| [_(h.index(x).to_s), x]}
+  end
+
+  def of_check_box_group(name, predefined, value)
+    values = "#{value}".split(",").grep(/./)
+    rtn = ""
+    #predefined = predefined.sort
+    predefined.each_with_index do |p, i|
+      rtn += check_box_tag("#{name}[#{i}]", p, values.include?(p)) + p + "\n"
+    end
+    rtn += "<br/>" + _("Others") + " "
+    rtn += text_field_tag("#{name}[-1]", (values - predefined).join(", "), :size => 50)
+  end
+
+  def err(obj, field, str)
+    obj.errors.on(field) ? "<div class=\"fieldWithErrors\">#{str}</div>" : str
+  end
+%>
+
+<%
+  choosen_licenses = (@project.license || "").split(",").grep(/./).map(&:to_i)
+  tmp_licenses = ""
+  Project::LICENSE_DISPLAY_KEYS.each do |i|
+    tmp_licenses += check_box_tag("project[license][#{i}]", i, choosen_licenses.include?(i)) + ( i > 0 ? link_to( Project.license_to_s(i), _("url_link_for_#{Project.license_to_s(i).gsub('.', '_')}"), :target =>"_blank" ) : t(Project.license_to_s(i)) ) + raw("<br>\n")
+  end
+  tmp_licenses = raw("<div style=\"height: 150px; overflow: auto\">#{tmp_licenses}</div>")
+%>
+<%
+  choosen_contentlicenses = (@project.contentlicense || "").split(",").grep(/./).map(&:to_i)
+  tmp_contentlicenses = ""
+  Project::CONTENT_LICENSE_DISPLAY_KEYS.each do |i|
+    txt = Project.content_license_to_s(i)
+    txt += " " + cc_images(i)
+    tmp_contentlicenses += check_box_tag("project[contentlicense][#{i}]", i, choosen_contentlicenses.include?(i)) + ( i > 0 ? link_to( Project.content_license_to_s(i), _("url_link_for_#{Project.content_license_to_s(i)}"), :target => "_blank" ) : t(Project.content_license_to_s(i)) ) + raw("<br/>\n")
+  end
+  tmp_contentlicenses = raw("<div style=\"height: 150px; overflow: auto\">#{tmp_contentlicenses}</div>")
+%>
+<%
+  tmp_nsccode = @project.tag_list.names.grep(/^NSC/).sort.join(", ")
+%>
+<table class="form-table">
+<%=raw rows(
+  foo("name", true, _("Project|Name|Help")),
+    text_field('project', 'name', :disabled => (is_edit == true), :maxlength => 15, :style => 'width:15em'),
+  foo("summary", true, _("Project|Summary|Help")),
+    text_field('project', 'summary', :maxlength => 255, :size => 50),
+  # rationale
+  foo("description", true, _("Project|Description|Help")),
+    text_area('project', 'description'),
+  foo( 'category', false, t( 'CreateHelp.Project_Category' ) ),
+    select( 'project', 'category', 
+           Tagcloud.onlycategory.collect { | t | [ t.name, t.id ] }, 
+             :include_blank => '- Select Category -',
+             :selected => @project.category || 1) + 
+            ' ' + link_to(t('Text.New_Category'), '/category-suggestion'),
+  foo( 'Tags', false, t( 'CreateHelp.Project_Tags' ) ),
+    "<div id=\"Tags_List\"><div></div>#{ @tagspan }</div>" + 
+    text_field_tag( 'Tags_Ctrl', '', { :size => 20 } ) + 
+    "<input type=\"button\" value=\"#{ t('Text.OK') }\" onclick=\"javascript: add_to_tags_list(); tag_notify();\">" + 
+    "<br>#{ t( 'Msg.Send_A_Tag' ) }" + 
+    "<div id=\"Tags_Remove\"><font color='#ff0000'>#{ t( 'Msg.Click_Remove' ) }</font></div>",
+  foo("contactinfo", false, _("Project|Contactinfo|Help")),
+    text_field('project', 'contactinfo', :maxlength => 255, :size => 50),
+  foo("maturity", true, _("Project|Maturity|Help")),
+    select('project', 'maturity', to_select(Project::MATURITY)),
+  foo("license", true, _("Project|License|Help")) + "<br/><br/><br/>" +
+    "<a href=\"javascript:eval(wo('#{_('menu_LW_manual_link')}'))\">#{_('License Wizard')}</a>",
+    err(@project, :license, tmp_licenses),
+  foo("contentlicense", true, _("Project|Contentlicense|Help")),
+    err(@project, :contentlicense, tmp_contentlicenses),
+  foo("licensingdescription", false, _("Project|Licensingdescription|Help")),
+    text_area('project', 'licensingdescription'),
+  foo("platform", true, _("Project|Platform|Help")),
+    err(@project, :platform, of_check_box_group("project[platform]", Project::PLATFORMS, @project.platform)),
+  foo("programminglanguage", true, _("Project|Programminglanguage|Help")), 
+    err(@project, :programminglanguage, of_check_box_group("project[programminglanguage]", Project::PROGRAMMING_LANGUAGES, @project.programminglanguage)),
+  #foo("intendedaudience", true, _("Project|Intendedaudience|Help")), 
+  #  of_check_box_group("project[intendedaudience]", Project::INTENDED_AUDIENCE, @project.intendedaudience),
+  foo("redirecturl", false, _("Project|Redirecturl|Help")), 
+    text_field('project', 'redirecturl', :maxlength => 255, :size => 50),
+  foo("vcs", true, _("Project|Vcs|Help")), 
+    select('project', 'vcs', [:SUBVERSION, :SUBVERSION_CLOSE, :CVS, :NONE, :REMOTE].map {|x| [Project.vcs_to_s(x), Project::VCS[x]]}),
+  foo("vcsdescription", false, _("Project|Vcsdescription|Help")), 
+    text_area('project', 'vcsdescription')
+
+)
+%>
+</table>
+
+<fieldset style="clear:both;">
+  <legend><%= _("For NSC projects") %>:</legend>
+  <%= _("Please refer to the") %> <b><a href="/help/2322#field-note" target="_blank"><%= _("help document") %></a></b>.<br/><br/>
+  <label for=\"project_nsccode\"><%= _('Project|Nsccode') %></label><br/>
+  e.g. NSC97-2218-E-123-456
+  <div class="nsccodes">
+    <% if @nsccodes.present? %>
+      <% @nsccodes.each do |nsccode| %>
+        <div class="nsccode">
+          <%= text_field_tag('project[nsccode][][0]', nsccode[0], :size => 6, :maxlength => 6) %> -
+          <%= text_field_tag('project[nsccode][][1]', nsccode[1], :size => 4, :maxlength => 4) %> -
+          <%= text_field_tag('project[nsccode][][2]', nsccode[2], :size => 1, :maxlength => 1) %> -
+          <%= text_field_tag('project[nsccode][][3]', nsccode[3], :size => 3, :maxlength => 3) %> -
+          <%= text_field_tag('project[nsccode][][4]', nsccode[4], :size => 6, :maxlength => 6) %>
+          <button class="remove">移除</button>
+          <button class="add">新增</button>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="nsccode">
+        <%= text_field_tag('project[nsccode][][0]', '', :size => 6, :maxlength => 6) %> -
+        <%= text_field_tag('project[nsccode][][1]', '', :size => 4, :maxlength => 4) %> -
+        <%= text_field_tag('project[nsccode][][2]', '', :size => 1, :maxlength => 1) %> -
+        <%= text_field_tag('project[nsccode][][3]', '', :size => 3, :maxlength => 3) %> -
+        <%= text_field_tag('project[nsccode][][4]', '', :size => 6, :maxlength => 6) %>
+        <button class="remove">移除</button>
+        <button class="add">新增</button>
+      </div>
+    <% end %>
+  </div>
+</fieldset>
+<!--[eoform:project]-->
+
+<a href="#" id="msg" class="medium" rel="msgbox" style="display: none;"></a>
+<div id="msgbox" style="display: none;">
+  <p></p>
+  <a href="#" class="close">close</a>
+</div>
