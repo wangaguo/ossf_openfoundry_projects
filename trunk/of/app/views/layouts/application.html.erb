@@ -61,29 +61,17 @@
 	  </a>
        </div>
        <div style="width: 860px; float: right; word-wrap: break-word; word-break: break-all;">
-         <div class="project-links">
-           <% if false # Ally said to disable AddThis at 2/9 9:28 %>
-             <% @use_add_this = true %>
-             <!-- AddThis Button BEGIN -->
-             <div class="addthis_toolbox addthis_default_style ">
-               <a class="addthis_counter addthis_pill_style"></a>
-             </div>
-             <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
-             <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=openfoundry"></script>
-             <!-- AddThis Button END -->
-           <% end %>
-         </div>
-          <h3>
+          <div class="pj_name">
             <a href="<%= project_path(@project) %>">
             <%= h(@project.name) %>
           </a>
           <span class="maturity">
             <%= t(Project.maturity_to_s(@project.maturity)) %>
           </span>
-          </h3>
-          <h6>
-            <%= truncate(h(@project.summary), :length => 50) %>
-          </h6>
+          </div>
+          <div class="summary">
+            <%= h(@project.summary) %>
+          </div>
         <%if current_user.has_role?('Admin',Project.find_by_id(params["project_id"]))%>
           <%= image_tag "green_arrow_right.gif" %>
           <a href="#" onclick="Effect.toggle('UploadImage','appear'); return false"><%=_('Change Icon')%></a>

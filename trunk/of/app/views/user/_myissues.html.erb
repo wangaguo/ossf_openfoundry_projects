@@ -51,10 +51,10 @@
             <%else%>
               P6
             <%end%>
-          </span><a href="<%="#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}"%>/projects/<%=item[:dc_description] %>/rt/<%=item[:link] %>"><%=h item[:title] %></a><br/>
+            </span><a href="<%="#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}"%>/projects/<%=item[:dc_description] %>/rt/<%=item[:link] %>"><%=h item[:title] %></a><div class="ticket_info">
           Created&nbsp;<%=tz_date( item[:dc_date] ) %>&nbsp;&nbsp;
           by&nbsp;<%=h item[:dc_creator] %>&nbsp;&nbsp;
-          Project:&nbsp;<span class="pa"><%=link_to item[:dc_description], "#{ root_path }/projects/#{ item[:dc_description] }/rt" %></span>
+          Project:&nbsp;<span class="pa"><%=link_to item[:dc_description], "#{ root_path }/projects/#{ item[:dc_description] }/rt" %></span></div>
         </div>
       <% } %>
     </div>
