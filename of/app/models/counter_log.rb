@@ -3,6 +3,7 @@ class CounterLog < Ohm::Model
   attribute :release_id
   attribute :file_id
   attribute :ip
+  attribute :user_agent
   attribute :created_at
 
   index :project_id
