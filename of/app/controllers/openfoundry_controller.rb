@@ -432,8 +432,7 @@ class OpenfoundryController < ApplicationController
       @project.counter.add_log(:project_id => @project.id,
                              :release_id => @release.id,
                              :file_id => @file.id,
-                             :ip => request.remote_ip,
-                             :user_agent => request.env['HTTP_USER_AGENT'].downcase)
+                             :ip => request.remote_ip)
     end
   end
 
