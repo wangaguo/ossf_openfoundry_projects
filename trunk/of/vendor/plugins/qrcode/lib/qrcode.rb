@@ -20,7 +20,7 @@ for (var r = 0; r < qr.getModuleCount(); r++) {
     text += "</tr>";
 }
 text += "</table>";
-Element.update($('#{id}'), text);
+Element.update($("#{id}"), text);
 </script>
       }
     end
