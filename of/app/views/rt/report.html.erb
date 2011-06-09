@@ -59,9 +59,9 @@
 
 <div id="rt_function_bar">
   <%if(@project != nil)%>
-  <a href="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" class="bug_report">問題回報</a>
+    <a href="<%=@rt_url%>Ticket/Create.html?Queue=<%=@project.id%>" target="of_module" title=">問題回報"><%=image_tag('bug.gif') %></a>
   <%end%>
-  &nbsp;&nbsp;<a href="javascript:hideDiv('TicketSearchForm');" class="search">查詢</a>
+  &nbsp;&nbsp;<a href="javascript:hideDiv('TicketSearchForm');" title="查詢"><%=image_tag('search.gif') %></a>
 <div style="" id="TicketSearchForm">
   <div style="text-align:right;">
     <a onclick="hideDiv('TicketSearchForm');return false;" onmouseclick="hideDiv('TicketSearchForm');return false;" class="functional" href="#">關閉</a>
