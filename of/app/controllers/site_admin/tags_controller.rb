@@ -6,7 +6,6 @@ class SiteAdmin::TagsController < SiteAdmin
       new(params[:tag_new_name], params[:tag_status], params[:tag_type]) unless params[:tag_new_name].blank?
       redirect_to "#{root_path}/site_admin/admin/manage_tags"
     end
-    render :nothing => true
   end
 
   def edit
@@ -14,7 +13,6 @@ class SiteAdmin::TagsController < SiteAdmin
       update(params[:tag_old_name], params[:tag_new_name], params[:tag_status], params[:tag_type]) unless params[:tag_new_name].blank?
       redirect_to "#{root_path}/site_admin/admin/manage_tags"
     end
-    render :nothing => true
   end
 
   def delete
@@ -35,7 +33,6 @@ class SiteAdmin::TagsController < SiteAdmin
         render :text => 'Error, no such tag'; return
       end
     end
-    render :nothing => true
   end
 
   def ready
@@ -73,7 +70,6 @@ class SiteAdmin::TagsController < SiteAdmin
     else
       session[:tmsg] = "#{tname} was already exists."
     end
-    render :nothing => true
   end
 
   def update(oldname, newname, newstatus, newtype)
@@ -85,14 +81,12 @@ class SiteAdmin::TagsController < SiteAdmin
       session[:ided] = "#{@tag.id.to_s}" if @tag.save
       session[:tmsg] = "Updated."
     end
-    render :nothing => true
   end
 
   protected
   def destroy(tid)
     t = Tagcloud.find_by_id( tid )
     t.destroy if t
-    render :nothing => true
   end
 
 end
