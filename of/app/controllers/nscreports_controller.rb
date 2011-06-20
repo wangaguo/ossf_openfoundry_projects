@@ -91,7 +91,8 @@ class NscreportsController < ApplicationController
         if type_ok
           #render :text => "project_name: #{project_name} year: #{year} type: #{type} author: #{author}"
 
-          send_file full_path # TODO: use X-Sendfile
+          #send_file full_path # TODO: use X-Sendfile
+          send_data File.read(full_path) # TODO: use X-Sendfile
         else
           render :text => "error: #{err_msg}", :layout => true
         end
