@@ -59,7 +59,11 @@ class CategoryController < ApplicationController
 		#thinking_sphinx setting:    max_matches:10000/per_page:20=500
 		params[:page] = 1 if (params[:page].to_i > 500)
 
-    @pcs_projects = Project.search( Riddle.escape(query), :star => true, :page => params[:page], :per_page => 20, :conditions => @pcs_projects_conditions ,:order => @sortable)
+    #process the keywords like "key words" output to "*key* *words*"
+    query = (query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
+      $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
+
+    @pcs_projects = Project.search( Riddle.escape(query), :page => params[:page], :per_page => 20, :conditions => @pcs_projects_conditions ,:order => @sortable)
     @pcs_projects_count = @pcs_projects.total_entries
     #			@pcs_projects = @pcs_projects.find(:all, :conditions => ["name LIKE ? OR summary LIKE ? OR description LIKE ? OR programminglanguage LIKE ? OR platform LIKE ?", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%", "%#{params[:cat_query]}%"], :order => sortable_order( 'listing', :field => 'name', :sort_direction => :asc ))
 
