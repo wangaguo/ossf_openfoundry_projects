@@ -237,9 +237,11 @@ class ReleasesController < ApplicationController
   end
 
   def delete_files
-    params[:uploadfiles].each do |f|
-      file_path = "#{Project::PROJECT_UPLOAD_PATH}/#{@project.name}/upload/#{f}"
-      File.delete(file_path) if File.exist?(file_path)
+    if !params[:uploadfiles].nil? 
+      params[:uploadfiles].each do |f|
+        file_path = "#{Project::PROJECT_UPLOAD_PATH}/#{@project.name}/upload/#{f}"
+        File.delete(file_path) if File.exist?(file_path)
+      end
     end
     reload
   end
