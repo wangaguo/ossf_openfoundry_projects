@@ -116,14 +116,19 @@ class ReleasesController < ApplicationController
 
   def create
     if request.post?
-      r=Release.new(:attributes => params[:release] )
-      r.project_id = params[:project_id]
-      if r.save
-        flash[:message] = 'Create New Release Successfully!'
-        redirect_to(project_releases_path(:project_id => params[:project_id])) 
+      @release = Release.new(:attributes => params[:release] )
+      @release.project_id = params[:project_id]
+      if @project.releases.find_by_version("#{params[:release][:version]}").nil?
+        if @release.save
+          flash[:message] = 'Create New Release Successfully!'
+          redirect_to(project_releases_path(:project_id => params[:project_id])) 
+        else
+          flash[:warning] = 'Invalid version format!'
+          new
+        end
       else
-        flash[:warning] = 'Invalid version format!'
-        redirect_to(new_project_release_path(:project_id => params[:project_id])) 
+        flash.now[:warning] = 'Version is exists!'
+        new
       end
     end
   end
@@ -133,8 +138,9 @@ class ReleasesController < ApplicationController
     if request.get?
       @release = Release.new
       @release.status = 0
-      @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
     end
+    @release_status = { Release.status_to_s(0) => 0, Release.status_to_s(1) => 1}
+    render :template => 'releases/new'
   end
 
   def delete
