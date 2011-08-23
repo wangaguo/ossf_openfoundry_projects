@@ -74,7 +74,7 @@ class SiteAdmin::SiteAdminController < SiteAdmin
   end
 
   def new_site_mail
-    filter_file = File.join(Rails.configuration.root_path, 'config', 'site_mail_filter.txt')
+    filter_file = File.join(Rails.root, 'config', 'site_mail_filter.txt')
     if request.post? then
       @mail = Hashit.new(params[:mail])
       bcc_max = OPENFOUNDRY_SITEMAIL_BATCH_MAX 
