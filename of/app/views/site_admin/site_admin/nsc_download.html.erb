@@ -1,31 +1,56 @@
 <%
-@vcs_check = params[:nsc] || 'false'
-nsc_by_name = params[:nscname] || 'false'  
-conditions = ""
-nscs = "'multicore','jvm','garcol','hmp','ssempp','eplmcs','rtscheduler','ecv ','aridps','vmc','vmcsubproject1','vmcpss','vmc97am','vmcsyn','vmctms','ebl','eblembsysbench','multicoretool','winlab97','esbs','nsc962218y1','wirelesssignal','mediacenter','gandalf4convert','nsc97webos','netanalyzer','eiptv','eips','inight168','roamingrobot','futurelife','emotionsystem','homesecure','scel9701','ppkb007','nsc97uhome','yangi','wimaxsystem','wimaxchn','wimaxmimo','wimaxphy2','wimaxphy1','wimax3subp5','wimaxqos001','video2008','lis2008 ','jcis4','wimaxspmt','oscha','asng2 ','yzudsp','highqualityvoip','sccs','qualityopc','coursewarereg','spam','gqs','monitoragent','ompd','dishes','disirer2008','glossator','soankers','robotagent001','jsim802154','rfidzigbee','middlewaremdbc','interactivesate','pvlan2008','viskitopc','powernoc','xdiva','medicinesbox','nsc97pskd','web2qop','uwardcare','qosphone','androidnavi','ivaspqrgps100','androidpim','nsysumt','nettv','pvas','sfer','android','rtgtalk','dmatgcaw','abcystem','avs','msvd','thirdpcc','cnlab','immrmcpt','nsc97jvm','u1097305131','sensor606618','mobiletraveling','nsc97obd','ismp'"
-if nsc_by_name == 'false'
-  conditions = Project.in_used_projects(:alias => "projects")
-else
-  conditions = " projects.name in (#{nscs}) AND #{Project.in_used_projects(:alias => "projects")}"
+@vcs_check = params[:vcs_check] || 'false'
+@nsc_list = params[:nsc_list] || ''
+@query = params["query"] || ''
+@nscdoc_year = params['nscdoc_year'] || ''
+@downlog_from = params['downlog_from'] || ''
+conditions = [] 
+conditions[0] = Project.in_used_projects(:alias => "projects")
+if @nsc_list != "" 
+  nsc_list = params["nsc_list"].gsub(/['=]/, "").split(/,[ ]*/)
+  conditions[0] += " AND projects.name in ('#{nsc_list.join("','")}') "
 end
-projects = Project.find(:all, :joins=>:tags, :conditions => [conditions + "AND (projects.name LIKE ? OR projects.description LIKE ? OR tags.name LIKE ?)", "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%"])
+if @query != ""
+  conditions[0] += " AND (projects.name LIKE ? OR projects.description LIKE ?)"
+  conditions[conditions.length] = "%#{@query}%"
+  conditions[conditions.length] = "%#{@query}%"
+end
+#projects = Project.find(:all, :conditions => conditions)
+if request.post?
+  projects = Project.where(conditions)
+else
+  projects = Project.where("name in ('')")
+end
 i = 0
-
+i_nsclist = 0
+if @nscdoc_year != ""
+  Dir.chdir(NSC_UPLOAD_DIR)
+end
 %>
 <div id="ReleaseList">
   <h1><%= _('Release Listing') %></h1>
-  <form name="filter" action="" style="display:inline" >
-    <label for="filter">Filter by Name, Description or NSC: </label>
+  <%= form_tag '', :style=> "display:inline" do %>
+    <label for="query">Filter by Name, Description or NSC: </label>
     <%= text_field_tag "query", params['query'] %>
-    <label for="nsc">VCS Check:</label>
-    <%= select_tag('nsc', options_for_select(['false','true'] , params[:nsc])) %>
-    <label for="nsc">NSC by Name:</label>
-    <%= select_tag('nscname', options_for_select(['false','true'] , params[:nscname])) %>
+    <br/>
+    <label for="vcs_check">VCS Check:</label>
+    <%= select_tag('vcs_check', options_for_select(['false','true'] , params[:vcs_check])) %>
+    <br/>
+    <label for="downlog_from">Download Log Count From:</label>
+    <%= text_field_tag "downlog_from", params['downlog_from'] %>
+    <br/>
+    <label for="nscdoc_year">NSC Docs Year:</label>
+    <%= text_field_tag "nscdoc_year", params['nscdoc_year'] %>
+    <br/>
+    <label for="nsc_list">By Project Name List(comma separate):</label>
+    <%= text_field_tag "nsc_list", params['nsc_list'] %>
+    <br/>
     <%= submit_tag 'Search' %>
-  </form>
+  <% end -%>
   <% form_tag csv_site_admin_projects_path(:selection => params[:query], 
                                            :nscconditions => conditions,
-                                           :vcscheck => @vcs_check), :style=> "display:inline" do -%>
+                                           :vcscheck => @vcs_check), 
+              :style=> "display:inline" do -%>
     <%= submit_tag 'Export to CSV' -%>
   <% end -%>
   <table id="customers">
@@ -40,11 +65,19 @@ i = 0
     <th align=left>建立日期</th>
     <th align=left>建立者</th>
     <th align=left>下載次數</th>
+    <th align=left>下載Log次數<br/>from:<%= params['downlog_from'] %></th>
     <th align=left>VCS</th>
     <th align=left>VCS Info</th>
+    <th align=left>最新釋出</th>
+    <th align=left>最新報告</th>
   </tr>
   <% for project in projects %>
     <%
+      if @nsc_list != "" 
+        project = projects.find_by_name(nsc_list[i_nsclist])
+        i_nsclist += 1
+        redo if project.nil?
+      end
       tmp_nsccode = project.tag_list.names.grep(/^NSC[ ]*\d/).sort.join("<br/>")
       find_nsccode = ""
       if tmp_nsccode == ""
@@ -57,6 +90,7 @@ i = 0
     end
   next if tmp_nsccode == "" && find_nsccode == ""
   tmp_nsccode += " " + find_nsccode
+  tmp_nsccode.html_safe
 %>
 <%if i % 2 == 0; class_name="even"; else; class_name="alt"; end; -%>
   <tr class="<%= class_name -%>">
@@ -73,6 +107,11 @@ i = 0
       <%= "#{u.login} (#{u.realname})" -%>
     </td>
     <td><%= project.project_counter %></td>
+    <td>
+      <% if @downlog_from != "" -%>
+        <%= ArchivedCounterLog.find(:all, :conditions => ["project_id = ? and created_at > ?", project.id, params['downlog_from']]).count %>
+      <% end -%>
+    </td>
     <td><%= Project.vcs_to_s(project.vcs) %></td>
     <td>
       <% if @vcs_check == 'true' -%>
@@ -85,7 +124,70 @@ i = 0
         <%=log -%>
       <% end -%>
     </td>
+    <td nowrap>
+      <%
+        r = Release.where("project_id='#{project.id}'").order("version desc")[0]
+      %>
+      <% if r != nil -%>
+        <%
+          fs = r.fileentity
+        %>
+        Version: <%= r.version %><br/>
+        <% fs.each do |f| %>
+          <%= f.path %> <%= f.file_counter %><br/>
+        <% end %>
+      <% end %>
+    </td>
+    <td nowrap>
+      <% if @nscdoc_year != "" -%>
+        <%
+          fs = Dir.glob("#{project.name}_#{params['nscdoc_year']}_*")
+        %>
+        <% fs.each do |f| %>
+          <%= f %> <br/>
+        <% end %>
+      <% end %>
+    </td>
   </tr>
 <% end -%>
 </table>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<% nsc_list.each do |pname| -%>
+  <%= pname %>
+  <br/>
+  <%
+  p = Project.find_by_name(pname)
+  sql = "select * from (select ip, count(ip) count from archived_counter_logs where project_id = #{p.id} group by ip) IC order by count desc"
+  ip_data = ActiveRecord::Base.connection.select_all(sql)
+  item_max = 5 
+  if ip_data.count > item_max 
+    other_count = 0
+    (ip_data.count-1).downto(item_max).each {|x|
+      other_count += ip_data[x]["count"].to_i
+      ip_data.delete_at(x)
+    }
+    ip_data[item_max] = {} 
+    ip_data[item_max]["ip"] = "Other IP"
+    ip_data[item_max]["count"] = other_count
+  end
+  if ip_data.count == 0 
+    ip_data[0] = {} 
+    ip_data[0]["ip"] = "Other IP"
+    ip_data[0]["count"] = 0 
+  end
+  
+  chart_count = ""
+  chart_title = ""
+  ip_data.each do |item|
+    chart_count += "," if chart_count != ""
+    chart_count += "#{item["count"]}"
+  
+    chart_title += "|" if chart_title != ""
+    chart_title += "#{item["ip"]}(#{item["count"]})"
+  end
+  chart_url = "https://chart.googleapis.com/chart?cht=p3&chd=t:#{chart_count}&chs=400x100&chl=#{chart_title}"
+  %>
+  <img src="<%=chart_url%>"/>
+  <br/>
+<% end -%>
 </div>
