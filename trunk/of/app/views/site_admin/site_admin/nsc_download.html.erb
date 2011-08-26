@@ -1,9 +1,9 @@
 <%
 @vcs_check = params[:vcs_check] || 'false'
-@nsc_list = params[:nsc_list] || ''
-@query = params["query"] || ''
-@nscdoc_year = params['nscdoc_year'] || ''
-@downlog_from = params['downlog_from'] || ''
+@nsc_list = (params[:nsc_list] || '').gsub(/['=]/, "")
+@query = (params["query"] || '').gsub(/['=]/, "")
+@nscdoc_year = (params['nscdoc_year'] || '').gsub(/['=]/, "")
+@downlog_from = (params['downlog_from'] || '').gsub(/['=]/, "")
 conditions = [] 
 conditions[0] = Project.in_used_projects(:alias => "projects")
 if @nsc_list != "" 
@@ -27,6 +27,7 @@ if @nscdoc_year != ""
   Dir.chdir(NSC_UPLOAD_DIR)
 end
 %>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <div id="ReleaseList">
   <h1><%= _('Release Listing') %></h1>
   <%= form_tag '', :style=> "display:inline" do %>
@@ -58,14 +59,14 @@ end
     <th align=left>編號</th>
     <th align=left>計畫編號</th>
     <th align=left>專案ID</th>
-    <th align=left>OpenFoundry專案代號(專案名稱)</th>
-    <th align=left>計畫名稱</th>
-    <th align=left>專案描述</th>
+    <th align=left>專案名稱</th>
+    <th align=left>專案摘要</th>
     <th align=left>成熟度</th>
     <th align=left>建立日期</th>
     <th align=left>建立者</th>
     <th align=left>下載次數</th>
     <th align=left>下載Log次數<br/>from:<%= params['downlog_from'] %></th>
+    <th align=left>下載IP&次數</th>
     <th align=left>VCS</th>
     <th align=left>VCS Info</th>
     <th align=left>最新釋出</th>
@@ -90,30 +91,70 @@ end
     end
   next if tmp_nsccode == "" && find_nsccode == ""
   tmp_nsccode += " " + find_nsccode
-  tmp_nsccode.html_safe
 %>
 <%if i % 2 == 0; class_name="even"; else; class_name="alt"; end; -%>
   <tr class="<%= class_name -%>">
     <td><%= (i+=1).to_s -%></td>
-    <td><%= tmp_nsccode -%></td>
+    <td nowrap><%= tmp_nsccode.html_safe -%></td>
     <td><%= project.id -%></td>
     <td><%= project.name -%></td>
     <td><%= project.summary -%></td>
-    <td><%= project.description -%></td>
     <td><%= project.maturity_to_s -%></td>
     <td><%= (project.created_at).strftime("%Y-%m-%d") -%></td>
-    <td>
+    <td nowrap>
       <% u = User.find_by_id(project.creator) -%>
-      <%= "#{u.login} (#{u.realname})" -%>
+      <%= "#{u.login}<br/>(#{u.realname})".html_safe -%>
     </td>
     <td><%= project.project_counter %></td>
     <td>
       <% if @downlog_from != "" -%>
-        <%= ArchivedCounterLog.find(:all, :conditions => ["project_id = ? and created_at > ?", project.id, params['downlog_from']]).count %>
+        <%= ArchivedCounterLog.find(:all, :conditions => ["project_id = ? and created_at > ?", project.id, @downlog_from]).count %>
+      <% end -%>
+    </td>
+    <td>
+      <!-- Log pipe graphic -->
+      <% if @downlog_from != "" -%>
+        <%
+        sql = "select * 
+                 from (select ip, count(ip) count 
+                   from archived_counter_logs 
+                   where project_id = #{project.id} and created_at > '#{@downlog_from}' group by ip) IC
+                 order by count desc"
+        ip_data = ActiveRecord::Base.connection.select_all(sql)
+        item_max = 5 
+        if ip_data.count > item_max 
+          other_count = 0
+          (ip_data.count-1).downto(item_max).each {|x|
+            other_count += ip_data[x]["count"].to_i
+            ip_data.delete_at(x)
+          }
+          ip_data[item_max] = {} 
+          ip_data[item_max]["ip"] = "Other IP"
+          ip_data[item_max]["count"] = other_count
+        end
+        if ip_data.count == 0 
+          ip_data[0] = {} 
+          ip_data[0]["ip"] = "Other IP"
+          ip_data[0]["count"] = 0 
+        end
+        
+        chart_count = ""
+        chart_title = ""
+        ip_data.each do |item|
+          chart_count += "," if chart_count != ""
+          chart_count += "#{item["count"]}"
+        
+          chart_title += "|" if chart_title != ""
+          chart_title += "#{item["ip"]}(#{item["count"]})"
+        end
+        chart_url = "https://chart.googleapis.com/chart?cht=p3&chd=t:#{chart_count}&chs=400x100&chl=#{chart_title}"
+        %>
+        <img src="<%=chart_url%>"/>
       <% end -%>
     </td>
     <td><%= Project.vcs_to_s(project.vcs) %></td>
-    <td>
+    <td nowrap>
+      <!-- VCS Information -->
       <% if @vcs_check == 'true' -%>
         <%
           #abc = system 'cvs -d :ext:cvs@192.168.0.40:/cvs rlog nctupr | grep -m1 date > /tmp/nsc_svn.log'
@@ -121,10 +162,11 @@ end
           log = ""
           File.open("/tmp/nsc_svn.log").each{|line| log += "#{line}<br/>"}
         -%>
-        <%=log -%>
+        <%= log.html_safe -%>
       <% end -%>
     </td>
     <td nowrap>
+      <!-- Last releases --> 
       <%
         r = Release.where("project_id='#{project.id}'").order("version desc")[0]
       %>
@@ -139,6 +181,7 @@ end
       <% end %>
     </td>
     <td nowrap>
+      <!-- NSC Document -->
       <% if @nscdoc_year != "" -%>
         <%
           fs = Dir.glob("#{project.name}_#{params['nscdoc_year']}_*")
@@ -151,43 +194,4 @@ end
   </tr>
 <% end -%>
 </table>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<% nsc_list.each do |pname| -%>
-  <%= pname %>
-  <br/>
-  <%
-  p = Project.find_by_name(pname)
-  sql = "select * from (select ip, count(ip) count from archived_counter_logs where project_id = #{p.id} group by ip) IC order by count desc"
-  ip_data = ActiveRecord::Base.connection.select_all(sql)
-  item_max = 5 
-  if ip_data.count > item_max 
-    other_count = 0
-    (ip_data.count-1).downto(item_max).each {|x|
-      other_count += ip_data[x]["count"].to_i
-      ip_data.delete_at(x)
-    }
-    ip_data[item_max] = {} 
-    ip_data[item_max]["ip"] = "Other IP"
-    ip_data[item_max]["count"] = other_count
-  end
-  if ip_data.count == 0 
-    ip_data[0] = {} 
-    ip_data[0]["ip"] = "Other IP"
-    ip_data[0]["count"] = 0 
-  end
-  
-  chart_count = ""
-  chart_title = ""
-  ip_data.each do |item|
-    chart_count += "," if chart_count != ""
-    chart_count += "#{item["count"]}"
-  
-    chart_title += "|" if chart_title != ""
-    chart_title += "#{item["ip"]}(#{item["count"]})"
-  end
-  chart_url = "https://chart.googleapis.com/chart?cht=p3&chd=t:#{chart_count}&chs=400x100&chl=#{chart_title}"
-  %>
-  <img src="<%=chart_url%>"/>
-  <br/>
-<% end -%>
 </div>
