@@ -49,6 +49,7 @@ OpenFoundry::Application.routes.draw do |map|
         get :tag_status
         get :member_edit
         get :nsc_download
+        post :nsc_download
         post :switch_user_search
         get '/switch_user/:id' => :switch_user, :as => :switch_user
         post :member_change
