@@ -1,10 +1,7 @@
-<div class="memo">
-
-welcom to OpenFoundry!!!
-<br/>
-<%= link_to _('Home'), :action => :home %>
-<br/>
-<%= link_to _('Logout'), :action => :logout %>
-
-
-</div>
+<h2 class="title"> 從這裡開始</h2>
+歡迎使用OpenFoundry, OpenFoundry不只是一個讓軟體開發者與使用者們可以共同參與的專案管理平台，也具備了交誼、新聞、活動以及各類資源的服務。為了讓您更充分地使用本平台，建議您依循以下步驟，完成您的個人資訊及建立您的個人專案。
+<br><br>
+<span style ="float:left;margin:0px 20px 10px 5px;">  <%=link_to image_tag('update_profile.png') %> </span>
+<h4><a href="/user/userdetails">編輯您的個人簡歷</a></h4> <br>
+<span style ="float:left;margin:0px 20px 10px 5px;"><%=link_to image_tag('createpj.png') %> </span>
+<h4><a href="/of/projects/new">建立您的專案</a></h4><br><br>
