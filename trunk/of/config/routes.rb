@@ -68,7 +68,7 @@ OpenFoundry::Application.routes.draw do |map|
         end
         match :csv, :on => :collection
       end
-      resources :user
+      resources :user 
       resources :news
       resources :tags do
         collection do
@@ -224,6 +224,7 @@ OpenFoundry::Application.routes.draw do |map|
       get :logout
       post :search
       get :ajax_update_project_list
+      get :welcome
     end
 
     get '/user' => 'user#index'
