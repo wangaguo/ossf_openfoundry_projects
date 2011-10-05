@@ -275,8 +275,8 @@ class OpenfoundryController < ApplicationController
 
     #process the keywords like "key words" output to "*key* *words*"
     query = (@query+" ").gsub(/([a-z0-9])+[\s]+/i){|m|
-      $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" #{q} "}; $0;}
-
+      $0 = ""; m.scan(/[a-z]+|\d+/i).each{|q| q.match(/^[a-z]+$/i)? $0+=" *#{q}* " : $0+=" *#{q}* "}; $0;}
+    
     #add conditions for sphinx by seaching tags
     @query_conditions={}
     if @keyword.include?("tag:")
