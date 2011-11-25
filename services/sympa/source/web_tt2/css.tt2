@@ -555,7 +555,7 @@ h7 strong {
 ul.listenum {list-style: none; margin: 0 0 0 1em}
 ul.listenum li {padding : 4px;} 
 ul.listenum span { 
-display: block;
+#display: block;
 margin-top: 2px;
 }
 
