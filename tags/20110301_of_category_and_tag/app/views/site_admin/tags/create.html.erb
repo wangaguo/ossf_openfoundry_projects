@@ -1,0 +1,10 @@
+<%form_tag(:action => :create) do%>
+  <h3>add a tag</h3>
+  tag name:
+  <%= text_field_tag :tag_new_name %>
+  tag status:
+  <%= text_field_tag :tag_status %>
+  tag type:
+  <%= text_field_tag :tag_type %>
+  <%= submit_tag :submit %>
+<%end%>

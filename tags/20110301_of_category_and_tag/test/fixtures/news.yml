@@ -1,0 +1,110 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<%now=Time.now.strftime '%Y-%m-%d %H:%M:%S'%>
+of1:
+  id: 1
+  subject: 2007 國際企業運算研討會 (ICESA 2007)
+  description: ◎ 活動時間：2007/12/12-13<br/> ◎ 活動地點：中央研究院 學術活動中心 二樓<br/> ◎ 報名網址：http://icesa.openfoundry.org/<br/> <p> 中研院資訊所自由軟體鑄造場擬於 12/12、12/13 在院內學術活動中心舉辦 2007 國際企業運算研討會 (2007 International Conference on Enterprise Systems and Applications；ICESA 2007)。兩天的研討會中，包含企業運算原理與實務的論文發表及海報展示，此外，主辦單位特別邀請了國立清華大學榮譽講座教授劉炯朗院士及資策會黃彥男副執行長擔綱主題演講者，分別從學術及產業的角度，親身闡述企業應用軟體的未來趨勢。另外自由軟體鑄造場亦安排國際大廠 IBM 及國內 JAVA 工具軟體領導廠商普奇科技分別進行兩場寶貴的技術教學交流。在面對面的座談會上，延攬了來自韓國、香港、新加坡等地的專家，跟與會來賓針對在地的經驗與亞洲區域軟體發展的機會與挑戰進行討論。 </p> <p> 歡迎各界先進一同來共襄盛舉，機會難得，席次有限，11/30 前完成報名繳費者，還享有優惠價格喔！</p>
+  tags: ""
+  catid: 0
+  created_at: <%=now%>
+  updated_at: <%=now%>
+
+of2:
+  id: 2
+  subject: OpenFoundry 暨自由軟體智財權說明會!!
+  description: OpenFoundry 暨自由軟體智財權說明會!!
+  tags: ""
+  catid: 0
+  created_at: <%=now%>
+  updated_at: <%=now%>
+  
+of3:
+  id: 3
+  subject: 自由軟體鑄造場更新使用條款
+  description: 自由軟體鑄造場更新使用條款
+  tags: ""
+  catid: 0
+  created_at: <%=now%>
+  updated_at: <%=now%>
+    
+of4:
+  id: 4
+  subject: 自由軟體種子講師培訓計畫
+  description: 自由軟體種子講師培訓計畫
+  tags: ""
+  catid: 0
+  created_at: <%=now%>
+  updated_at: <%=now%>
+    
+prj1_1:
+  id: 5
+  subject: "新酷音輸入法詞庫 libchewing-data - New release: 283"
+  description: "新酷音輸入法詞庫 libchewing-data - New release: 283"
+  tags: ""
+  catid: 1001
+  created_at: <%=now%>
+  updated_at: <%=now%>
+  
+prj1_2:
+  id: 6
+  subject: "Lazybuntu - New release: 0.1.3"
+  description: "Lazybuntu - New release: 0.1.3"
+  tags: ""
+  catid: 1001
+  created_at: <%=now%>
+  updated_at: <%=now%>
+    
+prj1_3:
+  id: 7
+  subject: "Pixmicat! : 圖咪貓貼圖版程式 - New release: 4th.Release.2"
+  description: "Pixmicat! : 圖咪貓貼圖版程式 - New release: 4th.Release.2"
+  tags: ""
+  catid: 1001
+  created_at: <%=now%>
+  updated_at: <%=now%>
+    
+prj1_4:
+  id: 8
+  subject: "PHP黑店-Hank 中文翻譯計畫之論壇程式 - New release: 2mercuryboard1.1.6"
+  description: "PHP黑店-Hank 中文翻譯計畫之論壇程式 - New release: 2mercuryboard1.1.6"
+  tags: ""
+  catid: 1001
+  created_at: <%=now%>
+  updated_at: <%=now%>
+  
+prj1_5:
+  id: 9
+  subject: "PHP黑店-Hank 中文翻譯計畫之CMS-Blog - New release: 2F2blog1.2"
+  description: "PHP黑店-Hank 中文翻譯計畫之CMS-Blog - New release: 2F2blog1.2"
+  tags: ""
+  catid: 1001
+  created_at: <%=now%>
+  updated_at: <%=now%>
+    
+prj1_6:
+  id: 10
+  subject: "Hinedo - 輕鬆聽 Hinet Radio - New release: 2007.11.18"
+  description: "Hinedo - 輕鬆聽 Hinet Radio - New release: 2007.11.18"
+  tags: ""
+  catid: 1001
+  created_at: <%=now%>
+  updated_at: <%=now%>
+  
+backup:
+  id: 11
+  subject: "PHP黑店-Hank 中文翻譯計畫之P2P-FTP-Browser - New release: 5winhttrack3.4.2"
+  description: "PHP黑店-Hank 中文翻譯計畫之P2P-FTP-Browser - New release: 5winhttrack3.4.2"
+  tags: ""
+  catid: 1002
+  created_at: <%=now%>
+  updated_at: <%=now%>
+  
+backup:
+  id: 12
+  subject: 123
+  description: ABC
+  tags: ""
+  catid: 1002
+  created_at: <%=now%>
+  updated_at: <%=now%>
+  

@@ -1,0 +1,19 @@
+<!--search hit-->
+<td>
+  <%unless record.release%>
+    <%= h(record.path)%>
+  <%else%>
+    <%= link_to h(record.path), download1_path(:project_id => record.release.project_id) + "##{record.release.version}" %>
+  <%end%>
+</td>
+<td>
+  <%= h(record.description)%>
+</td>
+<td>
+  <%unless record.release%>
+    Release not found!
+  <%else%>
+    <%= link_to h(record.release.project.summary), project_path(:id => record.release.project_id) %>
+  <%end%>
+</td>
+<!--search hit end-->

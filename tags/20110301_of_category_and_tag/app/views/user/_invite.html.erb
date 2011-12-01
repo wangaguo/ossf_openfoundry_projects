@@ -1,0 +1,11 @@
+<fieldset>
+  <legend><%= _('User Invitation')%></legend>
+  <table class='form-table'>
+    <%= f.label :t_contact, _('User|Contact'), :help => _('User|Contact|Help')%>
+    <%= f.check_box 't_contact'%>
+    <%= f.label :t_whoswho, _('User|Who\'sWho'), :help => _('User|Who\'sWho|Help')%>
+    <%= f.check_box 't_whoswho'%>
+    <%= f.label :t_newsletter, _('User|NewsLetter'), :help => _('User|NewsLetter|Help')%>
+    <%= f.check_box 't_newsletter'%>
+  </table>
+</fieldset>

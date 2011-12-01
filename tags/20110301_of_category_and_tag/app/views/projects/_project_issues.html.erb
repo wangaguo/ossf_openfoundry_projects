@@ -1,0 +1,16 @@
+<% if rss and not rss.items.blank? %>
+  <table>
+    <% rss.items.each do | item | %>
+      <tr><td><a href="http://<%=SSO_HOST %>/of/projects/<%=item.dc_description %>/rt/<%=item.link %>"><%= h item.title %></a></td></tr>
+
+      <tr>
+        <td>
+          Created&nbsp;<%=tz_date( item.dc_date ) %>&nbsp;&nbsp;
+          by&nbsp;<%=h item.dc_creator %>&nbsp;&nbsp;
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  Sorry, there is no data for your request.
+<% end %>

@@ -1,0 +1,29 @@
+<% module_title = capture do -%>
+  <%=link_to( image_tag('atom.png', 
+         {:alt => 'atom', :width => '20px', :style => 'padding:8px;float:right'}),
+         {:controller => :releases, :action => :top_download_feed, :format => :xml} ) %>
+  <%=_('Top Download')%>
+<% end -%>
+
+<% module_content = capture do -%>
+<ul>
+  <%for download in downloadList %>
+    <li>
+      <%= link_to( 
+	h(download.project.summary), 
+	download1_path(:project_id => download.project_id) 
+	) %>
+      (<%= download.release_counter %>)
+    </li>
+  <%end %>
+</ul>
+<%= link_to( _("More..."), {:controller => 'releases', :action => 'top'}, :class => "more" ) %>
+<%=auto_discovery_link_tag(:rss, 
+   {:format => :rss, :controller => :releases, :action => "top_download_feed"},
+   { :title => s_( "Feed|#{ _('Top Download') } RSS Feed" ) } ) %>
+<%=auto_discovery_link_tag(:atom, 
+   {:format => :xml, :controller => :releases, :action => "top_download_feed"},
+   { :title => s_( "Feed|#{ _('Top Download') } ATOM Feed" ) } ) %>
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
