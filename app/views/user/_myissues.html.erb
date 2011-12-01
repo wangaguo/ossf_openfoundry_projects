@@ -1,0 +1,70 @@
+<%
+    rss_sort = {}
+    rss_sort_count = 0
+    if rss and not rss.items.blank?
+      rss.items.each do | item |
+        rss_sort[item.description.to_s + 'Q' + rss_sort_count.to_s]={
+        :dc_description=>item.dc_description,
+        :link=>item.link,
+        :title=>item.title,
+        :dc_date=>item.dc_date,
+        :dc_creator=>item.dc_creator,
+        :dc_description=>item.dc_description,
+        :description=>item.description}
+        rss_sort_count =rss_sort_count + 1
+      end
+    end
+%>
+<% content_for :ujs do %>
+  jQuery(function($){
+     $(".ticket_button").click(function(){
+       $("#ticket_list .ticket:gt(4)").toggle();
+       $("p a.ticket_button").toggle();
+     });
+     $("#less_ticket").hide();
+     $("#ticket_list .ticket:gt(4)").hide();
+  });  
+<% end %>
+
+<% module_title = capture do -%>
+  <%=_( 'menu_My Tickets' ) %>
+  <span class="sub_title">(<%=rss_sort_count%>)</span>
+  <a id="my_tickets_help" href="/help/2338-issue-tracker#severity"></a>
+<div class="module-function">
+  <form action="dashboard">
+     <span class="sub_title"><%=_("Filter")%> :</span>
+    <%=select_tag( 'lookfor', options_for_select( allrtoptions, "#{ params[ 'lookfor' ] }" ), :onchange => "this.form.submit();" ) %>
+    <input type='hidden' id='username' name='username' value='<%=uname %>'>
+  </form>
+</div>
+<%end%>
+
+<a id="mytickets"></a>
+<% module_content = capture do -%>
+  <% if rss_sort and not rss_sort.blank? %>
+    <div id="ticket_list">
+      <% rss_sort.sort.each {| key, item | %>
+        <div class="ticket">
+          <span class="severity <%=h item[:description] %>">
+            <% if not item[:description].blank? %>
+              <%= h item[:description] %>
+            <%else%>
+              P6
+            <%end%>
+          </span><a href="<%="#{request.protocol}#{OPENFOUNDRY_HOST}#{root_path}"%>/projects/<%=item[:dc_description] %>/rt/<%=item[:link] %>"><%=h item[:title] %></a><br/>
+          Created&nbsp;<%=tz_date( item[:dc_date] ) %>&nbsp;&nbsp;
+          by&nbsp;<%=h item[:dc_creator] %>&nbsp;&nbsp;
+          Project:&nbsp;<span class="pa"><%=link_to item[:dc_description], "#{ root_path }/projects/#{ item[:dc_description] }/rt" %></span>
+        </div>
+      <% } %>
+    </div>
+    <p>
+    <%=link_to _('More...'), "#", :class => "more ticket_button" %>
+    <%=link_to _('Less...'), "#", :class => "more ticket_button",:id=>"less_ticket" %>
+    </p>
+  <% else %>
+    Sorry, there is no data for your request.
+  <% end %>
+<% end %>
+
+<%=render :file => 'layouts/rt_module', :locals => { :module_title => module_title, :module_content => module_content, :variation => 'square1' } %>
