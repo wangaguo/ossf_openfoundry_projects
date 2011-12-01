@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+begin
+  gem_path =  'vendor/gems/acts_as_ferret-0.4.3'
+  gem_lib = "#{gem_path}/lib"
+  require "#{gem_lib}/server_manager.rb"
+end

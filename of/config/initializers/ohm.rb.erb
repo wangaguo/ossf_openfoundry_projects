@@ -1,5 +1,0 @@
-case Rails.env
-when 'development' then Ohm.connect :host => '<%=redis_server%>', :db => 3
-when 'test'        then Ohm.connect :host => '<%=redis_server%>', :db => 2
-when 'production'  then Ohm.connect :host => '<%=redis_server%>', :db => 1
-end

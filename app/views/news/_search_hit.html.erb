@@ -1,0 +1,22 @@
+<!--search hit-->
+<td>
+  <% if record.catid == 0 %>
+  <%= link_to h(record.subject), site_news1_path(:id => record.id) %>
+  <% else %>
+    <%= link_to h(record.subject), news1_path(:id => record.id, :project_id => record.catid) %>
+  <% end %>
+</td>
+<td>
+  <%
+    #text = record.highlight(@query, {:field => 'description_without_tag'})
+    #text = record.highlight(@query, {:field => 'description'})
+    text = record.description_without_tag # record.highlight(@query, {:field => 'description_without_tag'})
+    #if text.empty?; text = record.description_without_tag.mb_chars[0..150] + "..."; end 
+  %>
+
+  <%= text %> 
+</td>
+<td>
+  <%=tz_date(record.updated_at)%>
+</td>
+<!--search hit end-->

@@ -1,0 +1,11 @@
+<% module_content = capture do -%>
+<div id="qr">
+  <center>
+    <%= qrcode("http://www.openfoundry.org/of/projects/#{@project.id}", 2, 6) %>
+    <%= h(@project.name) %>
+  </center>
+</div>
+<!--<a href="#" onclick="Effect.toggle('qr', 'slide'); return false" style="padding:8px;float:right">Slide</a>-->
+<% end -%>
+
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => ''}  %>
