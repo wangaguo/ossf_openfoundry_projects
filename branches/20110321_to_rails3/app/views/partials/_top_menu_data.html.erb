@@ -1,0 +1,85 @@
+<script>
+var menudata=
+  [
+    {id: '<%=_('menu_OpenFoundry')%>', url:'<%=url_for('/of/')%>',
+      submenu:[
+      {id:'<%=_('menu_Home')%>', url:'/of/'},
+      {id:'<%=_('OpenFoundry News')%>', url:'/of/news'},
+      {id:'<%=_('About OpenFoundry Project')%>', url:'/of/projects/1'},
+      {id:'<%=_('menu_About OSSF')%>', url:wo("<%=_('menu_About_OSSF_link')%>")},
+      {id:'<%=_('menu_Newsletter')%>', url:wo('http://www.openfoundry.org/Newsletter.html')}
+      ]
+    },
+    {id:'<%=_('menu_Projects')%>', url:'/of/projects',
+      submenu:[
+        {id:'<%=_('menu_Project Listing')%>', url:'/of/projects'},
+        {id:'<%=_('menu_Project Category')%>', url:'/of/category'},
+        {id:'<%=_('menu_Project News')%>', url:'/of/projects/news'},
+        {id:'<%=_('menu_Latest Releases')%>', url:'/of/releases/latest'},
+        {id:'<%=_('menu_Top Downloads')%>', url:'/of/releases/top'},
+        {id:'<%=_('menu_Help Wanted')%>', url:'/of/projects/jobs'},
+        {id:'<%=_('menu_WebHosting')%>', url:wo('http://webhosting.openfoundry.org/')},
+        {id:'<img src="/images/icon/star.gif"/><%=_('Create Project')%>', url:'/of/projects/new'}
+      ]
+    },
+<% if current_user.login != 'guest' %>
+    {id:'<%=_('menu_My Account')%>', url:'/of/user/home',
+      submenu:[
+        {id:'<%=_('menu_Personal Homepage')%>', url:'/of/user/home'},
+        {id:'<%=_('menu_Preferences')%>', url:'/of/user/edit'},
+        {id:'<%=_('menu_My Projects')%>', url:'/of/user/my_projects'},
+        {id:'<%=_('menu_My Tickets')%>', url:'',
+          submenu:[
+            {id:'<%=_('Owner')%>', url:'/of/rt/owner'},
+            {id:'<%=_('Creator')%>', url:'/of/rt/creator'},
+            {id:'<%=_('Requestor')%>', url:'/of/rt/requestor'},
+            {id:'<%=_('LastUpdatedBy')%>', url:'/of/rt/lastupdatedby'}
+          ]
+        },
+        {id:'<img src="/images/icon/star.gif"/><%=_('Create Project')%>', url:'/of/projects/new'}
+      ]
+    },
+<% end %>
+    {id:'<%=_('menu_License Wizard')%>', url:wo("<%=_('menu_LW_manual_link')%>"),
+      submenu:[
+        {id:'<%=_('License Wizard')%> v2.2', url:wo("<%=_('menu_LW_22_link')%>")},
+        {id:'<%=_('License Wizard')%> v3.2', url:wo("<%=_('menu_LW_32_link')%>")},
+        {id:'<%=_('menu_Manual')%>', url:wo("<%=_('menu_LW_manual_link')%>")}
+      ]  
+    },
+//    {id:'<%=_('menu_Help')%>', url:'http://rt.openfoundry.org/Foundry/Help/',
+//      submenu:[
+//        {id:'<%=_('menu_About this Manual')%>', url:'http://rt.openfoundry.org/Foundry/Help/'},
+//        {id:'<%=_('menu_OpenFoundry Overview')%>', url:'http://rt.openfoundry.org/Foundry/Help/1-02.html'},
+//        {id:'<%=_('menu_End User Guide')%>', url:'http://rt.openfoundry.org/Foundry/Help/2-01.html'},
+//        {id:'<%=_('menu_Project Manager Guide')%>', url:'http://rt.openfoundry.org/Foundry/Help/3-01.html'},
+//        {id:'<%=_('menu_OpenFoundry Features')%>', url:'http://rt.openfoundry.org/Foundry/Help/vcs/OpenFoundry%20_.html'},
+//        {id:'<%=_('Download PDF')%>', url:'http://rt.openfoundry.org/Foundry/Help/ossf.pdf'}
+//      ]  
+//    },
+    {id:'<%=_('Forum')%>', url:'/forum.html?func=showcat&amp;catid=48'
+    },
+    {id:'<%=_('menu_Contact Us')%>', url:'mailto:contact@openfoundry.org',
+      submenu:[
+        {id:'<%=_('menu_Contact Us')%>', url:'mailto:contact@openfoundry.org'},
+        {id:'<%=_('Bug Report')%>', url:'/of/projects/1/rt'}
+      ]
+    },
+    {id:'<%=_('Help')%>', url:'/of/help',
+      submenu:[
+        {id:'<%=_('OpenFoundry')%>', url:'/of/help'},
+        {id:'<%=_('NSC Project')%>', url:'/of/help/nsc_project'},
+        {id:'<%=_('Version Control')%>', url:'/of/help/vcs'}
+      ]
+    }
+   <% if current_user.has_role? 'site_admin' %>
+    ,{id:'<%=_('menu_Site Admin')%>', url:'/of/site_admin',
+      submenu:[
+        {id:'<%= _('Project List')%>', url:'/of/site_admin/project'},
+//        {id:'<%= _('Translations')%>', url:''},
+//        {id:'<%= _('Module Menagements')%>', url:''}
+      ]
+    }
+   <% end %> 
+  ];
+</script>

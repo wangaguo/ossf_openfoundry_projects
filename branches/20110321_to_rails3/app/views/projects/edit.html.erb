@@ -1,0 +1,7 @@
+<div id="ProjectEdit">
+<% form_tag url_for(:action => 'update', :id => @project), :method => 'put' do %>
+  <%= render :partial => 'form', :locals => { :is_edit => true } %>
+  <%=hidden_field_tag '__clibeanna' %>
+  <%= submit_tag _('Save') %>
+<% end %>
+</div>
