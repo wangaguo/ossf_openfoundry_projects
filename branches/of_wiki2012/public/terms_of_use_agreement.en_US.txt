@@ -1,0 +1,245 @@
+                           Open Foundry Term of Use
+
+The purpose of Open Foundry website (Hereinafter "Website") is to advance the
+development and innovation of free software. All free software or its content
+must be licensed under Open Source Initiative or be recognized by Open Foundry.
+(Hereinafter "Purpose of Open Foundry")
+
+Open Foundry provided users with abundant sources to facilitate the development
+and innovation of free software. The sources Open Foundry provides include
+various communication tools, source code control and project management tools,
+mailing lists, consolidated service, individualized content, etc. (Hereinafter
+"Service").
+
+Before you use the Website, please read through the Term of Use thoroughly.
+
+1. Acceptance
+
+If you want to use the Website, you shall be subject to the Term of Use. If you
+do not accept the Term of Use, please do NOT use the Website.
+
+If you accept the Term of Use and consent to all its content without making any
+verification, Open Foundry will provide you with all online information and
+Service. If you do not accept the Term of Use, you will not be granted the
+right to use Open Foundry and the Service, and shall not use Open Foundry and
+the Service.
+
+Open Foundry reserves the right to modify the Term of Use irregularly and
+unilaterally. Any modified clause of the Term of Use will become effective
+right after it is posted online. Continuing using Website after the modified
+clause(s) has/have been posted will constitute your consent to all
+modification.
+
+In addition, individual user may need particular clause(s) in accordance with
+specific service, the particular clause(s) will be posted online irregularly
+and will be incorporated into the Term of Use as part of it.
+
+If Open Foundry updates any particular clause, Open Foundry will post the
+modified version and its effective date on Open Foundry homepage. Open Foundry
+will also post the modified clause(s) on the specific web page where the
+service is often used, and will provide a link to the original clause(s) on the
+same web page.
+
+Open Foundry reserves the right to terminate its Service temporarily or
+permanently at any time. Unless clearly stated in the Term of Use, Open Foundry
+does not bear any liability to any modification, discontinuation or termination
+made by any third party or user.
+
+2. Illegal Use Is Not Allowed.
+
+Using Open Foundry constitutes your guarantee to Open Foundry: You will not
+make use of Open Foundry or any content of it illegally or against the Purpose
+of Open Foundry. If you violate any clause of the Term of Use, the
+authorization of using Open Foundry will automatically be terminated
+temporarily or permanently.
+
+3. User Must Be Responsible For the Connection of Internet
+
+If you want to use the Service, you must obtain the connection to the Internet
+directly or indirectly by your own. Besides, you must also pay the fees arising
+from use of the Internet, including but not limited to the service fees and
+equipment fees.
+
+4. Registration Obligation
+
+If requested by Open Foundry, you must: (a) provide your true, precise, latest
+and complete individual information (Hereinafter "Registered Information");(b)
+maintain and update Registered Information. If after investigation, Open
+Foundry has reasonable doubt that the Registered Information is fake,
+incorrect, not latest or incomplete, Open Foundry may temporarily or
+permanently terminate your registered account and forbid you to use the
+Service.
+
+You will receive a confirmation letter in your e-mail account after the
+registration process is completed. You have the obligation to keep your
+account, password unrevealed and bear the liability to every activity under
+this account. If you do not comply with this clause (clause 4) and cause
+losses, including but not limited to (a) you do not notify Open Foundry any
+unauthorized access to your account and password or any other conduct that
+constitutes security concern; (b) you do not finish the log-off process
+completely, Open Foundry will not be responsible for any loss.
+
+Open Foundry reserves the right to process all Registered Information according
+to Open Foundry Privacy Policy. You may obtain the Open Foundry Privacy Policy
+on Open Foundry homepage.
+
+5. Content
+
+You must personally take full responsibility arising from information,
+documents, words, software, music, sound, photos, figures, telecommunication,
+messages or other information (Hereinafter "Content") you publicly posted or
+privately transferred. The Content you posted on the Website, any of your
+conduct, or activities you participated relating to Open Foundry can not
+violate the laws or other regulations, including but not limited to, the laws
+regulate software encryption、technology export、pornography transferring, or
+licensing of intellectual property. Open Foundry may have the right in its
+discretion to decide whether the Content or conduct is illegal, and may take
+any related measures.
+
+Open Foundry will not verify the Website Content in advance, but it reserves
+the right to block or delete any content that violates the Term of Use or the
+laws. Open foundry may be at its discretion to save the Content; and if
+requested by the laws, orders of judicial department or the government, or to
+protect Open Foundry, users and the public's right, property or personal
+safety, Open Foundry may disclose related Content. Otherwise stated in the Term
+of Use, in no event shall Open Foundry be liable for any damage whatsoever. The
+Website Content is provided on an "AS IS" basis, without warranties of any
+kind, either express or implied, including but not limited to any warranty
+regarding the content or its accuracy.
+
+You are solely responsible for determining the appropriateness of using the
+Content posted on the Website and assume all risks associated with your
+exercise under the Term of Use.
+
+6. Licensing of the Code or Other Content Posted on the Website, and Other
+Regulations
+
+The use, reproduction, modification or any other activity related to the
+intellectual property right of the file saved under version control system or
+other files users released and posted on the Website (Hereinafter "Work"),
+should be subject to the license authorized by the Open Source Initiative, or
+Open Foundry.
+
+The ownership of the document or file you uploaded on Open Foundry public web
+page (e.g. suggestion box and mistake tracking system) (Hereinafter "Open
+Foundry Public Content") belongs to you. However, the ownership of the
+statistics Open Foundry arranges for records and public displays belongs to
+Open Foundry.
+
+You license for Open Foundry royalty-free, perpetual, irrevocable,
+non-exclusive right to use, reproduce, publish, produce compiled work, modify,
+rewrite, produce derivative work, translate, distribute, perform and display
+Open Foundry Public Content you conveyed. You also license for Open Foundry the
+right to integrate Open Foundry Public Content into other work by using any
+means, mediums or unknown, not yet invented technology.
+
+With regard to the Content you posted on Open Foundry non public space (e.g.
+non-public Open Foundry development tool or Open Foundry mail), you may decide
+which license you prefer to use and what kind of right you want to license for
+Open Foundry or other users.
+
+File(s) saved on any sub-website hosted by Open Foundry should be subject to
+the license Open Source Initiative (OSI), or Open Foundry authorized.
+
+7. No Sale of Open Foundry Service
+
+You agree that you will not sell, resell all or part of the Service, the right
+to use or access to the Service. You also agree that you will not put forward
+any proposal or price quote of the Service stated above for any commercial
+purpose.
+
+8. Use and Saving
+
+Open Foundry is not responsible for any failure in communicating or saving
+files. If a(n) account/project is inactive for a certain period of time, Open
+Foundry reserves the right to mark "inactive" on the account/project and file
+it in other places.
+
+9. Termination of the Right to Use
+
+Open Foundry may be at its discretion to terminate your account with or without
+causes, without prior notification at any time, if you: 1. violate the Term of
+Use; or 2. abuse the resources Open Foundry provides or are unauthorized to
+access the Website or other related resources; or 3. are against Purpose of
+Open Foundry to use the website; or 4. request to terminate your account; 5.
+violate laws, regulations, court rules or government orders; 6.cause damages to
+Open Foundry or other people because of misuse of the Website. Open Foundry is
+not responsible for any loss thus occurred.
+
+10. Linkage
+
+Open Foundry does not warrant that information with regard to the service of
+website linkage provided by Open Foundry or the third party is accurate, or is
+fit for your use. Open Foundry is not responsible for any loss thus occurred.
+
+11. Disclaimer, Warranty and Limitation of Liability
+
+You agree to indemnify, hold harmless and defend Open Foundry and its related
+personnel from and against any claim or lawsuit (e.g. claims arising from your
+use of the Website, posting or transferring files or violation of the Term of
+Use).
+
+You should take any loss or destruction arising out of downloading files from
+the Website. Your use of the Website does not constitute agency, partnership,
+joint venture, employment, agent or any other relationship between Open Foundry
+and you. The Term of Use does not extend to any third party.
+
+This clause (clause 11) is good for any loss or harm arising from any operation
+mistake, negligence, interruption, delete, flaw, late operation, virus, failure
+to link, larceny, destruction or any other unauthorized interact, change, no
+matter if it is due to breach of contract, tort action, negligence or any other
+conduct.
+
+12. Intellectual Property
+
+Open Foundry respects others' intellectual property, and hopes you also do so.
+
+If you reasonably doubt that copyright of your work is infringed, you may
+provide Open Foundry the following information:
+
+1) Signature or electronic signature of the copyright owner or licensor.
+
+2) Indicate the work you claimed is infringed.
+
+3) Indicate the file you claimed infringes your work's copyright and provide
+information to make Open Foundry be able to identify the location of the file.
+
+4) Your true name, address, phone number and e-mail address.
+
+5) A statement declared by you provides that you have reasonable doubt of
+claimed infringement of copyright.
+
+6) Under penalty of perjury, a statement shows that your claim is true and you
+are the copyright owner or authorized licensee.
+
+After receiving the above information, Open Foundry will process and
+investigate the claimed infringement and will take proper actions in accordance
+with other related intellectual property regulations. If infringement is found
+to have been taken place, Open Foundry will immediately delete the file or make
+it no longer accessible, and will also notify you and other users that the said
+file has been removed.
+
+If after investigation, the claimed act does not constitute copyright
+infringement under Intellectual Property Law of R.O.C., Open Foundry will
+provide you a notification, and put the removed or deleted file back to the
+Website.
+
+13. Miscellaneous
+
+The Term of Use constitutes mutual consent between you and Open Foundry, and
+replaces any prior agreement. If you want to use additional service, third
+parties' content or third parties' software on the Website, you must be subject
+to other term of use. The Term of Use should be governed by laws of the
+Republic of China. You agree to submit to the personal and exclusive
+jurisdiction of the Taipei District Court with respect to any legal proceedings
+that may arise in connection with the Service or from a dispute as to the
+interpretation or breach of the Term of Use. If any part of the Term of Use is
+considered void by the competent court, the rest should still remain effective.
+
+The headings to the sections in the Term of Use are for convenience purpose
+only and are not determinative.
+
+If you find that anyone violates the Term of Use, please contact Open Foundry
+at report@openfoundry.org.
+
+

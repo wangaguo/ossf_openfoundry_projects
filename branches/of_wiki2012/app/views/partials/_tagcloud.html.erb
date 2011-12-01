@@ -1,0 +1,6 @@
+  <h3 class="title"><%= _('All time most popular tags')%></h3><a name="alltags"></a>
+  <div id="tag_cloud">
+    <% Tagcloud.tags_assign_font_size( 0 ).each do | s | -%>
+      <%=link_to "#{ s[ :name ] }", openfoundry_search_path( :query => "tag:#{ s[ :name ] }", :commit => 'search' ), :style => "font-size: #{ s[ :font ] }px; color: #{ s[ :color ] }", :onmouseover => "this.style.color='#65960b'", :onmouseout => "this.style.color='#{ s[ :color ] }'" %>
+    <% end -%>
+  </div>
