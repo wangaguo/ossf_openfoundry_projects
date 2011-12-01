@@ -1,7 +1,0 @@
- Tolk::ApplicationController.authenticator = proc {
-      authenticate_or_request_with_http_basic do |user_name, password|
-      #User.find_by_sql("select user U, roles_users RU, roles R where R.name='translator' and R.id = RU.role_id and RU.user_id = U.id and U.login = '#{user_name}' and ")
-      user_name == '<%=tolk_user%>' && password == '<%=tolk_pass%>'
-   end
- } if defined? Tolk
-

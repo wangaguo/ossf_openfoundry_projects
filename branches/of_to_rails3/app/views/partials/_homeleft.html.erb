@@ -1,9 +1,0 @@
-<div id="HomeLeft">
-  <%= render :partial => 'openfoundry/staticities',
-             :locals => {:userCount => User.count(:conditions => User.verified_users),
-                  :projectCount => Project.count(:conditions => Project.in_used_projects())
-                  } %>
-  <%= render :partial => 'category/tagcloud_module' %>
-  <%= render :partial => "partials/home_menu" %>
-  <%= render :partial => "news/home_news", :locals =>{:newsList => News.home_news, :showDescr => false} %>
-</div>

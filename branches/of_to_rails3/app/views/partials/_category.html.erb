@@ -1,8 +1,0 @@
-<div class="category">
-	<% Category.find(:all, :conditions => ["parent = ?",0]).each { |category| -%>
-	<div id="category_<%= category.id %>">
-		<%= link_to_remote category.name, :url => { :controller => 'category', :action => 'open', :id => category.id}, :update => { :success => "category_#{category.id}" } -%>
-	</div>
-	<br/>
-	<%} -%>
-</div>
