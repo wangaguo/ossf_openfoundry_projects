@@ -1,0 +1,42 @@
+<h3><%= @role.name %></h3>
+<% if @role.name.upcase == "ADMIN" || @role.name.upcase =="MEMBER" %>
+<% form_remote_tag :update => 'roles_edit', :url => { :action => 'role_update', :id => @project } do %>
+  <%= hidden_field_tag 'role', @role.id %>
+  <%= text_field_tag 'name', @role.name, {:disabled => true, :size => 20 } %> 
+  <ul>
+  <% for function in @functions %>
+  <li>
+    <% if @role.name.upcase == "ADMIN" -%>
+    <%=  check_box_tag "functions[#{function.id}]", function.id, true, :disabled => true %>
+    <% else -%>
+    <%=  check_box_tag "functions[#{function.id}]", function.id, @role_functions.member?(function) %>
+    <% end -%>
+    <%= function.description%></li>
+  <% end %>
+  </ul>
+  
+  <%= submit_tag 'Update' %>
+  <input type=reset value="Reset">
+  <%= link_to_remote "Delete", :url => { :action => 'role_destroy', :id => @project, :role => @role }, :condition => "confirm('確定要刪除嗎?')" %>
+  <div id="role_message"/>
+  <br/>
+<% end %>
+<% else %>
+<% form_remote_tag :update => 'roles_edit', :url => { :action => 'role_update', :id => @project } do %>
+  <%= hidden_field_tag 'role', @role.id %>
+  <%= text_field_tag 'name', @role.name ,{:size => 20 } %> 
+  <ul>
+  <% for function in @functions %>
+  <li>
+    <%=check_box_tag "functions[#{function.id}]", function.id, @role_functions.member?(function) %>
+    <%=function.description%></li>
+  <% end %>
+  </ul>
+  
+  <%= submit_tag 'Update' %>
+  <input type=reset value="Reset">
+  <%= link_to_remote "Delete", :url => { :action => 'role_destroy', :id => @project, :role => @role }, :condition => "confirm('確定要刪除嗎?')" %>
+  <div id="role_message"/>
+  <br/>
+<% end %>
+<% end %>

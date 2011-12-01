@@ -1,0 +1,7 @@
+<%= error_messages_for("image") %>
+<%= form_tag({:action => 'create'}, :multipart => true) %>
+<br/>
+Upload your picture: <%= file_field("image", "image") %>
+<br/>
+<%= submit_tag("Upload file") %>
+<% end -%>
