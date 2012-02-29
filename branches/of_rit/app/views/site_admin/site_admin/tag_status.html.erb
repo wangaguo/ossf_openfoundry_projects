@@ -1,0 +1,4 @@
+<% module_content = capture do -%>
+  <%= render :partial => 'partials/tagcloud'%>
+<% end -%>
+<%= render :file => 'layouts/rt_module', :locals => {:module_content => module_content, :variation => 'square1'} %>

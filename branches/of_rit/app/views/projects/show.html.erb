@@ -1,0 +1,27 @@
+<%
+  functions = Function::functions(:authorizable_id => params["project_id"].to_i, :user_id => current_user.id)
+  is_nsc_project = @project.is_nsc_project
+%>
+<% module_title = capture do %>
+  <%= t("Basic Information") %>
+  <div style="float: right;">
+    <span class='pj_download'>
+      <%= link_to t('Download Now'), project_download_path(@project) %>
+    </span>
+    <span class='pj_bugreport'>
+      <%= link_to t('Bug Report'), report_project_rt_index_path(@project) %>
+    </span>
+  </div>
+<% end %>
+<% module_content = capture do %>
+  <%= render :partial => "basic" %>
+<% end %>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
+
+<% module_title = capture do %>
+  <%= _('Project Participants') %>
+<% end %>
+<% module_content = capture do %>
+  <%=render :partial => 'member' %>
+<% end %>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => 'square1'} %>
