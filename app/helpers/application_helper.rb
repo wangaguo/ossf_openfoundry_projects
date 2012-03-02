@@ -51,7 +51,13 @@ module ApplicationHelper
     levels.each_with_index do |level, index|
       unless level.blank?
         hierarchy += 1
-        if level =~ /[a-z]+/
+        if level_class == 'wiki' && level != 'wiki'
+          if index == levels.size-1 && ['list', 'files', 'help', 'edit', 'revisions', 'diff'].include?(level)
+            level_name = t(level.capitalize, :scope => 'wiki')
+          else
+            level_name = URI.unescape(level)
+          end
+        elsif level =~ /^[a-z]+$/
           case level  
           when 'releases'
             level_name, level_class, level_title = 
@@ -98,6 +104,9 @@ module ApplicationHelper
           when 'webhosting'
             level_name, level_class, level_title = 
               _('menu_WebHosting'), 'webhosting', nil
+          when 'wiki'
+            level_name, level_class, level_title = 
+              _('menu_wiki'), 'wiki', nil
           else
             if (["help"].include?(level_class)==true) 
               level_name = ''
@@ -122,7 +131,7 @@ module ApplicationHelper
               end
             end
           end
-        elsif level =~ /\d/# and level_class
+        elsif level =~ /^\d+$/# and level_class
           if(["rt","help","survey"].include?(level_class)==false)
             begin
               level_name_char = h(level_class.find(level).send(level_title).mb_chars)
@@ -136,11 +145,7 @@ module ApplicationHelper
           end
         end
         if index == levels.size-1 
-          if (level_name.length > 20 or level_class == User)# or (level_name.length > 20 and level_class == User) 
-            html << addcrumb(level_name, hierarchy) unless (level_name.nil?)
-          else
-            unless (@module_name.nil?) then html << addcrumb(@module_name, hierarchy) else html << addcrumb(level_name, hierarchy) end
-          end
+          html << addcrumb(level_name, hierarchy) unless (level_name.nil?)
         else
           link = "/"+levels[1..index].join('/')
           html << addcrumb(level_name, hierarchy, link)

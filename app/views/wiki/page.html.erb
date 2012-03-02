@@ -1,0 +1,28 @@
+<h2>
+  <%= @wiki_page.name %> 
+  <% if params[:r] -%> 
+    - revision <%= params[:r] %>
+  <% end -%>
+</h2>
+
+<%= render :partial => "functions" %>
+<hr/>
+<em><%= @wiki_page.summary %></em>
+<% if params[:r] and @revision.nil? -%>
+  <%= t('This revision is not exists', :scope => [:wiki, :message]) %>
+<% else -%>
+  <% if @wiki_html -%>
+     <%= @wiki_html.html_safe %>
+     <% if @wiki_page.revised_by %>
+       <%= "#{t('Updated', :scope => :wiki)} #{@wiki_page.revised_at} by #{@wiki_page.revised_by}" %>
+     <% end %>
+  <% end -%>
+  <% if @revision -%>
+    <br/>
+ <textarea cols="80" rows="10">
+ <%= @revision.content %>
+ </textarea>
+  <% end -%>
+<% end %>
+<hr/>
+<%= render :partial => "functions" %>

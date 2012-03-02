@@ -165,6 +165,27 @@ OpenFoundry::Application.routes.draw do |map|
         end
       end
       resources :nscreports, :path => '/nsc/nscreports'
+      resources :wiki, :constraints => { :id => /[^\/]+/ } do
+        member do
+          get 'add'
+          get 'page'
+          get 'edit'
+          post 'edit'
+          get 'revisions'
+          get 'diff'
+          match 'revisions/:rid' => 'wiki#revision_page'
+          post 'preview'
+        end
+        collection do
+          get 'index'
+          get 'list'
+          post 'list'
+          get 'help'
+          post 'web_upload'
+          get 'files'
+          post 'delete_files'
+        end
+      end
 
       get '/download' => 'releases#download'
     end

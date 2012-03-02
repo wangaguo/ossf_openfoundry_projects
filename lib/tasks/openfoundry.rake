@@ -75,9 +75,24 @@ namespace 'openfoundry' do
       replace_template('config/initializers/sso.rb')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
+
+    desc 'Wiki Configure'
+    task 'wiki' do
+      puts "\x1b[38;5;9m---start wiki configure---\x1b[0m"
+      replace_template('config/initializers/wiki.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
+
+    desc 'Recaptcha Configure'
+    task 'recaptcha' do
+      puts "\x1b[38;5;9m---start recaptcha configure---\x1b[0m"
+      replace_template('config/initializers/recaptcha.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
   end
   task :config => ['config:db', 'config:memcache', 'config:sso', 'config:ohm',
-            'config:stomp', 'config:sphinx', 'config:module', 'config:application']
+            'config:stomp', 'config:sphinx', 'config:module', 'config:application',
+            'config:wiki', 'config:recaptcha']
 end
 
 def replace_template(fname, opt ={} )
