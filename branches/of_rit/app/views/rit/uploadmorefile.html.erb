@@ -1,0 +1,83 @@
+<h2><%=_('rit_title_uploadmore')%></h2>
+<table border="1" width="100%" class="list-table">
+  <tr>
+    <td><%=_('rit_form_subject')%></td>
+    <td><%=@rit.title%></td>
+  </tr>  
+  <tr>
+    <td><%=_('rit_table_requester')%></td>
+    <td>
+       <b>
+         <%=@uName.login %>
+       </b>
+       <%if @uName.login=="guest"%>
+         [<%=@rit.guestmail.gsub(/@([a-z0-9-]+)/, '@*****')%>]
+       <%end%>
+    </td>
+  </tr>
+  <tr>
+    <td><%=_('rit_table_assignto')%></td>
+    <td>
+       <b>
+       <%if @assUsers.empty? %>
+          <%=content_tag :font ,'NoBody' ,:color => '#AAAAAA' %>
+       <% else %>
+          <% for asname in @assUsers%>
+            <%=content_tag :font ,asname.login ,:color => 'blue' %>,
+          <% end %>
+        <%end%>
+       </b>
+    </td>
+</tr>
+<tr>
+  <td><%=_('rit_form_content')%></td>
+  <td>
+    <p>
+    <%=h(@rit.content).gsub(/\n/, '<br />')%>
+    </p>
+  </td>
+  </tr>
+  <tr>
+    <td><%=_('rit_table_date')%></td>
+  <td>
+    <%=@rit.created_at %>(<%=time_ago_in_words(@rit.created_at)%><%=_('rit_table_comment_before')%>)
+  </td>
+</tr>
+<tr>
+  <td><%=_('rit_table_atta')%></td>
+  <td>
+    <%for attach in @attach  %>
+        <%=link_to attach.OrigName ,"/of/rit_attachs/"+ attach.filename, :target => '_blank'  %>
+      (<%
+          p ='public/of/rit_attachs/'+attach.filename 
+          fsize = File.size(p)
+        %><%=number_to_human_size(fsize)%>)
+        <br />  
+    <%end%>
+    </td>
+</tr>
+</table>
+
+
+<% form_for :uploadmorefile, :url => uploadingmore_project_rit_index_path, :html=>{:multipart => true}  do |f| %>
+  <table border="1" class="list-table">
+    <tr>
+      <td><%=_('rit_form_fileattach')%> : </td>
+      <td>
+        <%=file_field_tag 'ritfile[filename]' %><br />
+        <%=file_field_tag 'ritfile[filenameB]'%><br />
+        <%=file_field_tag 'ritfile[filenameC]'%><br />
+        <%=file_field_tag 'ritfile[filenameD]'%><br />
+        <%=file_field_tag 'ritfile[filenameE]'%><br />
+        <%=_('rit_form_file_send_limitnote')%>
+      </td>
+    </tr>
+  </table>
+   <% if current_user.login == 'guest' %>
+    <%= recaptcha_tags %>
+  <% end %>
+  <%=f.hidden_field :ritFk ,:value =>params[:id] %>
+  <%=f.hidden_field :fromRit , :value =>"1" %>
+  <%=f.hidden_field :fromReply,:value =>"0" %>
+  <p align="center"><%=submit_tag _('submit') %></p> 
+<% end %>

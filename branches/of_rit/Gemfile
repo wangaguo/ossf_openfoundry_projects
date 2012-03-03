@@ -23,6 +23,7 @@ gem 'ohm-contrib', '0.1.1'
 gem 'meta_where', '1.0.4'
 gem 'activerecord-import', '0.2.7'
 
+gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'json', '1.5.1'
 gem 'curb', '0.7.10'
 gem 'SystemTimer', '1.2.2' # make sure the Redis client will not hang.
@@ -32,6 +33,7 @@ gem 'exception_notification_rails3', :require => 'exception_notifier'
 group :development, :test do
   gem 'query_reviewer', :git => 'git://github.com/nesquena/query_reviewer.git'
   gem 'rails-footnotes'
+  gem 'thin'
 end
 
 group :production do

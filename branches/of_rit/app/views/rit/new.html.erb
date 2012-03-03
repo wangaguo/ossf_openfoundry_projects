@@ -1,0 +1,63 @@
+<h2><%=_('rit_link_post_new')%></h2>
+<p align="Left"><%=link_to _('rit_link_view_all'),project_rit_index_path()%><%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%></p>
+<% form_for @rit, :url => project_rit_index_path, :html=>{:multipart => true}  do |f| %>
+<table border="1" width="100%" class="list-table">
+  <tr>
+    <td><%=_('rit_form_subject')%> : </td>
+    <td><%=f.text_field :title ,:value => cookies[:title] %></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_requester')%> : </td>
+    <td>
+        <%=@uName.login%>
+        <%=f.hidden_field :user_id , :value =>@userID %>
+    </td>
+    <%if current_user.login=="guest"%>
+      <tr>
+        <td><%=_('rit_form_email')%> : </td>
+        <td><%=f.text_field :guestmail, :value => cookies[:guestmail] %></td>
+      </tr>
+    <%else%>
+      <%=f.hidden_field :guestmail, :value => 'rit@openfoundry.org'  %>
+    <%end%>
+  <tr>
+    <td><%=_('rit_form_content')%> : </td>
+    <td><%=f.text_area :content , :value => cookies[:content] %></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_fileattach')%> : </td>
+    <td><%=file_field_tag 'ritfile[filename]'%><br /><%=file_field_tag 'ritfile[filenameB]'%><br /><%=file_field_tag 'ritfile[filenameC]'%><br /><%=file_field_tag 'ritfile[filenameD]'%><br /><%=file_field_tag 'ritfile[filenameE]'%><br /><%=_('rit_form_file_send_limitnote')%></td>
+  </tr>
+  <% if current_user.login!="guest" %>
+  <tr>
+    <td><%=_('rit_form_assign_to')%> : </td>
+    <td>
+	  <%#=f.select :assign_user_id ,[["Nobody",0]]+ @pjMeb.collect{|t|[t.login,t.id]} %>
+    <% @pjMeb.each do |c| %>
+      <%= check_box_tag "assigns[]", c.id %>
+      <%= c.login%>
+    <% end %>
+    </td>
+  </tr>
+  <%end%>
+  <%if current_user.login!="guest"%>
+  <tr>
+    <td><%=_('rit_form_priority')%> : </td>
+    <td><%=f.select :priority,@priority.collect{|t|[t[0],t[1]]},:selected=>2%></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_type')%> : </td>
+    <td><%=f.select :tickettype,@type.collect{|t|[t[0],t[1]]}%></td>
+  </tr>
+  <%else%>
+    <%=f.hidden_field :priority , :value=>2%>
+    <%=f.hidden_field :tickettype , :value=>0%>
+  <%end%>
+</table>
+  <% if current_user.login == 'guest' %>
+    <%= recaptcha_tags %>
+  <% end %>
+<p align="center"><%=submit_tag _("submit") %></p>
+<%=f.hidden_field :project_id , :value =>params[:project_id] %>
+<%=f.hidden_field :status , :value =>1 %>
+<%end%>
