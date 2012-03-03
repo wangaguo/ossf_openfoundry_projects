@@ -1,0 +1,25 @@
+<p align="center">Comment the Reply</p>
+<table border="1" width="100%" class="list-table">
+  <tr>
+    <td>Title : </td>
+    <td><%=@rry.title %></td>
+  </tr>
+  <tr>
+    <td>Reply by : </td>
+    <td>
+        <%=@uName.login%>
+    </td>
+  </tr>
+  <tr>
+    <td>Content : </td>
+    <td><%=simple_format(@rry.content) %></td>
+  </tr>
+</table>
+<p align ="left">
+<%for cmR in @cmR%>
+<%=cmR.content%> at <%=time_ago_in_words(cmR.created_at)%>(<%=cmR.created_at%>)<br />
+<%end%>
+<% form_for @cm, :url => insertcommentRy_project_rit_index_path do |f| %>
+Write your comment : <%=f.text_field :content%><%=submit_tag "submit" %>
+</p>
+<%end%>

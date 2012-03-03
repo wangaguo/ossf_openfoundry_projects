@@ -86,6 +86,7 @@ OpenFoundry::Application.routes.draw do |map|
     #####################
     get '/projects/jobs' => 'jobs#project_jobs', :as => :home_project_jobs
     get '/projects/news' => 'news#project_news', :as => :home_project_news
+    get '/projects/rit' => 'rit#project_rit', :as => :home_project_rit
 
     resources :projects do
       collection do
@@ -149,6 +150,23 @@ OpenFoundry::Application.routes.draw do |map|
 
       resources :news
       resources :jobs
+      resources :rit do
+        collection do
+      	  get :assignlist
+	        post '/:id/reply', :action => :reply , :as => :reply
+	        get  '/:id/changestat', :action => :changestat , :as => :changestat
+	        put '/:id/updatestat' , :action => :updatestat , :as => :updatestat
+	        get '/:id/addcommentR' , :action => :addcommentR , :as => :addcommentR
+	        post '/:id/insertcommentR' , :action => :insertcommentR , :as => :insertcommentR
+	        get '/:id/addcommentRy' , :action => :addcommentRy , :as => :addcommentRy
+	        post '/:id/insertcommentRy' , :action => :insertcommentRy , :as => :insertcommentRy
+	        get '/:id/uploadmorefile' , :action => :uploadmorefile , :as => :uploadmorefile
+          post '/:id/uploadingmore', :action => :uploadingmore, :as => :uploadingmore
+  	      get '/:id/deletefile' , :action => :deletefile , :as => :deletefile
+          post '/:id/deletingfile', :action => :deletingfile, :as => :deletingfile
+      end
+      end
+
       resources :citations
       resources :references
       resources :kwiki

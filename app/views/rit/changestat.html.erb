@@ -1,0 +1,47 @@
+<p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %> | <%=link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path%> | <%=link_to _('rit_link_view_all'),project_rit_index_path()%></p>
+<h2><%=_('rit_form_change_issue_stat')%></h2>
+<% form_for @rit, :url => updatestat_project_rit_index_path, :id => @rit do |f| %>
+<table border="1" width="100%" class="list-table">
+  <tr>
+    <td><%=_('rit_form_subject')%> : </td>
+    <td><%=@rit.title %></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_requester')%> : </td>
+    <td>
+        <%=@uName.login%>
+    </td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_content')%> : </td>
+    <td><%=simple_format(@rit.content) %></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_assign_to')%> : </td>
+    <td><%#=f.select :assign_user_id ,[["Nobody",0]]+ @pjMeb.collect{|t|[t.login,t.id]} %>
+            <% @asses.each do |g|%>
+              <% if g.HasAssign.nil?
+                    ckk = false
+                  else
+                    ckk = true
+                end%>
+            <%=check_box_tag "assigns[]", g.id , checked = ckk %>
+            <%=g.login%>
+          <% end%>
+   </td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_priority')%> : </td>
+    <td><%=f.select :priority, @priority.collect{|t|[t[0],t[1]]} %></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_status')%> : </td>
+    <td><%=f.select :status, @status.collect{|t|[t[0],t[1]]} %></td>
+  </tr>
+  <tr>
+    <td><%=_('rit_form_type')%> : </td>
+    <td><%=f.select :tickettype,@type.collect{|t|[t[0],t[1]]}%></td>
+  </tr>
+</table>
+<p align="center"><%=submit_tag _("submit") %></p>
+<%end%>

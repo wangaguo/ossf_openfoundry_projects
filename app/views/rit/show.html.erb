@@ -1,0 +1,162 @@
+<p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %> | <%=link_to _('rit_link_view_all'),project_rit_index_path()%><%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%></p>
+<p align="right"><%=_('rit_table_priority_string')%>
+   <%=@rit.priority == Rit::PRIORITY[:MostImportant]?content_tag(:font ,"Most Important !!" , :color => "red") :"" %>
+   <%=@rit.priority == Rit::PRIORITY[:Important]?content_tag(:font ," Important!" , :color => "red") :"" %>
+   <%=@rit.priority == Rit::PRIORITY[:Normal]?content_tag(:font ," Normal" , :color => "blue") :"" %>
+   <%=@rit.priority == Rit::PRIORITY[:Low]?content_tag(:font ," Low." , :color => "green") :"" %>
+</p>
+<h1>#<%=@rit.id%>  <%=@rit.title%></h1>
+<table border="1" width="100%" class="list-table">
+<tr>
+   <td>
+       <%=_('rit_table_requester')%>
+       <b>
+         <%=@uName.login %>
+       </b>
+       <%if @uName.login=="guest"%>
+         [<%=@rit.guestmail.gsub(/@([a-z0-9-]+)/, '@*****')%>]
+       <%end%>
+       <br />
+       <%=_('rit_table_assignto')%>
+       <b>
+       <%if @assUsers.empty? %>
+          <%=content_tag :font ,'NoBody' ,:color => '#AAAAAA' %>
+       <% else %>
+          <% for asname in @assUsers%>
+            <%=content_tag :font ,asname.login ,:color => 'blue' %>,
+          <% end %>
+        <%end%>
+       </b>
+       [ 
+       <%=_('rit_table_status')%> : 
+       <%=@rit.status == Rit::STATUS[:OPEN]?image_tag("rit_open_24.png", :height => '16', :align => 'middle')+"Open":"" %>
+       <%=@rit.status == Rit::STATUS[:FINISH]?image_tag("rit_finish_24.png", :height => '16', :align => 'middle')+"Finish":"" %>
+       <%=@rit.status == Rit::STATUS[:PROCESS]?image_tag("rit_process_24.png", :height => '16', :align => 'middle')+"Process":"" %>
+       <%=@rit.status == Rit::STATUS[:SUSPENDED]?image_tag("rit_suspended_24.png", :height => '16', :align => 'middle')+"Suspended":"" %>
+       <%=@rit.status == Rit::STATUS[:DELETE]?image_tag("rit_delete_24.png", :height => '16', :align => 'middle')+"Delete":"" %>
+       ]
+       <br />
+       <%if current_user.login != "guest"%>
+        <%= link_to _('rit_link_changestat'), changestat_project_rit_index_path , :id => @rit %>
+        <%= link_to _('rit_link_uploadmore'),uploadmorefile_project_rit_index_path, :id => @rit %> / 
+        <%= link_to _('rit_link_deleteupload'),deletefile_project_rit_index_path, :id => @rit %>     
+      <%end%>
+
+  </td>
+</tr>
+<tr>
+   <td>
+    <p>
+    <%=h(@rit.content).gsub(/\n/, '<br />')%>
+    </p>
+    <p align="right">
+    <%=_('rit_table_atta')%> :
+    <% for attach in @attach  %>
+      <%=link_to attach.OrigName ,"/of/rit_attachs/"+ attach.filename, :target => '_blank'  %>
+      (<%
+        p ='public/of/rit_attachs/'+attach.filename 
+        fsize = File.size(p)
+        %><%=number_to_human_size(fsize)%>)
+      <br />  
+    <% end %>
+    </p>
+    <p align="right">
+    <%=_('rit_table_date')%> : <%=@rit.created_at %>(<%=time_ago_in_words(@rit.created_at)%><%=_('rit_table_comment_before')%>)
+    </p>
+  </td>
+</tr>
+</table>
+
+<p align="center">
+ <b>
+  <%=_('rit_table_replies')%>
+ </b>
+</p>
+<% i=0  %>
+<%for replaies in @ritreplies %>
+  <% 
+    i+=1
+    g=i.divmod(2)
+    if g[1] != 0
+      tbbg="#EEEEEE"
+    else
+      tbbg="#FFFFFF"
+    end
+  %>
+  <table border="1" class="list-table" bgcolor="<%=tbbg%>" >
+    <tr>
+      <td>
+        <%=i%>
+        <%if replaies.replytype == 0 %>
+          <p>
+          <%=_('rit_table_replier')%> : <%=replaies.login%>
+          <%if replaies.login=="guest"%>
+            [<%=replaies.guestmail.gsub(/@([a-z0-9-]+)/, '@*****')%>]
+          <%end%>
+          </p>
+        <%else%>
+          <p>
+            <b>
+              [<font color="red">Log</font>] <%=t 'rit_table_change_log' , :ttime => replaies.created_at ,:twho => replaies.login ,:tabout => time_ago_in_words(replaies.created_at)  %>
+            </b>
+          </p>
+        <%end%>
+
+        <p>
+        <%=h(replaies.content).gsub(/\n/, '<br />')%>
+        </p>
+ 
+        <%if replaies.replytype == 0 %>
+          <p align="right">
+            <%=_('rit_table_atta')%>
+            <%@reattach = Ritfile.where(:ritFK => replaies.id , :fromReply => 1).all  %>
+            <%for reattach in @reattach%>
+              <%=link_to reattach.OrigName,"/of/rit_attachs/"+ reattach.filename, :target => '_blank' %>
+              (<%
+                p ='public/of/rit_attachs/'+reattach.filename 
+                fsize = File.size(p)
+                %><%=number_to_human_size(fsize)%>)
+<br />
+            <%end %>
+          </p>
+          <p align="right">
+            <%=_('rit_table_replietime')%> : <%=replaies.created_at%>(<%=time_ago_in_words(replaies.created_at)%><%=_('rit_table_comment_before')%>)
+          </p>
+        <%end%>
+      </td>
+    </tr>
+  </table>
+<%end%>
+<p align="center"><b><%=_('rit_form_repliestitle')%></b></p>
+<% form_for :ritreply, :url => reply_project_rit_index_path, :html=>{:multipart => true}  do |f| %>
+  <table border="1" class="list-table">
+    <tr>
+      <td><%=_('rit_form_replier')%> : </td>
+      <td><%=@rName.login%><%=f.hidden_field :user_id , :value =>@userID %></td>
+    </tr>
+       <%if current_user.login=="guest"%>
+        <tr>
+          <td><%=_('rit_form_email')%> : </td>
+          <td><%=f.text_field :guestmail, :value =>cookies[:guestmail]  %></td>
+        </tr>
+      <%else%>
+        <%=f.hidden_field :guestmail, :value => "rit@openfoundry.org" %>
+      <%end%>
+    <tr>
+     <td><%=_('rit_form_replicontent')%> : </td>
+     <td><%=f.text_area :content ,:value =>cookies[:content] %></td>
+    </tr>
+    <tr>
+      <td><%=_('rit_form_fileattach')%> : </td>
+      <td><%=file_field_tag 'ritfile[filename]' %><br /><%=file_field_tag 'ritfile[filenameB]'%><br /><%=file_field_tag 'ritfile[filenameC]'%><br /><%=file_field_tag 'ritfile[filenameD]'%><br /><%=file_field_tag 'ritfile[filenameE]'%><br /><%=_('rit_form_file_send_limitnote')%></td>
+    </tr>
+  </table>
+   <% if current_user.login == 'guest' %>
+    <%= recaptcha_tags %>
+  <% end %>
+ <%=f.hidden_field :title ,:value =>"RE:" + @rit.title %>
+  <%=f.hidden_field :rit_fk_id ,:value =>@rit.id %>
+  <%=f.hidden_field :visible , :value =>"1" %>
+  <%=f.hidden_field :replytype,:value =>"0" %>
+  <p align="center"><%=submit_tag _('submit') %></p> 
+<% end %>

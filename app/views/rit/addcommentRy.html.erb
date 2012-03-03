@@ -1,0 +1,26 @@
+<p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %> | <%=link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path%> | <%=link_to _('rit_link_view_all'),project_rit_index_path()%></p>
+<h1><%=_('rit_form_comment_the_issue')%></h1>
+<table border="1" width="100%" class="list-table">
+  <tr>
+    <td><%=_("rit_table_subject")%> : </td>
+    <td><%=@rry.title %></td>
+  </tr>
+  <tr>
+    <td><%=_("rit_table_replier")%> : </td>
+    <td>
+        <%=@uName.login%>
+    </td>
+  </tr>
+  <tr>
+    <td><%=_("rit_table_replies")%> : </td>
+    <td><%=simple_format(@rry.content) %></td>
+  </tr>
+</table>
+<p align ="left">
+<%for cmR in @cmR%>
+<%=cmR.content%> at <%=time_ago_in_words(cmR.created_at)%>(<%=cmR.created_at%>)<br />
+<%end%>
+<% form_for @cm, :url => insertcommentRy_project_rit_index_path do |f| %>
+  <%=_("rit_form_comment_the_issue")%> : <%=f.text_field :content%><%=submit_tag _("submit") %>
+</p>
+<%end%>
