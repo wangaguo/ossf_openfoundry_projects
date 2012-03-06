@@ -42,10 +42,7 @@ class WikiController < ApplicationController
           @revision = WikiRevisions.find_by_page_id_and_revision(@wiki_page.id, params[:r])
           @wiki_page.content = @revision.content unless @revision.nil?
         end
-        parser = Wikitext::Parser.new
-        parser.internal_link_prefix = "#{project_wiki_index_path}/"
-        parser.img_prefix = "#{root_path}/wiki_upload/#{params[:project_id]}/"
-        @wiki_html = parser.parse(@wiki_page.content)
+        @wiki_html = parse_wiki(@wiki_page.content)
       elsif @wiki_permit #No HomePage and has permit
         redirect_to :action => 'edit'
         return
@@ -133,10 +130,7 @@ class WikiController < ApplicationController
       wp.content = params[:wiki_page][:content]
       wp.log = params[:wiki_page][:log]
       if params[:submit_preview]
-        parser = Wikitext::Parser.new
-        parser.internal_link_prefix = "#{project_wiki_index_path}/"
-        parser.img_prefix = "#{root_path}/wiki_upload/#{params[:project_id]}/"
-        @wiki_html = parser.parse(wp.content)
+        @wiki_html = parse_wiki(wp.content)
       else params[:submit_save]
         err_msg = ''
         if params[:wiki_page][:name] == 'NoName'
@@ -292,7 +286,19 @@ class WikiController < ApplicationController
     redirect_to :action => 'files' 
   end
 
+  def help
+    @wiki_page = WikiPages.page_all.find_by_project_id_and_name(1, 'WikiHelp') 
+    @wiki_html = parse_wiki(@wiki_page.content)
+  end
+
 protected
+  def parse_wiki(wiki_content)
+    parser = Wikitext::Parser.new
+    parser.internal_link_prefix = "#{project_wiki_index_path}/"
+    parser.img_prefix = "#{root_path}/wiki_upload/#{params[:project_id]}/"
+    return parser.parse(wiki_content)
+  end
+
   def upload_an_file(uploaded_file)
     save_as = File.join(WIKI_UPLOAD_PATH,
                         params[:project_id] , uploaded_file.original_filename)

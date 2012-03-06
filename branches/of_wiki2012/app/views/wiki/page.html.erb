@@ -1,3 +1,7 @@
+<% content_for :page_head do %>
+  <%= stylesheet_link_tag 'wiki' %>
+<% end %>
+
 <h2>
   <%= @wiki_page.name %> 
   <% if params[:r] -%> 
