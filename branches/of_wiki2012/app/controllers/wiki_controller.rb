@@ -8,7 +8,7 @@ class WikiController < ApplicationController
   before_filter :check_permission
 
   def init 
-    @wiki_permit = fpermit?("wiki", params[:project_id])
+    @wiki_permit = fpermit?("kwiki_manage", params[:project_id])
     @project = Project.find_by_id(params[:project_id])
     if @project.nil?
       flash[:warning] = "project is not exists."
@@ -288,7 +288,11 @@ class WikiController < ApplicationController
 
   def help
     @wiki_page = WikiPages.page_all.find_by_project_id_and_name(1, 'WikiHelp') 
-    @wiki_html = parse_wiki(@wiki_page.content)
+    if @wiki_page
+      @wiki_html = parse_wiki(@wiki_page.content)
+    else
+      @wiki_html = parse_wiki("= No help content =\nHelp is using ''project 1 WikiHelp'' wiki page. please add ''WikiHelp''.")
+    end
   end
 
 protected

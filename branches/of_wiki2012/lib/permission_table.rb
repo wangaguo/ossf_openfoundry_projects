@@ -104,8 +104,8 @@ module OpenFoundry
       :update => :survey
     },
     :wiki => wiki_pt = {
-      :files => :wiki,
-      :revisions => :wiki
+      :files => :kwiki_manage,
+      :revisions => :kwiki_manage
     }
     #,
     #:rt,
