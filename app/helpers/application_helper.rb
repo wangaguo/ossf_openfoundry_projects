@@ -80,6 +80,9 @@ module ApplicationHelper
           when 'rt'
             level_name, level_class, level_title = 
               _('Issue Tracker'), "rt", 'subject'
+          when 'rit'
+            level_name, level_class, level_title = 
+              _('Issue Tracker'), "rit", 'subject'
           when 'download_path', 'download'
             level_name, level_class, level_title = 
               _('Downloads'), nil, nil

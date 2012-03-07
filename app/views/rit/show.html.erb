@@ -1,8 +1,8 @@
 <p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %> | <%=link_to _('rit_link_view_all'),project_rit_index_path()%><%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%></p>
 <p align="right"><%=_('rit_table_priority_string')%>
-   <%=@rit.priority == Rit::PRIORITY[:MostImportant]?content_tag(:font ,"Most Important !!" , :color => "red") :"" %>
-   <%=@rit.priority == Rit::PRIORITY[:Important]?content_tag(:font ," Important!" , :color => "red") :"" %>
-   <%=@rit.priority == Rit::PRIORITY[:Normal]?content_tag(:font ," Normal" , :color => "blue") :"" %>
+   <%=@rit.priority == Rit::PRIORITY[:Urgent]?content_tag(:font ,"Urgent!!" , :color => "red") :"" %>
+   <%=@rit.priority == Rit::PRIORITY[:Hight]?content_tag(:font ," High!" , :color => "red") :"" %>
+   <%=@rit.priority == Rit::PRIORITY[:Medium]?content_tag(:font ," Medium" , :color => "blue") :"" %>
    <%=@rit.priority == Rit::PRIORITY[:Low]?content_tag(:font ," Low." , :color => "green") :"" %>
 </p>
 <h1>#<%=@rit.id%>  <%=@rit.title%></h1>

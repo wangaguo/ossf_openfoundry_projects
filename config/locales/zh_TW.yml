@@ -53,6 +53,11 @@ zh_TW:
   "breadcrumb|nsc" : "nsc"
   "breadcrumb|list" : "專案列表"
   "breadcrumb|report" : "問題回報"
+  "breadcrumb|rit" : "問題回報"
+  "breadcrumb|changestat" : "變更申請單狀態"
+  "breadcrumb|assignlist" : "檢視被指派的申請單"
+  "breadcrumb|uploadmorefile" : "上傳附件"
+  "breadcrumb|deletefile" : "編輯附件"
   "breadcrumb|welcome" : "從這開始"
   "User|Login": "帳號名稱"
   "User|Email": "電子郵件"
@@ -858,6 +863,7 @@ zh_TW:
   "rit_msg_table_deleteattachment": "請勾選欲刪除的附件檔"
   "rit_msg_attach_delete_ok": "附件已刪除完成"
   "rit_msg_upload_not_yours": "您的權限不足或是該申請單不屬於您可變動上傳與刪除附件"
+  "rit_change_stat_no_perm": "您的權限不足變更本申請單的狀態"
 
   ritstatus:
     DELETE: "已刪除"
