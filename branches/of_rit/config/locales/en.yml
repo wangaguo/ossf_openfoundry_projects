@@ -52,6 +52,11 @@ en:
   "breadcrumb|nsc" : "nsc"
   "breadcrumb|list" : "Project List"
   "breadcrumb|welcome" : "Start here"
+  "breadcrumb|rit" : "Issue Tracker"
+  "breadcrumb|changestat" : "Editing Ticket stats"
+  "breadcrumb|assignlist" : "View your assigns"
+  "breadcrumb|uploadmorefile" : "Upload Files"
+  "breadcrumb|deletefile" : "Editing attachments"
   "User|Login": "Login"
   "User|Email": "Email Address"
   "User|Realname": "Real Name"
@@ -786,7 +791,7 @@ en:
           other: "%{count} errors prohibited this %{model} from being saved"
         body: "There were problems with the following fields:"
 
-  "rit_index_title": "Ruby Issue Tracker"
+  "rit_index_title": "Issue Tracker"
   "rit_table_subject": "Subject"
   "rit_table_recount": "Replies"
   "rit_table_date": "Request Date"
@@ -847,6 +852,7 @@ en:
   "rit_msg_table_deleteattachment": "Please select some attachments to remove."
   "rit_msg_attach_delete_ok": "File remove compleet"
   "rit_msg_upload_not_yours": "you can\'t not edit files of this ticket"
+  "rit_change_stat_no_perm": "You have no permit to do this"
 
   ritstatus:
     DELETE: "Delete"

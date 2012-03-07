@@ -1,0 +1,61 @@
+<%  assign_count = @rit.count  %>
+<% content_for :ujs do %>
+  jQuery(function($){
+     $(".ticket_button").click(function(){
+       $("#ticket_list .ticket:gt(4)").toggle();
+       $("p a.ticket_button").toggle();
+     });
+     $("#less_ticket").hide();
+     $("#ticket_list .ticket:gt(4)").hide();
+  });  
+<% end %>
+
+<% module_title = capture do -%>
+  <%=_( 'menu_My Tickets' ) %>
+  <span class="sub_title">(<%=assign_count%>)</span>
+  <a id="my_tickets_help" href="/help/2338-issue-tracker#severity"></a>
+  <div class="module-function">
+  <!--
+  <form action="dashboard">
+     <span class="sub_title"><%=_("Filter")%> :</span>
+    <%=select_tag( 'lookfor', options_for_select( allrtoptions, "#{ params[ 'lookfor' ] }" ), :onchange => "this.form.submit();" ) %>
+    <input type='hidden' id='username' name='username' value='<%=uname %>'>
+  </form>
+  -->
+  </div>
+<%end%>
+
+<a id="mytickets"></a>
+<%i=0%>
+<% module_content = capture do -%>
+  <% if @rit and not @rit.blank? %>
+    <div id="ticket_list">
+      <%for rit in @rit %> 
+        <div class="ticket">
+          <span>
+            <%i=i+1%>
+            <%=i%>
+            #<%=rit.id %>
+ 	           <%=rit.priority == Rit::PRIORITY[:Urgent]?image_tag("rit_vip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !!" , :color => "red") :"" %>
+	           <%=rit.priority == Rit::PRIORITY[:High]?image_tag("rit_ip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !" , :color => "red"):"" %>
+             <%=rit.priority == Rit::PRIORITY[:Medium]?image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):"" %>
+	           <%=rit.priority == Rit::PRIORITY[:Low]?image_tag("rit_low_24.png", :height => '16', :align => 'middle'):"" %>
+         </span>
+         <a href="/of/projects/<%=rit.project_id%>/rit/<%=rit.id%>"><%=rit.title%></a>
+          <div class="ticket_info">
+          Created&nbsp;<%=rit.created_at%>&nbsp;&nbsp;
+          by&nbsp;<%=rit.uname%>&nbsp;&nbsp;
+          Project:&nbsp;<span class="pa"><a href="/of/projects/<%=rit.project_id%>/rit"><%=rit.pjname%></a></span></div>
+        </div>
+      <%end%>
+    </div>
+    <p>
+    <%=link_to _('More...'), "#", :class => "more ticket_button" %>
+    <%=link_to _('Less...'), "#", :class => "more ticket_button",:id=>"less_ticket" %>
+    </p>
+  <% else %>
+    Sorry, there is no your assign here.
+  <% end %>
+<% end %>
+
+<%=render :file => 'layouts/rit_module', :locals => { :module_title => module_title, :module_content => module_content, :variation => 'square1' } %>

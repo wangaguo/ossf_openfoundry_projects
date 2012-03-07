@@ -1,7 +1,5 @@
 <p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %> | <%=link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path%> | <%=link_to _('rit_link_view_all'),project_rit_index_path()%></p>
 <p align="center"><%=t'rit_table_assign_has_asign', :tcount => @rit.count %></p>
-<p>values : current_user[:login] = <%=current_user[:login]%></p>
-@kk=<%=@kk%>
 <table border="1" width="100%" class="ritlist-table">
   <tr>
     <td>&nbsp;</td>

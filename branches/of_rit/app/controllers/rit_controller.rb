@@ -10,9 +10,15 @@ class RitController < ApplicationController
 
   def index
     @module_name = _('rit_index_title')
-    #session[:user] = User.find('201626')
-    #session[:user] = nil
+    if !params[:login].nil?
+      if params[:login]=='logout'
+        session[:user] = nil
+      else
+        session[:user] = User.find(params[:login])
+      end
+    end
  
+    @pjMeb=projectOfMembers
     @userID = userID
     @rit = Rit.where(:project_id => params[:project_id])
     if !params[:k].nil?
@@ -246,28 +252,40 @@ class RitController < ApplicationController
 
   def changestat
     @module_name = _('rit_index_title')
-    if current_user.login!="guest"
-     @pjName=Project.find(params[:project_id])
-     @pjMeb=projectOfMembers
-     @priority = Rit::PRIORITY
-     @type = Rit::TICKETTYPE
-     @status = Rit::STATUS
-     @userID=userID
-     @uName = User.find(userID)
-     @rit = Rit.find(params[:id])
-     @asses=assignTable(params[:project_id],params[:id])
-    else
+    @userID=userID
+    @uName = User.find(userID) 
+    @rit = Rit.find(params[:id])
+
+    if current_user.login=="guest"
       redirect_to :back
+      return
     end
+    if (dataroles_checker(1)==0) and (current_user.id != @rit.user_id)
+      redirect_to :back
+      flash[:error]=_("rit_change_stat_no_perm")
+      return
+    end
+    @pjName=Project.find(params[:project_id])
+    @pjMeb=projectOfMembers
+    @priority = Rit::PRIORITY
+    @type = Rit::TICKETTYPE
+    @status = Rit::STATUS
+    @asses=assignTable(params[:project_id],params[:id])
 
   end
 
   def updatestat
+    @rit = Rit.find(params[:id])
     if current_user.login =="guest"
       redirect_to :root
-    else
-      @rit = Rit.find(params[:id])
-      tT=@rit.title
+      return
+    end
+     if (dataroles_checker(1)==0) and (current_user.id != @rit.user_id)
+      redirect_to :root
+      flash[:error]=_("rit_change_stat_no_perm")
+      return
+    end
+     tT=@rit.title
      fkid = @rit.id
      logStr=''
      ##### Change Ticket infos ########
@@ -351,8 +369,47 @@ class RitController < ApplicationController
           end
           flash[:notice]=_('rit_msg_changestat')
           redirect_to project_rit_index_path
-    end
   end
+
+  def dataroles_checker(role_level) 
+    #role_level =1 is only admin ,2 is both
+    if checkrole(current_user.id,'rt_member')=="rt_member"
+      is_rt_member=1
+    else
+      is_rt_member=0
+    end
+    
+    if checkrole(current_user.id,'rt_admin')=="rt_admin"
+      is_rt_admin=1
+    else
+      is_rt_admin=0
+    end
+
+    if checkrole(current_user.id,'rit_member')=="rit_member"
+      is_rit_member=1
+    else
+      is_rit_member=0
+    end
+
+    if checkrole(current_user.id,'rit_admin')=="rit_admin"
+      is_rit_admin=1
+    else
+      is_rit_admin=0
+    end
+
+    if role_level == 1
+      lv_pass = is_rt_admin + is_rit_admin
+      lv_pass > 0 ? is_pass =1 : is_pass =0
+    elsif role_level ==2
+      lv_pass = is_rt_member + is_rt_admin + is_rit_member + is_rit_admin
+      lv_pass > 0 ? is_pass = 1 : is_pass = 0
+    else
+      is_pass = 0
+    end
+
+    return is_pass
+ end
+
 
   def uploadmorefile
     @module_name = _('rit_index_title')
@@ -525,11 +582,6 @@ class RitController < ApplicationController
   def assignlist
     @module_name = _('rit_index_title')
     @uName = User.find(userID)
-    @kk=checkrole(userID,'rt_member') 
-    
-    
-    # :assign_user_id => @uName.id
-    
     @rit = Rit.find_by_sql("
     select rits.* ,users.login as uname ,users.icon as avator ,MAX(ritreplies.created_at) AS rdate ,COUNT(ritreplies.rit_fk_id) AS nums, COUNT(ritassigns.asRitID) as assignNums, MAX(AU.login) as firstAssign from rits
     RIGHT JOIN ritassigns RA ON RA.asRitID=rits.id AND RA.asUserID=#{@uName.id}
@@ -539,8 +591,7 @@ class RitController < ApplicationController
     LEFT JOIN users AU ON ritassigns.asUserID=AU.id 
     WHERE project_id=#{params[:project_id]}
     group by rits.id
-    order by rits.created_at DESC
-                           ")
+    order by rits.created_at DESC")
     
     @rit = @rit.paginate :page => params[:page], :per_page => 25
   end

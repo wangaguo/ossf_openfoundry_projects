@@ -1,4 +1,10 @@
-<p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %><%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%></p>
+<p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %><%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%> | <%= link_to 'Old IssueTracker', project_rt_index_path(@project) %></p>
+<p>Click a name to login : 
+<% @pjMeb.each do |g|%>
+  <a href="rit?login=<%=g.id%>"><%=g.login%></a>,&nbsp;
+<% end%>
+  <a href="rit?login=logout">logout</a>
+</p>
 <form>
 <%=_('rit_form_key_search')%>:<%=text_field_tag 'k'%><%= submit_tag _('submit') %>
 </form>
@@ -23,9 +29,9 @@
     <tr bgcolor="<%=trbg%>">
     <td>
         <%=link_to '#'+ rit.id.to_s, project_rit_path(:id => rit) %><br />
-	      <%=rit.priority == Rit::PRIORITY[:MostImportant]?image_tag("rit_vip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !!" , :color => "red") :"" %>
-	      <%=rit.priority == Rit::PRIORITY[:Important]?image_tag("rit_ip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !" , :color => "red"):"" %>
-        <%=rit.priority == Rit::PRIORITY[:Normal]?image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):"" %>
+	      <%=rit.priority == Rit::PRIORITY[:Urgent]?image_tag("rit_vip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !!" , :color => "red") :"" %>
+	      <%=rit.priority == Rit::PRIORITY[:High]?image_tag("rit_ip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !" , :color => "red"):"" %>
+        <%=rit.priority == Rit::PRIORITY[:Medium]?image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):"" %>
 	      <%=rit.priority == Rit::PRIORITY[:Low]?image_tag("rit_low_24.png", :height => '16', :align => 'middle'):"" %>
     </td>
     <td>

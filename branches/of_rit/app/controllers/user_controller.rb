@@ -479,17 +479,27 @@ class UserController < ApplicationController
     # set user's object in session initially
     #login_by_sso if session[ :user ].nil?
     @module_name= t('dashboard')
-
+    # set the current user name
+    @name = current_user.login
     @allrtoptions = { _("Owner") => "owner", _("Creator") => "creator", _("Requestor") => "requestor", _("Last Updated") => "lastupdatedby" }
 
-    #
+    #My RIT####
+    @rit = Rit.find_by_sql("
+      select rits.*, pj.name AS pjname ,users.login as uname ,users.icon as avator ,MAX(ritreplies.created_at) AS rdate ,COUNT(ritreplies.rit_fk_id) AS nums, COUNT(ritassigns.asRitID) as assignNums, MAX(AU.login) as firstAssign from rits
+        RIGHT JOIN ritassigns RA ON RA.asRitID=rits.id AND RA.asUserID=#{current_user.id}
+        LEFT JOIN ritreplies ON rits.id=ritreplies.rit_fk_id AND ritreplies.replytype=0 
+        LEFT JOIN users ON rits.user_id=users.id 
+        LEFT JOIN ritassigns ON ritassigns.asRitID=rits.id
+        LEFT JOIN users AU ON ritassigns.asUserID=AU.id 
+        LEFT JOIN projects pj ON rits.project_id=pj.id
+      group by rits.id
+      order by rits.created_at DESC")
+    #My RIT end#########
+ 
     # My Issue Tracker
     #
     # the base request url for rt rdf
     rturl = "#{OPENFOUNDRY_RT_URL}Search/MyIssueTracker.rdf?Order=DESC&OrderBy=LastUpdated&Query=id>'0'"
-    # set the current user name
-    @name = current_user.login
-
     # set the relation of rt with user 
     case params[ :lookfor ]
       when 'owner'

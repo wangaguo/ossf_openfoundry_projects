@@ -22,7 +22,7 @@
         </div>
       </li>
       <li><%= link_to _('project_News'), project_news_index_path(project) %></li>
-      <li><%= link_to _('project_Tracker'), project_rt_index_path(project) %></li>
+      <li><%= link_to _('project_Tracker'), project_rit_index_path(project) %></li>
       <li><%= link_to _('Wiki'), project_kwiki_index_path(project) %></li>
       <li class="parent"><a href='#' onclick="Effect.toggle('vcs_menu0','blind', {duration: 0.3}); return false"><%= _('Version Control') %></a>
           <div id="vcs_menu0" style="display:none">
@@ -61,7 +61,7 @@
       </div>
 
     <li><%= link_to _('project_News'), project_news_index_path(project) %></li>
-    <li><%= link_to _('project_Tracker'), project_rt_index_path(project) %></li>
+    <li><%= link_to _('project_Tracker'), project_rit_index_path(project) %></li>
     <li><%= link_to _('Wiki'), project_kwiki_index_path(project) %></li>
 
     <% if functions.include?('release') -%>
