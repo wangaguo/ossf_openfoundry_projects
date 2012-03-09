@@ -252,10 +252,8 @@ class RitController < ApplicationController
 
   def changestat
     @module_name = _('rit_index_title')
-    @userID=userID
-    @uName = User.find(userID) 
     @rit = Rit.find(params[:id])
-
+    @uName = User.find(@rit.user_id) 
     if current_user.login=="guest"
       redirect_to :back
       return
