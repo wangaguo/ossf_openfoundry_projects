@@ -129,6 +129,7 @@ class WikiController < ApplicationController
       wp.summary = params[:wiki_page][:summary]
       wp.content = params[:wiki_page][:content]
       wp.log = params[:wiki_page][:log]
+      @is_revision = params[:is_revision]
       if params[:submit_preview]
         @wiki_html = parse_wiki(wp.content)
       else params[:submit_save]
@@ -185,13 +186,13 @@ class WikiController < ApplicationController
   end
 
   def revisions
-    @wiki_page = WikiPages.find_by_name(params[:id])
+    @wiki_page = WikiPages.page_all.find_by_project_id_and_name(params[:project_id], params[:id])
     @revisions = WikiRevisions.where(:page_id => @wiki_page.try(:id)).order("revision desc")
   end
 
   def diff
     pid = params[:id]
-    @wiki_page = WikiPages.page_all.find_by_name(pid) 
+    @wiki_page = WikiPages.page_all.find_by_project_id_and_name(params[:project_id], pid)
     if params[:r1]
       @r1 = WikiRevisions.find_by_page_id_and_revision(@wiki_page.id, params[:r1])
     end

@@ -33,7 +33,7 @@
   <%= submit_tag t('Preview', :scope => :wiki), :name => 'submit_preview' %>
   <%= submit_tag t('Save', :scope => :wiki), :name => 'submit_save' %>
   <% if @wiki_permit %>
-    <%= check_box_tag 'is_revision' %><%= t('Need be a revision', :scope => :wiki) %>
+    <%= check_box_tag 'is_revision', '1', @is_revision %><%= t('Need be a revision', :scope => :wiki) %>
   <% else %>
     <%= hidden_field_tag 'is_revision', '1' %>
   <% end %>
