@@ -77,3 +77,10 @@ sso_of_auth_key = 'c1cac710-030f-012d-c173-0011254f08ff'
 #  in sso.rb
 #------------------------#
 tolk_user = 'ossf_trans'
+
+#------------------------#
+#  recaptcha config
+#  in recaptcha.rb
+#------------------------#
+recaptcha_public_key = '6LdIA2234809d3GM3flv0QeLJO2S9p6l6CGb2QAGX'
+recaptcha_private_key = '6LdIAMoSAAOaDkfkslAsfjQMATF64iFAUDe1yZvua'

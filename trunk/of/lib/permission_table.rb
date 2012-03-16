@@ -102,6 +102,10 @@ module OpenFoundry
       #:apply => :survey,
       :review => :survey,
       :update => :survey
+    },
+    :wiki => wiki_pt = {
+      :files => :kwiki_manage,
+      :revisions => :kwiki_manage
     }
     #,
     #:rt,
@@ -120,6 +124,7 @@ module OpenFoundry
   references_pt.default = default_permission
   releases_pt.default = default_permission
   survey_pt.default = default_permission
+  wiki_pt.default = default_permission
 
   default_pt = {}
   default_pt.default = default_permission
