@@ -17,7 +17,14 @@
   <% @types_write.each do |x| %>
     <% form_tag({:action => "create"}, {:multipart => true, :onSubmit => "return validate(this.the_file.value, '#{x}')"}) do %>
       Year: <%= text_field_tag "year", NSC_CURRENT_YEAR, :readonly => true, :size => 30 %><br/>
-      Type: <%= text_field_tag "type", x, :readonly => true, :size => 30 %><br/>
+      Type: <%= text_field_tag "type", x, :readonly => true, :size => 30 %>
+        <% case x %>
+        <% when 'plan' %>
+          專案執行與系統需求規格書
+        <% when 'testing' %>
+          系統測試報告書
+        <% end %>
+      <br/>
       File: <%= file_field_tag "the_file", :size => 30 %>
       <%= submit_tag "Upload" %>
     <% end %>
