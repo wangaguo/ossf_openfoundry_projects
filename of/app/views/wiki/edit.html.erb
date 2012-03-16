@@ -1,0 +1,43 @@
+<% content_for :page_head do %>
+  <%= stylesheet_link_tag 'wiki' %>
+<% end %>
+
+<h2>
+  <%= @wiki_page.name %>
+  <% if params[:wiki_page].nil? || params[:submit_preview]-%>
+  <% else -%>
+    <%#= @wiki_page.name -%>
+  <% end %>
+</h2>
+<%= render :partial => "functions"%>
+<hr/>
+
+<%= form_tag :action => 'edit' do %>
+  <% if @wiki_html %>
+    <%= @wiki_html.html_safe %>
+  <% end %>
+  <%= t('Page Name', :scope => :wiki) %>: <%= text_field(:wiki_page, :name) %> 
+  <br/>
+  <%= t('Summary', :scope => :wiki) %>:
+  <%= text_field :wiki_page, :summary, :size => 50 %>
+  <br/>
+  <%= text_area :wiki_page, :content, :cols => 80, :rows => 20  %>
+  <br/>
+  <%= t('Commit log', :scope => :wiki) %>:
+  <br/>
+  <%= text_area :wiki_page, :log, :cols => 80, :rows => 5  %>
+  <br/>
+  <% if current_user.login == 'guest' %>
+    <%= recaptcha_tags %> 
+  <% end %>
+  <%= submit_tag t('Preview', :scope => :wiki), :name => 'submit_preview' %>
+  <%= submit_tag t('Save', :scope => :wiki), :name => 'submit_save' %>
+  <% if @wiki_permit %>
+    <%= check_box_tag 'is_revision', '1', @is_revision %><%= t('Need be a revision', :scope => :wiki) %>
+  <% else %>
+    <%= hidden_field_tag 'is_revision', '1' %>
+  <% end %>
+<% end %>
+
+<hr/>
+<%= render :partial => "functions"%>
