@@ -26,7 +26,8 @@
   </tr>
   <tr>
     <td><%=_('rit_form_fileattach')%> : </td>
-    <td><%=file_field_tag 'ritfile[filename]'%><br /><%=file_field_tag 'ritfile[filenameB]'%><br /><%=file_field_tag 'ritfile[filenameC]'%><br /><%=file_field_tag 'ritfile[filenameD]'%><br /><%=file_field_tag 'ritfile[filenameE]'%><br /><%=_('rit_form_file_send_limitnote')%></td>
+    <td><%=render :partial => "fileupload_form" %>
+        <br /><%=_('rit_form_file_send_limitnote')%></td>
   </tr>
   <% if current_user.login!="guest" %>
   <tr>

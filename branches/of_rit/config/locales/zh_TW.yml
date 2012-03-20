@@ -853,7 +853,7 @@ zh_TW:
   "rit_msg_email_error": "請填入有效的電子郵件位址"
   "rit_keyword_search": "搜尋的字串「%{kword}」有 %{kcount}筆"
   "rit_form_key_search": "輸入關鍵字"
-  "rit_msg_oversize": "附件檔「%{ufname}」已超過限制容量(%{ufsize})"
+  "rit_msg_oversize": "附件檔「%{ufname}」已超過限制容量。"
   "rit_link_uploadmore": "上傳附件"
   "rit_title_uploadmore": "新增附件上傳"
   "rit_mag_upload_empty_error": "所有上傳欄位全部空白"
@@ -864,7 +864,9 @@ zh_TW:
   "rit_msg_attach_delete_ok": "附件已刪除完成"
   "rit_msg_upload_not_yours": "您的權限不足或是該申請單不屬於您可變動上傳與刪除附件"
   "rit_change_stat_no_perm": "您的權限不足變更本申請單的狀態"
-
+  "rit_link_reply_with_quote": "引言回覆"
+  "rit_quote_reply_msg": "%{cname}於%{ctime}寫到："
+  "rit_msg_uploaded_ok_each_filename" : "上傳的檔案：%{ufname}已上傳完成"
   ritstatus:
     DELETE: "已刪除"
     OPEN: "開放中"

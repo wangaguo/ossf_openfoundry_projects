@@ -45,16 +45,7 @@
 </tr>
 <tr>
   <td><%=_('rit_table_atta')%></td>
-  <td>
-    <%for attach in @attach  %>
-        <%=link_to attach.OrigName ,"/of/rit_attachs/"+ attach.filename, :target => '_blank'  %>
-      (<%
-          p ='public/of/rit_attachs/'+attach.filename 
-          fsize = File.size(p)
-        %><%=number_to_human_size(fsize)%>)
-        <br />  
-    <%end%>
-    </td>
+  <td><%= render :partial => 'attachments', :collection => @attach, :as => :attach %></td>
 </tr>
 </table>
 
@@ -63,14 +54,8 @@
   <table border="1" class="list-table">
     <tr>
       <td><%=_('rit_form_fileattach')%> : </td>
-      <td>
-        <%=file_field_tag 'ritfile[filename]' %><br />
-        <%=file_field_tag 'ritfile[filenameB]'%><br />
-        <%=file_field_tag 'ritfile[filenameC]'%><br />
-        <%=file_field_tag 'ritfile[filenameD]'%><br />
-        <%=file_field_tag 'ritfile[filenameE]'%><br />
-        <%=_('rit_form_file_send_limitnote')%>
-      </td>
+      <td align="left"><%=render :partial => "fileupload_form" %>
+          <%=_('rit_form_file_send_limitnote')%></td>
     </tr>
   </table>
    <% if current_user.login == 'guest' %>

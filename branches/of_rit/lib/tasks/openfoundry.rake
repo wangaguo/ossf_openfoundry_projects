@@ -75,9 +75,17 @@ namespace 'openfoundry' do
       replace_template('config/initializers/sso.rb')
       puts "\x1b[38;5;9m---done---\x1b[0m"
     end
+
+    desc 'rit Configure'
+    task 'rit' do
+      puts "\x1b[38;5;9m---start rit configure---\x1b[0m"
+      replace_template('config/initializers/rit.rb')
+      puts "\x1b[38;5;9m---done---\x1b[0m"
+    end
+
   end
   task :config => ['config:db', 'config:memcache', 'config:sso', 'config:ohm',
-            'config:stomp', 'config:sphinx', 'config:module', 'config:application']
+            'config:stomp', 'config:sphinx', 'config:module', 'config:application','config:rit']
 end
 
 def replace_template(fname, opt ={} )

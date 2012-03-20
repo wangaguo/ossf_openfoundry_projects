@@ -95,9 +95,26 @@ class RitController < ApplicationController
     
     #Getting ready new replay below the form
     @rName = User.find(@userID)
-    #check the role from rit_member & rit_admin
-    @role = checkrole(@userID,'rt_member')
-     
+
+    #Reply with Quote
+    @rwq=cookies[:content]
+    if !params[:rwq].nil?
+      if params[:m]=="a"
+        quote=Rit.find(params[:rwq])
+      else
+        quote=Ritreplies.find(params[:rwq])
+      end
+      cname = User.find(quote.user_id)
+      ctime = quote.created_at
+      @rwq="> "+ t("rit_quote_reply_msg",:cname => cname.login ,:ctime => ctime)+ "\n> " + quote.content.gsub(/\n/,'> ')
+    end
+    #send header with down a file
+    if !params[:dl].nil?
+      file = Ritfile.find(params[:dl])
+      realfilename =File.join(RIT_UPLOAD_PATH ,file.filename) 
+      send_file realfilename ,:filename => file.OrigName ,:stream => true ,:buffer_size => 4096
+    end
+    
   end
 
   def new
@@ -118,9 +135,9 @@ class RitController < ApplicationController
        cookies[:title]=params[:ritreply][:title]
        cookies[:content]=params[:ritreply][:content]
        flash[:error] = _('rit_msg_captcha_error')
-        redirect_to :back
-        return
-    end
+       redirect_to :back
+       return
+     end
    @ritreply = Ritreplies.new(params[:ritreply])
     pid=params[:project_id] 
     if @ritreply.save
@@ -135,35 +152,22 @@ class RitController < ApplicationController
         end
 
         tTitle = rt.title
-        #tLink = "http://#{request.env["SERVER_NAME"]}/of/projects/#{params[:project_id]}/rit/#{params[:id]}"
         tLink = request.env["HTTP_REFERER"]
 
-        Ritmailer.ticket_reply_to_major(uEmail,uName,tTitle,tLink).deliver
-    
+        #Ritmailer.ticket_reply_to_major(uEmail,uName,tTitle,tLink).deliver
         fKid = @ritreply.id
-        if !params[:ritfile].blank? 
-          if !params[:ritfile][:filename].nil?
-            RitFileUp(params[:ritfile][:filename],fKid,0,1)
-          end
-          if !params[:ritfile][:filenameB].nil?
-            RitFileUp(params[:ritfile][:filenameB],fKid,0,1)
-          end
-          if !params[:ritfile][:filenameC].nil?
-            RitFileUp(params[:ritfile][:filenameC],fKid,0,1)
-          end
-          if !params[:ritfile][:filenameD].nil?
-            RitFileUp(params[:ritfile][:filenameD],fKid,0,1)
-          end
-          if !params[:ritfile][:filenameE].nil?
-            RitFileUp(params[:ritfile][:filenameE],fKid,0,1)
-          end
+        flash[:notice] = ""
+        if !params[:ritfile].blank?
+          upload_files_for_forms(params[:ritfile],fKid,2)
         end
-        flash[:notice]=_('rit_msg_reply_ok')
+
+        flash[:notice] += (" " +  _('rit_msg_reply_ok'))
         cookies.delete :content
         redirect_to :action => "show" , :project_id => pid , :id => params[:id]
     else
         flash[:error]=_('rit_msg_add_error')
         cookies[:content]=params[:ritreply][:content]
+        cookies[:guestmail]=params[:rit][:guestmail]
         redirect_to :action => "show" ,:project_id => pid , :id => params[:id]
     end
 
@@ -188,7 +192,7 @@ class RitController < ApplicationController
       #Ritmailer.created_notify_to_all(users,aU.login,fkid,tLink,tTitle).deliver
 
       if current_user.login=="guest"
-        Ritmailer.create_notify_to_guest(params[:rit][:guestmail],tLink,tTitle).deliver
+        #Ritmailer.create_notify_to_guest(params[:rit][:guestmail],tLink,tTitle).deliver
       end
 
       auid = params[:rit][:assign_user_id]
@@ -210,32 +214,14 @@ class RitController < ApplicationController
               as.save
             end
         end
-
-
-       #call RitFileUp
-       fmsgg=""
+       #call upload funcion
+        flash[:notice] = ""
         if !params[:ritfile].blank?
-          if !params[:ritfile][:filename].nil?
-            fmsgg+=RitFileUp(params[:ritfile][:filename],fkid,1,0)
-          end
-          if !params[:ritfile][:filenameB].nil?
-            fmsgg+=RitFileUp(params[:ritfile][:filenameB],fkid,1,0)
-          end
-          if !params[:ritfile][:filenameC].nil?
-            fmsgg+=RitFileUp(params[:ritfile][:filenameC],fkid,1,0)
-          end
-          if !params[:ritfile][:filenameD].nil?
-            fmsgg+=RitFileUp(params[:ritfile][:filenameD],fkid,1,0)
-          end
-          if !params[:ritfile][:filenameE].nil?
-            fmsgg+=RitFileUp(params[:ritfile][:filenameE],fkid,1,0)
-          end
+          upload_files_for_forms(params[:ritfile],fkid,1)
         end
-        flash[:notice]=_('rit_mag_add_ok')
-        if !fmsgg.blank?
-          flash[:error]=fmsgg
-        end
+
         pid=params[:project_id]
+        flash[:notice] += (" " + t('rit_mag_add_ok'))
         cookies.delete :content
         cookies.delete :title
         redirect_to :controller => "rit" , :action => "index" , :project_id => pid
@@ -305,7 +291,7 @@ class RitController < ApplicationController
               uu = u.login
               um = u.email
               logStr+="user #{uu} is Assigned. \n "
-              Ritmailer.assign_to_notify(um,uu,tT,fkid,tLink).deliver
+              #Ritmailer.assign_to_notify(um,uu,tT,fkid,tLink).deliver
           end
           if ((!am.HasAssign.nil?) && (!assign.include?(am.id.to_s)))
              Ritassigns.destroy_all(:asUserID => am.id, :asRitID => am.HasAssign)
@@ -370,7 +356,8 @@ class RitController < ApplicationController
   end
 
   def dataroles_checker(role_level) 
-    #role_level =1 is only admin ,2 is both
+    #role_level =1 is only admin 
+    #role_level =2 is both , why it both ? beacuse it still testing whole in the project and this groups .
     if checkrole(current_user.id,'rt_member')=="rt_member"
       is_rt_member=1
     else
@@ -383,24 +370,10 @@ class RitController < ApplicationController
       is_rt_admin=0
     end
 
-    if checkrole(current_user.id,'rit_member')=="rit_member"
-      is_rit_member=1
-    else
-      is_rit_member=0
-    end
-
-    if checkrole(current_user.id,'rit_admin')=="rit_admin"
-      is_rit_admin=1
-    else
-      is_rit_admin=0
-    end
-
     if role_level == 1
-      lv_pass = is_rt_admin + is_rit_admin
-      lv_pass > 0 ? is_pass =1 : is_pass =0
+      is_rt_admin > 0 ? is_pass =1 : is_pass =0
     elsif role_level ==2
-      lv_pass = is_rt_member + is_rt_admin + is_rit_member + is_rit_admin
-      lv_pass > 0 ? is_pass = 1 : is_pass = 0
+      (is_rt_member + is_rt_admin) > 0 ? is_pass = 1 : is_pass = 0
     else
       is_pass = 0
     end
@@ -433,47 +406,22 @@ class RitController < ApplicationController
       return
     end
      fkid = params[:id]
-        #call RitFileUp
-        if !params[:ritfile].blank?
-            fmsgg=""
-            if !params[:ritfile][:filename].nil?
-              fmsgg+=RitFileUp(params[:ritfile][:filename],fkid,1,0)
-            end
-            if !params[:ritfile][:filenameB].nil?
-              fmsgg+=RitFileUp(params[:ritfile][:filenameB],fkid,1,0)
-            end
-            if !params[:ritfile][:filenameC].nil?
-              fmsgg+=RitFileUp(params[:ritfile][:filenameC],fkid,1,0)
-            end
-            if !params[:ritfile][:filenameD].nil?
-              fmsgg+=RitFileUp(params[:ritfile][:filenameD],fkid,1,0)
-            end
-            if !params[:ritfile][:filenameE].nil?
-              fmsgg+=RitFileUp(params[:ritfile][:filenameE],fkid,1,0)
-            end
-        
-            flash[:notice]=_('rit_msg_upload_ok')
-            butSomeError = ""
-            if !fmsgg.blank?
-              flash[:error]=fmsgg
-              butSomeError = ", but " + fmsgg
-            end
-          
-            logStr ="User #{current_user.login} has upload some files"+ butSomeError
-            rlog = Ritreplies.new()
-            rlog.rit_fk_id = params[:id]
-            rlog.user_id = userID
-            rlog.title = '[log] uploading attachment'
-            rlog.content = logStr
-            rlog.replytype = 1
-            rlog.guestmail = 'rit@openfoundry.com'
-            ##### if nothing change but still submit then not save to data
-            if logStr != ''
-              rlog.save
-            end
-        else
-          flash[:error] = _('rit_mag_upload_empty_error')
-        end
+     if !params[:ritfile].blank?
+       flash[:notice] = ""
+       upload_files_for_forms(params[:ritfile],fkid,1)
+       butSomeError = flash[:error] || ""
+       logStr ="User #{current_user.login} has upload some files"+ butSomeError
+       rlog = Ritreplies.new()
+       rlog.rit_fk_id = params[:id]
+       rlog.user_id = userID
+       rlog.title = '[log] uploading attachment'
+       rlog.content = logStr
+       rlog.replytype = 1
+       rlog.guestmail = 'rit@openfoundry.com'
+       rlog.save
+     else
+        flash[:error] = _('rit_mag_upload_empty_error')
+     end
         pid=params[:project_id]
         redirect_to :action => "show" , :project_id => pid , :id => params[:id]
   end
@@ -508,7 +456,7 @@ class RitController < ApplicationController
               rfile = Ritfile.find(a.to_i)
               rfname = rfile.filename
               rfoname = rfile.OrigName
-              directory = "public/of/rit_attachs"
+              directory = RIT_UPLOAD_PATH
               newname =  rfname
               remFile = File.join(directory, newname)
               if File.delete(remFile)
@@ -594,10 +542,46 @@ class RitController < ApplicationController
     @rit = @rit.paginate :page => params[:page], :per_page => 25
   end
 
+  def upload_files_for_forms(file_fields,fkid,rit_or_reply)
+    message_complee_file = ''
+    message_error_file = ''
+    upload_ok = 0
+    upload_false = 0
+    upload_total = 0
+    if rit_or_reply == 1
+      for_rit = 1
+      for_reply = 0
+    else
+      for_rit = 0
+      for_reply = 1
+    end
+    file_fields.each do |file|
+      complee_stat = RitFileUp(file,fkid,for_rit,for_reply) unless file.blank?
+      if complee_stat == 1
+        upload_ok += 1
+        message_complee_file += file.original_filename + ', '
+      end
+      if complee_stat == 0
+        upload_false += 1
+        message_error_file +=  file.original_filename + '(' + file.size.to_s + ')' + ', '
+      end
+        upload_total += ( upload_ok + upload_false )
+    end
+    if upload_ok > 0
+      flash[:notice] += t('rit_msg_uploaded_ok_each_filename' ,:ufname => message_complee_file  )
+    end
+    if upload_false > 0
+      flash[:error] = t('rit_msg_oversize' ,:ufname => message_error_file )
+    end
+
+   #return "total_upload" => upload_total ,"ok_upload_nums" => upload_ok ,"error_upload_nums" => upload_false ,"msg_ok_file" => message_complee_file ,"msg_error_file" => message_error_file
+  end
+
+
   #the file upload function
   def RitFileUp(upload,fKid,forRit,forReply)
       name =  upload.original_filename
-      directory = "public/of/rit_attachs"
+      directory = RIT_UPLOAD_PATH 
       # create the file path
       path = File.join(directory, name)
       # write the file
@@ -610,7 +594,12 @@ class RitController < ApplicationController
       thetype = upload.content_type
       theFileSize = upload.size
       #make filename to database
-      if theFileSize < 2500000
+      if theFileSize < RIT_MAX_UPLOAD_FILE_SIZE
+        if upload.content_type.chomp =~ /^image/
+          Thread.new do
+            thumbing(remFile,128)
+          end
+        end
         ritfile = Ritfile.new
         ritfile.ritFK = fKid
         ritfile.filename = newname
@@ -619,14 +608,26 @@ class RitController < ApplicationController
         ritfile.filetype = thetype.to_s
         ritfile.OrigName = name
         ritfile.save
-        fumsg=""
+        fumsg = t('rit_msg_uploaded_ok_each_filename', :ufname => name.to_s)
+        complee = 1
       else
         File.delete(remFile)
         fumsg = t('rit_msg_oversize', :ufname => name.to_s ,:ufsize => theFileSize.to_s)
+        complee = 0
       end
-      return fumsg
+      return complee
   end
-  
+
+  def thumbing(image_path,size)
+    image_data = image_path
+      if File.exists?(image_data)
+        image_cache_file = File.join('public/images' ,RIT_IMAGE_THUMB_DIR ,File.basename(image_data))
+        system("/usr/local/bin/convert #{image_data}'[#{size}x#{size}]' #{image_cache_file}") == false
+      else
+        return false
+      end
+  end
+
   #input value is user_id and rit's role name if it's ,return the u.login, 
   #if if not return nil
   # Role name string is rit_admin or rit_member

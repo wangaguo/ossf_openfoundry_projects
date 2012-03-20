@@ -1,0 +1,19 @@
+<%
+
+if attach.filetype.chomp =~ /^image/ 
+  image_name = File.join(RIT_IMAGE_THUMB_DIR ,attach.filename )
+  download_link= "/of/rit_attachs/" + attach.filename
+  download_target = "_blank"
+else
+  image_name = 'rit_ico_attach.png'
+  download_link="?dl="+ attach.id.to_s
+  download_target = "_self"
+end
+%>
+<%=link_to image_tag(image_name ,:height => '64' ,:alt => attach.filename) ,download_link ,:target => download_target %>
+<%=link_to attach.OrigName ,download_link ,:target => download_target %>
+(<%
+p = File.join( RIT_UPLOAD_PATH  ,attach.filename )
+    fsize = File.size(p)
+    %><%=number_to_human_size(fsize)%>)
+<br /> 

@@ -1,4 +1,5 @@
 <h2><%=_('rit_title_deleteupload')%></h2>
+<%=link_to "back" ,:back %>
 <% form_for :uploadmorefile, :url => deletingfile_project_rit_index_path, :html=>{:multipart => true}  do |f| %>
 <table border="1" width="100%" class="list-table">
   <tr>
@@ -49,7 +50,7 @@
   <td>
     <%for attach in @attach  %>
       <%= check_box_tag "ratts[]", attach.id %>
-        <%=link_to attach.OrigName ,"/of/rit_attachs/"+ attach.filename, :target => '_blank'  %>
+        <%=attach.OrigName %>
       (<%
           p ='public/of/rit_attachs/'+attach.filename 
           fsize = File.size(p)
