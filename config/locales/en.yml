@@ -842,7 +842,7 @@ en:
   "rit_table_assignings": "etc %{acount} peoples"
   "rit_keyword_search": "The keyword %{kword} has %{kcount} records. "
   "rit_form_key_search": "Key Word"
-  "rit_msg_oversize": "The file name [%{ufname}] is over upload limit (%{ufsize})"
+  "rit_msg_oversize": "The file name [%{ufname}] is over upload limit."
   "rit_link_uploadmore": "Upload more file"
   "rit_title_uploadmore": "Adding more file from the ticket"
   "rit_mag_upload_empty_error": "All file field are empty"
@@ -853,6 +853,9 @@ en:
   "rit_msg_attach_delete_ok": "File remove compleet"
   "rit_msg_upload_not_yours": "you can\'t not edit files of this ticket"
   "rit_change_stat_no_perm": "You have no permit to do this"
+  "rit_link_reply_with_quote": "Reply with quote"
+  "rit_quote_reply_msg": "%{cname} at %{ctime} wrote: "
+  "rit_msg_uploaded_ok_each_filename" : "The file : %{ufname} is upload complee."
 
   ritstatus:
     DELETE: "Delete"

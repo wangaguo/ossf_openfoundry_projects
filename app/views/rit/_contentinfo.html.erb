@@ -1,0 +1,7 @@
+<%if major == 'a'%>
+  <%=_('rit_table_date')%>
+<%else%>
+  <%=_('rit_table_replietime')%>
+<%end%>
+: <%=info.created_at %>(<%=time_ago_in_words(info.created_at)%><%=_('rit_table_comment_before')%>)<br />
+<%=link_to _("rit_link_reply_with_quote") ,"?rwq="+info.id.to_s+"&m="+major+"#quoteme"%>

@@ -51,17 +51,10 @@
     </p>
     <p align="right">
     <%=_('rit_table_atta')%> :
-    <% for attach in @attach  %>
-      <%=link_to attach.OrigName ,"/of/rit_attachs/"+ attach.filename, :target => '_blank'  %>
-      (<%
-        p ='public/of/rit_attachs/'+attach.filename 
-        fsize = File.size(p)
-        %><%=number_to_human_size(fsize)%>)
-      <br />  
-    <% end %>
+    <%= render :partial => 'attachments', :collection => @attach, :as => :attach %>
     </p>
     <p align="right">
-    <%=_('rit_table_date')%> : <%=@rit.created_at %>(<%=time_ago_in_words(@rit.created_at)%><%=_('rit_table_comment_before')%>)
+    <%= render :partial => 'contentinfo' ,:locals =>{:info=>@rit ,:major => 'a'} %>
     </p>
   </td>
 </tr>
@@ -108,26 +101,19 @@
  
         <%if replaies.replytype == 0 %>
           <p align="right">
-            <%=_('rit_table_atta')%>
+            <%=_('rit_table_atta')%>:
             <%@reattach = Ritfile.where(:ritFK => replaies.id , :fromReply => 1).all  %>
-            <%for reattach in @reattach%>
-              <%=link_to reattach.OrigName,"/of/rit_attachs/"+ reattach.filename, :target => '_blank' %>
-              (<%
-                p ='public/of/rit_attachs/'+reattach.filename 
-                fsize = File.size(p)
-                %><%=number_to_human_size(fsize)%>)
-<br />
-            <%end %>
+            <%= render :partial => 'attachments', :collection => @reattach, :as => :attach %>
           </p>
           <p align="right">
-            <%=_('rit_table_replietime')%> : <%=replaies.created_at%>(<%=time_ago_in_words(replaies.created_at)%><%=_('rit_table_comment_before')%>)
+          <%= render :partial => 'contentinfo' ,:locals =>{:info=>replaies ,:major => 'b'} %>
           </p>
         <%end%>
       </td>
     </tr>
   </table>
 <%end%>
-<p align="center"><b><%=_('rit_form_repliestitle')%></b></p>
+<p align="center"><b><%=_('rit_form_repliestitle')%></b><a name="quoteme">&nbsp;</a></p>
 <% form_for :ritreply, :url => reply_project_rit_index_path, :html=>{:multipart => true}  do |f| %>
   <table border="1" class="list-table">
     <tr>
@@ -144,11 +130,12 @@
       <%end%>
     <tr>
      <td><%=_('rit_form_replicontent')%> : </td>
-     <td><%=f.text_area :content ,:value =>cookies[:content] %></td>
+     <td><%=f.text_area :content ,:value =>@rwq%></td>
     </tr>
     <tr>
       <td><%=_('rit_form_fileattach')%> : </td>
-      <td><%=file_field_tag 'ritfile[filename]' %><br /><%=file_field_tag 'ritfile[filenameB]'%><br /><%=file_field_tag 'ritfile[filenameC]'%><br /><%=file_field_tag 'ritfile[filenameD]'%><br /><%=file_field_tag 'ritfile[filenameE]'%><br /><%=_('rit_form_file_send_limitnote')%></td>
+      <td><%=render :partial => "fileupload_form" %>
+          <%=_('rit_form_file_send_limitnote')%></td>
     </tr>
   </table>
    <% if current_user.login == 'guest' %>
