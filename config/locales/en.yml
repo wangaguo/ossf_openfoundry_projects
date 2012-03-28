@@ -824,7 +824,7 @@ en:
   "rit_form_comment_write": "Write your comment"
   "rit_form_change_issue_stat": "Change the Issue Stat"
   "rit_form_comment_the_issue": "Comment the Issue"
-  "rit_form_file_send_limitnote": "File size each 2MB maximum"
+  "rit_form_file_send_limitnote": "File size each %{ufmax} maximum"
   "rit_form_email": "Email"
  
   "rit_link_post_new": "Post new issue"
@@ -856,6 +856,10 @@ en:
   "rit_link_reply_with_quote": "Reply with quote"
   "rit_quote_reply_msg": "%{cname} at %{ctime} wrote: "
   "rit_msg_uploaded_ok_each_filename" : "The file : %{ufname} is upload complee."
+  "rit_mailer_link_back": "Return the ticket to"
+  "rit_link_ticket_types": "Ticket Types"
+  "rit_link_back_the_ticket": "Back"
+  "rit_log_pick_up": "User %{uname} is pick up the request. "
 
   ritstatus:
     DELETE: "Delete"

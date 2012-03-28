@@ -492,6 +492,7 @@ class UserController < ApplicationController
         LEFT JOIN ritassigns ON ritassigns.asRitID=rits.id
         LEFT JOIN users AU ON ritassigns.asUserID=AU.id 
         LEFT JOIN projects pj ON rits.project_id=pj.id
+        WHERE NOT ISNULL(rits.id)
       group by rits.id
       order by rits.created_at DESC")
     #My RIT end#########

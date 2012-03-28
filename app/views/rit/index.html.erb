@@ -1,48 +1,50 @@
-<p align="Left"><%=link_to _('rit_link_post_new'),new_project_rit_path() %><%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%> | <%= link_to 'Old IssueTracker', project_rt_index_path(@project) %></p>
+<p align="Left">
+  <%= render :partial => "main_links"%>  | <%= link_to 'Old IssueTracker', project_rt_index_path(@project) %>
+</p>
+<p align="right">
+  <%=t('rit_link_ticket_types')%> : <%= render :partial => 'tickettypes', :locals => {:types => @types} %>
+</p>
 <p>Click a name to login : 
 <% @pjMeb.each do |g|%>
   <a href="rit?login=<%=g.id%>"><%=g.login%></a>,&nbsp;
 <% end%>
   <a href="rit?login=logout">logout</a>
-</p>
 <form>
-<%=_('rit_form_key_search')%>:<%=text_field_tag 'k'%><%= submit_tag _('submit') %>
+  <%=_('rit_form_key_search')%>:<%=text_field_tag 'k'%><%= submit_tag _('submit') %>
 </form>
 <%if !@k.empty?%>
   <p align="center"><%=t 'rit_keyword_search',:kword => @k,:kcount => @knums %> ,<%=link_to _('rit_link_view_all'),project_rit_index_path()%></p>
 <%end%>
 <table class="ritlist-table" width="100%">
   <tr>
-    <td>&nbsp;</td>
-    <td><%=_('rit_table_subject')%>(<%=_('rit_table_recount')%>)</td>
-    <td><%=link_to _('rit_table_date')+@shortMarkA,project_rit_index_path()+@orderLinkA%></td>
-    <td><%=link_to _('rit_table_lastchange')+@shortMarkB,project_rit_index_path()+@orderLinkB%></td>
-    <td><%=_('rit_table_assignto')%></td>
-    <td><%=link_to _('rit_table_status')+@shortMarkC,project_rit_index_path()+@orderLinkC%></td>
-  </tr>
-<%for rit in @rit%>
-        <% rit.status == Rit::STATUS[:OPEN]?trbg="#d2f5b0":"#FFFFFF" %>
-        <% rit.status == Rit::STATUS[:FINISH]?trbg="#c9ccc4":"#FFFFFF" %>
-	      <% rit.status == Rit::STATUS[:PROCESS]?trbg="#c2dfff":"#FFFFFF" %>
-	      <% rit.status == Rit::STATUS[:SUSPENDED]?trbg="#fcbdbd":"#FFFFFF" %>
-	      <% rit.status == Rit::STATUS[:DELETE]?trbg="#e3b7eb":"#FFFFFF" %>
-    <tr bgcolor="<%=trbg%>">
     <td>
-        <%=link_to '#'+ rit.id.to_s, project_rit_path(:id => rit) %><br />
-	      <%=rit.priority == Rit::PRIORITY[:Urgent]?image_tag("rit_vip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !!" , :color => "red") :"" %>
-	      <%=rit.priority == Rit::PRIORITY[:High]?image_tag("rit_ip_24.png", :height => '16', :align => 'middle')+content_tag(:font ," !" , :color => "red"):"" %>
-        <%=rit.priority == Rit::PRIORITY[:Medium]?image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):"" %>
-	      <%=rit.priority == Rit::PRIORITY[:Low]?image_tag("rit_low_24.png", :height => '16', :align => 'middle'):"" %>
+      &nbsp;
     </td>
     <td>
-        <%=link_to rit.title, project_rit_path(:id => rit) %>
-        <% if rit.nums.to_i == 0  %>
-	        <%=content_tag(:font ,'('+ rit.nums.to_s + ')', :color => "#EEEEEE")%>
-        <% else %>
-	        <%=content_tag(:font ,'('+ rit.nums.to_s + ')', :color => "blue")%>
-	      <% end %>
-	      <br />
-        <%=image_tag("rit_u_24.png", :height => '18', :align => 'middle')%>&nbsp;
+      <%=_('rit_table_subject')%>(<%=_('rit_table_recount')%>)
+    </td>
+    <td>
+      <%=link_to _('rit_table_date')+@shortMarkA,project_rit_index_path()+@orderLinkA%>
+    </td>
+    <td>
+      <%=link_to _('rit_table_lastchange')+@shortMarkB,project_rit_index_path()+@orderLinkB%>
+    </td>
+    <td>
+      <%=_('rit_table_assignto')%>
+    </td>
+    <td>
+      <%=link_to _('rit_table_status')+@shortMarkC,project_rit_index_path()+@orderLinkC%>
+    </td>
+  </tr>
+  <%for rit in @rit%>
+  <tr bgcolor="<%=ticket_status_color(rit.status)%>" style="TEXT-DECORATION:<%=ticket_status_delete_line(rit.status)%>">
+    <td>
+      <%=link_to '#'+ rit.id.to_s, project_rit_path(:id => rit) %><br />
+      <%=ticket_priority_icon(rit.priority)%>
+    </td>
+    <td>
+        <%=ticket_priority_urgent_hight(rit.priority)%>
+        <%=link_to rit.title, project_rit_path(:id => rit) %><br />
         <%=rit.uname%>
     </td>
     <td>
@@ -54,26 +56,13 @@
         <%=rit.rdate && time_ago_in_words(rit.rdate.to_datetime)%>
     </td>
     <td>
-        <% if rit.firstAssign.nil? %>
-	        <%=image_tag("rit_question_24.png", :height => '16', :align => 'middle')%>&nbsp;
-	        <%=content_tag(:font ,'NoBody', :color => "#BBBBBB")%>
-	      <% else %>
-          <%=image_tag("rit_right_24.png", :height => '16', :align => 'middle')%>&nbsp;
-          <%=rit.firstAssign%><br />
-          <%if ((rit.assignNums.to_i)-1) > 0%>
-            <%=t'rit_table_assignings', :acount => (rit.assignNums.to_i)-1  %>
-          <%end%>
-        <% end %>
+      <%=ticket_assign_short_info(rit.id,rit.firstAssign)%>
     </td>
     <td>
-        <%=rit.status == Rit::STATUS[:OPEN]?image_tag("rit_open_24.png", :height => '16', :align => 'middle')+"Open":"" %>
-        <%=rit.status == Rit::STATUS[:FINISH]?image_tag("rit_finish_24.png", :height => '16', :align => 'middle')+"Finish":"" %>
-	      <%=rit.status == Rit::STATUS[:PROCESS]?image_tag("rit_process_24.png", :height => '16', :align => 'middle')+"Process":"" %>
-	      <%=rit.status == Rit::STATUS[:SUSPENDED]?image_tag("rit_suspended_24.png", :height => '16', :align => 'middle')+"Suspended":"" %>
-	      <%=rit.status == Rit::STATUS[:DELETE]?image_tag("rit_delete_24.png", :height => '16', :align => 'middle')+"Delete":"" %>
+      <%=ticket_status_icon(rit.status)%>
     </td>
-<%end%>
   </tr>
+  <%end%>
 </table>
 <p>
   <%= will_paginate @rit %>

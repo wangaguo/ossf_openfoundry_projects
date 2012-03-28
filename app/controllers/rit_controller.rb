@@ -18,9 +18,16 @@ class RitController < ApplicationController
       end
     end
  
-    @pjMeb=projectOfMembers
+    @types = Rit::TICKETTYPE
+    @pjMeb=members_in_project
     @userID = userID
     @rit = Rit.where(:project_id => params[:project_id])
+    if !params[:type].nil?
+      @rit = @rit.where(:tickettype => params[:type])
+      type_flag ="type=#{params[:type]}"
+    else
+      type_flag = "type="
+    end
     if !params[:k].nil?
       @k=params[:k]
       keyword = "%#{@k}%"
@@ -48,36 +55,42 @@ class RitController < ApplicationController
    
     if order_rq=='cdate'
       orderSql = "rits.created_at #{short_str}"
-      @orderLinkA = "?orderby=cdate&short=#{short_rev}"+shortOfkword
+      @orderLinkA = "?#{type_flag}&orderby=cdate&short=#{short_rev}"+shortOfkword
       @shortMarkA = shorting
     else
-      @orderLinkA = "?orderby=cdate&short=DESC"+shortOfkword
+      @orderLinkA = "?#{type_flag}&orderby=cdate&short=DESC"+shortOfkword
       @shortMarkA = ""
     end
     if order_rq=='rdate'
       orderSql = "MAX(ritreplies.created_at) #{short_str}"
-      @orderLinkB = "?orderby=rdate&short=#{short_rev}"+shortOfkword
+      @orderLinkB = "?#{type_flag}&orderby=rdate&short=#{short_rev}"+shortOfkword
       @shortMarkB = shorting
     else
-      @orderLinkB = "?orderby=rdate&short=DESC"+shortOfkword
+      @orderLinkB = "?#{type_flag}&orderby=rdate&short=DESC"+shortOfkword
       @shortMarkB = ""
     end
     if order_rq=='stat'
       orderSql = "rits.status #{short_str}"
-      @orderLinkC = "?orderby=stat&short=#{short_rev}"+shortOfkword
+      @orderLinkC = "?#{type_flag}&orderby=stat&short=#{short_rev}"+shortOfkword
       @shortMarkC = shorting
     else
-      @orderLinkC = "?orderby=stat&short=DESC"+shortOfkword
+      @orderLinkC = "?#{type_flag}&orderby=stat&short=DESC"+shortOfkword
       @shortMarkC = ""
     end 
-    @rit = @rit.find(:all, :joins=>"LEFT JOIN ritreplies ON rits.id=ritreplies.rit_fk_id AND ritreplies.replytype=0 LEFT JOIN users ON rits.user_id=users.id LEFT JOIN ritassigns ON asRitID=rits.id LEFT JOIN users AU ON ritassigns.asUserID=AU.id ", :select=>"rits.* ,users.login as uname ,users.icon as avator ,MAX(ritreplies.created_at) AS rdate ,COUNT(ritreplies.rit_fk_id) AS nums, COUNT(ritassigns.asRitID) as assignNums, MAX(AU.login) as firstAssign" ,:group=>"rits.id" , :order=> orderSql )
+    @rit = @rit.find(:all ,
+                     :joins=>"LEFT JOIN ritreplies ON rits.id=ritreplies.rit_fk_id 
+                              LEFT JOIN users ON rits.user_id=users.id 
+                              LEFT JOIN ritassigns ON rits.id=ritassigns.asRitID 
+                               " ,
+                     :select=>"rits.id ,rits.title, rits.status, rits.priority, rits.created_at, users.login as uname ,users.icon as avator ,MAX(ritreplies.created_at) AS rdate , MAX(ritassigns.asUserID) as firstAssign" ,
+                     :group=>"rits.id" ,
+                     :order=> orderSql )
     @rit = @rit.paginate :page => params[:page], :per_page => 25
 
   end
 
   def show
     @module_name = _('rit_index_title')
-    
     @userID=userID
     @rit = Rit.find(params[:id])
     assUsers = Ritassigns.where(:asRitID => params[:id])
@@ -114,14 +127,13 @@ class RitController < ApplicationController
       realfilename =File.join(RIT_UPLOAD_PATH ,file.filename) 
       send_file realfilename ,:filename => file.OrigName ,:stream => true ,:buffer_size => 4096
     end
-    
   end
 
   def new
     @module_name = _('rit_index_title')
     
     @Name=Project.find(params[:project_id])
-    @pjMeb=projectOfMembers
+    @pjMeb=members_in_project
     @priority = Rit::PRIORITY
     @type = Rit::TICKETTYPE
     @userID=userID
@@ -130,45 +142,40 @@ class RitController < ApplicationController
   end
 
   def reply
-     if current_user.login == 'guest' and verify_recaptcha == false
-       cookies[:guestmail]=params[:ritreply][:guestmail]
-       cookies[:title]=params[:ritreply][:title]
-       cookies[:content]=params[:ritreply][:content]
-       flash[:error] = _('rit_msg_captcha_error')
-       redirect_to :back
-       return
-     end
-   @ritreply = Ritreplies.new(params[:ritreply])
-    pid=params[:project_id] 
-    if @ritreply.save
-        
-        rt = Rit.find(params[:id])
-        aU = User.find(rt.user_id)
-        uName = aU.login
-        if uName!="guest"
-          uEmail = aU.email
-        else
-          uEmail = rt.guestmail
-        end
+    if current_user.login == 'guest' and verify_recaptcha == false
+      cookies[:guestmail]=params[:ritreply][:guestmail]
+      cookies[:title]=params[:ritreply][:title]
+      cookies[:content]=params[:ritreply][:content]
+      flash[:error] = _('rit_msg_captcha_error')
+      redirect_to :back
+      return
+    end
+    @ritreply = Ritreplies.new(params[:ritreply])
+    if @ritreply.save     
+      rt = Rit.find(params[:id])
+      aU = User.find(rt.user_id)
+      uName = aU.login
+      if uName!="guest"
+        uEmail = aU.email
+      else
+        uEmail = rt.guestmail
+      end
 
-        tTitle = rt.title
-        tLink = request.env["HTTP_REFERER"]
+      link_ticket = link_to_ticket(params[:id],params[:project_id])
+      Ritmailer.email_notify('reply','',params[:id],@ritreply.id,params[:project_id],link_ticket).deliver
+      flash[:notice] = ""
+      if !params[:ritfile].blank?
+        upload_files_for_forms(params[:ritfile],@ritreply.id,2)
+      end
 
-        #Ritmailer.ticket_reply_to_major(uEmail,uName,tTitle,tLink).deliver
-        fKid = @ritreply.id
-        flash[:notice] = ""
-        if !params[:ritfile].blank?
-          upload_files_for_forms(params[:ritfile],fKid,2)
-        end
-
-        flash[:notice] += (" " +  _('rit_msg_reply_ok'))
-        cookies.delete :content
-        redirect_to :action => "show" , :project_id => pid , :id => params[:id]
+      flash[:notice] += (" " +  _('rit_msg_reply_ok'))
+      cookies.delete :content
+      redirect_to :action => "show" , :project_id => params[:project_id] , :id => params[:id]
     else
-        flash[:error]=_('rit_msg_add_error')
-        cookies[:content]=params[:ritreply][:content]
-        cookies[:guestmail]=params[:rit][:guestmail]
-        redirect_to :action => "show" ,:project_id => pid , :id => params[:id]
+      flash[:error]=_('rit_msg_add_error')
+      cookies[:content]=params[:ritreply][:content]
+      cookies[:guestmail]=params[:rit][:guestmail]
+      redirect_to :action => "show" ,:project_id => params[:project_id] , :id => params[:id]
     end
 
   end
@@ -183,54 +190,40 @@ class RitController < ApplicationController
         return
     end
     @rit = Rit.new(params[:rit])
+
     if @rit.save
       fkid = @rit.id
-      tTitle = params[:rit][:title]
-      tLink = "http://#{request.env["SERVER_NAME"]}/of/projects/#{params[:project_id]}/rit/#{fkid}"
-      users = projectOfMembers
-      aU = User.find(params[:rit][:user_id])
-      #Ritmailer.created_notify_to_all(users,aU.login,fkid,tLink,tTitle).deliver
+      #multi assign users
+      if !params[:assigns].blank?
+        assign = params[:assigns]
+        assign.each do |ass|
+          as = Ritassigns.new
+          as.asRitID = @rit.id
+          as.asUserID = ass 
+          as.save
+        end
+      end
+     
+      link_ticket = link_to_ticket(fkid,params[:project_id])
+      members = members_in_project
+      Ritmailer.email_notify('create',members,@rit.id,'',params[:project_id],link_ticket).deliver
 
-      if current_user.login=="guest"
-        #Ritmailer.create_notify_to_guest(params[:rit][:guestmail],tLink,tTitle).deliver
+      #call upload funcion
+      flash[:notice] = ""
+      if !params[:ritfile].blank?
+        upload_files_for_forms(params[:ritfile],fkid,1)
       end
 
-      auid = params[:rit][:assign_user_id]
-      if auid.to_i != 0.to_i
-        u = User.find(params[:rit][:assign_user_id])
-        um = u.email
-        uu = u.login
-        tT = params[:rit][:title]
-       # Ritmailer.assign_to_notify(um,uu,tT,fkid,tLink).deliver
-       end
-
-       #multi assign users
-        if !params[:assigns].blank?
-            assign = params[:assigns]
-            assign.each do |ass|
-              as = Ritassigns.new
-              as.asRitID = fkid
-              as.asUserID = ass 
-              as.save
-            end
-        end
-       #call upload funcion
-        flash[:notice] = ""
-        if !params[:ritfile].blank?
-          upload_files_for_forms(params[:ritfile],fkid,1)
-        end
-
-        pid=params[:project_id]
-        flash[:notice] += (" " + t('rit_mag_add_ok'))
-        cookies.delete :content
-        cookies.delete :title
-        redirect_to :controller => "rit" , :action => "index" , :project_id => pid
+      flash[:notice] += (" " + t('rit_mag_add_ok'))
+      cookies.delete :content
+      cookies.delete :title
+      redirect_to :controller => "rit" , :action => "index" , :project_id => params[:project_id]
     else
-       flash[:error]=_('rit_msg_add_error')
-       #redirect_to :action => "new"
-       cookies[:title]=params[:rit][:title]
-       cookies[:content]=params[:rit][:content]
-       redirect_to :back
+      flash[:error]=_('rit_msg_add_error')
+      #redirect_to :action => "new"
+      cookies[:title]=params[:rit][:title]
+      cookies[:content]=params[:rit][:content]
+      redirect_to :back
     end
     
     
@@ -250,7 +243,7 @@ class RitController < ApplicationController
       return
     end
     @pjName=Project.find(params[:project_id])
-    @pjMeb=projectOfMembers
+    @pjMeb=members_in_project
     @priority = Rit::PRIORITY
     @type = Rit::TICKETTYPE
     @status = Rit::STATUS
@@ -276,8 +269,8 @@ class RitController < ApplicationController
      p = Rit::PRIORITY
      s = Rit::STATUS
      t = Rit::TICKETTYPE
-     tLink = "http://#{request.env["SERVER_NAME"]}/of/projects/#{params[:project_id]}/rit/#{fkid}"
      ########### multi assign/remove users ##################
+     
      assign = params[:assigns]
      asses=assignTable(params[:project_id],params[:id])
        if (!(params[:assigns].blank?) && !(asses.nil?))
@@ -291,7 +284,6 @@ class RitController < ApplicationController
               uu = u.login
               um = u.email
               logStr+="user #{uu} is Assigned. \n "
-              #Ritmailer.assign_to_notify(um,uu,tT,fkid,tLink).deliver
           end
           if ((!am.HasAssign.nil?) && (!assign.include?(am.id.to_s)))
              Ritassigns.destroy_all(:asUserID => am.id, :asRitID => am.HasAssign)
@@ -299,7 +291,7 @@ class RitController < ApplicationController
              uu = u.login
              logStr+="user #{uu} is Removed. \n "
           end
-          end 
+          end
        end
     
          #if something has records in table but params[:assigns] wants delete all
@@ -350,7 +342,10 @@ class RitController < ApplicationController
           ##### if nothing change but still submit then not save to data
           if logStr != ''
             rlog.save
-          end
+            members = members_in_project
+            link_ticket = link_to_ticket(params[:id],params[:project_id])
+            Ritmailer.email_notify('update',members,@rit.id,rlog.id,params[:project_id],link_ticket).deliver
+         end
           flash[:notice]=_('rit_msg_changestat')
           redirect_to project_rit_index_path
   end
@@ -422,8 +417,7 @@ class RitController < ApplicationController
      else
         flash[:error] = _('rit_mag_upload_empty_error')
      end
-        pid=params[:project_id]
-        redirect_to :action => "show" , :project_id => pid , :id => params[:id]
+        redirect_to :action => "show" , :project_id => params[:project_id] , :id => params[:id]
   end
 
   def deletefile
@@ -449,9 +443,9 @@ class RitController < ApplicationController
       flash[:error]=_('rit_msg_upload_not_yours')
       return
     end
-   atts = params[:ratts]
        if !params[:ratts].blank?
          logStr=""
+         atts = params[:ratts]
          atts.each do |a|
               rfile = Ritfile.find(a.to_i)
               rfname = rfile.filename
@@ -657,8 +651,8 @@ class RitController < ApplicationController
 
   end
 
-  def projectOfMembers
-    pmembers = User.find_by_sql("
+  def members_in_project
+    return_members = User.find_by_sql("
     	select distinct U.id, U.login, U.icon, U.email, R.name as role_name
 	from users U
 	  inner join roles_users RU on U.id = RU.user_id
@@ -669,11 +663,11 @@ class RitController < ApplicationController
 	ORDER BY U.id;
 	")
 
-     return pmembers
+     return return_members
   end
 
   def assignTable(pjid,ticketid)
-     a = User.find_by_sql("
+     assigns = User.find_by_sql("
       select distinct U.id, U.login, U.icon, A.asRitID as HasAssign
       from users U
         inner join roles_users RU on U.id = RU.user_id
@@ -684,7 +678,16 @@ class RitController < ApplicationController
         R.authorizable_type= 'Project'
         ORDER BY U.id;
         ")
-     return a
- end
+     return assigns
+  end
+
+  def link_to_ticket(rit_id,project_id)
+    serverport = ""
+    if request.env["SERVER_PORT"] != 80
+      serverport = ":" + request.env["SERVER_PORT"].to_s
+    end
+    tLink = "http://#{request.env["SERVER_NAME"]}#{serverport}/of/projects/#{project_id}/rit/#{rit_id}"
+    return tLink
+  end
 
 end

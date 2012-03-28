@@ -1,0 +1,12 @@
+<%=t('rit_table_requester')%> : <%=content_tag :b ,creator.login %>
+<%=ticket_guest_mail_mask(creator.login,rit.guestmail)%>
+<br />
+<%=t('rit_table_assignto')%> : <%=content_tag :b ,ticket_owners(owners)%>
+[ <%=t('rit_table_status')%> : <%=ticket_status_icon(rit.status)%> ]<br />
+<%
+if current_user.login != "guest" 
+  concat link_to (t('rit_link_changestat'), changestat_project_rit_index_path , :id => rit) + " / "
+  concat link_to (t('rit_link_uploadmore'),uploadmorefile_project_rit_index_path, :id => rit) +" / "
+  concat link_to (t('rit_link_deleteupload'),deletefile_project_rit_index_path, :id => rit)
+end
+%>

@@ -1,0 +1,5 @@
+<%=link_to 'All' ,"?type=" %> |
+<% types.each do |type| %>
+  <%= (params[:type].to_i==type[1])?">>":""%>
+  <%=link_to type[0] ,"?type=#{type[1]}" %> |
+<%end%>
