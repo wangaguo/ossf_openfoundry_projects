@@ -1,5 +1,11 @@
-The Ticket [<%=@title%>] has created by [<%=@aUser%>]
-check it out and resolve it
-link <%=@tLink%>
+<%=t('rit_table_date')%> : <%=@create_time%>
+<%=t('rit_form_subject')%> : <%=@title%>
+<%=t('rit_form_requester')%> : <%=@creator%>
+<%=t('rit_form_assign_to')%> : <%=@owners%>
+<%=t('rit_form_content')%> :
 
-R.I.T Notifier
+<%=raw @content%>
+
+<%=t('rit_mailer_link_back')%> : <%=@tLink%>
+<%=@allmails%>
+<%=RIT_EMAIL_GREETING%>

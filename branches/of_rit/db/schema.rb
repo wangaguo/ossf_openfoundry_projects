@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120224121514) do
+ActiveRecord::Schema.define(:version => 20120325060909) do
 
   create_table "archived_counter_logs", :force => true do |t|
     t.integer  "project_id"
@@ -320,6 +320,13 @@ ActiveRecord::Schema.define(:version => 20120224121514) do
   add_index "rits", ["assign_user_id"], :name => "index_rits_on_assign_user_id"
   add_index "rits", ["project_id"], :name => "index_rits_on_project_id"
   add_index "rits", ["user_id"], :name => "index_rits_on_user_id"
+
+  create_table "rittages", :force => true do |t|
+    t.string   "tag"
+    t.integer  "rit_ids"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40

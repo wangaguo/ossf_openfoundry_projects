@@ -1,5 +1,7 @@
+<p align="Left">
+<%= render :partial => "main_links"%> | <%= link_to t('rit_link_back_the_ticket'), :back%>
+</p>
 <h2><%=_('rit_title_deleteupload')%></h2>
-<%=link_to "back" ,:back %>
 <% form_for :uploadmorefile, :url => deletingfile_project_rit_index_path, :html=>{:multipart => true}  do |f| %>
 <table border="1" width="100%" class="list-table">
   <tr>

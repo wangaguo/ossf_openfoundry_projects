@@ -1,0 +1,3 @@
+<%=link_to _('rit_link_post_new'),new_project_rit_path() %> | 
+<%=link_to _('rit_link_view_all'),project_rit_index_path()%>
+<%=current_user.login=="guest"?"":content_tag(:font ," | ", :color=>"black")+(link_to _('rit_link_post_view_assigned') , assignlist_project_rit_index_path)%>

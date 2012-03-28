@@ -1,3 +1,6 @@
+<p align="Left">
+<%= render :partial => "main_links"%> | <%= link_to t('rit_link_back_the_ticket'),:back%>
+</p>
 <h2><%=_('rit_title_uploadmore')%></h2>
 <table border="1" width="100%" class="list-table">
   <tr>
@@ -55,7 +58,7 @@
     <tr>
       <td><%=_('rit_form_fileattach')%> : </td>
       <td align="left"><%=render :partial => "fileupload_form" %>
-          <%=_('rit_form_file_send_limitnote')%></td>
+        <%=t('rit_form_file_send_limitnote' , :ufmax => number_to_human_size(RIT_MAX_UPLOAD_FILE_SIZE))%></td>
     </tr>
   </table>
    <% if current_user.login == 'guest' %>
