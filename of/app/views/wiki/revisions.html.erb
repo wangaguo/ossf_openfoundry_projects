@@ -1,8 +1,7 @@
 <% content_for :page_head do %>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-  <link rel="stylesheet" href="http://tablesorter.com/themes/blue/style.css" />
-  <script type="text/javascript" src="http://autobahn.tablesorter.com/jquery.tablesorter.min.js"></script>
-  <script type="text/javascript" src="http://tablesorter.com/addons/pager/jquery.tablesorter.pager.js"></script>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" %>
+  <%= stylesheet_link_tag "/tablesorter/themes/blue/style.css" %>
+  <%= javascript_include_tag "/tablesorter/jquery.tablesorter.min.js", "/tablesorter/jquery.tablesorter.pager.js" %>
 <% end %>
 <% content_for :ujs do %>
   $.noConflict();
