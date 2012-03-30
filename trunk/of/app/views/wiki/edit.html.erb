@@ -16,10 +16,19 @@
   <% if @wiki_html %>
     <%= @wiki_html.html_safe %>
   <% end %>
-  <%= t('Page Name', :scope => :wiki) %>: <%= text_field(:wiki_page, :name) %> 
+  <%= t('Page Name', :scope => :wiki) %>:
+  <% if @wiki_permit %>
+    <%= text_field(:wiki_page, :name) %>
+  <% else %>
+    <%= @wiki_page.name %>
+  <% end %>
   <br/>
   <%= t('Summary', :scope => :wiki) %>:
-  <%= text_field :wiki_page, :summary, :size => 50 %>
+  <% if @wiki_permit %>
+    <%= text_field :wiki_page, :summary, :size => 50 %>
+  <% else %>
+    <%= @wiki_page.summary %>
+  <% end %>
   <br/>
   <%= text_area :wiki_page, :content, :cols => 80, :rows => 20  %>
   <br/>

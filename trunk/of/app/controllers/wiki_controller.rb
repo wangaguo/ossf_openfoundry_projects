@@ -125,8 +125,8 @@ class WikiController < ApplicationController
 
     wp = @wiki_page
     if request.post? 
-      wp.name = params[:wiki_page][:name]
-      wp.summary = params[:wiki_page][:summary]
+      wp.name = params[:wiki_page][:name] unless params[:wiki_page][:name].nil?
+      wp.summary = params[:wiki_page][:summary] unless params[:wiki_page][:summary].nil?
       wp.content = params[:wiki_page][:content]
       wp.log = params[:wiki_page][:log]
       @is_revision = params[:is_revision]
@@ -140,7 +140,7 @@ class WikiController < ApplicationController
         if params[:wiki_page][:content].strip == ""
           err_msg += t('Please input content', :scope => 'wiki.message') + '</br>'
         end
-        if params[:wiki_page][:name].strip == ""
+        if params[:wiki_page][:name].try(:strip) == ""
           err_msg += t('Please input page name', :scope => 'wiki.message') + '</br>'
         end
         unless WikiPages.page_all.
