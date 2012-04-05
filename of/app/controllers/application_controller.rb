@@ -363,7 +363,11 @@ THECODE
 
     def set_time_zone
       if !current_user.timezone.nil?
-        Time.zone = current_user.timezone
+        if current_user.timezone =~ /^[-\.\d]+$/ 
+          Time.zone = current_user.timezone.to_f
+        else
+          Time.zone = current_user.timezone
+        end
       end
     end
 

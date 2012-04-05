@@ -49,7 +49,7 @@ class WikiController < ApplicationController
       else #No HomePage and no permit
         @wiki_page = WikiPages.new
         @wiki_page.name = "HomePage"
-        @wiki_html = t("This page is no content", :scope => 'wiki.message') + "<br/></br/></br>"
+        @wiki_html = t("This page is no content", :scope => 'wiki.message') + "<br/><br/><br/>"
       end
       render :template => 'wiki/page'
     end
@@ -135,19 +135,19 @@ class WikiController < ApplicationController
       else params[:submit_save]
         err_msg = ''
         if params[:wiki_page][:name] == 'NoName'
-          err_msg += t('Please input a new page name', :scope => 'wiki.message') + '</br>'
+          err_msg += t('Please input a new page name', :scope => 'wiki.message') + '<br/>'
         end
         if params[:wiki_page][:content].strip == ""
-          err_msg += t('Please input content', :scope => 'wiki.message') + '</br>'
+          err_msg += t('Please input content', :scope => 'wiki.message') + '<br/>'
         end
         if params[:wiki_page][:name].try(:strip) == ""
-          err_msg += t('Please input page name', :scope => 'wiki.message') + '</br>'
+          err_msg += t('Please input page name', :scope => 'wiki.message') + '<br/>'
         end
         unless WikiPages.page_all.
                  where(:project_id => params[:project_id]).
                  where(:name => params[:wiki_page][:name]).
                  where("id <> '#{wp.id}'").empty? 
-          err_msg += t('Page name already exist', :scope => 'wiki.message') + '</br>'
+          err_msg += t('Page name already exist', :scope => 'wiki.message') + '<br/>'
         end
         if err_msg != ""
           flash.now[:warning] = err_msg.html_safe
@@ -250,34 +250,42 @@ class WikiController < ApplicationController
       Dir.chdir(project_path)
 
       #Upload each file with check exists and size. 
+      err_msg = []
       file_exists = []
+      file_type_check = true 
       file_size_check = true 
       file_size_total = 0
       params[:upload_file].each do |f|
+        file_type_check = false if f.content_type !~ /image/
+        file_size_check = false if f.size > WIKI_MAX_UPLOAD_FILE_SIZE
         file_size_total += f.size
-        if f.size > 6*1024*1024#WIKI_MAX_UPLOAD_FILE_SIZE
-          file_size_check = false
-        end
         if File.exists?(f.original_filename)
           file_exists << f.original_filename
         end
       end
 
+      if file_type_check == false
+        err_msg << t("Only for image file", :scope => [:wiki, :message])
+      end
       #Check file size & total size
       foder_size = %x[du -s #{project_path}].scan(/^\d*/)[0].to_i
       if file_size_check == false
-        flash[:warning] = t("File size limit ") + number_to_human_size(WIKI_MAX_UPLOAD_FILE_SIZE)
-      elsif ((file_size_total+foder_size) > 2*1024*1024)#WIKI_MAX_UPLOAD_TOTAL_SIZE)
-        flash[:warning] = t("Total file size limit", 
-                            :total => number_to_human_size(WIKI_MAX_UPLOAD_TOTAL_SIZE),
-                            :current => number_to_human_size(foder_size),
-                            :scope => [:wiki, :message])
+        err_msg << t("File size limit",
+                     :file_size => number_to_human_size(WIKI_MAX_UPLOAD_FILE_SIZE),
+                     :scope => [:wiki, :message])
+      elsif ((file_size_total+foder_size) > WIKI_MAX_UPLOAD_TOTAL_SIZE)
+        err_msg << t("Total file size limit", 
+                     :total => number_to_human_size(WIKI_MAX_UPLOAD_TOTAL_SIZE),
+                     :current => number_to_human_size(foder_size),
+                     :scope => [:wiki, :message])
       end
       #Check file exists?
       if file_exists.count > 0
-        flash[:warning] = t("File exists", :files => file_exists.join(";"), :scope => [:wiki, :message])
+        err_msg << t("File exists", :files => file_exists.join(";"), :scope => [:wiki, :message])
       end
+
       #Upload files
+      flash[:warning] = err_msg.join("<br/>").html_safe
       if flash[:warning].nil? 
         params[:upload_file].each do |f| 
           upload_an_file(f)
