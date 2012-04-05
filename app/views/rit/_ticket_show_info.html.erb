@@ -1,12 +1,20 @@
 <%=t('rit_table_requester')%> : <%=content_tag :b ,creator.login %>
-<%=ticket_guest_mail_mask(creator.login,rit.guestmail)%>
-<br />
+<%=ticket_guest_mail_mask(creator.login,rit.guestmail)%><br />
 <%=t('rit_table_assignto')%> : <%=content_tag :b ,ticket_owners(owners)%>
+<% if current_user.login != "guest"%>
+  <%=show_pickup_link(rit.id)%>
+<%end%>
 [ <%=t('rit_table_status')%> : <%=ticket_status_icon(rit.status)%> ]<br />
+<%=t('rit_form_cc')%> : <%=mail_mask(cc_s)%><br />
+<% if current_user.login != "guest" and current_user.login == creator.login%>
+  <%=t('rit_form_bcc')%> : <%=bccs%>(<%=t('rit_table_bcc_note')%>)<br />
+<%end%>
+<%=t('rit_form_tag')%> : <%=tags%><br />
 <%
 if current_user.login != "guest" 
-  concat link_to (t('rit_link_changestat'), changestat_project_rit_index_path , :id => rit) + " / "
-  concat link_to (t('rit_link_uploadmore'),uploadmorefile_project_rit_index_path, :id => rit) +" / "
-  concat link_to (t('rit_link_deleteupload'),deletefile_project_rit_index_path, :id => rit)
+  concat link_to(t('rit_link_changestat'), changestat_project_rit_index_path , :id => rit) + "/"
+  concat link_to(t('rit_link_uploadmore'), uploadmorefile_project_rit_index_path, :id => rit) + "/"
+  concat link_to(t('rit_link_deleteupload'), deletefile_project_rit_index_path, :id => rit) + "/"
+  concat in_my_watch_list(rit,current_user.id)
 end
 %>

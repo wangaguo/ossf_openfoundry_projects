@@ -44,6 +44,20 @@
     <td><%=_('rit_form_type')%> : </td>
     <td><%=f.select :tickettype,@type.collect{|t|[t[0],t[1]]}%></td>
   </tr>
+  <tr>
+    <td><%=t('rit_form_tag')%> : </td>
+    <td><%=f.text_field_tag :tag, @tags ,:size => 35 ,:maxlength => 100 %><br /><%=t('rit_form_tag_help')%></td>
+  </tr>
+  <% if current_user.id == @rit.user_id %>
+  <tr>
+    <td><%=t('rit_form_cc')%> : </td>
+    <td><%=f.text_field_tag :cc, @cc_s ,:size => 35 , :maxlength => 200 %><br /><%=t('rit_form_cc_help')%></td>
+  </tr>
+  <tr>
+    <td><%=t('rit_form_bcc')%> : </td>
+    <td><%=f.text_field_tag :bcc, @bccs ,:size => 35 , :maxlength => 200 %><br /><%=t('rit_form_bcc_help')%></td>
+  </tr>
+<%end%>
 </table>
 <p align="center"><%=submit_tag _("submit") %></p>
 <%end%>

@@ -25,8 +25,8 @@ module RitHelper
   def ticket_priority_icon(priority)
     priority == Rit::PRIORITY[:Urgent]?icon=image_tag("rit_vip_24.png", :height => '16', :align => 'middle'):""
     priority == Rit::PRIORITY[:High]?icon=image_tag("rit_ip_24.png", :height => '16', :align => 'middle'):""
-    priority == Rit::PRIORITY[:Medium]?icon=image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):""
-    priority == Rit::PRIORITY[:Low]?icon=image_tag("rit_low_24.png", :height => '16', :align => 'middle'):""
+    #priority == Rit::PRIORITY[:Medium]?icon=image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):""
+    #priority == Rit::PRIORITY[:Low]?icon=image_tag("rit_low_24.png", :height => '16', :align => 'middle'):""
     return icon
   end
 
@@ -56,13 +56,13 @@ module RitHelper
 
  def ticket_owners(owners)
    if owners.empty?
-     all_owner = content_tag (:font ,'NoBody' ,:color => '#AAAAAA')
+     all_owner = content_tag :span ,'NoBody' ,:style => 'color:#AAAAAA'
    else
      owner_name = Array.new
      for owner in owners
        owner_name.push(owner.login)
      end
-       all_owner = content_tag (:font ,owner_name*", " ,:color => 'blue')
+       all_owner = content_tag :span ,owner_name*"," ,:style => 'color:#0000FF'
    end
    return all_owner
  end
@@ -77,9 +77,38 @@ module RitHelper
  def ticket_guest_mail_mask(login_name,login_email)
    masked = ""
    if login_name == "guest"
-     masked = "[" + login_email.gsub(/@([a-z0-9-]+)/, '@*****') + "]"
+     masked = login_email.gsub(/@([a-z0-9-]+)/, '@*****') 
    end
    return masked
+ end
+
+ def mail_mask(mail)
+   return ticket_guest_mail_mask('guest', mail)
+ end
+
+ def in_my_watch_list(rit_id,user_id)
+    if RitWatchers.find_all_by_rit_id_and_user_id(rit_id,user_id).count > 0
+      str = t('rit_link_remove_watch_list')
+      act = 'remove'
+      confirm = t('rit_ask_remove_watch_list')
+    else
+      str = t('rit_link_set_to_watch_list')
+      act = 'add'
+      confirm = t('rit_ask_to_set_watch_list')
+    end
+    return link_to str, '?watch='+act , :confirm => confirm
+ end
+
+ def watching_mark(rit_id,user_id) 
+    if RitWatchers.find_all_by_rit_id_and_user_id(rit_id,user_id).count > 0
+      return content_tag :span ,'>>' ,:style => 'color:#0000FF'
+    end
+ end
+
+ def show_pickup_link(rit_id)
+   if Ritassigns.find_all_by_asRitID(rit_id).count == 0
+     return link_to t('rit_link_nobody_pickup'), '?pickup=pickit', :confirm => t('rit_ask_to_pickup')
+   end 
  end
 
 end
