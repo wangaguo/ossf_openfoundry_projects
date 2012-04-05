@@ -24,7 +24,7 @@
         if (confirm("#{escape_javascript(_('This will remove User from this Group, are you sure?'))}")) {
           #{
             remote_function(:update => 'ProjectMemberEdit',
-                            :url => member_delete_project_path(1),
+                            :url => site_admin_admin_member_delete_path(1),
                             :with => "'u=' + encodeURIComponent(drag_element.id)")
           };
         }
