@@ -117,7 +117,8 @@ class SiteAdmin::SiteAdminController < SiteAdmin
 
           mail_check.bcc = OPENFOUNDRY_SITE_ADMIN_EMAIL 
           mail_check.body = "users=#{users.length if !users.nil?}<br/>bcc_max=#{bcc_max}<br/>bcc_batch=#{bcc.length}<br/>bcc_i=#{bcc_i}"
-          UserNotify.deliver(mail_check)
+          UserNotify.deliver(mail_check) if bcc_i == bcc.length
+          logger.error("***** send site mail check. #{mail_check.body} *****")
         end
       end
 
