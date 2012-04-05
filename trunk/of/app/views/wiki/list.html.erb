@@ -46,7 +46,6 @@
   <% if @wiki_permit -%>
     <%= submit_tag "#{t('Export', :scope => :wiki)} Wiki", :name => 'submit_export_wiki' %>
     <%= submit_tag "#{t('Export', :scope => :wiki)} HTML", :name => 'submit_export_html' %>
-    <%#= submit_tag "#{t('Export')} PDF", :name => 'submit_export_pdf' %>
     <%= submit_tag t('Protected', :scope => :wiki), :name => 'submit_protected' %>
     <%= submit_tag t('Private', :scope => :wiki), :name => 'submit_private' %>
     <%= submit_tag t('Public', :scope => :wiki), :name => 'submit_public' %>
@@ -58,7 +57,7 @@
     <th style="width:15px"><input type="checkbox" id="wiki_list_check_box_all"></th>
     <th><%= t('Page Name', :scope => :wiki) %></th>
     <th><%= t('Summary', :scope => :wiki) %></th>
-    <th><%= t('Author', :scope => :wiki) %></th>
+    <th><%= t('Revised by', :scope => :wiki) %></th>
     <th><%= t('Revision', :scope => :wiki) %></th>
     <th><%= t('Status', :scope => :wiki) %></th>
     <th><%= t('Modify Time', :scope => :wiki) %></th>

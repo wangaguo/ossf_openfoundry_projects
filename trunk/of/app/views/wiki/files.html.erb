@@ -44,17 +44,19 @@
 <%= render :partial => "functions" %>
 <hr/>
 
-<%= t('Upload files', :scope => :wiki) %>:
+<%= t('Upload files', :scope => :wiki) %>(<%= t('Only for image file', :scope => "wiki.message") %>):
 <%= form_tag({:action => 'web_upload'}, :multipart => true) do %>
   <%# form_tag ({:project_id => @project.id, :id => @release.id, :action => 'web_upload'}, :multipart => true) do %>
   <% for i in 1..3 %>
-    <%= file_field_tag("upload_file[]") %><br/>
+    <%= file_field_tag("upload_file[]", :accept => 'image/*') %><br/>
   <% end %>
   <%= submit_tag t('Upload', :scope => :wiki) %>
   <%= submit_tag t('Reset', :scope => :wiki), :type => 'reset' %> 
 <% end %>
 
+<hr/>
 <%= form_tag({:action => 'delete_files'}) do %>
+  <%= submit_tag t('Delete', :scope => :wiki), :name => 'delete', :confirm => t('Are you sure?', :scope => [:wiki, :message]) %>
   <table class="tablesorter yoxview">
     <thead>
       <th style="width:15px"><input type="checkbox" id="wiki_list_check_box_all"></th>
@@ -82,7 +84,6 @@
   <% end -%>
   </table>
   <%= render :partial => "pager" %>
-  <%= submit_tag t('Delete', :scope => :wiki), :name => 'delete', :confirm => t('Are you sure?', :scope => [:wiki, :message]) %>
 <% end %>
 
 <hr/>
