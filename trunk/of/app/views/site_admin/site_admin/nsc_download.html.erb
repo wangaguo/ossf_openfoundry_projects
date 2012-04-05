@@ -89,7 +89,7 @@ end
           end
       end
     end
-  next if tmp_nsccode == "" && find_nsccode == ""
+  next if tmp_nsccode == "" && find_nsccode == "" &&  @nsc_list == ""
   tmp_nsccode += " " + find_nsccode
 %>
 <%if i % 2 == 0; class_name="even"; else; class_name="alt"; end; -%>
@@ -158,11 +158,11 @@ end
       <% if @vcs_check == 'true' -%>
         <%
           #abc = system 'cvs -d :ext:cvs@192.168.0.40:/cvs rlog nctupr | grep -m1 date > /tmp/nsc_svn.log'
-          abc = system "svn info http://svn.openfoundry.org/#{project.name} > /tmp/nsc_svn.log" 
-          log = ""
-          File.open("/tmp/nsc_svn.log").each{|line| log += "#{line}<br/>"}
+          log = %x[svn info http://svn.openfoundry.org/#{project.name}].gsub(/\n/, "<br/>")
         -%>
         <%= log.html_safe -%>
+      <% else -%>
+				<%= "No run" %>
       <% end -%>
     </td>
     <td nowrap>
@@ -176,7 +176,7 @@ end
         %>
         Version: <%= r.version %><br/>
         <% fs.each do |f| %>
-          <%= f.path %> <%= f.file_counter %><br/>
+          <%= f.path %> <%= f.file_counter %> <%= f.created_at.strftime("%Y/%m/%d") %><br/>
         <% end %>
       <% end %>
     </td>
