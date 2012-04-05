@@ -91,13 +91,14 @@ class RitController < ApplicationController
 
   def show
     @module_name = _('rit_index_title')
-    @userID=userID
     @rit = Rit.find(params[:id])
+    @tags = Rittages.find_all_by_rit_ids(@rit.id).map(&:tag)*', '
+    @cc_s = RitCarbonCopies.find_all_by_rit_id_and_blind(@rit.id,0).map(&:email)*', '
+    @bccs = RitCarbonCopies.find_all_by_rit_id_and_blind(@rit.id,1).map(&:email)*', '
     assUsers = Ritassigns.where(:asRitID => params[:id])
     @assUsers = assUsers.find(:all ,:joins => "LEFT JOIN users u ON u.id = ritassigns.asUserID", :select => "ritassigns.*,u.login")
 
     @uName = User.find(@rit.user_id)
-    @aName = User.find(@rit.assign_user_id) rescue nil 
     #Select the attach from main ticket
     @attach = Ritfile.where(:ritFK => params[:id], :fromRit => 1).all
      
@@ -107,7 +108,7 @@ class RitController < ApplicationController
     @ritreplies = ritreplies.find(:all, :joins => "LEFT JOIN users u ON u.id = ritreplies.user_id", :select => "ritreplies.*,u.login" )
     
     #Getting ready new replay below the form
-    @rName = User.find(@userID)
+    @rName = User.find(current_user.id)
 
     #Reply with Quote
     @rwq=cookies[:content]
@@ -126,6 +127,47 @@ class RitController < ApplicationController
       file = Ritfile.find(params[:dl])
       realfilename =File.join(RIT_UPLOAD_PATH ,file.filename) 
       send_file realfilename ,:filename => file.OrigName ,:stream => true ,:buffer_size => 4096
+    end
+    #set to/remove the watch list
+    if !params[:watch].nil?
+      if params[:watch] == 'add'
+        watch_list = RitWatchers.new
+        watch_list.rit_id = params[:id]
+        watch_list.is_user = 1
+        watch_list.user_id = current_user.id
+        watch_list.notify = 0
+        watch_list.email = ''
+        watch_list.save
+        flash[:notice] = t('rit_notice_watch_list_add_ok')
+      end
+      if params[:watch] == 'remove'
+        RitWatchers.find_by_rit_id_and_user_id(params[:id],current_user.id).destroy
+        flash[:notice] = t('rit_notice_watch_list_remove_ok')
+      end
+    end
+    #pick the ticket
+    if !params[:pickup].nil?
+      members=members_in_project
+      if members.map(&:id).index(current_user.id).nil?
+        flash[:notice] = t('rit_notice_pickup_error')
+      else
+        pickup = Ritassigns.new
+        pickup.asRitID = params[:id]
+        pickup.asUserID = current_user.id
+        pickup.save
+        flash[:notice] = t('rit_notice_pickup_ok')
+        rlog = Ritreplies.new()
+        rlog.rit_fk_id = params[:id]
+        rlog.user_id = current_user.id
+        rlog.title = '[log]' + @rit.title
+        rlog.content = t('rit_log_pickup', :uname => current_user.login )
+        rlog.replytype = 1
+        rlog.guestmail = 'rit@openfoundry.com'
+        rlog.save
+        link_ticket = link_to_ticket(params[:id],params[:project_id])
+        Ritmailer.email_notify('update',members,@rit.id,rlog.id,params[:project_id],link_ticket).deliver
+        redirect_to :action => "show" ,:project_id => params[:project_id] , :id => params[:id]
+     end
     end
   end
 
@@ -192,7 +234,6 @@ class RitController < ApplicationController
     @rit = Rit.new(params[:rit])
 
     if @rit.save
-      fkid = @rit.id
       #multi assign users
       if !params[:assigns].blank?
         assign = params[:assigns]
@@ -203,15 +244,52 @@ class RitController < ApplicationController
           as.save
         end
       end
+
+      #save the tag
+      if !params[:tag].blank?
+        tags = params[:tag].split(',')
+        tags.each do |tag|
+          tag_record = Rittages.new
+          tag_record.rit_ids = @rit.id
+          tag_record.tag = tag.strip
+          tag_record.save
+        end
+      end
+
+      #save the cc and bcc
+      if !params[:cc].blank?
+        cc_s = params[:cc].split(',')
+        cc_s.each do |cc|
+          cc_record = RitCarbonCopies.new
+          cc_record.rit_id = @rit.id
+          cc_record.blind = 0
+          cc_record.is_user = 0
+          cc_record.user_id = 0
+          cc_record.email = cc.strip
+          cc_record.save
+        end
+      end
+      if !params[:bcc].blank?
+        bccs = params[:bcc].split(',')
+        bccs.each do |bcc|
+          bcc_record = RitCarbonCopies.new
+          bcc_record.rit_id = @rit.id
+          bcc_record.blind = 1
+          bcc_record.is_user = 0
+          bcc_record.user_id = 0
+          bcc_record.email = bcc.strip
+          bcc_record.save
+        end
+      end
      
-      link_ticket = link_to_ticket(fkid,params[:project_id])
+      link_ticket = link_to_ticket(@rit.id,params[:project_id])
       members = members_in_project
       Ritmailer.email_notify('create',members,@rit.id,'',params[:project_id],link_ticket).deliver
 
       #call upload funcion
       flash[:notice] = ""
       if !params[:ritfile].blank?
-        upload_files_for_forms(params[:ritfile],fkid,1)
+        upload_files_for_forms(params[:ritfile],@rit.id,1)
       end
 
       flash[:notice] += (" " + t('rit_mag_add_ok'))
@@ -248,6 +326,10 @@ class RitController < ApplicationController
     @type = Rit::TICKETTYPE
     @status = Rit::STATUS
     @asses=assignTable(params[:project_id],params[:id])
+    @tags=Rittages.find_all_by_rit_ids(@rit.id).map(&:tag)*', '
+    @cc_s = RitCarbonCopies.find_all_by_rit_id_and_blind(@rit.id,0).map(&:email)*', '
+    @bccs = RitCarbonCopies.find_all_by_rit_id_and_blind(@rit.id,1).map(&:email)*', '
+
 
   end
 
@@ -262,44 +344,88 @@ class RitController < ApplicationController
       flash[:error]=_("rit_change_stat_no_perm")
       return
     end
-     tT=@rit.title
-     fkid = @rit.id
      logStr=''
      ##### Change Ticket infos ########
      p = Rit::PRIORITY
      s = Rit::STATUS
      t = Rit::TICKETTYPE
+     ##update the tag
+     #remove the tag first
+     Rittages.destroy_all(:rit_ids => @rit.id)
+     #then if tag not blank , then re-save the tags
+     if !params[:tag].blank?
+      tags = params[:tag].split(',')
+        tags.each do |tag|
+          tag_record = Rittages.new
+          tag_record.rit_ids = @rit.id
+          tag_record.tag = tag.strip
+          tag_record.save
+        end
+     end
+    #save the cc and bcc only use for creator , guest is no value
+     if current_user.id == @rit.user_id
+       RitCarbonCopies.destroy_all(:rit_id => @rit.id)
+       if !params[:cc].blank?
+         cc_s = params[:cc].split(',')
+         cc_s.each do |cc|
+           cc_record = RitCarbonCopies.new
+           cc_record.rit_id = @rit.id
+           cc_record.blind = 0
+           cc_record.is_user = 0
+           cc_record.user_id = 0
+           cc_record.email = cc.strip
+           cc_record.save
+         end
+       end
+       if !params[:bcc].blank?
+         bccs = params[:bcc].split(',')
+         bccs.each do |bcc|
+           bcc_record = RitCarbonCopies.new
+           bcc_record.rit_id = @rit.id
+           bcc_record.blind = 1
+           bcc_record.is_user = 0
+           bcc_record.user_id = 0
+           bcc_record.email = bcc.strip
+           bcc_record.save
+         end
+       end
+     end
      ########### multi assign/remove users ##################
-     
+     # check the owner records is empty
+     if (Ritassigns.find_all_by_asRitID(@rit.id).count) == 0
+       owners_is_empty = true
+     else
+       owners_ie_empty = false
+     end
      assign = params[:assigns]
      asses=assignTable(params[:project_id],params[:id])
-       if (!(params[:assigns].blank?) && !(asses.nil?))
-         asses.each do |am|
+      if (!(params[:assigns].blank?) && !(asses.nil?))
+        asses.each do |am|
           if ((am.HasAssign.nil?) && (assign.include?(am.id.to_s)))
               asa = Ritassigns.new
-              asa.asRitID = fkid
+              asa.asRitID = @rit.id
               asa.asUserID = am.id
               asa.save
               u = User.find(am.id)
               uu = u.login
               um = u.email
-              logStr+="user #{uu} is Assigned. \n "
+              logStr += t('rit_log_assign', :uname => uu ) + "\n"
           end
           if ((!am.HasAssign.nil?) && (!assign.include?(am.id.to_s)))
              Ritassigns.destroy_all(:asUserID => am.id, :asRitID => am.HasAssign)
              u = User.find(am.id)
              uu = u.login
-             logStr+="user #{uu} is Removed. \n "
+             logStr += t('rit_log_remove_assign', :uname => uu) + "\n"
           end
-          end
-       end
+        end
+      end
     
          #if something has records in table but params[:assigns] wants delete all
-          if ((params[:assigns].blank?) && !(asses.empty?))
-            Ritassigns.destroy_all(:asRitID => fkid)
-            a_ReMoveAllAssign=1
-            logStr+="All assigns are removed. \n"
-          end
+       if ((params[:assigns].blank?) && !(asses.empty?)) && !(owners_is_empty)
+         Ritassigns.destroy_all(:asRitID => @rit.id)
+         a_ReMoveAllAssign=1
+         logStr+= t('rit_log_remove_all_assign') + "\n"
+       end
 
    
           assign_before = @rit.assign_user_id.to_s
@@ -318,15 +444,15 @@ class RitController < ApplicationController
           t = t.index(ttype_after.to_i)
        
          if priority_before != priority_after
-           logStr+= "Priority has change to #{p}.\n "
+           logStr+= t('rit_log_priority' , :val => p ) + "\n"
           end
 
          if status_before != status_after
-           logStr+= "Status has change to #{s}.\n"
+           logStr+= t('rit_log_status', :val => s ) + "\n"
          end
 
          if ttype_before != ttype_after
-            logStr+= "Type has change to #{t}.\n"
+            logStr+= t('rit_log_type' , :val => t )  + "\n"
          end
           #####Change Ticket info End ######
 

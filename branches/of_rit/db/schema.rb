@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325060909) do
+ActiveRecord::Schema.define(:version => 20120330034833) do
 
   create_table "archived_counter_logs", :force => true do |t|
     t.integer  "project_id"
@@ -263,6 +263,32 @@ ActiveRecord::Schema.define(:version => 20120325060909) do
   add_index "releases", ["release_counter"], :name => "index_releases_on_release_counter"
   add_index "releases", ["version"], :name => "index_releases_on_version"
 
+  create_table "rit_carbon_copies", :force => true do |t|
+    t.integer  "rit_id"
+    t.integer  "blind"
+    t.integer  "is_user"
+    t.integer  "user_id"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rit_carbon_copies", ["rit_id"], :name => "index_rit_carbon_copies_on_rit_id"
+  add_index "rit_carbon_copies", ["user_id"], :name => "index_rit_carbon_copies_on_user_id"
+
+  create_table "rit_watchers", :force => true do |t|
+    t.integer  "rit_id"
+    t.integer  "is_user"
+    t.integer  "user_id"
+    t.integer  "notify"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rit_watchers", ["rit_id"], :name => "index_rit_watchers_on_rit_id"
+  add_index "rit_watchers", ["user_id"], :name => "index_rit_watchers_on_user_id"
+
   create_table "ritassigns", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -327,6 +353,9 @@ ActiveRecord::Schema.define(:version => 20120325060909) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "rittages", ["rit_ids"], :name => "index_rittages_on_rit_ids"
+  add_index "rittages", ["tag"], :name => "index_rittages_on_tag"
 
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40

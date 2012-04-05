@@ -39,6 +39,7 @@
   <%for rit in @rit%>
   <tr bgcolor="<%=ticket_status_color(rit.status)%>" style="TEXT-DECORATION:<%=ticket_status_delete_line(rit.status)%>">
     <td>
+      <%=watching_mark(rit.id,current_user.id)%>
       <%=link_to '#'+ rit.id.to_s, project_rit_path(:id => rit) %><br />
       <%=ticket_priority_icon(rit.priority)%>
     </td>

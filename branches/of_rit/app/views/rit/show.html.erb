@@ -8,7 +8,7 @@
 <table border="1" width="100%" class="list-table">
 <tr>
    <td>
-      <%= render :partial => 'ticket_show_info' ,:locals =>{:creator=>@uName ,:rit=>@rit ,:owners=>@assUsers} %>
+     <%= render :partial => 'ticket_show_info' ,:locals =>{:creator=>@uName ,:rit=>@rit ,:owners=>@assUsers ,:tags => @tags ,:cc_s => @cc_s ,:bccs => @bccs } %>
   </td>
 </tr>
 <tr>

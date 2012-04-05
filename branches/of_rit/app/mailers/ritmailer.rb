@@ -7,85 +7,6 @@ class Ritmailer < ActionMailer::Base
   #
   #   en.ritmailer.assign_to_notify.subject
   #
-  def assign_to_notify(users,rit_id,tLink,proj_id)
-    @tLink = tLink
-    email_return_info = email_infos(rit_id,proj_id)
-    @project_name = email_return_info["project_name"] 
-    @title = email_return_info["title"]
-    @aUser = email_return_info["creater_name"]
-    @content = email_return_info["content"]
-    assigns = User.find(users) 
-    if RIT_EMAIL_TESTING_MODE
-      mail_address = RIT_EMAIL_DEFAULT
-    else
-      mail_address = assigns.map(&:email)
-    end
- 
-    mail :to => mail_address ,
-         :subject => "Assign [#{@project_name}] Ticket [#{@title}] is assign to you. "
-  end
-
-  def ticket_reply_to_major(rit_id,reply_id,tLink,proj_id)
-    @tLink = tLink
-    email_return_info = email_infos(rit_id,proj_id)
-    @project_name = email_return_info["project_name"] 
-    @title = email_return_info["title"]
-    @creator = email_return_info["creator_name"]
-    @content = Ritreplies.find(reply_id).content
-    @create_time = email_return_info["create_time"]
-    @owners = email_return_info["owners"]
-    @allmails = email_return_info["send_to"]*", "
-
-    if RIT_EMAIL_TESTING_MODE
-      mail_address = RIT_EMAIL_DEFAULT
-    else
-      mail_address = email_return_info["send_to"]
-    end
-    mail :from => "#{@creator} via RIT <#{RIT_EMAIL_DEFAULT}>" ,
-         :to => mail_address ,
-         :subject => "[ #{@project_name} ##{rit_id} ] #{@title}" ,
-         :template_name => 'created_notify_to_all'
- end
-
-  def created_notify_to_all(users,rit_id,proj_id,tLink)
-    @tLink = tLink
-    email_return_info = email_infos(rit_id,proj_id)
-    @project_name = email_return_info["project_name"] 
-    @title = email_return_info["title"]
-    @aUser = email_return_info["creater_name"]
-    @content = email_return_info["content"]
-    @create_time = email_return_info["create_time"]
-    @owners = email_return_info["owners"]
-    @allmails = email_return_info["send_to"]*", "
-
-    if RIT_EMAIL_TESTING_MODE
-      mail_address = RIT_EMAIL_DEFAULT
-    else
-      mail_address = users.map(&:email)
-    end
-    mail :from => "#{@aUser} via RIT <#{RIT_EMAIL_DEFAULT}>" ,
-         :to => mail_address,
-         :subject => "[#{@project_name}##{rit_id}]#{@title}"
-  end
-
-  def create_notify_to_guest(gsmail,rit_id,proj_id,tLink)
-    @tLink = tLink
-    email_return_info = email_infos(rit_id,proj_id)
-    @project_name = email_return_info["project_name"] 
-    @title = email_return_info["title"]
-    @aUser = email_return_info["creator_name"]
-    @content = email_return_info["content"]
- 
-    if RIT_EMAIL_TESTING_MODE
-      mail_address = RIT_EMAIL_DEFAULT
-    else
-      mail_address = gsmail
-    end
-
-    mail :to => mail_address,
-         :subject => "[#{@project_name}]Your Request:[#{@title}] is open "
-
-  end
 
   def email_notify(action,users_in_group,rit_id,reply_id,project_id,link_to_ticket)
     @tLink = link_to_ticket
@@ -94,6 +15,8 @@ class Ritmailer < ActionMailer::Base
     @title = email_return_info["title"]
     @creator = email_return_info["creator_name"]
     @content = email_return_info["content"]
+    to_cc = email_return_info["cc"]
+    to_bcc = email_return_info["bcc"]
     
     if action == 'reply'
       @content = Ritreplies.find(reply_id).content
@@ -102,21 +25,25 @@ class Ritmailer < ActionMailer::Base
     if action == 'update'
       @content =  Ritreplies.find(reply_id).content
     end
+    
     @create_time = email_return_info["create_time"]
     @owners = email_return_info["owners"]
+
     if action == 'create' || 'update'
-      email_return_info["send_to"].push(users_in_group.map(&:email))
+     send_mails = email_return_info["send_to"] + users_in_group.map(&:email)
     end
 
     if RIT_EMAIL_TESTING_MODE
       mail_address = RIT_EMAIL_DEFAULT
-      @allmails = (email_return_info["send_to"].uniq)*", "
+      @allmails = send_mails.uniq*", "
     else
-      mail_address = email_return_info["send_to"].uniq
+      mail_address = send_mails.uniq
       @allmails = ''
     end
     mail :from => "#{@creator} via RIT <#{RIT_EMAIL_DEFAULT}>" ,
          :to => mail_address ,
+         :cc => to_cc ,
+         :bcc => to_bcc ,
          :subject => "[ #{@project_name} ##{rit_id} ] #{@title}" ,
          :template_name => 'created_notify_to_all'
  end
@@ -141,7 +68,7 @@ class Ritmailer < ActionMailer::Base
 
     #get email address on owners
     owners_mail = owners.map(&:email)
-    email_address.push(owners_mail)
+    email_address += owners_mail
 
     #get email address on reply
     repliers = Ritreplies.find_by_sql("
@@ -150,7 +77,7 @@ class Ritmailer < ActionMailer::Base
                                       LEFT JOIN users u ON r.user_id=u.id  
                                       WHERE r.rit_fk_id = #{rit_id} and r.replytype = 0 and u.login != 'guest';")
     replier_mails = repliers.map(&:email)
-    email_address.push(replier_mails)
+    email_address += replier_mails
 
     #get email address on reply by guest
     repliers_by_guest = Ritreplies.find_by_sql("
@@ -159,11 +86,15 @@ class Ritmailer < ActionMailer::Base
                                       LEFT JOIN users u ON r.user_id=u.id  
                                       WHERE r.rit_fk_id = #{rit_id} and r.replytype = 0 and u.login = 'guest';")
     replier_guest_mails = repliers_by_guest.map(&:guestmail)
-    email_address.push(replier_guest_mails)
+    email_address += replier_guest_mails
     
     #uniq the emails
-    emails = email_address.uniq()
+    emails = email_address.uniq
 
+    #get emails from CC
+    cc_emails = RitCarbonCopies.find_all_by_rit_id_and_blind(rit_id,0).map(&:email).uniq
+    #get emails from BCC
+    bcc_emails = RitCarbonCopies.find_all_by_rit_id_and_blind(rit_id,1).map(&:email).uniq
 
     all_hash = {"project_name" => project.name , 
                 "title" => ticket.title ,
@@ -171,7 +102,9 @@ class Ritmailer < ActionMailer::Base
                 "content" => content ,
                 "create_time" => create_time ,
                 "owners" => owners_name.to_s ,
-                "send_to" => emails}
+                "send_to" => emails ,
+                "cc" => cc_emails ,
+                "bcc" => bcc_emails}
     return all_hash
   end
 end
