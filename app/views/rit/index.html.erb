@@ -53,6 +53,7 @@
         <%=time_ago_in_words(rit.created_at)%>
     </td>
     <td>
+        <%=ticket_update_stat(rit.rdate)%>
         <%=rit.rdate && rit.rdate.to_datetime.strftime("%Y-%m-%d")%><br />
         <%=rit.rdate && time_ago_in_words(rit.rdate.to_datetime)%>
     </td>

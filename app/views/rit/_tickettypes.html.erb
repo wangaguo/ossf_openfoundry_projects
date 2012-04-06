@@ -1,5 +1,5 @@
-<%=link_to 'All' ,"?type=" %> |
+<%=link_to t('rit_link_type_all') ,"?type=" %> |
 <% types.each do |type| %>
   <%= (params[:type].to_i==type[1])?">>":""%>
-  <%=link_to type[0] ,"?type=#{type[1]}" %> |
+  <%=link_to t_type(type[0]) ,"?type=#{type[1]}" %> |
 <%end%>

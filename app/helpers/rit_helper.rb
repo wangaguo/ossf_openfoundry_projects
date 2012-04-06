@@ -1,4 +1,22 @@
 module RitHelper
+  def t_priority(val)
+    return t(val, :scope => 'ritpriority')
+  end
+
+  def t_type(val)
+    return t(val, :scope => 'rittickettype')
+  end
+
+  def t_status(val)
+    return t(val, :scope => 'ritstatus')
+  end
+
+  def ticket_update_stat(rit_rdate)
+    if !rit_rdate
+      return content_tag(:span ,t('rit_table_update_stat') ,:style => "color:#DDDDDD;")
+    end
+  end
+
   def ticket_status_color(status)
     status == Rit::STATUS[:OPEN]?color="#FFFFFF":"#FFFFFF"
     status == Rit::STATUS[:FINISH]?color="#EEEEEE":"#FFFFFF"
@@ -14,11 +32,11 @@ module RitHelper
   end
 
   def ticket_status_icon(status)
-   status == Rit::STATUS[:OPEN]?icon=image_tag("rit_open_24.png", :height => '16', :align => 'middle')+"Open":""
-   status == Rit::STATUS[:FINISH]?icon=image_tag("rit_finish_24.png", :height => '16', :align => 'middle')+"Finish":""
-   status == Rit::STATUS[:PROCESS]?icon=image_tag("rit_process_24.png", :height => '16', :align => 'middle')+"Process":""
-   status == Rit::STATUS[:SUSPENDED]?icon=image_tag("rit_suspended_24.png", :height => '16', :align => 'middle')+"Suspended":""
-   status == Rit::STATUS[:DELETE]?icon=image_tag("rit_delete_24.png", :height => '16', :align => 'middle')+"Delete":""
+   status == Rit::STATUS[:OPEN]?icon=image_tag("rit_open_24.png", :height => '16', :align => 'middle')+t_status("OPEN"):""
+   status == Rit::STATUS[:FINISH]?icon=image_tag("rit_finish_24.png", :height => '16', :align => 'middle')+t_status("FINISH"):""
+   status == Rit::STATUS[:PROCESS]?icon=image_tag("rit_process_24.png", :height => '16', :align => 'middle')+t_status("PROCESS"):""
+   status == Rit::STATUS[:SUSPENDED]?icon=image_tag("rit_suspended_24.png", :height => '16', :align => 'middle')+t_status("SUSPENDED"):""
+   status == Rit::STATUS[:DELETE]?icon=image_tag("rit_delete_24.png", :height => '16', :align => 'middle')+t_status("DELETE"):""
    return icon
   end
 
@@ -37,10 +55,10 @@ module RitHelper
  end
 
   def ticket_priority_text(priority)
-    priority == Rit::PRIORITY[:Urgent]?text=content_tag(:span ,"Urgent!!" , :style => "color:#FF0000") :""
-    priority == Rit::PRIORITY[:Hight]?text=content_tag(:span ," High!" , :style => "color:#FF0000") :""
-    priority == Rit::PRIORITY[:Medium]?text=content_tag(:span ," Medium" , :style => "color:#0000FF") :""
-    priority == Rit::PRIORITY[:Low]?text=content_tag(:span ," Low" , :style => "color:#AAAAAA") :""
+    priority == Rit::PRIORITY[:Urgent]?text=content_tag(:span ,"#{t_priority('Urgent')}!!" , :style => "color:#FF0000") :""
+    priority == Rit::PRIORITY[:High]?text=content_tag(:span ,"#{t_priority('High')}!" , :style => "color:#FF0000") :""
+    priority == Rit::PRIORITY[:Medium]?text=content_tag(:span ,t_priority('Medium') , :style => "color:#0000FF") :""
+    priority == Rit::PRIORITY[:Low]?text=content_tag(:span ,t_priority('Low')  , :style => "color:#AAAAAA") :""
     return text
  end
 
@@ -50,8 +68,11 @@ module RitHelper
    else
      info = image_tag("rit_right_24.png", :height => '16', :align => 'middle') + " " + User.find(user_id).login + tag("br")
      owners_count = User.find(Ritassigns.find_all_by_asRitID(rit_id).map(&:asUserID)).count
-     info += t('rit_table_assignings', :acount => owners_count-1 )
+     if (owners_count-1) > 0
+       info += t('rit_table_assignings', :acount => owners_count-1 )
+     end
    end
+   return info
  end
 
  def ticket_owners(owners)
