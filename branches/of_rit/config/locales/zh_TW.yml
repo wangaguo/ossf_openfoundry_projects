@@ -895,11 +895,26 @@ zh_TW:
   "rit_log_status": "此申請單的狀態變更為 %{val}"
   "rit_log_type": "此申請單的類型變更為 %{val}"
   "rit_ask_to_pickup": "確定要承辦此申請單嗎"
+  "rit_table_update_stat": "尚未更新"
 
 
   ritstatus:
     DELETE: "已刪除"
-    OPEN: "開放中"
+    OPEN: "開啟中"
     PROCESS: "處理中"
     SUSPENDED: "駁回"
     FINISH: "完成"
+
+  ritpriority:
+    Urgent: "極度重要"
+    High: "重要"
+    Medium: "中等"
+    Low: "普通"
+  
+  "rit_link_type_all": "全部"
+  rittickettype:
+    BUG: "瑕疪"
+    Patch: "修正"
+    Task: "工作事項"
+    Feature: "新功能"
+    Enhancement: "改進"

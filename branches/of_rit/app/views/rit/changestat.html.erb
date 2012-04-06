@@ -34,15 +34,15 @@
   </tr>
   <tr>
     <td><%=_('rit_form_priority')%> : </td>
-    <td><%=f.select :priority, @priority.collect{|t|[t[0],t[1]]} %></td>
+    <td><%=f.select :priority, @priority.collect{|t|[t_priority(t[0]),t[1]]} %></td>
   </tr>
   <tr>
     <td><%=_('rit_form_status')%> : </td>
-    <td><%=f.select :status, @status.collect{|t|[t[0],t[1]]} %></td>
+    <td><%=f.select :status, @status.collect{|t|[t_status(t[0]),t[1]]} %></td>
   </tr>
   <tr>
     <td><%=_('rit_form_type')%> : </td>
-    <td><%=f.select :tickettype,@type.collect{|t|[t[0],t[1]]}%></td>
+    <td><%=f.select :tickettype,@type.collect{|t|[t_type(t[0]),t[1]]}%></td>
   </tr>
   <tr>
     <td><%=t('rit_form_tag')%> : </td>

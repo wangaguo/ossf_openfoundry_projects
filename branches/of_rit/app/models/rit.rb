@@ -6,8 +6,4 @@ class Rit < ActiveRecord::Base
   PRIORITY = { :Urgent => 0, :High => 1, :Medium =>2 , :Low => 3 }.freeze
   TICKETTYPE = {:BUG => 1, :Patch => 2, :Task => 3, :Feature => 4, :Enhancement => 5 }.freeze
   
-  def translated_priority
-    I18n.t(name, :scope => 'ritstatus')
-  end
-
 end

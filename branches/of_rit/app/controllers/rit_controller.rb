@@ -21,9 +21,12 @@ class RitController < ApplicationController
     @types = Rit::TICKETTYPE
     @pjMeb=members_in_project
     @userID = userID
-    @rit = Rit.where(:project_id => params[:project_id])
+    rit = Rit.where(:project_id => params[:project_id])
+    if current_user.login == 'guest'
+      rit = rit.where("rits.status!=?",0)
+    end
     if !params[:type].nil?
-      @rit = @rit.where(:tickettype => params[:type])
+      rit = rit.where(:tickettype => params[:type])
       type_flag ="type=#{params[:type]}"
     else
       type_flag = "type="
@@ -31,8 +34,8 @@ class RitController < ApplicationController
     if !params[:k].nil?
       @k=params[:k]
       keyword = "%#{@k}%"
-      @rit = @rit.where("rits.title like ?",keyword)
-      @knums = @rit.count
+      rit = rit.where("rits.title like ?",keyword)
+      @knums = rit.count
       shortOfkword = "&k=#{@k}"
     else
       @k=""
@@ -77,7 +80,7 @@ class RitController < ApplicationController
       @orderLinkC = "?#{type_flag}&orderby=stat&short=DESC"+shortOfkword
       @shortMarkC = ""
     end 
-    @rit = @rit.find(:all ,
+    rit = rit.find(:all ,
                      :joins=>"LEFT JOIN ritreplies ON rits.id=ritreplies.rit_fk_id 
                               LEFT JOIN users ON rits.user_id=users.id 
                               LEFT JOIN ritassigns ON rits.id=ritassigns.asRitID 
@@ -85,7 +88,7 @@ class RitController < ApplicationController
                      :select=>"rits.id ,rits.title, rits.status, rits.priority, rits.created_at, users.login as uname ,users.icon as avator ,MAX(ritreplies.created_at) AS rdate , MAX(ritassigns.asUserID) as firstAssign" ,
                      :group=>"rits.id" ,
                      :order=> orderSql )
-    @rit = @rit.paginate :page => params[:page], :per_page => 25
+    @rit = rit.paginate :page => params[:page], :per_page => 25
 
   end
 

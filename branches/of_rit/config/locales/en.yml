@@ -884,7 +884,7 @@ en:
   "rit_log_status": "Status has change to %{val}"
   "rit_log_type": "Type has change to %{val}"
   "rit_ask_to_pickup": "Sure to pick up this ticket ?"
-
+  "rit_table_update_stat": "No update"
 
   ritstatus:
     DELETE: "Delete"
@@ -892,3 +892,17 @@ en:
     PROCESS: "Process"
     SUSPENDED: "Subpened"
     FINISH: "Finish"
+
+  ritpriority:
+    Urgent: "Urgent"
+    High: "Hight"
+    Medium: "Medium"
+    Low: "Low"
+
+  "rit_link_type_all": "All"
+  rittickettype:
+    BUG: "Bug"
+    Patch: "Path"
+    Task: "Task"
+    Feature: "Feature"
+    Enhancement: "Enhancement"
