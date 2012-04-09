@@ -285,7 +285,7 @@ class WikiController < ApplicationController
       end
 
       #Upload files
-      flash[:warning] = err_msg.join("<br/>").html_safe
+      flash[:warning] = err_msg.join("<br/>").html_safe unless err_msg.empty?
       if flash[:warning].nil? 
         params[:upload_file].each do |f| 
           upload_an_file(f)
