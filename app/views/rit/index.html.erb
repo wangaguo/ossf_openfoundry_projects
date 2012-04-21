@@ -4,11 +4,6 @@
 <p align="right">
   <%=t('rit_link_ticket_types')%> : <%= render :partial => 'tickettypes', :locals => {:types => @types} %>
 </p>
-<p>Click a name to login : 
-<% @pjMeb.each do |g|%>
-  <a href="rit?login=<%=g.id%>"><%=g.login%></a>,&nbsp;
-<% end%>
-  <a href="rit?login=logout">logout</a>
 <form>
   <%=_('rit_form_key_search')%>:<%=text_field_tag 'k'%><%= submit_tag _('submit') %>
 </form>

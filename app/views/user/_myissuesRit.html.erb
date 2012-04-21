@@ -41,11 +41,11 @@
              <%=rit.priority == Rit::PRIORITY[:Medium]?image_tag("rit_nor_24.png", :height => '16', :align => 'middle'):"" %>
 	           <%=rit.priority == Rit::PRIORITY[:Low]?image_tag("rit_low_24.png", :height => '16', :align => 'middle'):"" %>
          </span>
-         <a href="/of/projects/<%=rit.project_id%>/rit/<%=rit.id%>"><%=rit.title%></a>
+         <a href="/of/projects/<%=rit.project_id%>/tickets/<%=rit.id%>"><%=rit.title%></a>
           <div class="ticket_info">
           Created&nbsp;<%=rit.created_at%>&nbsp;&nbsp;
           by&nbsp;<%=rit.uname%>&nbsp;&nbsp;
-          Project:&nbsp;<span class="pa"><a href="/of/projects/<%=rit.project_id%>/rit"><%=rit.pjname%></a></span></div>
+          Project:&nbsp;<span class="pa"><a href="/of/projects/<%=rit.project_id%>/tickets"><%=rit.pjname%></a></span></div>
         </div>
       <%end%>
     </div>
