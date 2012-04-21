@@ -31,7 +31,7 @@
     <td><%=render :partial => "fileupload_form" %>
       <br /><%=t('rit_form_file_send_limitnote' , :ufmax => number_to_human_size(RIT_MAX_UPLOAD_FILE_SIZE))%></td>
   </tr>
-  <% if current_user.login!="guest" %>
+  <% if current_user.login!="guest" and @role.to_i==1 %>
   <tr>
     <td><%=_('rit_form_assign_to')%> : </td>
     <td>

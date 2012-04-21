@@ -176,7 +176,7 @@ class RitController < ApplicationController
 
   def new
     @module_name = _('rit_index_title')
-    
+    @role = dataroles_checker(2)
     @Name=Project.find(params[:project_id])
     @pjMeb=members_in_project
     @priority = Rit::PRIORITY
@@ -244,7 +244,9 @@ class RitController < ApplicationController
           as = Ritassigns.new
           as.asRitID = @rit.id
           as.asUserID = ass 
-          as.save
+          #if check_member_in_project(ass)
+            as.save
+          #end
         end
       end
 
@@ -324,7 +326,7 @@ class RitController < ApplicationController
       return
     end
     @pjName=Project.find(params[:project_id])
-    @pjMeb=members_in_project
+    @role = dataroles_checker(2)
     @priority = Rit::PRIORITY
     @type = Rit::TICKETTYPE
     @status = Rit::STATUS
@@ -408,11 +410,13 @@ class RitController < ApplicationController
               asa = Ritassigns.new
               asa.asRitID = @rit.id
               asa.asUserID = am.id
-              asa.save
-              u = User.find(am.id)
-              uu = u.login
-              um = u.email
-              logStr += t('rit_log_assign', :uname => uu ) + "\n"
+             #if check_member_in_project(am.id)
+                asa.save
+                u = User.find(am.id)
+                uu = u.login
+                um = u.email
+                logStr += t('rit_log_assign', :uname => uu ) + "\n"
+             #end
           end
           if ((!am.HasAssign.nil?) && (!assign.include?(am.id.to_s)))
              Ritassigns.destroy_all(:asUserID => am.id, :asRitID => am.HasAssign)
@@ -478,32 +482,6 @@ class RitController < ApplicationController
           flash[:notice]=_('rit_msg_changestat')
           redirect_to project_rit_index_path
   end
-
-  def dataroles_checker(role_level) 
-    #role_level =1 is only admin 
-    #role_level =2 is both , why it both ? beacuse it still testing whole in the project and this groups .
-    if checkrole(current_user.id,'rt_member')=="rt_member"
-      is_rt_member=1
-    else
-      is_rt_member=0
-    end
-    
-    if checkrole(current_user.id,'rt_admin')=="rt_admin"
-      is_rt_admin=1
-    else
-      is_rt_admin=0
-    end
-
-    if role_level == 1
-      is_rt_admin > 0 ? is_pass =1 : is_pass =0
-    elsif role_level ==2
-      (is_rt_member + is_rt_admin) > 0 ? is_pass = 1 : is_pass = 0
-    else
-      is_pass = 0
-    end
-
-    return is_pass
- end
 
 
   def uploadmorefile
@@ -780,6 +758,11 @@ class RitController < ApplicationController
 
   end
 
+  def check_member_in_project(uid)
+    users_id = members_in_project.map(&:id)
+    return users_id.include?(uid)
+  end
+
   def members_in_project
     return_members = User.find_by_sql("
     	select distinct U.id, U.login, U.icon, U.email, R.name as role_name
@@ -808,6 +791,32 @@ class RitController < ApplicationController
         ORDER BY U.id;
         ")
      return assigns
+  end
+
+  def dataroles_checker(role_level) 
+    #role_level =1 is only admin 
+    #role_level =2 is both , why it both ? beacuse it still testing whole in the project and this groups .
+    if checkrole(current_user.id,'rt_member')=="rt_member"
+      is_rt_member=1
+    else
+      is_rt_member=0
+    end
+    
+    if checkrole(current_user.id,'rt_admin')=="rt_admin"
+      is_rt_admin=1
+    else
+      is_rt_admin=0
+    end
+
+    if role_level == 1
+      is_rt_admin > 0 ? is_pass =1 : is_pass =0
+    elsif role_level ==2
+      (is_rt_member + is_rt_admin) > 0 ? is_pass = 1 : is_pass = 0
+    else
+      is_pass = 0
+    end
+
+    return is_pass
   end
 
   def link_to_ticket(rit_id,project_id)

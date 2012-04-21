@@ -18,9 +18,10 @@
     <td><%=_('rit_form_content')%> : </td>
     <td><%=simple_format(@rit.content) %></td>
   </tr>
+  <%if @role== 1%>
   <tr>
     <td><%=_('rit_form_assign_to')%> : </td>
-    <td><%#=f.select :assign_user_id ,[["Nobody",0]]+ @pjMeb.collect{|t|[t.login,t.id]} %>
+    <td>
             <% @asses.each do |g|%>
               <% if g.HasAssign.nil?
                     ckk = false
@@ -30,17 +31,20 @@
             <%=check_box_tag "assigns[]", g.id , checked = ckk %>
             <%=g.login%>
           <% end%>
-   </td>
+    </td>
   </tr>
+  <%end%>
   <tr>
     <td><%=_('rit_form_priority')%> : </td>
     <td><%=f.select :priority, @priority.collect{|t|[t_priority(t[0]),t[1]]} %></td>
   </tr>
+  <%if @role == 1%>
   <tr>
     <td><%=_('rit_form_status')%> : </td>
     <td><%=f.select :status, @status.collect{|t|[t_status(t[0]),t[1]]} %></td>
   </tr>
   <tr>
+  <%end%>
     <td><%=_('rit_form_type')%> : </td>
     <td><%=f.select :tickettype,@type.collect{|t|[t_type(t[0]),t[1]]}%></td>
   </tr>
