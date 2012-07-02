@@ -16,6 +16,5 @@
   <a href="<%= help_project_wiki_index_path %>"><%= t("Help", :scope => :wiki) %></a> |
   <%= form_tag({:action => "list"}, {:style => "margin:0;padding:0;display:inline;"}) do %>
     <%= text_field_tag :search, @search %>
-  <% end %> |
-  <%= link_to t('Old kwiki', :scope => :wiki), project_kwiki_index_path(params[:project_id]) %>
+  <% end %>
 </div>
