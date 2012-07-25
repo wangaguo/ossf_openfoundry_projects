@@ -1,0 +1,56 @@
+<% content_for :page_head do %>
+  <link rel="stylesheet" href="http://tablesorter.com/themes/blue/style.css" />
+  <script type="text/javascript" src="http://tablesorter.com/jquery.tablesorter.js"></script>
+<% end %>
+<% content_for :ujs do %>
+  var $j = jQuery.noConflict();
+  $j(document).ready(function() {
+    $j("table").tablesorter({
+      sortList: [[1,1]]
+    });
+  });
+<% end %>
+
+<h2>Find big files<h2>
+<%
+  file_size = params[:file_size] || "100M"
+  hr = system("cd #{File.join(Rails.public_path, 'download')}; find . -type f -size +#{file_size} " + %q@ -exec ls -lTh {} \; | awk '{ print $9 " " $6 " " $7 ":" $5 ":" $10 }' > /tmp/of_bigfile.txt @)
+  i= 0; j=0
+%>
+<form>
+File size:<input type="text" id="file_size" name="file_size" value="<%=file_size%>" />
+<input type="submit" />
+<br/>
+<pre>
+size format e.g. 10M 1G
+k       kilobytes (1024 bytes)
+M       megabytes (1024 kilobytes)
+G       gigabytes (1024 megabytes)
+T       terabytes (1024 gigabytes)
+P       petabytes (1024 terabytes)
+</pre>
+</form>
+
+<h3>Big files list</h3>
+<% if hr then -%>
+  <table class="tablesorter">
+    <thead><tr><th>No.</th><th>Date</th><th>size</th><th>file</th></tr></thead>
+    <% IO.readlines("/tmp/of_bigfile.txt").each do |x| -%>
+    <tr>
+      <td><%= i+=1 %></td>
+      <%
+        j=0
+        x = x.gsub("\n", "");
+        x.split(":").each do |y|
+          j+=1
+          y = Date.parse(y).to_s if j == 1 
+      -%>
+      <td><%= y %></td> 
+      <% end -%>
+    </tr>
+    <% end -%>
+  </table>
+<% else -%>
+  Has some error occur!<br/>
+  May be is filesize format error.
+<% end -%>

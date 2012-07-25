@@ -1,0 +1,302 @@
+<% content_for :page_head do%>
+<%=stylesheet_link_tag 'jquery.tablesorter.pager', 'jquery.color' %>
+<%=javascript_include_tag 'jquery.tablesorter' %>
+<%=javascript_include_tag 'jquery.tablesorter.pager' %>
+<% end %>
+
+<style type="text/css">
+  td.operator div img
+  {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+</style>
+
+<script type="text/javascript">
+  var bgcolor_click  = 'rgb(205, 183, 181)';
+  var bgcolor_over   = 'rgb(238, 232, 176)';
+  var bgcolor_odd    = 'rgb(240, 240, 246)';
+  var bgcolor_even   = 'rgb(255, 255, 255)';
+
+  var $j = jQuery;
+  $j( document ).ready
+  (
+    function()
+    {
+      // EVENT: mouseover, mouseout
+      $j( '#pdtable tbody tr, #rdtable tbody tr' ).hover
+      (
+        function()
+        {
+          $j( this ).data( 'bgcolor', $j( this ).find( 'td' ).css( 'background-color' ) )
+                    .find( 'td' ).css( 'background-color', bgcolor_over );
+        },
+        function()
+        {
+          $j( this ).find( 'td' ).css( 'background-color', $j( this ).data( 'bgcolor' ) );
+        }
+      );
+      // EVENT: click, click again
+      $j( '#pdtable tbody tr, #rdtable tbody tr' ).toggle
+      (
+        function()
+        {
+          $j( this ).data( 'bgcolor', bgcolor_click )
+                    .find( 'td' ).css( 'background-color', bgcolor_click );
+        },
+        function()
+        {
+          var ncolor = eval( 'bgcolor_' + $j( this ).attr( 'class' ) );
+          $j( this ).data( 'bgcolor', ncolor )
+                    .find( 'td' ).css( 'background-color', ncolor );
+        }
+      );
+
+      var pdmpage = 0;
+      var rdmpage = 0;
+
+      // mark a tag row last time
+      <% if( session[ :ided ] ) -%>
+        var ltrow = $j( 'tbody tr td:[ name=' + <%=session[ :ided ] %> + ' ]' );
+        var momtb = ltrow.closest( 'table' ).attr( 'id' );
+        var movepage = Math.floor( $j( '#' + momtb + ' tbody tr td' ).index( ltrow ) / 20 );
+
+        if( momtb == 'pdtable' )
+          pdmpage = movepage;
+        else
+          rdmpage = movepage;
+
+        ltrow.next().andSelf().css( { 'color': '#ff8716', 'font-weight': 'bold' } );
+        <% session[ :ided ] = nil %>
+      <% end -%>
+
+
+      // bind the jquery tablesorter and tablesorterpager
+      $j( '#pdtable' )
+      .tablesorter( { widthFixed: true, widgets: ['zebra'] } )
+      .tablesorterPager( { container: $j( '#pdpager' ), positionFixed: false, page: pdmpage } );
+      $j( '#rdtable' )
+      .tablesorter( { widthFixed: true, widgets: ['zebra'] } )
+      .tablesorterPager( { container: $j( '#rdpager' ), positionFixed: false, page: rdmpage } );
+
+      $j( '.operator img' ).click
+      (
+        function()
+        {
+          var ajaxrspd = null;
+          // ajax request
+          function ajaxtalk( act, postdata )
+          {
+            return $j.ajax
+            (
+              {
+                async: false,
+                cache: false,
+                data: postdata,
+                dataType: 'json',
+                global: false,
+                processData: false,
+                type: 'POST',
+                url: '<%="#{root_path}"%>/site_admin/tags/' + act,
+                success: function( msg ){ ajaxrspd = msg; }
+              }
+            );
+          }
+
+          var pdtags = [];
+          var rdtags = [];
+          // fetch the pendding tags to be processed
+          $j( '#pdtable tbody tr' ).each
+          (
+            function()
+            {
+              if( $j( this ).find( 'td' ).css( 'background-color' ) == bgcolor_click )
+                pdtags.push( $j( this ).find( 'td' ).attr( 'name' ) );
+            }
+          );
+          // fetch the ready tags to be processed
+          $j( '#rdtable tbody tr' ).each
+          (
+            function()
+            {
+              if( $j( this ).find( 'td' ).css( 'background-color' ) == bgcolor_click )
+                rdtags.push( $j( this ).find( 'td' ).attr( 'name' ) );
+            }
+          );
+
+          // switch the operation case and check the data
+          var cfunc = $j( this ).attr( 'class' ); 
+          var data = pdtags.concat( rdtags );
+          switch( cfunc )
+          {
+            case 'edit':
+              if( data.length == 1 )
+              {
+                ajaxrspd = null;
+                ajaxtalk( 'fetch', 'tag_id=' + data );
+
+                $j( '#tag_old_name, #tag_new_name' ).val( ajaxrspd.name );
+                $j( '#tag_type_' + ajaxrspd.type ).attr( 'checked', true );
+                $j( '#tag_status_' + ajaxrspd.status ).attr( 'checked', true );
+
+                if( ajaxrspd.type == <%=Tagcloud::TYPE[ :CATEGORY ] %> )
+                  $j( '#tag_type_row, #tag_stat_row' ).hide();
+                else
+                  $j( '#tag_type_row, #tag_stat_row' ).show();
+              }
+              else
+              {
+                alert( '一次請編輯一個標籤' );
+                break;
+              }
+            case 'create':
+              if( cfunc == 'create' )
+              {
+                cfunc = '';
+                $j( '#tag_type_row, #tag_stat_row' ).show();
+                $j( '#clrbtn' ).click();
+              }
+
+              $j( '#actionform' ).attr( 'ACTION', '../tags/' + cfunc );
+              $j( '#au_tag_form' ).fadeIn();
+              break;
+            case 'delete':
+              if( data.length == 0 )
+              {
+                alert( '請選擇到刪除的資料' );
+                break;
+              }
+
+              if( !confirm( '確定刪除?' ) ) break;
+            case 'ready':
+            case 'pending':
+              if( data.length == 0 && cfunc != 'delete' )
+              {
+                alert( '請選擇要轉換狀態的資料' );
+                break;
+              }
+
+              ajaxrspd = null;
+              ajaxtalk( cfunc, 'tag_id=' + data );
+
+              window.location.reload();
+              break;
+          }
+        }
+      );
+    }
+  );
+</script>
+<div style="margin: 20px 0px 30px 50px;">
+  <font style="font-size: 20px; font-weight: bold;">[標籤/分類]&nbsp;管理系統</font>
+</div>
+
+<center>
+<div id="au_tag_form" style="width: 400px; display: none;">
+  <fieldset>
+    <legend>[新增/修改]</legend>
+    <%=render :partial => 'tag_form' %>
+    <div style="text-align: right;"><a href="#" onclick="javascript: jQuery( '#au_tag_form' ).fadeOut();">隱藏</a></div>
+  </fieldset>
+</div>
+</center>
+
+<div id="distable" style="width: 100%; margin-top: 30px;">
+  <center>
+  <table>
+
+    <tr><td>Pending Tags</td><td></td><td>Ready Tags</td></tr>
+
+    <tr>
+      <td width="400">
+        <% ptg = Tagcloud.find( :all, :conditions => { :status => Tagcloud::STATUS[ :PENDING ] } ) -%>
+        <% unless ptg.empty? -%>
+          <table cellspacing="1" id="pdtable" class="tablesorter">
+            <thead><tr><th>Name</th><th>Date</th></tr></thead>
+
+            <tbody>
+              <% ptg.each do | tg | -%> 
+                <tr>
+                  <td name="<%=tg.id %>"><%=tg.name %></td>
+                  <td><%=tg.created_at %></td>
+                </tr>
+              <% end -%>
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+          </table>
+        <% else -%>
+          <table><tr><td>目前並無任何相關標籤</td></tr></table>
+        <% end -%>
+      </td>
+
+      <td rowspan="2" class="operator">
+        <div><img src="<%="#{root_path}"%>/images/tagmsg/add.png" title="新增" class="create"></div>
+        <div><img src="<%="#{root_path}"%>/images/tagmsg/delete.png" title="刪除" class="delete"></div>
+        <div><img src="<%="#{root_path}"%>/images/tagmsg/edit.png" title="編輯" class="edit"></div>
+        <div><img src="<%="#{root_path}"%>/images/tagmsg/toready.png" title="READY" class="ready"></div>
+        <div><img src="<%="#{root_path}"%>/images/tagmsg/topending.png" title="PENDING" class="pending"></div>
+      </td>
+
+      <td width="400">
+        <% rtg = Tagcloud.find( :all, :conditions => { :status => Tagcloud::STATUS[ :READY ] } ) -%>
+        <% unless rtg.empty? -%>
+          <table cellspacing="1" id="rdtable" class="tablesorter">
+            <thead><tr><th>Name</th><th>Date</th></tr></thead>
+
+            <tbody>
+              <% rtg.each do | tg | -%> 
+                <tr>
+                  <td name="<%=tg.id %>">
+                    <font <%=raw "style=\"text-decoration: underline\"" if tg.tag_type == Tagcloud::TYPE[ :CATEGORY ] %>>
+                      <%=tg.name %>
+                    </font>
+                  </td>
+
+                  <td><%=tg.created_at %></td>
+                </tr>
+              <% end -%>
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+        </table>
+        <% else -%>
+          <table><tr><td>目前並無任何相關標籤</td></tr></table>
+        <% end -%>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div id="pdpager" class="pager" <%="style=\"display: none;\"" if ptg.empty? %>>
+          <div class="pagedisplay" style="float: left;"></div>
+          <div style="text-align: right;">
+            <img src="<%="#{root_path}"%>/images/tablepager/first.png" class="first"/>
+            <img src="<%="#{root_path}"%>/images/tablepager/prev.png" class="prev"/>
+            <img src="<%="#{root_path}"%>/images/tablepager/next.png" class="next" name="pdtablepager"/>
+            <img src="<%="#{root_path}"%>/images/tablepager/last.png" class="last"/>
+            <input type="hidden" class="pagesize" value="10">
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div id="rdpager" class="pager" <%="style=\"display: none;\"" if rtg.empty? %>>
+          <div class="pagedisplay" style="float: left;"></div>
+          <div style="text-align: right;">
+            <img src="<%="#{root_path}"%>/images/tablepager/first.png" class="first"/>
+            <img src="<%="#{root_path}"%>/images/tablepager/prev.png" class="prev"/>
+            <img src="<%="#{root_path}"%>/images/tablepager/next.png" class="next" name="rdtablepager"/>
+            <img src="<%="#{root_path}"%>/images/tablepager/last.png" class="last"/>
+            <input type="hidden" class="pagesize" value="10">
+          </div>
+        </div>
+      </td>
+    </tr>
+
+  </table>
+  </center>
+</div>

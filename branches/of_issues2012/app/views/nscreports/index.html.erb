@@ -1,0 +1,34 @@
+<%= _("Project|Nsccode") %>: <%= @project.nsc_codes.join(", ") %> <br/>
+
+<% if @nsc_role =~ /PI|REVIEWER|ADMIN/ %>
+
+<%
+  reviews = []
+  reports = [] 
+  @files.map {|x| File.basename(x) }.sort.each do |f|
+    if f =~ /review/
+      reviews << f
+    else
+      reports << f
+    end
+  end
+
+%>
+
+
+Reports:<br>
+<% reports.each do |f| %>
+  <a href="<%= project_nscreports_path(@project, :file => f)%>"><%=f%></a><br/>
+<% end %>
+
+<br/>
+
+Reviews:<br>
+<% reviews.each do |f| %>
+  <a href="<%= project_nscreports_path(@project, :file => f)%>"><%=f%></a><br/>
+<% end %>
+
+<hr>
+<%= link_to _("Upload a new document"), :action => "new" %>
+
+<% end %>

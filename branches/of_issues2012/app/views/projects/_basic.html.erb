@@ -1,0 +1,90 @@
+<div id="ProjectBasic">  
+  <div id="basic">
+    <table class="list-table" >
+      <% row_for t('Project|Description') do %>
+        <%= content_tag(:span, @project.description.mb_chars[0..149], :id => "more_head") %>
+        <%= content_tag(:span, @project.description.mb_chars[150..-1], :style => "display:none", :id => "more") %>
+        <% if @project.description.mb_chars.length > 150 -%>
+          <span id="showMoreLink">
+            ...
+            <br/>
+            <a id ="mr" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.3}); $('showMoreLink').hide(); $('showLessLink').show(); return false" style="padding:8px;float:right"><%= t('More...') %></a>
+          </span>
+          <span id="showLessLink" style="display: none;">
+            <a id ="le" href="#" onclick="Effect.toggle('more', 'blind', {duration: 0.3}); $('showMoreLink').show(); $('showLessLink').hide(); return false" style="padding:8px;float:right"><%= t('Less...') %></a>
+          </span>
+        <% end -%>
+      <% end %>
+      <% row_for t("project_Homepage") do %>
+        <% url = OPENFOUNDRY_HOMEPAGE_URL % @project.name %>
+        <%= link_to(url, url, :target => "_blank") %>
+      <% end %>
+      <% row_for t("Project|Category") do %>
+        <%= link_to(@category, list_category_index_path( :cat => @project.category )) %>
+      <% end %>
+      <% row_for t("Project|Tags") do %>
+        <% @pjtags.partition { |t| t.status == 1 }.flatten.compact.each_with_index do |t, i| %>
+          <%= ',' if i > 0 %>
+          <% case t.status %>
+          <% when 1 %>
+            <%= link_to(t.name, openfoundry_search_path(:query => "tag:#{t.name}", :commit => 'search')) %>
+          <% when 0 %>
+            <span title='<%= t('Msg.New_Added_Tag') %>' style='color: #c0c0c0'>
+              <%= t.name %>
+            </span>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% row_for t("Project|Contactinfo") do %>
+        <%= @project.contactinfo %>
+      <% end %>
+      <% row_for t("Project|License") do %>
+        <% @project.licenses_to_s.each do |license| %>
+          <div>
+            <% if license[0] > 0 %>
+              <%= link_to(license[1], t("url_link_for_#{license[1].gsub('.', '_')}"), :target => 'blank') %>
+            <% else %>
+              <%= t(license[1]) %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <% row_for t("Project|Maturity") do %>
+        <%= @project.maturity_to_s %>
+      <% end %>
+      <% row_for t("Project|Contentlicense") do %>
+        <% @project.content_licenses_to_s.each do |license| %>
+          <div>
+            <% if license[0] > 0 %>
+              <%= link_to(license[1], t("url_link_for_#{license[1].gsub('.', '_')}"), :target => 'blank') %>
+              <%= raw cc_images(license[0]) %>
+            <% else %>
+              <%= t(license[1]) %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <% row_for t("Project|Licensingdescription") do %>
+        <%= @project.licensingdescription %>
+      <% end %>
+      <% row_for t("Project|Vcs") do %>
+        <%= @project.vcs_to_s %>
+      <% end %>
+      <% row_for t("Project|Vcsdescription") do %>
+        <%= raw auto_link(simple_format(h @project.vcsdescription)) %>
+      <% end %>
+      <% row_for t("Project|Platform") do %>
+        <%= show_with_seperator(@project.platform) %>
+      <% end %>
+      <% row_for t("Project|Programminglanguage") do %>
+        <%= show_with_seperator(@project.programminglanguage) %>
+      <% end %>
+      <% row_for t("Project|Created at") do %>
+        <span><%= tz_datetime(@project.created_at) %></span>
+      <% end %>
+      <% row_for t("Project|Nsccode") do %>
+        <%= @nsccode %>
+      <% end %>
+    </table>
+  </div>
+</div>
