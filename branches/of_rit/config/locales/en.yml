@@ -885,6 +885,12 @@ en:
   "rit_log_type": "Type has change to %{val}"
   "rit_ask_to_pickup": "Sure to pick up this ticket ?"
   "rit_table_update_stat": "No update"
+  "rit_attachment_error_mag": "No file"
+  "rit_add_validates_title_error": "Title can't not empty"
+  "rit_validates_content_error": "Content can't not empty"
+  "rit_validates_email_error": "Email: %{mail} is not a valid string"
+  "rit_validates_email_empty": "Email can't not empty"
+  "rit_form_require": "*Require"
 
   ritstatus:
     DELETE: "Delete"

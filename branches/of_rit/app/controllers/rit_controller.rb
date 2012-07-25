@@ -217,15 +217,16 @@ class RitController < ApplicationController
       cookies.delete :content
       redirect_to :action => "show" , :project_id => params[:project_id] , :id => params[:id]
     else
-      flash[:error]=_('rit_msg_add_error')
+      flash[:error]= active_rec_error_message(@ritreply) 
       cookies[:content]=params[:ritreply][:content]
-      cookies[:guestmail]=params[:rit][:guestmail]
+      cookies[:guestmail]=params[:ritreply][:guestmail]
       redirect_to :action => "show" ,:project_id => params[:project_id] , :id => params[:id]
     end
 
   end
 
   def create
+
     if current_user.login == 'guest' and verify_recaptcha == false
        cookies[:guestmail]=params[:rit][:guestmail]
        cookies[:title]=params[:rit][:title]
@@ -234,6 +235,7 @@ class RitController < ApplicationController
         redirect_to :back
         return
     end
+
     @rit = Rit.new(params[:rit])
 
     if @rit.save
@@ -302,14 +304,23 @@ class RitController < ApplicationController
       cookies.delete :title
       redirect_to :controller => "rit" , :action => "index" , :project_id => params[:project_id]
     else
-      flash[:error]=_('rit_msg_add_error')
-      #redirect_to :action => "new"
+      flash[:error]= active_rec_error_message(@rit) 
       cookies[:title]=params[:rit][:title]
       cookies[:content]=params[:rit][:content]
       redirect_to :back
     end
     
     
+  end
+
+  def active_rec_error_message(obj)
+    out_array = []
+    obj.errors.each do |attribute, message|
+      if message.is_a?(String)
+         out_array << message
+      end
+    end
+    return out_array*", "
   end
 
   def changestat
@@ -479,6 +490,7 @@ class RitController < ApplicationController
             link_ticket = link_to_ticket(params[:id],params[:project_id])
             Ritmailer.email_notify('update',members,@rit.id,rlog.id,params[:project_id],link_ticket).deliver
          end
+          #flash[:error]= active_rec_error_message(@rit) 
           flash[:notice]=_('rit_msg_changestat')
           redirect_to project_rit_index_path
   end
