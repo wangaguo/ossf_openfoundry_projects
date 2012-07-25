@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>OSSF Web Hosting Services</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="webhosting.css" type="text/css" />
+
+</head>
+<body>
+<div id="header">
+    <h1><span>OpenFoundry</span></h1>
+</div>
+<div id="MainWidgets">
+    <div id="MainMenu">
+    <ul class="topnav">
+    <li><a href="index.html">FAQ</a></li>
+<!--
+    <li><a href="term_of_use.html">Term of Use</a></li>
+    <li><a href="logo.html">Logo</a></li>
+-->
+    </ul>
+    </div>
+</div>
+<div id="MainBody">
+<div class="qa">
+    <div class="question">
+    What is OSSF Web Hosting Services?
+    </div>
+    <div class="answer">
+    <p>
+    For every project hosted on the <a href="http://rt.openfoundry.org">project developement site (rt.openfoundry.org)</a>,
+    we have provided web space at <tt>http://[Project ID].openfoundry.org</tt>
+    for project administrators to create a project-related website,
+    giving project administrators greater resources and versatility in managing their projects.
+    </p>
+    </div>
+</div>
+
+<div class="qa">
+    <div class="question">
+    What functionality does OSSF Web Hosting Services provide?
+    </div>
+    <div class="answer">
+    <p>
+    We provide each project 100 MB of static web space.
+    In the future we will provide scripting language capability
+    and template systems as well as ready-to-use website systems.
+    </p>
+    </div>
+</div>
+
+<div class="qa">
+    <div class="question">
+    How do I use the service?
+    </div>
+    <div class="answer">
+    <p>
+    If you are a project administrator and agree with the
+    <a href="term_of_use.html">Term of Use</a>,
+    then you can use SCP (Secure Copy), SFTP (SSH File Transfer Protocol) or FTP over TLS to log in to
+    <tt>webhosting.openfoundry.org</tt>.
+    After logging in, your home directory will have links to all the projects you've managed before.
+    Any files you place in this directory will be accessible through <tt>http://[project id].openfoundry.org</tt> .
+    </p>
+    
+    <p>
+    For UNIX machines you can use the command line to send files, for example:<br>
+    <tt>scp index.html user@webhosting.openfoundry.org:myproj/</tt>,<br>
+    <br>
+    <tt>sftp user@webhosting.openfoundry.org</tt>
+    or<br>
+    <tt>ftps webhosting.openfoundry.org</tt>
+
+    </p>
+    
+    <p>
+    For Windows, you can use <a href="http://winscp.net/">WinSCP</a>
+    or <a href="http://filezilla.sourceforge.net/">FileZilla</a> with SCP / SFTP / FTP over TLS to send files.
+    <dt>WinSCP Settings (SCP):</dt>
+    <dd>
+    <img src="WinSCP.png"/>
+    </dd>
+
+    <dt>FileZilla Settings (SFTP):</dt>
+    <dd>
+    <img src="FileZilla.png"/>
+    </dd>
+    
+    <dt>FileZilla Settings (FTP over TLS):</dt>
+    <dd>
+    <img src="FileZilla_FTP_TLS.png"/>
+    </dd>
+    
+    </p>
+    </div>
+</div> <!-- qa -->
+
+</div> <!-- MainBody -->
+
+</body>
+</html>

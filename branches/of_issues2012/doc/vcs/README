@@ -1,0 +1,21 @@
+何謂 VCS 
+解決了什麼問題? (LCamel)
+所有功能 Overview (wangaguo)
+
+情境 (thkuo)
+模擬幾個人共同工作
+Windows client / Unix client
+(基本指令 help co ci info add import status revert export diff ...)
+
+OpenFoundry   (tim)
+我們的VCS服務
+建立時的 / 修改 (記得要放連結過來)
+Admin / Member ... Anonymous
+ViewVC
+
+相關資源
+
+問題: 終點在哪裡?
+http://svn.stu.edu.tw/svnbook/book.html 的第三章
+
+預計完成時間: 配合 VCS 系統升級 => 2007-07-10

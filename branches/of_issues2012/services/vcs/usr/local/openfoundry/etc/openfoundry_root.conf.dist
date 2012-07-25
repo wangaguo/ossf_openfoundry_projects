@@ -1,0 +1,32 @@
+{
+	"DUMP_SOURCE_URL": "http://of.openfoundry.org/openfoundry/foundry_sync?secret=%s&module=%s",
+	"DUMP_SECRET": "###########",
+
+
+	"JSON_DUMP_CACHE_PATH": "/usr/local/vcs/etc/openfoundry_dump.json",
+	"ROOT_JSON_DUMP_CACHE_PATH": "/usr/local/vcs/etc/openfoundry_dump_root.json",
+	"JSON_DUMP_REFRESH_INTERVAL": 600,
+
+	"NSS_DATABASE": "auth",
+	"NSS_DATABASE_ROOT_USER": "nss-root",
+	"NSS_DATABASE_ROOT_PASSWORD": "nss-root-pass",
+	"NSS_DATABASE_USER_USER": "nss-user",
+	"NSS_DATABASE_USER_PASSWORD": "nss-user-pass",
+
+	"CVSROOT": "/cvs",
+	"CVS_OWNER": 80,
+	"CVS_GROUP": 80,
+	"ANONYMOUS_CVS_ACCOUNT": "cvs",
+
+	"SVN_PARENT_PATH": "/svn",
+	"SVN_OWNER": 80,
+	"SVN_GROUP": 80,
+	"SVN_HOST": "svn.openfoundry.org",
+	"SVN_BACKUP_PATH": "/svn/.backup",
+
+	"BACKUP_CRONTAB_TIME": "31 3 * * *",
+
+	"VIEWVC_HOST": "viewvc.of.openfoundry.org",
+	"VIEWVC_SERVER_ALIAS_HOST": "of.openfoundry.org",
+	"VIEWVC_ADDRESS": "<a href=\"mailto:contact@openfoundry.org\">If you have any question, please contact us.</a>"
+}

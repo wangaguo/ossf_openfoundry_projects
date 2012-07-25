@@ -1,0 +1,21 @@
+<!-- BEGIN page_privacy_select -->
+[% IF hub.page_privacy.page_privacy_selectable %]
+<script type="text/javascript">
+function page_privacy_change(self) {
+    iframe = document.getElementsByTagName("iframe")[0]
+    iframe.src = '[% script_name %]?' +
+                 'action=page_privacy_set&' +
+                 'page_name=[% page_uri %]&' +
+                 'privacy=' + self.value
+}
+</script>
+<form>
+[% privacy = hub.page_privacy.page_privacy %]
+Page Privacy:<br />
+<input type="radio" name="page_privacy" value="public" onchange="page_privacy_change(this)" [% IF privacy == 'public' %]checked[% END %] /> Public<br />
+<input type="radio" name="page_privacy" value="protected" onchange="page_privacy_change(this)" [% IF privacy == 'protected' %]checked[% END %] /> Protected<br />
+<input type="radio" name="page_privacy" value="private" onchange="page_privacy_change(this)" [% IF privacy == 'private' %]checked[% END %] /> Private<br />
+<iframe height="0" width="0" frameborder="0"></iframe>
+</form>
+[% END %]
+<!-- END page_privacy_select -->

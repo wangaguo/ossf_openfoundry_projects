@@ -1,0 +1,29 @@
+#!/bin/sh
+# PROVIDE: stompserver
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+#
+# Add the following line to /etc/rc.conf to enable Stompserver for OpenFoundry:
+#
+#  stompserver_enable="YES"
+#  # optional
+#  stompserver_user="stompserver"
+#  stompserver_group="stompserver"
+
+. "/etc/rc.subr"
+
+# Set some defaults
+stompserver_enable=${stompserver_enable:-"YES"}
+stompserver_user=${stompserver_user:-"stompserver"}
+stompserver_group=${stompserver_group:-"stompserver"}
+
+pidfile=%%InstallDir%%/stompserver.pid
+procname='ruby'
+name=stompserver
+rcvar=`set_rcvar`
+load_rc_config $name
+command=%%InstallDir%%/stompserver.sh
+command_args=""
+
+run_rc_command "$1"

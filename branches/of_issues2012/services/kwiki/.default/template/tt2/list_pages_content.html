@@ -1,0 +1,31 @@
+<!-- BEGIN list_pages_content -->
+[% BLOCK nav_block %]
+<center>
+[% FOREACH letter IN pages %]
+   [% IF letter.value.size > 0 %]
+    <big><a href="#[% letter.key %]">[% letter.key %]</a></big>
+   [% END %]
+[% END %]
+[% END %]
+</center>
+[% PROCESS nav_block %]
+<table class="list_pages">
+[% FOREACH letter IN pages %]
+ [% IF letter.value.size > 0 %]
+ <tr>
+ <td class="header" colspan="3"><a name="[%letter.key%]">[% letter.key %]</a></td>
+ </tr>
+   [% FOREACH page = letter.value %]
+       <tr>
+       <td class="page_name">[% page.kwiki_link %]</td>
+       <td class="edit_by">[% page.edit_by_link %]</td>
+       <td class="edit_time">[% page.edit_time %]</td>
+       </tr>
+   [% END %]
+   <tr><td>&nbsp;</tr>
+ [% END %]
+[% END %]
+</table>
+<p>
+[% PROCESS nav_block %]
+<!-- END list_pages_content -->

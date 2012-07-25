@@ -1,0 +1,12 @@
+<% module_content = capture do -%>
+  <% Tagcloud.tags_assign_font_size( 10 ).each do | s | -%>
+    <%= link_to s[:name],
+      openfoundry_search_path(:query => "tag:#{s[:name]}", :commit => 'search'),
+      :style => "font-size: #{s[:font]}px; color: #{s[:color]}",
+      :onmouseover => "this.style.color='#65960b'",
+      :onmouseout => "this.style.color='#{s[:color]}'" %>
+  <% end -%>
+
+  <%=link_to _( 'More...' ), openfoundry_search_path() , :class => "more" %>
+<% end -%>
+<%= render :file => 'layouts/rt_module', :locals => { :module_content => module_content, :variation => 'square1' } %>

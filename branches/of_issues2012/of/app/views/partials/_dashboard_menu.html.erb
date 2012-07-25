@@ -1,0 +1,34 @@
+<% module_title = capture do -%>
+<%#= _('Dashboard Menu') %>
+<% end -%>
+<% module_content = capture do -%>
+<ul class="menu">
+  <li><%= link_to _('Create Project'), new_project_path() %></li>
+  <li><%= link_to _('menu_My Projects'), "#{dashboard_user_path}#myprojects" %></li>
+  <li><%= link_to _('menu_My Tickets'),"#mytickets",:class => 'ticket_button' %></li>
+  <li><%#= link_to _('menu_My Messages'), "/#{ I18n.locale.to_s[ -2..-1 ].downcase }/my-message"%></li>
+  <li class="parent"><a href='#' onClick="Effect.toggle('bsc_menu0', 'blind', {duration: 0.3}); return false"><%= _('Help') %></a>
+  <div id="bsc_menu0" style="display:none">
+  <ul>
+    <li><%= link_to 'OpenFoundry', '/help/how-to-start' %></li>
+    <!--<li><%#= link_to _('NSC Project'), '/help/nsc-project' %></li>-->
+    <li><%= link_to _('menu_License Wizard'), '/help/license-wizard' %></li>
+    <li><%= link_to _('Forum'), '/help/openfoundry-forum' %></li>
+  </ul>
+  </div>
+  </li>
+</ul>
+<% end -%>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => ''} %>
+
+<% module_title = capture do -%>
+<%#= _('Dashboard Menu') %>
+<% end -%>
+<% module_content = capture do -%>
+<ul class="menu">
+  <li><%= link_to _('Personal Profile'), "/user/userprofile" %></li>
+  <li><%= link_to _('Messages'), "/my-message"%></li>
+  <li><%= link_to _('Post a Job'), "/post-a-job"%></li>
+</ul>
+<% end -%>
+<%= render :file => 'layouts/rt_module', :locals => {:module_title => module_title, :module_content => module_content, :variation => ''} %>
