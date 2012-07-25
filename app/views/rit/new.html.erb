@@ -16,7 +16,7 @@
     </td>
     <%if current_user.login=="guest"%>
       <tr>
-        <td><%=_('rit_form_email')%> : </td>
+        <td><%=_('rit_form_email')%> :<br /> <%=content_tag :span ,t('rit_form_require') ,:style => 'color:#FF0000' %></td>
         <td><%=f.text_field :guestmail, :value => cookies[:guestmail] %></td>
       </tr>
     <%else%>

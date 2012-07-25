@@ -896,7 +896,12 @@ zh_TW:
   "rit_log_type": "此申請單的類型變更為 %{val}"
   "rit_ask_to_pickup": "確定要承辦此申請單嗎"
   "rit_table_update_stat": "尚未更新"
-
+  "rit_attachment_error_mag": "檔案己遺失"
+  "rit_add_validates_title_error": "標題不能空白"
+  "rit_validates_content_error": "內容不能空白"
+  "rit_validates_email_error": "電郵位址 %{mail} 不正確，請輸入正確的電郵位址"
+  "rit_validates_email_empty": "電郵位址不能留白"
+  "rit_form_require": "(必填)"
 
   ritstatus:
     DELETE: "已刪除"

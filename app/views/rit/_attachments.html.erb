@@ -10,10 +10,14 @@ else
   download_target = "_self"
 end
 %>
-<%=link_to image_tag(image_name ,:height => '64' ,:alt => attach.filename) ,download_link ,:target => download_target %>
-<%=link_to attach.OrigName ,download_link ,:target => download_target %>
-(<%
-p = File.join( RIT_UPLOAD_PATH  ,attach.filename )
-    fsize = File.size(p)
-    %><%=number_to_human_size(fsize)%>)
+<%
+file_attach_path = File.join( RIT_UPLOAD_PATH  ,attach.filename )
+if File.exist?(file_attach_path)
+%>
+  <%=link_to image_tag(image_name ,:height => '64' ,:alt => attach.filename) ,download_link ,:target => download_target %>
+  <%=link_to attach.OrigName ,download_link ,:target => download_target %>
+  (<%=number_to_human_size(File.size(file_attach_path))%>)
+<%else%>
+  <%=content_tag(:span,attach.OrigName, :style => "text-decoration:line-through;") %>(<%=t('rit_attachment_error_mag')%>)
+<%end%>
 <br /> 
