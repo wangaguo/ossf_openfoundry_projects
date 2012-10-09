@@ -75,11 +75,16 @@ class SiteAdmin::TagsController < SiteAdmin
   def update(oldname, newname, newstatus, newtype)
     @tag = Tagcloud.find_by_name( oldname )
     unless @tag.nil?
-      @tag.name = newname if Tagcloud.find_by_name( newname ).nil?
-      @tag.status = newstatus.strip
-      @tag.tag_type = newtype.strip
-      session[:ided] = "#{@tag.id.to_s}" if @tag.save
-      session[:tmsg] = "Updated."
+      tag = Tagcloud.find_by_name( newname )
+      if tag.nil? || @tag.id == tag.id
+        @tag.name = newname
+        @tag.status = newstatus.strip
+        @tag.tag_type = newtype.strip
+        session[:ided] = "#{@tag.id.to_s}" if @tag.save
+        session[:tmsg] = "Data updated."
+      else
+        session[:tmsg] = "Tag name \"#{newname}\" exists. No changed."
+      end
     end
   end
 
