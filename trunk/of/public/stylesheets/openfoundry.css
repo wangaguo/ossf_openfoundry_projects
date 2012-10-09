@@ -190,7 +190,7 @@
 .list-table { border-collapse:collapse; width:99%; margin:2px; }
 .list-table th { background-color:#DEE7FF; }
 .list-table td { border-bottom:solid 1px #cccccc;padding:0.4em; word-wrap: break-word;}
-td.fieldstyle  { font-weight: bold; text-align: right; width: 20%; }
+.list-table td.fieldstyle  { font-weight:bold; text-align:right; width:27%; white-space:nowrap; }
 /* For Flash */
 .flasherror, .flashwarning, .flashnotice, .flashmessage
 {
