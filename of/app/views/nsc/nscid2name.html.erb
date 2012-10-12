@@ -1,0 +1,25 @@
+<% content_for :page_head do %>
+  <%= stylesheet_link_tag "/tablesorter/themes/blue/style.css" %>
+  <%= javascript_include_tag "/tablesorter/jquery.tablesorter.min.js", "/tablesorter/jquery.tablesorter.pager.js" %>
+<% end %>
+<% content_for :ujs do %>
+  var $j = jQuery.noConflict();
+  $j(document).ready(function() {
+    $j("table").tablesorter();
+  });
+<% end %>
+
+<h2>NSC ID find Project Name<h2>
+<table class="tablesorter">
+  <thead><tr><th>Type</th><th>Seq No</th><th>Name</th><th>NSC ID</th><th>Project Names</th></tr></thead>
+  <% @nsc_data.each do |row| -%>
+  <tr>
+    <td><%= row[0] %></td>
+    <td><%= row[1] %></td>
+    <td><%= row[2] %></td>
+    <td><%= row[3] %></td>
+    <td><%= row[4].html_safe %></td>
+  </tr>
+  <% end -%>
+</table>
+
