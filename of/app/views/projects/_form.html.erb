@@ -243,7 +243,7 @@ AAA
   <legend><%= _("For NSC projects") %>:</legend>
   <%= _("Please refer to the") %> <b><a href="/help/2322#field-note" target="_blank"><%= _("help document") %></a></b>.<br/><br/>
   <label for=\"project_nsccode\"><%= _('Project|Nsccode') %></label><br/>
-  e.g. NSC97-2218-E-123-456
+  e.g. NSC97-2218-E-123-456; NSC101-2221-E-123-001-MY3
   <div class="nsccodes">
     <% if @nsccodes.present? %>
       <% @nsccodes.each do |nsccode| %>
@@ -252,7 +252,8 @@ AAA
           <%= text_field_tag('project[nsccode][][1]', nsccode[1], :size => 4, :maxlength => 4) %> -
           <%= text_field_tag('project[nsccode][][2]', nsccode[2], :size => 1, :maxlength => 1) %> -
           <%= text_field_tag('project[nsccode][][3]', nsccode[3], :size => 3, :maxlength => 3) %> -
-          <%= text_field_tag('project[nsccode][][4]', nsccode[4], :size => 6, :maxlength => 6) %>
+          <%= text_field_tag('project[nsccode][][4]', nsccode[4], :size => 3, :maxlength => 3) %> -
+          <%= text_field_tag('project[nsccode][][5]', nsccode[5], :size => 3, :maxlength => 3) %>
           <button class="remove">移除</button>
           <button class="add">新增</button>
         </div>
@@ -263,7 +264,8 @@ AAA
         <%= text_field_tag('project[nsccode][][1]', '', :size => 4, :maxlength => 4) %> -
         <%= text_field_tag('project[nsccode][][2]', '', :size => 1, :maxlength => 1) %> -
         <%= text_field_tag('project[nsccode][][3]', '', :size => 3, :maxlength => 3) %> -
-        <%= text_field_tag('project[nsccode][][4]', '', :size => 6, :maxlength => 6) %>
+        <%= text_field_tag('project[nsccode][][4]', '', :size => 3, :maxlength => 3) %> -
+        <%= text_field_tag('project[nsccode][][5]', '', :size => 3, :maxlength => 3) %>
         <button class="remove">移除</button>
         <button class="add">新增</button>
       </div>
