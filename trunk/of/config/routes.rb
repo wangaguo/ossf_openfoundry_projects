@@ -269,6 +269,7 @@ OpenFoundry::Application.routes.draw do |map|
     namespace :nsc do
       get :report_status
       get :download_count
+      get :nscid2name
     end
 
     # NOTE: why not just put in projects/releases as a resource?
