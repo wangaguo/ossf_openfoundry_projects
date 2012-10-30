@@ -77,3 +77,4 @@
       "Page name already exist": "頁面名稱已存在"
       "Please confirm captcha": "請確認驗證文字"
       "HomePage can't be private": "HomePage 不能設為私有頁面"
+      "Page name can not has '/'": "頁面名稱不能有'/'字元"

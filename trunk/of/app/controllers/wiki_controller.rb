@@ -137,6 +137,9 @@ class WikiController < ApplicationController
         if params[:wiki_page][:name] == 'NoName'
           err_msg += t('Please input a new page name', :scope => 'wiki.message') + '<br/>'
         end
+        if params[:wiki_page][:name] !~ WikiPages::NAME_REGEX 
+          err_msg += t("Page name can not has '/'", :scope => 'wiki.message') + '<br/>'
+        end
         if params[:wiki_page][:content].strip == ""
           err_msg += t('Please input content', :scope => 'wiki.message') + '<br/>'
         end
