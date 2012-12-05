@@ -62,13 +62,13 @@ class ReleasesController < ApplicationController
 
   def top
     @module_name = _("Top Downloads")
-    releases = Release.find(:all, :group => 'project_id', :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => 100).paginate(:page => params[:page], :per_page => 100)
+    releases = Release.top_download.paginate(:page => params[:page], :per_page => 50)
     if(params[:page].nil?)
       params[:page] = 1
     end
     @page = params[:page].to_i
     if releases.out_of_bounds?
-      releases = Release.paginate(:page => 1, :per_page => 100)
+      releases = Release.paginate(:page => 1, :per_page => 50)
       @page = 1
     end
     render(:template => 'releases/_top_download_list', :locals => { :releases => releases, :page => @page })
