@@ -30,12 +30,14 @@ class Release < ActiveRecord::Base
   end
 
   def self.top_download
-    Release.joins(:project).group("project_id").
-            select("projects.*, releases.*, max(release_counter) release_counter").
+    Release.includes(:project).select("projects.*, releases.*").
+            from("(select * from releases order by release_counter desc) releases").
             where("releases.status = 1").
             where(Project.in_used_projects(:alias => "projects")).
             where("releases.updated_at > (now() - INTERVAL 2 YEAR)").
-            order("release_counter desc").limit(5)
+            group(:project_id).
+            order(:release_counter).reverse_order().
+            limit(5)
   end
 
   def self.new_releases
