@@ -52,7 +52,7 @@ class RssController < ApplicationController
       @property[:title] = 'OpenFoundry: Top Download'
       @property[:description] = 'Top download on OpenFoundry'
       
-      data = Release.find(:all, :group => 'project_id', :include => [:project], :conditions => 'releases.status = 1 AND ' + Project.in_used_projects(:alias => "projects"), :order => "MAX(release_counter) DESC", :limit => query_size)
+      data = Release.top_download.limit(query_size)
 
       data.each { |row|
         r_page = Release.find(:all, :conditions => "project_id = #{row.project_id} AND status = 1", :order => "due DESC").map {|e| e.version}.index("#{row.version}") / 5 + 1
