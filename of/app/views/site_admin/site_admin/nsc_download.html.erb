@@ -155,7 +155,7 @@ end
     <td><%= Project.vcs_to_s(project.vcs) %></td>
     <td nowrap>
       <!-- VCS Information -->
-      <% if @vcs_check == 'true' -%>
+      <% if @vcs_check == 'true' and project.vcs == 2 -%>
         <%
           #abc = system 'cvs -d :ext:cvs@192.168.0.40:/cvs rlog nctupr | grep -m1 date > /tmp/nsc_svn.log'
           log = %x[svn info http://svn.openfoundry.org/#{project.name}].gsub(/\n/, "<br/>")
