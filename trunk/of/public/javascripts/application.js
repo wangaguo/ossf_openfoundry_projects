@@ -18,26 +18,6 @@ function submenuSwitch(item)
 	else submenu.style.display = 'none';
 }
 
-function project_leftmenu_onclick(tab)
-{
-  if(tab == 2 && $('project_admin_menu') != null) 
-  {
-    $('project_menu').style.display = "none";
-    if($('project_admin_menu') != null) $('project_admin_menu').style.display = "block";
-  }
-  else
-  {
-    $('project_menu').style.display = "block";
-    if($('project_admin_menu') != null) $('project_admin_menu').style.display = "none";
-  }
-  setCookie("project_leftmenu_state", tab,"","/");
-}
-
-function project_leftmenu_init()
-{
-  project_leftmenu_onclick(getCookie("project_leftmenu_state"));
-}
-
 /*
    name - name of the cookie
    value - value of the cookie
