@@ -209,11 +209,11 @@ document.observe('dom:loaded', function() {
       e.preventDefault();
       var nsccode = projectRoot.select('.nsccode').last();
       var newCode = nsccode.cloneNode(true);
-      newCode.select('input').each(function(e) { e.value = ''; });
+      newCode.select('input[type="text"]').each(function(e) { e.value = ''; });
       nsccode.insert({ after: newCode });
       newCode.select('input').first().focus();
-      newCode.select('button.add').first().observe('click', addCode);
-      newCode.select('button.remove').first().observe('click', removeCode);
+      newCode.select('.add').first().observe('click', addCode);
+      newCode.select('.remove').first().observe('click', removeCode);
       refreshDisplay();
     }
 
@@ -243,11 +243,11 @@ document.observe('dom:loaded', function() {
     
     refreshDisplay();
 
-    projectRoot.select('button.add').each(function(add) {
+    projectRoot.select('.add').each(function(add) {
       add.observe('click', addCode);
     });
 
-    projectRoot.select('button.remove').each(function(remove) {
+    projectRoot.select('.remove').each(function(remove) {
       remove.observe('click', removeCode);
     });
 
