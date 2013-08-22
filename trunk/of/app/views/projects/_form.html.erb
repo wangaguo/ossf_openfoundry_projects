@@ -254,8 +254,8 @@ AAA
           <%= text_field_tag('project[nsccode][][3]', nsccode[3], :size => 3, :maxlength => 3) %> -
           <%= text_field_tag('project[nsccode][][4]', nsccode[4], :size => 3, :maxlength => 3) %> -
           <%= text_field_tag('project[nsccode][][5]', nsccode[5], :size => 3, :maxlength => 3) %>
-          <button class="remove">移除</button>
-          <button class="add">新增</button>
+          <input type="button" class="remove" value="移除" />
+          <input type="button" class="add" value="新增" />
         </div>
       <% end %>
     <% else %>
@@ -266,8 +266,8 @@ AAA
         <%= text_field_tag('project[nsccode][][3]', '', :size => 3, :maxlength => 3) %> -
         <%= text_field_tag('project[nsccode][][4]', '', :size => 3, :maxlength => 3) %> -
         <%= text_field_tag('project[nsccode][][5]', '', :size => 3, :maxlength => 3) %>
-        <button class="remove">移除</button>
-        <button class="add">新增</button>
+        <input type="button" class="remove" value="移除" />
+        <input type="button" class="add" value="新增" />
       </div>
     <% end %>
   </div>
