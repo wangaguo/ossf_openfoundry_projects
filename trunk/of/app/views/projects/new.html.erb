@@ -1,5 +1,6 @@
 <div id="ProjectNew">
   <em><%= raw "(#{required_icon()}#{_("required_icon")})" %></em>
+  <br><span style="color:red"><%= t("nsc.create_project_notice") %></span>
   <% form_tag :action => 'create' do %>
     <%= render :partial => 'form', :locals => { :is_edit => false } %>
     <%=hidden_field_tag '__clibeanna' %>

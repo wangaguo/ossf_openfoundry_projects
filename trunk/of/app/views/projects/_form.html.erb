@@ -25,6 +25,28 @@
   }
 </style>
 
+<% content_for :ujs do %>
+  (function($){
+    $(document).ready(function(){
+      $('input[name=commit]').click(function(){
+        var msg = '';
+        var project_name_regex = /(111|222|333|123|456|789|aaa|bbb|ccc|ddd|fff|sss|ttt|abc|def|test)/;
+        if ($('#project_name:enabled').attr("disabled") == false && 
+            project_name_regex.test($('#project_name').val())) {
+          msg += '<%= t("Project.test_project_notice") %>\n';
+        }
+        if ($('#nsccodes :text[value!=""]').length > 0) {
+          msg += '<%= t("nsc.create_project_notice") %>\n';
+        }
+        if (msg != "") {
+          msg += '\n<%= t("Project.create_project_confirm") %>';
+          return confirm(msg); 
+        }
+      });
+    });
+  })(jQuery);
+<% end %>
+
 <script type="text/javascript">
   var $j = jQuery;
 
@@ -193,7 +215,9 @@ AAA
 <table class="form-table">
 <%=raw rows(
   foo("name", true, _("Project|Name|Help")),
-    text_field('project', 'name', :disabled => (is_edit == true), :maxlength => 15, :style => 'width:15em'),
+    text_field('project', 'name', :disabled => (is_edit == true), :maxlength => 15, :style => 'width:15em') +
+    raw("<br/>") +
+    link_to(t("Project.test_project_notice"), '/help/how-to-start'),
   foo("summary", true, _("Project|Summary|Help")),
     text_field('project', 'summary', :maxlength => 255, :size => 50),
   # rationale
@@ -241,10 +265,16 @@ AAA
 
 <fieldset style="clear:both;">
   <legend><%= _("For NSC projects") %>:</legend>
-  <%= _("Please refer to the") %> <b><a href="/help/2322#field-note" target="_blank"><%= _("help document") %></a></b>.<br/><br/>
-  <label for=\"project_nsccode\"><%= _('Project|Nsccode') %></label><br/>
-  e.g. NSC97-2218-E-123-456; NSC101-2221-E-123-001-MY3
-  <div class="nsccodes">
+  <ul>
+    <li><%= _("Please refer to the") %> <b><a href="/help/2322#field-note" target="_blank"><%= _("help document") %></a></b>.</li>
+    <li><%= raw(t("nsc.important1")) %></li>
+    <li><%= raw(t("nsc.important2")) %></li>
+    <li><%= raw(t("nsc.important3")) %></li>
+    <li><%= raw(t("nsc.important4")) %></li>
+  </ul>
+  <br/>
+  <b><%= _('Project|Nsccode') %>:</b> e.g. NSC97-2218-E-123-456; NSC101-2221-E-123-001-MY3
+  <div id="nsccodes" class="nsccodes">
     <% if @nsccodes.present? %>
       <% @nsccodes.each do |nsccode| %>
         <div class="nsccode">

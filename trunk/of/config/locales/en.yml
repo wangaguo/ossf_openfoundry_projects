@@ -170,16 +170,24 @@ en:
   "CVS": "CVS"
   "Subversion": "Subversion"
   "Subversion: members only": "Subversion: members only"
-  "This project uses a version control system at other site.": "This project uses a version control system from another site."
-  "This project does not use any version control system.": "This project does not use any version control system."
-  "System Error. Please contact the site administrator.": "System Error. Please contact the site administrator."
+  "This project uses a version control system at other site": "This project uses a version control system from another site."
+  "This project does not use any version control system": "This project does not use any version control system."
+  "System Error! Please contact the site administrator": "System Error. Please contact the site administrator."
   "Format|Project Name": "Between 3 to 15 characters in length containing only letters and numbers"
-  "This name is reserved by the system.": "This name is reserved by the system."
-  "You have choosen too many licenses.": "You have choosen too many licenses"
-  "You have choosen too many content licenses.": "You have chosen too many content licenses."
+  "This name is reserved by the system": "This name is reserved by the system."
+  "You have choosen too many licenses": "You have choosen too many licenses"
+  "You have choosen too many content licenses": "You have chosen too many content licenses."
   "Please choose at least one code license": "Please choose at least one code license."
+  "If this project contains no code, then you may not choose any other license": |
+    If this project contains no code, then you may not choose any other license.
   "Please choose at least one content license": "Please choose at least one content license."
-  "You have to choose a code license": "You have to choose a code license"
+  "If this project contains only code, then you may not choose any other content license": |
+    If this project contains only code, then you may not choose any other content license.
+  "If the content license is the same with the code license, then you may not choose any other content license": |
+    If the content license is the same with the code license, then you may not choose any other content license.
+  "You have to choose a code license": "You have to choose a code liceonse"
+  "You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"": |
+    You have to fill in the "Licensing Description" if you choosed "Other licenses".
   "Please choose at least one platform": "Please choose at least one platform."
   "Please choose at least one programming language": "Please choose at least one programming language."
   "Job|Subject": "Project name"
@@ -613,6 +621,8 @@ en:
     updated_at: "Updated Date"
     updated_by: "Updated by"
     icon: "Project Icon"
+    test_project_notice: "To test a project, please refer to the “Test Account” and “Test Project” explanations."
+    create_project_confirm: "Are you sure you want to create this project?"
   repository:
     use_svn_help: "This project's Subversion repository can be checked out through SVN with the following instruction set:"
     use_cvs_help: "This project's CVS repository can be checked out through anonymous (pserver) CVS with the following instruction set:"
@@ -636,7 +646,12 @@ en:
     NSC_Project: "NSC Project"
     New_Category: "Category Suggestion"
     OK: "OK"
-
+  nsc:
+    create_project_notice: "For the National Science Council (NSC) project applications, please check the “NOTICE” column in the bottom of the page and make sure that your application documents consist with the review requirements."
+    important1: "<b>Project Creator：</b>Please use NSC plan owner account to create project, this account will be project owner."
+    important2: "<b>Code Licenses：</b>Please make sure that you set the Code Licenses."
+    important3: "<b>NSC Project Code：</b>For multiple-year-plan applicants, the last numbers should be “-MY”; For continuing-plan applicants, please use the original project and add new codes."
+    important4: "<b>Version Code：</b>Please use Subversion version control system."
 
 # -------------------------------------------------------------------
 # rails-I18n default translation
@@ -749,34 +764,34 @@ en:
       prompt: "Please select"
   
   activerecord:
-    errors:
-      template: # ~ 2.3.5 backward compatible
-        header:
-          one: "1 error prohibited this %{model} from being saved"
-          other: "%{count} errors prohibited this %{model} from being saved"
-        body: "There were problems with the following fields:"
-      messages:
-        inclusion: "is not included in the list"
-        exclusion: "is reserved"
-        invalid: "is invalid"
-        confirmation: "doesn't match confirmation"
-        accepted: "must be accepted"
-        empty: "can't be empty"
-        blank: "can't be blank"
-        too_long: "is too long (maximum is %{count} characters)"
-        too_short: "is too short (minimum is %{count} characters)"
-        wrong_length: "is the wrong length (should be %{count} characters)"
-        not_a_number: "is not a number"
-        not_an_integer: "must be an integer"
-        greater_than: "must be greater than %{count}"
-        greater_than_or_equal_to: "must be greater than or equal to %{count}"
-        equal_to: "must be equal to %{count}"
-        less_than: "must be less than %{count}"
-        less_than_or_equal_to: "must be less than or equal to %{count}"
-        odd: "must be odd"
-        even: "must be even" 
-        record_invalid: "Validation failed: %{errors}" 
-        incorrect_project_name_format: "Between 3 to 15 characters in length containing only letters and numbers"
+  errors:
+    template: # ~ 2.3.5 backward compatible
+      header:
+        one: "1 error prohibited this %{model} from being saved"
+        other: "%{count} errors prohibited this %{model} from being saved"
+      body: "There were problems with the following fields:"
+    messages:
+      inclusion: "is not included in the list"
+      exclusion: "is reserved"
+      invalid: "is invalid"
+      confirmation: "doesn't match confirmation"
+      accepted: "must be accepted"
+      empty: "can't be empty"
+      blank: "can't be blank"
+      too_long: "is too long (maximum is %{count} characters)"
+      too_short: "is too short (minimum is %{count} characters)"
+      wrong_length: "is the wrong length (should be %{count} characters)"
+      not_a_number: "is not a number"
+      not_an_integer: "must be an integer"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to: "must be equal to %{count}"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      odd: "must be odd"
+      even: "must be even" 
+      record_invalid: "Validation failed: %{errors}" 
+      incorrect_project_name_format: "Between 3 to 15 characters in length containing only letters and numbers"
  
   activemodel:
     errors:

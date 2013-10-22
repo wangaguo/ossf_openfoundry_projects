@@ -171,23 +171,25 @@ zh_TW:
   "Project contains only code": "專案不包含圖文內容"
   "CVS": "CVS"
   "Subversion": "Subversion"
-  "Subversion: members only": "Subversion: members only"
-  "This project uses a version control system at other site.": "使用其他站台的版本控制系統"
-  "This project does not use any version control system.": "不使用版本控制系統"
-  "System Error. Please contact the site administrator.": "系統錯誤, 請通知站台管理員."
+  "Subversion: members only": "Subversion: 只有專案成員可讀取"
+  "This project uses a version control system at other site": "使用其他站台的版本控制系統"
+  "This project does not use any version control system": "不使用版本控制系統"
+  "System Error! Please contact the site administrator": "系統錯誤, 請通知站台管理員."
   "Format|Project Name": "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
-  "This name is reserved by the system.": "抱歉, 此名字已被系統保留"
-  "You have choosen too many licenses.": "您選擇了太多種程式碼授權方式"
+  "This name is reserved by the system": "抱歉, 此名字已被系統保留"
+  "You have choosen too many licenses": "您選擇了太多種程式碼授權方式"
   "You have choosen too many content licenses.": "您選擇了太多種圖文授權方式"
   "Please choose at least one code license": "請選擇至少一種程式碼授權方式"
   "If this project contains no code, then you may not choose any other license": |
-    您在程式碼授權欄位已勾選此專案不包含程式碼 ，因此不可勾選其他程式授權條款。
+    您在程式碼授權欄位已勾選此專案不包含程式碼，因此不可勾選其他程式授權條款。
   "Please choose at least one content license": "請選擇至少一種圖文授權方式"
   "If this project contains only code, then you may not choose any other content license": |
-    您在圖文授權欄位已勾選此專案不包含圖文內容 ，因此不可勾選其他圖文授權條款。
+    您在圖文授權欄位已勾選此專案不包含圖文內容，因此不可勾選其他圖文授權條款。
   "If the content license is the same with the code license, then you may not choose any other content license": |
     您在圖文授權欄位已勾選同程式碼授權，已此不可再勾選其他圖文授權條款。
   "You have to choose a code license": "請選擇程式碼授權方式"
+  "You have to fill in the \"Licensing Description\" if you choosed \"Other licenses\"": |
+    您必需填寫“授權說明”，因為您擇了“其他”程式碼授權
   "Please choose at least one platform": "請選擇至少一種作業環境"
   "Please choose at least one programming language": "請選擇至少一種程式語言"
   "Job|Subject": "標題"
@@ -395,7 +397,7 @@ zh_TW:
   "Others": "其他"
   "Project|Name|Help": "專案名稱"
   "Project|Summary|Help": "專案的簡短介紹文字, 長度為 3 至 255 個字."
-  "Project|Description|Help": "較長的專案描述文字, 長度為 3 至 4000 個字."
+  "Project|Description|Help": "較長的專案描述文字, 長度為 25 至 4000 個字."
   "Project|Contactinfo|Help": "與本專案開發者的連絡方式, 最長至 255 個字."
   "Project|Maturity|Help": "專案成熟度"
   "Project|License|Help": "程式碼授權方式, 可複選."
@@ -623,6 +625,8 @@ zh_TW:
     updated_at: "更新時間"
     updated_by: "更新者"
     icon: "專案圖示"
+    test_project_notice: "測試專案，請參考文件「測試帳號」與「測試專案」說明。"
+    create_project_confirm: "確定要建立此專案嗎？"
   repository:
     use_svn_help: "本專案的版本控制檔案庫可利用下列 SVN 指令集取得:"
     use_cvs_help: "本專案的版本控制檔案庫可利用下列 CVS 指令集取得:"
@@ -646,7 +650,12 @@ zh_TW:
     NSC_Project: "國科會專案"
     New_Category: "建議新分類?"
     OK: "確認"
-
+  nsc:
+    create_project_notice: "國科會專案申請，請確認頁面最後之注意事項，以符合審查要求。"
+    important1: "<b>專案申請人：</b>請用計畫申請人的帳號來進行專案申請，使計畫申請人成為國科會專案的建立者 。"
+    important2: "<b>程式碼授權：</b>國科會專案請確實設定程式碼授權。"
+    important3: "<b>國科會編號：</b>多年度計劃代碼最後應為-MY[年度]，延續計劃，請使用原專案，並加入新的代碼。"
+    important4: "<b>版本控制：</b>請使用Subversion版本控制系統。"
 
 # -------------------------------------------------------------------
 # rails-I18n default translation
@@ -759,35 +768,35 @@ zh_TW:
       prompt: "請選擇"
   
   activerecord:
-    errors:
-      template: # ~ 2.3.5 backward compatible
-        header:
-          one: "有 1 個錯誤發生使得「%{model}」無法被儲存。"
-          other: "有 %{count} 個錯誤發生使得「%{model}」無法被儲存。"
-        body: "以下欄位發生問題："
-      messages:
-        inclusion: "沒有包含在列表中"
-        exclusion: "是被保留的關鍵字"
-        invalid: "是無效的"
-        confirmation: "不符合確認值"
-        accepted: "必須是可被接受的"
-        empty: "不能留空"
-        blank: "不能是空白字元"
-        too_long: "過長（最長是 %{count} 個字）"
-        too_short: "過短（最短是 %{count} 個字）"
-        wrong_length: "字數錯誤（必須是 %{count} 個字）"
-        taken: "已經被使用"
-        not_a_number: "不是數字"
-        not_an_integer: "必須是整數"
-        greater_than: "必須大於 %{count}"
-        greater_than_or_equal_to: "必須大於或等於 %{count}"
-        equal_to: "必須等於 %{count}"
-        less_than: "必須小於 %{count}"
-        less_than_or_equal_to: "必須小於或等於 %{count}"
-        odd: "必須是奇數"
-        even: "必須是偶數"
-        record_invalid: "校驗失敗: %{errors}"
-        incorrect_project_name_format: "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
+  errors:
+    template: # ~ 2.3.5 backward compatible
+      header:
+        one: "有 1 個錯誤發生使得「%{model}」無法被儲存。"
+        other: "有 %{count} 個錯誤發生使得「%{model}」無法被儲存。"
+      body: "以下欄位發生問題："
+    messages:
+      inclusion: "沒有包含在列表中"
+      exclusion: "是被保留的關鍵字"
+      invalid: "是無效的"
+      confirmation: "不符合確認值"
+      accepted: "必須是可被接受的"
+      empty: "不能留空"
+      blank: "不能是空白字元"
+      too_long: "過長（最長是 %{count} 個字）"
+      too_short: "過短（最短是 %{count} 個字）"
+      wrong_length: "字數錯誤（必須是 %{count} 個字）"
+      taken: "已經被使用"
+      not_a_number: "不是數字"
+      not_an_integer: "必須是整數"
+      greater_than: "必須大於 %{count}"
+      greater_than_or_equal_to: "必須大於或等於 %{count}"
+      equal_to: "必須等於 %{count}"
+      less_than: "必須小於 %{count}"
+      less_than_or_equal_to: "必須小於或等於 %{count}"
+      odd: "必須是奇數"
+      even: "必須是偶數"
+      record_invalid: "校驗失敗: %{errors}"
+      incorrect_project_name_format: "由英數字組成, 以英文字母開頭, 全小寫, 長度不超過15個字, 不短於3個字"
   
   activemodel:
     errors:

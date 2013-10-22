@@ -54,7 +54,6 @@ class Project < ActiveRecord::Base
   # having mutiple spaces is ok
   # [ 34 OSI: X.Net License ] has been deleted at 2009.03.10
   LICENSE_DATA = <<"EOEO".split("\n").map {|x| (i, s) = x.split(" ", 2); [ i.to_i, s ] }
-0 This project contains no code
 -2 Public Domain
 1 OSI: Academic Free License
 2 OSI: GNU Affero General Public License v3 (AGPL3)
@@ -91,6 +90,7 @@ class Project < ActiveRecord::Base
 33 OSI: University of Illinois/NCSA Open Source License
 35 OSI: zlib/libpng License
 -1 Other licenses
+0 This project contains no code
 EOEO
   # referenced by: licenses
   N_("url_link_for_OSI: Academic Free License")
@@ -250,17 +250,17 @@ EOEO
     i = (Symbol === vcs) ? VCS[vcs] : vcs.to_i
     case i
     when VCS[:CVS]
-      _("CVS")
+      I18n.t("CVS")
     when VCS[:SUBVERSION]
-      _("Subversion")
+      I18n.t("Subversion")
     when VCS[:SUBVERSION_CLOSE]
-      _("Subversion: members only")
+      I18n.t("Subversion: members only")
     when VCS[:REMOTE]
-      _("This project uses a version control system at other site.")
+      I18n.t("This project uses a version control system at other site.")
     when VCS[:NONE]
-      _("This project does not use any version control system.")
+      I18n.t("This project does not use any version control system.")
     else
-      _("System Error. Please contact the site administrator.")
+      I18n.t("System Error! Please contact the site administrator.")
     end
   end
   def vcs_to_s
@@ -316,15 +316,15 @@ EOEO
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
   validates_format_of :name, :with => NAME_REGEX, :message => I18n.t('Format|Project Name')
-    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp ), :message => I18n.t("This name is reserved by the system.")
+    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp blogs beta icesa iosesc), :message => I18n.t("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
-  validates_length_of :description, :within => 3 .. 4000
+  validates_length_of :description, :within => 25 .. 4000
   validates_length_of :contactinfo, :maximum => 255
   validates_inclusion_of :maturity, :in => MATURITY.values
-  validates_length_of :license, :maximum => 50, :message => I18n.t('You have choosen too many licenses.')
+  validates_length_of :license, :maximum => 10, :message => I18n.t('You have choosen too many licenses.')
     validates_format_of :license, :with => /,(-?\d+)*,/
-  validates_length_of :contentlicense, :maximum => 50, :message => I18n.t('You have choosen too many content licenses.')
+  validates_length_of :contentlicense, :maximum => 10, :message => I18n.t('You have choosen too many content licenses.')
     validates_format_of :contentlicense, :with => /,(-?\d+)*,/
   validates_length_of :licensingdescription, :maximum => 1000
   validates_length_of :platform, :maximum => 100
