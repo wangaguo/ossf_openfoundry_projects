@@ -9,17 +9,32 @@
   });
 <% end %>
 
-<h2>NSC ID find Project Name<h2>
-<table class="tablesorter">
-  <thead><tr><th>Type</th><th>Seq No</th><th>Name</th><th>NSC ID</th><th>Project Names</th></tr></thead>
-  <% @nsc_data.each do |row| -%>
-  <tr>
-    <td><%= row[0] %></td>
-    <td><%= row[1] %></td>
-    <td><%= row[2] %></td>
-    <td><%= row[3] %></td>
-    <td><%= row[4].html_safe %></td>
-  </tr>
-  <% end -%>
-</table>
-
+<%= form_tag do %>
+  <h2>NSC ID find Project Name</h2>
+  年度：
+  <select name="year">
+  <%= options_for_select(Array(101..110), @year) %>
+  </select>
+  類別：
+  <select name="type">
+  <%= options_for_select([["全部", ""], "自由軟體", "資安"], @type) %>
+  </select>
+  老師姓名：
+  <input type="text" name="teacher" size="6" value="<%= @teacher %>" />
+  <input type="submit" value="查詢" />
+  
+  <table class="tablesorter">
+    <thead><tr><th>year</th><th>Type</th><th>Seq No</th><th>Name</th><th>NSC ID</th><th>Project Names</th></tr></thead>
+    <% @nsc_data.each do |row| -%>
+    <tr>
+      <td><%= row[0] %></td>
+      <td><%= row[1] %></td>
+      <td><%= row[2] %></td>
+      <td><%= row[3] %></td>
+      <td><%= row[4] %></td>
+      <td><%= row[5].html_safe %></td>
+    </tr>
+    <% end -%>
+  </table>
+</form>
+<% end %>
