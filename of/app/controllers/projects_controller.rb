@@ -219,6 +219,7 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
+      @project.approve("Auto approved.", "")
       TagcloudsProject.append_tags_to_project @project.id, params[ :__clibeanna ] if params[ :__clibeanna ]
       redirect_to :action => 'applied'
     else
