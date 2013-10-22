@@ -270,6 +270,7 @@ OpenFoundry::Application.routes.draw do |map|
       get :report_status
       get :download_count
       get :nscid2name
+      post :nscid2name
     end
 
     # NOTE: why not just put in projects/releases as a resource?
