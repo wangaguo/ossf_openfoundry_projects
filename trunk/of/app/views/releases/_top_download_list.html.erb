@@ -11,7 +11,7 @@
 <% for release in releases %>
  <%if i % 2 == 0; class_name="odd"; else; class_name="even"; end; -%>
   <tr class="<%= class_name %>">
-    <td><img src="<%= cached_image_images_path(:id => "#{Project.find(release.project_id).icon}_16") %>"/></td>
+    <td><img src="<%= cached_image_images_path(:id => "#{release.project.icon}_16") %>"/></td>
     <td><%= (i+=1).to_s %></td>
     <td><%= link_to h(release.project.summary), project_download_path(:project_id => release.project_id) %></td>
     <td><%= release.release_counter %></td>
