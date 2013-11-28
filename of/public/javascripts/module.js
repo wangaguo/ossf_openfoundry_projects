@@ -1,7 +1,7 @@
 var module = function(){};
-module.js_path = "http://www.openfoundry.org/of/javascripts/";
-module.logo_path = "http://www.openfoundry.org/Powered-by-OSSF-180x50";
-module.site_path = "http://www.openfoundry.org/";
+module.js_path = "https://www.openfoundry.org/of/javascripts/";
+module.logo_path = "https://www.openfoundry.org/Powered-by-OSSF-180x50";
+module.site_path = "https://www.openfoundry.org/";
 
 importJS(module.js_path+"jquery.js", "jQuery", function(){
   var pathname = location.pathname;
