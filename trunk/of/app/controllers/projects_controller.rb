@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   helper :projects
   layout 'module'
   before_filter :set_project_id
-  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed, :icon_album]
+  before_filter :login_required, :except => [:set_project_id, :sympa, :viewvc, :websvn, :gitweb, :index, :list, :show, :join_with_separator, :role_users, :vcs_access, :test_action, :new_projects_feed, :icon_album]
   before_filter :set_project
 
   before_filter :project_check_permission
@@ -66,6 +66,17 @@ class ProjectsController < ApplicationController
     when Project::VCS[:REMOTE], Project::VCS[:NONE], Project::VCS[:SUBVERSION_CLOSE]
       vcs_access
       render :template => 'projects/vcs_access'
+    else
+      render :text => _("System error. Please contact the site administrator.")
+    end
+  end
+
+  def gitweb 
+    @module_name = _('Version Control')
+    case @project.vcs
+    when Project::VCS[:GIT]
+      @Path = OPENFOUNDRY_GITWEB_URL + "?p=" + @project.name + ".git"
+      render :template => 'projects/viewvc'
     else
       render :text => _("System error. Please contact the site administrator.")
     end
@@ -603,6 +614,9 @@ class ProjectsController < ApplicationController
     case(@vcs)
     when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE] 
       @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
+    when Project::VCS[:GIT]
+      @src = "git clone https://#{OPENFOUNDRY_HOST}/git/#{@project.name}.git"
+      @src_ro = "git clone http://#{OPENFOUNDRY_HOST}/git/#{@project.name}.git"
     when Project::VCS[:CVS]
       @src = "cvs -d :ssh:cvs\@cvs.openfoundry.org:/cvs co #{@project.name}"
     when Project::VCS[:REMOTE]

@@ -625,6 +625,7 @@ en:
     create_project_confirm: "Are you sure you want to create this project?"
   repository:
     use_svn_help: "This project's Subversion repository can be checked out through SVN with the following instruction set:"
+    use_git_help: "This project's Subversion repository can be checked out through Git with the following instruction set:"
     use_cvs_help: "This project's CVS repository can be checked out through anonymous (pserver) CVS with the following instruction set:"
   msg:
     postrt_without_login: "You are not logged in; please log in or register from the links in the top-right corner. If you really want to submit a ticket as guest, please leave your contact information such as your email address in the ticket body so the developers can contact you when the issue is resolved."

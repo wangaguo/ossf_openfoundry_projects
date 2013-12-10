@@ -208,7 +208,7 @@ EOEO
   # see also: OpenFoundry.pm
 
   # single selection
-  VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :SUBVERSION_CLOSE => 3, :REMOTE => -1 }.freeze
+  VCS = { :NONE => 0, :CVS => 1, :SUBVERSION => 2, :SUBVERSION_CLOSE => 3, :GIT => 4, :REMOTE => -1 }.freeze
   # i18n at vcs_to_s
 
   # mutiple selection + other (string,string,...)
@@ -255,6 +255,8 @@ EOEO
       I18n.t("Subversion")
     when VCS[:SUBVERSION_CLOSE]
       I18n.t("Subversion: members only")
+    when VCS[:GIT]
+      "Git"
     when VCS[:REMOTE]
       I18n.t("This project uses a version control system at other site.")
     when VCS[:NONE]
@@ -316,7 +318,7 @@ EOEO
   # 
   # see: /activerecord-2.0.2/lib/active_record/validations.rb
   validates_format_of :name, :with => NAME_REGEX, :message => I18n.t('Format|Project Name')
-    validates_exclusion_of :name, :in => %w( admin www svn cvs list lists sympa kwiki wiki ftp blogs beta icesa iosesc), :message => I18n.t("This name is reserved by the system.")
+    validates_exclusion_of :name, :in => %w( admin www svn git gitolite-admin cvs list lists sympa kwiki wiki ftp blogs beta icesa iosesc), :message => I18n.t("This name is reserved by the system.")
   validates_length_of :summary, :within => 3 .. 255
   # rationale: only for backward compatibility
   validates_length_of :description, :within => 25 .. 4000
