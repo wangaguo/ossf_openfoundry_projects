@@ -1,6 +1,6 @@
 var module = function(){};
 module.js_path = "https://www.openfoundry.org/of/javascripts/";
-module.logo_path = "https://www.openfoundry.org/Powered-by-OSSF-180x50";
+module.logo_path = "https://www.openfoundry.org/images/Logo/openfoundry-logo-467x99.png";
 module.site_path = "https://www.openfoundry.org/";
 
 importJS(module.js_path+"jquery.js", "jQuery", function(){
