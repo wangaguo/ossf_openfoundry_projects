@@ -629,6 +629,7 @@ zh_TW:
     create_project_confirm: "確定要建立此專案嗎？"
   repository:
     use_svn_help: "本專案的版本控制檔案庫可利用下列 SVN 指令集取得:"
+    use_git_help: "本專案的版本控制檔案庫可利用下列 Git 指令集取得:"
     use_cvs_help: "本專案的版本控制檔案庫可利用下列 CVS 指令集取得:"
   msg:
     postrt_without_login: "您目前尚未登入系統。請登入您的帳號，或使用右上角註冊連結，建立一組新的帳號。如果，您想使用guest帳號來回報問題。請於回報單中，留下您的聯絡方式，如：電子郵件信箱。幫助專案開發者於問題解決後，告知您相關的訊息。"

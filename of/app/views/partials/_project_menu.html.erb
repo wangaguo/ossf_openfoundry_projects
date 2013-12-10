@@ -29,6 +29,9 @@
               <% if project.vcs == Project::VCS[:SUBVERSION] %>
               <li><%= link_to _("WebSVN"), websvn_project_path(:id => project.id) %></li>
               <% end %>
+              <% if project.vcs == Project::VCS[:GIT] %>
+              <li><%= link_to "GitWeb", gitweb_project_path(:id => project.id) %></li>
+              <% end %>
               <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
           </ul>
           </div>
@@ -79,6 +82,9 @@
         <% end %>
         <% if project.vcs == Project::VCS[:SUBVERSION] %>
           <li><%= link_to _("WebSVN"), websvn_project_path(:id => project.id) %></li>
+        <% end %>
+        <% if project.vcs == Project::VCS[:GIT] %>
+        <li><%= link_to "GitWeb", gitweb_project_path(:id => project.id) %></li>
         <% end %>
         <li><%= link_to _('How to Access'), vcs_access_project_path(:id => project.id) %></li>
       </ul>

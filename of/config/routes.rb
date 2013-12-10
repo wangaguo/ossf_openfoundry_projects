@@ -103,6 +103,7 @@ OpenFoundry::Application.routes.draw do |map|
         get :sympa
         get :viewvc
         get :websvn
+        get :gitweb
         get :role_users      # ANY, UGLY... Need a role controller in future. (aya
         get :member_edit     # ANY
         post :member_delete  # UGLY... Need a member controller in future. (aya
