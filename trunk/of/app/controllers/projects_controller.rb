@@ -290,7 +290,7 @@ class ProjectsController < ApplicationController
       if @project.status == Project::STATUS[:APPLYING] 
         ProjectNotify.deliver_project_reviewer(@project)
         redirect_to :action => 'applied'
-	return
+        return
       end
       flash[:notice] = _('Project was successfully updated.')
       changed = []
@@ -300,6 +300,9 @@ class ProjectsController < ApplicationController
         flash[:notice] +=  " " + _('It may take 5 minutes for settings to take effect.')
       end
 
+      if @project.vcs != old_vcs
+        AsyncMessage::set_async(@project) 
+      end
       # send message to rt module for sync
       if @project.summary != old_summary
         ApplicationController::send_msg(TYPES[:project], ACTIONS[:update], {:id => @project.id, :name => @project.name, :summary => @project.summary})
@@ -341,6 +344,7 @@ class ProjectsController < ApplicationController
             old_r.save
             r.users << u unless r.users.include? u
             r.save
+            AsyncMessage::set_async(@project)
             #u.roles.delete(old_r)
             #u.roles << r unless u.roles.include? r
             #u.save
@@ -372,6 +376,7 @@ class ProjectsController < ApplicationController
           before  = u.functions_for(r.authorizable_id)
           u.roles << r unless u.roles.include? r
           u.save
+          AsyncMessage::set_async(@project)
           flag_changed = true
           after = u.functions_for(r.authorizable_id)
           added = after - before
@@ -424,9 +429,9 @@ class ProjectsController < ApplicationController
             return
           end
           r.save
-          #u.roles.delete(r)
-          #u.save
-	  u.reload
+          AsyncMessage::set_async(@project)
+
+          u.reload
           after = u.functions_for(r.authorizable_id)
           removed = before -after
           flag_changed = true
@@ -512,6 +517,7 @@ class ProjectsController < ApplicationController
           role.functions.delete_all
           role.functions = after
           role.save
+          AsyncMessage::set_async(@project)
 
           #send message for everyone in that role
           project_id = role.authorizable_id
@@ -572,6 +578,7 @@ class ProjectsController < ApplicationController
     else
       @project.roles.delete role
       role.destroy
+      AsyncMessage::set_async(@project)
       flash.now[:notice] = _( 'Role was successfully deleted.' ) + ": #{ role.name }"
 #      render :update do |page|
 #        page[:role_new].reload

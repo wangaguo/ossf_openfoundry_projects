@@ -143,6 +143,39 @@ class OpenfoundryController < ApplicationController
         b = a[u] = {} if not b = a[u]
         b[f] = 1
       end
+    when "git"
+      min = params[:min].to_i || 30  
+      min = 5555555 if(params[:min] == "All")
+      updated_at = (Time.now - (min*60)).strftime("%Y-%m-%d %H:%M:%S")
+      projects = ActiveRecord::Base.connection.select_rows("
+            select name, vcs from projects 
+            where
+            status in (2, 3) and
+            id in (select async_id from async_messages where async_type='Project' and updated_at > '#{updated_at}')")
+      users = ActiveRecord::Base.connection.select_rows(
+  "select name as login, shadow_password as salted_password from sso_development.users where status = 1 and updated_at > '#{updated_at}'")
+
+      sql= "select distinct U.login, P.name, F.name from 
+            users U, projects P, roles_users RU, roles R, functions F, roles_functions RF, async_messages S 
+            where 
+            F.module = 'vcs' and
+            RF.role_id = R.id and RF.function_id = F.id and
+            R.authorizable_id = P.id and 
+            R.authorizable_type = 'Project' and 
+            RU.role_id = R.id and 
+            RU.user_id = U.id and 
+            P.id = S.async_id and
+            (P.vcs = #{Project::VCS[:GIT]}) and
+            #{User.verified_users(:alias => 'U')} and
+            #{Project.in_used_projects(:alias => 'P')} and
+            S.async_type = 'Project' and S.updated_at > '#{updated_at}'      
+            "
+      functions = {}
+      ActiveRecord::Base.connection.execute(sql).each do |u, p, f|
+        a = functions[p] = {} if not a = functions[p]
+        b = a[u] = {} if not b = a[u]
+        b[f] = 1
+      end
     when "rt"
       projects = ActiveRecord::Base.connection.select_rows("select id, name, summary from projects where #{Project.in_used_projects()}")
       users = ActiveRecord::Base.connection.select_rows("select id, login, email from users where #{User.verified_users()}")

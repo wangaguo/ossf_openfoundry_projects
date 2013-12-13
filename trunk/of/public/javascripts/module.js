@@ -50,6 +50,7 @@ window.OF = {
       else if(pathname.match(/^\/rt\/Ticket\/Display.html/i)) this.RT.display();
       else if(pathname.match(/^\/viewvc/i)) this.viewvc();
       else if(pathname.match(/^\/websvn/i)) this.websvn();
+      else if(pathname.match(/^\/gitweb/i)) this.gitweb();
       //else if(pathname.match(/^\/rt\/Search\/Results.html/i)) this.RT.create();
     }
     this.iframe_auto_height();
@@ -60,7 +61,7 @@ window.OF = {
     //不是openfoundry.org就加上ossf logo
     if(parent == window || this.is_crosssite() || !parent.location.host.match(location.host))
     {
-      $("body").append('<a href="'+module.site_path+'" target="_blank"><img src="'+module.logo_path+'" style="border:none; float:right;"></a>');
+      $("body").append('<a href="'+module.site_path+'" target="_blank"><img src="'+module.logo_path+'" style="border:none; float:right;" /></a>');
     }
   },
   
@@ -161,6 +162,12 @@ window.OF = {
       $("#templateform").insertAfter($("#revisionform"));
     }
   },//websvn end
+
+  gitweb: function(){
+    if(parent != window){
+      $('a[href="/gitweb/"]').remove();
+    }
+  }, //gitweb end
   
   iframe_auto_height: function(){
     if(!this.in_of()) return;
