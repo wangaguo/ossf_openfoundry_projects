@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_many :roles, :foreign_key => "authorizable_id", :conditions => "authorizable_type='Project'"
+  has_one :async_message, :as => :async
 
 	# category association
 	belongs_to :cattag, :class_name => 'Tagcloud', :foreign_key => 'category'
@@ -439,6 +440,8 @@ EOEO
 
     # TODO: transaction / efficiency / constant
     set_role("Admin", User.find(self.creator))
+    # Set async
+    AsyncMessage::set_async(self)
     # TODO: hook / listener / callback / ...
     ApplicationController::send_msg(TYPES[:project], ACTIONS[:create], {:id => self.id, :name => self.name, :summary => self.summary})
     # send admin function creation msg
@@ -467,6 +470,7 @@ EOEO
     self.status = Project::STATUS[:SUSPENDED]
     self.statusreason = reason
     save!
+    AsyncMessage::set_async(self)
     # TODO: notify by email
   end
   # reason: string
@@ -475,6 +479,7 @@ EOEO
     self.status = Project::STATUS[:READY]
     self.statusreason = reason
     save!
+    AsyncMessage::set_async(self)
     # TODO: notify by email
   end
   # reason: string
