@@ -1,0 +1,10 @@
+DATA_IMPLEMENTATION = "data.rb"
+SYNC_MIN = "10"
+OPENFOUNDRY_JSON_URI = "http://your.domain/foundry_sync?module=git&min=#{OPT_SYNC_MIN || SYNC_MIN}"
+GIT_AUTH_FILE = "/etc/apache2/git.passwd"
+GIT_ACCESS_PATH = "/home/git/sync/gitolite-admin/conf/repos"
+GITOLITE_ADMIN_PATH = "/home/git/sync/gitolite-admin"
+
+
+EMAIL_FROM = "contact@your.domain"
+DEBUG_MAIL_TO = ["your.name@your.domain]
