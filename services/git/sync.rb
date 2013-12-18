@@ -49,7 +49,9 @@ begin
   # Get sync data
   load "sync.conf"
   require_relative DATA_IMPLEMENTATION 
-  
+   
+  puts "\n"
+  puts "= #{Time.now} ="
   puts "== Account process =="
   # Delete account & new account in tmp
   tmppasswd = ""
