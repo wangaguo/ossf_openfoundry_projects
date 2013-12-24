@@ -29,7 +29,7 @@
         </div>
         <b><%= link_to h(file.path), download_url(:project_name => @project_name, 
                                                   :release_version => release.version,
-                                                  :file_name => file.path ) %></b><br/>
+                                                  :file_name => file.path ), { :onclick=>"javascript:_paq.push(['trackPageView', 'download-#{@project_name}-#{release.version}-#{file.id}']);"} %></b><br/>
                <div id="file-<%= file.id %>" class="description" style="display: none">
           <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits") + file.counter.counter.to_s %><br/>
           <%= h(file.description) %>
