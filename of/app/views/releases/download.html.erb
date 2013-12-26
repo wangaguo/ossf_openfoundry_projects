@@ -1,3 +1,53 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.openfoundry.org/piwik/jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="https://www.openfoundry.org/piwik/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="https://www.openfoundry.org/piwik/jqplot/plugins/jqplot.highlighter.min.js"></script>
+<link rel="stylesheet" type="text/css" hrf="https://www.openfoundry.org/piwik/jqplot/jquery.jqplot.min.css" />
+<script>
+var jQuery191 = jQuery.noConflict(true);
+jQuery191(document).ready(function() {
+    jQuery191.jqplot.config.enablePlugins = true;
+    jQuery191.ajaxSetup({async: false});
+  var line1 = [[]];
+  var fileid = '';
+  var sineRenderer = function() {
+    line1 = [[]];
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://www.openfoundry.org/piwik/jqplot/parse.php?fileid="+fileid;
+    jQuery191.getJSON(u, function(datas) {
+      jQuery191.each(datas, function(x, y) {
+        if(y[1]==null) y[1]=0;
+        line1[0].push(y);
+      });
+    });
+    return line1;
+  };
+    jQuery191('.toggle-description').click(function(){
+    fileid = jQuery191(this).data('fileid');
+    jQuery191.jqplot('chart'+jQuery191(this).data('file-id'), [line1],{
+        dataRenderer: sineRenderer,
+        axes: {
+          xaxis: {
+            renderer: jQuery191.jqplot.DateAxisRenderer,
+            tickOptions: { formatString:'%b%#d', }
+          },
+          yaxis: {
+            tickOptions:{formatString:'%3d'},
+            min: 0,
+            borderWidth :3
+          }
+        },
+				highlighter: {
+        	show: true,
+        	sizeAdjust: 7.5,
+					tooltipLocation: 'n'
+      	},
+      });
+		});	
+    jQuery191('.description').hide();
+});
+</script>
+
+
 <div id="ReleaseBasic">
   <table class=list-table>
   <% @releases.each do |release|%>
@@ -23,16 +73,18 @@
           <% if @permissions.include?(:survey)%>
             <%= link_to s_('survey|Downloader Reviews'), file_review_path(@project.id, release.version, file.path) %>
           <% end %>
-          <a href="javascript:" class="toggle-description" data-file-id="<%= file.id %>">
+          <a href="javascript:" class="toggle-description" data-file-id="<%= file.id %>" data-fileid="<%="download-#{@project_name}-#{release.version}-#{file.id}"%>">
             <%= s_('survey|Toggle Description') %>
           </a>
         </div>
         <b><%= link_to h(file.path), download_url(:project_name => @project_name, 
                                                   :release_version => release.version,
                                                   :file_name => file.path ), { :onclick=>"javascript:_paq.push(['trackPageView', 'download-#{@project_name}-#{release.version}-#{file.id}']);"} %></b><br/>
-               <div id="file-<%= file.id %>" class="description" style="display: none">
+               <div id="file-<%= file.id %>" class="description">
           <%= "#{number_to_human_size(file.size)}, " + _("Downloads Hits") + file.counter.counter.to_s %><br/>
           <%= h(file.description) %>
+<div id="chart<%="#{file.id}"%>" data-id="<%="#{file.id}"%>" class="chart" data-fileid="<%="download-#{@project_name}-#{release.version}-#{file.id}"%>" style="height:200px;width:660px;"></div>
+<img src="" alt="" id="img<%="#{file.id}"%>"/>
         </div>
       </td>
     </tr>
