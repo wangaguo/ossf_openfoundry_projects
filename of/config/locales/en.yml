@@ -622,6 +622,7 @@ en:
     updated_by: "Updated by"
     icon: "Project Icon"
     test_project_notice: "To test a project, please refer to the “Test Account” and “Test Project” explanations."
+    vcs_notice: "As switching VSC, e.g. from Subversion to Git, the access to Subversion will be denied but the repos will not be deleted." 
     create_project_confirm: "Are you sure you want to create this project?"
   repository:
     use_svn_help: "This project's Subversion repository can be checked out through SVN with the following instruction set:"
