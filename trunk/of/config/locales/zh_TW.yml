@@ -626,6 +626,7 @@ zh_TW:
     updated_by: "更新者"
     icon: "專案圖示"
     test_project_notice: "測試專案，請參考文件「測試帳號」與「測試專案」說明。"
+    vcs_notice: "切換不同版本控制系統，如Subversion改成Git，原Subversion將無法存取，但不會刪除。" 
     create_project_confirm: "確定要建立此專案嗎？"
   repository:
     use_svn_help: "本專案的版本控制檔案庫可利用下列 SVN 指令集取得:"
