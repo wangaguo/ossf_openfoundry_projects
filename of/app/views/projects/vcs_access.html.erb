@@ -1,23 +1,72 @@
 <%
 case @vcs
-when Project::VCS[:SUBVERSION]
+when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE]
 -%>
+<% if @vcs == Project::VCS[:SUBVERSION] -%>
+<h1><%= _('Subversion') %></h1>
+<% else -%>
+<h1><%= _('Subversion: Members Only') %></h1>
+<% end -%>
 <p>
   <%=t 'repository.use_svn_help'%>
-  <br/><b><%= @src %></b>
+  <br/><b>https:</b> <%= @src_https %>
+  <br/><b>http:</b> <%= @src %>
 </p>
-<p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
+
+<h3>http遷移至https</h3>
+<p>
+  建議您使用https協定，如果您原本使用http協定，可使用下列指令遷移到新的https URL，於>工作目錄下操作：
+  <br/>svn relocate https://www.openfoundry.org/svn/testsvn/trunk
+</p>
+
+<h3>新的版本庫</h3>
+新的版本庫取出後，請先建立Subversion的標準目錄結構，接著在trunk中進行開發。<br/>
+$ mkdir trunk branches tags<br/>
+$ svn add * <br/>
+$ svn ci -m 'Initial directory structure.'<br/>
+<br/>
+trunk: 主要的開發目錄<br/>
+branches: 分支開發目錄<br/>
+tags: 版本標記（不允許修改）<br/>
+
+<h3>Subversion轉換為Git</h3>
+<p>
+  請參考<a href="http://www.openfoundry.org/of/projects/1/wiki/Subversion2Git" target="_blank">Subversion2Git</a>。
+</p>
+
+<% if @vcs_desc != "" -%>
+<h3>專案VCS描述</h3>
+<%= auto_link(simple_format(h(@vcs_desc))) %>
+<% end -%>
 <p><a href="http://<%=OPENFOUNDRY_HOST+root_path%>/help/vcs#%E9%80%8F%E9%81%8E%E5%91%BD%E4%BB%A4%E5%88%97%E5%AD%98%E5%8F%96SVN%E6%AA%94%E6%A1%88%E5%BA%AB"><%= _('Subversion Access|See More') %></a>.</p>
 
 <%
 when Project::VCS[:GIT]
 -%>
+<h1>Git</h1>
 <p>
   <%=t 'repository.use_git_help'%>
   <br/><b>ReadOnly:</b> <%= @src_ro %>
   <br/><b>HTTPS:</b> <%= @src %>
 </p>
-<p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
+
+<h3>新的版本庫</h3>
+當您第一次push您的commit至新的版本庫時，必需指定&lt;repository&gt;及&lt;refspec&gt;，如下：<br/>
+$ git push origin master
+
+<h3>容量配額</h3>
+<p>
+  總容量上限為1G，單一檔案上限為100M。
+</p>
+
+<h3>Subversion轉換為Git</h3>
+<p>
+  請參考<a href="http://www.openfoundry.org/of/projects/1/wiki/Subversion2Git" target="_blank">Subversion2Git</a>。
+</p>
+<% if @vcs_desc != "" -%>
+<h3>專案VCS描述</h3>
+<%= auto_link(simple_format(h(@vcs_desc))) %>
+<% end -%>
 
 <% when Project::VCS[:CVS] -%>
 <h1><%= _('Anonymous CVS Access') %></h1>
@@ -28,14 +77,6 @@ when Project::VCS[:GIT]
 <p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
 <p><a href="http://<%=OPENFOUNDRY_HOST+root_path%>/help/vcs#%E9%80%8F%E9%81%8E%E5%91%BD%E4%BB%A4%E5%88%97%E5%
   AD%98%E5%8F%96CVS%E6%AA%94%E6%A1%88%E5%BA%AB"><%= _('Subversion Access|See More') %></a>.</p>
-
-<% when Project::VCS[:SUBVERSION_CLOSE] -%>
-<h1><%= _('Subversion: Members Only') %></h1>
-<p>
-  <br/><b><%= @src %></b> 
-</p>
-<p><%= auto_link(simple_format(h(@vcs_desc))) %></p>
-
 
 <% when Project::VCS[:REMOTE] -%>
 <h1><%= _('Remote Repository') %></h1>
