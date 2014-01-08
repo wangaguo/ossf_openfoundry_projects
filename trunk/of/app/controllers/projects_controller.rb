@@ -621,6 +621,7 @@ class ProjectsController < ApplicationController
     case(@vcs)
     when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE] 
       @src = "svn co http://svn.openfoundry.org/#{@project.name} #{@project.name}"
+      @src_https = "svn co https://www.openfoundry.org/svn/#{@project.name} #{@project.name}"
     when Project::VCS[:GIT]
       @src = "git clone https://#{OPENFOUNDRY_HOST}/git/#{@project.name}.git"
       @src_ro = "git clone http://#{OPENFOUNDRY_HOST}/git/#{@project.name}.git"
