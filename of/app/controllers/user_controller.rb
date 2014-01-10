@@ -529,7 +529,7 @@ class UserController < ApplicationController
     #
     # My Projects 
     #
-    @my_projects = Project.find_by_sql "SELECT DISTINCT (P.id), P.icon, P.name, P.updated_at, project_lists.order 
+    @my_projects = Project.find_by_sql "SELECT DISTINCT (P.id), P.icon, P.name, P.vcs, P.updated_at, project_lists.order 
     FROM projects P
     JOIN roles R
     JOIN roles_users RU
