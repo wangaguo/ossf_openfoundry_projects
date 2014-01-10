@@ -41,7 +41,11 @@
             <a href="<%="#{ root_path }/projects/#{ p.id }/download" %>">Release</a>
             <a href="<%="#{ root_path }/projects/#{ p.id }/member_edit" %>">Member</a>
             <a href="<%="#{ root_path }/projects/#{ p.id }/permission_edit/" %>">Permission</a>
-            <a href="<%="#{ root_path }/projects/#{ p.id }/viewvc" %>">Version Control</a>
+            <% if p.vcs == Project::VCS[:GIT] %>
+              <%= link_to "Version Control", gitweb_project_path(:id => p.id) %>
+            <% else %>
+              <a href="<%="#{ root_path }/projects/#{ p.id }/viewvc" %>">Version Control</a>
+            <% end %>
             <a href="<%="#{ root_path }/projects/#{ p.id }/survey" %>">Surveys</a>
             </p>
           </td>    
