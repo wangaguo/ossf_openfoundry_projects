@@ -230,9 +230,14 @@ class ProjectsController < ApplicationController
 
     @project = Project.apply(params[:project], current_user())
     if @project.errors.empty?
-      @project.approve("Auto approved.", "")
       TagcloudsProject.append_tags_to_project @project.id, params[ :__clibeanna ] if params[ :__clibeanna ]
-      redirect_to :action => 'applied'
+      if PROJECT_AUTO_APPROVE
+        @project.approve("Auto approved.", "")
+        flash[:notice] = t("Project was successfully created")
+        redirect_to dashboard_user_path
+      else
+        redirect_to :action => 'applied'
+      end
     else
       render :action => 'new'
     end
