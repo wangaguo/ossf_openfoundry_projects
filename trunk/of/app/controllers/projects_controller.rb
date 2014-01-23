@@ -224,6 +224,7 @@ class ProjectsController < ApplicationController
     # ],
     # map to the origin format ["NSC100-2222-3-444-555", "NSC666-7777-8-999-000"]
     @nsccodes = params[:project][:nsccode].map { |i| (0..5).map(&:to_s).map { |j| i[j] } }
+    @nsccodes.delete_at(0) if @nsccodes.length == 1 and @nsccodes[0].join == "" #delete if nsccode no data.
     params[:project][:nsccode] = params[:project][:nsccode].map do |hsh|
       (0..5).map { |i| hsh[i.to_s] }.join('-').gsub(/-*$/, '')
     end
@@ -244,6 +245,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @module_name = _('Basic Information')+_(' Edit')
     # find all tags for projects
     @tagspan = ''
     allrawtags = @project.alltags_without_check

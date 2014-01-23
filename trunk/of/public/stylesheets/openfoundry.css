@@ -1,5 +1,16 @@
-#of-body fieldset { border:solid 2px #DEE7FF; }
-#of-body fieldset legend { font-weight:bold; color:#4265DE; }
+#of-body fieldset {
+  border:solid 2px #d1d1d1;
+  border-radius:6px 6px 6px 6px;
+  padding:5px;
+  background-color:rgb(253, 253, 253);
+}
+#of-body fieldset legend {
+  font-weight:bold;
+  font-size:16px;
+  color:rgb(108, 127, 196);
+  padding:0px 10px;
+  margin-left:20px;
+}
 #of-body textarea { height:100px; width:500px; } 
 #of-body .odd { }
 #of-body .even { background-color:#F4F4F4; }
@@ -178,8 +189,8 @@
 
 /* For Form Data */
 .form-table { width:100%; }
-.form-table th { font-weight:bold; height:20px; background:#EFF4FF; }
-.form-table td { border-bottom:solid 1px #DFE9FF; height:20px; }
+.form-table th { font-weight:bold; height:20px; border-bottom:solid 1px #DFE9FF; text-align: left; vertical-align: top; }
+.form-table td { border-bottom:solid 1px #DFE9FF; height:20px; padding:5px 0px;}
 #user_edit .form-table th { width:150px; }
 
 .form-data-dl { width:95%; }
