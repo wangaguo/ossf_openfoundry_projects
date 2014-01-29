@@ -13,36 +13,36 @@ when Project::VCS[:SUBVERSION], Project::VCS[:SUBVERSION_CLOSE]
   <br/><b>http:</b> <%= @src %>
 </p>
 
-<h3>http遷移至https</h3>
+<h3>Migrating from HTTP to HTTPS</h3>
 <p>
-  建議您使用https協定，如果您原本使用http協定，可使用下列指令遷移到新的https URL，於工作目錄下操作：<br/>
-  先檢查您目前Repos的URL：<br/>
-  $ svn info<br/>
-  URL: http://svn.openfoundry.org/[Project Name]/trunk<br/>
+  The https protocol is suggested for information security protection, if you are using the original http protocol, please migrate it to the new one by commands listed as below in your working copy folder:
+  <br/>Check the repository current URL:
+  <br/>$ svn info
+  <br/>URL: http://svn.openfoundry.org/[Project Name]/trunk
   <br/>
-  接著替換http://svn.openfoundry.org/為https://www.openfoundry.org/svn/，並以svn relocate指令變更Repos URL。<br/>
-  $ svn relocate https://www.openfoundry.org/svn/[project name]/trunk
+  <br/>Replace http://svn.openfoundry.org/ to https://www.openfoundry.org/svn/， And use the "svn relocate" command change repository URL: 
+  <br/>$ svn relocate https://www.openfoundry.org/svn/[Project Name]/trunk
 </p>
 
-<h3>新的版本庫</h3>
+<h3>New Repository</h3>
 <p>
-  新的版本庫取出後，請先建立Subversion的標準目錄結構，接著在trunk中進行開發。<br/>
+  After you make clone of the original repositoy and check out it as a new one, please create the subversion standard folder structure for it, and do the following development in the trunk folder.<br/>
   $ mkdir trunk branches tags<br/>
   $ svn add * <br/>
   $ svn ci -m 'Initial directory structure.'<br/>
   <br/>
-  trunk: 主要的開發目錄<br/>
-  branches: 分支開發目錄<br/>
-  tags: 版本標記（不允許修改）<br/>
+  trunk: main development folder.<br/>
+  branches: branches development folder.<br/>
+  tags: version tags(Don't modify).
 </p>
 
-<h3>Subversion轉換為Git</h3>
+<h3>Convert a repository from Subversion to Git</h3>
 <p>
-  請參考<a href="http://www.openfoundry.org/of/projects/1/wiki/Subversion2Git" target="_blank">Subversion2Git</a>。
+Please see the reference at "<a href="http://www.openfoundry.org/of/projects/1/wiki/Subversion2Git" target="_blank">Subversion2Git</a>" here.
 </p>
 
 <% if @vcs_desc != "" -%>
-<h3>專案VCS描述</h3>
+<h3>Project VCS description</h3>
 <p>
   <%= auto_link(simple_format(h(@vcs_desc))) %>
 </p>
@@ -59,23 +59,23 @@ when Project::VCS[:GIT]
   <br/><b>HTTPS:</b> <%= @src %>
 </p>
 
-<h3>新的版本庫</h3>
+<h3>New Repository</h3>
 <p>
-  當您第一次push您的commit至新的版本庫時，必需指定&lt;repository&gt;及&lt;refspec&gt;，如下：<br/>
+  Before you commit any contribution to the new Git repositoy by "push", please designate the &lt;repositoy&gt; and &lt;refspec&gt; first by commands listed as below:<br/>
   $ git push origin master
 </p>
 
-<h3>容量配額</h3>
+<h3>Repository Quota</h3>
 <p>
-  總容量上限為1G，單一檔案上限為100M。
+  The storage limit for each Git repository in total is 1 Gigabyte, for a single file is 100 Megabyte.
 </p>
 
-<h3>Subversion轉換為Git</h3>
+<h3>Convert a repository from Subversion to Git</h3>
 <p>
-  請參考<a href="http://www.openfoundry.org/of/projects/1/wiki/Subversion2Git" target="_blank">Subversion2Git</a>。
+  Please see the reference at "<a href="http://www.openfoundry.org/of/projects/1/wiki/Subversion2Git" target="_blank">Subversion2Git</a>" here.
 </p>
 <% if @vcs_desc != "" -%>
-<h3>專案VCS描述</h3>
+<h3>Project VCS description</h3>
 <p>
   <%= auto_link(simple_format(h(@vcs_desc))) %>
 </p>
