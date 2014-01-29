@@ -2,6 +2,15 @@
   <% unless flash.now[:message].nil? -%>
     <h1> <%= flash.now[:message]%> </h1>
   <% end -%>
+  <% if @project.is_nsc_project %>
+    <div class="flashnotice">
+      Hint and reminder for the NSC sponsored projects:
+      <ul>
+          <li>Please upload the materials related to the development progress before annual review date, include "SOURCE CODE" "INSTALLATION INFORMATION" "COMPILING SCRIPT" "OPEN SOURCE LICENSE ANNOUNCEMENT" and related "TOOLCHAIN" if applied.</li>
+            <li>Be notified, the released materials mentioned above will be locked on the specified date for reviewing, that means it can not be moved, deleted, or modified thereafter.</li>
+          </ul>
+    </div>
+  <% end %>
   <fieldset>
     <div id="editrelease_view">
       <table class=ReleaseShow >

@@ -144,6 +144,7 @@ OpenFoundry::Application.routes.draw do |map|
           get :download       # ANY
           get :new_releases   # ANY
           get :files
+          get :toggle_lock
         end
       end
 
