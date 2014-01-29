@@ -50,6 +50,10 @@ jQuery191(document).ready(function() {
 
 <div id="ReleaseBasic">
   <table class=list-table>
+  <%
+    is_nsc_admin = current_user().has_role?('nsc_admin')
+    is_nsc_project = @project.is_nsc_project
+  %>
   <% @releases.each do |release|%>
     <%
       due = release.due.strftime("%Y/%m/%d") if release.due
@@ -60,6 +64,10 @@ jQuery191(document).ready(function() {
         <div style="float: right">
           <% if @permissions.include?(:survey) %>
             <%= link_to s_('survey|Downloader Reviews'), release_review_path(@project.id, release.version) %>
+          <% end %>
+          <% if is_nsc_admin and is_nsc_project %>
+            |
+            <%= link_to toggle_lock_text(release), toggle_lock_project_release_path(@project.id, release.id), :id => "toggle_lock_#{release.id}" %>
           <% end %>
         </div>
         <B><%= tag(:a, :name => release.version) %> <%= h(release.version) %> (<%= due %>)</B>

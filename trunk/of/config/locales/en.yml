@@ -655,6 +655,9 @@ en:
     important2: "<b>Code Licenses：</b>Please make sure that you set the Code Licenses."
     important3: "<b>NSC Project Code：</b>For multiple-year-plan applicants, the last numbers should be “-MY”; For continuing-plan applicants, please use the original project and add new codes."
     important4: "<b>Version Code：</b>Please use Subversion or Git version control system."
+    lock: "Lock"
+    unlock: "Unlock"
+    locked: "This release is locked."
 
 # -------------------------------------------------------------------
 # rails-I18n default translation

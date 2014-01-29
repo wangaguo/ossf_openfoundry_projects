@@ -2,6 +2,15 @@
   <% unless flash.now[:message].nil? -%>
     <h1> <%= flash.now[:message]%> </h1>
   <% end -%>
+  <% if @project.is_nsc_project %>
+    <div class="flashnotice">
+      國科會釋出成果提示：
+      <ul>
+        <li>請於年度審查前上傳計畫成果，包含“安裝說明“，”原始碼“，”安裝檔“，”授權說明“等相關檔案。</li>
+        <li>並於審核查後，將會鎖定此釋出版本（鎖定的意思為，將無法編修此釋此版本的資訊及檔案。）</li>
+      </ul>
+    </div>
+  <% end %>
   <fieldset>
     <div id="editrelease_view">
       <table class=ReleaseShow >

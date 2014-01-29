@@ -11,7 +11,11 @@
   <td><%= Release.status_to_s(release.status) %></td>
 </tr>
 </table>
-    <%= link_to '[Edit]', project_release_url(@project, release) %>
-    <%= link_to '[Delete]', delete_project_release_url(@project, release), :confirm => 'Delete?', :method => :post %>
+    <% if release.lock? %>
+      [Edit] [Delete] | <%= _('nsc.locked')%>
+    <% else %>
+      <%= link_to '[Edit]', project_release_url(@project, release) %>
+      <%= link_to '[Delete]', delete_project_release_url(@project, release), :confirm => 'Delete?', :method => :post %>
+    <% end %>
   <% end %>
 </div>

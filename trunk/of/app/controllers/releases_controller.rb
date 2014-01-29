@@ -37,8 +37,14 @@ class ReleasesController < ApplicationController
      #@project_id = params[:project_id]
      #@release = Release.find(params[:id])
      #@files = @release.fileentity
-    uploadfiles
-    render :action => :uploadfiles
+    @release = Release.find params[:id]
+    if @release.lock? == false
+      uploadfiles
+      render :action => :uploadfiles
+    else
+      flash[:warning] = _('nsc.locked')
+      redirect_to project_releases_path(params[:project_id])
+    end
   end
   
   def reload
@@ -146,9 +152,11 @@ class ReleasesController < ApplicationController
   def delete
     if request.post?
       r=Release.find_by_id(params[:id])
-      dest_dir = "#{Project::PROJECT_DOWNLOAD_PATH}/#{r.project.name}/#{r.version}"
-      system("/home/openfoundry/bin/remove_release_files", dest_dir) unless r.nil?
-      r.destroy unless r.nil?
+      if r.lock? == false
+        dest_dir = "#{Project::PROJECT_DOWNLOAD_PATH}/#{r.project.name}/#{r.version}"
+        system("/home/openfoundry/bin/remove_release_files", dest_dir) unless r.nil?
+        r.destroy unless r.nil?
+      end
     end
     redirect_to(url_for(:project_id => params[:project_id], :action => :index))
   end
@@ -440,6 +448,20 @@ class ReleasesController < ApplicationController
   def files
     release = Release.find(params[:id])
     render :json => release.fileentity.map { |f| {:id => f.id, :name => f.path} }
+  end
+
+  def toggle_lock
+    if current_user().has_role?('nsc_admin') 
+      release = Release.find(params[:id])
+      if release.lock?
+        release.unlock_at = nil
+      else
+        release.unlock_at = "#{(Date.today.year+NSC_UNLOCK_YEAR.to_i)}/#{NSC_UNLOCK_DATE}"
+      end
+      release.save! 
+    end
+
+    redirect_to project_download_path(params[:project_id])
   end
 
   private

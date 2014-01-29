@@ -15,4 +15,8 @@ module ReleasesHelper
     html << '</fieldset>'
     html
   end
+
+  def toggle_lock_text(release)
+    release.lock? ? _('nsc.unlock') : _('nsc.lock')
+  end
 end

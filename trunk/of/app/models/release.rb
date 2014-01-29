@@ -50,6 +50,10 @@ class Release < ActiveRecord::Base
     "(#{a}status = 1)"    
   end
 
+  def lock?
+    (self.unlock_at.nil? || self.unlock_at < Date.today) ? false : true
+  end
+
   scope :inactive, :conditions => ['status = 0']
   scope :active, :conditions => ['status = 1']
   scope :latest, :order => ['due desc']
