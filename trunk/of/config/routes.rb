@@ -25,6 +25,12 @@ OpenFoundry::Application.routes.draw do |map|
     get '/rss' => 'rss#index'
 
     #####################
+    # Static
+    ####################
+    match '/static/update' => 'statics#update'
+
+
+    #####################
     # API!!
     #####################
     namespace :api do
