@@ -30,14 +30,12 @@ class Release < ActiveRecord::Base
   end
 
   def self.top_download
-    Release.includes(:project).select("projects.*, releases.*").
-            from("(select * from releases order by release_counter desc) releases").
-            where("releases.status = 1").
-            where(Project.in_used_projects(:alias => "projects")).
-            where("releases.updated_at > (now() - INTERVAL 2 YEAR)").
-            group(:project_id).
-            order(:release_counter).reverse_order().
-            limit(5)
+    DownloadStatic.joins("INNER JOIN projects ON projects.name = download_statics.project").
+                   select("project,SUM(count) as count_all,projects.summary,projects.icon,projects.id").
+                   group("project").
+                   order("count_all desc").
+                   limit(5)
+
   end
 
   def self.new_releases

@@ -9,8 +9,8 @@
 <ul>
   <%for download in downloadList %>
     <li>
-      <%= link_to(h(download.project.summary), project_download_path(download.project)) %>
-      (<%= download.release_counter %>)
+      <%= link_to(h(download.summary), project_download_path(download.id)) %>
+      (<%= download.count_all %>)
     </li>
   <%end %>
 </ul>
