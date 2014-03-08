@@ -101,7 +101,11 @@ class ReleasesController < ApplicationController
     @project_name = Project.find(params[:project_id]).name
     @releases = Release.paginate :page => params[:page], :per_page => 5,
       :conditions => "project_id = #{params[:project_id]} AND status = 1", :order => "due desc" 
-
+    download_statics = DownloadStatic.select("file,SUM(count) as count_all").group("file")
+    @statics = {}
+    download_statics.each do |v|
+                       @statics.merge!(v.file=>v.count_all)
+               end
     #check if user has survey permission
     @permissions = []
     if fpermit?('survey', @project_id)
