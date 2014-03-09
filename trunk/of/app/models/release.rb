@@ -33,6 +33,7 @@ class Release < ActiveRecord::Base
     DownloadStatic.joins("INNER JOIN projects ON projects.name = download_statics.project").
                    select("project,SUM(count) as count_all,projects.summary,projects.icon,projects.id").
                    group("project").
+                   where("projects.status = 2").
                    order("count_all desc").
                    limit(5)
 
